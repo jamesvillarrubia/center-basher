@@ -99,20 +99,24 @@
       <div class="act-label">Political gravity</div>
       <h2>Whose well captures the disillusioned center?</h2>
       <p>
-        Each voter is colored by their nearest 2016 candidate in 2D space (ideology × trust).
-        Bright dots are voters whose nearest candidate <em>changes</em> when you add
-        the trust axis — the 1D map gives the wrong answer for them.
+        Decided, engaged voters aren't moving — they're the wrong audience for a
+        gravity map. The terrain below shows only <strong>moveable voters</strong>:
+        the undecided (soft preference) and the disengaged (low campaign interest,
+        drifting in and out of the voting pool). These are the people a candidate can
+        actually pull.
       </p>
       <p>
-        The real voter mass is in the background. Where does Hillary's gravity well reach?
-        Where do Bernie's and Trump's wells overlap?
+        Switch between the moveable mass, mind-changers, and turnout-contingent voters.
+        The "Locked-in" tab shows the decided+engaged for contrast — note how they split
+        into two polarized partisan mountains while the moveable mass pools in the
+        low-trust center.
       </p>
-      <div id="chart-gravity" class="chart-container" aria-label="Gravitational territory map"></div>
+      <div id="chart-gravity" class="chart-container" aria-label="Gravitational territory map of moveable voters"></div>
 
       <p style="margin-top:1.25rem;color:var(--text-dim)">
-        <strong>Gravity mass</strong> — how many voters each candidate captures as their
-        nearest neighbor in 2D vs. 1D. The gap between bars shows voters Hillary loses
-        when the trust axis is added.
+        <strong>Gravity mass</strong> — among <em>moveable</em> voters, how many each
+        candidate captures as their nearest neighbor in 2D vs. 1D. The gap between bars
+        shows the contestable voters Hillary loses when the trust axis is added.
       </p>
       <div id="chart-gravity-bars" class="chart-container" aria-label="Gravity mass bar chart"></div>
 

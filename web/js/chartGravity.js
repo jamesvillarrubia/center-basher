@@ -1,10 +1,24 @@
 /**
- * chartGravity.js — Gravitational well: voter mass + candidate territories (2016)
+ * chartGravity.js — Gravitational well: MOVEABLE voter mass + candidate territories (2016)
  *
- * Three-panel density view: all respondents / registered voters / actual voters.
- * Each panel shows the same Voronoi territory borders anchored to Clinton & Trump,
- * with Sanders overlaid as the "insurgent left" reference point.
+ * The density terrain shows CONTESTABLE voters only — people whose vote is
+ * genuinely up for grabs. Locked-in voters (decided AND engaged) are the wrong
+ * audience: they're not moving. What matters for "gravity" is who can pull the
+ * moveable mass.
+ *
+ * Moveability segments (from V161032 preference strength × V161004 campaign interest):
+ *   Moveable        = undecided OR disengaged                  (n≈1,025)
+ *   Mind-changers   = undecided (soft preference)              (n≈954)
+ *   Turnout-conting. = disengaged (low interest, in/out of pool) (n≈181)
+ *   Locked-in       = decided AND engaged — shown for contrast (n≈1,701)
+ *
+ * Voronoi territory borders anchored to Clinton & Trump; Sanders overlaid as
+ * the "insurgent left" reference point.
  */
+
+const MOVEABLE_SEGS   = ["undecided_engaged", "undecided_disengaged", "decided_disengaged"];
+const UNDECIDED_SEGS  = ["undecided_engaged", "undecided_disengaged"];
+const DISENGAGED_SEGS = ["decided_disengaged", "undecided_disengaged"];
 
 window.drawChartGravity = function (voters, candidates) {
   const cands2016 = candidates.filter(c => c.cycle === "2016" && c.x != null && c.y != null);
@@ -22,11 +36,16 @@ function drawTerritorySection(allVoters, cands) {
   const container = document.getElementById("chart-gravity");
   if (!container) return;
 
-  // Three views — funnel of increasingly likely voters
+  // Views by MOVEABILITY — who is actually contestable
   const views = [
-    { key: "all",        label: "All Survey Respondents", filter: () => true },
-    { key: "registered", label: "Registered Voters",      filter: v => v.registered },
-    { key: "voted",      label: "Actual Voters",          filter: v => v.vote !== "no_vote" },
+    { key: "moveable",   label: "Moveable voters",       sub: "undecided OR disengaged",
+      filter: v => MOVEABLE_SEGS.includes(v.segment) },
+    { key: "undecided",  label: "Mind-changers",         sub: "soft preference (V161032)",
+      filter: v => UNDECIDED_SEGS.includes(v.segment) },
+    { key: "disengaged", label: "Turnout-contingent",    sub: "low campaign interest (V161004)",
+      filter: v => DISENGAGED_SEGS.includes(v.segment) },
+    { key: "locked",     label: "Locked-in (reference)", sub: "decided AND engaged — not contestable",
+      filter: v => v.segment === "decided_engaged" },
   ];
 
   // Tab bar
@@ -47,7 +66,7 @@ function drawTerritorySection(allVoters, cands) {
       });
       btn.style.background = "#333"; btn.style.color = "#ddd";
       svgWrap.innerHTML = "";
-      drawTerritoryMap(svgWrap, allVoters.filter(view.filter), cands);
+      drawTerritoryMap(svgWrap, allVoters.filter(view.filter), cands, view);
     });
     tabBar.appendChild(btn);
   });
@@ -57,12 +76,12 @@ function drawTerritorySection(allVoters, cands) {
   const svgWrap = document.createElement("div");
   container.appendChild(svgWrap);
 
-  // Default: all respondents
-  drawTerritoryMap(svgWrap, allVoters, cands);
+  // Default: moveable voters
+  drawTerritoryMap(svgWrap, allVoters.filter(views[0].filter), cands, views[0]);
 }
 
 
-function drawTerritoryMap(container, voters, cands) {
+function drawTerritoryMap(container, voters, cands, view) {
   const W = container.clientWidth || container.parentElement.clientWidth || 680;
   const H = Math.min(W * 0.88, 540);
   const margin = { top: 36, right: 28, bottom: 60, left: 64 };
@@ -194,9 +213,10 @@ function drawTerritoryMap(container, voters, cands) {
     .attr("text-anchor", "middle").attr("class", "axis-label").text("Institutional Trust");
 
   const n = voters.length;
+  const viewLabel = view ? `${view.label} (${view.sub})` : "voters";
   g.append("text").attr("x", iW/2).attr("y", -18)
     .attr("text-anchor", "middle").attr("fill", "#8888a8").attr("font-size", 11)
-    .text(`Voronoi = Clinton/Trump general election territory  ·  n=${n.toLocaleString()}`);
+    .text(`${viewLabel}  ·  n=${n.toLocaleString()}  ·  Voronoi = Clinton/Trump territory`);
 }
 
 
@@ -227,12 +247,12 @@ function drawGravityBars(voters, cands) {
     return best;
   }
 
-  // Use actual voters only for the gravity mass comparison
-  const actualVoters = voters.filter(v => ["clinton", "trump"].includes(v.vote));
+  // Moveable voters only — whose well pulls the contestable mass?
+  const moveable = voters.filter(v => MOVEABLE_SEGS.includes(v.segment));
 
   const mass2d = {}, mass1d = {};
   generalCands.forEach(c => { mass2d[c.id] = 0; mass1d[c.id] = 0; });
-  actualVoters.forEach(v => {
+  moveable.forEach(v => {
     const n2 = nearest2D(v); if (n2) mass2d[n2.id]++;
     const n1 = nearest1D(v); if (n1) mass1d[n1.id]++;
   });
@@ -307,7 +327,7 @@ function drawGravityBars(voters, cands) {
 
   g.append("text").attr("x", iW/2).attr("y", -18)
     .attr("text-anchor", "middle").attr("fill", "#8888a8").attr("font-size", 11)
-    .text("Gravity mass (two-party voters): 2D nearest (solid) vs. 1D nearest (outline)");
+    .text(`Gravity over moveable voters (n=${moveable.length.toLocaleString()}): 2D nearest (solid) vs. 1D nearest (outline)`);
 
   const lx = iW - 140, ly = 4;
   g.append("rect").attr("x", lx).attr("y", ly).attr("width", 10).attr("height", 10)
