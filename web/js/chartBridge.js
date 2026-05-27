@@ -16,7 +16,10 @@ const BRIDGE_TRUST_MAX = 0.6;  // weighted centroids/medians via window.wMean/wM
 
 // Spread markers that land on (nearly) the same pixel so none is hidden under
 // another (e.g. Clinton-general and Sanders-primary share a median point).
-function dodgePx(items, key, r) {
+// Dodge VERTICALLY (along trust), not horizontally: a horizontal nudge would
+// falsely imply an ideology difference (Clinton "left of" Sanders). Higher-trust
+// candidate goes on top; markers keep ~30% overlap so the coincidence still reads.
+function dodgePx(items, key, r, rank) {
   const clusters = [];
   items.forEach(o => {
     const p = o[key];
@@ -24,9 +27,11 @@ function dodgePx(items, key, r) {
     if (c) c.items.push(o); else clusters.push({ x: p.x, y: p.y, items: [o] });
   });
   clusters.forEach(cl => {
-    if (cl.items.length < 2) return;
     const n = cl.items.length;
-    cl.items.forEach((o, i) => { o[key].x = cl.x + (i - (n - 1) / 2) * (2 * r + 2); });
+    if (n < 2) return;
+    cl.items.sort((a, b) => rank(b) - rank(a));   // highest trust first → placed on top
+    const step = 1.4 * r;                          // ~30% overlap between adjacent dots
+    cl.items.forEach((o, i) => { o[key].y = cl.y + (i - (n - 1) / 2) * step; });
   });
 }
 
@@ -163,9 +168,9 @@ function renderBridge(container, voters, view, marker, coalitionKey) {
       medPx: { x: xS(medX), y: yS(medY) },
       meanPx: { x: xS(mX), y: yS(Math.min(BRIDGE_TRUST_MAX, mY)) } };
   });
-  // pull coincident markers apart so none hides under another
-  if (showMed) dodgePx(pts, "medPx", 6);
-  if (showMean) dodgePx(pts, "meanPx", 6);
+  // pull coincident markers apart vertically (higher trust on top) so none hides
+  if (showMed) dodgePx(pts, "medPx", 6, o => o.mY);
+  if (showMean) dodgePx(pts, "meanPx", 6, o => o.mY);
 
   const dot = (cx, cy, fill, ring) => {
     g.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 9).attr("fill", "#0f0f13").attr("opacity", 0.45);
