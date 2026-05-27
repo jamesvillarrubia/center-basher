@@ -2,10 +2,10 @@
  * chartGravity.js — Gravitational well: voter mass + candidate territories (2016)
  *
  * Visual logic:
- *  1. Voronoi background — each region colored by the 2016 candidate whose perceived
- *     position is nearest. This shows "territory" without any per-voter computation.
- *  2. Real voter dots (ANES 2016, n=2,877) as semi-transparent grey — shows WHERE
- *     the actual voter mass lives relative to candidate territories.
+ *  1. Density heatmap — d3.contourDensity() over all ANES voters shows WHERE voter
+ *     mass actually concentrates. Hot = many voters. Reads like topography.
+ *  2. Voronoi territory lines — cell borders from candidate positions, drawn on top
+ *     of the density map to show whose territory the dense areas fall in.
  *  3. Candidate markers — large, clearly labeled.
  *  4. Low-trust zone band annotation.
  *
@@ -44,58 +44,60 @@ function drawTerritoryMap(voters, cands2016) {
   const yS = d3.scaleLinear().domain([0, 1]).range([iH, 0]);
   const colorMap = window.CANDIDATE_COLORS;
 
-  // ── Voronoi territory background ──────────────────────────────────────
-  // Compute Voronoi from candidate positions; color each cell by party
+  // ── Density heatmap ───────────────────────────────────────────────────
+  // Kernel density estimation over all voters. Filled contours show WHERE
+  // voter mass concentrates — much more legible than transparent dots.
+  const densityData = d3.contourDensity()
+    .x(d => xS(d.x))
+    .y(d => yS(d.y))
+    .size([iW, iH])
+    .bandwidth(28)
+    .thresholds(14)(voters);
+
+  const maxDensity = d3.max(densityData, d => d.value);
+
+  // Use a warm yellow→white scale against the dark background
+  const densityColor = d3.scaleSequential()
+    .domain([0, maxDensity])
+    .interpolator(d3.interpolate("#0f0f13", "#e8c84a"));
+
+  g.append("g").attr("class", "density-layer")
+    .selectAll("path")
+    .data(densityData)
+    .join("path")
+    .attr("d", d3.geoPath())
+    .attr("fill", d => densityColor(d.value))
+    .attr("opacity", 0.85);
+
+  // ── Voronoi territory borders ─────────────────────────────────────────
+  // Drawn ON TOP of density so territory lines are clearly visible.
   const pts = cands2016.map(c => [xS(c.x), yS(c.y)]);
   const delaunay = d3.Delaunay.from(pts);
   const voronoi = delaunay.voronoi([0, 0, iW, iH]);
 
   cands2016.forEach((c, i) => {
-    const cell = voronoi.renderCell(i);
     g.append("path")
-      .attr("d", cell)
-      .attr("fill", colorMap[c.party] || "#888")
-      .attr("opacity", 0.12)
+      .attr("d", voronoi.renderCell(i))
+      .attr("fill", "none")
       .attr("stroke", colorMap[c.party] || "#888")
-      .attr("stroke-width", 1)
-      .attr("stroke-opacity", 0.3);
+      .attr("stroke-width", 2)
+      .attr("stroke-opacity", 0.6);
   });
 
   // ── Center lines ──────────────────────────────────────────────────────
   g.append("line").attr("x1", iW/2).attr("x2", iW/2).attr("y1", 0).attr("y2", iH)
-    .attr("stroke", "#ffffff18").attr("stroke-dasharray", "4,4");
+    .attr("stroke", "#ffffff22").attr("stroke-dasharray", "4,4");
   g.append("line").attr("x1", 0).attr("x2", iW).attr("y1", iH/2).attr("y2", iH/2)
-    .attr("stroke", "#ffffff18").attr("stroke-dasharray", "4,4");
+    .attr("stroke", "#ffffff22").attr("stroke-dasharray", "4,4");
 
   // ── Low-trust zone annotation ─────────────────────────────────────────
   const ltY = yS(0.38);
-  g.append("rect").attr("x", 0).attr("y", ltY)
-    .attr("width", iW).attr("height", iH - ltY)
-    .attr("fill", "#ffffff05").attr("stroke", "#ffffff15").attr("stroke-width", 1);
+  g.append("line").attr("x1", 0).attr("x2", iW).attr("y1", ltY).attr("y2", ltY)
+    .attr("stroke", "#ffffff40").attr("stroke-width", 1).attr("stroke-dasharray", "6,3");
 
   g.append("text").attr("x", 6).attr("y", ltY + 13)
-    .attr("fill", "#ffffff30").attr("font-size", 10)
+    .attr("fill", "#ffffff60").attr("font-size", 10)
     .text("← low-trust zone");
-
-  // ── Real voter dots ───────────────────────────────────────────────────
-  // Draw ALL voters as faint grey — the "voter mass" relative to candidate territory.
-  // Color slightly by party so party clusters are still visible.
-  const voterColors = {
-    strong_dem: "#5b9cf6", lean_dem: "#91bef9",
-    independent: "#c0c0e0",
-    lean_rep: "#f09090", strong_rep: "#f06060",
-    unknown: "#888",
-  };
-
-  g.selectAll("circle.voter")
-    .data(voters)
-    .join("circle")
-    .attr("class", "voter")
-    .attr("cx", d => xS(d.x))
-    .attr("cy", d => yS(d.y))
-    .attr("r", 2)
-    .attr("fill", d => voterColors[d.party] || "#888")
-    .attr("opacity", 0.22);
 
   // ── Candidate markers ─────────────────────────────────────────────────
   const defs = svg.append("defs");
