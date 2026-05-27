@@ -84,18 +84,16 @@ window.CANDIDATES = [
     name: "Bernie '16",
     fullName: "Bernie Sanders (2016)",
     cycle: "2016", party: "ind",
-    dataTier: 3,
+    dataTier: 2,
     x_off: -0.543, y_off: 0.08,
-    // No ANES general election data — Sanders was primary candidate only.
-    // x_per: DW-NOMINATE 1st dim = −0.543; no ANES V161128 equivalent for Sanders.
-    // y_per: DW-NOMINATE 2nd dim = −0.92 (most anti-compromise in Senate);
-    //   normalized: (−0.92 + 1) / 2 = 0.04. Adjusted to 0.12 to reflect that
-    //   primary voters (n=339) had trust=0.367 — somewhat above Trump's 0.283.
-    x_per: -0.543, y_per: 0.12,
-    xSource: "TIER 3 — DW-NOMINATE 1st dim = −0.543 (voteview.com). No ANES general election ideology placement — V161128 covers nominee Clinton only. Primary voters' mean self-ideology = −0.421.",
-    ySource: "TIER 3 — DW-NOMINATE 2nd dim = −0.92 (normalized to ~0.04); adjusted upward to 0.12 to reflect ANES primary voter trust centroid of 0.367 (n=339 primary voters in 2016 ANES). Enders & Uscinski (2021): distrust predicts Sanders support as strongly as Trump support.",
+    // x_per: mean self-reported ideology (V161126) of Sanders PRIMARY voters, n=339
+    // y_per: mean V161215 trust of Sanders PRIMARY voters, n=339
+    // Same methodology as Clinton/Trump general centroids — best available ANES data.
+    x_per: -0.421, y_per: 0.367,
+    xSource: "TIER 2 — ANES primary voter centroid: mean V161126 ideology of Sanders primary voters = −0.421 (n=339). DW-NOMINATE Senate x_off = −0.543 (voteview.com) — further left than his voters placed themselves.",
+    ySource: "TIER 2 — ANES primary voter centroid: mean V161215 trust of Sanders primary voters = 0.367 (n=339). Between Trump voters (0.283) and Clinton voters (0.422) — closer to Trump than Clinton on the trust axis. Enders & Uscinski (2021): distrust predicts Sanders support as strongly as Trump support.",
     flag: true,
-    flagNote: "No general election ANES data. x/y from DW-NOMINATE + primary voter trust centroid.",
+    flagNote: "TIER 2 — Primary voter centroid (no general election data). x=−0.421, y=0.367 (n=339 ANES primary voters).",
   },
 
   // ─── 2016 ANES THERMOMETER FIGURES — TIER 2 ──────────────────────────────
