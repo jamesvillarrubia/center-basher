@@ -29,11 +29,11 @@ window.drawChart1D = function (voters) {
     .attr("stroke-width", 1);
 
   // End labels
-  g.append("text").attr("x", 0).attr("y", iH / 2 - 8)
-    .attr("text-anchor", "start").attr("class", "axis-label")
+  g.append("text").attr("x", 4).attr("y", iH / 2 - 8)
+    .attr("text-anchor", "start").attr("fill", "#8888a8").attr("font-size", 11)
     .text("← Left");
-  g.append("text").attr("x", iW).attr("y", iH / 2 - 8)
-    .attr("text-anchor", "end").attr("class", "axis-label")
+  g.append("text").attr("x", iW - 4).attr("y", iH / 2 - 8)
+    .attr("text-anchor", "end").attr("fill", "#8888a8").attr("font-size", 11)
     .text("Right →");
 
   // Beeswarm-style jitter (simulate — no d3-beeswarm dep)

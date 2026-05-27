@@ -137,23 +137,23 @@ window.drawChartCandidates = function (candidates) {
       .attr("fill", col).attr("opacity", 0.85)
       .attr("filter", "url(#cand-glow2)")
       .attr("cursor", "pointer")
-      .attr("stroke", c.flag ? "#ffcc44" : "none")
+      .attr("stroke", (c.dataTier || 0) >= 3 ? "#ffcc44" : "none")
       .attr("stroke-width", 1.5)
       .on("mousemove touchmove", function (event) {
+        const tierColors = { 1: "#6be585", 2: "#6be585", 3: "#ffcc44", 4: "#f06060" };
+        const tierLabel = c.dataTier ? `Data Tier ${c.dataTier}` : "Estimated";
+        const tierColor = tierColors[c.dataTier] || "#ffcc44";
+        const srcNote = c.flagNote || c.xSource.slice(0, 90);
+        const tierNote = `<div style="color:${tierColor};font-size:0.75rem;margin-top:0.3rem">● ${tierLabel} — ${srcNote}</div>`;
         const gapNote = c.x_off != null
-          ? `<div style="color:#888;font-size:0.75rem;margin-top:0.3rem">
-               Official (DW-NOM): ${c.x_off.toFixed(2)} | Perceived (ANES): ${c.x_per.toFixed(2)}
-             </div>`
-          : "";
-        const flagNote = c.flag
-          ? `<div style="color:#ffcc44;font-size:0.75rem;margin-top:0.3rem">⚠ ${c.flagNote}</div>`
+          ? `<div style="color:#888;font-size:0.75rem;margin-top:0.2rem">DW-NOM x: ${c.x_off.toFixed(3)} | Perceived x: ${c.x_per.toFixed(3)}</div>`
           : "";
         tooltip
           .style("opacity", "1")
           .style("left", (event.clientX + 14) + "px")
           .style("top", (event.clientY - 36) + "px")
-          .html(`<strong>${c.fullName}</strong>${gapNote}${flagNote}
-                 <div style="color:#888;font-size:0.75rem;margin-top:0.3rem">${c.ySource.slice(0,120)}…</div>`);
+          .html(`<strong>${c.fullName}</strong>${tierNote}${gapNote}
+                 <div style="color:#888;font-size:0.75rem;margin-top:0.2rem">${c.ySource.slice(0,150)}</div>`);
       })
       .on("mouseleave touchend", () => tooltip.style("opacity", "0"));
 

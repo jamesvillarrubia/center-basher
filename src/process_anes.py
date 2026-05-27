@@ -48,6 +48,8 @@ VOTE_VAR       = "V162034a"
 REGISTERED_VAR = "V161011"   # Pre: registered to vote (1=yes, 2=no, 3=dk)
 PRIMARY_VAR    = "V161021a"  # Pre: for whom did R vote in presidential primary
 # V161021a codes: 1=Clinton, 2=Sanders, 3=other Dem, 4=Trump, 5=Cruz, 6=Kasich, 7=Rubio, 8=other Rep, 9=other
+INTEREST_VAR   = "V161004"   # Pre: how interested in following campaigns (1=very, 2=somewhat, 3=not much)
+STRENGTH_VAR   = "V161032"   # Pre: preference strength for intended candidate (1=strong, 2=not strong)
 
 # Trust variable: V161215 only.
 # V161218 (corruption perception) has an OPPOSITE correlation with Trump vote
@@ -150,7 +152,31 @@ def main():
     pri_raw = clean_variable(df[PRIMARY_VAR], (1, 9)) if PRIMARY_VAR in df.columns else pd.Series(np.nan, index=df.index)
     df["primary_vote"] = pri_raw.map(lambda v: primary_label(v) if not np.isnan(v) else None)
 
-    voters = df[["x", "y", "party", "vote", "registered", "primary_vote"]].dropna(subset=["x", "y"])
+    # engagement: campaign interest (1=very, 2=somewhat, 3=not much) → high/medium/low
+    int_raw = clean_variable(df[INTEREST_VAR], (1, 3)) if INTEREST_VAR in df.columns else pd.Series(np.nan, index=df.index)
+    def interest_label(v):
+        if np.isnan(v): return None
+        return {1: "high", 2: "medium", 3: "low"}.get(int(v))
+    df["engagement"] = int_raw.map(interest_label)
+
+    # decided: preference strength (1=strong → decided, 2=not strong → soft)
+    str_raw = clean_variable(df[STRENGTH_VAR], (1, 2)) if STRENGTH_VAR in df.columns else pd.Series(np.nan, index=df.index)
+    df["decided"] = str_raw.map(lambda v: True if not np.isnan(v) and int(v) == 1 else (False if not np.isnan(v) and int(v) == 2 else None))
+
+    # voter_segment: 2×2 of engagement × decided
+    def segment(row):
+        e = row["engagement"]
+        d = row["decided"]
+        if e is None or d is None:
+            return "unknown"
+        if d:     # strong preference
+            return "decided_engaged"   if e in ("high", "medium") else "decided_disengaged"
+        else:     # weak preference
+            return "undecided_engaged" if e in ("high", "medium") else "undecided_disengaged"
+    df["segment"] = df.apply(segment, axis=1)
+
+    voters = df[["x", "y", "party", "vote", "registered", "primary_vote",
+                 "engagement", "decided", "segment"]].dropna(subset=["x", "y"])
     voters = voters.round({"x": 3, "y": 3})
 
     records = voters.to_dict(orient="records")
