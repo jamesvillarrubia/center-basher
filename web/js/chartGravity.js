@@ -20,6 +20,86 @@
 
 const MOVEABLE_SEGS = new Set(["undecided_engaged", "undecided_disengaged", "decided_disengaged"]);
 
+// ── Electoral field (logistic regression on 2-party voters) ───────────────────
+// P(trump) = sigmoid(B0 + BX*x + BY*y)
+// Fitted on n=2,063 Clinton+Trump voters from ANES 2016.
+// Accuracy 83.6% vs 51.4% baseline.
+const FIELD_B0 =  0.5573;
+const FIELD_BX =  4.2732;  // ideology → Trump
+const FIELD_BY = -2.6720;  // trust → Clinton (negative)
+// Iso-probability line: y = (B0 + BX*x - logit(p)) / (-BY)
+// Slope of all lines: BX / (-BY) = 1.599  (1 ideology unit = 1.6 trust units, electorally)
+// P=0.5 line only crosses y∈[0,1] for x∈[0, 0.49] — trust only matters electorally
+// in the CENTER-RIGHT band. Left-leaning voters are off the bottom of the field.
+
+function fieldY(p, x) {
+  const logit = Math.log(p / (1 - p));
+  return (FIELD_B0 + FIELD_BX * x - logit) / (-FIELD_BY);
+}
+
+function drawFieldLines(g, xS, yS, iW, iH) {
+  // Iso-probability lines from P=0.2 (Clinton-leaning) to P=0.8 (Trump-leaning)
+  const lines = [
+    { p: 0.20, label: "20%",  color: "#5b9cf6", dash: "4,3" },
+    { p: 0.35, label: "35%",  color: "#9db8f4", dash: "3,4" },
+    { p: 0.50, label: "50%",  color: "#ffffff", dash: null  },  // decision boundary
+    { p: 0.65, label: "65%",  color: "#f09090", dash: "3,4" },
+    { p: 0.80, label: "80%",  color: "#f06060", dash: "4,3" },
+  ];
+
+  // X values to sample across the chart
+  const xs = d3.range(-1, 1.02, 0.02);
+
+  lines.forEach(line => {
+    // Compute visible segment (y ∈ [0, 1])
+    const pts = xs
+      .map(x => ({ x, y: fieldY(line.p, x) }))
+      .filter(pt => pt.y >= -0.02 && pt.y <= 1.02);
+
+    if (pts.length < 2) return;
+
+    const lineGen = d3.line()
+      .x(d => xS(d.x))
+      .y(d => yS(Math.max(0, Math.min(1, d.y))))
+      .defined(d => d.y >= -0.02 && d.y <= 1.02);
+
+    g.append("path")
+      .datum(pts)
+      .attr("d", lineGen)
+      .attr("fill", "none")
+      .attr("stroke", line.color)
+      .attr("stroke-width", line.p === 0.50 ? 1.2 : 0.75)
+      .attr("stroke-dasharray", line.dash || "none")
+      .attr("opacity", line.p === 0.50 ? 0.50 : 0.28);
+
+    // Label at right edge if line exits there
+    const rightPt = pts[pts.length - 1];
+    if (rightPt && rightPt.x > 0.7) {
+      g.append("text")
+        .attr("x", xS(rightPt.x) + 3)
+        .attr("y", yS(Math.max(0, Math.min(1, rightPt.y))) + 3)
+        .attr("fill", line.color)
+        .attr("font-size", 8)
+        .attr("opacity", line.p === 0.50 ? 0.65 : 0.40)
+        .text(`P(Trump)=${line.label}`);
+    }
+  });
+
+  // Label the field regions
+  g.append("text").attr("x", xS(-0.85)).attr("y", yS(0.85))
+    .attr("fill", "#5b9cf6").attr("font-size", 9).attr("opacity", 0.45)
+    .text("← Clinton field");
+  g.append("text").attr("x", xS(0.55)).attr("y", yS(0.12))
+    .attr("fill", "#f06060").attr("font-size", 9).attr("opacity", 0.45)
+    .text("Trump field →");
+
+  // Slope annotation
+  g.append("text").attr("x", xS(0.05)).attr("y", yS(0.44))
+    .attr("fill", "#ffffff").attr("font-size", 8).attr("opacity", 0.45)
+    .attr("transform", `rotate(-58, ${xS(0.05)}, ${yS(0.44)})`)
+    .text("1 unit ideology = 1.6 units trust");
+}
+
 window.drawChartGravity = function (voters, candidates) {
   // Pre-compute stats once
   const stats = computeOverlapStats(voters);
@@ -62,13 +142,16 @@ function computeOverlapStats(voters) {
 
 function drawOverlapChart(container, voters, candidates, stats) {
   const views = [
-    { key: "overlap",  label: "Coalition overlap",       sub: "primary coalition blobs on moveable voter terrain" },
-    { key: "contrast", label: "Locked-in (contrast)",    sub: "decided+engaged — not contestable" },
+    { key: "overlap",  label: "Coalition overlap",    sub: "primary coalition blobs on moveable voter terrain" },
+    { key: "contrast", label: "Locked-in (contrast)", sub: "decided+engaged — not contestable" },
   ];
 
   const tabBar  = document.createElement("div");
-  tabBar.style.cssText = "display:flex;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap";
+  tabBar.style.cssText = "display:flex;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap;align-items:center";
   const svgWrap = document.createElement("div");
+
+  let showField = false;
+  let activeView = views[0];
 
   views.forEach((view, i) => {
     const btn = document.createElement("button");
@@ -79,21 +162,46 @@ function drawOverlapChart(container, voters, candidates, stats) {
       cursor:pointer;font-size:0.8rem;transition:background 0.15s;
     `;
     btn.addEventListener("click", () => {
-      tabBar.querySelectorAll("button").forEach(b => { b.style.background="#1a1a1a"; b.style.color="#666"; });
+      tabBar.querySelectorAll("button:not(.field-toggle)").forEach(b => { b.style.background="#1a1a1a"; b.style.color="#666"; });
       btn.style.background = "#333"; btn.style.color = "#ddd";
+      activeView = view;
       svgWrap.innerHTML = "";
-      renderOverlapMap(svgWrap, voters, candidates, stats, view);
+      renderOverlapMap(svgWrap, voters, candidates, stats, activeView, showField);
     });
     tabBar.appendChild(btn);
   });
 
+  // Field toggle
+  const sep = document.createElement("span");
+  sep.style.cssText = "color:#444;margin:0 0.25rem";
+  sep.textContent = "|";
+  tabBar.appendChild(sep);
+
+  const fieldBtn = document.createElement("button");
+  fieldBtn.textContent = "Show electoral field";
+  fieldBtn.className = "field-toggle";
+  fieldBtn.style.cssText = `
+    padding:0.3rem 0.85rem;border-radius:4px;border:1px solid #555;
+    background:#1a1a1a;color:#666;cursor:pointer;font-size:0.8rem;
+  `;
+  fieldBtn.addEventListener("click", () => {
+    showField = !showField;
+    fieldBtn.style.background = showField ? "#2a2a1a" : "#1a1a1a";
+    fieldBtn.style.color      = showField ? "#f0c040" : "#666";
+    fieldBtn.style.borderColor= showField ? "#f0c040" : "#555";
+    fieldBtn.textContent      = showField ? "Hide electoral field" : "Show electoral field";
+    svgWrap.innerHTML = "";
+    renderOverlapMap(svgWrap, voters, candidates, stats, activeView, showField);
+  });
+  tabBar.appendChild(fieldBtn);
+
   container.appendChild(tabBar);
   container.appendChild(svgWrap);
-  renderOverlapMap(svgWrap, voters, candidates, stats, views[0]);
+  renderOverlapMap(svgWrap, voters, candidates, stats, views[0], showField);
 }
 
 
-function renderOverlapMap(container, voters, candidates, stats, view) {
+function renderOverlapMap(container, voters, candidates, stats, view, showField) {
   const W = container.clientWidth || container.parentElement.clientWidth || 680;
   const H = Math.min(W * 0.88, 520);
   const margin = { top: 40, right: 28, bottom: 56, left: 64 };
@@ -107,48 +215,52 @@ function renderOverlapMap(container, voters, candidates, stats, view) {
   const xS = d3.scaleLinear().domain([-1, 1]).range([0, iW]);
   const yS = d3.scaleLinear().domain([0, 1]).range([iH, 0]);
 
-  // ── Background terrain ─────────────────────────────────────────────────────
-  const terrainVoters = view.key === "contrast"
-    ? voters.filter(v => v.segment === "decided_engaged" && v.x != null && v.y != null)
-    : voters.filter(v => MOVEABLE_SEGS.has(v.segment) && v.x != null && v.y != null);
+  // ── Electoral field lines (drawn first, under density) ────────────────────
+  if (showField) drawFieldLines(g, xS, yS, iW, iH);
 
-  const densityData = d3.contourDensity()
+  // ── Base layer: party density blobs (same as Act 2) ─────────────────────────
+  // Filter by segment for contrast view, otherwise all voters
+  const baseFilter = view.key === "contrast"
+    ? v => v.segment === "decided_engaged" && v.x != null && v.y != null
+    : v => v.x != null && v.y != null;
+
+  const partyGroups = [
+    { key: "dem", color: "#5b9cf6", filter: v => baseFilter(v) && (v.party === "strong_dem" || v.party === "lean_dem") },
+    { key: "ind", color: "#c97fff", filter: v => baseFilter(v) && v.party === "independent" },
+    { key: "rep", color: "#f06060", filter: v => baseFilter(v) && (v.party === "strong_rep" || v.party === "lean_rep") },
+  ];
+
+  const partyDensity = d3.contourDensity()
     .x(d => xS(d.x)).y(d => yS(d.y))
-    .size([iW, iH]).bandwidth(28).thresholds(14)(terrainVoters);
+    .size([iW, iH]).bandwidth(32).thresholds(8);
 
-  const maxDensity = d3.max(densityData, d => d.value);
-  const densityColor = d3.scaleSequential()
-    .domain([0, maxDensity])
-    .interpolator(d3.interpolate("#0f0f13", "#e8c84a"));
+  partyGroups.forEach(grp => {
+    const pts = voters.filter(grp.filter);
+    const contours = partyDensity(pts);
+    const maxVal = d3.max(contours, d => d.value) || 1;
+    g.append("g").selectAll("path").data(contours).join("path")
+      .attr("d", d3.geoPath())
+      .attr("fill", grp.color)
+      .attr("opacity", d => 0.04 + 0.22 * (d.value / maxVal))
+      .attr("stroke", grp.color).attr("stroke-width", 0.5)
+      .attr("stroke-opacity", d => 0.1 + 0.5 * (d.value / maxVal));
+  });
 
-  g.append("g").selectAll("path").data(densityData).join("path")
-    .attr("d", d3.geoPath())
-    .attr("fill", d => densityColor(d.value))
-    .attr("opacity", 0.85);
-
-  // ── Primary coalition blobs ────────────────────────────────────────────────
+  // ── Moveable voter highlight (overlap view only) ──────────────────────────
+  // Thin bright contour showing where the contestable mass concentrates
   if (view.key === "overlap") {
-    const primaryGroups = [
-      { key: "clinton", color: "#5b9cf6", filter: v => v.primary_vote === "clinton" },
-      { key: "sanders", color: "#c97fff", filter: v => v.primary_vote === "sanders" },
-      { key: "trump",   color: "#f06060", filter: v => v.primary_vote === "trump"   },
-    ];
-
-    const blobDensity = d3.contourDensity()
+    const moveableVoters = voters.filter(v => MOVEABLE_SEGS.has(v.segment) && v.x != null && v.y != null);
+    const movDensity = d3.contourDensity()
       .x(d => xS(d.x)).y(d => yS(d.y))
-      .size([iW, iH]).bandwidth(30).thresholds(6);
-
-    primaryGroups.forEach(grp => {
-      const pts = voters.filter(v => grp.filter(v) && v.x != null && v.y != null);
-      const contours = blobDensity(pts);
-      const maxVal   = d3.max(contours, d => d.value) || 1;
-      g.append("g").selectAll("path").data(contours).join("path")
-        .attr("d", d3.geoPath())
-        .attr("fill", grp.color)
-        .attr("opacity", d => 0.04 + 0.12 * (d.value / maxVal))
-        .attr("stroke", grp.color).attr("stroke-width", 1.5)
-        .attr("stroke-dasharray", "4,3")
-        .attr("stroke-opacity", d => 0.3 + 0.55 * (d.value / maxVal));
+      .size([iW, iH]).bandwidth(30).thresholds(5)(moveableVoters);
+    const movMax = d3.max(movDensity, d => d.value) || 1;
+    // Only draw the outer 2 contours — marks the mass location, doesn't obscure party blobs
+    movDensity.slice(-2).forEach(contour => {
+      g.append("path").attr("d", d3.geoPath()(contour))
+        .attr("fill", "none")
+        .attr("stroke", "#f0e060").attr("stroke-width", 1.5)
+        .attr("stroke-dasharray", "6,3")
+        .attr("opacity", 0.55);
     });
   }
 
@@ -244,10 +356,10 @@ function renderOverlapMap(container, voters, candidates, stats, view) {
     .attr("x", -iH/2).attr("y", -50)
     .attr("text-anchor", "middle").attr("class", "axis-label").text("Institutional Trust");
 
-  const n   = terrainVoters.length;
+  const allN = voters.filter(v => v.x != null).length;
   const sub = view.key === "contrast"
-    ? `Locked-in voters (decided+engaged) · n=${n.toLocaleString()} · Dashed blobs = primary coalitions`
-    : `Moveable voter terrain · n=${n.toLocaleString()} · Dashed blobs = primary coalitions`;
+    ? "Party blobs — locked-in voters only (decided+engaged)  ·  candidate dots = primary centroids"
+    : "Party blobs — all voters  ·  dashed yellow = moveable voter mass  ·  candidate dots = primary centroids";
   g.append("text").attr("x", iW/2).attr("y", -20)
     .attr("text-anchor", "middle").attr("fill", "#8888a8").attr("font-size", 11)
     .text(sub);
