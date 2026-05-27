@@ -108,11 +108,24 @@ footer a { color: var(--text-dim); }
 
 .chart-container {
   width: 100%;
-  margin: 1.5rem 0;
+  margin: 0.5rem 0 1.5rem;
   background: var(--surface);
   border-radius: 8px;
   border: 1px solid var(--border);
   overflow: hidden;
+}
+
+.fig-label {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--bg);
+  background: var(--text-dim);
+  padding: 0.15rem 0.55rem;
+  border-radius: 4px;
 }
 
 svg text { font-family: var(--font-sans); }

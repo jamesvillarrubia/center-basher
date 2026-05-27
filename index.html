@@ -25,6 +25,7 @@
         Political analysts love a simple left-right spectrum. Independents sit
         in the middle. To win them, you move to the center.
       </p>
+      <span class="fig-label">Figure 1 · 1D spectrum</span>
       <div id="chart-1d" class="chart-container" aria-label="1D ideology spectrum"></div>
       <p class="annotation">
         On this view, "Independent" = "moderate." Winning them means triangulating
@@ -41,6 +42,7 @@
         <em>and</em> trust in institutions — government, Congress, media, courts?
         Data from the 2016 American National Election Study (n=2,877).
       </p>
+      <span class="fig-label">Figure 2 · Ideology × trust</span>
       <div id="chart-2d" class="chart-container" aria-label="2D ideology × trust scatter"></div>
       <div class="legend" id="legend-2d"></div>
       <p class="annotation">
@@ -59,6 +61,7 @@
         <em>own voters</em> actually sit in ideology × trust space?
         The dots mark each group's centroid. The blobs show their distribution.
       </p>
+      <span class="fig-label">Figure 3 · Primary vs general</span>
       <div id="chart-swing" class="chart-container" aria-label="Primary vs general voter distributions"></div>
       <p class="annotation">
         Clinton primary voters cluster around trust=0.460. Sanders primary voters
@@ -83,35 +86,44 @@
         quadrant. Meanwhile, Clinton's ANES "honest" trait score (3.95/5) was
         <em>worse</em> than Trump's (3.72/5) — the Goldman Sachs problem, in the data.
       </p>
+      <span class="fig-label">Figure 4 · Official vs perceived</span>
       <div id="chart-candidates" class="chart-container" aria-label="Candidate positions, official vs perceived"></div>
       <div class="legend" id="legend-candidates"></div>
       <p class="annotation">
-        ⚠ marks positions estimated from rhetoric and endorsement data (no DW-NOMINATE
-        legislative record). Hover for source notes.
+        Data tiers: <strong>Tier 1</strong> = ANES voter-base centroids (2016 general election, fully grounded).
+        <strong>Tier 2</strong> = ANES 2016 feeling thermometer favorable-rater analysis (Obama).
+        <strong>Tier 3</strong> = DW-NOMINATE 1st/2nd dimensions (voteview.com).
+        <strong>Tier 4</strong> = estimated from cited polling/public record.
+        Hover each dot for the specific data source. Yellow border = Tier 3/4 estimated.
       </p>
     </section>
 
     <!-- ACT 5: Gravitational wells -->
     <section class="act" id="act-5">
       <div class="act-label">Political gravity</div>
-      <h2>Whose well captures the disillusioned center?</h2>
+      <h2>Whose coalition overlapped with the contestable mass?</h2>
       <p>
-        Each voter is colored by their nearest 2016 candidate in 2D space (ideology × trust).
-        Bright dots are voters whose nearest candidate <em>changes</em> when you add
-        the trust axis — the 1D map gives the wrong answer for them.
+        The terrain is the <strong>moveable voter mass</strong> — undecided and disengaged
+        voters, the only people whose vote is actually up for grabs (n=1,025).
+        The dashed blobs are each candidate's <em>primary coalition</em>.
+        The question is the overlap: whose supporters sat inside the contestable zone?
       </p>
       <p>
-        The real voter mass is in the background. Where does Hillary's gravity well reach?
-        Where do Bernie's and Trump's wells overlap?
+        <strong>Sanders' primary coalition was 40% moveable — three times Clinton's 13%.</strong>
+        His blob sat directly on top of the contestable mass. Clinton's sat above it in the
+        high-trust zone. When Sanders wasn't on the general ballot, that overlap had nowhere
+        obvious to go.
       </p>
-      <div id="chart-gravity" class="chart-container" aria-label="Gravitational territory map"></div>
+      <span class="fig-label">Figure 5 · Coalition overlap</span>
+      <div id="chart-gravity" class="chart-container" aria-label="Primary coalition blobs overlaid on moveable voter terrain"></div>
 
       <p style="margin-top:1.25rem;color:var(--text-dim)">
-        <strong>Gravity mass</strong> — how many voters each candidate captures as their
-        nearest neighbor in 2D vs. 1D. The gap between bars shows voters Hillary loses
-        when the trust axis is added.
+        Among Sanders' 339 primary voters: 62% voted Clinton, 21% didn't vote, 7% voted Trump.
+        The Bernie→Trump voters had <strong>near-centrist ideology (x ≈ 0)</strong> —
+        they didn't move right on policy. They moved on trust.
       </p>
-      <div id="chart-gravity-bars" class="chart-container" aria-label="Gravity mass bar chart"></div>
+      <span class="fig-label">Figure 6 · Sanders redistribution</span>
+      <div id="chart-gravity-bars" class="chart-container" aria-label="Sanders primary voter redistribution"></div>
 
       <p class="annotation">
         Research basis: Lenz (2012) <em>Follow the Leader</em> documents that voters
