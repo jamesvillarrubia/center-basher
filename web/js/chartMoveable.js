@@ -12,13 +12,7 @@
  * shared by Sanders (0.22) and Trump (0.12).
  */
 
-const MV_TRUST_MAX = 0.6;
-const mvMean = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
-function mvMedian(a) {
-  if (!a.length) return null;
-  const s = [...a].sort((x, y) => x - y), m = Math.floor(s.length / 2);
-  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
-}
+const MV_TRUST_MAX = 0.6;  // weighted centroids/medians via window.wMean/wMedian
 
 window.drawChartMoveable = function (voters) {
   const container = document.getElementById("chart-moveable");
@@ -59,7 +53,7 @@ window.drawChartMoveable = function (voters) {
   moveable.forEach(m => {
     const pts = jittered.filter(v => v.segment === m.seg);
     const dens = d3.contourDensity()
-      .x(d => xS(d.x)).y(d => yS(d.y)).size([iW, iH]).bandwidth(28).thresholds(7)(pts);
+      .x(d => xS(d.x)).y(d => yS(d.y)).weight(d => d.weight ?? 1).size([iW, iH]).bandwidth(28).thresholds(7)(pts);
     const mx = d3.max(dens, d => d.value) || 1;
     g.append("g").selectAll("path").data(dens).join("path")
       .attr("d", d3.geoPath()).attr("fill", m.color)
@@ -79,8 +73,9 @@ window.drawChartMoveable = function (voters) {
   const labelRows = [];
   cands.forEach(c => {
     const ex = voters.filter(c.filter);
-    const mX = mvMean(ex.map(r => r.x)), mY = mvMean(ex.map(r => r.y));
-    const medX = mvMedian(ex.map(r => r.x)), medY = mvMedian(ex.map(r => r.y));
+    const ws = ex.map(r => r.weight ?? 1);
+    const mX = window.wMean(ex.map(r => r.x), ws), mY = window.wMean(ex.map(r => r.y), ws);
+    const medX = window.wMedian(ex.map(r => r.x), ws), medY = window.wMedian(ex.map(r => r.y), ws);
     g.append("line").attr("x1", xS(medX)).attr("y1", cy(medY)).attr("x2", xS(mX)).attr("y2", cy(mY))
       .attr("stroke", "#fff").attr("stroke-width", 1).attr("opacity", 0.5);
     halo(xS(medX), cy(medY));
@@ -153,7 +148,7 @@ window.drawChartMoveable = function (voters) {
     pg.append("line").attr("x1", 0).attr("x2", pIW).attr("y1", spY(0.22)).attr("y2", spY(0.22))
       .attr("stroke", "#ffffff20").attr("stroke-dasharray", "2,3");
     const dens = d3.contourDensity()
-      .x(d => spX(d.x)).y(d => spY(d.y)).size([pIW, pIH]).bandwidth(pBw).thresholds(7)(
+      .x(d => spX(d.x)).y(d => spY(d.y)).weight(d => d.weight ?? 1).size([pIW, pIH]).bandwidth(pBw).thresholds(7)(
         jittered.filter(v => v.segment === m.seg));
     const mx = d3.max(dens, d => d.value) || 1;
     pg.append("g").selectAll("path").data(dens).join("path").attr("d", d3.geoPath())

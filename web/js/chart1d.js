@@ -33,14 +33,15 @@ window.drawChart1D = function (voters) {
   [[0, "#5b9cf6"], [0.5, "#c97fff"], [1, "#f06060"]].forEach(([o, c]) =>
     grad.append("stop").attr("offset", `${o * 100}%`).attr("stop-color", c));
 
-  // ── Gaussian KDE over ideology (7-level scale) ────────────────────────────
-  const data = voters.map(d => d.x).filter(v => v != null);
+  // ── Weighted Gaussian KDE over ideology (7-level scale) ───────────────────
+  const data = voters.filter(d => d.x != null).map(d => [d.x, d.weight ?? 1]);
+  const totalW = data.reduce((s, [, w]) => s + w, 0);
   const bw = 0.12;
   const xs = d3.range(-1, 1.001, 0.02);
   const dens = xs.map(xv => {
     let s = 0;
-    for (const v of data) { const u = (xv - v) / bw; s += Math.exp(-0.5 * u * u); }
-    return s / (data.length * bw * Math.sqrt(2 * Math.PI));
+    for (const [v, w] of data) { const u = (xv - v) / bw; s += w * Math.exp(-0.5 * u * u); }
+    return s / (totalW * bw * Math.sqrt(2 * Math.PI));
   });
   const maxD = d3.max(dens) || 1;
   const half = mid - 4;                       // max half-height of the violin

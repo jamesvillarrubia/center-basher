@@ -68,6 +68,7 @@ window.drawChart2D = function (voters) {
   const densityGen = d3.contourDensity()
     .x(d => xS(d.x))
     .y(d => yS(d.y))
+    .weight(d => d.weight ?? 1)
     .size([iW, iH])
     .bandwidth(26)
     .thresholds(8);
@@ -138,7 +139,7 @@ window.drawChart2D = function (voters) {
 
     // Density blob for this party only
     const pDensity = d3.contourDensity()
-      .x(d => pX(d.x)).y(d => pY(d.y)).size([pIW, pIH]).bandwidth(pBw).thresholds(8);
+      .x(d => pX(d.x)).y(d => pY(d.y)).weight(d => d.weight ?? 1).size([pIW, pIH]).bandwidth(pBw).thresholds(8);
     const pts = jittered.filter(grp.filter);
     const contours = pDensity(pts);
     const mx = d3.max(contours, d => d.value) || 1;

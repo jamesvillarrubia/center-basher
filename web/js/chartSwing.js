@@ -12,8 +12,7 @@
  *   Trump:   ideology moves toward center 0.51 → 0.46; low trust ~flat (0.12→0.14).
  */
 
-const SWING_TRUST_MAX = 0.6;
-const swMean = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : null;
+const SWING_TRUST_MAX = 0.6;  // weighted means via window.wMean
 
 window.drawChartSwing = function (voters) {
   const container = document.getElementById("chart-swing");
@@ -52,7 +51,7 @@ window.drawChartSwing = function (voters) {
     { color: "#f06060", filter: v => v.party === "strong_rep" || v.party === "lean_rep" },
   ];
   const partyDensity = d3.contourDensity()
-    .x(d => xS(d.x)).y(d => yS(d.y)).size([iW, iH]).bandwidth(26).thresholds(8);
+    .x(d => xS(d.x)).y(d => yS(d.y)).weight(d => d.weight ?? 1).size([iW, iH]).bandwidth(26).thresholds(8);
   partyGroups.forEach(grp => {
     const contours = partyDensity(jittered.filter(grp.filter));
     const mx = d3.max(contours, d => d.value) || 1;
@@ -77,8 +76,9 @@ window.drawChartSwing = function (voters) {
 
   movers.forEach(m => {
     const pr = voters.filter(m.pf), ge = voters.filter(m.gf);
-    const px = swMean(pr.map(r => r.x)), py = swMean(pr.map(r => r.y));
-    const gx = swMean(ge.map(r => r.x)), gy = swMean(ge.map(r => r.y));
+    const pw = pr.map(r => r.weight ?? 1), gw = ge.map(r => r.weight ?? 1);
+    const px = window.wMean(pr.map(r => r.x), pw), py = window.wMean(pr.map(r => r.y), pw);
+    const gx = window.wMean(ge.map(r => r.x), gw), gy = window.wMean(ge.map(r => r.y), gw);
 
     // shift line primary → general
     g.append("line").attr("x1", xS(px)).attr("y1", cy(py)).attr("x2", xS(gx)).attr("y2", cy(gy))
@@ -103,7 +103,8 @@ window.drawChartSwing = function (voters) {
 
   // ── Sanders: primary only (no general ballot) ─────────────────────────────
   const sp = voters.filter(v => v.primary_vote === "sanders");
-  const sx = swMean(sp.map(r => r.x)), sy = swMean(sp.map(r => r.y));
+  const sw = sp.map(r => r.weight ?? 1);
+  const sx = window.wMean(sp.map(r => r.x), sw), sy = window.wMean(sp.map(r => r.y), sw);
   halo(xS(sx), cy(sy), 9);
   g.append("circle").attr("cx", xS(sx)).attr("cy", cy(sy)).attr("r", 6)
     .attr("fill", "#c97fff").attr("stroke", "#fff").attr("stroke-width", 1.5)

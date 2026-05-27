@@ -12,15 +12,7 @@
  *  the mean floats above each blob's peak; the median sits inside it.)
  */
 
-const BRIDGE_TRUST_MAX = 0.6;
-
-function median(arr) {
-  if (!arr.length) return null;
-  const s = [...arr].sort((a, b) => a - b);
-  const m = Math.floor(s.length / 2);
-  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
-}
-function mean(arr) { return arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : null; }
+const BRIDGE_TRUST_MAX = 0.6;  // weighted centroids/medians via window.wMean/wMedian
 
 window.drawChartBridge = function (voters) {
   const container = document.getElementById("chart-bridge");
@@ -130,7 +122,7 @@ function renderBridge(container, voters, view, marker, coalitionKey) {
     { color: "#f06060", filter: v => v.party === "strong_rep" || v.party === "lean_rep" },
   ];
   const partyDensity = d3.contourDensity()
-    .x(d => xS(d.x)).y(d => yS(d.y)).size([iW, iH]).bandwidth(26).thresholds(8);
+    .x(d => xS(d.x)).y(d => yS(d.y)).weight(d => d.weight ?? 1).size([iW, iH]).bandwidth(26).thresholds(8);
   partyGroups.forEach(grp => {
     const contours = partyDensity(jittered.filter(grp.filter));
     const mx = d3.max(contours, d => d.value) || 1;
@@ -145,8 +137,9 @@ function renderBridge(container, voters, view, marker, coalitionKey) {
   const labelRows = [];
   view.groups.forEach(grp => {
     const exact = voters.filter(grp.filter);                  // un-jittered for stats
-    const mX = mean(exact.map(r => r.x)), mY = mean(exact.map(r => r.y));
-    const medX = median(exact.map(r => r.x)), medY = median(exact.map(r => r.y));
+    const ws = exact.map(r => r.weight ?? 1);
+    const mX = window.wMean(exact.map(r => r.x), ws), mY = window.wMean(exact.map(r => r.y), ws);
+    const medX = window.wMedian(exact.map(r => r.x), ws), medY = window.wMedian(exact.map(r => r.y), ws);
     const meanCy = yS(Math.min(BRIDGE_TRUST_MAX, mY));
 
     // connector when showing both

@@ -51,6 +51,14 @@ PRIMARY_VAR    = "V161021a"  # Pre: for whom did R vote in presidential primary
 INTEREST_VAR   = "V161004"   # Pre: how interested in following campaigns (1=very, 2=somewhat, 3=not much)
 STRENGTH_VAR   = "V161032"   # Pre: preference strength for intended candidate (1=strong, 2=not strong)
 
+# Survey weight. ANES is NOT self-weighting: the raw respondent pool oversamples
+# some groups and is post-stratified to Census demographic benchmarks (age, sex,
+# race, education, region). We carry V160101 (pre-election full-sample weight),
+# normalized to mean 1, on every record so the charts can compute weighted
+# densities/centroids. NOTE: ANES weights target DEMOGRAPHICS, not party ID or
+# vote — so a partisan/turnout skew can persist even after weighting.
+WEIGHT_VAR     = "V160101"   # Pre-election weight, full sample
+
 # SYSTEMIC INSTITUTIONAL-TRUST INDEX (3 items).
 # Each recoded so higher = MORE trust, then averaged over available items.
 # NOTE: the ANES battery items are NOT coded in the same direction — half had
@@ -152,6 +160,14 @@ def main():
     df["x"] = ideology_to_x(df[IDEOLOGY_VAR])
     df["y"] = build_trust_index(df)
     df["corrupt"] = perceived_corruption(df)
+
+    # Survey weight (V160101), positive only. Normalized to mean 1 below, after
+    # we drop records without valid ideology/trust.
+    if WEIGHT_VAR in df.columns:
+        w = df[WEIGHT_VAR].astype(float)
+        df["weight"] = w.where(w > 0, np.nan)
+    else:
+        df["weight"] = 1.0
     df["party"] = clean_variable(df[PARTY_ID_VAR], (1, 5)).map(
         lambda v: party_label(v) if not np.isnan(v) else "unknown"
     )
@@ -193,12 +209,17 @@ def main():
     df["segment"] = df.apply(segment, axis=1)
 
     voters = df[["x", "y", "corrupt", "party", "vote", "registered", "primary_vote",
-                 "engagement", "decided", "segment"]].dropna(subset=["x", "y"])
+                 "engagement", "decided", "segment", "weight"]].dropna(subset=["x", "y"])
+    # Normalize weight to mean 1 over kept records; records with no pre-weight
+    # default to 1 (kept, treated as average) so we don't silently drop them.
+    wfill = voters["weight"].fillna(voters["weight"].mean())
+    voters["weight"] = (wfill / wfill.mean()).round(4)
     voters = voters.round({"x": 3, "y": 3, "corrupt": 3})
 
     # to_json emits NaN as null (valid JSON); plain json.dumps would not.
     (OUT_DIR / "voters_2d.json").write_text(voters.to_json(orient="records"))
     print(f"Wrote {len(voters)} records to data/processed/voters_2d.json")
+    print(f"Weight coverage: {df['weight'].notna().sum()} of {len(df)} have a positive pre-weight")
 
     print("\nParty breakdown:")
     print(voters["party"].value_counts().to_string())
@@ -207,16 +228,20 @@ def main():
     print(f"\nIdeology range: {voters['x'].min():.2f} to {voters['x'].max():.2f}, mean {voters['x'].mean():.2f}")
     print(f"Trust range:    {voters['y'].min():.2f} to {voters['y'].max():.2f}, mean {voters['y'].mean():.2f}")
 
-    # Voter-base centroids per candidate (anchor candidate y-positions)
-    print("\n=== Voter-base trust centroids (use to anchor candidate y-positions) ===")
+    # Voter-base centroids per candidate (anchor candidate y-positions) — WEIGHTED
+    def wmean(s, w):
+        m = s.notna() & w.notna() & (w > 0)
+        return float(np.average(s[m], weights=w[m])) if m.any() else float("nan")
+    print("\n=== Voter-base trust centroids (WEIGHTED, V160101; anchor candidate y-positions) ===")
     centroids = {}
     for vote_code, label in [(1,"clinton"), (2,"trump"), (3,"johnson"), (4,"stein")]:
         mask = (voters["vote"] == label)
-        cx = voters.loc[mask, "x"].mean()
-        cy = voters.loc[mask, "y"].mean()
-        n  = mask.sum()
-        centroids[label] = {"x": round(cx, 3), "y": round(cy, 3), "n": int(n)}
-        print(f"  {label}: x={cx:.3f}, y={cy:.3f}  (n={n})")
+        cx = wmean(voters.loc[mask, "x"], voters.loc[mask, "weight"])
+        cy = wmean(voters.loc[mask, "y"], voters.loc[mask, "weight"])
+        n  = int(mask.sum())
+        cxu = voters.loc[mask, "x"].mean(); cyu = voters.loc[mask, "y"].mean()
+        centroids[label] = {"x": round(cx, 3), "y": round(cy, 3), "n": n}
+        print(f"  {label}: x={cx:.3f}, y={cy:.3f}  (n={n})   [unweighted x={cxu:.3f}, y={cyu:.3f}]")
     (OUT_DIR / "candidate_centroids.json").write_text(json.dumps(centroids, indent=2))
     print("Wrote data/processed/candidate_centroids.json")
 

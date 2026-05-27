@@ -233,7 +233,7 @@ function renderOverlapMap(container, voters, candidates, stats, view, showField)
   const jittered = window.jitterVoters(voters, { xAmt: 0.13, yAmt: 0.05 });
 
   const partyDensity = d3.contourDensity()
-    .x(d => xS(d.x)).y(d => yS(d.y))
+    .x(d => xS(d.x)).y(d => yS(d.y)).weight(d => d.weight ?? 1)
     .size([iW, iH]).bandwidth(28).thresholds(8);
 
   partyGroups.forEach(grp => {
@@ -253,7 +253,7 @@ function renderOverlapMap(container, voters, candidates, stats, view, showField)
   if (view.key === "overlap") {
     const moveableVoters = jittered.filter(v => MOVEABLE_SEGS.has(v.segment) && v.x != null && v.y != null);
     const movDensity = d3.contourDensity()
-      .x(d => xS(d.x)).y(d => yS(d.y))
+      .x(d => xS(d.x)).y(d => yS(d.y)).weight(d => d.weight ?? 1)
       .size([iW, iH]).bandwidth(28).thresholds(5)(moveableVoters);
     const movMax = d3.max(movDensity, d => d.value) || 1;
     // Only draw the outer 2 contours — marks the mass location, doesn't obscure party blobs

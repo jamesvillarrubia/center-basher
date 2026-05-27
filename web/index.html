@@ -236,6 +236,15 @@
         thought about it" treated as missing). Party ID: V161159 (5-point summary). Vote: V162034a.
       </p>
       <p>
+        <strong>Weighting:</strong> all densities and centroids apply the ANES pre-election survey
+        weight (V160101, normalized to mean 1) — the raw sample is not self-weighting. Weights
+        post-stratify to Census <em>demographic</em> benchmarks (age, sex, race, education, region),
+        so they do <em>not</em> force party ID or vote to match the electorate; weighting shifts our
+        numbers by &lt;2 points. For the contested question of how non-voters lean, ANES is least
+        reliable (vote over-report, thin non-voter subsample) — there we defer to external studies
+        (e.g. Knight Foundation), which find non-voters split roughly evenly, not strongly Democratic.
+      </p>
+      <p>
         <strong>Trust index (3-item systemic):</strong> mean of V161215 (trust government to do
         what is right), V161216 (run for benefit of all vs. a few big interests), and V161217
         (whether government wastes tax money) — each recoded so higher = more trust and normalized
@@ -298,6 +307,7 @@
   <script src="js/d3.min.js"></script>
   <script src="js/data.js"></script>
   <script src="js/jitter.js"></script>
+  <script src="js/wstats.js"></script>
   <script src="js/figspec.js"></script>
   <script src="js/candidates.js"></script>
   <script src="js/chart1d.js"></script>
