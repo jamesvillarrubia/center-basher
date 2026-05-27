@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Figure 6 prototype — Clinton's optimal move</title>
+<link rel="stylesheet" href="css/style.css" />
+<style>
+  body { padding: 2rem 1.25rem; max-width: 820px; margin: 0 auto; }
+  .controls { display:flex; gap:1.5rem; flex-wrap:wrap; align-items:center; margin:1rem 0; }
+  .controls button { font:inherit; font-size:.8rem; padding:.3rem .8rem; border-radius:5px;
+    border:1px solid #2e2e3e; background:#1a1a1a; color:#888; cursor:pointer; }
+  .controls button.on { background:#2e2e3e; color:#fff; }
+  .readout { font-size:.85rem; color:var(--text); background:#14141b; border:1px solid var(--border);
+    border-left:3px solid var(--accent-trust); border-radius:0 6px 6px 0; padding:.7rem .9rem; margin:1rem 0; }
+  .readout b { color:#fff; }
+  .assumptions { font-size:.8rem; color:var(--text-dim); background:#1a1320; border:1px solid #3a2a3a;
+    border-radius:6px; padding:.8rem 1rem; margin:1.5rem 0; }
+  .assumptions li { margin:.25rem 0 .25rem 1rem; }
+  code { color:#c97fff; }
+</style>
+</head>
+<body>
+  <h1 style="font-size:1.8rem">Figure 6 prototype</h1>
+  <p class="subtitle">Where should Clinton stand to capture the most moveable voters? — and how much do the assumptions drive the answer?</p>
+
+  <div class="controls">
+    <div>
+      <span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:#8888a8;font-weight:700">Trust weight ρ</span>
+      <span id="rho-btns"></span>
+    </div>
+    <div>
+      <span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:#8888a8;font-weight:700">Show</span>
+      <button id="t-terrain" class="on">moveable terrain</button>
+      <button id="t-surface" class="on">capture surface</button>
+    </div>
+  </div>
+
+  <div id="chart"></div>
+  <div class="readout" id="readout"></div>
+
+  <div class="assumptions">
+    <b>Assumptions baked into this model — the parts to argue with:</b>
+    <ol>
+      <li>Voters choose by <b>spatial proximity</b> to candidate positions (anisotropic distance). The trust thesis says low-trust voters <i>don't</i> respond to policy proximity at all — this model can't represent that.</li>
+      <li><b>Only Clinton moves</b>; Trump is pinned at his voter centroid.</li>
+      <li>"Moveable" = undecided-but-likely + decided-but-low-turnout (n≈918). Locked-in voters excluded.</li>
+      <li>Each voter picks <b>Clinton / Trump / abstain</b> via softmax; abstain utility is calibrated so the baseline matches the moveable group's real split (~31/36/33).</li>
+      <li><code>ρ</code> = how much <b>trust</b> distance counts vs <b>ideology</b> distance. ρ=1 euclidean; field-fit ≈0.53 (ideology counts more); ρ&gt;1 = trust counts more.</li>
+      <li>"Moving down on trust" treats trust as a coordinate Clinton can relocate to — in reality it's perceived legitimacy she couldn't freely dial.</li>
+    </ol>
+  </div>
+
+<script src="js/d3.min.js"></script>
+<script>
+const W=760, H=520, m={top:30,right:30,bottom:54,left:60};
+const iW=W-m.left-m.right, iH=H-m.top-m.bottom, TMAX=0.6;
+const xS=d3.scaleLinear().domain([-1,1]).range([0,iW]);
+const yS=d3.scaleLinear().domain([0,TMAX]).range([iH,0]);
+const T=[0.455,0.140], C0=[-0.325,0.273];
+let rho=1.0, showTerrain=true, showSurface=true;
+let MX,MY,MW;   // moveable voter arrays
+let beta=5, uA=-1.0;
+
+fetch("data/voters.json").then(r=>r.json()).then(data=>{
+  const MOV=new Set(["undecided_engaged","decided_disengaged"]);
+  const mov=data.filter(d=>MOV.has(d.segment)&&d.x!=null&&d.y!=null);
+  MX=Float64Array.from(mov.map(d=>d.x));
+  MY=Float64Array.from(mov.map(d=>d.y));
+  let w=mov.map(d=>d.weight??1); const sw=w.reduce((a,b)=>a+b,0); MW=Float64Array.from(w.map(v=>v/sw));
+  buildRhoButtons(); draw();
+});
+
+// expected Clinton share of moveable voters if she stands at (cx,cy)
+function shares(cx,cy){
+  let sC=0,sT=0,sA=0;
+  for(let i=0;i<MX.length;i++){
+    const dC=(MX[i]-cx)**2 + rho*(MY[i]-cy)**2;
+    const dT=(MX[i]-T[0])**2 + rho*(MY[i]-T[1])**2;
+    const uC=-beta*dC, uT=-beta*dT;
+    const mm=Math.max(uC,uT,uA);
+    const eC=Math.exp(uC-mm),eT=Math.exp(uT-mm),eA=Math.exp(uA-mm),Z=eC+eT+eA;
+    sC+=MW[i]*eC/Z; sT+=MW[i]*eT/Z; sA+=MW[i]*eA/Z;
+  }
+  return [sC,sT,sA];
+}
+const cap=(cx,cy)=>shares(cx,cy)[0];
+
+// light calibration: pick beta,uA so baseline ≈ Clinton .31 / Trump .36 at current rho
+function calibrate(){
+  let best=null;
+  for(let b=1;b<=12;b+=0.5){
+    for(let u=-4;u<=0;u+=0.2){
+      beta=b; uA=u; const [c,t]=shares(C0[0],C0[1]);
+      const e=(c-.31)**2+(t-.36)**2;
+      if(!best||e<best.e) best={e,b,u};
+    }
+  }
+  beta=best.b; uA=best.u;
+}
+
+function gradient(cx,cy){ const e=0.04;
+  return [ (cap(cx+e,cy)-cap(cx-e,cy))/(2*e), (cap(cx,cy+e)-cap(cx,cy-e))/(2*e) ]; }
+
+function climb(){ // gradient ascent path from C0
+  let p=[...C0], path=[[...p]];
+  for(let s=0;s<60;s++){ const g=gradient(p[0],p[1]); const n=Math.hypot(g[0],g[1]); if(n<1e-3)break;
+    p=[p[0]+0.03*g[0]/n, Math.min(TMAX,Math.max(0,p[1]+0.03*g[1]/n))];
+    p[0]=Math.min(1,Math.max(-1,p[0])); path.push([...p]); }
+  return path;
+}
+
+function buildRhoButtons(){
+  const host=d3.select("#rho-btns");
+  [[0.53,"0.53 (field)"],[1,"1 (euclid)"],[2,"2"],[4,"4 (trust≫)"]].forEach(([v,lab])=>{
+    host.append("button").text(lab).classed("on",v===rho).on("click",()=>{rho=v; draw();
+      host.selectAll("button").classed("on",function(){return d3.select(this).text()===lab;});});
+  });
+  d3.select("#t-terrain").on("click",function(){showTerrain=!showTerrain; d3.select(this).classed("on",showTerrain); draw();});
+  d3.select("#t-surface").on("click",function(){showSurface=!showSurface; d3.select(this).classed("on",showSurface); draw();});
+}
+
+function draw(){
+  calibrate();
+  d3.select("#chart").html("");
+  const svg=d3.select("#chart").append("svg").attr("viewBox",`0 0 ${W} ${H}`).attr("width","100%");
+  const g=svg.append("g").attr("transform",`translate(${m.left},${m.top})`);
+
+  // ── capture surface heatmap ──
+  const nx=64, ny=42;
+  let vals=[], vmin=1, vmax=0;
+  for(let j=0;j<ny;j++)for(let i=0;i<nx;i++){
+    const x=-1+2*i/(nx-1), y=TMAX*j/(ny-1); const v=cap(x,y);
+    vals.push({x,y,v}); vmin=Math.min(vmin,v); vmax=Math.max(vmax,v);
+  }
+  const col=d3.scaleSequential(d3.interpolateViridis).domain([vmin,vmax]);
+  if(showSurface){
+    const cw=iW/nx, ch=iH/ny;
+    g.selectAll("rect.hm").data(vals).join("rect").attr("class","hm")
+      .attr("x",d=>xS(d.x)-cw/2).attr("y",d=>yS(d.y)-ch/2).attr("width",cw+1).attr("height",ch+1)
+      .attr("fill",d=>col(d.v)).attr("opacity",0.85);
+  } else { g.append("rect").attr("width",iW).attr("height",iH).attr("fill","#10131a"); }
+
+  // ── moveable terrain contours ──
+  if(showTerrain){
+    const pts=[]; for(let i=0;i<MX.length;i++)pts.push([xS(MX[i]+(Math.random()-.5)*0.26), yS(MY[i]+(Math.random()-.5)*0.1)]);
+    const dens=d3.contourDensity().x(d=>d[0]).y(d=>d[1]).size([iW,iH]).bandwidth(26).thresholds(6)(pts);
+    g.append("g").selectAll("path").data(dens).join("path").attr("d",d3.geoPath())
+      .attr("fill","none").attr("stroke","#fff").attr("stroke-opacity",0.35).attr("stroke-dasharray","4,3");
+  }
+
+  // ── optimal climb path ──
+  const path=climb(); const opt=path[path.length-1];
+  g.append("path").datum(path).attr("d",d3.line().x(d=>xS(d[0])).y(d=>yS(d[1])))
+    .attr("fill","none").attr("stroke","#fff").attr("stroke-width",2.5).attr("opacity",0.9);
+  g.append("circle").attr("cx",xS(opt[0])).attr("cy",yS(opt[1])).attr("r",5).attr("fill","#fff");
+  g.append("text").attr("x",xS(opt[0])+8).attr("y",yS(opt[1])).attr("fill","#fff").attr("font-size",11).text("optimum");
+
+  // ── directional test arrows (right / down) ──
+  const arr=(dx,dy,lab,colr)=>{
+    const e=0.2; const tx=Math.min(1,Math.max(-1,C0[0]+dx*e)), ty=Math.min(TMAX,Math.max(0,C0[1]+dy*e));
+    const delta=cap(tx,ty)-cap(C0[0],C0[1]);
+    g.append("line").attr("x1",xS(C0[0])).attr("y1",yS(C0[1])).attr("x2",xS(tx)).attr("y2",yS(ty))
+      .attr("stroke",colr).attr("stroke-width",2).attr("marker-end",`url(#a-${lab})`);
+    g.append("text").attr("x",xS(tx)+ (dx>0?6:0)).attr("y",yS(ty)+(dy<0?-6:14)).attr("fill",colr).attr("font-size",10)
+      .text(`${lab} Δ${(delta*100).toFixed(1)}pt`);
+    const mk=svg.append("defs").append("marker").attr("id",`a-${lab}`).attr("viewBox","0 0 10 10")
+      .attr("refX",8).attr("refY",5).attr("markerWidth",6).attr("markerHeight",6).attr("orient","auto-start-reverse");
+    mk.append("path").attr("d","M0,0L10,5L0,10Z").attr("fill",colr);
+  };
+  arr(1,0,"→policy","#f0c040");
+  arr(0,-1,"↓trust","#3fd0c0");
+
+  // ── candidates ──
+  const dot=(p,c,lab,la)=>{ g.append("circle").attr("cx",xS(p[0])).attr("cy",yS(p[1])).attr("r",7).attr("fill",c).attr("stroke","#fff").attr("stroke-width",2);
+    g.append("text").attr("x",xS(p[0])).attr("y",yS(p[1])+(la||-12)).attr("text-anchor","middle").attr("fill",c).attr("font-size",12).attr("font-weight",700).text(lab); };
+  dot(T,"#f06060","Trump (fixed)",22);
+  dot(C0,"#5b9cf6","Clinton start");
+
+  // ── axes ──
+  g.append("g").attr("transform",`translate(0,${iH})`).call(d3.axisBottom(xS).ticks(5)
+    .tickFormat(v=>v===-1?"← Left":v===1?"Right →":v===0?"Center":"")).selectAll("text").attr("fill","#8888a8");
+  g.append("g").call(d3.axisLeft(yS).tickValues([0,0.2,0.4,0.6]).tickFormat(v=>v===0?"No trust":v.toFixed(1))).selectAll("text").attr("fill","#8888a8");
+  g.selectAll(".domain,.tick line").attr("stroke","#444");
+  g.append("text").attr("x",iW/2).attr("y",iH+42).attr("text-anchor","middle").attr("fill","#8888a8").text("Policy Ideology");
+  g.append("text").attr("transform","rotate(-90)").attr("x",-iH/2).attr("y",-46).attr("text-anchor","middle").attr("fill","#8888a8").text("Institutional trust");
+
+  // ── readout ──
+  const [c0,t0,a0]=shares(C0[0],C0[1]); const cOpt=cap(opt[0],opt[1]);
+  const grad=gradient(C0[0],C0[1]); const head=Math.atan2(grad[1],grad[0])*180/Math.PI;
+  d3.select("#readout").html(
+    `<b>ρ=${rho}</b> · calibrated β=${beta.toFixed(1)}, abstain=${uA.toFixed(1)} · baseline Clinton <b>${(c0*100).toFixed(0)}%</b> / Trump ${(t0*100).toFixed(0)}% / abstain ${(a0*100).toFixed(0)}% of moveable.<br>`+
+    `Optimal position ≈ (ideology <b>${opt[0].toFixed(2)}</b>, trust <b>${opt[1].toFixed(2)}</b>) → captures <b>${(cOpt*100).toFixed(0)}%</b> (a +${((cOpt-c0)*100).toFixed(1)}pt gain). `+
+    `Gradient heading <b>${head.toFixed(0)}°</b> (0°=pure policy-right, −90°=pure trust-down). `+
+    `Trust:ideology leverage = <b>${(Math.abs(grad[1])/Math.abs(grad[0])).toFixed(2)}</b>.`
+  );
+}
+</script>
+</body>
+</html>

@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     drawChartBridge(voters);
     drawChartSwing(voters);
     drawChartMoveable(voters);
+    drawChartJobs();
     drawChartCandidates(window.CANDIDATES);
     drawChartGravity(voters, window.CANDIDATES);
   }

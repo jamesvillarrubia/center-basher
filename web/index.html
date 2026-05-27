@@ -131,6 +131,36 @@
       </p>
     </section>
 
+    <!-- ACT 3¾: Two axes, two jobs -->
+    <section class="act" id="act-jobs">
+      <div class="act-label">Two axes, two jobs</div>
+      <h2>Ideology picks your candidate. Trust decides if you show up.</h2>
+      <p>
+        Here's the engine behind everything above. We ran two logistic models on the
+        <em>same</em> two axes — ideology and the 3-item trust index — for two different 2016
+        decisions. Predicting <strong>who</strong> someone voted for (Trump vs Clinton), ideology
+        dominates: it's <strong>3.7× stronger</strong> than trust. Predicting <strong>whether</strong>
+        they voted at all, ideology is <strong>essentially zero</strong> — and trust is the only mover.
+      </p>
+      <p>
+        That's why "move to the center" is the wrong map for the disaffected. Policy-centering
+        competes for the <em>choice</em> of people already voting; it has no purchase on
+        <em>participation</em>, which runs on trust. You can't ideologically triangulate your way
+        to mobilizing low-trust voters — the left-right axis is blind to whether they turn out.
+      </p>
+      <span class="fig-label">Figure 6 · Two axes, two jobs</span>
+      <div id="chart-jobs" class="chart-container" aria-label="Standardized coefficients: ideology vs trust for choice vs turnout"></div>
+      <div class="fig-data" id="data-jobs"></div>
+      <p class="annotation">
+        Bars are standardized coefficients (|β × SD|) from weighted logistic models, so ideology
+        and trust are comparable. <strong>Caveat:</strong> ANES over-reports turnout (85–89% claim
+        to have voted vs ~60% actual), which compresses the absolute size of both turnout effects —
+        the robust point is the <em>flip</em>: ideology's power collapses from 2.30 (choice) to 0.02
+        (turnout), while trust stays the live axis. In 2016 distrust mildly <em>mobilized</em>
+        (low-trust turnout ran a few points higher), consistent with Trump's anti-establishment pull.
+      </p>
+    </section>
+
     <!-- ACT 4: Where candidates actually stand -->
     <section class="act" id="act-4">
       <div class="act-label">Official vs. perceived</div>
@@ -146,7 +176,7 @@
         quadrant. Meanwhile, Clinton's ANES "honest" trait score (3.95/5) was
         <em>worse</em> than Trump's (3.72/5) — the Goldman Sachs problem, in the data.
       </p>
-      <span class="fig-label">Figure 6 · Official vs perceived</span>
+      <span class="fig-label">Figure 7 · Official vs perceived</span>
       <div id="chart-candidates" class="chart-container" aria-label="Candidate positions, official vs perceived"></div>
       <div class="fig-data" id="data-candidates"></div>
       <div class="legend" id="legend-candidates"></div>
@@ -175,7 +205,7 @@
         high-trust zone. When Sanders wasn't on the general ballot, that overlap had nowhere
         obvious to go.
       </p>
-      <span class="fig-label">Figure 7 · Coalition overlap</span>
+      <span class="fig-label">Figure 8 · Coalition overlap</span>
       <div id="chart-gravity" class="chart-container" aria-label="Primary coalition blobs overlaid on moveable voter terrain"></div>
       <div class="fig-data" id="data-gravity"></div>
 
@@ -184,7 +214,7 @@
         The Bernie→Trump voters had <strong>near-centrist ideology (x ≈ 0)</strong> —
         they didn't move right on policy. They moved on trust.
       </p>
-      <span class="fig-label">Figure 8 · Sanders redistribution</span>
+      <span class="fig-label">Figure 9 · Sanders redistribution</span>
       <div id="chart-gravity-bars" class="chart-container" aria-label="Sanders primary voter redistribution"></div>
       <div class="fig-data" id="data-gravity-bars"></div>
 
@@ -315,6 +345,7 @@
   <script src="js/chartBridge.js"></script>
   <script src="js/chartSwing.js"></script>
   <script src="js/chartMoveable.js"></script>
+  <script src="js/chartJobs.js"></script>
   <script src="js/chartCandidates.js"></script>
   <script src="js/chartGravity.js"></script>
   <script src="js/main.js"></script>
