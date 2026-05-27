@@ -1,7 +1,7 @@
 """
 Process raw ANES data into clean JSON for the 2D visualization.
 
-Input:  data/raw/anes_timeseries_2016_csv_20220719.csv
+Input:  data/raw/anes_timeseries_2016*.dta   (Stata format, Sep 2019 release)
 Output: data/processed/voters_2d.json
         data/processed/quadrant_summary.json
 """
@@ -33,8 +33,10 @@ MISSING_CODES = [-9, -8, -7, -6, -5, -4, -1]
 
 
 def load_anes(path: pathlib.Path) -> pd.DataFrame:
-    df = pd.read_csv(path, low_memory=False)
-    return df
+    if path.suffix == ".dta":
+        # convert_categoricals=False keeps numeric codes instead of Stata labels
+        return pd.read_stata(path, convert_categoricals=False)
+    return pd.read_csv(path, low_memory=False)
 
 
 def clean_variable(series: pd.Series, valid_range: tuple) -> pd.Series:
@@ -92,9 +94,12 @@ def vote_label(val: float) -> str:
 
 
 def main():
-    candidates = list(RAW_DIR.glob("anes_timeseries_2016*.csv"))
+    candidates = list(RAW_DIR.glob("anes_timeseries_2016*.dta"))
     if not candidates:
-        print("No ANES 2016 CSV found in data/raw/. See data/README.md for download instructions.")
+        print("No ANES 2016 DTA file found in data/raw/.")
+        print("Download the Stata (.dta) version from:")
+        print("  https://electionstudies.org/data-center/2016-time-series-study/")
+        print("and place it in data/raw/")
         sys.exit(0)
 
     df = load_anes(candidates[0])

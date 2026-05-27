@@ -6,8 +6,9 @@ Download them manually and place them in `data/raw/`.
 ## Sources
 
 ### ANES (American National Election Studies)
-- URL: https://electionstudies.org/data-center/
-- File needed: ANES 2016 Time Series Study (and/or cumulative file)
+- URL: https://electionstudies.org/data-center/2016-time-series-study/
+- File needed: **"September 4, 2019 version" → DTA** (Stata format, no login required)
+- Place in `data/raw/` — filename will be something like `anes_timeseries_2016_dta_20190904.dta`
 - Key variables used:
   - `V161126` — 7-point liberal-conservative self-placement
   - `V162215` — trust in federal government
