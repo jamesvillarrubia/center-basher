@@ -14,6 +14,22 @@
 
 const BRIDGE_TRUST_MAX = 0.6;  // weighted centroids/medians via window.wMean/wMedian
 
+// Spread markers that land on (nearly) the same pixel so none is hidden under
+// another (e.g. Clinton-general and Sanders-primary share a median point).
+function dodgePx(items, key, r) {
+  const clusters = [];
+  items.forEach(o => {
+    const p = o[key];
+    const c = clusters.find(cl => Math.abs(cl.x - p.x) < 2 * r && Math.abs(cl.y - p.y) < 2 * r);
+    if (c) c.items.push(o); else clusters.push({ x: p.x, y: p.y, items: [o] });
+  });
+  clusters.forEach(cl => {
+    if (cl.items.length < 2) return;
+    const n = cl.items.length;
+    cl.items.forEach((o, i) => { o[key].x = cl.x + (i - (n - 1) / 2) * (2 * r + 2); });
+  });
+}
+
 window.drawChartBridge = function (voters) {
   const container = document.getElementById("chart-bridge");
   if (!container) return;
@@ -134,33 +150,34 @@ function renderBridge(container, voters, view, marker, coalitionKey) {
   });
 
   // ── Candidate voter-group markers (the dots) over the party field ─────────
-  const labelRows = [];
-  view.groups.forEach(grp => {
+  const showMed = marker === "median" || marker === "both";
+  const showMean = marker === "mean" || marker === "both";
+
+  // compute weighted stats + pixel positions for every group
+  const pts = view.groups.map(grp => {
     const exact = voters.filter(grp.filter);                  // un-jittered for stats
     const ws = exact.map(r => r.weight ?? 1);
     const mX = window.wMean(exact.map(r => r.x), ws), mY = window.wMean(exact.map(r => r.y), ws);
     const medX = window.wMedian(exact.map(r => r.x), ws), medY = window.wMedian(exact.map(r => r.y), ws);
-    const meanCy = yS(Math.min(BRIDGE_TRUST_MAX, mY));
+    return { grp, mY, medY,
+      medPx: { x: xS(medX), y: yS(medY) },
+      meanPx: { x: xS(mX), y: yS(Math.min(BRIDGE_TRUST_MAX, mY)) } };
+  });
+  // pull coincident markers apart so none hides under another
+  if (showMed) dodgePx(pts, "medPx", 6);
+  if (showMean) dodgePx(pts, "meanPx", 6);
 
-    // connector when showing both
-    if (marker === "both") {
-      g.append("line").attr("x1", xS(medX)).attr("y1", yS(medY))
-        .attr("x2", xS(mX)).attr("y2", meanCy)
+  const dot = (cx, cy, fill, ring) => {
+    g.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 9).attr("fill", "#0f0f13").attr("opacity", 0.45);
+    g.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 6).attr("fill", fill).attr("stroke", ring).attr("stroke-width", 2);
+  };
+  const labelRows = [];
+  pts.forEach(({ grp, mY, medY, medPx, meanPx }) => {
+    if (marker === "both")
+      g.append("line").attr("x1", medPx.x).attr("y1", medPx.y).attr("x2", meanPx.x).attr("y2", meanPx.y)
         .attr("stroke", "#fff").attr("stroke-width", 1).attr("opacity", 0.5);
-    }
-    // dark halo for contrast against same-colored party blobs
-    const dot = (cx, cy, fill, ring) => {
-      g.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 9)
-        .attr("fill", "#0f0f13").attr("opacity", 0.45);
-      g.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 6)
-        .attr("fill", fill).attr("stroke", ring).attr("stroke-width", 2);
-    };
-    // Median marker (filled) — sits inside the blob
-    if (marker === "median" || marker === "both") dot(xS(medX), yS(medY), grp.color, "#fff");
-    // Mean marker — hollow ring in "both", filled when alone
-    if (marker === "mean" || marker === "both")
-      dot(xS(mX), meanCy, marker === "both" ? "none" : grp.color, "#fff");
-
+    if (showMed) dot(medPx.x, medPx.y, grp.color, "#fff");                         // median = filled
+    if (showMean) dot(meanPx.x, meanPx.y, marker === "both" ? "none" : grp.color, "#fff");  // mean = hollow in both
     labelRows.push({ grp, mY, medY, anchorY: yS((medY + mY) / 2) });
   });
 
