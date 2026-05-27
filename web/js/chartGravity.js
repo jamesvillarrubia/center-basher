@@ -112,7 +112,7 @@ function drawTerritoryMap(voters, cands2016) {
     clinton_2016: { dx: -8,  dy: -16, anchor: "middle" },
     sanders_2016: { dx: -12, dy: -16, anchor: "end"    },
     trump_2016:   { dx:  12, dy: -16, anchor: "start"  },
-    johnson_2016: { dx:  12, dy:  14, anchor: "start"  },
+    johnson_2016: { dx:  12, dy:   0, anchor: "start"  },
   };
 
   cands2016.forEach(c => {
