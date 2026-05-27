@@ -123,55 +123,52 @@ function renderBridge(container, voters, view, marker, coalitionKey) {
 
   const jittered = window.jitterVoters(voters, { xAmt: 0.13, yAmt: 0.05 });
 
-  // ── Backdrop: the whole electorate in faint grey ──────────────────────────
-  const allPts = jittered.filter(v => v.x != null && v.y != null);
-  const allDensity = d3.contourDensity()
-    .x(d => xS(d.x)).y(d => yS(d.y)).size([iW, iH]).bandwidth(30).thresholds(9)(allPts);
-  const allMax = d3.max(allDensity, d => d.value) || 1;
-  g.append("g").selectAll("path").data(allDensity).join("path")
-    .attr("d", d3.geoPath()).attr("fill", "#9a9ab0")
-    .attr("opacity", d => 0.03 + 0.10 * (d.value / allMax))
-    .attr("stroke", "none");
+  // ── Field: the three party blobs (identical to Fig 2) ─────────────────────
+  const partyGroups = [
+    { color: "#5b9cf6", filter: v => v.party === "strong_dem" || v.party === "lean_dem" },
+    { color: "#c97fff", filter: v => v.party === "independent" },
+    { color: "#f06060", filter: v => v.party === "strong_rep" || v.party === "lean_rep" },
+  ];
+  const partyDensity = d3.contourDensity()
+    .x(d => xS(d.x)).y(d => yS(d.y)).size([iW, iH]).bandwidth(26).thresholds(8);
+  partyGroups.forEach(grp => {
+    const contours = partyDensity(jittered.filter(grp.filter));
+    const mx = d3.max(contours, d => d.value) || 1;
+    g.append("g").selectAll("path").data(contours).join("path")
+      .attr("d", d3.geoPath()).attr("fill", grp.color)
+      .attr("opacity", d => 0.03 + 0.15 * (d.value / mx))
+      .attr("stroke", grp.color).attr("stroke-width", 0.5)
+      .attr("stroke-opacity", d => 0.08 + 0.35 * (d.value / mx));
+  });
 
-  // ── Each candidate group: colored shape + marker(s) ───────────────────────
+  // ── Candidate voter-group markers (the dots) over the party field ─────────
   const labelRows = [];
   view.groups.forEach(grp => {
-    const pts = jittered.filter(grp.filter);
     const exact = voters.filter(grp.filter);                  // un-jittered for stats
-    const dens = d3.contourDensity()
-      .x(d => xS(d.x)).y(d => yS(d.y)).size([iW, iH]).bandwidth(28).thresholds(6)(pts);
-    const mx = d3.max(dens, d => d.value) || 1;
-
-    g.append("g").selectAll("path").data(dens).join("path")
-      .attr("d", d3.geoPath()).attr("fill", grp.color)
-      .attr("opacity", d => 0.03 + 0.14 * (d.value / mx))
-      .attr("stroke", grp.color).attr("stroke-width", grp.dashed ? 1.5 : 1)
-      .attr("stroke-dasharray", grp.dashed ? "5,3" : "none")
-      .attr("stroke-opacity", d => 0.25 + 0.5 * (d.value / mx));
-
     const mX = mean(exact.map(r => r.x)), mY = mean(exact.map(r => r.y));
     const medX = median(exact.map(r => r.x)), medY = median(exact.map(r => r.y));
+    const meanCy = yS(Math.min(BRIDGE_TRUST_MAX, mY));
 
-    // Median marker (filled) — sits inside the blob
-    if (marker === "median" || marker === "both") {
-      g.append("circle").attr("cx", xS(medX)).attr("cy", yS(medY)).attr("r", 6)
-        .attr("fill", grp.color).attr("opacity", 0.95).attr("stroke", "#fff").attr("stroke-width", 1);
-    }
-    // Mean marker (hollow ring) — floats above the blob
-    if (marker === "mean" || marker === "both") {
-      g.append("circle").attr("cx", xS(mX)).attr("cy", yS(Math.min(BRIDGE_TRUST_MAX, mY))).attr("r", 6)
-        .attr("fill", marker === "both" ? "none" : grp.color)
-        .attr("opacity", 0.95).attr("stroke", marker === "both" ? grp.color : "#fff")
-        .attr("stroke-width", 2);
-    }
     // connector when showing both
     if (marker === "both") {
       g.append("line").attr("x1", xS(medX)).attr("y1", yS(medY))
-        .attr("x2", xS(mX)).attr("y2", yS(Math.min(BRIDGE_TRUST_MAX, mY)))
-        .attr("stroke", grp.color).attr("stroke-width", 1).attr("opacity", 0.4);
+        .attr("x2", xS(mX)).attr("y2", meanCy)
+        .attr("stroke", "#fff").attr("stroke-width", 1).attr("opacity", 0.5);
     }
+    // dark halo for contrast against same-colored party blobs
+    const dot = (cx, cy, fill, ring) => {
+      g.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 9)
+        .attr("fill", "#0f0f13").attr("opacity", 0.45);
+      g.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 6)
+        .attr("fill", fill).attr("stroke", ring).attr("stroke-width", 2);
+    };
+    // Median marker (filled) — sits inside the blob
+    if (marker === "median" || marker === "both") dot(xS(medX), yS(medY), grp.color, "#fff");
+    // Mean marker — hollow ring in "both", filled when alone
+    if (marker === "mean" || marker === "both")
+      dot(xS(mX), meanCy, marker === "both" ? "none" : grp.color, "#fff");
 
-    labelRows.push({ grp, mX, mY, medX, medY, anchorY: yS((medY + mY) / 2) });
+    labelRows.push({ grp, mY, medY, anchorY: yS((medY + mY) / 2) });
   });
 
   // ── Right-margin labels (spaced) ──────────────────────────────────────────
@@ -211,9 +208,9 @@ function renderBridge(container, voters, view, marker, coalitionKey) {
 
   const markerWord = marker === "both" ? "median (filled) + mean (hollow)" : marker;
   window.renderFigSpec("data-bridge", {
-    population: `<strong>All voters</strong> as the faint grey field, with each candidate's ${coalitionKey === "primary" ? "primary" : "general-election"} voters overlaid as colored shapes.`,
+    population: `<strong>Same party blobs as Fig 2</strong> (Dem/Ind/Rep, all voters), with markers for each candidate's ${coalitionKey === "primary" ? "primary" : "general-election"} voters.`,
     x: "Ideology (V161126), left −1 to right +1.",
     y: "Institutional trust — 3-item index, clipped at 0.6.",
-    marks: `Grey = whole electorate. Colored density shape per candidate group + ${markerWord} marker. Trust is floor-skewed, so mean sits above median.`,
+    marks: `Party density blobs (identical to Fig 2) + ${markerWord} marker per candidate group. Trust is floor-skewed, so mean sits above median.`,
   });
 }
