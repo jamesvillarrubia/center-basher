@@ -7,11 +7,11 @@
  *   Clinton general  — solid filled blue contours
  *   Trump general    — solid filled red contours
  *
- * Y-axis labels show actual Likert response options (V161215 is 5-point).
+ * Y-axis is the 3-item systemic-trust index (0–1, higher = more trust).
  * Trust centroids labeled directly on the chart, not in a legend.
  *
- * Data note: trust only takes values 0, 0.25, 0.5, 0.75, 1.0 (5-pt scale).
- * Median voter = 0.25 ("some of the time"). The bottom-half clustering is real.
+ * Data note: 2016 institutional trust was floor-heavy — population mean 0.22,
+ * median 0.17. The bottom-half clustering is real, not an artifact.
  */
 
 window.drawChartSwing = function (voters) {
@@ -22,7 +22,7 @@ window.drawChartSwing = function (voters) {
     {
       key: "trump_general",
       label: "Trump general",
-      sublabel: "n=1,002 · trust=0.28",
+      sublabel: "n=1,002 · trust=0.14",
       color: "#f06060",
       solid: true,
       filter: v => v.vote === "trump",
@@ -30,7 +30,7 @@ window.drawChartSwing = function (voters) {
     {
       key: "clinton_general",
       label: "Clinton general",
-      sublabel: "n=1,061 · trust=0.42",
+      sublabel: "n=1,064 · trust=0.28",
       color: "#5b9cf6",
       solid: true,
       filter: v => v.vote === "clinton",
@@ -38,7 +38,7 @@ window.drawChartSwing = function (voters) {
     {
       key: "sanders_primary",
       label: "Sanders primary",
-      sublabel: "n=339 · trust=0.37",
+      sublabel: "n=339 · trust=0.22",
       color: "#c97fff",
       solid: false,
       filter: v => v.primary_vote === "sanders",
@@ -46,19 +46,19 @@ window.drawChartSwing = function (voters) {
     {
       key: "clinton_primary",
       label: "Clinton primary",
-      sublabel: "n=444 · trust=0.46",
+      sublabel: "n=445 · trust=0.32",
       color: "#91bef9",
       solid: false,
       filter: v => v.primary_vote === "clinton",
     },
   ];
 
-  // Centroids for direct labeling
+  // Centroids for direct labeling (3-item systemic-trust index)
   const centroids = {
-    trump_general:   { x:  0.460, y: 0.283 },
-    clinton_general: { x: -0.333, y: 0.422 },
-    sanders_primary: { x: -0.421, y: 0.367 },
-    clinton_primary: { x: -0.347, y: 0.460 },
+    trump_general:   { x:  0.460, y: 0.136 },
+    clinton_general: { x: -0.332, y: 0.277 },
+    sanders_primary: { x: -0.421, y: 0.224 },
+    clinton_primary: { x: -0.346, y: 0.324 },
   };
 
   const W = container.clientWidth || 680;
@@ -74,29 +74,42 @@ window.drawChartSwing = function (voters) {
 
   const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
+  // Trust axis is clipped to the populated range: ~91% of voters score below
+  // 0.5 and the highest group centroid is 0.32, so plotting full 0–1 wastes the
+  // top half. We cap at 0.6 so the four groups' vertical separation is legible.
+  const TRUST_MAX = 0.6;
   const xS = d3.scaleLinear().domain([-1, 1]).range([0, iW]);
-  const yS = d3.scaleLinear().domain([0, 1]).range([iH, 0]);
+  const yS = d3.scaleLinear().domain([0, TRUST_MAX]).range([iH, 0]);
 
-  // Quadrant fills
-  [[0, iH/2, iW/2, iH/2], [iW/2, iH/2, iW/2, iH/2],
-   [0, 0,    iW/2, iH/2], [iW/2, 0,    iW/2, iH/2]].forEach(([qx, qy, qw, qh], i) => {
-    g.append("rect").attr("x", qx).attr("y", qy).attr("width", qw).attr("height", qh)
-      .attr("fill", i < 2 ? "#1e1826" : "#121b1a").attr("opacity", 0.6);
-  });
-
+  // Ideology left/right shading (no trust-based quadrants — the split would be
+  // arbitrary on a clipped axis)
+  g.append("rect").attr("x", 0).attr("y", 0).attr("width", iW/2).attr("height", iH)
+    .attr("fill", "#1e1826").attr("opacity", 0.5);
+  g.append("rect").attr("x", iW/2).attr("y", 0).attr("width", iW/2).attr("height", iH)
+    .attr("fill", "#121b1a").attr("opacity", 0.5);
   g.append("line").attr("x1", iW/2).attr("x2", iW/2).attr("y1", 0).attr("y2", iH)
     .attr("stroke", "#ffffff18").attr("stroke-dasharray", "4,4");
-  g.append("line").attr("x1", 0).attr("x2", iW).attr("y1", iH/2).attr("y2", iH/2)
-    .attr("stroke", "#ffffff18").attr("stroke-dasharray", "4,4");
+
+  // Reference line at the population mean trust (0.22)
+  const MEAN_TRUST = 0.22;
+  g.append("line").attr("x1", 0).attr("x2", iW).attr("y1", yS(MEAN_TRUST)).attr("y2", yS(MEAN_TRUST))
+    .attr("stroke", "#ffffff28").attr("stroke-dasharray", "2,3");
+  g.append("text").attr("x", iW - 2).attr("y", yS(MEAN_TRUST) - 4)
+    .attr("text-anchor", "end").attr("fill", "#ffffff50").attr("font-size", 9)
+    .text("← all-voter average (0.22)");
+
+  // Ideology is 7-pt ordinal; jitter within each cell so contours read as
+  // clouds. Centroid dots below still use the exact (un-jittered) means.
+  const jittered = window.jitterVoters(voters, { xAmt: 0.13, yAmt: 0.05 });
 
   // Density contours — draw solid (filled) groups first, then dashed (outline) on top
   const densityGen = d3.contourDensity()
     .x(d => xS(d.x)).y(d => yS(d.y))
-    .size([iW, iH]).bandwidth(32).thresholds(8);
+    .size([iW, iH]).bandwidth(30).thresholds(8);
 
   // Draw solid groups (general election) first
   groups.filter(g2 => g2.solid).forEach(grp => {
-    const pts = voters.filter(grp.filter);
+    const pts = jittered.filter(grp.filter);
     const contours = densityGen(pts);
     const maxVal = d3.max(contours, d => d.value) || 1;
 
@@ -111,7 +124,7 @@ window.drawChartSwing = function (voters) {
 
   // Draw dashed (primary) groups on top — slight fill so they're visible
   groups.filter(g2 => !g2.solid).forEach(grp => {
-    const pts = voters.filter(grp.filter);
+    const pts = jittered.filter(grp.filter);
     const contours = densityGen(pts);
     const maxVal = d3.max(contours, d => d.value) || 1;
 
@@ -170,17 +183,16 @@ window.drawChartSwing = function (voters) {
       .text(grp.sublabel);
   });
 
-  // Axes — y-axis uses actual Likert response labels
+  // Axes — y-axis is the continuous 3-item systemic-trust index (0–1)
   const xAxis = d3.axisBottom(xS).ticks(5)
     .tickFormat(v => v === -1 ? "← Left" : v === 1 ? "Right →" : v === 0 ? "Center" : "");
 
-  const yTickVals = [0, 0.25, 0.5, 0.75, 1.0];
+  const yTickVals = [0, 0.2, 0.4, 0.6];
   const yTickLabels = {
-    0:    "Never",
-    0.25: "Some of the time",
-    0.5:  "Half the time",
-    0.75: "Most of the time",
-    1.0:  "Always",
+    0:   "No trust",
+    0.2: "0.2",
+    0.4: "0.4",
+    0.6: "0.6 →",
   };
   const yAxis = d3.axisLeft(yS)
     .tickValues(yTickVals)
@@ -192,7 +204,7 @@ window.drawChartSwing = function (voters) {
     .selectAll("text").attr("fill", "#8888a8").attr("font-size", 10);
   g.selectAll(".domain, .tick line").attr("stroke", "#444");
 
-  // Horizontal grid lines at each Likert value
+  // Horizontal grid lines
   yTickVals.forEach(v => {
     g.append("line")
       .attr("x1", 0).attr("x2", iW)
@@ -205,9 +217,17 @@ window.drawChartSwing = function (voters) {
   g.append("text").attr("transform", "rotate(-90)")
     .attr("x", -iH/2).attr("y", -52)
     .attr("text-anchor", "middle").attr("class", "axis-label")
-    .text("Trust in government (V161215)");
+    .text("Institutional trust (3-item index)");
 
   g.append("text").attr("x", iW/2).attr("y", -18)
     .attr("text-anchor", "middle").attr("fill", "#8888a8").attr("font-size", 11)
     .text("Solid = general election voters  ·  Dashed outline = primary voters");
+
+  const n = k => voters.filter(groups.find(gp => gp.key === k).filter).length;
+  window.renderFigSpec("data-swing", {
+    population: `<strong>Four overlaid subgroups</strong> — Trump general voters (${n("trump_general")}) and Clinton general voters (${n("clinton_general")}) by reported vote (V162034a); Sanders primary voters (${n("sanders_primary")}) and Clinton primary voters (${n("clinton_primary")}) by primary vote (V161021a). Not all voters.`,
+    x: "Ideology (V161126), left −1 to right +1.",
+    y: "Institutional trust — 3-item systemic index. <strong>Axis clipped at 0.6</strong> (only ~9% of voters score higher) so the groups don't crush at the bottom.",
+    marks: "Density contours per group (solid = general, dashed = primary) + a dot at each group's exact centroid. Dashed line = all-voter average trust (0.22).",
+  });
 };

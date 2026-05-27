@@ -10,10 +10,12 @@
  *     Estimated (flag:true): no direct ANES item; derived from DW-NOMINATE + polling.
  *
  *   y (institutional trust):
- *     ANES-grounded: voter-base centroid = mean V161215 trust of candidate's voters.
- *       V161215: "How often can you trust the government in Washington to do what
- *       is right?" 1=Always…5=Never, inverted to 0–1 (higher = more trust).
- *     ANES feeling thermometer (non-2016 presidential): mean V161215 trust of
+ *     ANES-grounded: voter-base centroid = mean 3-item systemic-trust index of
+ *       candidate's voters. Index = mean of V161215 (trust govt to do right),
+ *       V161216 (run for benefit of all), V161217 (doesn't waste tax money),
+ *       each recoded 0–1 (higher = more trust). r=−0.35 with Trump vote; α=0.59.
+ *       (Perceived corruption, V161218, is excluded — it taps a separate axis.)
+ *     ANES feeling thermometer (non-2016 presidential): mean 3-item trust of
  *       respondents who rated the figure favorably (>50°) in 2016 ANES.
  *     DW-NOMINATE 2nd dim (y_off): insider/outsider posture proxy for legislators.
  *       Normalized: NOMINATE 2nd dim → (value + 1) / 2.
@@ -42,17 +44,17 @@ window.CANDIDATES = [
     cycle: "2016", party: "dem",
     dataTier: 1,
     x_off: -0.374, y_off: 0.85,
-    // x_per: mean self-reported ideology (V161126) of Clinton general voters, n=1061
-    // y_per: mean V161215 trust of Clinton general voters, n=1061
-    x_per: -0.333, y_per: 0.422,
-    xSource: "TIER 1 — ANES voter-base centroid: mean V161126 ideology of Clinton voters = −0.333 (n=1,061). DW-NOMINATE Senate x_off = −0.374 (voteview.com).",
-    ySource: "TIER 1 — ANES voter-base centroid: mean V161215 trust of Clinton voters = 0.422 (n=1,061; population mean 0.36). Also: V161162 honest trait = 3.95/5 (5=not honest at all); feeling therm V161086 = 42.1/100.",
+    // x_per: mean self-reported ideology (V161126) of Clinton general voters, n=1064
+    // y_per: mean 3-item systemic-trust index of Clinton general voters, n=1064
+    x_per: -0.332, y_per: 0.277,
+    xSource: "TIER 1 — ANES voter-base centroid: mean V161126 ideology of Clinton voters = −0.332 (n=1,064). DW-NOMINATE Senate x_off = −0.374 (voteview.com).",
+    ySource: "TIER 1 — ANES voter-base centroid: mean 3-item systemic-trust index of Clinton voters = 0.277 (n=1,064; population mean 0.22 — highest-trust major bloc). Also: V161162 honest trait = 3.95/5 (5=not honest at all); feeling therm V161086 = 42.1/100.",
     dataPoints: {
       anes_ideology_placement: 2.73,
       anes_honest_score: 3.95,
       anes_cares_score: 3.52,
       feeling_therm_pre: 42.1,
-      voter_trust_centroid: 0.422,
+      voter_trust_centroid: 0.277,
     },
     flag: false,
   },
@@ -65,16 +67,16 @@ window.CANDIDATES = [
     dataTier: 1,
     x_off: null, y_off: null,
     // x_per: mean self-reported ideology (V161126) of Trump general voters, n=1002
-    // y_per: mean V161215 trust of Trump general voters, n=1002
-    x_per: 0.460, y_per: 0.283,
+    // y_per: mean 3-item systemic-trust index of Trump general voters, n=1002
+    x_per: 0.460, y_per: 0.136,
     xSource: "TIER 1 — ANES voter-base centroid: mean V161126 ideology of Trump voters = +0.460 (n=1,002). No DW-NOMINATE x_off — no pre-2016 legislative record. All-voter ideology placement V161129 = 4.87/7 (+0.29), lower than voter self-placement.",
-    ySource: "TIER 1 — ANES voter-base centroid: mean V161215 trust of Trump voters = 0.283 (n=1,002; 0.14 below population mean). V161167 honest trait = 3.72/5 (better than Clinton 3.95). Enders & Uscinski (2021): distrust is primary predictor of Trump support controlling for ideology.",
+    ySource: "TIER 1 — ANES voter-base centroid: mean 3-item systemic-trust index of Trump voters = 0.136 (n=1,002; 0.08 below population mean 0.22 — lowest-trust major bloc). V161167 honest trait = 3.72/5 (better than Clinton 3.95). Enders & Uscinski (2021): distrust is primary predictor of Trump support controlling for ideology.",
     dataPoints: {
       anes_ideology_placement: 4.87,
       anes_honest_score: 3.72,
       anes_cares_score: 3.87,
       feeling_therm_pre: 37.0,
-      voter_trust_centroid: 0.283,
+      voter_trust_centroid: 0.136,
     },
     flag: false,
   },
@@ -87,13 +89,13 @@ window.CANDIDATES = [
     dataTier: 2,
     x_off: -0.543, y_off: 0.08,
     // x_per: mean self-reported ideology (V161126) of Sanders PRIMARY voters, n=339
-    // y_per: mean V161215 trust of Sanders PRIMARY voters, n=339
+    // y_per: mean 3-item systemic-trust index of Sanders PRIMARY voters, n=339
     // Same methodology as Clinton/Trump general centroids — best available ANES data.
-    x_per: -0.421, y_per: 0.367,
+    x_per: -0.421, y_per: 0.224,
     xSource: "TIER 2 — ANES primary voter centroid: mean V161126 ideology of Sanders primary voters = −0.421 (n=339). DW-NOMINATE Senate x_off = −0.543 (voteview.com) — further left than his voters placed themselves.",
-    ySource: "TIER 2 — ANES primary voter centroid: mean V161215 trust of Sanders primary voters = 0.367 (n=339). Between Trump voters (0.283) and Clinton voters (0.422) — closer to Trump than Clinton on the trust axis. Enders & Uscinski (2021): distrust predicts Sanders support as strongly as Trump support.",
+    ySource: "TIER 2 — ANES primary voter centroid: mean 3-item systemic-trust index of Sanders primary voters = 0.224 (n=339). Sits below the Clinton primary bloc (0.324), between Clinton and Trump primary voters (0.115) on the trust axis. Enders & Uscinski (2021): distrust predicts Sanders support as strongly as Trump support.",
     flag: true,
-    flagNote: "TIER 2 — Primary voter centroid (no general election data). x=−0.421, y=0.367 (n=339 ANES primary voters).",
+    flagNote: "TIER 2 — Primary voter centroid (no general election data). x=−0.421, y=0.224 (n=339 ANES primary voters).",
   },
 
   // ─── 2016 ANES THERMOMETER FIGURES — TIER 2 ──────────────────────────────
@@ -106,10 +108,10 @@ window.CANDIDATES = [
     dataTier: 2,
     x_off: -0.372, y_off: 0.55,
     // ANES 2016 V161092 "Previous President" feeling thermometer:
-    //   favorable raters (>50°, n=2319): mean ideology = −0.249, mean trust = 0.429
-    x_per: -0.249, y_per: 0.429,
+    //   favorable raters (>50°, n=2319): mean ideology = −0.249, mean 3-item trust = 0.300
+    x_per: -0.249, y_per: 0.300,
     xSource: "TIER 2 — ANES 2016 V161092 (feeling therm: previous president = Obama): mean self-ideology of favorable raters (>50°) = −0.249 (n=2,319). DW-NOMINATE Senate x_off = −0.372.",
-    ySource: "TIER 2 — ANES 2016: mean V161215 trust of respondents who rated Obama favorably (>50°) = 0.429 (n=2,319). Obama ran as 'change' insurgent in 2008; governed institutionally. Approval-based trust measure captures the perceived establishment shift.",
+    ySource: "TIER 2 — ANES 2016: mean 3-item systemic-trust index of respondents who rated Obama favorably (>50°) = 0.300 (n=2,319). Obama ran as 'change' insurgent in 2008; governed institutionally. Approval-based trust measure captures the perceived establishment shift.",
     flag: false,
   },
 

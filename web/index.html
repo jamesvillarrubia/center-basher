@@ -27,6 +27,7 @@
       </p>
       <span class="fig-label">Figure 1 · 1D spectrum</span>
       <div id="chart-1d" class="chart-container" aria-label="1D ideology spectrum"></div>
+      <div class="fig-data" id="data-1d"></div>
       <p class="annotation">
         On this view, "Independent" = "moderate." Winning them means triangulating
         toward the middle on policy.
@@ -39,11 +40,13 @@
       <h2>Add trust. The map changes.</h2>
       <p>
         What if we plot the same voters on two axes: left-right ideology
-        <em>and</em> trust in institutions — government, Congress, media, courts?
-        Data from the 2016 American National Election Study (n=2,877).
+        <em>and</em> a 3-item index of trust in government — does it do what's right,
+        run for everyone, spend money wisely? Data from the 2016 American National
+        Election Study (n=3,301).
       </p>
       <span class="fig-label">Figure 2 · Ideology × trust</span>
       <div id="chart-2d" class="chart-container" aria-label="2D ideology × trust scatter"></div>
+      <div class="fig-data" id="data-2d"></div>
       <div class="legend" id="legend-2d"></div>
       <p class="annotation">
         The "center" empties out. Most voters who look moderate on policy
@@ -52,10 +55,31 @@
       </p>
     </section>
 
+    <!-- ACT 2½: From the electorate to the candidates -->
+    <section class="act" id="act-bridge">
+      <div class="act-label">From the crowd to the candidates</div>
+      <h2>Within one primary, trust sorts the candidates.</h2>
+      <p>
+        Same axes as above. The faint grey is the <em>whole electorate</em>; each colored
+        shape is one candidate's voters. Inside the <strong>Democratic primary</strong>,
+        Clinton's voters and Sanders' voters split on trust — Sanders' sit lower on both
+        the mean (0.32 → 0.22) and the median (0.25 → 0.17). Trust, not ideology, is what
+        separated them.
+      </p>
+      <span class="fig-label">Figure 2B · Crowd → candidates</span>
+      <div id="chart-bridge" class="chart-container" aria-label="Candidate voter groups within the full electorate"></div>
+      <div class="fig-data" id="data-bridge"></div>
+      <p class="annotation">
+        Trust is skewed off the floor, so the <strong>mean</strong> (hollow ring) floats above
+        each blob while the <strong>median</strong> (filled dot) sits inside it. Toggle between
+        them — Sanders stays below Clinton either way.
+      </p>
+    </section>
+
     <!-- ACT 3: Primary vs general — the trust gap -->
     <section class="act" id="act-3">
       <div class="act-label">The punchline</div>
-      <h2>Bernie voters and Trump voters share the same low-trust space. Hillary's don't.</h2>
+      <h2>Bernie voters and Trump voters are both low-trust. Hillary's aren't.</h2>
       <p>
         Using ANES pre-election primary vote reports: where do each candidate's
         <em>own voters</em> actually sit in ideology × trust space?
@@ -63,11 +87,14 @@
       </p>
       <span class="fig-label">Figure 3 · Primary vs general</span>
       <div id="chart-swing" class="chart-container" aria-label="Primary vs general voter distributions"></div>
+      <div class="fig-data" id="data-swing"></div>
       <p class="annotation">
-        Clinton primary voters cluster around trust=0.460. Sanders primary voters
-        sit at 0.367 — far closer to Trump primary voters (0.259) than to Clinton's base.
-        Yellow dots = voters who went Sanders in the primary, Trump in the general.
-        On a 1D map, Hillary sits between Bernie and Trump. In trust-space, she's the outlier.
+        Clinton's voters are the high-trust bloc (primary 0.32, general 0.28). Sanders'
+        primary voters (0.22) sit well below them, down in the low-trust band toward
+        Trump's voters (general 0.14) — between the two, but on the distrustful side of
+        the Clinton wall. The Bernie→Trump switchers were near-centrist on ideology
+        (x≈0) and bottom of the trust axis. On a 1D map Hillary sits between Bernie and
+        Trump; on the trust axis she's the high-trust outlier.
       </p>
     </section>
 
@@ -88,6 +115,7 @@
       </p>
       <span class="fig-label">Figure 4 · Official vs perceived</span>
       <div id="chart-candidates" class="chart-container" aria-label="Candidate positions, official vs perceived"></div>
+      <div class="fig-data" id="data-candidates"></div>
       <div class="legend" id="legend-candidates"></div>
       <p class="annotation">
         Data tiers: <strong>Tier 1</strong> = ANES voter-base centroids (2016 general election, fully grounded).
@@ -104,7 +132,7 @@
       <h2>Whose coalition overlapped with the contestable mass?</h2>
       <p>
         The terrain is the <strong>moveable voter mass</strong> — undecided and disengaged
-        voters, the only people whose vote is actually up for grabs (n=1,025).
+        voters, the only people whose vote is actually up for grabs (n=1,028).
         The dashed blobs are each candidate's <em>primary coalition</em>.
         The question is the overlap: whose supporters sat inside the contestable zone?
       </p>
@@ -116,6 +144,7 @@
       </p>
       <span class="fig-label">Figure 5 · Coalition overlap</span>
       <div id="chart-gravity" class="chart-container" aria-label="Primary coalition blobs overlaid on moveable voter terrain"></div>
+      <div class="fig-data" id="data-gravity"></div>
 
       <p style="margin-top:1.25rem;color:var(--text-dim)">
         Among Sanders' 339 primary voters: 62% voted Clinton, 21% didn't vote, 7% voted Trump.
@@ -124,6 +153,7 @@
       </p>
       <span class="fig-label">Figure 6 · Sanders redistribution</span>
       <div id="chart-gravity-bars" class="chart-container" aria-label="Sanders primary voter redistribution"></div>
+      <div class="fig-data" id="data-gravity-bars"></div>
 
       <p class="annotation">
         Research basis: Lenz (2012) <em>Follow the Leader</em> documents that voters
@@ -168,11 +198,35 @@
     <section class="methodology" id="methodology">
       <h2>Methodology &amp; Sources</h2>
       <p>
-        <strong>Voter data:</strong> ANES 2016 Time Series (Sep 2019 release, n=4,270; 3,297 with
+        <strong>Voter data:</strong> ANES 2016 Time Series (Sep 2019 release, n=4,270; 3,301 with
         valid ideology + trust scores). Ideology: V161126 (7-point, rescaled −1 to +1, 99="haven't
-        thought about it" treated as missing). Trust index: V161215 ("How often trust government in
-        Washington to do what is right," 1=Always to 5=Never; inverted and normalized 0–1;
-        r=−0.330 with Trump vote). Party ID: V161159 (5-point summary). Vote: V162034a.
+        thought about it" treated as missing). Party ID: V161159 (5-point summary). Vote: V162034a.
+      </p>
+      <p>
+        <strong>Trust index (3-item systemic):</strong> mean of V161215 (trust government to do
+        what is right), V161216 (run for benefit of all vs. a few big interests), and V161217
+        (whether government wastes tax money) — each recoded so higher = more trust and normalized
+        0–1. The three cohere (Cronbach α=0.59) and the index correlates r=−0.35 with Trump vote,
+        stronger than any single item. 2016 trust was floor-heavy: population mean 0.22, median 0.17.
+        An earlier single-item version (V161215 only) was both weaker and forced visible Likert
+        banding; this index resolves both.
+      </p>
+      <p>
+        <strong>Why corruption is excluded.</strong> The ANES battery's corruption item (V161218,
+        "how many running government are corrupt") runs <em>opposite</em> the three systemic items
+        and <em>positively</em> predicts Trump vote — so averaging it in cancels signal (α collapses
+        to 0.16). It taps a different, incumbent-relative dimension: measured pre-election under a
+        Democratic administration, Clinton voters rated government <em>more</em> corrupt (0.55) than
+        Trump voters did (0.43). "Corruption" in 2016 was a contested, bipartisan frame; Trump's
+        anti-corruption appeal ran through <em>systemic rigging</em> ("drain the swamp"), captured by
+        the three systemic items where his voters score lowest-trust — not through diffuse venality.
+      </p>
+      <p>
+        <strong>Caveat — trust is partly partisan.</strong> Institutional trust tracks who holds the
+        White House (Hetherington 2005; Citrin &amp; Stoker 2018): the in-party trusts more. The 2016
+        ANES was collected under Obama, which inflates Democratic and deflates Republican readings.
+        The thesis rests on groups outside the in-party — independents and Sanders primary voters,
+        who sit low regardless — and on within-2016 vote behavior.
       </p>
       <p>
         <strong>Candidate positions:</strong> Ideology from DW-NOMINATE first dimension (voteview.com)
@@ -210,9 +264,12 @@
 
   <script src="js/d3.min.js"></script>
   <script src="js/data.js"></script>
+  <script src="js/jitter.js"></script>
+  <script src="js/figspec.js"></script>
   <script src="js/candidates.js"></script>
   <script src="js/chart1d.js"></script>
   <script src="js/chart2d.js"></script>
+  <script src="js/chartBridge.js"></script>
   <script src="js/chartSwing.js"></script>
   <script src="js/chartCandidates.js"></script>
   <script src="js/chartGravity.js"></script>

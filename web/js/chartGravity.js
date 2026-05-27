@@ -14,7 +14,7 @@
  *
  * Sanders redistribution (general election vote of his 339 primary voters):
  *   Clinton 62% · No vote 21% · Trump 7% · 3rd party 10%
- *   Bernie→Trump voters: mean ideology x=−0.013 (near CENTER), trust=0.370
+ *   Bernie→Trump voters: mean ideology x=−0.013 (near CENTER), trust=0.203
  *   They switched on the trust axis, not ideology.
  */
 
@@ -22,15 +22,14 @@ const MOVEABLE_SEGS = new Set(["undecided_engaged", "undecided_disengaged", "dec
 
 // ── Electoral field (logistic regression on 2-party voters) ───────────────────
 // P(trump) = sigmoid(B0 + BX*x + BY*y)
-// Fitted on n=2,063 Clinton+Trump voters from ANES 2016.
-// Accuracy 83.6% vs 51.4% baseline.
-const FIELD_B0 =  0.5573;
-const FIELD_BX =  4.2732;  // ideology → Trump
-const FIELD_BY = -2.6720;  // trust → Clinton (negative)
+// Fitted on n=2,066 Clinton+Trump voters from ANES 2016 (3-item systemic trust).
+const FIELD_B0 =  0.2120;
+const FIELD_BX =  4.2707;  // ideology → Trump
+const FIELD_BY = -3.1097;  // trust → Clinton (negative)
 // Iso-probability line: y = (B0 + BX*x - logit(p)) / (-BY)
-// Slope of all lines: BX / (-BY) = 1.599  (1 ideology unit = 1.6 trust units, electorally)
-// P=0.5 line only crosses y∈[0,1] for x∈[0, 0.49] — trust only matters electorally
-// in the CENTER-RIGHT band. Left-leaning voters are off the bottom of the field.
+// Slope of all lines: BX / (-BY) = 1.373  (1 ideology unit = 1.37 trust units, electorally)
+// Trust only matters electorally in the CENTER-RIGHT band; left-leaning voters
+// are off the bottom of the field.
 
 function fieldY(p, x) {
   const logit = Math.log(p / (1 - p));
@@ -230,12 +229,15 @@ function renderOverlapMap(container, voters, candidates, stats, view, showField)
     { key: "rep", color: "#f06060", filter: v => baseFilter(v) && (v.party === "strong_rep" || v.party === "lean_rep") },
   ];
 
+  // Jitter ordinal points within their cells so blobs read smoothly (same as Act 2).
+  const jittered = window.jitterVoters(voters, { xAmt: 0.13, yAmt: 0.05 });
+
   const partyDensity = d3.contourDensity()
     .x(d => xS(d.x)).y(d => yS(d.y))
-    .size([iW, iH]).bandwidth(32).thresholds(8);
+    .size([iW, iH]).bandwidth(28).thresholds(8);
 
   partyGroups.forEach(grp => {
-    const pts = voters.filter(grp.filter);
+    const pts = jittered.filter(grp.filter);
     const contours = partyDensity(pts);
     const maxVal = d3.max(contours, d => d.value) || 1;
     g.append("g").selectAll("path").data(contours).join("path")
@@ -249,10 +251,10 @@ function renderOverlapMap(container, voters, candidates, stats, view, showField)
   // ── Moveable voter highlight (overlap view only) ──────────────────────────
   // Thin bright contour showing where the contestable mass concentrates
   if (view.key === "overlap") {
-    const moveableVoters = voters.filter(v => MOVEABLE_SEGS.has(v.segment) && v.x != null && v.y != null);
+    const moveableVoters = jittered.filter(v => MOVEABLE_SEGS.has(v.segment) && v.x != null && v.y != null);
     const movDensity = d3.contourDensity()
       .x(d => xS(d.x)).y(d => yS(d.y))
-      .size([iW, iH]).bandwidth(30).thresholds(5)(moveableVoters);
+      .size([iW, iH]).bandwidth(28).thresholds(5)(moveableVoters);
     const movMax = d3.max(movDensity, d => d.value) || 1;
     // Only draw the outer 2 contours — marks the mass location, doesn't obscure party blobs
     movDensity.slice(-2).forEach(contour => {
@@ -363,6 +365,23 @@ function renderOverlapMap(container, voters, candidates, stats, view, showField)
   g.append("text").attr("x", iW/2).attr("y", -20)
     .attr("text-anchor", "middle").attr("fill", "#8888a8").attr("font-size", 11)
     .text(sub);
+
+  const nMov = voters.filter(v => MOVEABLE_SEGS.has(v.segment) && v.x != null).length;
+  const nLocked = voters.filter(v => v.segment === "decided_engaged" && v.x != null).length;
+  const fieldNote = showField ? " Electoral-field iso-probability lines overlaid." : "";
+  window.renderFigSpec("data-gravity", view.key === "contrast"
+    ? {
+        population: `<strong>Locked-in voters only</strong> — decided AND engaged (n=${nLocked}) — as party blobs. Candidate dots = 2016 primary centroids.`,
+        x: "Ideology (V161126), left −1 to right +1.",
+        y: "Institutional trust — 3-item systemic index, 0 to 1.",
+        marks: `Party density blobs (Dem/Ind/Rep) + candidate centroid dots.${fieldNote}`,
+      }
+    : {
+        population: `<strong>All voters</strong> (n=${allN}) as party blobs, with the <strong>moveable mass</strong> (undecided OR disengaged, n=${nMov}) drawn on top. Candidate dots = 2016 primary centroids.`,
+        x: "Ideology (V161126), left −1 to right +1.",
+        y: "Institutional trust — 3-item systemic index, 0 to 1.",
+        marks: `Party density blobs + dashed-yellow moveable-mass contour + candidate centroid dots.${fieldNote}`,
+      });
 }
 
 
@@ -473,4 +492,11 @@ function drawSandersFlow(container, voters, stats) {
   g.append("text").attr("x", iW / 2).attr("y", -10)
     .attr("text-anchor", "middle").attr("fill", "#8888a8").attr("font-size", 10)
     .text("Bernie→Trump voters had near-centrist ideology (x ≈ 0) — they switched on trust, not policy");
+
+  window.renderFigSpec("data-gravity-bars", {
+    population: `<strong>Sanders primary voters only</strong> (top row, n=${sandersPrimary.length}); bottom row = the moveable subset of them (undecided OR disengaged, n=${sandersMoveable.length}).`,
+    x: "Share of the group (bar width = % of that row).",
+    y: "<strong>Categorical</strong> — two rows, not a measured axis.",
+    marks: "Stacked bars colored by 2016 general-election vote (V162034a).",
+  });
 }

@@ -128,6 +128,38 @@ footer a { color: var(--text-dim); }
   border-radius: 4px;
 }
 
+/* Explicit "what's in this chart" spec, rendered by figspec.js */
+.fig-data {
+  margin: -0.5rem 0 1.5rem;
+  padding: 0.6rem 0.85rem;
+  background: #14141b;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-swing);
+  border-radius: 0 6px 6px 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.fig-data-row {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: 0.5rem;
+}
+
+.fig-data-row + .fig-data-row { margin-top: 0.2rem; }
+
+.fig-data-key {
+  color: var(--text-dim);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  padding-top: 0.14rem;
+}
+
+.fig-data-val { color: var(--text); }
+.fig-data-val strong { color: #fff; }
+
 svg text { font-family: var(--font-sans); }
 
 /* ── Legend ──────────────────────────────────────────── */

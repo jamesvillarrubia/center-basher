@@ -222,4 +222,12 @@ window.drawChartCandidates = function (candidates) {
     grid.appendChild(item);
   });
   legendEl.appendChild(grid);
+
+  const nGrounded = cands.filter(c => (c.dataTier || 0) <= 2).length;
+  window.renderFigSpec("data-candidates", {
+    population: `<strong>Candidates & figures</strong> (n=${cands.length}), not voters: ${nGrounded} ANES-grounded (2016 + Obama), the rest estimated across cycles.`,
+    x: "<strong>Perceived</strong> ideology — where voters placed each candidate.",
+    y: `<strong>Institutional posture</strong> (anti- to pro-institution) — a constructed cross-cycle measure. NOT the 3-item voter-trust index used in Figs 2, 3, 5.`,
+    marks: "Solid dot = perceived position · hollow ring = official DW-NOMINATE · line = perception gap. Yellow border = estimated.",
+  });
 };
