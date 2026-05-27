@@ -1,9 +1,9 @@
 /**
  * chartBridge.js — Act 2½: from the whole electorate to each candidate's voters.
  *
- * Bridges Fig 2 (all voters in ideology × trust space) and Fig 3 (the group
- * comparison). The full electorate is drawn as a faint grey field; each
- * candidate's voter group is overlaid as a colored density SHAPE plus a marker.
+ * Bridges Fig 2 (all voters in ideology × trust space) and Fig 4 (the group
+ * comparison). Uses Fig 2's party blobs as the field, with each candidate's
+ * voter group overlaid as mean/median markers.
  *
  * Toggles let you compare what's actually being summarized:
  *   Coalition: primary voters  vs  general-election voters
