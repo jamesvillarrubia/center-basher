@@ -109,7 +109,7 @@ window.drawChartSwing = function (voters) {
       .attr("stroke-opacity", d => 0.1 + 0.6 * (d.value / maxVal));
   });
 
-  // Draw dashed (primary) groups on top
+  // Draw dashed (primary) groups on top — slight fill so they're visible
   groups.filter(g2 => !g2.solid).forEach(grp => {
     const pts = voters.filter(grp.filter);
     const contours = densityGen(pts);
@@ -118,34 +118,44 @@ window.drawChartSwing = function (voters) {
     g.append("g").selectAll("path")
       .data(contours).join("path")
       .attr("d", d3.geoPath())
-      .attr("fill", "none")
-      .attr("stroke", grp.color).attr("stroke-width", 1.5)
+      .attr("fill", grp.color)
+      .attr("opacity", d => 0.02 + 0.09 * (d.value / maxVal))
+      .attr("stroke", grp.color).attr("stroke-width", 2)
       .attr("stroke-dasharray", "5,3")
-      .attr("stroke-opacity", d => 0.2 + 0.65 * (d.value / maxVal));
+      .attr("stroke-opacity", d => 0.35 + 0.60 * (d.value / maxVal));
   });
 
-  // Direct labels — one per group, placed near centroid, pushed right margin
-  const labelOffsets = {
-    trump_general:   { dx: 16, dy:  4 },
-    clinton_general: { dx: 16, dy: -4 },
-    sanders_primary: { dx: 16, dy:  4 },
-    clinton_primary: { dx: 16, dy: -4 },
-  };
+  // Right-margin labels — sort by centroid y, enforce ≥28px separation
+  const lx = iW + 8;
+  const labeled = groups.map(grp => ({
+    grp,
+    c: centroids[grp.key],
+    cy: yS(centroids[grp.key].y),
+    ly: yS(centroids[grp.key].y),  // label y, adjusted below
+  })).sort((a, b) => a.cy - b.cy);
 
-  groups.forEach(grp => {
-    const c = centroids[grp.key];
-    if (!c) return;
-    const cx = xS(c.x), cy = yS(c.y);
-    const off = labelOffsets[grp.key] || { dx: 12, dy: 0 };
+  const minGap = 28;
+  for (let i = 1; i < labeled.length; i++) {
+    if (labeled[i].ly - labeled[i - 1].ly < minGap) {
+      labeled[i].ly = labeled[i - 1].ly + minGap;
+    }
+  }
+  // Pull back up if we pushed past the bottom
+  for (let i = labeled.length - 2; i >= 0; i--) {
+    if (labeled[i + 1].ly - labeled[i].ly < minGap) {
+      labeled[i].ly = labeled[i + 1].ly - minGap;
+    }
+  }
+
+  labeled.forEach(({ grp, c, cy, ly }) => {
+    const cx = xS(c.x);
 
     // Centroid dot
     g.append("circle").attr("cx", cx).attr("cy", cy).attr("r", 5)
       .attr("fill", grp.color).attr("opacity", 0.9)
       .attr("stroke", "#fff").attr("stroke-width", 1);
 
-    // Leader line to right margin label area
-    const lx = iW + 8;
-    const ly = cy + off.dy;
+    // Leader line from centroid dot to label
     g.append("line")
       .attr("x1", cx + 6).attr("y1", cy)
       .attr("x2", lx).attr("y2", ly)
