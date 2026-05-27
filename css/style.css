@@ -1,0 +1,229 @@
+:root {
+  --bg: #0f0f13;
+  --surface: #1a1a22;
+  --border: #2e2e3e;
+  --text: #e8e8f0;
+  --text-dim: #8888a8;
+  --accent-left: #5b9cf6;
+  --accent-right: #f06060;
+  --accent-trust: #6be08a;
+  --accent-distrust: #f0a040;
+  --accent-swing: #c97fff;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Georgia", serif;
+  --max-w: 720px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Layout ─────────────────────────────────────────── */
+
+header {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 4rem 1.25rem 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.subtitle {
+  margin-top: 0.75rem;
+  color: var(--text-dim);
+  font-size: 1.1rem;
+}
+
+main {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 1.25rem 4rem;
+}
+
+footer {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 0.875rem;
+}
+
+footer a { color: var(--text-dim); }
+
+/* ── Acts / sections ─────────────────────────────────── */
+
+.act {
+  margin-top: 4rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.act-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.act h2 {
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.act p {
+  color: var(--text-dim);
+  margin-bottom: 1.25rem;
+}
+
+.annotation {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--text-dim) !important;
+  border-left: 2px solid var(--border);
+  padding-left: 1rem;
+}
+
+/* ── Charts ──────────────────────────────────────────── */
+
+.chart-container {
+  width: 100%;
+  margin: 1.5rem 0;
+  background: var(--surface);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+svg text { font-family: var(--font-sans); }
+
+/* ── Legend ──────────────────────────────────────────── */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: -0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Implications list ───────────────────────────────── */
+
+.implications {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.implications li {
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+
+.implications li strong {
+  display: block;
+  color: var(--text);
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+/* ── Methodology ─────────────────────────────────────── */
+
+.methodology {
+  margin-top: 3rem;
+}
+
+.methodology h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.methodology p {
+  font-size: 0.875rem;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+
+.methodology a {
+  color: var(--accent-left);
+}
+
+/* ── Axis labels (D3 shared styles) ─────────────────── */
+
+.axis-label {
+  font-size: 11px;
+  fill: var(--text-dim);
+}
+
+.quadrant-label {
+  font-size: 10px;
+  fill: var(--text-dim);
+  opacity: 0.5;
+}
+
+/* ── Tooltip ─────────────────────────────────────────── */
+
+.tooltip {
+  position: fixed;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  color: var(--text);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s;
+  z-index: 100;
+  max-width: 220px;
+}
+
+/* ── Mobile tweaks ───────────────────────────────────── */
+
+@media (max-width: 480px) {
+  header { padding: 2.5rem 1rem 1.5rem; }
+  main { padding: 0 1rem 3rem; }
+  .act { margin-top: 2.5rem; }
+}

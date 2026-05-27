@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Center Doesn't Exist</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>The Center Doesn't Exist</h1>
+    <p class="subtitle">
+      Why "swing voters" aren't moderates — they're the disillusioned
+    </p>
+  </header>
+
+  <main>
+
+    <!-- ACT 1: The familiar 1D story -->
+    <section class="act" id="act-1">
+      <div class="act-label">The conventional story</div>
+      <h2>Voters on a line</h2>
+      <p>
+        Political analysts love a simple left-right spectrum. Independents sit
+        in the middle. To win them, you move to the center.
+      </p>
+      <div id="chart-1d" class="chart-container" aria-label="1D ideology spectrum"></div>
+      <p class="annotation">
+        On this view, "Independent" = "moderate." Winning them means triangulating
+        toward the middle on policy.
+      </p>
+    </section>
+
+    <!-- ACT 2: Add the second axis -->
+    <section class="act" id="act-2">
+      <div class="act-label">A different lens</div>
+      <h2>Add trust. The map changes.</h2>
+      <p>
+        What if we plot the same voters on two axes: left-right ideology
+        <em>and</em> trust in institutions — government, Congress, media, courts?
+        Data from the 2016 American National Election Study (n=2,877).
+      </p>
+      <div id="chart-2d" class="chart-container" aria-label="2D ideology × trust scatter"></div>
+      <div class="legend" id="legend-2d"></div>
+      <p class="annotation">
+        The "center" empties out. Most voters who look moderate on policy
+        actually sit in the <strong>low-trust</strong> quadrant — not the
+        moderate quadrant.
+      </p>
+    </section>
+
+    <!-- ACT 3: Primary vs general — the trust gap -->
+    <section class="act" id="act-3">
+      <div class="act-label">The punchline</div>
+      <h2>Bernie voters and Trump voters share the same low-trust space. Hillary's don't.</h2>
+      <p>
+        Using ANES pre-election primary vote reports: where do each candidate's
+        <em>own voters</em> actually sit in ideology × trust space?
+        The dots mark each group's centroid. The blobs show their distribution.
+      </p>
+      <div id="chart-swing" class="chart-container" aria-label="Primary vs general voter distributions"></div>
+      <p class="annotation">
+        Clinton primary voters cluster around trust=0.460. Sanders primary voters
+        sit at 0.367 — far closer to Trump primary voters (0.259) than to Clinton's base.
+        Yellow dots = voters who went Sanders in the primary, Trump in the general.
+        On a 1D map, Hillary sits between Bernie and Trump. In trust-space, she's the outlier.
+      </p>
+    </section>
+
+    <!-- ACT 4: Where candidates actually stand -->
+    <section class="act" id="act-4">
+      <div class="act-label">Official vs. perceived</div>
+      <h2>Where candidates stand — and where voters think they stand</h2>
+      <p>
+        Solid dots = where voters <em>perceived</em> the candidate (ANES ideology placement,
+        rescaled). Hollow dots = official policy position (DW-NOMINATE legislative
+        voting record). The connecting line is the <strong>perception gap</strong>.
+      </p>
+      <p>
+        Clinton and Biden were among the most progressive Democrats on paper.
+        But voters placed them firmly in the high-institutional-trust, establishment
+        quadrant. Meanwhile, Clinton's ANES "honest" trait score (3.95/5) was
+        <em>worse</em> than Trump's (3.72/5) — the Goldman Sachs problem, in the data.
+      </p>
+      <div id="chart-candidates" class="chart-container" aria-label="Candidate positions, official vs perceived"></div>
+      <div class="legend" id="legend-candidates"></div>
+      <p class="annotation">
+        ⚠ marks positions estimated from rhetoric and endorsement data (no DW-NOMINATE
+        legislative record). Hover for source notes.
+      </p>
+    </section>
+
+    <!-- ACT 5: Gravitational wells -->
+    <section class="act" id="act-5">
+      <div class="act-label">Political gravity</div>
+      <h2>Whose well captures the disillusioned center?</h2>
+      <p>
+        Each voter is colored by their nearest 2016 candidate in 2D space (ideology × trust).
+        Bright dots are voters whose nearest candidate <em>changes</em> when you add
+        the trust axis — the 1D map gives the wrong answer for them.
+      </p>
+      <p>
+        The real voter mass is in the background. Where does Hillary's gravity well reach?
+        Where do Bernie's and Trump's wells overlap?
+      </p>
+      <div id="chart-gravity" class="chart-container" aria-label="Gravitational territory map"></div>
+
+      <p style="margin-top:1.25rem;color:var(--text-dim)">
+        <strong>Gravity mass</strong> — how many voters each candidate captures as their
+        nearest neighbor in 2D vs. 1D. The gap between bars shows voters Hillary loses
+        when the trust axis is added.
+      </p>
+      <div id="chart-gravity-bars" class="chart-container" aria-label="Gravity mass bar chart"></div>
+
+      <p class="annotation">
+        Research basis: Lenz (2012) <em>Follow the Leader</em> documents that voters
+        adopt the positions of their favored candidate over time as identity function —
+        not the other way around. Proximity in 2D predicts who they follow.
+      </p>
+    </section>
+
+    <!-- ACT 6: Implications -->
+    <section class="act" id="act-6">
+      <div class="act-label">So what?</div>
+      <h2>Moving to the "center" is the wrong map</h2>
+      <p>
+        If the dominant axis for swing voters is <strong>trust vs. distrust</strong>
+        — not left vs. right — then moderating policy positions to appeal to the center
+        is solving the wrong problem.
+      </p>
+      <ul class="implications">
+        <li>
+          <strong>Bernie → Trump, not Bernie → Hillary.</strong>
+          On a 1D map, Hillary is between Bernie and Trump. In 2D trust-space,
+          Trump and Bernie are in the same low-trust hemisphere. Hillary is not.
+        </li>
+        <li>
+          <strong>"Drain the swamp" is a trust message, not a policy message.</strong>
+          It works because the target audience is the low-trust quadrant — and it's
+          available to candidates on either side of the ideology axis.
+        </li>
+        <li>
+          <strong>Pelosi, Biden, Kamala, and Romney occupy the same quadrant.</strong>
+          High trust, moderate ideology. Swing voters in the low-trust center
+          feel no gravitational pull toward any of them — regardless of policy.
+        </li>
+        <li>
+          <strong>AOC, Sanders, Platner occupy the same quadrant as Trump.</strong>
+          Not on ideology — on the institutional trust axis. That's where the
+          disaffected voter mass lives. That's the contest.
+        </li>
+      </ul>
+    </section>
+
+    <section class="methodology" id="methodology">
+      <h2>Methodology &amp; Sources</h2>
+      <p>
+        <strong>Voter data:</strong> ANES 2016 Time Series (Sep 2019 release, n=4,270; 3,297 with
+        valid ideology + trust scores). Ideology: V161126 (7-point, rescaled −1 to +1, 99="haven't
+        thought about it" treated as missing). Trust index: V161215 ("How often trust government in
+        Washington to do what is right," 1=Always to 5=Never; inverted and normalized 0–1;
+        r=−0.330 with Trump vote). Party ID: V161159 (5-point summary). Vote: V162034a.
+      </p>
+      <p>
+        <strong>Candidate positions:</strong> Ideology from DW-NOMINATE first dimension (voteview.com)
+        where legislative record exists. Perceived ideology from ANES voter placement items (V161128
+        Clinton, V161129 Trump). Establishment posture constructed from endorsement patterns,
+        DW-NOMINATE second dimension (tracks insider/outsider since ~2010), and campaign rhetoric.
+        Estimated positions flagged with ⚠.
+      </p>
+      <p>
+        <strong>Key papers:</strong>
+        Hetherington (2005) <em>Why Trust Matters</em>;
+        Mutz (2018) "Status Threat, Not Economic Hardship" <em>PNAS</em>;
+        Lenz (2012) <em>Follow the Leader</em>;
+        Hutter &amp; Kriesi (2019) on populist electoral dynamics;
+        <a href="https://www.cambridge.org/core/journals/ps-political-science-and-politics/article/primary-distrust/578E3061392DDE1BF3BE3F615054F97A" target="_blank" rel="noopener">
+          Enders &amp; Uscinski (2021) "Primary Distrust"
+        </a> — directly tests institutional distrust as driver of both Trump and Sanders support.
+      </p>
+      <p>
+        Source code:
+        <a href="https://github.com/jamesvillarrubia/center-basher" target="_blank" rel="noopener">
+          github.com/jamesvillarrubia/center-basher
+        </a>
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>
+      Built by James Villarrubia ·
+      <a href="https://github.com/jamesvillarrubia/center-basher" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </footer>
+
+  <script src="js/d3.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/candidates.js"></script>
+  <script src="js/chart1d.js"></script>
+  <script src="js/chart2d.js"></script>
+  <script src="js/chartSwing.js"></script>
+  <script src="js/chartCandidates.js"></script>
+  <script src="js/chartGravity.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
