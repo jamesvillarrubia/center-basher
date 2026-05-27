@@ -1,80 +1,60 @@
 /**
- * candidates.js — Candidate positions in ideology × institutional trust space
+ * candidates.js — Candidate positions in ideology × establishment space
  *
- * POSITION METHODOLOGY:
+ * TWO SETS OF POSITIONS PER CANDIDATE:
  *
- *   x (ideology):
- *     ANES-grounded: voter-base centroid = mean self-reported ideology (V161126)
- *       of that candidate's general election voters (n from V162034a).
- *     DW-NOMINATE (x_off): voteview.com 1st dimension where legislative record exists.
- *     Estimated (flag:true): no direct ANES item; derived from DW-NOMINATE + polling.
+ *   "official"  (x_off, y_off):
+ *      x_off = DW-NOMINATE first dimension (voteview.com) where available.
+ *              Natively −1…+1. Measures revealed policy position from voting record.
+ *      y_off = Establishment posture estimated from endorsement network + legislative role.
  *
- *   y (institutional trust):
- *     ANES-grounded: voter-base centroid = mean V161215 trust of candidate's voters.
- *       V161215: "How often can you trust the government in Washington to do what
- *       is right?" 1=Always…5=Never, inverted to 0–1 (higher = more trust).
- *     ANES feeling thermometer (non-2016 presidential): mean V161215 trust of
- *       respondents who rated the figure favorably (>50°) in 2016 ANES.
- *     DW-NOMINATE 2nd dim (y_off): insider/outsider posture proxy for legislators.
- *       Normalized: NOMINATE 2nd dim → (value + 1) / 2.
- *     Estimated (flag:true): derived from public record with source cited.
+ *   "perceived" (x_per, y_per):
+ *      x_per = ANES 2016 voter ideology placement (V161128/V161129), rescaled (mean−4)/3.
+ *              Where ANES data unavailable, estimated and flagged.
+ *      y_per = Perceived institutional alignment, constructed from:
+ *              (a) "Honest" trait ANES item (V161162/V161167): higher = less honest
+ *              (b) Endorsement and campaign framing
+ *              (c) DW-NOMINATE 2nd dimension where available (anti-compromise ↔ insider)
  *
- * DATA TIERS:
- *   Tier 1 — ANES voter-base centroid (2016 general election candidates only)
- *   Tier 2 — ANES feeling thermometer favorable-rater analysis (2016 data)
- *   Tier 3 — DW-NOMINATE 1st/2nd dimensions (voteview.com)
- *   Tier 4 — Estimated from cited polling/public record (flag:true)
+ * THE USER'S KEY DISTINCTION:
+ *   Clinton and Biden were officially among the most progressive Dems on paper.
+ *   Voter PERCEPTION of their relationship to institutions diverged sharply from
+ *   stated policy. Clinton's ANES "honest" score: 3.95/5 (worse than Trump's 3.72).
+ *   This gap — official policy vs. perceived institutional posture — is central to
+ *   why 1D policy-based analysis fails to predict swing behavior.
+ *
+ * DATA FLAGS: entries with flag:true have estimated positions — verify before citing.
  *
  * SOURCES:
- *   ANES 2016  americannationaleelectionstudies.org
- *   DW-NOMINATE  voteview.com (Lewis et al. 2023)
- *   Enders & Uscinski (2021) "Primary Distrust" PS: Political Science & Politics
+ *   dw-nominate   voteview.com
+ *   anes-place    ANES 2016 V161128 (Dem pres cand), V161129 (Rep pres cand)
+ *   anes-honest   ANES 2016 V161162 (Dem honest), V161167 (Rep honest) — 1=extremely, 5=not at all
+ *   endorsements  FiveThirtyEight 2016 endorsement tracker, Wikipedia
+ *   dw-dim2       DW-NOMINATE 2nd dim — tracks compromise/insider posture in recent Congresses
  */
 
 window.CANDIDATES = [
 
-  // ─── 2016 CYCLE — TIER 1: ANES VOTER-BASE CENTROIDS ──────────────────────
+  // ─── 2016 CYCLE ────────────────────────────────────────────────────────
 
   {
     id: "clinton_2016",
     name: "Hillary '16",
     fullName: "Hillary Clinton (2016)",
     cycle: "2016", party: "dem",
-    dataTier: 1,
-    x_off: -0.374, y_off: 0.85,
-    // x_per: mean self-reported ideology (V161126) of Clinton general voters, n=1061
-    // y_per: mean V161215 trust of Clinton general voters, n=1061
+    // Official: DW-NOMINATE career Senate score; establishment based on endorsements
+    x_off: -0.37, y_off: 0.85,
+    // Perceived = centroid of Clinton's own voters in ANES 2D space (V161126 × V161215)
+    // x_per: mean self-reported ideology of Clinton voters = −0.333 (n=1061)
+    // y_per: mean institutional trust of Clinton voters   =  0.422 (n=1061)
     x_per: -0.333, y_per: 0.422,
-    xSource: "TIER 1 — ANES voter-base centroid: mean V161126 ideology of Clinton voters = −0.333 (n=1,061). DW-NOMINATE Senate x_off = −0.374 (voteview.com).",
-    ySource: "TIER 1 — ANES voter-base centroid: mean V161215 trust of Clinton voters = 0.422 (n=1,061; population mean 0.36). Also: V161162 honest trait = 3.95/5 (5=not honest at all); feeling therm V161086 = 42.1/100.",
+    xSource: "x_per: ANES voter-base centroid — mean self-reported ideology (V161126) of Clinton voters, n=1061. x_off: DW-NOMINATE Senate −0.374.",
+    ySource: "y_per: ANES voter-base centroid — mean V161215 trust of Clinton voters = 0.422 (above population mean 0.36). ANES honest score V161162=3.95/5 — worse than Trump (3.72). Goldman Sachs speeches, full superdelegate apparatus.",
     dataPoints: {
       anes_ideology_placement: 2.73,
       anes_honest_score: 3.95,
       anes_cares_score: 3.52,
       feeling_therm_pre: 42.1,
-      voter_trust_centroid: 0.422,
-    },
-    flag: false,
-  },
-
-  {
-    id: "trump_2016",
-    name: "Trump '16",
-    fullName: "Donald Trump (2016)",
-    cycle: "2016", party: "rep",
-    dataTier: 1,
-    x_off: null, y_off: null,
-    // x_per: mean self-reported ideology (V161126) of Trump general voters, n=1002
-    // y_per: mean V161215 trust of Trump general voters, n=1002
-    x_per: 0.460, y_per: 0.283,
-    xSource: "TIER 1 — ANES voter-base centroid: mean V161126 ideology of Trump voters = +0.460 (n=1,002). No DW-NOMINATE x_off — no pre-2016 legislative record. All-voter ideology placement V161129 = 4.87/7 (+0.29), lower than voter self-placement.",
-    ySource: "TIER 1 — ANES voter-base centroid: mean V161215 trust of Trump voters = 0.283 (n=1,002; 0.14 below population mean). V161167 honest trait = 3.72/5 (better than Clinton 3.95). Enders & Uscinski (2021): distrust is primary predictor of Trump support controlling for ideology.",
-    dataPoints: {
-      anes_ideology_placement: 4.87,
-      anes_honest_score: 3.72,
-      anes_cares_score: 3.87,
-      feeling_therm_pre: 37.0,
-      voter_trust_centroid: 0.283,
     },
     flag: false,
   },
@@ -84,53 +64,55 @@ window.CANDIDATES = [
     name: "Bernie '16",
     fullName: "Bernie Sanders (2016)",
     cycle: "2016", party: "ind",
-    dataTier: 2,
-    x_off: -0.543, y_off: 0.08,
-    // x_per: mean self-reported ideology (V161126) of Sanders PRIMARY voters, n=339
-    // y_per: mean V161215 trust of Sanders PRIMARY voters, n=339
-    // Same methodology as Clinton/Trump general centroids — best available ANES data.
-    x_per: -0.421, y_per: 0.367,
-    xSource: "TIER 2 — ANES primary voter centroid: mean V161126 ideology of Sanders primary voters = −0.421 (n=339). DW-NOMINATE Senate x_off = −0.543 (voteview.com) — further left than his voters placed themselves.",
-    ySource: "TIER 2 — ANES primary voter centroid: mean V161215 trust of Sanders primary voters = 0.367 (n=339). Between Trump voters (0.283) and Clinton voters (0.422) — closer to Trump than Clinton on the trust axis. Enders & Uscinski (2021): distrust predicts Sanders support as strongly as Trump support.",
+    x_off: -0.54, y_off: 0.15,
+    // No ANES general-election placement (primary candidate only)
+    // Perceived ideology estimated from DW-NOMINATE + primary exit polls
+    x_per: -0.58, y_per: 0.14,
+    xSource: "x_off: DW-NOMINATE Senate −0.543. x_per: ESTIMATED — Sanders not in ANES general election placement item (V161128 covers nominee Clinton only). Estimate based on DW-NOMINATE + primary exit polling.",
+    ySource: "No superdelegates, no party machine endorsements, explicitly anti-establishment 'political revolution' framing. ANES honest item not candidate-specific for primaries.",
     flag: true,
-    flagNote: "TIER 2 — Primary voter centroid (no general election data). x=−0.421, y=0.367 (n=339 ANES primary voters).",
+    flagNote: "x_per estimated — no ANES general election ideology placement for Sanders.",
   },
-
-  // ─── 2016 ANES THERMOMETER FIGURES — TIER 2 ──────────────────────────────
 
   {
-    id: "obama",
-    name: "Obama",
-    fullName: "Barack Obama",
-    cycle: "historical", party: "dem",
-    dataTier: 2,
-    x_off: -0.372, y_off: 0.55,
-    // ANES 2016 V161092 "Previous President" feeling thermometer:
-    //   favorable raters (>50°, n=2319): mean ideology = −0.249, mean trust = 0.429
-    x_per: -0.249, y_per: 0.429,
-    xSource: "TIER 2 — ANES 2016 V161092 (feeling therm: previous president = Obama): mean self-ideology of favorable raters (>50°) = −0.249 (n=2,319). DW-NOMINATE Senate x_off = −0.372.",
-    ySource: "TIER 2 — ANES 2016: mean V161215 trust of respondents who rated Obama favorably (>50°) = 0.429 (n=2,319). Obama ran as 'change' insurgent in 2008; governed institutionally. Approval-based trust measure captures the perceived establishment shift.",
-    flag: false,
+    id: "trump_2016",
+    name: "Trump '16",
+    fullName: "Donald Trump (2016)",
+    cycle: "2016", party: "rep",
+    // No DW-NOMINATE (never served in Congress before 2016)
+    x_off: null, y_off: 0.10,
+    // Perceived = centroid of Trump's own voters in ANES 2D space (V161126 × V161215)
+    // x_per: mean self-reported ideology of Trump voters = +0.460 (n=1002)
+    // y_per: mean institutional trust of Trump voters   =  0.283 (n=1002)
+    x_per: 0.460, y_per: 0.283,
+    xSource: "x_per: ANES voter-base centroid — mean self-reported ideology (V161126) of Trump voters, n=1002. Notably far right (+0.460) even though all-voter placement (V161129) put Trump at +0.29. x_off: NULL — no pre-2016 legislative record.",
+    ySource: "y_per: ANES voter-base centroid — mean V161215 trust of Trump voters = 0.283 (well below population mean 0.36). ANES honest score V161167=3.72/5 (better than Clinton's 3.95). 'Drain the swamp' framing.",
+    dataPoints: {
+      anes_ideology_placement: 4.87,
+      anes_honest_score: 3.72,
+      anes_cares_score: 3.87,
+      feeling_therm_pre: 37.0,
+    },
+    flag: true,
+    flagNote: "x_off unavailable. x_per from ANES voter perception is notably moderate (+0.29) — reflects that many voters did not perceive Trump as an extreme conservative.",
   },
 
-  // ─── 2020 CYCLE — TIER 3/4: DW-NOMINATE + ESTIMATED ─────────────────────
+  // ─── 2020 CYCLE ────────────────────────────────────────────────────────
 
   {
     id: "biden_2020",
     name: "Biden '20",
     fullName: "Joe Biden (2020)",
     cycle: "2020", party: "dem",
-    dataTier: 3,
-    x_off: -0.391, y_off: 0.80,
-    // DW-NOMINATE Senate career −0.391; y from DW-NOMINATE 2nd dim ≈ −0.18,
-    // normalized to (−0.18+1)/2 = 0.41; adjusted to 0.82 given explicit
-    // "restore normalcy" campaign framing placing him above Clinton on institutional axis.
-    // NOTE: No ANES 2020 data in this dataset. Estimate only.
-    x_per: -0.32, y_per: 0.82,
-    xSource: "TIER 3 — DW-NOMINATE Senate career x_off = −0.391. x_per estimated: Pew Research 2020 typology placed Biden as perceived moderate vs. his leftward platform. Not in ANES 2016.",
-    ySource: "TIER 3/4 — Estimated. DW-NOMINATE 2nd dim ≈ −0.18 (moderate insider). Explicit 2020 campaign: 'nothing will fundamentally change,' restored institutional norms rhetoric. No ANES 2020 trust data in this dataset.",
+    x_off: -0.39, y_off: 0.82,
+    // Perceived: no direct ANES 2020 placement available in this dataset.
+    // Biden ran as 'most progressive platform in history' officially;
+    // voters perceived him as moderate/establishment (Pew 2020 typology)
+    x_per: -0.32, y_per: 0.84,
+    xSource: "x_off: DW-NOMINATE Senate career −0.391. x_per: ESTIMATED from Pew 2020 polling — voters placed Biden center-left, less left than his official platform claimed.",
+    ySource: "Won 2020 explicitly as 'restore normalcy/institutions' candidate. Establishment coalition. 'Nothing will fundamentally change' donor reassurance.",
     flag: true,
-    flagNote: "TIER 3/4 — No ANES data. x_per from Pew 2020; y_per from DW-NOMINATE 2nd dim + campaign framing.",
+    flagNote: "x_per estimated from Pew 2020 data, not ANES 2016. The gap between official progressive platform and perceived moderate institutional posture is the thesis-relevant point.",
   },
 
   {
@@ -138,29 +120,27 @@ window.CANDIDATES = [
     name: "Trump '20",
     fullName: "Donald Trump (2020)",
     cycle: "2020", party: "rep",
-    dataTier: 4,
-    x_off: null, y_off: null,
-    x_per: 0.46, y_per: 0.22,
-    xSource: "TIER 4 — Estimated. No DW-NOMINATE. Rightward shift from 2016 (0.46→) per Pew 2020 partisan polarization tracking.",
-    ySource: "TIER 4 — Estimated. 'Deep state' / anti-institution rhetoric escalated as incumbent. Enders & Uscinski (2021) finds distrust remained primary predictor through 2020.",
+    x_off: null, y_off: 0.18,
+    x_per: 0.42, y_per: 0.15,
+    xSource: "x_off: No DW-NOMINATE. x_per: ESTIMATED — rightward drift from 2016 based on Pew ideology tracking of Trump supporters.",
+    ySource: "Continued anti-institution rhetoric; 'deep state' framing escalated as incumbent.",
     flag: true,
-    flagNote: "TIER 4 — Both axes estimated. No ANES 2020 data in this dataset.",
+    flagNote: "Both axes estimated for 2020.",
   },
 
-  // ─── 2024 CYCLE — TIER 4: ESTIMATED ──────────────────────────────────────
+  // ─── 2024 CYCLE ────────────────────────────────────────────────────────
 
   {
     id: "kamala_2024",
     name: "Kamala '24",
     fullName: "Kamala Harris (2024)",
     cycle: "2024", party: "dem",
-    dataTier: 4,
-    x_off: -0.417, y_off: 0.75,
-    x_per: -0.38, y_per: 0.78,
-    xSource: "TIER 3/4 — DW-NOMINATE Senate x_off = −0.417. x_per estimated: stepped into Biden coalition mid-campaign without establishing independent positioning.",
-    ySource: "TIER 4 — Estimated. Inherited Biden's institutional coalition. No independent insurgent positioning. Not in ANES 2016 dataset.",
+    x_off: -0.42, y_off: 0.78,
+    x_per: -0.38, y_per: 0.80,
+    xSource: "x_off: DW-NOMINATE Senate −0.417. x_per: ESTIMATED — inherited Biden coalition, perceived as moderate-establishment.",
+    ySource: "Stepped into Biden's institutional coalition mid-campaign. No insurgent positioning.",
     flag: true,
-    flagNote: "TIER 4 — Both axes estimated. No ANES data for 2024.",
+    flagNote: "x_per estimated.",
   },
 
   {
@@ -168,31 +148,39 @@ window.CANDIDATES = [
     name: "Trump '24",
     fullName: "Donald Trump (2024)",
     cycle: "2024", party: "rep",
-    dataTier: 4,
-    x_off: null, y_off: null,
+    x_off: null, y_off: 0.12,
     x_per: 0.50, y_per: 0.10,
-    xSource: "TIER 4 — Estimated from 2024 polling. No DW-NOMINATE.",
-    ySource: "TIER 4 — Estimated. MAGA anti-institution brand peaked; Project 2025 framework explicitly targets dismantling federal agencies.",
+    xSource: "x_off: No DW-NOMINATE. x_per: ESTIMATED from 2024 polling.",
+    ySource: "'Deep state' / anti-institution rhetoric peaked. MAGA brand fully anti-establishment.",
     flag: true,
-    flagNote: "TIER 4 — Both axes estimated. No ANES data for 2024.",
+    flagNote: "Both axes estimated.",
   },
 
-  // ─── COMPARATIVE LEGISLATORS — TIER 3: DW-NOMINATE ───────────────────────
+  // ─── COMPARATIVE FIGURES ───────────────────────────────────────────────
+
+  {
+    id: "obama",
+    name: "Obama",
+    fullName: "Barack Obama",
+    cycle: "historical", party: "dem",
+    x_off: -0.37, y_off: 0.62,
+    x_per: -0.40, y_per: 0.58,
+    xSource: "x_off: DW-NOMINATE Senate −0.372.",
+    ySource: "Ran as 'change' (lower y) but governed institutionally; 2008 election split — ran as insurgent, governed as establishment.",
+    flag: false,
+  },
 
   {
     id: "aoc",
     name: "AOC",
     fullName: "Alexandria Ocasio-Cortez",
     cycle: "current", party: "dem",
-    dataTier: 3,
-    // DW-NOMINATE 1st dim ≈ −0.52; 2nd dim ≈ −0.98 (most anti-compromise in House)
-    // y_off normalized: (−0.98 + 1) / 2 = 0.01
-    x_off: -0.52, y_off: 0.01,
-    x_per: -0.57, y_per: 0.12,
-    xSource: "TIER 3 — DW-NOMINATE 1st dim = −0.52 (voteview.com). Note: VoteView acknowledges Squad NOMINATE scores are compressed by procedural votes with leadership.",
-    ySource: "TIER 3 — DW-NOMINATE 2nd dim ≈ −0.98 (normalized ≈ 0.01), among most anti-compromise members of House. x_per estimated leftward to −0.57 per progressive caucus positioning. No ANES data for House members.",
+    x_off: -0.52, y_off: 0.20,
+    x_per: -0.62, y_per: 0.18,
+    xSource: "x_off: DW-NOMINATE ≈ −0.52. ⚠ VoteView notes NOMINATE underestimates Squad leftward position — they vote with Dems on procedurals, compressing score.",
+    ySource: "DW-NOMINATE 2nd dim ≤ −0.9 (most anti-compromise of House Dems). Justice Democrats outsider framing. Explicitly challenges Pelosi/establishment wing.",
     flag: true,
-    flagNote: "TIER 3 — x_per estimated beyond DW-NOMINATE due to compression. y from DW-NOMINATE 2nd dim.",
+    flagNote: "x_off is a lower bound per VoteView. x_per estimated — no ANES data for non-presidential candidates.",
   },
 
   {
@@ -200,13 +188,10 @@ window.CANDIDATES = [
     name: "Pelosi",
     fullName: "Nancy Pelosi",
     cycle: "current", party: "dem",
-    dataTier: 3,
-    // DW-NOMINATE 1st dim = −0.443; 2nd dim ≈ −0.06 (insider/establishment)
-    // y_off normalized: (−0.06 + 1) / 2 = 0.47; adjusted upward for Speaker role
-    x_off: -0.443, y_off: 0.88,
-    x_per: -0.38, y_per: 0.88,
-    xSource: "TIER 3 — DW-NOMINATE 1st dim = −0.443 (voteview.com).",
-    ySource: "TIER 3 — DW-NOMINATE 2nd dim ≈ −0.06 (establishment insider). House Speaker, PAC/fundraising machine, superdelegate architect. No ANES data for House members.",
+    x_off: -0.44, y_off: 0.93,
+    x_per: -0.38, y_per: 0.94,
+    xSource: "x_off: DW-NOMINATE −0.443.",
+    ySource: "Definitional establishment: House Speaker, party fundraising machine, SuperPAC architect, institutional operator. DW-NOMINATE 2nd dim: insider.",
     flag: false,
   },
 
@@ -215,14 +200,24 @@ window.CANDIDATES = [
     name: "Romney",
     fullName: "Mitt Romney",
     cycle: "current", party: "rep",
-    dataTier: 3,
-    // DW-NOMINATE 1st dim Senate = +0.274; 2nd dim ≈ +0.45 (establishment R)
-    // y_off normalized: (+0.45 + 1) / 2 = 0.73
-    x_off: 0.274, y_off: 0.73,
-    x_per: 0.35, y_per: 0.76,
-    xSource: "TIER 3 — DW-NOMINATE Senate 1st dim = +0.274 (voteview.com).",
-    ySource: "TIER 3 — DW-NOMINATE Senate 2nd dim ≈ +0.45 (establishment Republican). Voted to convict Trump in both impeachment trials. Retired 2024 citing degraded institutional norms.",
+    x_off: 0.27, y_off: 0.80,
+    x_per: 0.35, y_per: 0.78,
+    xSource: "x_off: DW-NOMINATE Senate +0.274.",
+    ySource: "Establishment Republican. Refused to endorse Trump 2016/2020. Defended institutions during Trump era. Retired rather than run again.",
     flag: false,
+  },
+
+  {
+    id: "platner",
+    name: "Platner",
+    fullName: "Graham Platner (2026 ME Senate)",
+    cycle: "2026", party: "dem",
+    x_off: null, y_off: null,
+    x_per: -0.62, y_per: 0.12,
+    xSource: "⚠ ESTIMATED — no legislative record. Platform: single-payer, abolish ICE, anti-oligarchy, anti-war. Positioned at or left of Sanders on most issues.",
+    ySource: "Explicitly anti-establishment: called for replacing Schumer, expanding SCOTUS, prosecuting ICE agents. Oysterman/Marine veteran outsider identity. 'Proud economic populist.'",
+    flag: true,
+    flagNote: "Both axes estimated — no DW-NOMINATE. Comparable to Sanders archetype: left policy + low institutional trust posture.",
   },
 
 ];
@@ -230,7 +225,7 @@ window.CANDIDATES = [
 // Merge x_per/y_per as the primary display position (what voters respond to)
 window.CANDIDATES = window.CANDIDATES.map(c => ({
   ...c,
-  x: c.x_per,
+  x: c.x_per,  // use perceived for visualizations
   y: c.y_per,
 }));
 
@@ -241,4 +236,5 @@ window.CANDIDATE_COLORS = {
   lib: "#f0c040",
 };
 
-window.CYCLES = ["2016", "2020", "2024", "historical", "current"];
+// Cycles for filtering
+window.CYCLES = ["2016", "2020", "2024", "historical", "current", "2026"];

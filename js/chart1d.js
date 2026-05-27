@@ -21,12 +21,20 @@ window.drawChart1D = function (voters) {
 
   const x = d3.scaleLinear().domain([-1, 1]).range([0, iW]);
 
-  // Axis line
+  // Axis
   g.append("line")
     .attr("x1", 0).attr("x2", iW)
     .attr("y1", iH / 2).attr("y2", iH / 2)
     .attr("stroke", "#444")
     .attr("stroke-width", 1);
+
+  // End labels
+  g.append("text").attr("x", 0).attr("y", iH / 2 - 8)
+    .attr("text-anchor", "start").attr("class", "axis-label")
+    .text("← Left");
+  g.append("text").attr("x", iW).attr("y", iH / 2 - 8)
+    .attr("text-anchor", "end").attr("class", "axis-label")
+    .text("Right →");
 
   // Beeswarm-style jitter (simulate — no d3-beeswarm dep)
   const colorMap = {
@@ -58,32 +66,8 @@ window.drawChart1D = function (voters) {
     .attr("stroke", "#ffffff22")
     .attr("stroke-dasharray", "3,3");
 
-  // Labels drawn AFTER dots so they render on top
-  // Dark background rect to ensure readability against dot noise
-  [
-    { lx: 4,       anchor: "start", label: "← Left"  },
-    { lx: iW - 4,  anchor: "end",   label: "Right →"  },
-  ].forEach(({ lx, anchor, label }) => {
-    const textEl = g.append("text")
-      .attr("x", lx).attr("y", iH / 2 - 6)
-      .attr("text-anchor", anchor)
-      .attr("fill", "#c8c8e8")
-      .attr("font-size", 12)
-      .attr("font-weight", "600")
-      .text(label);
-
-    // Measure approximate width for backdrop rect
-    const approxW = label.length * 7.5;
-    const bx = anchor === "start" ? lx - 2 : lx - approxW - 2;
-    g.insert("rect", "text")
-      .attr("x", bx).attr("y", iH / 2 - 19)
-      .attr("width", approxW + 4).attr("height", 16)
-      .attr("fill", "#0f0f13").attr("opacity", 0.75)
-      .attr("rx", 2);
-  });
-
   g.append("text").attr("x", x(0)).attr("y", iH + 16)
     .attr("text-anchor", "middle")
-    .attr("fill", "#8888a8").attr("font-size", 11)
+    .attr("class", "axis-label")
     .text('"The Center"');
 };
