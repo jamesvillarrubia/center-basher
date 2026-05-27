@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Center Doesn't Exist</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>The Center Doesn't Exist</h1>
+    <p class="subtitle">
+      Why "swing voters" aren't moderates — they're the disillusioned
+    </p>
+  </header>
+
+  <main>
+
+    <!-- ACT 1: The familiar 1D story -->
+    <section class="act" id="act-1">
+      <div class="act-label">The conventional story</div>
+      <h2>Voters on a line</h2>
+      <p>
+        Political analysts love a simple left-right spectrum. Independents sit
+        in the middle. To win them, you move to the center.
+      </p>
+      <div id="chart-1d" class="chart-container" aria-label="1D ideology spectrum"></div>
+      <p class="annotation">
+        On this view, "Independent" = "moderate." Winning them means triangulating
+        toward the middle on policy.
+      </p>
+    </section>
+
+    <!-- ACT 2: Add the second axis -->
+    <section class="act" id="act-2">
+      <div class="act-label">A different lens</div>
+      <h2>Add trust. The map changes.</h2>
+      <p>
+        What if we plot the same voters on two axes: left-right ideology
+        <em>and</em> trust in institutions — government, Congress, media, courts?
+      </p>
+      <div id="chart-2d" class="chart-container" aria-label="2D ideology × trust scatter"></div>
+      <div class="legend" id="legend-2d"></div>
+      <p class="annotation">
+        The "center" empties out. Most voters who look moderate on policy
+        actually sit in the <strong>low-trust</strong> quadrant — not the
+        moderate quadrant.
+      </p>
+    </section>
+
+    <!-- ACT 3: Swing voters are low-trust, not moderate -->
+    <section class="act" id="act-3">
+      <div class="act-label">The punchline</div>
+      <h2>Swing voters aren't in the middle. They're at the bottom.</h2>
+      <p>
+        Voters who switched parties between elections — the "swing" — cluster
+        in the low-trust half of the map, not at the policy center.
+      </p>
+      <div id="chart-swing" class="chart-container" aria-label="Swing voters highlighted"></div>
+      <p class="annotation">
+        Political gravity in 2D space runs <em>toward anti-institution candidates</em>,
+        not toward moderate-policy candidates. That's why the same pool of voters
+        considered Bernie Sanders <em>and</em> Donald Trump — both ran against "the system."
+      </p>
+    </section>
+
+    <!-- ACT 4: Implications -->
+    <section class="act" id="act-4">
+      <div class="act-label">So what?</div>
+      <h2>Moving to the "center" is the wrong map</h2>
+      <p>
+        If the dominant axis for swing voters is <strong>trust vs. distrust</strong>
+        — not left vs. right — then a party that moderates its policy positions
+        to appeal to the center is solving the wrong problem.
+      </p>
+      <ul class="implications">
+        <li>
+          <strong>Bernie → Trump, not Bernie → Hillary.</strong>
+          On a 1D map, Hillary is between Bernie and Trump. In 2D trust-space,
+          Trump and Bernie are in the same low-trust hemisphere. Hillary is
+          not.
+        </li>
+        <li>
+          <strong>"Drain the swamp" is a trust message, not a policy message.</strong>
+          It works because the target audience is the low-trust quadrant.
+        </li>
+        <li>
+          <strong>Winning these voters requires institutional credibility,</strong>
+          not policy centrism. Or a credible anti-institution posture.
+          There is no third option.
+        </li>
+      </ul>
+    </section>
+
+    <section class="methodology" id="methodology">
+      <h2>Methodology</h2>
+      <p>
+        Data: American National Election Studies (ANES) 2016 Time Series.
+        Ideology axis: 7-point liberal-conservative self-placement (V161126),
+        rescaled −1 to +1. Trust index: average of four institutional trust
+        items (federal government, Congress, Supreme Court, news media),
+        recoded so higher = more trust, normalized 0–1.
+      </p>
+      <p>
+        Source code and full methodology:
+        <a href="https://github.com/jamesvillarrubia/center-basher" target="_blank" rel="noopener">
+          github.com/jamesvillarrubia/center-basher
+        </a>
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>
+      Built by James Villarrubia ·
+      <a href="https://github.com/jamesvillarrubia/center-basher" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/chart1d.js"></script>
+  <script src="js/chart2d.js"></script>
+  <script src="js/chartSwing.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
