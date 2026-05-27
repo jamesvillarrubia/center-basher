@@ -5,6 +5,11 @@ __pycache__/
 *.pyo
 .ipynb_checkpoints/
 
+# Node
+node_modules/
+package-lock.json
+package.json
+
 # Raw data (too large / licensing restrictions)
 data/raw/
 
