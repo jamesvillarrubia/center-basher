@@ -132,12 +132,48 @@ window.drawChartMoveable = function (voters) {
   g.append("text").attr("transform", "rotate(-90)").attr("x", -iH/2).attr("y", -50)
     .attr("text-anchor", "middle").attr("class", "axis-label").text("Institutional trust (clipped at 0.6)");
 
+  // ── Split panels: each moveable type alone (like Fig 2 small multiples) ────
+  const cols = 2, gap = 16, smW = W;
+  const panelW = (smW - gap * (cols - 1)) / cols;
+  const pm = { top: 24, right: 6, bottom: 24, left: 8 };
+  const pIW = panelW - pm.left - pm.right;
+  const pIH = panelW * 0.78 - pm.top - pm.bottom;
+  const sm = d3.select(container).append("svg")
+    .attr("viewBox", `0 0 ${smW} ${panelW * 0.78}`).attr("width", "100%");
+  const spX = d3.scaleLinear().domain([-1, 1]).range([0, pIW]);
+  const spY = d3.scaleLinear().domain([0, MV_TRUST_MAX]).range([pIH, 0]);
+  const pBw = Math.max(10, 28 * pIW / iW);
+  moveable.forEach((m, i) => {
+    const px = i * (panelW + gap);
+    const pg = sm.append("g").attr("transform", `translate(${px + pm.left},${pm.top})`);
+    pg.append("rect").attr("width", pIW).attr("height", pIH).attr("fill", "#121218")
+      .attr("stroke", "#2e2e3e").attr("stroke-width", 1);
+    pg.append("line").attr("x1", spX(0)).attr("x2", spX(0)).attr("y1", 0).attr("y2", pIH)
+      .attr("stroke", "#ffffff14").attr("stroke-dasharray", "3,3");
+    pg.append("line").attr("x1", 0).attr("x2", pIW).attr("y1", spY(0.22)).attr("y2", spY(0.22))
+      .attr("stroke", "#ffffff20").attr("stroke-dasharray", "2,3");
+    const dens = d3.contourDensity()
+      .x(d => spX(d.x)).y(d => spY(d.y)).size([pIW, pIH]).bandwidth(pBw).thresholds(7)(
+        jittered.filter(v => v.segment === m.seg));
+    const mx = d3.max(dens, d => d.value) || 1;
+    pg.append("g").selectAll("path").data(dens).join("path").attr("d", d3.geoPath())
+      .attr("fill", m.color).attr("opacity", d => 0.05 + 0.28 * (d.value / mx))
+      .attr("stroke", m.color).attr("stroke-width", 0.5).attr("stroke-opacity", d => 0.15 + 0.5 * (d.value / mx));
+    pg.append("text").attr("x", pIW/2).attr("y", -9).attr("text-anchor", "middle")
+      .attr("fill", m.color).attr("font-size", 12).attr("font-weight", "700").text(m.label);
+    pg.append("text").attr("x", 2).attr("y", pIH + 16).attr("fill", "#8888a8").attr("font-size", 9).text("← Left");
+    pg.append("text").attr("x", pIW - 2).attr("y", pIH + 16).attr("text-anchor", "end")
+      .attr("fill", "#8888a8").attr("font-size", 9).text("Right →");
+    if (i === 0) pg.append("text").attr("transform", "rotate(-90)").attr("x", -pIH/2).attr("y", 11)
+      .attr("text-anchor", "middle").attr("fill", "#8888a8").attr("font-size", 9).text("↑ more trust");
+  });
+
   const nP = voters.filter(v => v.segment === "undecided_engaged").length;
   const nW = voters.filter(v => v.segment === "decided_disengaged").length;
   window.renderFigSpec("data-moveable", {
     population: `<strong>Only the moveable voters</strong> as blobs — persuadable (likely-voter, undecided; n=${nP}) and wavering partisans (decided, low turnout; n=${nW}). Locked-in voters excluded. Dots = candidate primary centroids (as Fig 3).`,
     x: "Ideology (V161126), left −1 to right +1.",
     y: "Institutional trust — 3-item index, clipped at 0.6.",
-    marks: "Two moveable-voter density blobs + each candidate's primary centroid (filled = median, hollow = mean). Both blobs sit center-low; only the candidate dots vary.",
+    marks: "Top: both moveable types overlaid + candidate primary centroids (filled = median, hollow = mean). Below: each type split into its own panel. Both tilt right-of-center and low-trust — nearly identical shapes.",
   });
 };
