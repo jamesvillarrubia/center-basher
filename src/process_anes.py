@@ -42,9 +42,10 @@ RAW_DIR = pathlib.Path("data/raw")
 OUT_DIR = pathlib.Path("data/processed")
 OUT_DIR.mkdir(exist_ok=True)
 
-IDEOLOGY_VAR = "V161126"
-PARTY_ID_VAR = "V161159"
-VOTE_VAR     = "V162034a"
+IDEOLOGY_VAR  = "V161126"
+PARTY_ID_VAR  = "V161159"
+VOTE_VAR      = "V162034a"
+REGISTERED_VAR = "V161011"   # Pre: registered to vote (1=yes, 2=no, 3=dk)
 
 # Trust variable: V161215 only.
 # V161218 (corruption perception) has an OPPOSITE correlation with Trump vote
@@ -136,8 +137,11 @@ def main():
     df["vote"] = clean_variable(df[VOTE_VAR], (1, 5)).map(
         lambda v: vote_label(v) if not np.isnan(v) else "no_vote"
     )
+    # registered: 1=yes, 2=no → boolean; missing → False (conservative)
+    reg_raw = clean_variable(df[REGISTERED_VAR], (1, 2)) if REGISTERED_VAR in df.columns else pd.Series(np.nan, index=df.index)
+    df["registered"] = (reg_raw == 1)
 
-    voters = df[["x", "y", "party", "vote"]].dropna(subset=["x", "y"])
+    voters = df[["x", "y", "party", "vote", "registered"]].dropna(subset=["x", "y"])
     voters = voters.round({"x": 3, "y": 3})
 
     records = voters.to_dict(orient="records")

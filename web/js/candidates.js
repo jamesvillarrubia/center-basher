@@ -44,12 +44,12 @@ window.CANDIDATES = [
     cycle: "2016", party: "dem",
     // Official: DW-NOMINATE career Senate score; establishment based on endorsements
     x_off: -0.37, y_off: 0.85,
-    // Perceived: ANES voter placement V161128 mean=2.73 → (2.73−4)/3=−0.42
-    // y_per: ANES voter-base centroid (mean V161215 trust of Clinton voters) = 0.422
-    // Clinton voters have ABOVE-average trust (0.422 vs population mean 0.36)
-    x_per: -0.42, y_per: 0.422,
-    xSource: "x_off: DW-NOMINATE Senate −0.374. x_per: ANES V161128 mean=2.73/7 → −0.42",
-    ySource: "y_per: ANES V161215 voter-base centroid = 0.422 (mean trust of Clinton voters, n=1061). Above-average trust. ANES honest score V161162=3.95/5 (5=not honest) — WORSE than Trump (3.72). Full establishment endorsement apparatus, Goldman Sachs speeches.",
+    // Perceived = centroid of Clinton's own voters in ANES 2D space (V161126 × V161215)
+    // x_per: mean self-reported ideology of Clinton voters = −0.333 (n=1061)
+    // y_per: mean institutional trust of Clinton voters   =  0.422 (n=1061)
+    x_per: -0.333, y_per: 0.422,
+    xSource: "x_per: ANES voter-base centroid — mean self-reported ideology (V161126) of Clinton voters, n=1061. x_off: DW-NOMINATE Senate −0.374.",
+    ySource: "y_per: ANES voter-base centroid — mean V161215 trust of Clinton voters = 0.422 (above population mean 0.36). ANES honest score V161162=3.95/5 — worse than Trump (3.72). Goldman Sachs speeches, full superdelegate apparatus.",
     dataPoints: {
       anes_ideology_placement: 2.73,
       anes_honest_score: 3.95,
@@ -81,12 +81,12 @@ window.CANDIDATES = [
     cycle: "2016", party: "rep",
     // No DW-NOMINATE (never served in Congress before 2016)
     x_off: null, y_off: 0.10,
-    // ANES V161129 mean=4.87 → (4.87−4)/3 = +0.29
-    // y_per: ANES voter-base centroid (mean V161215 trust of Trump voters) = 0.283
-    // Trump voters have WELL-BELOW-average trust (0.283 vs population mean 0.36)
-    x_per: 0.29, y_per: 0.283,
-    xSource: "x_off: NULL — no legislative record pre-2016. x_per: ANES V161129 mean=4.87/7 → +0.29. Note: +0.29 is notably LESS far-right than often portrayed in media framing.",
-    ySource: "y_per: ANES V161215 voter-base centroid = 0.283 (mean trust of Trump voters, n=1002). Well below population mean (0.36). ANES honest score V161167=3.72/5 (slightly BETTER than Clinton's 3.95). 'Drain the swamp' framing, rejected by Republican establishment.",
+    // Perceived = centroid of Trump's own voters in ANES 2D space (V161126 × V161215)
+    // x_per: mean self-reported ideology of Trump voters = +0.460 (n=1002)
+    // y_per: mean institutional trust of Trump voters   =  0.283 (n=1002)
+    x_per: 0.460, y_per: 0.283,
+    xSource: "x_per: ANES voter-base centroid — mean self-reported ideology (V161126) of Trump voters, n=1002. Notably far right (+0.460) even though all-voter placement (V161129) put Trump at +0.29. x_off: NULL — no pre-2016 legislative record.",
+    ySource: "y_per: ANES voter-base centroid — mean V161215 trust of Trump voters = 0.283 (well below population mean 0.36). ANES honest score V161167=3.72/5 (better than Clinton's 3.95). 'Drain the swamp' framing.",
     dataPoints: {
       anes_ideology_placement: 4.87,
       anes_honest_score: 3.72,
@@ -95,21 +95,6 @@ window.CANDIDATES = [
     },
     flag: true,
     flagNote: "x_off unavailable. x_per from ANES voter perception is notably moderate (+0.29) — reflects that many voters did not perceive Trump as an extreme conservative.",
-  },
-
-  {
-    id: "johnson_2016",
-    name: "Johnson '16",
-    fullName: "Gary Johnson (2016)",
-    cycle: "2016", party: "lib",
-    x_off: null, y_off: null,
-    // y_per: ANES voter-base centroid (mean V161215 trust of Johnson voters) = 0.336
-    // Johnson voters are below average trust (0.336 vs 0.422 Clinton, but above Trump 0.283)
-    x_per: 0.18, y_per: 0.336,
-    xSource: "x_per: ESTIMATED — Libertarian, positioned right-of-center on economic policy but socially liberal. No ANES specific placement item for third-party candidates.",
-    ySource: "y_per: ANES V161215 voter-base centroid = 0.336 (mean trust of Johnson voters, n=102). Below Clinton but above Trump — Johnson attracted moderate-distrust voters.",
-    flag: true,
-    flagNote: "x_per estimated. y_per from ANES voter-base centroid (n=102, small sample).",
   },
 
   // ─── 2020 CYCLE ────────────────────────────────────────────────────────
