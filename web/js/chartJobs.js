@@ -2,20 +2,21 @@
  * chartJobs.js — Figure 6: the two axes do two different jobs, shown on the
  * SAME ideology × trust plane as every other figure.
  *
- * Two weighted logistic fields (ANES 2016):
- *   CHOICE  P(Trump)  = σ(0.211 + 4.128·x − 3.074·trust)   gradient −37° (≈ left↔right)
- *   TURNOUT P(vote)   = σ(2.045 + 0.040·x − 0.576·trust)   gradient −86° (≈ top↔bottom)
+ * Two weighted logistic fields (ANES 2016; turnout is VOTE-VALIDATED vs the L2 file):
+ *   CHOICE  P(Trump) = σ(0.211 + 4.128·x − 3.074·trust)   strong LEFT↔RIGHT gradient
+ *   TURNOUT P(vote)  = σ(1.107 − 0.006·x − 0.110·trust)   ideology coef ≈ 0 → near-FLAT
  *
- * Left panel colors the plane by who you'd vote for (blue Clinton ↔ red Trump):
- * the color changes LEFT-RIGHT → ideology decides choice. Right panel colors by
- * turnout: the color changes TOP-BOTTOM → trust decides participation. The
- * orthogonal banding IS the finding. Turnout only spans 85–89% (ANES over-reports
- * turnout ~85-89% vs ~60% actual), and distrust mildly mobilizes (bottom = higher).
+ * Left panel: who you'd vote for (blue Clinton ↔ red Trump) — color changes LEFT-RIGHT,
+ * so IDEOLOGY decides choice. Right panel: validated turnout — color barely changes at
+ * all, and ideology does NOTHING (coef −0.006). The robust finding is the contrast:
+ * the left-right axis is a powerful CHOICE predictor and a ZERO turnout predictor. Trust
+ * is the only one of the two that nudges participation (distrust slightly up), and even
+ * that is small. Validated turnout ≈ 71% (self-report was an inflated 85%).
  */
 
 const JOBS_TMAX = 0.6;
-const Cc = { b0: 0.211, bx: 4.128, by: -3.074 };   // P(Trump)
-const Ct = { b0: 2.045, bx: 0.040, by: -0.576 };   // P(vote)
+const Cc = { b0: 0.211, bx: 4.128, by: -3.074 };   // P(Trump), head-to-head
+const Ct = { b0: 1.107, bx: -0.006, by: -0.110 };  // P(vote), VALIDATED turnout (ANES L2 voteval)
 const sig = z => 1 / (1 + Math.exp(-z));
 
 window.drawChartJobs = function () {
@@ -81,26 +82,24 @@ window.drawChartJobs = function () {
     },
     -37, "choice flips");
 
-  // ── Panel 2: TURNOUT — P(vote), horizontal bands ──
-  const tlo = sig(Ct.b0 + Ct.by * JOBS_TMAX), thi = sig(Ct.b0);   // ~0.845 .. 0.885
-  panel(1, "Whether you vote", "color = turnout 85–89% (varies only with trust)",
+  // ── Panel 2: TURNOUT — VALIDATED P(vote). Nearly flat; ideology does nothing. ──
+  // Fixed color reference so the panel reads near-uniform (it barely varies).
+  const tlo = 0.66, thi = 0.80;
+  panel(1, "Whether you vote", "validated turnout ≈ 74% — ideology does nothing",
     (x, y) => sig(Ct.b0 + Ct.bx * x + Ct.by * y),
-    p => d3.interpolateGreens(0.2 + 0.75 * (p - tlo) / (thi - tlo)),
-    g => { [0.86, 0.87].forEach(pv => {
-        const y = (Math.log(pv / (1 - pv)) - Ct.b0) / Ct.by;
-        if (y >= 0 && y <= JOBS_TMAX) {
-          g.append("line").attr("x1", 0).attr("x2", pIW).attr("y1", yS(y)).attr("y2", yS(y))
-            .attr("stroke", "#fff").attr("stroke-opacity", 0.5).attr("stroke-dasharray", "4,3");
-          g.append("text").attr("x", pIW - 3).attr("y", yS(y) - 3).attr("text-anchor", "end")
-            .attr("fill", "#fff").attr("font-size", 8).attr("opacity", 0.7).text(`${Math.round(pv * 100)}%`);
-        }
-      }); },
-    -86, "turnout rises");
+    p => d3.interpolateGreens(0.25 + 0.6 * Math.max(0, Math.min(1, (p - tlo) / (thi - tlo)))),
+    g => {
+      g.append("text").attr("x", pIW / 2).attr("y", pIH / 2 - 4).attr("text-anchor", "middle")
+        .attr("fill", "#fff").attr("opacity", 0.6).attr("font-size", 12).attr("font-weight", 700).text("≈ 74% everywhere");
+      g.append("text").attr("x", pIW / 2).attr("y", pIH / 2 + 12).attr("text-anchor", "middle")
+        .attr("fill", "#fff").attr("opacity", 0.45).attr("font-size", 9).text("(distrust nudges it up a few pts)");
+    },
+    -90, "trust: small");
 
   window.renderFigSpec("data-jobs", {
     population: "ANES 2016 — two weighted logistic fields on the same plane: head-to-head choice (Trump vs Clinton, n=2,066) and turnout (n=2,681).",
     x: "Ideology (V161126), left −1 to right +1.",
     y: "Institutional trust — 3-item index, 0 to 0.6.",
-    marks: "Left: plane colored by P(Trump) — color shifts LEFT-RIGHT (ideology), with the 50/50 boundary. Right: colored by turnout — shifts TOP-BOTTOM (trust). Light dots = Clinton (left) & Trump (right) for reference.",
+    marks: "Left: P(Trump) — color shifts LEFT-RIGHT, so ideology decides choice. Right: VALIDATED turnout — nearly uniform; ideology does nothing (coef ≈0), trust nudges it a few points. The contrast is the point. Light dots = Clinton & Trump for reference.",
   });
 };
