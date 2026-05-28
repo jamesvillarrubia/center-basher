@@ -40,63 +40,58 @@ window.drawChartSignal = function (voters) {
     .size([iW, iH]).bandwidth(26).thresholds(6)(mv);
   const mx = d3.max(dens, d => d.value) || 1;
   g.append("g").selectAll("path").data(dens).join("path").attr("d", d3.geoPath())
-    .attr("fill", "#f0c040").attr("opacity", d => 0.03 + 0.13 * (d.value / mx)).attr("stroke", "none");
+    .attr("fill", "#6a6a85").attr("opacity", d => 0.05 + 0.16 * (d.value / mx)).attr("stroke", "none");
   const contest = [0.09, 0.20];
   g.append("text").attr("x", xS(contest[0])).attr("y", yS(contest[1]) + 4).attr("text-anchor", "middle")
-    .attr("fill", "#f0c040").attr("font-size", 10).attr("opacity", 0.8).text("contestable bloc");
+    .attr("fill", "#9a9ab0").attr("font-size", 10).attr("opacity", 0.85).text("contestable bloc (Fig 5)");
 
-  // arrow marker factory
+  // arrow markers
   const defs = svg.append("defs");
   const mk = (id, col) => { const m = defs.append("marker").attr("id", id).attr("viewBox", "0 0 10 10")
-    .attr("refX", 8).attr("refY", 5).attr("markerWidth", 6).attr("markerHeight", 6).attr("orient", "auto-start-reverse");
+    .attr("refX", 8).attr("refY", 5).attr("markerWidth", 7).attr("markerHeight", 7).attr("orient", "auto-start-reverse");
     m.append("path").attr("d", "M0,0L10,5L0,10Z").attr("fill", col); };
-  mk("sig", "#f09090"); mk("net", "#fff"); mk("need", "#6be08a");
+  const COMP = "#9aa0c8", NET = "#ffffff";
+  mk("comp", COMP); mk("net", NET);
 
-  const S = [-0.35, 0.55];   // Clinton perceived start (estimate)
+  const S = [-0.22, 0.42];   // Clinton perceived start (estimate)
   const sx = xS(S[0]), sy = yS(S[1]);
 
-  // individual signaling moves (illustrative Δ in data units)
-  const moves = [
-    { dx: 0.00, dy: 0.05, label: "Goldman speeches" },
-    { dx: 0.00, dy: 0.05, label: "emails · foundation · superdelegates", off: -1 },
-    { dx: -0.10, dy: 0.04, label: "TPP: “gold standard” → opposed (flip)" },
-    { dx: -0.12, dy: 0.00, label: "adopt Sanders tuition / min-wage" },
-  ];
-  // draw faint component arrows fanning from start
-  moves.forEach(m => {
-    g.append("line").attr("x1", sx).attr("y1", sy).attr("x2", xS(S[0] + m.dx)).attr("y2", yS(S[1] + m.dy))
-      .attr("stroke", "#f09090").attr("stroke-width", 1.3).attr("opacity", 0.7).attr("marker-end", "url(#sig)");
-  });
+  // Decomposed signaling drift (illustrative): a LEFT leg (ideology) and an
+  // UP leg (establishment), summing to the net perceived shift.
+  const dxL = -0.40, dyU = 0.22;                 // component lengths (illustrative)
+  const lx = xS(S[0] + dxL), uy = yS(S[1] + dyU);
+  const nx = xS(S[0] + dxL), ny = yS(S[1] + dyU); // net tip = (left, up) corner
 
-  // net drift (sum) — thick white
-  const net = moves.reduce((a, m) => [a[0] + m.dx, a[1] + m.dy], [0, 0]);
-  g.append("line").attr("x1", sx).attr("y1", sy).attr("x2", xS(S[0] + net[0])).attr("y2", yS(S[1] + net[1]))
-    .attr("stroke", "#fff").attr("stroke-width", 3).attr("marker-end", "url(#net)");
-  g.append("text").attr("x", xS(S[0] + net[0]) + 4).attr("y", yS(S[1] + net[1]) - 10)
-    .attr("text-anchor", "start").attr("fill", "#fff").attr("font-size", 11).attr("font-weight", 700)
-    .text("her actual drift: LEFT + UP");
-  g.append("text").attr("x", xS(S[0] + net[0]) + 4).attr("y", yS(S[1] + net[1]) + 3)
-    .attr("text-anchor", "start").attr("fill", "#aaa").attr("font-size", 9)
-    .text("(not “to the center”)");
+  // dashed rectangle completing the decomposition
+  g.append("path").attr("d", `M${lx},${sy} L${nx},${ny} M${sx},${uy} L${nx},${ny}`)
+    .attr("stroke", COMP).attr("stroke-width", 1).attr("stroke-dasharray", "3,3").attr("opacity", 0.35);
 
-  // needed direction (toward contestable bloc) — dashed green, scaled to similar length
-  const nd = [contest[0] - S[0], contest[1] - S[1]]; const nlen = Math.hypot(nd[0], nd[1]);
-  const scale = 0.42 / nlen;
-  g.append("line").attr("x1", sx).attr("y1", sy).attr("x2", xS(S[0] + nd[0] * scale)).attr("y2", yS(S[1] + nd[1] * scale))
-    .attr("stroke", "#6be08a").attr("stroke-width", 2).attr("stroke-dasharray", "5,4").attr("marker-end", "url(#need)");
-  g.append("text").attr("x", xS(S[0] + nd[0] * scale) + 6).attr("y", yS(S[1] + nd[1] * scale) + 4)
-    .attr("fill", "#6be08a").attr("font-size", 10).attr("font-weight", 700).text("toward the bloc");
+  // LEFT component (ideology) — arrow + label underneath
+  g.append("line").attr("x1", sx).attr("y1", sy).attr("x2", lx).attr("y2", sy)
+    .attr("stroke", COMP).attr("stroke-width", 2).attr("marker-end", "url(#comp)");
+  g.append("text").attr("x", (sx + lx) / 2).attr("y", sy + 18).attr("text-anchor", "middle")
+    .attr("fill", COMP).attr("font-size", 11).attr("font-weight", 700).text("← LEFT on ideology");
+  g.append("text").attr("x", (sx + lx) / 2).attr("y", sy + 31).attr("text-anchor", "middle")
+    .attr("fill", "#8a90b0").attr("font-size", 9).text("TPP reversal, free college (chasing Sanders)");
+
+  // UP component (establishment) — arrow + label to the right
+  g.append("line").attr("x1", sx).attr("y1", sy).attr("x2", sx).attr("y2", uy)
+    .attr("stroke", COMP).attr("stroke-width", 2).attr("marker-end", "url(#comp)");
+  g.append("text").attr("x", sx + 10).attr("y", (sy + uy) / 2 - 4)
+    .attr("fill", COMP).attr("font-size", 11).attr("font-weight", 700).text("↑ UP on establishment");
+  g.append("text").attr("x", sx + 10).attr("y", (sy + uy) / 2 + 9)
+    .attr("fill", "#8a90b0").attr("font-size", 9).text("Goldman speeches, emails, Foundation");
+
+  // NET perceived shift — bold white diagonal
+  g.append("line").attr("x1", sx).attr("y1", sy).attr("x2", nx).attr("y2", ny)
+    .attr("stroke", NET).attr("stroke-width", 3).attr("marker-end", "url(#net)");
+  g.append("text").attr("x", nx + 6).attr("y", ny - 5).attr("fill", NET).attr("font-size", 11).attr("font-weight", 700)
+    .text("net perceived shift");
 
   // Clinton start dot
   g.append("circle").attr("cx", sx).attr("cy", sy).attr("r", 7).attr("fill", "#5b9cf6").attr("stroke", "#fff").attr("stroke-width", 2);
-  g.append("text").attr("x", sx).attr("y", sy - 12).attr("text-anchor", "middle").attr("fill", "#5b9cf6")
-    .attr("font-size", 12).attr("font-weight", 700).text("Clinton (perceived)");
-
-  // move labels — stacked list at upper-left
-  const lg = g.append("g").attr("transform", "translate(6,8)");
-  lg.append("text").attr("x", 0).attr("y", 0).attr("fill", "#f09090").attr("font-size", 10).attr("font-weight", 700).text("Signaling moves:");
-  moves.forEach((m, i) => lg.append("text").attr("x", 0).attr("y", 14 + i * 13).attr("fill", "#c8a0a0").attr("font-size", 9)
-    .text(`• ${m.label}  (${m.dx < 0 ? "← left" : ""}${m.dy > 0 ? (m.dx < 0 ? ", " : "") + "↑ establishment" : ""})`));
+  g.append("text").attr("x", sx + 12).attr("y", sy + 5).attr("fill", "#7fb0ff").attr("font-size", 12).attr("font-weight", 700)
+    .text("Clinton (perceived)");
 
   // axes
   g.append("g").attr("transform", `translate(0,${iH})`).call(d3.axisBottom(xS).ticks(5)
