@@ -161,6 +161,40 @@
       </p>
     </section>
 
+    <!-- ACT 3⅞: Position is signaled, not fixed -->
+    <section class="act" id="act-signal">
+      <div class="act-label">Signaling moves the position</div>
+      <h2>She didn't move to the center. She moved left and up.</h2>
+      <p>
+        "Clinton moved to the center" is a category error — it conflates <em>centrism</em>
+        (ideology) with <em>institutionalism</em> (trust). Her position was never a fixed
+        coordinate: we define position as <em>perception</em>, and perception is something a
+        campaign <strong>signals</strong>. She steered it — just not toward the contestable bloc.
+      </p>
+      <p>
+        Decompose her actual drift. On <strong>ideology she went left</strong>, absorbing Sanders'
+        coalition: reversing on the TPP (her 2012 "gold standard"), adopting tuition-free public
+        college and a higher minimum wage. On <strong>trust she went up</strong> — more
+        establishment — with the
+        <a href="https://www.cnn.com/2016/10/15/politics/wikileaks-hillary-clinton-goldman-sachs-speeches/index.html" target="_blank" rel="noopener">$225k Goldman Sachs speeches</a>
+        (transcripts withheld), the private email server, the Foundation, the superdelegate tilt.
+        Left to consolidate her base; up toward locked-in, high-trust (and marginally
+        <em>less</em> likely) voters. The moveable bloc sat <strong>down and to the right</strong>.
+        She moved almost exactly opposite it.
+      </p>
+      <span class="fig-label">Figure 7 · Signaling moves the position</span>
+      <div id="chart-signal" class="chart-container" aria-label="Clinton's signaling vectors vs the contestable bloc"></div>
+      <div class="fig-data" id="data-signal"></div>
+      <p class="annotation">
+        <strong>Illustrative (Tier 4):</strong> the start point and the size of each signaling move
+        are estimates — there's no direct ANES measure of perceived establishment. The
+        data-grounded claim is the <em>direction</em>: her deliberate moves loaded the ideology axis
+        (left) and the wrong end of the trust axis (up), while the contestable voters were down-right.
+        The TPP reversal is doubly costly — a left <em>policy</em> move that also read as
+        calculation, an establishment <em>trust</em> signal.
+      </p>
+    </section>
+
     <!-- ACT 4: Where candidates actually stand -->
     <section class="act" id="act-4">
       <div class="act-label">Official vs. perceived</div>
@@ -176,7 +210,7 @@
         quadrant. Meanwhile, Clinton's ANES "honest" trait score (3.95/5) was
         <em>worse</em> than Trump's (3.72/5) — the Goldman Sachs problem, in the data.
       </p>
-      <span class="fig-label">Figure 7 · Official vs perceived</span>
+      <span class="fig-label">Figure 8 · Official vs perceived</span>
       <div id="chart-candidates" class="chart-container" aria-label="Candidate positions, official vs perceived"></div>
       <div class="fig-data" id="data-candidates"></div>
       <div class="legend" id="legend-candidates"></div>
@@ -205,7 +239,7 @@
         high-trust zone. When Sanders wasn't on the general ballot, that overlap had nowhere
         obvious to go.
       </p>
-      <span class="fig-label">Figure 8 · Coalition overlap</span>
+      <span class="fig-label">Figure 9 · Coalition overlap</span>
       <div id="chart-gravity" class="chart-container" aria-label="Primary coalition blobs overlaid on moveable voter terrain"></div>
       <div class="fig-data" id="data-gravity"></div>
 
@@ -214,7 +248,7 @@
         The Bernie→Trump voters had <strong>near-centrist ideology (x ≈ 0)</strong> —
         they didn't move right on policy. They moved on trust.
       </p>
-      <span class="fig-label">Figure 9 · Sanders redistribution</span>
+      <span class="fig-label">Figure 10 · Sanders redistribution</span>
       <div id="chart-gravity-bars" class="chart-container" aria-label="Sanders primary voter redistribution"></div>
       <div class="fig-data" id="data-gravity-bars"></div>
 
@@ -346,6 +380,7 @@
   <script src="js/chartSwing.js"></script>
   <script src="js/chartMoveable.js"></script>
   <script src="js/chartJobs.js"></script>
+  <script src="js/chartSignal.js"></script>
   <script src="js/chartCandidates.js"></script>
   <script src="js/chartGravity.js"></script>
   <script src="js/main.js"></script>
