@@ -23,7 +23,10 @@
       <h2>Voters on a line</h2>
       <p>
         Political analysts love a simple left-right spectrum. Independents sit
-        in the middle. To win them, you move to the center.
+        in the middle. To win them, you move to the center. The whole strategy rests on one
+        assumption: that the voters in play differ from you on <em>left-right</em>, so a
+        horizontal move closes the gap. Everything below tests that assumption — and finds the
+        gap runs the other way.
       </p>
       <span class="fig-label">Figure 1 · 1D spectrum</span>
       <div id="chart-1d" class="chart-container" aria-label="1D ideology spectrum"></div>
@@ -49,9 +52,9 @@
       <div class="fig-data" id="data-2d"></div>
       <div class="legend" id="legend-2d"></div>
       <p class="annotation">
-        The "center" empties out. Most voters who look moderate on policy
-        actually sit in the <strong>low-trust</strong> quadrant — not the
-        moderate quadrant.
+        The "center" empties out. Most voters who look moderate on policy actually sit in the
+        <strong>low-trust</strong> quadrant — not the moderate one. The distance to them is
+        <em>vertical</em>, not horizontal — and that's the gap a left-right move can't close.
       </p>
     </section>
 
@@ -133,77 +136,99 @@
 
     <!-- ACT 3¾: Two axes, two jobs -->
     <section class="act" id="act-jobs">
-      <div class="act-label">Two axes, two jobs</div>
-      <h2>Ideology picks your candidate. Trust decides if you show up.</h2>
+      <div class="act-label">Who vs. whether</div>
+      <h2>Ideology decides <em>who</em> you pick. How much you <em>care</em> decides whether you show up. Policy is neither.</h2>
       <p>
-        Here's the engine behind everything above. We ran two logistic models on the
-        <em>same</em> two axes — ideology and the 3-item trust index — for two different 2016
-        decisions. Predicting <strong>who</strong> someone voted for (Trump vs Clinton), ideology
-        dominates: it's <strong>3.7× stronger</strong> than trust. Predicting <strong>whether</strong>
-        they voted (turnout matched to the L2 <em>voter file</em>, not self-report), ideology's power
-        collapses to <strong>almost exactly zero</strong>. The left-right axis is a powerful predictor
-        of <em>choice</em> and a non-predictor of <em>participation</em>.
+        Here's the engine behind everything above. On the left-right axis, predicting <strong>who</strong>
+        someone voted for (Trump vs Clinton) is easy: ideology dominates — <strong>3.7× stronger</strong>
+        than trust. So the map decides <em>choice</em>. But predicting <strong>whether</strong> they voted
+        at all (turnout matched to the L2 <em>voter file</em>, not self-report) is a different question with
+        a different answer: ideology's power collapses to <strong>almost exactly zero</strong> — and so does
+        trust's. <strong>Neither axis on the map predicts turnout.</strong>
       </p>
       <p>
-        That's why "move to the center" is the wrong map for the disaffected. Policy-centering
-        competes for the <em>choice</em> of people already voting; it has no purchase on whether the
-        checked-out show up at all. Turnout barely moves on either axis — but the only one of the two
-        that nudges it is <em>trust</em> (distrust a few points higher), not ideology, which does nothing.
+        What <em>does</em>? Not policy — and not "engagement" as a lever either. Interest <em>tracks</em>
+        turnout (79% of the very interested voted vs 54% of the barely interested), but that's a
+        <strong>symptom, not a cause</strong>: once you control for how much someone <strong>cares who
+        wins</strong>, their feelings toward the candidates, plus age and education, campaign interest's
+        own effect collapses to near zero. The real driver is <strong>caring</strong> — those who "care a
+        good deal" turned out <strong>81%</strong> vs <strong>48%</strong> for those who didn't. And caring
+        is something <em>candidates</em> manufacture by making voters feel strongly (and coverage amplifies)
+        — not something you create by sliding to the policy center. If anything, centrism dampens it.
       </p>
-      <span class="fig-label">Figure 6 · Two axes, two jobs</span>
-      <div id="chart-jobs" class="chart-container" aria-label="Ideology vs trust fields for choice vs turnout"></div>
+      <span class="fig-label">Figure 6 · Who vs. whether</span>
+      <div id="chart-jobs" class="chart-container" aria-label="Ideology decides choice; caring decides turnout"></div>
       <div class="fig-data" id="data-jobs"></div>
       <p class="annotation">
-        Left: who you'd vote for, colored by P(Trump) — shifts sharply left-to-right (ideology decides
-        choice). Right: <strong>vote-validated</strong> turnout (matched to the L2 voter file; 71% real
-        vs an inflated 85% self-report) — nearly uniform, because <strong>ideology has zero relationship
-        with turnout</strong> (standardized effect 0.00 vs 2.30 for choice). Trust is the only axis that
-        touches participation, and even that nudge is small. The bulletproof claim is the contrast.
+        Left: who you'd vote for, colored by P(Trump) — shifts sharply left-to-right, so ideology decides
+        choice. Right: <strong>vote-validated</strong> turnout (71% real vs an inflated 85% self-report). It
+        tracks <em>engagement</em>, while ideology (0.03) and trust (0.02) move it essentially zero — but read
+        the engagement bars as a <strong>marker, not a lever</strong>: with "care who wins," candidate affect,
+        age and education in the model, interest's own effect falls to ~0.04. Turnout runs on caring and
+        candidate-driven affect, which sit <em>upstream</em> — the next sections trace what actually shifts it.
       </p>
     </section>
 
-    <!-- ACT 3⅞: Position is signaled, not fixed -->
+    <!-- ACT 3⅞: It wasn't an engagement problem -->
     <section class="act" id="act-signal">
-      <div class="act-label">Signaling moves the position</div>
-      <h2>She didn't move to the center. She moved left and up.</h2>
+      <div class="act-label">The contestable bloc, disentangled</div>
+      <h2>Two contestable groups, two levers — and trust gates both.</h2>
       <p>
-        "Clinton moved to the center" is a category error — it conflates <em>centrism</em>
-        (ideology) with <em>institutionalism</em> (trust). Her position was never a fixed
-        coordinate: we define position as <em>perception</em>, and perception is something a
-        campaign <strong>signals</strong>. She steered it — just not toward the contestable bloc.
+        Figure 6 gave us two levers: <strong>engagement</strong> decides <em>whether</em> you vote;
+        <strong>ideology + trust</strong> decide <em>who</em> you pick. The mistake is to point those
+        levers at "low-trust voters" as one bloc. They're not. In 2016 low trust was <em>63% of the
+        electorate</em>, and most of it was the <strong>Republican base</strong> distrusting a
+        Democratic government — not contestable at all. The genuinely up-for-grabs voters are the
+        anti-establishment Democrats, independents, and Sanders supporters who sit low on trust.
       </p>
       <p>
-        Decompose her actual drift. On <strong>ideology she went left</strong>, absorbing Sanders'
-        coalition: reversing on the TPP (her 2012 "gold standard"), adopting tuition-free public
-        college and a higher minimum wage. On <strong>trust she went up</strong> — more
-        establishment — with the
-        <a href="https://www.cnn.com/2016/10/15/politics/wikileaks-hillary-clinton-goldman-sachs-speeches/index.html" target="_blank" rel="noopener">$225k Goldman Sachs speeches</a>
-        (transcripts withheld), the private email server, the Foundation, the superdelegate tilt.
-        Left to consolidate her base; up toward locked-in, high-trust (and marginally
-        <em>less</em> likely) voters. The moveable bloc sat <strong>down and to the right</strong>.
-        She moved almost exactly opposite it.
+        Inside <em>that</em> group, split it the way Figure 5 did. The <strong>engaged
+        contestable</strong> (independents and Sanders voters who turn out) are a <em>choice</em>
+        problem — and the chart below, with the Republican base netted out, shows the choice is
+        decided on trust: Clinton kept <strong>90%</strong> of high-trust non-Republicans but only
+        <strong>68%</strong> of low-trust ones, bleeding 22 points to Trump and third parties. The
+        <strong>disengaged contestable</strong> (the Pew "Sideliners," next section) are instead a
+        <em>turnout</em> problem — but they're anti-establishment too, so mobilizing them only pays
+        off if you aren't the establishment candidate. <strong>Same gate, both levers: trust.</strong>
       </p>
-      <span class="fig-label">Figure 7 · Signaling moves the position</span>
-      <div id="chart-signal" class="chart-container" aria-label="Clinton's signaling vectors vs the contestable bloc"></div>
+      <p>
+        That's why "move to the center" fails here. Policy-centering slides you left-right; it does
+        nothing to your position on trust. Clinton went left on policy to absorb Sanders <em>and</em>
+        up toward the establishment — the
+        <a href="https://www.cnn.com/2016/10/15/politics/wikileaks-hillary-clinton-goldman-sachs-speeches/index.html" target="_blank" rel="noopener">$225k Goldman speeches</a>,
+        the private email server, the Foundation — moving the one axis that gated both groups in
+        exactly the wrong direction.
+      </p>
+      <span class="fig-label">Figure 7 · The contestable bloc, disentangled</span>
+      <div id="chart-signal" class="chart-container" aria-label="Clinton retention by trust among non-Republican voters"></div>
       <div class="fig-data" id="data-signal"></div>
       <p class="annotation">
-        <strong>Illustrative (Tier 4):</strong> the start point and the size of each signaling move
-        are estimates — there's no direct ANES measure of perceived establishment. The
-        data-grounded claim is the <em>direction</em>: her deliberate moves loaded the ideology axis
-        (left) and the wrong end of the trust axis (up), while the contestable voters were down-right.
-        The TPP reversal is doubly costly — a left <em>policy</em> move that also read as
-        calculation, an establishment <em>trust</em> signal.
+        With Republicans removed, the trust effect is no longer "low-trust = GOP": among
+        <strong>non-Republicans who voted</strong>, Clinton's retention slides from
+        <strong>90%</strong> (high trust) to <strong>68%</strong> (low trust) — 22 points lost to
+        Trump and third parties, with abstention on top. Pure independents flip outright (27/49 Trump
+        at low trust → 55/23 Clinton at high), and Sanders primary voters came home only 77%.
+      </p>
+      <p class="annotation">
+        <strong>Correlation, handled carefully.</strong> A snapshot can't prove that a different trust
+        posture <em>would</em> have moved these voters — distrust may drive the vote, or partisanship
+        may color professed distrust, and 2016 trust readings are partly an artifact of who held the
+        White House. Netting out Republicans removes the biggest confound; the <em>causal</em> claim
+        leans on the defection that actually happened (Figure 11) and on evidence that voters adopt
+        their preferred candidate's signals over time (Lenz 2012), not on this chart alone.
       </p>
     </section>
 
     <!-- ACT 4½: Swing voters aren't centrists (external validation) -->
     <section class="act" id="act-disaffected">
-      <div class="act-label">A counterfactual — and a check</div>
+      <div class="act-label">The other group — the disengaged contestable</div>
       <h2>Swing voters aren't centrists. They're disaffected.</h2>
       <p>
-        Before we ask "what if Bernie was on the ballot," we have to make sure the bloc that
-        decides elections is who we say it is. Our ANES moveable voters sit low on trust
-        (≈0.19) — but that's one survey. Two others, built completely differently, say the same.
+        Figure 7 was the <em>engaged</em> contestable — the ones who vote, where trust decides their
+        choice. This is the <em>other</em> group: the disengaged contestable, where trust gates the
+        <em>turnout</em> lever instead. Before we ask "what if Bernie was on the ballot," we have to
+        make sure this bloc is who we say it is. Our ANES moveable voters sit low on trust (≈0.19) —
+        but that's one survey. Two others, built completely differently, say the same.
       </p>
       <p>
         Pew's <a href="https://www.pewresearch.org/politics/2021/11/09/stressed-sideliners/" target="_blank" rel="noopener">"Stressed Sideliners"</a>
@@ -219,30 +244,33 @@
       <div id="chart-disaffected" class="chart-container" aria-label="Pew Stressed Sideliners profile: split, left-economics, distrustful, low turnout"></div>
       <div class="fig-data" id="data-disaffected"></div>
       <p class="annotation">
-        Note the seam with Figure 6: there, the distrustful who answer surveys lean slightly
-        <em>toward</em> voting; here, the Sideliners are the <em>lowest-turnout</em> group. Both are
-        real — surveys under-sample the truly checked-out, so the disaffected split into a withdrawn
-        tail (these Sideliners) and a mobilized tail (who turn out, often for outsiders). Either way the
-        point holds: if the up-for-grabs were genuine centrists, moving to the policy center would reach
-        them. They aren't — so it can't. That sets up the counterfactual.
+        This is the turnout lever's population — and it's the hardest to reach, because turnout isn't a
+        position you can move toward. The Sideliners are the <em>lowest-turnout</em> typology not for where
+        they sit on the left-right map but because nothing has made them <em>care</em> — and caring is what
+        drives turnout (Figure 6). You can't manufacture it by centering; it comes from a candidate who makes
+        people feel something. At 83% "the system favors the powerful," the only thing that would is an
+        anti-establishment signal — a <em>trust</em> move, not a policy one. Both contestable groups bottleneck
+        on the same axis. The next sections trace what actually shifts turnout — and the consolidation that
+        decided 2016.
       </p>
     </section>
 
     <!-- ACT 5: Gravitational wells -->
     <section class="act" id="act-5">
       <div class="act-label">Political gravity</div>
-      <h2>Whose coalition overlapped with the contestable mass?</h2>
+      <h2>The contestable mass sits low. Candidates orbit high.</h2>
       <p>
-        The terrain is the <strong>moveable voter mass</strong> — undecided and disengaged
-        voters, the only people whose vote is actually up for grabs (n=1,028).
-        The dashed blobs are each candidate's <em>primary coalition</em>.
-        The question is the overlap: whose supporters sat inside the contestable zone?
+        Here's the geometry made literal. The terrain is the <strong>moveable voter mass</strong> —
+        undecided and disengaged voters, the only people actually up for grabs (n=1,028) — and it
+        sits <strong>low on trust</strong>, near the floor of the map. Gravity here is
+        <em>trust-proximity</em>: a coalition pulls the contestable in to the degree it sits near
+        them on the vertical axis, regardless of left-right.
       </p>
       <p>
         <strong>Sanders' primary coalition was 40% moveable — three times Clinton's 13%.</strong>
-        His blob sat directly on top of the contestable mass. Clinton's sat above it in the
-        high-trust zone. When Sanders wasn't on the general ballot, that overlap had nowhere
-        obvious to go.
+        His blob sat directly on top of the contestable mass; Clinton's floated <em>above</em> it in
+        the high-trust zone, too far up to exert much pull no matter her policy positions. When
+        Sanders wasn't on the general ballot, that overlap had nowhere obvious to go.
       </p>
       <span class="fig-label">Figure 9 · Coalition overlap</span>
       <div id="chart-gravity" class="chart-container" aria-label="Primary coalition blobs overlaid on moveable voter terrain"></div>
@@ -280,9 +308,10 @@
       </p>
       <p>
         So the decisive problem wasn't winning new ground in the ideological center — it was
-        <strong>holding a coalition that was already there</strong>. And per Figure 6, that
-        coalition's behavior ran on <em>trust</em>, not ideology: the un-consolidated Sanders
-        bloc sat in the low-trust band a center-policy pivot can't reach.
+        <strong>holding a coalition that was already there</strong>. And per Figure 6, a center-policy
+        pivot only competes for the <em>choice</em> of the already-engaged; it can't mobilize a
+        disaffected, low-trust bloc like the un-consolidated Sanders voters — the very people who
+        defected or stayed home.
       </p>
       <span class="fig-label">Figure 11 · The arithmetic</span>
       <div id="chart-consolidation" class="chart-container" aria-label="Trump's decisive margin vs Sanders-to-Trump defectors"></div>
@@ -331,11 +360,20 @@
     <!-- ACT 6: Implications -->
     <section class="act" id="act-6">
       <div class="act-label">So what?</div>
-      <h2>Moving to the "center" is the wrong map</h2>
+      <h2>"Move to the center" is a horizontal answer to a vertical problem</h2>
       <p>
-        If the dominant axis for swing voters is <strong>trust vs. distrust</strong>
-        — not left vs. right — then moderating policy positions to appeal to the center
-        is solving the wrong problem.
+        Step back from 2016 — it was only the worked example. Underneath it is a geometry. The
+        electorate's center of mass sits <strong>low on trust</strong>; candidates and the
+        establishment cluster <strong>high</strong> on it — far, <em>vertically</em>, from where the
+        voters actually are. Conventional strategy treats the contest as horizontal: slide left or
+        right to reach "the center." <strong>That's the fallacy.</strong>
+      </p>
+      <p>
+        Horizontal motion can't close a vertical gap. Trust isn't something you buy by moving on
+        policy — the two axes do different jobs (Figure 6), so a high-trust candidate stays far from
+        the contestable mass <em>no matter where they stand left-to-right</em>. Political gravity pulls
+        the up-for-grabs toward whoever sits closest <strong>on trust</strong>, not on policy. The
+        question for 2028 isn't how far left or right — it's <strong>how far down</strong>.
       </p>
       <ul class="implications">
         <li>
