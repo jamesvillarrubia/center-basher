@@ -16,6 +16,7 @@ Public trust in the federal government to "do what is right just about always / 
 - **1958: 73%** → **1964 peak: 77%** → **2015: 19%** (3% "always" + 16% "most"). Below 30% in every major poll since **July 2007** — the longest such stretch in 50+ years. *(Pew Research Center, "Beyond Distrust," 2015.)*
 - Our ANES 3-item systemic-trust index has population **mean 0.22, median 0.17** on 0–1 — i.e. ≈ Pew's 19%. (V161215 *is* the Pew item.)
 - **Party-of-president pattern:** trust is higher for the in-party. Republican trust averaged **47% under Bush → 13% under Obama** (lowest ever); Democrats ~29% under Obama. *(Pew.)* This is why a 2016 (Obama-era) cross-section conflates "low trust" with "Republican" — a confound we net out below.
+- **Independent corroboration (GSS 1972–2024):** "hardly any confidence" in **Congress** rose **21% (1974) → 35% (2016)**; executive-branch confidence swings with the incumbent party (confirming the party-of-president reactivity). *Caveat:* GSS can't do a clean cross-cycle trust→vote test — vote is asked as recall years later while confidence is measured at interview time, so the two can't be linked by election. Cross-cycle replication needs ANES (below).
 
 ## 2. The center is a lie (frequency table)
 Joint distribution of the 2016 electorate, ideology × institutional trust (weighted % of all voters, ANES 2016, n=3,301):
