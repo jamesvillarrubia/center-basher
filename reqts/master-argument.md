@@ -21,7 +21,7 @@ We live in a **historically low-trust era** (Pew: trust in government 77% in 196
 |---|---|---|---|
 | 0 | **We live in a low-trust era** — trust fell 77%→19% | NEW: trust time-series 1958–2015 (+party-of-president) | ALIGNED (Pew) · GAP: pull series |
 | 1 | Convention: swing voters are in the ideological middle | Fig 1 · 1D spectrum | HAVE (ANES) |
-| 2 | Add the institutional axis — the "center" is empty | Fig 2 · ideology × trust | HAVE · REFRAME label→institutional, tie to Pew |
+| 2 | Add the institutional axis — **the center is a lie**: it's the *biggest* bloc (55%) but **low-trust**; the trusting-moderate the electability pitch targets is only 11% | Fig 2 · ideology × trust + frequency table | HAVE · REFRAME (NOT "empty") |
 | 3 | Trust sorts the candidates (Clinton vs Sanders) | Fig 3 · crowd→candidates | HAVE |
 | 4 | Primary→general coalitions move on trust | Fig 4 · shifts | HAVE |
 | 5 | The contestable ground: low-trust, slightly-right, disaffected | Fig 5 + Fig 5B (9-box) + Pew Sideliners | HAVE (ANES + Pew + Knight) |
@@ -56,6 +56,7 @@ We live in a **historically low-trust era** (Pew: trust in government 77% in 196
 ## WHERE DATA IS WEAK / REFUTED / NEEDS CARE
 - "Trust replaces ideology for choice" — REFUTED cross-sectionally (ideology sorts choice except pure indeps). → reframe to era + discovery.
 - "Contestable are *distinctively* low-trust" — they're at the (low) average; low-trust is universal. → reframe.
+- "The center is *empty*" — FALSE. The center is the largest bloc (55%); the point is it's **low-trust** (62% of moderates), and the trusting-moderate corner is only 11%. Theme: **"the center is a lie"** (moderatism's electability argument is the lie).
 - **Fig 7** trust-defection partly ideology-confounded (didn't control ideology within non-Republicans). → REFRAME honestly.
 - Authenticity/cares findings **endogenous** (motivated reasoning) — consistent with "relational/conferred," not a causal lever.
 
