@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     drawChartJobs();
     drawTurnoutLevers();
     drawChartSignal(voters);
+    drawCampaignCeiling();
     drawChartDisaffected();
     drawChartCandidates(window.CANDIDATES);
     drawStrategyMatrix();
