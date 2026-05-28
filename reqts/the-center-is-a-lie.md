@@ -15,6 +15,7 @@ validation (§9) is pending a second ANES file — see DATA NEEDS.
 Public trust in the federal government to "do what is right just about always / most of the time":
 - **1958: 73%** → **1964 peak: 77%** → **2015: 19%** (3% "always" + 16% "most"). Below 30% in every major poll since **July 2007** — the longest such stretch in 50+ years. *(Pew Research Center, "Beyond Distrust," 2015.)*
 - Our ANES 3-item systemic-trust index has population **mean 0.22, median 0.17** on 0–1 — i.e. ≈ Pew's 19%. (V161215 *is* the Pew item.)
+- **ANES's own microdata replicates the collapse** (Cumulative File, VCF0604): "most/just about always" trust fell **78% (1964) → 54% (1972) → 26% (1980) → 22% (2012)**; 3-item index mean **0.53 → 0.22**. See §9 for the full cross-cycle treatment.
 - **Party-of-president pattern:** trust is higher for the in-party. Republican trust averaged **47% under Bush → 13% under Obama** (lowest ever); Democrats ~29% under Obama. *(Pew.)* This is why a 2016 (Obama-era) cross-section conflates "low trust" with "Republican" — a confound we net out below.
 - **Independent corroboration (GSS 1972–2024):** "hardly any confidence" in **Congress** rose **21% (1974) → 35% (2016)**; executive-branch confidence swings with the incumbent party (confirming the party-of-president reactivity). *Caveat:* GSS can't do a clean cross-cycle trust→vote test — vote is asked as recall years later while confidence is measured at interview time, so the two can't be linked by election. Cross-cycle replication needs ANES (below).
 
@@ -82,12 +83,36 @@ The same two candidates **flip** from authentic to fake depending on where the v
 - **Sanders → Trump defection** (CES 2016, vote-validated; reproduces Schaffner's national 12%) exceeded Trump's deciding margin in **every** decisive state: WI ~61k (**2.7×**), MI ~56k (**5.3×**), PA ~131k (**3.0×**); plus ~30% of Sanders primary voters didn't vote at all. The defectors were **near-centrist on ideology** — they moved on **trust**, not policy.
 - Bounded claim — not "Bernie would have won." The defensible point is the **arithmetic of consolidation.**
 
-## 9. Cross-cycle validation — PENDING DATA
-To refute "that was just 2016 / pre-Trust / a decade ago," replicate §2–§6 in ≥1 other cycle. **Needs a second ANES file (see DATA NEEDS).** Predictions to test:
-- Trust-collapse + the low-trust center hold in 2008/2012/2020.
-- The authenticity crossover replicates (low-trust voters find the outsider authentic).
-- Turnout ⊥ ideology holds.
-- Party-of-president flips the partisan trust gap (GOP higher under Trump 2020 — a clean confound check).
+## 9. Cross-cycle validation — DONE (ANES Cumulative File, 1948–2024)
+Replicated in the ANES Time Series Cumulative Data File (VCF0604/0605/0609 = the *same* 3-item index; VCF0803 ideology; VCF0704 vote; VCF0009z weight).
+
+**(a) The trust collapse is in ANES's own microdata:** "most / just about always" trust in government fell **78% (1964) → 54% (1972) → 26% (1980) → 22% (2012)**; 3-item index mean **0.53 → 0.22**. (Matches Pew 77%→19%.)
+
+**(b) Trust→vote is incumbent-reactive and stable for 48 years — the headline cross-cycle result.** P(Republican pres vote) ~ ideology + trust (weighted, standardized) by cycle; the **trust coefficient flips sign with the party holding the White House in 11 of 13 cycles:**
+
+| cycle | WH | ideology | trust | low-trust leans |
+|---|---|---|---|---|
+| 1976 | R | +1.07 | **+0.45** | D |
+| 1980 | D | +0.98 | **−0.09** | R |
+| 1984 | R | +1.04 | **+0.41** | D |
+| 1988 | R | +1.24 | **+0.53** | D |
+| 1992 | R | +1.52 | **+0.21** | D |
+| 1996 | D | +1.54 | **−0.18** | R |
+| 2000 | D | +1.39 | **−0.06** | R |
+| 2004 | R | +1.82 | **+0.79** | D |
+| 2008 | R | +1.88 | −0.02 | (flat) |
+| 2012 | D | +2.09 | **−0.39** | R |
+| 2016 | D | +2.41 | **−0.28** | R |
+| 2020 | R | +2.64 | **+0.05** | D |
+| 2024 | D | +2.44 | **−0.17** | R |
+
+**What it establishes:**
+- **"That was just 2016" is refuted** — the pattern runs 1976→2024.
+- **"Low-trust = Republican" is a 2016 (Obama-era) artifact.** Trust's vote effect flips the moment power changes hands (2020, Trump incumbent → low-trust leans Democratic). The **party-of-president confound is proven, not asserted.**
+- **Honest reframe:** low trust doesn't vote *for a party or ideology* — it votes **against the incumbent establishment.** In a chronically low-trust era, the in-power establishment candidate (Clinton 2016) is structurally disadvantaged with the low-trust mass, regardless of policy. *That is "the center is a lie," across half a century.*
+- **Ideology is the dominant, stable sorter every cycle and grows (1.07→2.64) — rising polarization.** Trust is the smaller incumbent-reactive overlay. (Consistent with the 2016 single-cycle finding: ideology sorts choice; trust is secondary.)
+
+**Still to replicate (needs ANES 2020 Time Series, has trait items):** the §6 authenticity crossover in a Trump-incumbent year (predict: low-trust voters now read the *Democrat* as fake / Trump as authentic-but-incumbent — a clean test of relational authenticity vs. incumbency).
 
 ---
 

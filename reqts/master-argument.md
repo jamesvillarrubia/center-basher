@@ -52,6 +52,7 @@ We live in a **historically low-trust era** (Pew: trust in government 77% in 196
 10. **Party-of-president trust** — Pew: GOP 47% (Bush) → 13% (Obama); explains the 2016 "low-trust = GOP" confound.
 11. **Swing = disaffected not centrist** — Pew Sideliners, Knight nonvoters, ANES moveable bloc converge.
 12. **Pure independents** — trust > ideology for their choice.
+13. **CROSS-CYCLE (ANES CDF 1948–2024):** trust collapse replicates in ANES (78%→22%); trust→vote is **incumbent-reactive** — the trust coefficient flips sign with the party in the White House in **11 of 13 cycles** (1976–2024). Refutes "just 2016," proves the party-of-president confound, and reframes the claim to **"low trust = anti-incumbent/anti-establishment," not "= Republican."** Ideology is the dominant, growing sorter (1.07→2.64).
 
 ## WHERE DATA IS WEAK / REFUTED / NEEDS CARE
 - "Trust replaces ideology for choice" — REFUTED cross-sectionally (ideology sorts choice except pure indeps). → reframe to era + discovery.
@@ -64,7 +65,8 @@ We live in a **historically low-trust era** (Pew: trust in government 77% in 196
 1. **Trust time-series numbers** (ANES/Pew 1958–2020) to build Act 0 + the party-of-president shading.
 2. **Over-time candidate trait tracking** (Gallup/ABC-WaPo/Pew "honest & trustworthy," "cares about people like me" across 2016) → test stickiness/discovery (predict: barely moves).
 3. **VSG / VOTER panel** (already downloaded) → within-person trait/affect change across waves — our best stickiness test.
-4. **Cross-year ANES** (2008/2012/2020) → replicate authenticity crossover + trust collapse + party-of-president; multi-year Fig 12; validate "position is preset."
+4. ~~**Cross-year ANES**~~ **DONE** — ANES Cumulative File (`~/Downloads/anes_timeseries_cdf_csv_20260205.zip`) gives the trust collapse + the incumbent-reactive trust→vote flip across 13 cycles (see the-center-is-a-lie.md §9). STILL want **ANES 2020 Time Series** (trait items) to replicate the authenticity crossover in a Trump-incumbent year.
+   NEW FIGURE candidate: **cross-cycle trust→vote** — the trust coefficient by year, colored by incumbent party, showing the flip (kills "just 2016" in one chart).
 5. **An unknown-candidate / primary case** → test the visibility lever (Bernie name-rec growth 2015→16; or downballot) — can't test in the 2016 general (recognition saturated).
 6. **Visibility / "mass" data** — small-donor counts, rally attendance, earned-media $ (Trump ~$5.6B) — to operationalize gravity mass + "I'm with her vs us."
 7. **DW-NOMINATE 2nd-dim real values** (current y_off is hand-adjusted) — clean candidate institutional-position for Fig 12 + a stickiness figure.
