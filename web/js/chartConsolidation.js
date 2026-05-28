@@ -1,19 +1,16 @@
 /**
  * chartConsolidation.js — Figure 11: the pivot was consolidation, not the center.
  *
- * External, cited data (not ANES — this is the swing-state arithmetic our national
- * sample can't produce):
- *   Trump's decisive Electoral-College margin = 77,744 across PA+WI+MI
- *     (PA 44,292 · WI 22,748 · MI 10,704; state certified results)
- *   Sanders→Trump voters in those same three states ≈ 216,000
- *     (Schaffner / CCES exit-poll analysis, via NBC News) — ~2.8× the margin
- *   Nationally >1.5M Sanders primary voters voted Trump (12%).
+ * Everything in ONE unit (votes), per decisive state:
+ *   Sanders' 2016 Democratic-primary vote (the pool that needed consolidating)
+ *     WI 567,936 · MI 595,222 · PA 731,881  (≈1.9M across the three)
+ *   Trump's general-election margin (what actually decided the state)
+ *     WI 22,748 · MI 10,704 · PA 44,292  (77,744 total — the Electoral College)
  *
- * Bounded claim: the un-consolidated Sanders bloc dwarfed the margin, so the pivot
- * was holding the coalition (a trust-axis problem, per Fig 6), not winning new
- * ideological ground. NOT a "Bernie would have won" proof — crossover isn't unique
- * (12% of GOP primary voters went Clinton; ~25% of Clinton's 2008 voters went McCain)
- * and the matchup was never stress-tested against a GOP general-election assault.
+ * The margin was a 2–6% sliver of each state's Sanders primary electorate. And the
+ * cited Sanders→Trump defection (~12%, Schaffner/CCES) alone exceeded every margin.
+ * Bounded claim — NOT "Bernie would have won": crossover isn't unique and the matchup
+ * was never stress-tested. Sources: state certified results; Schaffner/CCES via NPR/NBC.
  */
 
 window.drawChartConsolidation = function () {
@@ -21,63 +18,53 @@ window.drawChartConsolidation = function () {
   if (!container) return;
 
   const states = [
-    { st: "PA", margin: 44292, color: "#f06060" },
-    { st: "WI", margin: 22748, color: "#f08080" },
-    { st: "MI", margin: 10704, color: "#f0a0a0" },
+    { st: "Wisconsin", sanders: 567936, margin: 22748 },
+    { st: "Michigan", sanders: 595222, margin: 10704 },
+    { st: "Pennsylvania", sanders: 731881, margin: 44292 },
   ];
-  const marginTotal = 77744;
-  const defectors = 216000;
 
   const W = container.clientWidth || 680;
-  const H = 240;
-  const margin = { top: 30, right: 92, bottom: 36, left: 210 };
+  const rowH = 40, gap = 26;
+  const margin = { top: 28, right: 150, bottom: 34, left: 116 };
   const iW = W - margin.left - margin.right;
-  const iH = H - margin.top - margin.bottom;
+  const H = margin.top + states.length * (rowH + gap) + margin.bottom;
 
   const svg = d3.select(container).append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("width", "100%");
   const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
-  const x = d3.scaleLinear().domain([0, 230000]).range([0, iW]);
-  const barH = 44, gap = 38;
-  const fmt = n => (n / 1000).toFixed(n < 1000 ? 1 : 0) + "k";
+  const x = d3.scaleLinear().domain([0, 760000]).range([0, iW]);
+  const fmt = n => n.toLocaleString();
 
-  // gridlines
-  x.ticks(5).forEach(t => {
-    g.append("line").attr("x1", x(t)).attr("x2", x(t)).attr("y1", -4).attr("y2", iH).attr("stroke", "#ffffff10");
-    g.append("text").attr("x", x(t)).attr("y", iH + 16).attr("text-anchor", "middle").attr("fill", "#8888a8").attr("font-size", 10).text(fmt(t));
+  // header note
+  g.append("text").attr("x", 0).attr("y", -12).attr("fill", "#8888a8").attr("font-size", 11)
+    .text("Per state, in votes:  ■ Sanders' Democratic-primary electorate   ■ Trump's general-election margin");
+
+  states.forEach((s, i) => {
+    const y = i * (rowH + gap);
+    const pct = (100 * s.margin / s.sanders).toFixed(1);
+    // state label
+    g.append("text").attr("x", -margin.left + 4).attr("y", y + rowH / 2 - 2).attr("fill", "#fff").attr("font-size", 13).attr("font-weight", 700).text(s.st);
+    g.append("text").attr("x", -margin.left + 4).attr("y", y + rowH / 2 + 14).attr("fill", "#8888a8").attr("font-size", 9).text("2016");
+    // Sanders primary pool (purple)
+    g.append("rect").attr("x", 0).attr("y", y).attr("width", x(s.sanders)).attr("height", rowH).attr("fill", "#c97fff").attr("opacity", 0.55).attr("rx", 2);
+    g.append("text").attr("x", x(s.sanders) + 8).attr("y", y + 15).attr("fill", "#c97fff").attr("font-size", 12).attr("font-weight", 700).text(fmt(s.sanders));
+    g.append("text").attr("x", x(s.sanders) + 8).attr("y", y + 30).attr("fill", "#8888a8").attr("font-size", 9).text("Sanders primary votes");
+    // Trump margin (red), overlaid at the start
+    g.append("rect").attr("x", 0).attr("y", y).attr("width", Math.max(2, x(s.margin))).attr("height", rowH).attr("fill", "#f06060").attr("rx", 2);
+    g.append("line").attr("x1", x(s.margin)).attr("x2", x(s.margin)).attr("y1", y - 4).attr("y2", y + rowH + 4).attr("stroke", "#fff").attr("stroke-width", 1).attr("opacity", 0.6);
+    g.append("text").attr("x", x(s.margin) + 4).attr("y", y - 6).attr("fill", "#f06060").attr("font-size", 10).attr("font-weight", 700)
+      .text(`Trump won by ${fmt(s.margin)} — just ${pct}% of it`);
   });
 
-  // Row 1: decisive margin, segmented by state
-  let cur = 0;
-  g.append("text").attr("x", -margin.left + 6).attr("y", barH / 2 - 4).attr("fill", "#fff").attr("font-size", 12).attr("font-weight", 700)
-    .text("Trump's decisive margin");
-  g.append("text").attr("x", -margin.left + 6).attr("y", barH / 2 + 12).attr("fill", "#8888a8").attr("font-size", 10).text("PA + WI + MI (Electoral College)");
-  states.forEach(s => {
-    g.append("rect").attr("x", x(cur)).attr("y", 0).attr("width", x(s.margin) - x(0)).attr("height", barH)
-      .attr("fill", s.color).attr("opacity", 0.9).attr("stroke", "#0f0f13");
-    if (x(s.margin) - x(0) > 26)
-      g.append("text").attr("x", x(cur + s.margin / 2)).attr("y", barH / 2 + 4).attr("text-anchor", "middle")
-        .attr("fill", "#0f0f13").attr("font-size", 10).attr("font-weight", 700).text(s.st);
-    cur += s.margin;
-  });
-  g.append("text").attr("x", x(marginTotal) + 8).attr("y", barH / 2 + 4).attr("fill", "#fff").attr("font-size", 12).attr("font-weight", 700)
-    .text(marginTotal.toLocaleString());
-
-  // Row 2: Sanders → Trump defectors in those states
-  const y2 = barH + gap;
-  g.append("text").attr("x", -margin.left + 6).attr("y", y2 + barH / 2 - 4).attr("fill", "#c97fff").attr("font-size", 12).attr("font-weight", 700)
-    .text("Sanders → Trump voters");
-  g.append("text").attr("x", -margin.left + 6).attr("y", y2 + barH / 2 + 12).attr("fill", "#8888a8").attr("font-size", 10).text("in the same 3 states (CCES)");
-  g.append("rect").attr("x", 0).attr("y", y2).attr("width", x(defectors) - x(0)).attr("height", barH)
-    .attr("fill", "#c97fff").attr("opacity", 0.85).attr("rx", 2);
-  g.append("text").attr("x", x(defectors) + 8).attr("y", y2 + barH / 2 + 4).attr("fill", "#c97fff").attr("font-size", 12).attr("font-weight", 700)
-    .text("~216,000");
-  g.append("text").attr("x", x(defectors) + 8).attr("y", y2 + barH / 2 + 18).attr("fill", "#8888a8").attr("font-size", 9)
-    .text("≈ 2.8× the margin");
+  // bottom axis
+  const yAx = states.length * (rowH + gap) - gap + 12;
+  g.append("g").attr("transform", `translate(0,${yAx})`).call(d3.axisBottom(x).ticks(6).tickFormat(d => d / 1000 + "k"))
+    .selectAll("text").attr("fill", "#8888a8").attr("font-size", 9);
+  g.selectAll(".domain,.tick line").attr("stroke", "#444");
 
   window.renderFigSpec("data-consolidation", {
-    population: "Three decisive states (PA, WI, MI). External cited data — not ANES, which is national-only.",
+    population: "Three decisive states (WI, MI, PA). External certified data — not ANES.",
     x: "Votes.",
-    y: "Trump's combined EC-deciding margin vs Sanders→Trump defectors in the same states.",
-    marks: "Top bar = margin (segmented by state). Bottom = Sanders→Trump voters (Schaffner/CCES). Defectors ≈ 2.8× the margin; abstainers (21% of Sanders voters) are an even larger uncounted pool. Bounded claim — see note.",
+    y: "Per state: Sanders' Democratic-primary electorate vs Trump's general-election margin.",
+    marks: "Purple = Sanders' primary votes (the pool). Red = Trump's deciding margin — a 2–6% sliver of it. ~12% of Sanders primary voters backed Trump (Schaffner/CCES), itself larger than each margin. Bounded claim — see note.",
   });
 };
