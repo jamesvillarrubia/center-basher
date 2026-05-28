@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function init(voters) {
     drawChart1D(voters);
+    drawPlaybook();
     drawChart2D(voters);
     drawChartBridge(voters);
     drawChartSwing(voters);
