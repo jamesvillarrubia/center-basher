@@ -25,6 +25,7 @@ vertical gap with horizontal (policy) moves, so you pick a candidate who **start
 3. **Trust sorts the candidates** — *Point:* in the 2016 Dem primary, Clinton vs Sanders split on trust, not ideology. *Show:* candidate centroids on party blobs.
 4. **Primary → general** — *Point:* coalitions moved on trust between primary and general. *Show:* centroid shift arrows.
 5. **The contestable ground** — *Point:* the only voters in play sit low-trust, slightly right. *Show:* moveable-voter blobs + candidate dots.
+5B. **The campaign playbook (9-box)** — *Point:* campaigns already chase these voters with two plays (persuasion / GOTV) on partisanship × frequency — and the grid crosses out the low-trust persuadables. *Show:* NGP VAN 9-box. [BUILT; placed right after Fig 5 per user — ties the two plays to Fig 5's two groups and the abandoned cell to the low-trust mass; bridges into Fig 6]
    - **(validation, external)** *Swing ≠ center* (Pew Sideliners) — *Point:* built three different ways, the contestable bloc is disaffected/low-trust, not moderate. *Show:* Pew profile. [current Fig 8, pulled earlier as Part I validation]
 
 ## PART II — HOW YOU WIN THE CONTESTABLE (two levers)
