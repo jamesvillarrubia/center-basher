@@ -55,7 +55,7 @@ window.drawChartSignal = function () {
   g.append("text").attr("x", 0).attr("y", -30).attr("fill", "#c9b96e").attr("font-size", 11).attr("font-weight", 700)
     .text("Republicans removed — Clinton's reachable coalition only.");
   g.append("text").attr("x", 0).attr("y", -17).attr("fill", "#8888a8").attr("font-size", 10)
-    .text("Non-Republicans who voted — trust decided who stayed.");
+    .text("Among non-Republicans who voted, trust — not policy — decided who stayed.");
 
   // ── rows: 100% stacked, high trust on top → low trust at bottom ────────────
   SIGNAL_BANDS.forEach((b, i) => {
@@ -75,7 +75,7 @@ window.drawChartSignal = function () {
     g.append("text").attr("x", x(100) + 6).attr("y", yc + 4).attr("fill", "#b9a0c8").attr("font-size", 10).attr("font-weight", 700).text("−" + (100 - b.clinton) + "%");
   });
   g.append("text").attr("x", iW / 2).attr("y", plotH + 30).attr("text-anchor", "middle").attr("fill", "#cfd6ea").attr("font-size", 10.5)
-    .text("Defection climbs 10% → 32% as trust falls — to Trump and third parties.");
+    .text("Defection from Clinton climbs 10% → 32% as trust falls — to Trump and to third parties.");
 
   window.renderFigSpec("data-signal", {
     population: "ANES 2016 (weighted). NON-Republicans (Democratic + independent identifiers, V161158x) who cast a presidential vote — Clinton's reachable coalition, with the GOP base netted out. n = 516 / 450 / 538.",

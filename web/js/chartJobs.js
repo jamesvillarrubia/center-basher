@@ -91,7 +91,7 @@ window.drawChartJobs = function () {
   // ── RIGHT panel: WHETHER you vote — engagement, not position ───────────────
   const gR = svg.append("g").attr("transform", `translate(${panelW + gap + pm.left},${pm.top})`);
   gR.append("text").attr("x", 0).attr("y", -16).attr("fill", "#fff").attr("font-size", 13).attr("font-weight", 700).text("WHETHER you vote");
-  gR.append("text").attr("x", 0).attr("y", -3).attr("fill", "#8888a8").attr("font-size", 10).text("vote-validated turnout");
+  gR.append("text").attr("x", 0).attr("y", -3).attr("fill", "#8888a8").attr("font-size", 10).text("validated turnout — tracks engagement, not the map");
 
   // Group 1: turnout by engagement
   const lab1X = 70, b1x = d3.scaleLinear().domain([0, 100]).range([0, pIW - lab1X - 34]);
@@ -107,12 +107,12 @@ window.drawChartJobs = function () {
     gR.append("text").attr("x", lab1X + b1x(d.pct) + 5).attr("y", y + rowH1 - 4).attr("fill", "#e8e8f0").attr("font-size", 11).attr("font-weight", 700).text(d.pct + "%");
     y += rowH1 + gap1;
   });
-  gR.append("text").attr("x", 0).attr("y", y + 2).attr("fill", "#7fbf9f").attr("font-size", 9).text("a 25-pt swing — interest, not policy");
+  gR.append("text").attr("x", 0).attr("y", y + 2).attr("fill", "#7fbf9f").attr("font-size", 9).text("a 25-point swing — driven by interest, not policy");
   y += 18;
 
   // Group 2: what actually predicts turnout
   gR.append("text").attr("x", 0).attr("y", y + 8).attr("fill", "#cfcfe0").attr("font-size", 10).attr("font-weight", 700).text("What actually moves turnout");
-  gR.append("text").attr("x", 0).attr("y", y + 20).attr("fill", "#8888a8").attr("font-size", 8.5).text("standardized effect (|β·SD|)");
+  gR.append("text").attr("x", 0).attr("y", y + 20).attr("fill", "#8888a8").attr("font-size", 8.5).text("standardized effect on validated turnout (|β·SD|)");
   y += 30;
   const lab2X = 70, b2x = d3.scaleLinear().domain([0, 0.4]).range([0, pIW - lab2X - 34]);
   const rowH2 = 15, gap2 = 6;

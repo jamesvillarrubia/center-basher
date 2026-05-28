@@ -25,7 +25,7 @@ const TURNOUT_LEVERS = [
   { lab: "Standard GOTV mail",          pp: 0.8, kind: "contact" },
   { lab: "Volunteer phone bank",        pp: 2.0, kind: "contact" },
   { lab: "Door-to-door canvassing",     pp: 4.3, kind: "contact" },
-  { lab: "Social-pressure mail",        pp: 8.1, kind: "contact" },
+  { lab: "Social-pressure “neighbors” mail", pp: 8.1, kind: "contact" },
 ];
 
 window.drawTurnoutLevers = function () {
@@ -33,7 +33,7 @@ window.drawTurnoutLevers = function () {
   if (!container) return;
 
   const W = container.clientWidth || 680;
-  const M = { top: 50, right: 50, bottom: 38, left: 168 };
+  const M = { top: 50, right: 50, bottom: 38, left: 192 };
   const iW = W - M.left - M.right;
   const rowH = 26, gap = 14, firstTop = 6;
   const plotH = TURNOUT_LEVERS.length * rowH + (TURNOUT_LEVERS.length - 1) * gap;
