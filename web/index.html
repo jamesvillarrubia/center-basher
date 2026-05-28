@@ -195,6 +195,35 @@
       </p>
     </section>
 
+    <!-- ACT 4½: Swing voters aren't centrists (external validation) -->
+    <section class="act" id="act-disaffected">
+      <div class="act-label">A counterfactual — and a check</div>
+      <h2>Swing voters aren't centrists. They're disaffected.</h2>
+      <p>
+        Before we ask "what if Bernie was on the ballot," we have to make sure the bloc that
+        decides elections is who we say it is. Our ANES moveable voters sit low on trust
+        (≈0.19) — but that's one survey. Two others, built completely differently, say the same.
+      </p>
+      <p>
+        Pew's <a href="https://www.pewresearch.org/politics/2021/11/09/stressed-sideliners/" target="_blank" rel="noopener">"Stressed Sideliners"</a>
+        — the <em>only</em> one of nine typology groups with no partisan lean, and the
+        least engaged — are split <strong>45% / 45%</strong> between the parties (not centrist,
+        just torn), lean <em>left</em> on economics (74% want a $15 wage), and are defined by
+        distrust: <strong>83% say the economy "unfairly favors the powerful."</strong> The
+        <a href="https://knightfoundation.org/reports/the-100-million-project/" target="_blank" rel="noopener">Knight</a>
+        nonvoter study lands in the same place (~even, disaffected). Three datasets, one answer:
+        <strong>the contestable bloc is disengaged and distrustful, not moderate.</strong>
+      </p>
+      <span class="fig-label">Figure 8 · Swing ≠ center</span>
+      <div id="chart-disaffected" class="chart-container" aria-label="Pew Stressed Sideliners profile: split, left-economics, distrustful, low turnout"></div>
+      <div class="fig-data" id="data-disaffected"></div>
+      <p class="annotation">
+        This is the "grow into it" step: if the up-for-grabs voters were genuine centrists,
+        moving to the policy center would reach them. They aren't — so it can't. That sets up the
+        counterfactual: a candidate who spoke to distrust (an outsider) had room a triangulator didn't.
+      </p>
+    </section>
+
     <!-- ACT 5: Gravitational wells -->
     <section class="act" id="act-5">
       <div class="act-label">Political gravity</div>
@@ -211,7 +240,7 @@
         high-trust zone. When Sanders wasn't on the general ballot, that overlap had nowhere
         obvious to go.
       </p>
-      <span class="fig-label">Figure 8 · Coalition overlap</span>
+      <span class="fig-label">Figure 9 · Coalition overlap</span>
       <div id="chart-gravity" class="chart-container" aria-label="Primary coalition blobs overlaid on moveable voter terrain"></div>
       <div class="fig-data" id="data-gravity"></div>
 
@@ -220,7 +249,7 @@
         The Bernie→Trump voters had <strong>near-centrist ideology (x ≈ 0)</strong> —
         they didn't move right on policy. They moved on trust.
       </p>
-      <span class="fig-label">Figure 9 · Sanders redistribution</span>
+      <span class="fig-label">Figure 10 · Sanders redistribution</span>
       <div id="chart-gravity-bars" class="chart-container" aria-label="Sanders primary voter redistribution"></div>
       <div class="fig-data" id="data-gravity-bars"></div>
 
@@ -249,7 +278,7 @@
         coalition's behavior ran on <em>trust</em>, not ideology: the un-consolidated Sanders
         bloc sat in the low-trust band a center-policy pivot can't reach.
       </p>
-      <span class="fig-label">Figure 10 · The arithmetic</span>
+      <span class="fig-label">Figure 11 · The arithmetic</span>
       <div id="chart-consolidation" class="chart-container" aria-label="Trump's decisive margin vs Sanders-to-Trump defectors"></div>
       <div class="fig-data" id="data-consolidation"></div>
       <p class="annotation">
@@ -280,7 +309,7 @@
         vertical, not left-right. A 2028 contender who wants the contestable bloc has to land
         <strong>low on this axis</strong>, regardless of policy.
       </p>
-      <span class="fig-label">Figure 11 · Where candidates stand</span>
+      <span class="fig-label">Figure 12 · Where candidates stand</span>
       <div id="chart-candidates" class="chart-container" aria-label="Candidate positions, official vs perceived"></div>
       <div class="fig-data" id="data-candidates"></div>
       <div class="legend" id="legend-candidates"></div>
@@ -415,6 +444,7 @@
   <script src="js/chartMoveable.js"></script>
   <script src="js/chartJobs.js"></script>
   <script src="js/chartSignal.js"></script>
+  <script src="js/chartDisaffected.js"></script>
   <script src="js/chartCandidates.js"></script>
   <script src="js/chartGravity.js"></script>
   <script src="js/chartConsolidation.js"></script>

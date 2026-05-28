@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     drawChartMoveable(voters);
     drawChartJobs();
     drawChartSignal(voters);
+    drawChartDisaffected();
     drawChartCandidates(window.CANDIDATES);
     drawChartGravity(voters, window.CANDIDATES);
     drawChartConsolidation();
