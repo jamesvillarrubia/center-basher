@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     drawChartSignal(voters);
     drawChartDisaffected();
     drawChartCandidates(window.CANDIDATES);
+    drawStrategyMatrix();
     drawChartGravity(voters, window.CANDIDATES);
     drawChartConsolidation();
   }
