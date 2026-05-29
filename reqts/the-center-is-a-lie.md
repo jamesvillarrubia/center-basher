@@ -33,6 +33,7 @@ Joint distribution of the 2016 electorate, ideology × institutional trust (weig
 - But **66% of the whole electorate is low-trust**, and **62% of moderates are low-trust.**
 - The "comfortable moderate" the electability argument targets — **Center × High-trust — is only 11%.**
 - **Takeaway:** the center exists, but it is *disaffected*, not the trusting moderate the pitch assumes. Moderating policy to court "the center" misreads who the center is.
+- **Replicates 2016/2020/2024:** trusting-moderate corner = **11% / 10% / 12%**; trust index mean = **0.22 / 0.23 / 0.24**. Not a 2016 artifact.
 
 ## 3. Two different jobs: who you pick vs. whether you show up
 Predicting the 2016 vote with ideology + trust (weighted logistic, standardized |β·SD|):
@@ -63,16 +64,30 @@ Every lever that works is **contact / social pressure**, not message content. In
 - **Scaling it:** the candidate's trust position is associated with a **~22-pt** swing in their reachable coalition's vote (§7-adjacent), while what the campaign *does* after moves choice ≈0. **The election is decided at the nomination, by priors — not by what the nominee does after.**
 - **Honest caveat:** cross-sectionally, ideology still *sorts* choice even among persuadables (ideo/trust ≈ 2.8× for leaners; trust *beats* ideology only for **pure independents**, 0.8×). The trust story is era-level + turnout + authenticity + marginal defectors — **not** a cross-sectional claim that trust replaces left–right for choice.
 
-## 6. Authenticity is relational (the crossover)
-Perceived candidate traits by voter institutional trust (ANES 2016; 0–4, higher = trait fits better):
+## 6. Authenticity is relational — and it tracks *challenger status* (3-cycle test)
+Perceived candidate traits by voter institutional-trust band (ANES 2016/2020/2024; 0–4, higher = trait fits better; honesty shown):
 
-| voter trust | Clinton honest | Trump honest | Clinton cares | Trump cares |
-|---|---|---|---|---|
-| Low (<0.15) | 0.54 | **1.58** | 0.88 | **1.44** |
-| Mid | 1.18 | 1.16 | 1.69 | 1.06 |
-| High (≥0.30) | **1.77** | 0.93 | **2.19** | 0.70 |
+**2016 — Trump CHALLENGER → crossover PRESENT**
+| trust | Clinton honest | Trump honest |
+|---|---|---|
+| Low | 0.54 | **1.58** |
+| High | **1.77** | 0.93 |
 
-The same two candidates **flip** from authentic to fake depending on where the voter sits. Correlation of trust with "sees Trump as more authentic than Clinton" = **−0.37** (honesty and caring), surviving an ideology control (trust β −0.48 to −0.54). **Authenticity is conferred by institutional proximity — not a trait you can manufacture.** *(Caveat: partly motivated reasoning — which is consistent with "relational/conferred," not refuting it.)* In a full vote model, **"cares about people like me" is the strongest proximate predictor (+0.14 > ideology +0.09) and absorbs trust to ≈0.**
+**2020 — Trump INCUMBENT → crossover ABSENT**
+| trust | Biden honest | Trump honest |
+|---|---|---|
+| Low | **1.43** | 0.96 |
+| High | **1.66** | 1.36 |
+
+**2024 — Trump CHALLENGER → crossover RETURNS (cleanest)**
+| trust | Harris honest | Trump honest |
+|---|---|---|
+| Low | 0.98 | **1.39** |
+| High | **2.37** | 0.81 |
+
+The crossover **appears when Trump is the challenger (2016, 2024) and vanishes when he is the incumbent (2020).** So authenticity is relational *and role-dependent*: the anti-establishment authenticity advantage is **conferred on the challenger/outsider and erased by incumbency.** It dovetails with the incumbent-reactive trust→vote (§9): trust votes *against the establishment-in-power*, so the low-trust authenticity edge flows to whoever is challenging it. Trust→vote tracks the same arc: **2016 −0.28, 2020 −0.00, 2024 −0.58.**
+
+In 2016, correlation of trust with "sees Trump as more authentic than Clinton" = **−0.37**, surviving an ideology control (trust β −0.48 to −0.54); "cares about people like me" is the strongest proximate vote predictor (+0.14 > ideology +0.09) and absorbs trust to ≈0. **Authenticity is conferred by institutional proximity — not a trait you can manufacture.** *(Caveat: still partly motivated reasoning; but the present→absent→present pattern tracking challenger status is structural, not arbitrary — motivated reasoning alone doesn't explain the role-switch.)*
 
 ## 7. Plank-stealing is asymmetric → left–right is moot
 - **Barber & Pope (2019, APSR, "Does Party Trump Ideology?"):** Republicans adopted whatever position they were told **Trump** held — *even the liberal one* — against their own stated ideology. Position-shifting is "free" for an authentic/aligned figure.
@@ -112,7 +127,7 @@ Replicated in the ANES Time Series Cumulative Data File (VCF0604/0605/0609 = the
 - **Honest reframe:** low trust doesn't vote *for a party or ideology* — it votes **against the incumbent establishment.** In a chronically low-trust era, the in-power establishment candidate (Clinton 2016) is structurally disadvantaged with the low-trust mass, regardless of policy. *That is "the center is a lie," across half a century.*
 - **Ideology is the dominant, stable sorter every cycle and grows (1.07→2.64) — rising polarization.** Trust is the smaller incumbent-reactive overlay. (Consistent with the 2016 single-cycle finding: ideology sorts choice; trust is secondary.)
 
-**Still to replicate (needs ANES 2020 Time Series, has trait items):** the §6 authenticity crossover in a Trump-incumbent year (predict: low-trust voters now read the *Democrat* as fake / Trump as authentic-but-incumbent — a clean test of relational authenticity vs. incumbency).
+**(c) DONE — the authenticity crossover, 3 cycles (2016/2020/2024):** see §6. The crossover is present when Trump is the challenger and absent when he is the incumbent — a clean, role-dependent confirmation that anti-establishment authenticity is conferred on the challenger and erased by incumbency. This is the strongest single piece of cross-cycle evidence: it's not "just 2016," and the *mechanism* (challenger vs incumbent) is visible in the on/off pattern.
 
 ---
 
