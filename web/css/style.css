@@ -104,6 +104,36 @@ footer a { color: var(--text-dim); }
   padding-left: 1rem;
 }
 
+/* ── Plain-language lede + expandable detail ─────────── */
+.act p.lede {
+  color: var(--text);
+  font-size: 1.2rem;
+  line-height: 1.65;
+  margin-bottom: 1.1rem;
+}
+.act p.lede strong { color: #fff; font-weight: 700; }
+
+details.detail {
+  margin: 0 0 1.4rem;
+  border-left: 2px solid var(--border);
+  padding-left: 1rem;
+}
+details.detail > summary {
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 0.15rem 0;
+}
+details.detail > summary::-webkit-details-marker { display: none; }
+details.detail > summary::before { content: "▸  "; }
+details.detail[open] > summary::before { content: "▾  "; }
+details.detail > summary:hover { color: var(--text); }
+details.detail > p:first-of-type { margin-top: 0.8rem; }
+
 /* ── Charts ──────────────────────────────────────────── */
 
 .chart-container {
