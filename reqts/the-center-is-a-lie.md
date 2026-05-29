@@ -197,6 +197,14 @@ Everything in §1–§10 is **cross-sectional** — associations, not causes. Th
 
 **Caveats:** the VSG's only government-trust item is a coarse 3-point measure (most respondents piled at the low end), so the trust null is *partly* a measurement limit, and it's concurrent (2016), not pre. But racial resentment is pre-treatment (2011), its effect is large and robust, and it matches the independent panel literature — so the substantive conclusion (the switch ran on **resentment + ideology**, not measurable trust) holds. *(Data: /tmp/vsg/ — presvote_2012/2016, trustgovt_2016, race_deservemore_2011 + race_tryharder_2011, pid7_2012, ideo5_2016, persfinretro_2016, weight_genpop_2016.)*
 
+**Adversarial robustness — is the RR finding an Obama artifact, or just anti-elitism in disguise?** We pressure-tested both escapes; neither holds:
+- **Not Obama-dependent — it works white-vs-white.** RR predicts the Trump vote about equally in **2016 (Clinton v Trump, std +0.93)** and **2020 (Biden v Trump, +0.96)** — both two-white-candidate races, net of ideology and prior party. So it isn't "the opponent was Black"; RR operates regardless of nominee race (consistent with a *group-status* mechanism — "elites favor other groups over people like me").
+- **Not just generic anti-elitism.** RR is **uncorrelated** with the "elites understand people like me" item (r = −0.05), and RR's effect *grows* (to +1.11) when that item is controlled. So RR is **not** a proxy for generic anti-establishment feeling — the reconciliation that would rescue the trust frame fails.
+- **What RR is:** a durable **racialized status grievance**, distinct from both institutional trust (≈0) and generic anti-elitism (≈0).
+- **Don't over-draw:** RR predicts vote *probability/direction*, not outcomes — **Obama won in 2012 with RR already present**; the claim is *activation* rose in 2016, not that RR levels changed. And whether an anti-elite *left* message (Sanders) can attract status-aggrieved voters is **not testable here** (no 2016 primary item in VSG) — open question, not a finding.
+
+**Net:** the adversarial check *strengthened* racial resentment (robust, white-vs-white, not an anti-elite proxy) and did **not** rescue trust. The engine of swinging is **racialized status grievance + ideology.** The "anti-establishment" frame survives only as *group-status grievance* — not as institutional distrust or generic anti-elitism.
+
 ---
 
 ## PROPOSED VISUALIZATION WALKTHROUGH
