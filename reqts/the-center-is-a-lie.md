@@ -91,6 +91,27 @@ What actually moves turnout, from randomized field experiments (Gerber & Green, 
 
 Every lever that works is **contact / social pressure**, not message content. In ANES, turnout's strongest correlate is **"care who wins"** (std 0.46; turnout 81% "care a good deal" vs 48% "don't") and campaign interest (very 79% vs not-much 54%) — but once "care," candidate affect, age and education are in the model, **campaign interest's own effect collapses to ≈0.04**: engagement is a *marker* of candidate-driven caring, not an independent lever. Turnout is a **mobilization/affect** problem, not a positioning one.
 
+### 4a. It's stakes, not likeability — and the gettable split two ways
+Looking *only* at the gettable (the low-interest / unlikely voters, where there's room to move):
+- **Stakes is the whole game.** Among the gettable, validated turnout is **67% for those who "care a good deal" who wins vs 43% for those who don't** — a 24-pt gap (n=214/301). Nothing else comes close.
+- **Likeability is a red herring.** Warmth toward *your own favorite* candidate predicts turnout at **−0.10** (flat-to-negative, standardized). What predicts turnout is the **affect *spread*** — loving one **and** fearing the other (**+0.22**): **negative partisanship / threat mobilizes; affection does not.** "I like her" doesn't get you to the polls; "the other guy scares me" does.
+
+**The turnout hump — two opposing gradients (the mechanism).** Bin the gettable by institutional grievance (low-trust). Validated turnout is non-monotonic — it **peaks in the middle** (low/mid/high grievance = **46% / 63% / 51%**) — because two reliable gradients pull against each other:
+
+| among the gettable | most trusting | mid | most aggrieved |
+|---|---|---|---|
+| **Stakes** (% "care a good deal") | 36% | 38% | **45%** ↑ |
+| **External efficacy** ("I have a say," /5) | **2.74** | 2.51 | 2.28 ↓ |
+| → validated turnout | 46% | **63%** | 51% |
+
+Turnout behaves like **stakes × efficacy**, so it maxes where you have enough of both. The two failure modes are *opposite*:
+- **Trusting gettable → complacency.** Highest efficacy, lowest stakes: *"it's fine, doesn't matter who wins."* Suppressed by **no stakes.**
+- **Aggrieved gettable → alienation (not apathy).** They **care the most** (stakes highest) but efficacy has collapsed: *"I care, but my vote won't fix a rigged system."* Suppressed by **no efficacy.**
+
+**Recommendation (the actionable turn):** mobilizing the gettable is *not one move* — supply the **missing** ingredient per group. The **complacent** need **stakes** (make the election reach *them*); the **aggrieved** need **efficacy** (they already care — they need to believe their vote *does something*). Telling an aggrieved non-voter "the stakes are high" fails — they know; they've given up that it matters.
+
+**Caveats:** the turnout cells are small (n ≈ 115–203; ANES under-samples the truly disengaged), so the *hump itself is fragile* — but the **two gradients (stakes↑, efficacy↓ with grievance) run on reliable n** and are the load-bearing part. "Care who wins" is partly tautological (caring ≈ being a voter), so read it as a *marker* as much as a lever; **contact (GOTV) remains the one clean causal lever.** *(ANES 2016: stakes V161005, efficacy V162215/V162216, grievance = 3-item trust index, engagement V161004.)*
+
 ## 5. Position sorts choice; shifting it does not
 - A candidate's **ideological position sorts voters** (discovery of a prior). But **shifting** position to persuade in a general election moves ~nobody: **Kalla & Broockman (2018, APSR, 49 field experiments)** find the best estimate of campaign contact + advertising on candidate choice in general elections is **zero** (persuasion bites only for *unknown* candidates / *early*, and decays).
 - **Gelman & King (1993):** campaigns are "enlightenment" — they inform voters until polls converge to the fundamentals, i.e. **discovery, not persuasion.**
@@ -229,6 +250,7 @@ Everything in §1–§10 is **cross-sectional** — associations, not causes. Th
 3–4. Trust sorts candidates; coalitions move on trust.
 5. The contestable ground + the 9-box playbook (misses trust).
 6–7. Two jobs; turnout = contact not policy (GOTV bars).
+6b. **The turnout hump (stakes × efficacy).** X-axis = institutional grievance (trusting → aggrieved) among the *gettable*. Two crossing lines: **stakes** (rising left→right) and **efficacy** (falling left→right); a third **turnout** curve peaking in the middle (46/63/51). Annotate the two failure modes — left: *complacency* ("doesn't matter who wins"); right: *alienation* ("my vote won't fix a rigged system"). Caption flags small-n on the turnout curve; the two gradients are the reliable part. Payoff line: *mobilize by supplying the missing ingredient — stakes for the complacent, efficacy for the aggrieved.*
 8. Position sorts, shifting ≈0 (nominee-vs-campaign scaling).
 9. **Authenticity crossover** (flips across the trust axis).
 10. Plank-stealing asymmetry (Barber-Pope + honesty gap).
