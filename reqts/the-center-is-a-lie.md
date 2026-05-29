@@ -20,7 +20,28 @@ Public trust in the federal government to "do what is right just about always / 
 - **Party-of-president pattern:** trust is higher for the in-party. Republican trust averaged **47% under Bush → 13% under Obama** (lowest ever); Democrats ~29% under Obama. *(Pew.)* This is why a 2016 (Obama-era) cross-section conflates "low trust" with "Republican" — a confound we net out below.
 - **Independent corroboration (GSS 1972–2024):** "hardly any confidence" in **Congress** rose **21% (1974) → 35% (2016)**; executive-branch confidence swings with the incumbent party (confirming the party-of-president reactivity). *Caveat:* GSS can't do a clean cross-cycle trust→vote test — vote is asked as recall years later while confidence is measured at interview time, so the two can't be linked by election. Cross-cycle replication needs ANES (below).
 
-## 2. The center is a lie (frequency table)
+## 2. The center is a lie — in two senses (and it is *not* a trust proxy)
+
+**(a) The self-identified "center" is not a coherent policy bloc you can court.**
+- Self-placed ideology tracks actual policy only loosely: corr(self-ID, a 6-issue policy composite — spending, defense, health insurance, guaranteed jobs, etc.) = **0.69** (≈ half the variance is slippage).
+- Among self-placed **moderates**, only **49% are actually policy-centrist** — **24% are policy-left, 26% policy-right.** "Moderate" is a coin flip on whether they're even near the policy center.
+- They're modestly cross-pressured (within-person issue spread 0.47 vs 0.39–0.44 for ideologues): the "pro-life but Medicare-for-all" type exists but isn't the whole story.
+- **26% of the entire electorate "hasn't thought about" ideology at all** (the "haven't thought" option on the lib-con scale) — a quarter of voters have *no* ideological position to court.
+- So "move to the center" chases a bloc that doesn't cohere: half of self-IDed moderates aren't policy-centrist, and a quarter of voters aren't ideological at all.
+- **The funnel — the courtable center is 3–5× smaller than the self-ID figure implies (% of full electorate):**
+
+  | | share |
+  |---|---|
+  | Total electorate | 100% |
+  | "Haven't thought about" ideology (no self-ID) | 26% |
+  | Self-place moderate-ish (lib-con 3–5) | 40% |
+  | …**AND actually policy-centrist = TRUE moderates** | **16%** |
+  | (strict: pure "moderate" *and* policy-centrist) | **9%** |
+  | policy-centrist *regardless* of self-ID | 28% |
+
+  The "55% moderate" in the table below is **among self-placers**, broad cut; on the full electorate it's 40%, and the *self-identified-moderate-who-also-wants-centrist-policy* bloc the electability pitch imagines is only **~16% (1 in 6).** Note too that the policy-center (28%) and the self-ID-center (40%) are **different people** — they overlap only ~16%; many policy-centrists call themselves liberal/conservative, and many self-described "moderates" hold lopsided views. There isn't one center; there are two weakly-overlapping ones.
+
+**(b) The whole electorate — including the center — is low-trust. But that's *universal*, not a property of moderates.**
 Joint distribution of the 2016 electorate, ideology × institutional trust (weighted % of all voters, ANES 2016, n=3,301):
 
 | trust ＼ ideology | Left | Center | Right | **row** |
@@ -30,10 +51,8 @@ Joint distribution of the 2016 electorate, ideology × institutional trust (weig
 | **Low (<0.20)** | 10 | **34** | 22 | **66%** |
 | **col** | **19** | **55** | **26** | |
 
-- The center is **not empty — it's the largest bloc (55% moderate).**
-- But **66% of the whole electorate is low-trust**, and **62% of moderates are low-trust.**
-- The "comfortable moderate" the electability argument targets — **Center × High-trust — is only 11%.**
-- **Takeaway:** the center exists, but it is *disaffected*, not the trusting moderate the pitch assumes. Moderating policy to court "the center" misreads who the center is.
+- The center is the largest bloc (**55% moderate**); **66% of all voters are low-trust** (and so are 62% of moderates); the trusting-moderate corner the electability pitch targets — **Center × High-trust — is only 11%.**
+- **Honest separation (don't conflate):** moderates are *not* distinctively low-trust — their mean trust (**0.23**) ≈ the population (0.22), and the "haven't thought" crowd is slightly *higher* trust (0.28). **"Moderate" is not a disguised distrust signal.** Low trust is the *era* (§1), not something the moderate label measures. The two claims stand apart.
 - **Replicates 2016/2020/2024:** trusting-moderate corner = **11% / 10% / 12%**; trust index mean = **0.22 / 0.23 / 0.24**. Not a 2016 artifact.
 
 ## 3. Two different jobs: who you pick vs. whether you show up
