@@ -1,21 +1,26 @@
 # The Center Is a Lie
 
-**Working thesis:** "Moderatism" and its electability argument — the claim that moving to the
-center wins elections, used to undercut progressives — is a lie. In a historically low-trust era,
-the decisive contest is **who owns the outsider/change lane vs. who is cast as the establishment**,
-not left–right; and the things that actually win (turnout, authenticity, who's on the ballot) are
-largely **pre-baked and orthogonal to policy position.** The "safe, electable establishment" pitch
-is the *liability* once trust has collapsed (see §10).
+**Thesis (the negative case — the load-bearing claim):** "Moderatism" and its **electability argument** —
+that moving to the center wins elections, used to undercut progressives — **is a lie.** The center is not a
+coherent, courtable bloc (§2); **positions barely move voters** (Mutz; Kalla-Broockman); and the candidate
+cast as **the establishment loses** (§9–§10). That negative case is unassailable and is the spine.
+
+We stay **agnostic about the single "engine."** We live in a historically **low-trust era** (real, macro —
+§1), but trust does *not* survive as the individual-level *cause* of swinging (panel: §11). The cleavage that
+has actually **grown** into the decider is **racialized status realignment**, activated post-2008 and
+weaponized by Trump (§11). Both are *context*; the punch is the negative claim.
 
 **Status:** DRAFT. 2016 evidence is computed from ANES 2016 (weighted); cross-cycle validation
 (§9–§10) is **done** — replicated in ANES 2020 & 2024 and the Cumulative File (1948–2024).
 
-> **⚠ Major causal caveat (see §11).** The panel test (VSG) shows the *individual-level* driver of
-> the Obama→Trump switch was **racial resentment + ideology, not institutional trust** (trust ≈0).
-> Trust survives as the **era-level condition** and the *label* of anti-establishment populism, and the
-> **"positions don't move voters" / "establishment-vs-change lane" / "center is a lie"** claims all hold —
-> but "trust moves the swing voter" does **not** survive as a causal claim. The framing may need to shift
-> from *trust* toward *anti-establishment / status resentment* as the engine.
+> **⚠ Why "trust" is context, not the engine (see §11).** The panel (VSG) shows the individual-level driver
+> of the Obama→Trump switch was **racial resentment + ideology, not trust** (trust ≈0). **Important caveat:**
+> this is partly a **compressed-variance** problem — trust has collapsed to a near-universal floor (ANES
+> index median **0.17**, **45% at the floor**; the VSG item had **88% in one category**), so it can no longer
+> *differentiate* voters even if it shapes the whole landscape. So the honest statement is **"trust no longer
+> *discriminates* (the collapse is near-total) — the measurable cleavage is race/status,"** not "trust is
+> irrelevant." Either way the **negative thesis** (center is a lie; positions don't move voters;
+> establishment-continuity loses) does not depend on it.
 
 ---
 
