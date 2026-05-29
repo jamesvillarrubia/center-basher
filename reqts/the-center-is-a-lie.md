@@ -10,6 +10,13 @@ is the *liability* once trust has collapsed (see §10).
 **Status:** DRAFT. 2016 evidence is computed from ANES 2016 (weighted); cross-cycle validation
 (§9–§10) is **done** — replicated in ANES 2020 & 2024 and the Cumulative File (1948–2024).
 
+> **⚠ Major causal caveat (see §11).** The panel test (VSG) shows the *individual-level* driver of
+> the Obama→Trump switch was **racial resentment + ideology, not institutional trust** (trust ≈0).
+> Trust survives as the **era-level condition** and the *label* of anti-establishment populism, and the
+> **"positions don't move voters" / "establishment-vs-change lane" / "center is a lie"** claims all hold —
+> but "trust moves the swing voter" does **not** survive as a causal claim. The framing may need to shift
+> from *trust* toward *anti-establishment / status resentment* as the engine.
+
 ---
 
 ## 1. We live in a historically low-trust era
@@ -170,6 +177,25 @@ The anti-incumbent-party drag (§9) is real but small — it doesn't decide elec
 **This is the answer the electability argument can't give** — why Democrats lost 2016 and 2024 with decent economies while running their "safe, electable" establishment nominees. *"Safe establishment" is the liability once trust has collapsed.*
 
 *(Caveat: multi-causal — fundamentals/economy are large and independent; N is small; partly post-hoc. The framework's specific contribution is the establishment-lane vulnerability that explains the cases fundamentals alone don't: good-economy Democratic losses in 2016 and 2024.)*
+
+## 11. Causal test (VSG panel): the *switch* runs on racial resentment, not trust
+Everything in §1–§10 is **cross-sectional** — associations, not causes. The decisive causal test is a **panel**: the same voters before and after, with *pre-treatment* attitudes. The Democracy Fund **VOTER Survey (VSG)** follows the same respondents 2011 → 2016 → 2020 and carries **pre-treatment (2011) racial-resentment** items. We model the **Obama-2012 → Trump-2016 switch** (n ≈ 3,430 Obama-2012 voters; **10% switched**). Standardized weighted logistic, nested:
+
+| model | trust | racial resentment | other |
+|---|---|---|---|
+| trust alone | **+0.00** | — | |
+| racial resentment alone | — | **+0.97** | |
+| trust + RR | +0.02 | +0.92 | |
+| full (+ econ, ideology, prior party) | **−0.15** | **+0.66** | ideology +1.00 · econ +0.22 · pid'12 +0.37 |
+
+**Trust has ≈zero effect on the switch — alone *and* with controls. Pre-treatment racial resentment is a strong, robust driver; so is ideology.** This matches the panel literature (Mutz 2018; Sides-Tesler-Vavreck) — and Mutz's finding that *policy positions barely moved* means the switch was **activation, not repositioning.**
+
+**What this does to the trust framing (honest correction):**
+- The cross-sectional "defectors are low-trust" / "non-Republican defection rises as trust falls" results (§2.6, §7) do **not survive as causal claims.** They were most likely (a) **reverse causation** — switching to Trump leads people to express more distrust of an Obama-era government — and/or (b) **trust standing in for racial resentment**, which it correlates with.
+- **What survives** (none of it depends on trust being the individual-level cause): the **era** of collapsed trust (macro; Pew/CDF, real and stable); the **negative** claim that *positions don't move voters* (Mutz stability + Kalla-Broockman); the **establishment-vs-change lane** (cross-cycle, §9–§10); and the **center-is-a-lie / incoherent-moderate** findings (§2).
+- **The reframe:** institutional trust is best read as the **era-level condition and the surface label of anti-establishment populism**, whose individual-level engine in 2016 was substantially **racial/status resentment** — *not* an independent lever you move swing voters with.
+
+**Caveats:** the VSG's only government-trust item is a coarse 3-point measure (most respondents piled at the low end), so the trust null is *partly* a measurement limit, and it's concurrent (2016), not pre. But racial resentment is pre-treatment (2011), its effect is large and robust, and it matches the independent panel literature — so the substantive conclusion (the switch ran on **resentment + ideology**, not measurable trust) holds. *(Data: /tmp/vsg/ — presvote_2012/2016, trustgovt_2016, race_deservemore_2011 + race_tryharder_2011, pid7_2012, ideo5_2016, persfinretro_2016, weight_genpop_2016.)*
 
 ---
 
