@@ -173,24 +173,33 @@
     <section class="act" id="act-jobs">
       <div class="act-label">Who vs. whether</div>
       <h2>Ideology decides <em>who</em> you pick. How much you <em>care</em> decides whether you show up. Policy is neither.</h2>
-      <p>
-        Here's the engine behind everything above. On the left-right axis, predicting <strong>who</strong>
-        someone voted for (Trump vs Clinton) is easy: ideology dominates — <strong>3.7× stronger</strong>
-        than trust. So the map decides <em>choice</em>. But predicting <strong>whether</strong> they voted
-        at all (turnout matched to the L2 <em>voter file</em>, not self-report) is a different question with
-        a different answer: ideology's power collapses to <strong>almost exactly zero</strong> — and so does
-        trust's. <strong>Neither axis on the map predicts turnout.</strong>
+      <p class="lede">
+        Winning an election is really <strong>two separate problems</strong>, and people mix them up
+        constantly: first, of the people who show up, getting them to <strong>pick you</strong>; second,
+        getting people to <strong>show up at all</strong>. These don't respond to the same things — and
+        that turns out to be the whole ballgame.
       </p>
-      <p>
-        What <em>does</em>? Not policy — and not "engagement" as a lever either. Interest <em>tracks</em>
-        turnout (79% of the very interested voted vs 54% of the barely interested), but that's a
-        <strong>symptom, not a cause</strong>: once you control for how much someone <strong>cares who
-        wins</strong>, their feelings toward the candidates, plus age and education, campaign interest's
-        own effect collapses to near zero. The real driver is <strong>caring</strong> — those who "care a
-        good deal" turned out <strong>81%</strong> vs <strong>48%</strong> for those who didn't. And caring
-        is something <em>candidates</em> manufacture by making voters feel strongly (and coverage amplifies)
-        — not something you create by sliding to the policy center. If anything, centrism dampens it.
-      </p>
+      <details class="detail">
+        <summary>The data behind it</summary>
+        <p>
+          Here's the engine behind everything above. On the left-right axis, predicting <strong>who</strong>
+          someone voted for (Trump vs Clinton) is easy: ideology dominates — <strong>3.7× stronger</strong>
+          than trust. So the map decides <em>choice</em>. But predicting <strong>whether</strong> they voted
+          at all (turnout matched to the L2 <em>voter file</em>, not self-report) is a different question with
+          a different answer: ideology's power collapses to <strong>almost exactly zero</strong> — and so does
+          trust's. <strong>Neither axis on the map predicts turnout.</strong>
+        </p>
+        <p>
+          What <em>does</em>? Not policy — and not "engagement" as a lever either. Interest <em>tracks</em>
+          turnout (79% of the very interested voted vs 54% of the barely interested), but that's a
+          <strong>symptom, not a cause</strong>: once you control for how much someone <strong>cares who
+          wins</strong>, their feelings toward the candidates, plus age and education, campaign interest's
+          own effect collapses to near zero. The real driver is <strong>caring</strong> — those who "care a
+          good deal" turned out <strong>81%</strong> vs <strong>48%</strong> for those who didn't. And caring
+          is something <em>candidates</em> manufacture by making voters feel strongly (and coverage amplifies)
+          — not something you create by sliding to the policy center. If anything, centrism dampens it.
+        </p>
+      </details>
       <span class="fig-label">Figure 6 · Who vs. whether</span>
       <div id="chart-jobs" class="chart-container" aria-label="Ideology decides choice; caring decides turnout"></div>
       <div class="fig-data" id="data-jobs"></div>
@@ -202,14 +211,23 @@
         age and education in the model, interest's own effect falls to ~0.04. Turnout runs on caring and
         candidate-driven affect, which sit <em>upstream</em> — the next sections trace what actually shifts it.
       </p>
-      <p style="margin-top:1.5rem">
-        And we don't have to infer that causally from one survey. Decades of <strong>randomized field
-        experiments</strong> (Gerber &amp; Green's <em>Get Out the Vote</em> meta-analyses) measured exactly
-        what moves turnout — and the answer is <strong>contact, not content</strong>. A door-knock adds ~4
-        points; a social-pressure "your neighbors will know" mailer adds ~8. The <em>policy message</em> —
-        the thing a centrist pivot changes — adds essentially <strong>zero</strong>. Turnout is a
-        mobilization problem, not a positioning one.
+      <p class="lede" style="margin-top:1.5rem">
+        Can a better policy platform get more people to vote? Campaigns have run real experiments for
+        decades — knock on this door, mail this flyer, then check who actually voted. The verdict is blunt:
+        what gets people to the polls is <strong>being contacted and feeling something</strong>. A mailer
+        explaining your health-care plan does <strong>basically nothing</strong>. You don't talk people into
+        voting with policy.
       </p>
+      <details class="detail">
+        <summary>The data behind it</summary>
+        <p>
+          Decades of <strong>randomized field experiments</strong> (Gerber &amp; Green's <em>Get Out the
+          Vote</em> meta-analyses) measured exactly what moves turnout — and the answer is <strong>contact,
+          not content</strong>. A door-knock adds ~4 points; a social-pressure "your neighbors will know"
+          mailer adds ~8. The <em>policy message</em> — the thing a centrist pivot changes — adds essentially
+          <strong>zero</strong>. Turnout is a mobilization problem, not a positioning one.
+        </p>
+      </details>
       <span class="fig-label">Figure 6B · What actually shifts turnout</span>
       <div id="chart-turnout-levers" class="chart-container" aria-label="Causal turnout effects by GOTV lever"></div>
       <div class="fig-data" id="data-turnout-levers"></div>
@@ -395,23 +413,35 @@
     <section class="act" id="act-consolidation">
       <div class="act-label">The arithmetic</div>
       <h2>The pivot was consolidation, not the center.</h2>
-      <p>
-        Put it all in one unit — votes — in the three states that decided the Electoral College.
-        Trump won them by a combined <strong>77,744</strong>. We re-ran the
-        <a href="https://cces.gov.harvard.edu/data" target="_blank" rel="noopener">vote-validated CES</a>
-        ourselves (it reproduces the <strong>12% national Sanders→Trump rate</strong> exactly) and applied
-        each state's rate to its certified Sanders primary vote. The Sanders→Trump defectors alone:
-        <strong>~61k in Wisconsin (2.7× the margin), ~56k in Michigan (5.3×), ~131k in Pennsylvania (3.0×)</strong>
-        — they exceeded Trump's margin in <em>every</em> decisive state. And that's before counting the
-        <strong>~30% of Sanders primary voters who didn't vote at all</strong> (validated).
+      <p class="lede">
+        So 2016 wasn't a story of Clinton failing to win over moderate Republicans. It's a story of her
+        failing to <strong>hold the people who were already hers.</strong> Enough Bernie Sanders primary
+        voters flipped to Trump — or stayed home — to swing Wisconsin, Michigan, and Pennsylvania, and with
+        them the election. In <strong>every one of those three states, the Sanders-to-Trump switchers alone
+        outnumbered Trump's margin of victory.</strong> And those switchers weren't conservatives talked
+        rightward — they were anti-establishment voters who were never going to rally behind the ultimate
+        establishment candidate.
       </p>
-      <p>
-        So the decisive problem wasn't winning new ground in the ideological center — it was
-        <strong>holding a coalition that was already there</strong>. And per Figure 6, a center-policy
-        pivot only competes for the <em>choice</em> of the already-engaged; it can't mobilize a
-        disaffected, low-trust bloc like the un-consolidated Sanders voters — the very people who
-        defected or stayed home.
-      </p>
+      <details class="detail">
+        <summary>The data behind it</summary>
+        <p>
+          Put it all in one unit — votes — in the three states that decided the Electoral College.
+          Trump won them by a combined <strong>77,744</strong>. We re-ran the
+          <a href="https://cces.gov.harvard.edu/data" target="_blank" rel="noopener">vote-validated CES</a>
+          ourselves (it reproduces the <strong>12% national Sanders→Trump rate</strong> exactly) and applied
+          each state's rate to its certified Sanders primary vote. The Sanders→Trump defectors alone:
+          <strong>~61k in Wisconsin (2.7× the margin), ~56k in Michigan (5.3×), ~131k in Pennsylvania (3.0×)</strong>
+          — they exceeded Trump's margin in <em>every</em> decisive state. And that's before counting the
+          <strong>~30% of Sanders primary voters who didn't vote at all</strong> (validated).
+        </p>
+        <p>
+          So the decisive problem wasn't winning new ground in the ideological center — it was
+          <strong>holding a coalition that was already there</strong>. And per Figure 6, a center-policy
+          pivot only competes for the <em>choice</em> of the already-engaged; it can't mobilize a
+          disaffected, low-trust bloc like the un-consolidated Sanders voters — the very people who
+          defected or stayed home.
+        </p>
+      </details>
       <span class="fig-label">Figure 11 · The arithmetic</span>
       <div id="chart-consolidation" class="chart-container" aria-label="Trump's decisive margin vs Sanders-to-Trump defectors"></div>
       <div class="fig-data" id="data-consolidation"></div>
@@ -501,20 +531,31 @@
     <section class="act" id="act-6">
       <div class="act-label">So what?</div>
       <h2>"Move to the center" is a horizontal answer to a vertical problem</h2>
-      <p>
-        Step back from 2016 — it was only the worked example. Underneath it is a geometry. The
-        electorate's center of mass sits <strong>low on trust</strong>; candidates and the
-        establishment cluster <strong>high</strong> on it — far, <em>vertically</em>, from where the
-        voters actually are. Conventional strategy treats the contest as horizontal: slide left or
-        right to reach "the center." <strong>That's the fallacy.</strong>
+      <p class="lede">
+        Put it together. "Move to the center to be electable" fails three ways at once: the
+        <strong>center you're chasing barely exists</strong>; you <strong>can't move turnout with
+        policy</strong> anyway; and the thing that actually wins — being trusted as a real, on-your-side
+        outsider — <strong>can't be faked by triangulating.</strong> For years "electability" has been the
+        club used to tell progressives to sit down and pick the safe option. The data says it's backwards:
+        <strong>in a low-trust era, the safe establishment candidate is the <em>risky</em> one.</strong>
       </p>
-      <p>
-        Horizontal motion can't close a vertical gap. Trust isn't something you buy by moving on
-        policy — the two axes do different jobs (Figure 6), so a high-trust candidate stays far from
-        the contestable mass <em>no matter where they stand left-to-right</em>. Political gravity pulls
-        the up-for-grabs toward whoever sits closest <strong>on trust</strong>, not on policy. The
-        question for 2028 isn't how far left or right — it's <strong>how far down</strong>.
-      </p>
+      <details class="detail">
+        <summary>The longer version</summary>
+        <p>
+          Step back from 2016 — it was only the worked example. Underneath it is a geometry. The
+          electorate's center of mass sits <strong>low on trust</strong>; candidates and the
+          establishment cluster <strong>high</strong> on it — far, <em>vertically</em>, from where the
+          voters actually are. Conventional strategy treats the contest as horizontal: slide left or
+          right to reach "the center." <strong>That's the fallacy.</strong>
+        </p>
+        <p>
+          Horizontal motion can't close a vertical gap. Trust isn't something you buy by moving on
+          policy — the two axes do different jobs (Figure 6), so a high-trust candidate stays far from
+          the contestable mass <em>no matter where they stand left-to-right</em>. Political gravity pulls
+          the up-for-grabs toward whoever sits closest <strong>on trust</strong>, not on policy. The
+          question for 2028 isn't how far left or right — it's <strong>how far down</strong>.
+        </p>
+      </details>
       <ul class="implications">
         <li>
           <strong>Bernie → Trump, not Bernie → Hillary.</strong>
