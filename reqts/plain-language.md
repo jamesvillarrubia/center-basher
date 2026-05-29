@@ -66,6 +66,16 @@ The easy dismissal is "that was a Trump thing, a 2016 thing." We checked **every
 ### 11 · The puzzle this solves (Obama and Bush won twice; Clinton and Harris lost)
 Here's a puzzle the usual story can't explain. Obama won twice. George W. Bush won twice. But Clinton lost, and Harris lost. Why? **Because Obama and Bush ran as the change/the fighter** — Obama as "hope and change," Bush as the wartime strong-man — against stiff, establishment opponents. They owned the outsider lane. **Clinton and Harris ran as "more of the same, but competent."** They got cast as the establishment. In a country that doesn't trust the establishment, that's the losing seat — and it cost Democrats two elections they "should" have won on the economy. Even **Trump lost in 2020**, when *he* was the one in charge. Whoever gets stuck being "the system" loses the distrustful majority.
 
+### 11.5 · The centrist's bad trade — robbing your own camp
+Now sit in a campaign war room and pull up the swing voters by where they sit. The biggest single clump is in the **middle** — about 26% of moderates are gettable, more than any other slice (roughly 5% of all voters). So the obvious play: tack to the center and scoop them up. Not crazy. But zoom out and the trade falls apart, for two reasons.
+
+First, **the middle is the hardest mass to actually move.** Those moderate swing voters are only average-trust, and — as we saw — only about half even hold centrist *policy* views, so there's no single "center" you can stand on to win them; and repositioning moves general-election minds by roughly zero anyway (§5).
+
+Second — and this is the killer — **the swing voters in your own camp are the distrustful ones.** A Democrat's lean-left swing voters sit at **0.17 trust — the lowest of any group.** They're the anti-establishment progressives, and they swing *on trust.* The very move meant to win the middle — looking more moderate, more establishment, more "safe" — is exactly the move that **repels them.** You reach for one uncertain moderate and shove away a lean-left voter who was yours to keep, because they were never swinging on policy in the first place.
+
+That's the trap. The mass in the middle is real, but it's the **most expensive, least convertible mass on the board** — and you pay for chasing it in the currency of your own base's distrustful edge. The centrist tack and the anti-establishment energy point in opposite directions; you cannot run toward both.
+*(proof: ANES 2016 swing voters by ideology — swing rate / mean trust: strong-left 7%/0.24, lean-left 16%/0.17, moderate 26%/0.22, lean-right 21%/0.21, strong-right 5%/0.12. Moderate swing ≈5.3% of voters but average-trust and half non-centrist on policy; the in-camp lean-left swing is the lowest-trust group and is repelled by an establishment move.)*
+
 ### 12 · So what — and why this matters for progressives
 Put it together and the famous "move to the center to be electable" advice fails three different ways at once:
 - the **center you're chasing barely exists** (about 1 in 6 voters, and they don't even agree with each other);
