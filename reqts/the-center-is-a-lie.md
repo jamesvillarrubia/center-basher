@@ -2,9 +2,10 @@
 
 **Working thesis:** "Moderatism" and its electability argument — the claim that moving to the
 center wins elections, used to undercut progressives — is a lie. In a historically low-trust era,
-the decisive axis is **institutional trust**, not left–right; and the things that actually win
-(turnout, authenticity, who's on the ballot) are largely **pre-baked and orthogonal to policy
-position.**
+the decisive contest is **who owns the outsider/change lane vs. who is cast as the establishment**,
+not left–right; and the things that actually win (turnout, authenticity, who's on the ballot) are
+largely **pre-baked and orthogonal to policy position.** The "safe, electable establishment" pitch
+is the *liability* once trust has collapsed (see §10).
 
 **Status:** DRAFT. 2016 evidence below is computed from ANES 2016 (weighted). Cross-cycle
 validation (§9) is pending a second ANES file — see DATA NEEDS.
@@ -129,6 +130,27 @@ Replicated in the ANES Time Series Cumulative Data File (VCF0604/0605/0609 = the
 
 **(c) DONE — the authenticity crossover, 3 cycles (2016/2020/2024):** see §6. The crossover is present when Trump is the challenger and absent when he is the incumbent — a clean, role-dependent confirmation that anti-establishment authenticity is conferred on the challenger and erased by incumbency. This is the strongest single piece of cross-cycle evidence: it's not "just 2016," and the *mechanism* (challenger vs incumbent) is visible in the on/off pattern.
 
+## 10. Why incumbents win re-election but establishment *successors* lose
+The anti-incumbent-party drag (§9) is real but small — it doesn't decide elections alone. What decides the low-trust mass is **who owns the "outsider/change" lane.** This resolves the puzzle (Bush '04 and Obama '12 won re-election; Clinton '16 and Harris '24 lost):
+
+| cycle | candidate | role | trust→vote | cast as… | result |
+|---|---|---|---|---|---|
+| 2004 | Bush (R) | incumbent | +0.79 | wartime "strong leader" (vs Kerry, establishment senator) | **WON** |
+| 2012 | Obama (D) | incumbent | −0.39 | residual hope/change (vs Romney, establishment) | **WON** |
+| 2016 | Clinton (D) | successor | −0.28 | establishment continuity (vs Trump, outsider) | LOST |
+| 2020 | Trump (R) | incumbent | ~0 | now "the system" (vs Biden, change/normalcy) | LOST |
+| 2024 | Harris (D) | successor | −0.58 | establishment continuity (vs Trump, outsider) | LOST |
+
+- **Incumbents who won weren't cast as "the system":** Bush ran on wartime strength, Obama on residual change/identity, and each faced a *more*-establishment challenger (Kerry, Romney). They kept the change/authenticity edge and rode fundamentals over the small trust drag.
+- **Establishment successors lost the worst-of-both-worlds way:** anti-incumbent-party drag *plus* an explicit continuity brand *plus* a credible anti-establishment challenger (Trump) who owned the low-trust authenticity edge (the §6 crossover is present in both 2016 and 2024).
+- **2020 proves it's role, not party:** incumbent Trump *became* the system, the crossover vanished, trust→vote went to ~0, and the *challenger* (Biden) won.
+
+**The rule:** in a low-trust era, whoever owns the **outsider/change lane** wins the low-trust mass; whoever is cast as **the establishment** loses it. Incumbency usually casts you as the system, but a strong personal/outsider brand can dodge it (Obama, wartime Bush); a colorless establishment successor cannot.
+
+**This is the answer the electability argument can't give** — why Democrats lost 2016 and 2024 with decent economies while running their "safe, electable" establishment nominees. *"Safe establishment" is the liability once trust has collapsed.*
+
+*(Caveat: multi-causal — fundamentals/economy are large and independent; N is small; partly post-hoc. The framework's specific contribution is the establishment-lane vulnerability that explains the cases fundamentals alone don't: good-economy Democratic losses in 2016 and 2024.)*
+
 ---
 
 ## PROPOSED VISUALIZATION WALKTHROUGH
@@ -144,6 +166,7 @@ Replicated in the ANES Time Series Cumulative Data File (VCF0604/0605/0609 = the
 11. Political gravity (mass low, candidates orbit high; dot size = visibility).
 12. High-trust limit + signals; two-strategies matrix.
 13. Consolidation arithmetic + reverse counterfactual.
+13½. **The change lane across cycles (the electability-killer):** the §10 five-election table — trust→vote coefficient + crossover on/off, tagged challenger/incumbent — showing the candidate cast as the establishment loses the low-trust mass (2016/2020/2024), while change-lane incumbents (Bush '04, Obama '12) survive.
 14. Prescription across cycles (multi-year); closing: horizontal answer to a vertical problem.
 
 ## DATA NEEDS (to download)

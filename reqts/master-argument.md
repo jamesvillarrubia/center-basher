@@ -53,6 +53,8 @@ We live in a **historically low-trust era** (Pew: trust in government 77% in 196
 11. **Swing = disaffected not centrist** — Pew Sideliners, Knight nonvoters, ANES moveable bloc converge.
 12. **Pure independents** — trust > ideology for their choice.
 13. **CROSS-CYCLE (ANES CDF 1948–2024):** trust collapse replicates in ANES (78%→22%); trust→vote is **incumbent-reactive** — the trust coefficient flips sign with the party in the White House in **11 of 13 cycles** (1976–2024). Refutes "just 2016," proves the party-of-president confound, and reframes the claim to **"low trust = anti-incumbent/anti-establishment," not "= Republican."** Ideology is the dominant, growing sorter (1.07→2.64).
+14. **ROLE-DEPENDENT authenticity crossover (ANES 2016/2020/2024):** present when Trump is challenger (2016, 2024), absent when incumbent (2020). Anti-establishment authenticity is conferred on the challenger, erased by incumbency.
+15. **THE CHANGE-LANE FRAME (the spine):** it's not the incumbent *party* that loses — it's the candidate cast as *the establishment/system* in a low-trust era. Incumbents who kept a change/outsider brand won (Bush '04 wartime, Obama '12 hope); establishment successors lost (Clinton '16, Harris '24); incumbent-Trump-2020 *became* the system and lost. **This is the electability-killer: explains good-economy Dem losses in 2016 & 2024 that fundamentals can't.**
 
 ## WHERE DATA IS WEAK / REFUTED / NEEDS CARE
 - "Trust replaces ideology for choice" — REFUTED cross-sectionally (ideology sorts choice except pure indeps). → reframe to era + discovery.
