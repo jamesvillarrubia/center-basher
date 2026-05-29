@@ -7,8 +7,8 @@ not left–right; and the things that actually win (turnout, authenticity, who's
 largely **pre-baked and orthogonal to policy position.** The "safe, electable establishment" pitch
 is the *liability* once trust has collapsed (see §10).
 
-**Status:** DRAFT. 2016 evidence below is computed from ANES 2016 (weighted). Cross-cycle
-validation (§9) is pending a second ANES file — see DATA NEEDS.
+**Status:** DRAFT. 2016 evidence is computed from ANES 2016 (weighted); cross-cycle validation
+(§9–§10) is **done** — replicated in ANES 2020 & 2024 and the Cumulative File (1948–2024).
 
 ---
 
@@ -189,10 +189,11 @@ The anti-incumbent-party drag (§9) is real but small — it doesn't decide elec
 13½. **The change lane across cycles (the electability-killer):** the §10 five-election table — trust→vote coefficient + crossover on/off, tagged challenger/incumbent — showing the candidate cast as the establishment loses the low-trust mass (2016/2020/2024), while change-lane incumbents (Bush '04, Obama '12) survive.
 14. Prescription across cycles (multi-year); closing: horizontal answer to a vertical problem.
 
-## DATA NEEDS (to download)
-- **ANES Time Series Cumulative Data File (1948–2020)** — *highest value:* one file, trust items (VCF0604) + ideology + party + vote across all cycles → trust collapse + trust-vote across decades + party-of-president check. *(Gated: free login at electionstudies.org.)*
-- **ANES 2020 Time Series** — has candidate **trait** items → replicate the authenticity crossover (§6) and the 2020 confound flip. *(Gated.)*
-- *(Public, no login, optional):* **GSS 1972–2022** (confidence-in-institutions time series) for an independent trust-collapse cross-check; **CES** other years (vote + ideology, large n).
+## DATA — ACQUIRED
+- **ANES Time Series Cumulative Data File (1948–2024)** — `~/Downloads/anes_timeseries_cdf_csv_20260205.zip` (CSV at /tmp/anescdf). Trust collapse + trust→vote across all cycles + party-of-president. ✅
+- **ANES 2020 & 2024 Time Series** — `~/Downloads/anes_timeseries_2020_csv_*.zip`, `…2024…zip` (unzipped /tmp/anes2020, /tmp/anes2024). Candidate **trait** items → the 3-cycle authenticity crossover. ✅
+- **GSS 1972–2024** — `/tmp/gss7224_r3.dta` (public). Independent trust-trend corroboration (Congress 21→35%). ✅
+- Still useful (optional): **CES** other years for large-n vote+ideology replication.
 
 ## CITATIONS
 - Pew Research Center (2015). *Beyond Distrust: How Americans View Their Government.*
