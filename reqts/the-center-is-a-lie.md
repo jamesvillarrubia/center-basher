@@ -203,7 +203,17 @@ Everything in §1–§10 is **cross-sectional** — associations, not causes. Th
 - **What RR is:** a durable **racialized status grievance**, distinct from both institutional trust (≈0) and generic anti-elitism (≈0).
 - **Don't over-draw:** RR predicts vote *probability/direction*, not outcomes — **Obama won in 2012 with RR already present**; the claim is *activation* rose in 2016, not that RR levels changed. And whether an anti-elite *left* message (Sanders) can attract status-aggrieved voters is **not testable here** (no 2016 primary item in VSG) — open question, not a finding.
 
-**Net:** the adversarial check *strengthened* racial resentment (robust, white-vs-white, not an anti-elite proxy) and did **not** rescue trust. The engine of swinging is **racialized status grievance + ideology.** The "anti-establishment" frame survives only as *group-status grievance* — not as institutional distrust or generic anti-elitism.
+**Net:** the adversarial check *strengthened* racial resentment (robust, not an anti-elite proxy) and did **not** rescue trust. The engine of swinging is **racialized status grievance + ideology** — not institutional distrust or generic anti-elitism.
+
+**Retraction + the cross-cycle escalation (the "two white candidates" objection, answered).** An earlier draft argued the RR effect "works white-vs-white, so it isn't about Obama." That's wrong: *two white nominees ≠ a race-neutral election.* Obama was the backdrop throughout (Clinton was his Secretary of State; Biden his VP, with Obama campaigning), and Trump ran explicitly racialized campaigns. The real test is whether RR's **electoral weight rose** — and it did, sharply. RR → Republican presidential vote (ANES CDF), standardized, **net of ideology + party**, by year:
+
+| 1988 | 2000 | 2004 | 2008 | 2012 | 2016 | 2020 | 2024 |
+|---|---|---|---|---|---|---|---|
+| 0.19 | 0.05 | 0.36 | 0.64 | 0.45 | **0.84** | **0.92** | 0.62 |
+
+*(RR alone: 0.38 / 0.44 / 0.83 / 0.88 / 0.91 / 1.23 / 1.65 / 1.38.)* RR's **independent** electoral weight roughly **tripled** from pre-Obama (0.05 in 2000) to 2016–2020 — its highest on record. So racial resentment is **not a stable structural constant**: it was **activated by Obama's 2008 election and weaponized by Trump** (Tesler's "Most-Racial"; Mutz status threat). The 2016/2020 contests were racially charged *because of* that activation, white nominees notwithstanding.
+
+**Where this leaves the thesis (honest).** Step by step the causal evidence has moved the *engine* off "trust": trust causally moves swing voters ≈0 (panel), while the cleavage that actually *grew* into the decider is **racialized status resentment, activated post-2008.** Institutional trust now reads as the **era backdrop + an imperfect label**, not the cause. The **durable spine survives** — positions don't move voters (Mutz/K&B), the center is incoherent (§2), "move to the center" doesn't win, establishment-continuity loses (§9–§10). But the **positive driver is race/status realignment**, and the piece likely needs to reframe around that rather than "trust." *(Caveat against over-drawing: the RR rise is net of party/ideology so it isn't pure sorting; "racial resentment" measurement is contested but survives an ideology control; RR predicts vote direction, not outcomes — Obama won 2012 with RR present.)*
 
 ---
 
