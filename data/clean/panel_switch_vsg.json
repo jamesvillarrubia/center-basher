@@ -1,0 +1,35 @@
+{
+  "source": "Democracy Fund VOTER Survey panel (VSG, 2011\u21922020) \u2014 data/derived/VOTER-Survey-Panel-Data-Files-2021Dec/.../voter_panel.csv (latin-1).",
+  "variables": [
+    "presvote_2012",
+    "presvote_2016",
+    "trustgovt_2016",
+    "race_deservemore_2011 (PRE-treatment)",
+    "race_tryharder_2011 (PRE-treatment)",
+    "pid7_2012",
+    "ideo5_2016",
+    "persfinretro_2016",
+    "weight_genpop_2016"
+  ],
+  "filter": "Obama-2012 voters (presvote_2012=1) with a valid 2016 vote (presvote_2016 in {1,2}).",
+  "weight": "weight_genpop_2016",
+  "method": "Weighted standardized logistic of P(switched to Trump). RR scale = (race_deservemore_2011 + (6 - race_tryharder_2011)) / 2. REVERSE on tryharder is required \u2014 the item's HIGH value is the LESS-RR direction. Audit rows check corr(RR, ideo) and corr(RR, pid) are POSITIVE.",
+  "n": 3442,
+  "supports": [
+    "plain-language.md \u00a711 [1]",
+    "\u00a711 [2]"
+  ],
+  "caveats": [
+    "trustgovt_2016 is a coarse 3-pt item piled at the distrust end (88% in one category) \u2014 compressed variance partly explains the small trust coefficient.",
+    "RR predicts vote DIRECTION, not outcomes (Obama won 2012 with RR present).",
+    "Cannot test in VSG whether a left-populist 'elites vs you' frame re-routes the same voters."
+  ],
+  "name": "panel_switch_vsg",
+  "schema": [
+    "model",
+    "predictor",
+    "std_beta",
+    "n_unweighted"
+  ],
+  "row_count": 13
+}

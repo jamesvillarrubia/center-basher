@@ -1,0 +1,35 @@
+{
+  "source": "ANES 2016 Time Series \u2014 data/raw/anes_timeseries_2016.dta",
+  "variables": [
+    "V160101 (weight)",
+    "V161004 (interest)",
+    "V161005 (care who wins)",
+    "V161215/216/217 (3-item trust \u2192 grievance index)",
+    "V162215 / V162216 (efficacy items)",
+    "V162031x (self-report turnout)"
+  ],
+  "filter": "Low-engagement subset = V161004 == 3 ('not too / not at all interested').",
+  "weight": "V160101 (post-election)",
+  "method": "Grievance tercile cuts taken WITHIN the low-engagement subset. Composition counts use median splits on the FULL electorate's grievance and efficacy.",
+  "n": 521,
+  "supports": [
+    "plain-language.md \u00a714 [1]",
+    "\u00a714 [2]"
+  ],
+  "caveats": [
+    "Turnout figures are SELF-REPORT (V162031x); over-report ~25pp vs validated. The gradient pattern is the reliable signal; absolute levels are inflated.",
+    "Per-cell n ranges ~100\u2013200 for tercile rows; hump shape is suggestive, gradients reliable.",
+    "ANES under-samples the truly disengaged \u2192 alienated tail likely undercounted; CES vote-validated or Catalist L2-matched files would tighten."
+  ],
+  "name": "turnout_hump",
+  "schema": [
+    "subset",
+    "grievance_band",
+    "stakes_pct",
+    "efficacy_5pt",
+    "turnout_pct_selfrep",
+    "n_unweighted",
+    "share_of_noshows_pct"
+  ],
+  "row_count": 8
+}

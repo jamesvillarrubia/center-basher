@@ -1,0 +1,33 @@
+{
+  "source": "ANES 2016 Time Series \u2014 data/raw/anes_timeseries_2016.dta",
+  "variables": [
+    "V160101 (weight)",
+    "V161158x (7-pt PID, branched)",
+    "V161126 (lib-con)",
+    "V162034a (presidential vote)"
+  ],
+  "filter": "All respondents with valid weight; subsets per metric.",
+  "weight": "V160101 (post-election)",
+  "method": "Weighted shares and conditional means.",
+  "n": 4270,
+  "supports": [
+    "plain-language.md \u00a73 [1]",
+    "\u00a73 [2]",
+    "\u00a73 [3]",
+    "\u00a73 [4]",
+    "\u00a73 [5]",
+    "\u00a73 [6]"
+  ],
+  "caveats": [
+    "Defector share is sensitive to the leaner-vs-pure-indep split definition.",
+    "CES 2016 vote-validated reproduces 92% loyalty within \u00b11pp."
+  ],
+  "name": "partisan_loyalty",
+  "schema": [
+    "metric",
+    "value_pct",
+    "share_of_electorate_pct",
+    "n_unweighted"
+  ],
+  "row_count": 12
+}

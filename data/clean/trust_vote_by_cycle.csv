@@ -1,0 +1,16 @@
+cycle,wh_incumbent,n_unweighted,ideo_std_beta,trust_std_beta,low_trust_leans,expected_under_rule,rule_holds
+1972,R,1192,1.188,0.324,D,D,True
+1976,R,1000,1.075,0.486,D,D,True
+1980,D,601,0.994,-0.005,flat,R,False
+1984,R,1061,1.038,0.341,D,D,True
+1988,R,931,1.223,0.319,D,D,True
+1992,R,1075,1.522,0.206,D,D,True
+1996,D,856,1.548,-0.073,R,R,True
+2000,D,456,1.39,0.027,flat,R,False
+2004,R,660,1.901,0.773,D,D,True
+2008,R,1137,1.886,-0.042,flat,D,False
+2012,D,3842,2.076,-0.306,R,R,True
+2016,D,2174,2.411,-0.275,R,R,True
+2020,R,5423,2.643,0.049,flat,D,False
+2024,D,3572,2.437,-0.174,R,R,True
+0,—,23980,,,10 of 14 cycles,—,True

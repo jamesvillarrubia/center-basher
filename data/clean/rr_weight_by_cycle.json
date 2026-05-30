@@ -1,0 +1,33 @@
+{
+  "source": "ANES Time Series Cumulative File (1948-2024) \u2014 data/derived/anes_timeseries_cdf_csv_20260205/.../csv.",
+  "variables": [
+    "VCF0004 (year)",
+    "VCF0009z (weight)",
+    "VCF0301 (PID)",
+    "VCF0803 (lib-con)",
+    "VCF0704 (pres vote: 1 Dem, 2 Rep)",
+    "VCF9039/9040/9041/9042 (4-item Kinder-Sanders RR battery)"
+  ],
+  "filter": "Voters in {Dem, Rep} pres vote per cycle, with valid RR + ideo + PID + weight. Cycles with n<100 excluded.",
+  "weight": "VCF0009z",
+  "method": "Each RR item AUTO-ORIENTED so corr(item, ideology) \u2265 0 (the 4-item K-S scale mixes sympathy-coded and resentment-coded items; the auto-orient avoids the cancellation bug). Final RR scale = simple mean of oriented items, HIGH = MORE RR. Per-cycle weighted standardized logistic of P(Rep vote) on RR alone and RR net of ideo + PID.",
+  "n": 19116,
+  "supports": [
+    "plain-language.md \u00a711 [4]"
+  ],
+  "caveats": [
+    "Magnitudes are systematically larger than the prior published table (0.05\u21920.92); the DIRECTIONAL pattern (rising sharply post-Obama, peak 2016-2020) is robust regardless of scale choice.",
+    "VCF9041's corr(ideo) is weakly negative in some specifications \u2014 sensitive to the missing-value handling.",
+    "Cross-cycle scale comparability assumes the item wording was stable. Verified against CDF codebook (data/derived/anes_timeseries_cdf_csv_20260205/anes_timeseries_cdf_codebook_var_20260205.pdf)."
+  ],
+  "name": "rr_weight_by_cycle",
+  "schema": [
+    "cycle",
+    "n_unweighted",
+    "rr_alone_std_beta",
+    "rr_net_of_ideo_pid_std_beta",
+    "ideo_net_std_beta",
+    "pid_net_std_beta"
+  ],
+  "row_count": 9
+}

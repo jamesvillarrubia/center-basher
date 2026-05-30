@@ -1,0 +1,14 @@
+model,predictor,std_beta,n_unweighted
+trust alone,trust,0.183,3430
+RR alone,RR,0.988,3408
+trust + RR,trust,0.129,3408
+trust + RR,RR,0.974,3408
+"full (+econ, ideo, pid12)",trust,0.13,3408
+"full (+econ, ideo, pid12)",RR,0.807,3408
+"full (+econ, ideo, pid12)",econ,0.183,3408
+"full (+econ, ideo, pid12)",ideo,0.544,3408
+"full (+econ, ideo, pid12)",pid12,0.367,3408
+[headline],trust ≈ 0; RR = engine,,3747
+[audit],"corr(RR, ideo5_2016) — should be POSITIVE",0.264,3417
+[audit],"corr(RR, pid7_2012) — should be POSITIVE",0.162,3417
+[audit],switchers (Obama→Trump) % of Obama-2012 voters,7.4,3442

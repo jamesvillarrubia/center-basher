@@ -1,0 +1,44 @@
+{
+  "source": "ANES 2016 Time Series \u2014 data/raw/anes_timeseries_2016.dta",
+  "variables": [
+    "V160101 (weight)",
+    "V161126 (self-place lib-con)",
+    "V162034a (presidential vote)",
+    "V161178 (7-pt issue)",
+    "V161181 (7-pt issue)",
+    "V161184 (7-pt issue)",
+    "V161189 (7-pt issue)",
+    "V161193 (7-pt issue)",
+    "V161196 (7-pt issue)",
+    "V161198 (7-pt issue)",
+    "V161204 (7-pt issue)",
+    "V161208 (7-pt issue)",
+    "V161213 (7-pt issue)"
+  ],
+  "filter": "Full sample; subsets defined by self-place band \u00d7 policy centrism.",
+  "weight": "V160101 (post-election)",
+  "method": "Weighted shares and vote-share means; policy-centrist defined two ways (loose: issue-mean within \u00b10.5 of center; strict: \u226570% of items within \u00b11 of center).",
+  "n": 4270,
+  "supports": [
+    "plain-language.md \u00a72 [1]",
+    "\u00a72 [4]",
+    "\u00a72 [5]",
+    "\u00a72 [6]"
+  ],
+  "caveats": [
+    "Strict True Middler cell is small (n~1% of voters) \u2014 SEs on vote splits are large.",
+    "Turnout figures are SELF-REPORT (V162034a non-missing); over-reports vs. validated by ~25pp.",
+    "ANES under-samples the truly disengaged \u2014 Whatever bucket turnout is itself an over-estimate."
+  ],
+  "name": "center_breakdown",
+  "schema": [
+    "bucket",
+    "share_of_electorate_pct",
+    "turnout_pct_selfrep",
+    "vote_clinton_pct",
+    "vote_trump_pct",
+    "vote_third_pct",
+    "n_unweighted"
+  ],
+  "row_count": 6
+}

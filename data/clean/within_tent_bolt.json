@@ -1,0 +1,37 @@
+{
+  "source": "ANES 2016 Time Series \u2014 data/raw/anes_timeseries_2016.dta",
+  "variables": [
+    "V160101 (weight)",
+    "V161158x (PID)",
+    "V162034a (vote)",
+    "V161215/V161216/V161217 (3-item trust index, PRE-election)"
+  ],
+  "filter": "Voters within each tent (Dems+indeps vs Republicans) with valid trust + vote.",
+  "weight": "V160101 (post-election)",
+  "method": "3-item trust index 0..1 (HIGH=MORE trust); terciles taken WITHIN each tent. Within-tent vote splits by trust band. Broad-swing = 100% - voted-own.",
+  "n": 2647,
+  "supports": [
+    "plain-language.md \u00a77 [1]",
+    "\u00a77 [2]",
+    "\u00a77 [3]",
+    "\u00a77 [4]",
+    "\u00a77 [5]"
+  ],
+  "caveats": [
+    "Trust is measured pre-election; vote is measured post-election \u2014 NOT circular.",
+    "'Broad swing' = any vote other than the own-team nominee (Trump + third + abstain-counted-as-non-Clinton-among-Dems). 'Narrow swing' = voted the other-party nominee only.",
+    "Republicans face Trump (an outsider) \u2014 within-tent bolt is asymmetric and only fires when YOUR candidate is cast as the establishment."
+  ],
+  "name": "within_tent_bolt",
+  "schema": [
+    "tent",
+    "trust_band",
+    "vote_own_pct",
+    "vote_other_pct",
+    "vote_third_pct",
+    "broad_swing_pct",
+    "mean_trust_index",
+    "n_unweighted"
+  ],
+  "row_count": 7
+}

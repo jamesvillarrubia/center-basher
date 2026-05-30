@@ -1,0 +1,37 @@
+{
+  "source": "ANES Time Series Cumulative File (1948-2024) \u2014 data/derived/anes_timeseries_cdf_csv_20260205/.../csv.",
+  "variables": [
+    "VCF0004 (year)",
+    "VCF0009z (weight)",
+    "VCF0704 (pres vote: 1 Dem, 2 Rep)",
+    "VCF0803 (lib-con)",
+    "VCF0604 (do-right, REVERSED)",
+    "VCF0605 (run for all vs few)",
+    "VCF0609 (waste)"
+  ],
+  "filter": "Two-party voters per cycle with valid ideo + trust + weight; cycles 1972-2024 (VCF0604 absent in some recent cycles).",
+  "weight": "VCF0009z",
+  "method": "3-item trust index 0..1 (HIGH=MORE trust), built from VCF0604 reversed + VCF0605 + VCF0609 normalized. Per-cycle weighted standardized logistic of P(Rep vote) on ideology + trust. 'low_trust_leans' is the direction LOW-trust voters tilt given the sign of \u03b2_trust.",
+  "n": 23980,
+  "supports": [
+    "plain-language.md \u00a715 [1]",
+    "\u00a715 [2]"
+  ],
+  "caveats": [
+    "VCF0604 absent for 2016-2024 cycles in this CDF release \u2014 index runs via VCF0605/VCF0609 for those years.",
+    "Rerun magnitudes are systematically smaller than the prior published table; the sign-flipping pattern (11 of 13/14 cycles) is the headline that survives.",
+    "1980, 1996, 2000 come out flat \u2014 the rule holds in a strong-majority of cycles, not every cycle."
+  ],
+  "name": "trust_vote_by_cycle",
+  "schema": [
+    "cycle",
+    "wh_incumbent",
+    "n_unweighted",
+    "ideo_std_beta",
+    "trust_std_beta",
+    "low_trust_leans",
+    "expected_under_rule",
+    "rule_holds"
+  ],
+  "row_count": 15
+}

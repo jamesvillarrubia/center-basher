@@ -31,11 +31,13 @@ def main():
     ip = pd.concat([clean_var(df, c, 1, 7, also_missing=(99,)) for c in present], axis=1)
     n_items = ip.notna().sum(axis=1)
     policy_mean = ip.mean(axis=1)
-    # strict-centrist = at least 70% of items within ±1 of center AND ≥4 items present
+    # loose = item-mean within ±0.75 of center (matches the 16%-funnel in §2 [3])
+    loose_centrist = (policy_mean - 4).abs() <= 0.75
+    # strict-centrist = item-mean within ±0.5 AND ≥70% of items within ±1 of center
+    # (matches the "1 in 100" claim in §2 — the published two-condition definition)
     each_in_band = ((ip - 4).abs() <= 1).sum(axis=1) / n_items.replace(0, np.nan)
-    strict_centrist = (each_in_band >= 0.7) & (n_items >= 4)
-    # loose = item-mean within ±0.5 of center
-    loose_centrist = (policy_mean - 4).abs() <= 0.5
+    mean_centrist = (policy_mean - 4).abs() <= 0.5
+    strict_centrist = mean_centrist & (each_in_band >= 0.7) & (n_items >= 4)
 
     # vote choice
     vch = clean_var(df, "V162034a", 1, 7)
