@@ -1,0 +1,36 @@
+{
+  "source": "ANES Time Series Cumulative File (1948-2024) \u2014 data/derived/anes_timeseries_cdf_csv_20260205/.../csv.",
+  "variables": [
+    "VCF0004 (year)",
+    "VCF0009z (weight)",
+    "VCF0301 (7-pt PID)",
+    "VCF0704 (pres vote: 1 Dem, 2 Rep)",
+    "VCF0604 (reversed) / VCF0605 / VCF0609 (3-item trust index, HIGH=MORE trust)"
+  ],
+  "filter": "Two-party voters within each tent (Dem leaners+indeps vs Rep leaners+strong), with valid trust + weight; trust terciles taken WITHIN each tent within each cycle. Bands with n<15 dropped. Cycles where tent has total n<60 dropped.",
+  "weight": "VCF0009z",
+  "method": "Within each (cycle, tent) cell, % voting the OTHER nominee by within-tent trust tercile. Narrow swing = voted other-party nominee. Broad swing = 100 - voted own. Rule-holds count: in cycles where YOUR tent's party holds the White House (i.e., your candidate is the establishment continuity figure), low-trust narrow-swing should exceed high-trust by >2pp. Summary row sums D-tent and R-tent establishment-cycles counted.",
+  "n": 29019,
+  "supports": [
+    "plain-language.md \u00a77 (cross-cycle confirmation)"
+  ],
+  "caveats": [
+    "VCF0604 absent in 2016-2024 \u2014 trust index runs on VCF0605/VCF0609 only for those cycles.",
+    "Tercile cuts taken WITHIN each (cycle, tent) so 'low-trust' is relative to that subgroup, not the full electorate. This is the only defensible cross-cycle comparison given the compressed-variance trust collapse documented in \u00a711 [3].",
+    "VCF0301 leaner-vs-pure-indep coding is consistent across the CDF; CES validation in 2016 within \u00b11pp."
+  ],
+  "name": "within_tent_bolt_by_cycle",
+  "schema": [
+    "cycle",
+    "wh_incumbent",
+    "tent",
+    "tent_short",
+    "trust_band",
+    "vote_own_pct",
+    "vote_other_pct",
+    "narrow_swing_pct",
+    "broad_swing_pct",
+    "n_unweighted"
+  ],
+  "row_count": 76
+}
