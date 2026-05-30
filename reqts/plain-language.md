@@ -184,7 +184,7 @@ That's a sharp limit, but a useful one. Policy "repositioning" only has a chance
 ### 7 · So what makes a reachable voter bolt? (trust, but only inside your own tent)
 Well if choice doesn't depend on policy positions, then what the heck makes a swing voter swing?
 
-The obvious guess is **distrust** in institutions. The disaffected are the ones who bolt. We'll call voters with low institutional trust **System Critics** (the system doesn't work for them) and those with high trust **System Believers** (the system works, or will). If the guess is right, party loyalty should track loyalty to the system itself.
+In a low-trust era, the obvious guess is **distrust** in institutions: the disaffected are the ones who bolt. We'll call voters with low institutional trust **System Critics** (they don't believe the system works for people like them) and those with high trust **System Believers** (they think it does, or will). If the guess is right, System Critics should be the swing voters and System Believers the loyalists.
 
 The data at first seems to *kill* that guess: across the whole electorate, swing voters are **no less trusting than loyalists** (both sit at the same low ~0.22), and System Critics swing no more than System Believers do. Trust looks irrelevant.[1]
 
