@@ -49,9 +49,13 @@ def main():
     selfmod = ideo.between(3, 5)
 
     # bucket masks
-    middler_loose = selfmod & loose_centrist
-    middler_strict = selfmod & strict_centrist
-    grabbagger = selfmod & ~strict_centrist
+    # MidMiddlers (loose): self-ID moderate AND issue-mean within ±0.75 of center
+    mid_middler = selfmod & loose_centrist
+    # True Middlers (strict): self-ID mod AND issue-mean within ±0.5 AND ≥70% items within ±1
+    true_middler = selfmod & strict_centrist
+    # Grab-Baggers: self-ID moderate AND issue-mean OFF center (NOT loose-centrist)
+    # — cleaner partition than the prior NOT-strict definition; matches §2 prose exactly
+    grabbagger = selfmod & ~loose_centrist
     whatever = havent
 
     def vote_pct(mask, target):
@@ -60,9 +64,9 @@ def main():
 
     rows = []
     for label, mask in [
-        ("True Middlers (loose: issue-mean centrist)", middler_loose),
-        ("True Middlers (strict: ≥70% items within ±1)", middler_strict),
-        ("Grab-Baggers (self-ID mod, NOT strict centrist)", grabbagger),
+        ("MidMiddlers (self-ID mod, issue-mean ≈ centrist)", mid_middler),
+        ("True Middlers (self-ID mod, centrist on each issue)", true_middler),
+        ("Grab-Baggers (self-ID mod, issue-mean OFF-center)", grabbagger),
         ("Whatevers (haven't thought about ideology)", whatever),
     ]:
         share = weighted_share(mask, w)

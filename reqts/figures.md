@@ -31,18 +31,24 @@ Complexity: `easy`.
 
 ## §2 · The center is a lie
 
-**Fig 2 · "Three kinds of 'moderates' — and how they actually voted."**
-What: three grouped bars (or a small Sankey), one per bucket — True Middler (1%), Grab-Bagger (39%), Whatever (26%) — each with a stacked vote split Clinton / Trump / 3rd.
-Why: makes the bullet list scannable; the visual immediately collapses the "center as a coherent group" story.
-Data: `data/clean/center_breakdown.csv`.
-Status: `CANDIDATE`.
-Complexity: `easy`.
+**Fig 2 · "The funnel — 100 voters down to 1 True Middler" (sankey).**
+What: a left-to-right sankey diagram tracing 100 American voters through the policy funnel. Five flow stages:
+1. **Start:** 100 voters
+2. **First branch:** 26 → *Whatevers* (siphoned off as a terminal node — "no left-right position"); 74 continue.
+3. **Second branch:** of the 74, 40 → *self-IDs moderate*; 34 → *clearly liberal or conservative* (terminal).
+4. **Third branch:** of the 40, 28 → *Grab-Baggers* (terminal); 12 → *MidMiddlers* (issue-mean centrist).
+5. **Fourth branch:** of the 12, 11 → *MidMiddlers (loose centrist only)*; 1 → *True Middler* (centrist on every issue).
+Color: terminal nodes dimmed; the *True Middler* node at the far right rendered in a single bold pixel-width strand to dramatize how microscopic it is.
+Why: the *visual* claim of "diminishing size" the user asked for — each branch shows the funnel narrowing on its own terms. Reader sees the bloc the strategy textbook chases shrink to a single thread, on screen, without having to do the math.
+Data: `data/clean/center_breakdown.csv` (Whatevers, Grab-Baggers, MidMiddlers, True Middlers rows).
+Status: `CANDIDATE` — top-priority Fig for §2.
+Complexity: `medium` (sankeys need D3-sankey plugin and careful node sizing for the True Middler endpoint; the 1% strand is the visual point).
 
-**Fig 2-alt · "The funnel."**
-What: a vertical funnel showing 100% electorate → 40% self-ID moderate → 12% loose centrist → 1% strict centrist.
-Why: same story as Fig 2 but in funnel form — more visceral.
-Data: same.
-Status: `CANDIDATE`.
+**Fig 2-alt · "Three kinds of 'moderates,' side by side."**
+What: three vertical bars (or stacked grouped bar), one per bucket — Grab-Baggers (28%), MidMiddlers (12%), True Middlers (1%) — each labeled with what defines them. Whatevers (26%) shown separately as the "outside-the-funnel" bloc.
+Why: a fallback if the sankey doesn't render well at chart-container width. Same story, less elegant.
+Data: same as Fig 2.
+Status: `CANDIDATE` (fallback).
 Complexity: `easy`.
 
 ---
