@@ -28,8 +28,11 @@ This is a forensic analysis of the prose in `plain-language.md` so that future p
 - **Short sentences after long ones** for emphasis. *"It's a comforting story — and it's a lie."*
 - **Sentence fragments** for punctuation: *"Whoops." "Sort of." "No stakes." "Oof. Bleak."* Use
   sparingly — one fragment ends a thought; a fragment in the middle of a long passage is jarring.
-- **Em-dashes** liberally — for asides, for interrupted clauses, for sharp contrasts. Two per sentence
-  is fine. Three is the ceiling.
+- **Em-dashes — sparingly.** Use for genuine sharp contrasts, mid-sentence pivots, and the occasional
+  punchy aside. Default to a period, comma, colon, or parentheses instead. **Cap: two em-dashes per
+  section, not per sentence.** When in doubt, swap for a period — short sentences read sharper than
+  em-dash-stitched long ones. This rule was tightened (from "liberally, two per sentence is fine") on
+  2026-05-30 because the file was starting to read em-dash-heavy.
 
 ### Diction and word choice
 - **Everyday English over jargon.** *"get off the couch," "drag people to the polls," "knock on this
@@ -182,8 +185,9 @@ When I make a targeted rewrite to your prose, I will:
 3. **Preserve your CapCase labels** — *True Middlers, System Critics, the Whatever moderates*.
 4. **Preserve your "Hilary" spelling** and other distinctive markers. Flag typos in a callout only
    when correction would change meaning.
-5. **Maintain your em-dash-heavy interrupted-clause cadence.** Two em-dashes per sentence is normal
-   in your voice; I will not "tidy" them out.
+5. **Use em-dashes lightly** (updated 2026-05-30). Default to periods, commas, colons, or parentheses.
+   Two em-dashes per *section* is the new ceiling, not per sentence. The earlier rule encouraged
+   em-dash density; it produced a draft that read em-dash-heavy.
 6. **Match bold/italic density** — load-bearing claims in bold, single-word emphases in italic. Not
    the other way.
 7. **Cap each paragraph at ~5 sentences** unless it's an argued paragraph that needs more.
