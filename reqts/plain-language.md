@@ -119,27 +119,25 @@ A genuinely small group actually up for grabs — defined by **behavior** across
 
 ### 4 · Two completely different jobs
 
-Let's sum up where we are. We now know that the center is not moderate is not swing.  And the the truly gettable — **under 1 in 10** of the electorate that isn't effectively pre-locked by party loyalty — represents **two separate problems** for campaigns.[1]
+Let's sum up where we are. The voters actually in play — the **switchers** and the **no-shows** from §3 — are a small minority of the electorate. Switchers are roughly **1 in 10**; no-shows are a separate group, similarly small.[1] And those two groups are **two completely separate problems** for a campaign:
 
-1. Of the people who show up, getting them to **pick you** (choice).
-2. Getting people to **show up at all** (turnout).
+1. **Switchers** are a **choice** problem — they'll show up, but they haven't decided who to pick.
+2. **No-shows** are a **turnout** problem — they're already decided in principle, but they're not showing up.
 
 These don't respond to the same things — and that turns out to be the whole ballgame.[2]
 
 **Notes**
 
-[1] "Under 1 in 10" is a deliberately conservative read of the genuinely-in-play electorate. Floor: defectors (~4% of voters) only. Ceiling: defectors + pure independents who are not strongly pre-decided (~6-7% of voters in 2016, based on V161158x=4 cross-tabbed with reported certainty items). We pick a single number close to the middle of that range. The previous draft said "8%" — that was an unanchored estimate, replaced here. *Honest caveat:* "genuinely in play" is fuzzy, and depends on whether you count low-propensity no-shows (turnout problem) as "gettable" — which is the whole point of the §4 split.
+[1] **Switchers ~1 in 10** = cross-cycle swing voters identified in §3 [1] (~8–9% of the electorate), expressed as a clean "roughly 1 in 10" for the lede. **No-shows are a separate group.** Sizing them precisely is fuzzy — the headline "didn't vote" figure includes a large mass of habitual non-voters who aren't gettable in any meaningful sense. The *persuadable-on-turnout* subset (Part IV, §14) is on the same order of magnitude as the switchers, but bounded above by the engagement-and-stakes data in §13. Together they probably represent **under 1 in 5** of the electorate; the precise figure depends on definition (the whole point of the §4 split).
 [2] Weighted logistic regressions, ANES 2016, n≈3,300, V160101 weight. Two models share the same predictors (centered ideology |V161126-4|, 3-item trust index V161215/216/217). **Choice** model (P(Trump | voted)): standardized |β·SD| ideology **2.30**, trust **0.62**. **Turnout** model (P(voted) — self-report V162034a non-missing): ideology **0.03**, trust **0.02**. Ideology decides *who*; it's a zero for *whether*. Vote-validated turnout (when available — see the-center-is-a-lie.md) replicates the pattern.
 
 ### 5 · Buried Assumptions
-Campaign organizers know about these two problems already. The standard tool for sorting voters across both of them is the **9-box grid**: a 3×3 matrix of *partisanship* (lean left / persuadable / lean right) crossed with *turnout propensity* (high / medium / low).[1] Every voter file gets sliced this way, and the strategies fall out mechanically: high-prop lean-left voters are **banked** (they show up and vote your way), low-prop lean-left voters get **GOTV** (knock the door), high-prop persuadables get **persuasion** (mail, digital, TV), and the low-prop persuadables are the hardest cell — both jobs at once. Lean-right voters get **avoided**. This is roughly how Catalist, NGP-VAN, Hawkfish, and the DCCC actually plan campaigns.[2]
+Campaign organizers know about these two problems already. The standard tool for sorting voters across both is the **9-box grid**: a 3×3 matrix of *partisanship* (lean left / persuadable / lean right) crossed with *turnout propensity* (high / medium / low).[1] Every voter file gets sliced this way, and the strategies fall out mechanically: high-prop lean-left voters are **banked** (they show up and vote your way), low-prop lean-left voters get **GOTV** (knock the door), high-prop persuadables get **persuasion** (mail, digital, TV), and the low-prop persuadables are the hardest cell — both jobs at once. Lean-right voters get **avoided**. This is roughly how Catalist, NGP-VAN, Hawkfish, and the DCCC actually plan campaigns.[2]
 
-Useful as it is, the grid deserves a critical lens on every axis. Even the visual framing puts "persuadables" *in the middle* between left and right — and we already know that's misleading. **Persuadable is not moderate is not centrist is not swing.** And increasing turnout for voters you assume are yours but aren't is a disaster.
+Useful as it is, the grid hides three assumptions that we now know are wrong:
 
-The grid is useful but it hides three assumptions that we now know are wrong:
-
-1. **"Persuadable" sits literally between left and right.** Our last section said no — persuadables span the spectrum.
-2. **"Low-propensity lean-left" is loyal but lazy.** Often they're disaffected progressives who don't bolt because they don't *show*. The move that supposedly mobilizes them — a louder turnout push from an establishment candidate — can actively *suppress* them.
+1. **"Persuadable" sits literally between left and right.** Our last section said no — persuadables span the spectrum. *Persuadable is not moderate is not centrist is not swing.*
+2. **"Low-propensity lean-left" is loyal but lazy.** Often they're disaffected progressives who don't bolt because they don't *show*. The move that supposedly mobilizes them — a louder turnout push from an establishment candidate — can actively *suppress* them. Increasing turnout for voters you assume are yours but aren't is a disaster.
 3. **The two strategies are independent.** They aren't. The persuasion move that captures a centrist persuadable (tack right) is the same move that suppresses your low-prop lean-left base. The grid lets you ignore the trade-off.[3]
 
 So we'll unpack the two problems separately — choice (Part III) and turnout (Part IV) — and we'll keep asking the question the grid doesn't: *whose response is each move actually getting?*
