@@ -186,7 +186,7 @@ Well if choice doesn't depend on policy positions, then what the heck makes a sw
 
 In a low-trust era, the obvious guess is **distrust** in institutions: the disaffected are the ones who bolt. We'll call voters with low institutional trust **System Critics** (they don't believe the system works for people like them) and those with high trust **System Believers** (they think it does, or will). If the guess is right, System Critics should be the swing voters and System Believers the loyalists.
 
-The data at first seems to *kill* that guess: across the whole electorate, swing voters are **no less trusting than loyalists** (both sit at the same low ~0.22), and System Critics swing no more than System Believers do. Trust looks irrelevant.[1]
+At first the data says no. Across the whole electorate, **System Critics swing no more often than System Believers do**. Defectors and loyalists score essentially the same on trust, both stuck in the low-trust zone where almost everyone now sits. Trust looks irrelevant.[1]
 
 But there's a trap in that number. Under a Democratic president, the most distrustful single group is **Republicans**. In 2016 they weren't swinging; they were voting happily for Trump, *their own* anti-establishment guy. That loyal, distrustful bloc drowns out the signal.[2]
 
