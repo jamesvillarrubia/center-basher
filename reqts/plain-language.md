@@ -13,6 +13,20 @@ section-local. Notes are either **citations** of external work, **analysis descr
 what filter, what n, what method) sufficient to defend the claim against a hostile expert, or both.
 External claims must carry a primary citation; statistical claims must say exactly what was run.
 
+**Reviewer callouts:** gaps and decisions for the author appear as GitHub-Markdown alert blocks
+adjacent to the prose they qualify, so the gap is visible exactly where the gap is. Four flavors:
+
+> [!IMPORTANT] **Decide / pick a phrasing** — author input required before publication.
+
+> [!WARNING] **Claim not yet proven** — names exactly what data would be needed.
+
+> [!TIP] **Possible source to fetch** — concrete pointer to where the data lives.
+
+> [!NOTE] **Honest correction or caveat** — claim survives, but with stated conditions.
+
+Voice / style discipline lives in [`style-guide.md`](style-guide.md). Clean data outputs that back
+every statistical claim live in [`../data/clean/`](../data/clean/).
+
 ---
 
 ## PART I — The center is a lie
@@ -41,11 +55,14 @@ So we can split the center/moderate camp into 3 categories at least: the True "M
 
 Here's how that actually breaks down (ANES 2016, share of all voters):
 
-- **True Middlers** — self-IDs moderate **and** holds centrist views on most issues. At the strict bar (centrist on at least 70% of policy items): about **1 in 100 voters.** Loosen the bar to "issues average to the middle" and you get **6%** — but those people are mostly cross-pressured (liberal on one thing, conservative on another), not consistent centrists, and they actually voted **Trump 59% / Clinton 28%** in 2016.[4] The genuinely coherent centrist is **microscopic** — and even when you find them, they don't reliably break for the "moderate" candidate.
+- **True Middlers** — self-IDs moderate **and** holds centrist views on most issues. At the strict bar (centrist on at least 70% of policy items): about **1 in 100 voters.** Loosen the bar to "issues average to the middle" and you get **about 1 in 8** — but those people are mostly cross-pressured (liberal on one thing, conservative on another), not consistent centrists, and they actually voted **Trump 53% / Clinton 33%** in 2016.[4] The genuinely coherent centrist is **microscopic** — and even when you find them, they don't reliably break for the "moderate" candidate.
 - **Grab-Baggers** — self-IDs moderate but holds lopsided views (left on some, right on others): about **39%** of voters. They voted **52% Clinton / 37% Trump** — basically loyal Democrats wearing a "moderate" label.[5]
 - **Whatevers** — declines to place themselves on the left-right scale at all ("haven't thought about it"): **26%.** They voted **53% Clinton / 41% Trump** when they showed up, but **only 43% of them did.** They're disengaged, not persuadable.[6]
 
 The "1 in 6" funnel earlier was already a generous read. Tightened up, **about 1 in 100 voters is the kind of moderate the electability pitch imagines** — and even those are not the bloc you'd think.
+
+> [!IMPORTANT]
+> **Decide / pick a phrasing — "1 in 6" headline vs the re-run.** The earlier "honest moderate = 1 in 6" headline (loose criterion, mean within ±0.5 of center, AND self-ID moderate) came in at ~6% in our cleanest run. Widen the loose criterion to ±0.75 and you get ~12% (≈ 1 in 8) — that's the number I'm using in the bullet above for "issues average to the middle." Either keep the catchy *"1 in 6"* and footnote the methodological choice, or drop to *"1 in 8."* I would gently recommend *"1 in 8"* because we can defend the number directly from `data/clean/center_breakdown.csv`; **say the word and I'll align the body line and Note [3].**
 
 **Notes**
 
