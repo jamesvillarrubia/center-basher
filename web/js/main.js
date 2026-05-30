@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     drawChartMoveable(voters);
     drawChartJobs();
     drawTurnoutLevers();
+    drawTurnoutHump();
     drawChartSignal(voters);
     drawCampaignCeiling();
     drawChartDisaffected();

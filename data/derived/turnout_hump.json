@@ -1,0 +1,34 @@
+{
+  "subject": "Turnout among the gettable (low-engagement voters), by institutional grievance",
+  "source": "ANES 2016 Time Series (data/raw/anes_timeseries_2016.dta), weighted by V160101.",
+  "sample": "Self-reported low-interest voters (V161004=3). Grievance terciles taken WITHIN this subset.",
+  "turnout_metric": "V162031x self-report (0=no, 1=yes). Vote-validated currently unavailable (voteval CSV not loaded).",
+  "caveats": [
+    "Self-report over-reports turnout ~25pp vs validated benchmarks; absolute levels are inflated, gradient shape is the reliable signal.",
+    "Cell n is 100-200 per band; treat the hump as suggestive, gradients (stakes \u2191, efficacy \u2193) as reliable.",
+    "Efficacy gradient computed within low-engagement subset; the full-sample efficacy gradient (which \u00a714 [1] currently cites at 2.74\u21922.28) is steeper because efficacy is partly age/education-driven."
+  ],
+  "rows": [
+    {
+      "band": "low",
+      "stakes_pct": 36.0,
+      "efficacy_5pt": 2.53,
+      "turnout_pct_selfrep": 60.8,
+      "n": 203
+    },
+    {
+      "band": "mid",
+      "stakes_pct": 37.8,
+      "efficacy_5pt": 2.26,
+      "turnout_pct_selfrep": 78.4,
+      "n": 196
+    },
+    {
+      "band": "high",
+      "stakes_pct": 44.8,
+      "efficacy_5pt": 2.12,
+      "turnout_pct_selfrep": 73.6,
+      "n": 117
+    }
+  ]
+}
