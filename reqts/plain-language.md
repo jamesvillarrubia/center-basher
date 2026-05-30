@@ -41,7 +41,9 @@ Let us start with one fact that explains a shocking amount of American politics:
 [3] The decline is broad but party-of-president-reactive (the in-party trusts more). Republican mean trust 47% (Bush II average) → 13% (Obama average, lowest recorded for either party); Democrats 16% (Bush II) → 29% (Obama). Pew, *Beyond Distrust* (2015). This is the confound that makes a single 2016 cross-section conflate "low trust" with "Republican" — netted out in §15.
 
 ### 1 · The conventional wisdom — "win the middle"
-Despite this ocean of distrust in institutions and politicians, almost every campaign consultant believes the same thing: there's a big block of gettable, **moderate** voters sitting in the middle, and if you soften your positions to win them over, you win. "Don't scare the moderates." "Move to the center." It's so common nobody checks whether it's true.[1] So we checked.  Turns out that "moderate" and "centrist" and "swing" voters are all different groups.[2]  But we treat them as equivalent semantically. Whoops.
+Despite this ocean of distrust, almost every campaign consultant believes the same thing: there's a big bloc of gettable, **moderate** voters sitting in the middle, and if you soften your positions to win them over, you win. *"Don't scare the moderates."* *"Move to the center."* The advice is so widespread that nobody checks whether it's true.[1] So we checked.
+
+Turns out **moderate**, **centrist**, and **swing voter** aren't even the same group of people.[2] But the strategy textbook treats them like one bloc. Whoops.
 
 **Notes**
 
@@ -95,7 +97,7 @@ The actual swing voters — people who voted one party in one cycle and the othe
 
 Total: around **8–9% of the electorate** are genuine cross-cycle swing voters, distributed across the ideology spectrum, not concentrated in the middle.[2]
 
-Zoom out to the whole electorate and the lock-in shows up the same way in single-cycle data. **92% of partisan-leaning voters cast a ballot for their own party's nominee in any given election**;[3] across three cycles that loyalty compounds. The famous "swing voter" is even rarer than the centrist story implies: only about **1 in 25 voters crosses party lines in a single cycle**,[4] plus maybe **1 in 7** who are true registered independents[5] (and even those broke **56–44 for Trump** in 2016).[6]
+Single-cycle data tells the same lock-in story. **92% of partisan-leaning voters cast a ballot for their own party's nominee in any given election**.[3] Defectors are about **1 in 25 voters per cycle**,[4] and the **1 in 7** registered as true independents broke **56–44 for Trump** in 2016.[5][6] Whether you measure across three cycles or just one, the conclusion is the same.
 
 What does that leave us with?
 
