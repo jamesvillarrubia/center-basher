@@ -170,9 +170,9 @@ So we'll unpack the two problems separately — choice (Part III) and turnout (P
 ### 6 · By the time it's two famous names, the race is mostly set
 Okay — behind the idea of a "choice" voter is the assumption that a campagin can even change people's minds. Pundits love to talk about a candidate pivoting to the center after the primary, in the run-up to the general election. But can any policy shift actually move a voter once both candidates are nationally known?
 
-Funny enough, this has been tested and tested and tested again: **49 experiments.**[1] Between two well-known candidates, all the ads and door-knocks combined move vote choice by **roughly zero.** Once you've got two famous nominees, the election runs on **who they already are**, not what they say in the last stretch.[2] The decision that mattered was made earlier — at the **nomination.**[3]
+Funny enough, this has been tested and tested and tested again: **49 experiments.**[1] Between two well-known candidates, all the ads and door-knocks combined move vote choice by **roughly zero.** Once you've got two famous nominees, the election runs on **who they already are**, not what they say in the last stretch.[2] The decision that mattered was made earlier, at the **nomination.**[3]
 
-That's a sharp limit, but a useful one. Policy "repositioning" only has a chance when the candidate is still being defined — when voters are forming a first impression. Once you're famous, what you signal during the campaign barely budges anyone. Most of the weight of a campaign is on who the nominee was *before* they were the nominee.
+That's a sharp limit, but a useful one. Policy "repositioning" only has a chance when the candidate is still being defined, when voters are forming a first impression. Once you're famous, what you signal during the campaign barely budges anyone. Most of the weight of a campaign is on who the nominee was *before* they were the nominee.
 
 **Notes**
 
@@ -195,7 +195,7 @@ Pull out the Republican base and trust snaps into focus.[3] Among Democrats and 
 And here's the catch that sharpens the rule. Distrust does **not** make a loyal Republican vote Democrat. On the GOP side in 2016 the pattern *flips*: low-trust Republicans stayed *more* loyal to Trump than high-trust Republicans did.[6] Why? Because Trump owned the anti-establishment lane on the GOP side. The within-tent bolt only fires when *your* candidate is the one cast as the establishment. So the rule isn't *"distrust makes you swing."* It's sharper: **distrust + an establishment candidate from your team = a high-defection-risk voter.** And we can see the risk *before* they vote. That's the thread we follow the rest of the way.
 
 > [!NOTE]
-> **Cross-cycle test — the rule holds in most measurable cycles.** Re-ran the within-tent bolt for every cycle 1972–2024 (`data/clean/within_tent_bolt_by_cycle.csv`). The pattern is clean in 1972, 1976, 1984, 1988, 1992, and 2004 (all Republican-tent cycles under Republican incumbency). It bucks in **1996** (low-energy Clinton–Dole with no credible outsider to bolt to) and **2008** (financial crisis — the *high-trust* Republicans got shocked into defection). The 2012–2024 cycles can't be cleanly tested because VCF0604 is absent from those CDF years. Net: a tendency that fires in most measurable establishment-tent cycles, with named exceptions in 1996 and 2008 — same shape as the §15 sign-flip rule (10 of 14 cycles).
+> **Cross-cycle test: the rule holds in most measurable cycles.** Re-ran the within-tent bolt for every cycle 1972–2024 (`data/clean/within_tent_bolt_by_cycle.csv`). The pattern is clean in 1972, 1976, 1984, 1988, 1992, and 2004 (all Republican-tent cycles under Republican incumbency). It bucks in **1996** (low-energy Clinton–Dole with no credible outsider to bolt to) and **2008** (financial crisis: the *high-trust* Republicans got shocked into defection). The 2012–2024 cycles can't be cleanly tested because VCF0604 is absent from those CDF years. Net: a tendency that fires in most measurable establishment-tent cycles, with named exceptions in 1996 and 2008. Same shape as the §15 sign-flip rule (10 of 14 cycles).
 
 **Notes**
 

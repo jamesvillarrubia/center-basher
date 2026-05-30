@@ -28,11 +28,12 @@ This is a forensic analysis of the prose in `plain-language.md` so that future p
 - **Short sentences after long ones** for emphasis. *"It's a comforting story — and it's a lie."*
 - **Sentence fragments** for punctuation: *"Whoops." "Sort of." "No stakes." "Oof. Bleak."* Use
   sparingly — one fragment ends a thought; a fragment in the middle of a long passage is jarring.
-- **Em-dashes — sparingly.** Use for genuine sharp contrasts, mid-sentence pivots, and the occasional
-  punchy aside. Default to a period, comma, colon, or parentheses instead. **Cap: two em-dashes per
-  section, not per sentence.** When in doubt, swap for a period — short sentences read sharper than
-  em-dash-stitched long ones. This rule was tightened (from "liberally, two per sentence is fine") on
-  2026-05-30 because the file was starting to read em-dash-heavy.
+- **Em-dashes, sparingly.** Use for genuine sharp contrasts, mid-sentence pivots, and the occasional
+  punchy aside. Default to a period, comma, colon, or parentheses instead. **Soft cap: 1–2 em-dashes
+  per section of body prose.** Notes blocks and reviewer callouts can be more relaxed (they're dense
+  reference material, not paced narrative). When in doubt, swap a body-prose em-dash for a period:
+  short sentences read sharper than em-dash-stitched long ones. *Rule tightened 2026-05-30 (from
+  "liberally; two per sentence is fine"); the earlier rule produced an em-dash-heavy draft.*
 
 ### Diction and word choice
 - **Everyday English over jargon.** *"get off the couch," "drag people to the polls," "knock on this
