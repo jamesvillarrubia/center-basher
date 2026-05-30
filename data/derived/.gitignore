@@ -1,0 +1,7 @@
+# Large source datasets — re-extract from ZIPs in ~/Downloads if missing.
+# Tracked indicator: a manifest.json per dataset directory.
+anes_timeseries_cdf_csv_20260205/
+anes_timeseries_2020_csv_20220210/
+anes_timeseries_2024_csv_20260519/
+anes_timeseries_2016_voteval_csv/
+VOTER-Survey-Panel-Data-Files-2021Dec/

@@ -113,22 +113,27 @@ Things the framework predicts or implies but we haven't tested:
 
 ---
 
-## 6 · Data inventory (PERSISTENT VS WIPED)
+## 6 · Data inventory (ALL PERSISTENT as of 2026-05-30)
 
-| Dataset | Persistent path | Wiped path | Status |
-|---|---|---|---|
-| ANES 2016 Time Series | `data/raw/anes_timeseries_2016.dta` | — | **✓ persistent** |
-| ANES 2016 vote-validation | — | `/tmp/voteval/` | ✗ re-extract from `~/Downloads/anes_timeseries_2016_voteval_csv.zip` |
-| ANES Cumulative Data File (CDF) | — | `/tmp/anescdf/` | ✗ re-extract from `~/Downloads/anes_timeseries_cdf_csv_*.zip` |
-| ANES 2020 Time Series | — | `/tmp/anes2020/` | ✗ re-extract from `~/Downloads/anes_timeseries_2020_csv_*.zip` |
-| ANES 2024 Time Series | — | `/tmp/anes2024/` | ✗ re-extract from `~/Downloads/anes_timeseries_2024_csv_*.zip` |
-| GSS 1972–2024 | — | `/tmp/gss7224_r3.dta` | ✗ re-extract (public download) |
-| VSG / VOTER Panel | — | `/tmp/vsg/...` | ✗ re-download from voterstudygroup.org |
-| CES 2016 vote-validated | — | `~/Downloads/CCES16_Common_OUTPUT_Feb2018_VV.tab` | partial — check downloads |
+| Dataset | Path | Status |
+|---|---|---|
+| ANES 2016 Time Series | `data/raw/anes_timeseries_2016.dta` | ✓ persistent |
+| ANES 2016 vote-validation | `data/derived/anes_timeseries_2016_voteval_csv/` | ✓ persistent |
+| ANES Cumulative Data File (CDF, 1948–2024) | `data/derived/anes_timeseries_cdf_csv_20260205/` | ✓ persistent |
+| ANES 2020 Time Series | `data/derived/anes_timeseries_2020_csv_20220210/` | ✓ persistent |
+| ANES 2024 Time Series | `data/derived/anes_timeseries_2024_csv_20260519/` | ✓ persistent |
+| Democracy Fund VOTER Panel (VSG, 2011→2020) | `data/derived/VOTER-Survey-Panel-Data-Files-2021Dec/VOTER Panel Data Files/` | ✓ persistent |
+| GSS 1972–2024 | — | ✗ re-extract if needed (public) |
+| CES 2016 vote-validated | — | ✗ re-extract from Downloads if needed |
 
-**TODO before next major data run:** create `data/derived/`, re-extract one ZIP, save the parsed
-CSV/parquet under `data/derived/`, commit a `.gitignore` for large files. Don't put anything
-important under `/tmp/` again.
+The large source files are gitignored (`data/derived/.gitignore`) but the directory structure
+and the verification artifacts (`turnout_hump.json`, `verification_2026-05-30.md`,
+`chart-turnout-hump.png`) are tracked.
+
+To re-extract any wiped dataset:
+```bash
+unzip ~/Downloads/<dataset>.zip -d data/derived/<dataset>/
+```
 
 ### Key variables (so you don't have to re-discover them)
 
