@@ -132,15 +132,28 @@ These don't respond to the same things — and that turns out to be the whole ba
 [2] Weighted logistic regressions, ANES 2016, n≈3,300, V160101 weight. Two models share the same predictors (centered ideology |V161126-4|, 3-item trust index V161215/216/217). **Choice** model (P(Trump | voted)): standardized |β·SD| ideology **2.30**, trust **0.62**. **Turnout** model (P(voted) — self-report V162034a non-missing): ideology **0.03**, trust **0.02**. Ideology decides *who*; it's a zero for *whether*. Vote-validated turnout (when available — see the-center-is-a-lie.md) replicates the pattern.
 
 ### 5 · Buried Assumptions
-Campaign organizers know about these two problems already. The standard tool for sorting voters across both is the **9-box grid**: a 3×3 matrix of *partisanship* (lean left / persuadable / lean right) crossed with *turnout propensity* (high / medium / low).[1] Every voter file gets sliced this way, and the strategies fall out mechanically: high-prop lean-left voters are **banked** (they show up and vote your way), low-prop lean-left voters get **GOTV** (knock the door), high-prop persuadables get **persuasion** (mail, digital, TV), and the low-prop persuadables are the hardest cell — both jobs at once. Lean-right voters get **avoided**. This is roughly how Catalist, NGP-VAN, Hawkfish, and the DCCC actually plan campaigns.[2]
+Campaigns already split voters by the two problems we just named. For every name on the voter file, they ask two questions:
 
-Useful as it is, the grid hides three assumptions that we now know are wrong:
+- **Which side does this person lean?** Democrat, **persuadable** (unsure between the two), or Republican?
+- **How reliably do they show up to vote?** Almost always, sometimes, or rarely?
 
-1. **"Persuadable" sits literally between left and right.** Our last section said no — persuadables span the spectrum. *Persuadable is not moderate is not centrist is not swing.*
-2. **"Low-propensity lean-left" is loyal but lazy.** Often they're disaffected progressives who don't bolt because they don't *show*. The move that supposedly mobilizes them — a louder turnout push from an establishment candidate — can actively *suppress* them. Increasing turnout for voters you assume are yours but aren't is a disaster.
-3. **The two strategies are independent.** They aren't. The persuasion move that captures a centrist persuadable (tack right) is the same move that suppresses your low-prop lean-left base. The grid lets you ignore the trade-off.[3]
+Cross those two questions and you get nine groups — what the campaign world calls the **9-box grid**. Each box gets a mechanical strategy:[1]
 
-So we'll unpack the two problems separately — choice (Part III) and turnout (Part IV) — and we'll keep asking the question the grid doesn't: *whose response is each move actually getting?*
+- Voters who lean your way and always vote — **skip them**. They're already with you.
+- Voters who lean your way but rarely show up — **knock on the door**. Get them to the polls.
+- Persuadables who always vote — **send mail and ads**. Try to flip them.
+- Persuadables who rarely vote — the hardest box. You have to do both.
+- Voters who lean against you — **skip them**.
+
+This is roughly how Democratic data firms — Catalist, NGP-VAN, Hawkfish — and the DCCC plan campaigns.[2]
+
+It's a useful grid. But it hides three assumptions that turn out to be wrong:
+
+1. **The "persuadable" voter sits in the political middle.** Section 3 said no — the voters genuinely up for grabs span the whole spectrum: left, right, and middle. *Persuadable is not moderate is not centrist is not swing.*
+2. **Voters who lean your way but don't show up are loyal but lazy.** Often they're not. They're **disaffected** — they don't vote *because* they don't trust your candidate. A louder turnout push from a candidate they see as too establishment can actively push them further away. **Turning out voters who turn out to be against you on election day is a disaster.**
+3. **Persuasion and turnout are independent moves.** They aren't. Moving toward the middle to attract a persuadable is often the same move that pushes away one of your own disaffected supporters. The grid makes you forget the trade-off.[3]
+
+So we'll unpack the two problems separately — choice (Part III) and turnout (Part IV) — and we'll keep asking the question the grid doesn't: *whose reaction is each campaign move actually causing?*
 
 **Notes**
 
