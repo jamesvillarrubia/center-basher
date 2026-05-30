@@ -168,7 +168,7 @@ So we'll unpack the two problems separately — choice (Part III) and turnout (P
 *The swing/reachable voters live here — swinging is a choice problem.*
 
 ### 6 · By the time it's two famous names, the race is mostly set
-Pundits love to talk about how a candidate should pivot to the center after a primary, in the run-up to a general election. But that begs the question: can any policy shift actually move a voter once both candidates are nationally known? Because behind the idea of a voter making a choice is the assumption that a campaign can change people's minds at all.
+Pundits love to recommend that candidates should move to the center after a primary before the general election. But that raises a basic question: once both candidates are nationally known, do policy shifts actually change how people vote? It assumes something bigger underneath campaigns, that voter minds are still open to change.
 
 Funny enough, this has been tested and tested and tested again: **49 experiments.**[1] Between two well-known candidates, all the ads and door-knocks combined move vote choice by **roughly zero.** Once you've got two famous nominees, the election runs on **who they already are**, not what they say in the last stretch.[2] The decision that mattered was made earlier, at the **nomination.**[3]
 
