@@ -157,29 +157,31 @@ Replicated in the ANES Time Series Cumulative Data File (VCF0604/0605/0609 = the
 
 **(a) The trust collapse is in ANES's own microdata:** "most / just about always" trust in government fell **78% (1964) → 54% (1972) → 26% (1980) → 22% (2012)**; 3-item index mean **0.53 → 0.22**. (Matches Pew 77%→19%.)
 
-**(b) Trust→vote is incumbent-reactive and stable for 48 years — the headline cross-cycle result.** P(Republican pres vote) ~ ideology + trust (weighted, standardized) by cycle; the **trust coefficient flips sign with the party holding the White House in 11 of 13 cycles:**
+**(b) Trust→vote is incumbent-reactive and stable for 52 years — the headline cross-cycle result.** P(Republican pres vote) ~ ideology + trust (weighted, standardized) by cycle; the **trust coefficient flips sign with the party holding the White House in 10 of the last 14 cycles**, every year the signal wasn't flat. Numbers below are from the canonical pipeline (`scripts/build_trust_vote_by_cycle.py` → `data/clean/trust_vote_by_cycle.csv`):
 
-| cycle | WH | ideology | trust | low-trust leans |
-|---|---|---|---|---|
-| 1976 | R | +1.07 | **+0.45** | D |
-| 1980 | D | +0.98 | **−0.09** | R |
-| 1984 | R | +1.04 | **+0.41** | D |
-| 1988 | R | +1.24 | **+0.53** | D |
-| 1992 | R | +1.52 | **+0.21** | D |
-| 1996 | D | +1.54 | **−0.18** | R |
-| 2000 | D | +1.39 | **−0.06** | R |
-| 2004 | R | +1.82 | **+0.79** | D |
-| 2008 | R | +1.88 | −0.02 | (flat) |
-| 2012 | D | +2.09 | **−0.39** | R |
-| 2016 | D | +2.41 | **−0.28** | R |
-| 2020 | R | +2.64 | **+0.05** | D |
-| 2024 | D | +2.44 | **−0.17** | R |
+| cycle | WH | ideology | trust | low-trust leans | rule |
+|---|---|---|---|---|---|
+| 1972 | R | +1.19 | **+0.32** | D | ✓ |
+| 1976 | R | +1.08 | **+0.49** | D | ✓ |
+| 1980 | D | +0.99 | −0.01 | (flat) | ✗ |
+| 1984 | R | +1.04 | **+0.34** | D | ✓ |
+| 1988 | R | +1.22 | **+0.32** | D | ✓ |
+| 1992 | R | +1.52 | **+0.21** | D | ✓ |
+| 1996 | D | +1.55 | **−0.07** | R | ✓ |
+| 2000 | D | +1.39 | +0.03 | (flat) | ✗ |
+| 2004 | R | +1.90 | **+0.77** | D | ✓ |
+| 2008 | R | +1.89 | −0.04 | (flat) | ✗ |
+| 2012 | D | +2.08 | **−0.31** | R | ✓ |
+| 2016 | D | +2.41 | **−0.28** | R | ✓ |
+| 2020 | R | +2.64 | +0.05 | (flat) | ✗ |
+| 2024 | D | +2.44 | **−0.17** | R | ✓ |
 
 **What it establishes:**
-- **"That was just 2016" is refuted** — the pattern runs 1976→2024.
-- **"Low-trust = Republican" is a 2016 (Obama-era) artifact.** Trust's vote effect flips the moment power changes hands (2020, Trump incumbent → low-trust leans Democratic). The **party-of-president confound is proven, not asserted.**
-- **Honest reframe:** low trust doesn't vote *for a party or ideology* — it votes **against the incumbent establishment.** In a chronically low-trust era, the in-power establishment candidate (Clinton 2016) is structurally disadvantaged with the low-trust mass, regardless of policy. *That is "the center is a lie," across half a century.*
-- **Ideology is the dominant, stable sorter every cycle and grows (1.07→2.64) — rising polarization.** Trust is the smaller incumbent-reactive overlay. (Consistent with the 2016 single-cycle finding: ideology sorts choice; trust is secondary.)
+- **"That was just 2016" is refuted** — the pattern runs 1972 → 2024.
+- **"Low-trust = Republican" is a 2016 (Obama-era) artifact.** Trust's vote effect flips with the party that holds the White House. The **party-of-president confound is proven, not asserted.**
+- **Honest reframe:** low trust doesn't vote *for a party or ideology* — it votes **against the incumbent establishment.** In a chronically low-trust era, the in-power establishment candidate (Clinton 2016, Harris 2024) is structurally disadvantaged with the low-trust mass, regardless of policy. *That is "the center is a lie," across half a century.*
+- **Ideology is the dominant, stable sorter every cycle and grows (1.07 → 2.64) — rising polarization.** Trust is the smaller incumbent-reactive overlay. (Consistent with the 2016 single-cycle finding: ideology sorts choice; trust is secondary.)
+- **Magnitudes are systematically smaller** than an earlier published series (1976 was +0.45 there, +0.49 here; 2004 was +0.79, +0.77 here; 2024 was −0.58, −0.17 here). The looser earlier missing-value handling included items the strict cleaning now excludes. The *qualitative* claim — sign-flip rule across a strong majority of cycles — is unchanged; the *headline number* moved from "11 of 13" to **"10 of 14, every year the signal wasn't flat."** 1980, 2000, 2008, and 2020 are the four flat cycles.
 
 **(c) DONE — the authenticity crossover, 3 cycles (2016/2020/2024):** see §6. The crossover is present when Trump is the challenger and absent when he is the incumbent — a clean, role-dependent confirmation that anti-establishment authenticity is conferred on the challenger and erased by incumbency. This is the strongest single piece of cross-cycle evidence: it's not "just 2016," and the *mechanism* (challenger vs incumbent) is visible in the on/off pattern.
 
@@ -188,11 +190,13 @@ The anti-incumbent-party drag (§9) is real but small — it doesn't decide elec
 
 | cycle | candidate | role | trust→vote | cast as… | result |
 |---|---|---|---|---|---|
-| 2004 | Bush (R) | incumbent | +0.79 | wartime "strong leader" (vs Kerry, establishment senator) | **WON** |
-| 2012 | Obama (D) | incumbent | −0.39 | residual hope/change (vs Romney, establishment) | **WON** |
+| 2004 | Bush (R) | incumbent | +0.77 | wartime "strong leader" (vs Kerry, establishment senator) | **WON** |
+| 2012 | Obama (D) | incumbent | −0.31 | residual hope/change (vs Romney, establishment) | **WON** |
 | 2016 | Clinton (D) | successor | −0.28 | establishment continuity (vs Trump, outsider) | LOST |
 | 2020 | Trump (R) | incumbent | ~0 | now "the system" (vs Biden, change/normalcy) | LOST |
-| 2024 | Harris (D) | successor | −0.58 | establishment continuity (vs Trump, outsider) | LOST |
+| 2024 | Harris (D) | successor | −0.17 | establishment continuity (vs Trump, outsider) | LOST |
+
+*(trust→vote values are the canonical pipeline numbers from `data/clean/trust_vote_by_cycle.csv`; an earlier draft showed 2024 = −0.58, which came from a looser missing-value handling. The rerun's −0.17 is smaller but still firmly the "anti-establishment" direction.)*
 
 - **Incumbents who won weren't cast as "the system":** Bush ran on wartime strength, Obama on residual change/identity, and each faced a *more*-establishment challenger (Kerry, Romney). They kept the change/authenticity edge and rode fundamentals over the small trust drag.
 - **Establishment successors lost the worst-of-both-worlds way:** anti-incumbent-party drag *plus* an explicit continuity brand *plus* a credible anti-establishment challenger (Trump) who owned the low-trust authenticity edge (the §6 crossover is present in both 2016 and 2024).
@@ -235,9 +239,9 @@ Everything in §1–§10 is **cross-sectional** — associations, not causes. Th
 
 | 1988 | 2000 | 2004 | 2008 | 2012 | 2016 | 2020 | 2024 |
 |---|---|---|---|---|---|---|---|
-| 0.19 | 0.05 | 0.36 | 0.64 | 0.45 | **0.84** | **0.92** | 0.62 |
+| 0.48 | 0.33 | 0.69 | 0.98 | 0.88 | **1.55** | **1.48** | 1.18 |
 
-*(RR alone: 0.38 / 0.44 / 0.83 / 0.88 / 0.91 / 1.23 / 1.65 / 1.38.)* RR's **independent** electoral weight roughly **tripled** from pre-Obama (0.05 in 2000) to 2016–2020 — its highest on record. So racial resentment is **not a stable structural constant**: it was **activated by Obama's 2008 election and weaponized by Trump** (Tesler's "Most-Racial"; Mutz status threat). The 2016/2020 contests were racially charged *because of* that activation, white nominees notwithstanding.
+*(RR alone, before controls: 0.70 / 0.90 / 1.12 / 1.27 / 1.27 / 1.95 / 2.27 / 2.08.)* RR's **independent** electoral weight roughly **5×ed** from pre-Obama (~0.33 in 2000) to 2016–2020 (~1.5) — its highest on record. The series is from `scripts/build_rr_weight_by_cycle.py` → `data/clean/rr_weight_by_cycle.csv`. Earlier passes published a different series (0.05 → 0.92, "tripled") under a different RR-scale composition; the re-run with auto-oriented items (each item flipped so corr(item, conservative ideology) ≥ 0 before averaging) produces systematically larger coefficients but the same direction (sharp post-Obama rise, peak 2016–2020). So racial resentment is **not a stable structural constant**: it was **activated by Obama's 2008 election and weaponized by Trump** (Tesler's "Most-Racial"; Mutz status threat). The 2016/2020 contests were racially charged *because of* that activation, white nominees notwithstanding.
 
 **Where this leaves the thesis (honest).** Step by step the causal evidence has moved the *engine* off "trust": trust causally moves swing voters ≈0 (panel), while the cleavage that actually *grew* into the decider is **racialized status resentment, activated post-2008.** Institutional trust now reads as the **era backdrop + an imperfect label**, not the cause. The **durable spine survives** — positions don't move voters (Mutz/K&B), the center is incoherent (§2), "move to the center" doesn't win, establishment-continuity loses (§9–§10). But the **positive driver is race/status realignment**, and the piece likely needs to reframe around that rather than "trust." *(Caveat against over-drawing: the RR rise is net of party/ideology so it isn't pure sorting; "racial resentment" measurement is contested but survives an ideology control; RR predicts vote direction, not outcomes — Obama won 2012 with RR present.)*
 
