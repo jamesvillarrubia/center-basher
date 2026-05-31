@@ -1,0 +1,41 @@
+{
+  "source": "ANES CDF 1948-2024 \u2014 data/derived/anes_timeseries_cdf_csv_20260205/.",
+  "variables": [
+    "VCF0004 (cycle)",
+    "VCF0009z (weight)",
+    "VCF0310 (interest)",
+    "VCF0702 (self-report turnout)",
+    "VCF0613 (efficacy: 'people like me have no say')",
+    "VCF0604 + VCF0605 + VCF0609 (trust composite)"
+  ],
+  "filter": "Low-engagement subset (VCF0310==3); no-shows (VCF0702==1) within that subset.",
+  "weight": "VCF0009z",
+  "method": "Grievance = 1 - trust composite (3-item, rescaled 0-1). TERCILE cuts on grievance in the FULL electorate that cycle (weighted). Efficacy uses RAW VCF0613 categories (1=agree no-say -> LOW efficacy, 2=disagree -> HIGH efficacy, 3=neither -> MID). Alienated = high-G tercile + low-E; complacent = low-G tercile + high-E; mixed = everything else.",
+  "n": 1186,
+  "supports": [
+    "plain-language.md \u00a714 [1]",
+    "\u00a714 [2]"
+  ],
+  "caveats": [
+    "VCF0613 is a SINGLE efficacy item \u2014 the only one with consistent cross-cycle coverage in CDF. The 2016 build (turnout_hump.csv) uses a 2-item efficacy composite (V162215 + V162216) and gives different (richer) classifications. Cross-cycle results here are coarser.",
+    "Self-report turnout (VCF0702) over-reports validated turnout by ~25pp; the COMPOSITIONAL split across types is the reliable signal, absolute turnout levels are inflated.",
+    "ANES under-samples the truly disengaged \u2014 the alienated tail is likely undercounted.",
+    "In some cycles VCF0613 'neither' (3) is genuinely empty; in those cycles the trichotomy collapses to a dichotomy. This is a coverage limitation of the CDF, not a substantive finding.",
+    "The 'mixed' bucket grows when either grievance is in the mid-tercile or efficacy is the mid value \u2014 by construction it includes ~\u2153 on grievance alone, so 'mixed' is the baseline expectation, not an interesting finding."
+  ],
+  "name": "noshow_typology_by_cycle",
+  "schema": [
+    "cycle",
+    "n_noshows_valid",
+    "share_alienated_pct",
+    "share_complacent_pct",
+    "share_mixed_pct",
+    "noshow_eff_low_pct",
+    "noshow_eff_mid_pct",
+    "noshow_eff_high_pct",
+    "full_eff_low_pct",
+    "full_eff_mid_pct",
+    "full_eff_high_pct"
+  ],
+  "row_count": 11
+}
