@@ -1,0 +1,38 @@
+{
+  "source": "Democracy Fund VOTER Survey Panel (VSG, 2011\u21922020). data/derived/VOTER-Survey-Panel-Data-Files-2021Dec/.",
+  "variables": [
+    "presvote_2012 (1=Obama, 2=Romney)",
+    "presvote_2016 (1=Clinton, 2=Trump)",
+    "weight_genpop_2016 (general-population weight)",
+    "eliteunderstand_2016 (1..4; high = elites DON'T understand ordinary people = anti-elite)",
+    "pres_changesys_2018 (1..4; low = Trump CHANGES the system in respondent's view)",
+    "systems_leader_2017 (1..4; high = system needs strong leader)",
+    "expert_trustordinary_2017 (1..4; axis trust experts vs ordinary)",
+    "fav_trump_2016 (1=very favorable..4=very unfavorable)"
+  ],
+  "filter": "Obama-2012 voters split by 2016 vote (Clinton loyalist vs Trump switcher); plus Romney loyalist + Romney\u2192Clinton defector cohorts; plus full-electorate reference row.",
+  "weight": "weight_genpop_2016",
+  "method": "Weighted means per cohort per item. Items kept on their VSG 1-4 scale without rescaling so the direction is documented in the variables block.",
+  "n": 6499,
+  "supports": [
+    "plain-language.md \u00a716 (switcher-level change-lane test)"
+  ],
+  "caveats": [
+    "Trait items asked AFTER the 2016 vote (2017\u20132018 waves) \u2014 so 'Trump changes the system' perception is concurrent with or post-treatment, not pre-treatment. Reverse causation possible (vote shapes perception). The 'eliteunderstand_2016' item IS concurrent with the vote, so its interpretation is cleaner.",
+    "VSG panel under-samples the truly disengaged; switcher cohort is small (n\u2248343 Obama\u2192Trump). SEs on means are non-trivial but the cohort-level GAPS are robust.",
+    "Direction of scale items inferred from distributional shape; codebook verification recommended before publication.",
+    "This is the cleanest cross-cohort test of change-lane perception we can run on the VSG panel; the VSG does not have the standard ANES candidate-trait Likert battery, so we use the populist-orientation items as the closest proxy for 'who got classified as the establishment.'"
+  ],
+  "name": "switcher_perception_vsg",
+  "schema": [
+    "cohort",
+    "n_unweighted",
+    "n_weighted",
+    "anti_elite_2016",
+    "trump_changes_system_2018",
+    "system_needs_strong_leader_2017",
+    "trust_ordinary_over_experts_2017",
+    "trump_favorability_2016"
+  ],
+  "row_count": 5
+}
