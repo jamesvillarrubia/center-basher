@@ -275,9 +275,9 @@ Which leaves a stark strategic implication: **the swing is a headwind, not a sal
 *The no-shows live here — showing up is a separate problem from picking you.*
 
 ### 12 · You can't buy turnout with policy
-Now we must look at the other half of campaign strategy.  If we can't "swing" voters with well-known candidates, then we can at least impact their turnout, right?
+Now to the other half. If we can't "swing" voters with well-known candidates, then we can at least change their turnout, right?
 
-Let's start with a simple question: can a better policy platform get more people to vote? We don't have to guess — campaigns have run real experiments for decades: knock on this door, mail this flyer, see who turns out.[1] The verdict is blunt: **what gets people to vote is being contacted and feeling something** — a knock, a neighbor, a reason to care. A mailer explaining your health-care plan does **basically nothing** to turnout.[2] You don't talk people into voting with policy.
+Let's start with a simple question: can a better policy platform get more people to vote? We don't have to guess. Campaigns have run real experiments for decades: knock on this door, mail this flyer, see who shows up.[1] Turns out that **what gets people to vote is being contacted and feeling something**: a knock, a neighbor, or really just a reason to care. A mailer explaining your health-care plan does **basically nothing** to turnout.[2] You don't talk people into voting with policy.
 
 **Notes**
 
