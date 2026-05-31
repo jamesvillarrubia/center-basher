@@ -285,9 +285,23 @@ Let's start with a simple question: can a better policy platform get more people
 [2] Average per-treatment-pp turnout lifts (Gerber-Green meta): **policy / persuasion message content ≈0pp**; standard GOTV mail **+0.8pp**; volunteer phone **+2.0pp**; door-to-door canvassing **+4.3pp**; social-pressure ("your neighbors are watching") mail **+8.1pp**. The pattern: contact/social pressure works; content does not. This is the most-replicated finding in modern campaign science.
 
 ### 13 · It's stakes, not likeability
-So if policy can't drag people to the polls, what can? One word: **stakes** — whether you feel the election actually *reaches your life.* Stakes is by a wide margin the single biggest correlate of turnout in ANES 2016: voters who said they "care a good deal who wins" turned out at **about 81%**; those who didn't care turned out at **about 48%** — a 33-point gap.[1] Among the *hardest-to-reach* low-engagement voters, the same split is **67% vs 43%**.[2] Nothing else single-handed — likeability, ideology, age, education, or trust level — comes close.[3] So the campaign question stops being *"can we say anything that changes their mind?"* (no — see §6) and becomes *"can we say anything that raises the stakes?"* — either for our candidate or about the opponent.
+So if policy can't drag people to the polls, what can? One word: **stakes** — whether you feel the election actually reaches your life.
 
-Turns out campaigns get this backward all the time: it is **not** about whether voters *like* your candidate. Warm feelings toward your own side barely budge turnout. What moves it is **fear of the other side.** "I like her" doesn't get you off the couch. "That guy scares me" does. Slice the 2016 electorate five ways by *warmth toward your own favorite candidate* (the cleanest measure of "I like her"): turnout climbs from **49%** in the coldest fifth to **66%** in the warmest — but most of that lift happens just by having a favorite at all; from the second-lowest bin upward it's basically flat.[4] Slice the same electorate by *affect spread* — love one **and** fear the other — and you get a real climb, with **a 12-point jump from one bin to the next in the middle** (54 → 66).[5] The likeability gradient is shallow. The fear-of-the-other-side gradient is steep. The hard-to-reach voter doesn't show up because she likes you. She shows up because she's afraid of what happens if the other side wins.
+It's by far the biggest single factor in turnout. In ANES 2016, voters who said they "care a good deal who wins" turned out at about **81%**. Voters who didn't care turned out at about **48%**. A 33-point gap.[1] Among the gettable voters (the ones not reliably engaged), the same split is **67% vs 43%**.[2] Nothing else (likeability, ideology, age, education, trust) comes close.[3]
+
+So the campaign question stops being *"can we say anything that changes their mind?"* (no, see §6) and becomes *"can we say anything that raises the stakes?"* For our candidate, or about the opponent.
+
+But where does that stakes feeling come from? You'd think it would come from **liking your candidate**. That's what campaigns spend most of their effort on: making their nominee feel relatable, "one of us." Conventional wisdom says the more you love your guy, the more it matters to you that they win.
+
+That's wrong. **Stakes comes mostly from fearing the other side, not liking your own.**
+
+When you compare voters by how warmly they feel about their own candidate, the turnout differences are tiny. Going from "kinda likes" to "really likes" only adds about **4 more voters per 100**. Most of the lift comes just from *having* a favorite at all.[4]
+
+When you compare voters by how strongly they feel about the race overall (loving their own side AND fearing the other), it's a different story. Going from "mild feelings" to "strong feelings" about the race adds about **12 more voters per 100**. Three times the size.[5]
+
+Liking is shallow. Fear is steep. The hard-to-reach voter doesn't show up because she likes you. She shows up because she's afraid of what happens if the other side wins.
+
+That's the lever for a campaign trying to raise the stakes: make the opponent feel like a real threat, not just make your candidate feel like a friend.
 
 **Notes**
 
