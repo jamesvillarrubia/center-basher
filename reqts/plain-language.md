@@ -207,7 +207,11 @@ Here's the catch. On the GOP side in 2016 the pattern *flips*: **System Critics 
 [6] **The asymmetric finding (within-tent bolt only fires when YOUR candidate is the establishment).** Among Republican leaners + strong (V161158x ≥ 5), the trust→bolt pattern *flips* in 2016: low-trust Republicans voted Clinton at only **5%** vs **11%** for high-trust Republicans. Trump owned the anti-establishment lane on the GOP side, so low-trust GOP voters had no establishment-Republican to bolt *from*. This is the load-bearing structural fact behind the "asymmetric and role-dependent" framing in the body — and it's why the Sanders→Trump arithmetic in §17 only worked one direction. Numbers from `data/clean/within_tent_bolt.csv` (n=104 low-trust non-Reps; n=193 low-trust Reps).
 
 ### 8 · "Authenticity" depends on who's looking
-Here's the surprising part. Whether a candidate seems **honest** and like they **care about people like you** isn't a fixed fact about the candidate. It depends on the voter.[1] In 2016, people who **distrusted** the system saw **Trump** as the honest one and Clinton as the phony. People who **trusted** the system saw the exact opposite. Same two humans — judgment completely flipped.[2] You don't get "authentic" by being authentic in the abstract. You get it by being **close to where the voter already stands.**  System-Critic voters view System-Critic candidates as authentic and vice versa.  ALIGNMENT on the spectrum of institutional trust between voter and candidate creates the recipe for swing votes.
+Here's the surprising part. Whether a candidate seems **honest** and like they **care about people like you** isn't a fixed fact about the candidate. It depends on the voter.[1]
+
+In 2016, System Critics saw Trump as the honest one and Clinton as the phony. System Believers saw the exact opposite. Same two humans — judgment completely flipped.[2]
+
+You don't get "authentic" by being authentic in the abstract. You get it by being **close to where the voter already stands** on trust. System Critics read anti-establishment candidates as authentic; System Believers read establishment ones the same way. **Alignment** between voter and candidate is what reads as real. And we can watch the switch flip on, off, and on again across three elections.
 
 **Notes**
 
@@ -215,11 +219,16 @@ Here's the surprising part. Whether a candidate seems **honest** and like they *
 [2] In 2016, *low-trust voters* rated Trump honest at **1.58** and Clinton at **0.54** (4-point scale, higher = trait fits better). *High-trust voters* rated Clinton at **1.77** and Trump at **0.93** — the exact opposite ordering. Cross-tab is weighted by V160101, n≈3,300. The "ALIGNMENT creates swing votes" framing is supported but motivated reasoning is a credible alternative explanation; we address that in §9 (the cross-cycle on/off pattern is the structural evidence that this is not just motivated reasoning).
 
 ### 9 · And it proves itself across three elections
-Watch what happens to that "authentic outsider" magic when the outsider becomes the boss. In **2020**, Trump was the president — the system — and the magic **vanished**: even distrustful voters stopped rating him as the honest one. Then in **2024**, out of power again, it **came back**.[1] The anti-establishment halo goes to whoever is *fighting* the system, and it disappears the moment you *become* the system. That on-off-on switch is how you know it's real, not just people liking their own guy.[2]
+Watch what happens to that "authentic outsider" magic when the outsider becomes the boss. In **2016**, System Critics rated Trump honest at **1.58** and Clinton at **0.54** — the classic crossover. In **2020**, with Trump now the incumbent president, the magic **vanished**: Biden was rated more honest than Trump at every trust level. Then in **2024**, with Trump out of power again, the crossover **came back even stronger** than 2016.[1]
+
+The anti-establishment halo goes to whoever is *fighting* the system, and it disappears the moment they *become* the system. That on-off-on pattern is how you know it's real, not just people liking their own guy.[2]
 
 **Notes**
 
-[1] ANES 2020 candidate-trait items: V201209 ("cares about people like you" — Biden), V201213 (Trump); V201211 ("honest" — Biden), V201215 (Trump). ANES 2024: V241201/V241206 (cares); V241203/V241208 (honest). 3-item trust index built from V201233/234/235 (2020) and V241229/231/232 (2024). Crossover present 2016 (Trump challenger), **absent 2020** (Trump incumbent — Biden rated more honest at every trust level), present and cleanest 2024 (Trump challenger again).
+[1] **Cross-cycle authenticity crossover.** Three-cycle test using comparable ANES trait items in 2020 and 2024. Variables: 2020 — V201211 (Biden honest), V201215 (Trump honest), V201209/V201213 (cares). 2024 — V241203 (Harris honest), V241208 (Trump honest), V241201/V241206 (cares). 3-item trust index built from V201233/234/235 (2020) and V241229/231/232 (2024). **Honesty ratings by voter trust band (4-point scale; higher = trait fits better):**
+- **2016** (Trump challenger): low-trust voters rate Trump **1.58** / Clinton **0.54**; high-trust voters rate Clinton **1.77** / Trump **0.93**. **Crossover PRESENT.**
+- **2020** (Trump incumbent): low-trust voters rate Biden **1.43** / Trump **0.96**; high-trust voters rate Biden **1.66** / Trump **1.36**. Biden rated more honest than Trump at every trust level. **Crossover ABSENT.**
+- **2024** (Trump challenger): low-trust voters rate Trump **1.39** / Harris **0.98**; high-trust voters rate Harris **2.37** / Trump **0.81**. **Crossover PRESENT and the cleanest of the three** (largest gap at the high-trust end).
 [2] Trust → presidential vote, standardized weighted logistic coefficient per cycle: **2016 −0.28** (Clinton vs Trump), **2020 −0.00** (Biden vs Trump), **2024 −0.58** (Harris vs Trump). The 2020 collapse-to-zero is the key falsifier: motivated reasoning alone predicts a stable in-party-trusting / out-party-distrusting pattern; the role-dependent on/off pattern is structural, not motivated. Tables in the-center-is-a-lie.md §6, §9.
 
 ### 10 · Why a candidate can flip-flop for free — or get punished for it
