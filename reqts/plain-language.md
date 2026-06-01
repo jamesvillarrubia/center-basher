@@ -52,20 +52,20 @@ Turns out **moderate**, **centrist**, and **swing voter** aren't even the same g
 
 ### 2 · The center is a lie
 
-The electability pitch imagines a courtable policy middle — voters who hold moderate views on the actual issues, waiting for a moderate candidate. Walk the funnel and that bloc all but vanishes.
+The electability pitch imagines a courtable policy middle: voters who hold moderate views on the actual issues, waiting for a moderate candidate. Walk the funnel and that bloc all but vanishes.
 
 Start with 100 American voters.
 
-**26 of those 100 tell pollsters they haven't thought about ideology at all.** Call them the **Whatevers** — no left-right position to court.[1] They're not in the funnel; they're outside it.
+**26 of those 100 tell pollsters they haven't thought about ideology at all.** Call them the **Whatevers**: no left-right position to court.[1] They're not in the funnel; they're outside it.
 
-**Of the remaining 74, about 40 self-place as "moderate"** when forced to pick a spot on the lib-con scale.[2] That's the bloc the textbook calls "the courtable middle." Push those 40 on real issues — health care, taxes, defense, the role of government — and the bloc splits two ways:
+**Of the remaining 74, about 40 self-place as "moderate"** when forced to pick a spot on the lib-con scale.[2] That's the bloc the textbook calls "the courtable middle." Push those 40 on real issues (health care, taxes, defense, the role of government), and the bloc splits two ways:
 
-- **28 of them are Grab-Baggers** — self-described moderates whose actual policy positions are lopsided: liberal on some issues, conservative on others, with an issue average that lands clearly off-center. They wear the moderate label, but their *policy* isn't moderate.[3]
-- **12 of them are MidMiddlers** — voters whose issue positions actually average to the middle. Genuine policy centrists by the loose test.[4]
+- **28 of them are Grab-Baggers**: self-described moderates whose actual policy positions are lopsided. Liberal on some issues, conservative on others, with an issue average that lands clearly off-center. They wear the moderate label, but their *policy* isn't moderate.[3]
+- **12 of them are MidMiddlers**: voters whose issue positions actually average to the middle. Genuine policy centrists by the loose test.[4]
 
-Tighten one more notch — require *centrist on every issue, not just on average* — and that 12 collapses to **about 1.**[5] One in a hundred American voters holds the coherent, across-the-board centrist policy profile the textbook imagines. Call them the **True Middlers**.
+Tighten one more notch (require *centrist on every issue, not just on average*) and that 12 collapses to **about 1.**[5] One in a hundred American voters holds the coherent, across-the-board centrist policy profile the textbook imagines. Call them the **True Middlers**.
 
-**100 → 74 → 40 → 12 → 1.** Each step shrinks the bloc by a factor of two to twelve. What survives at the bottom of the funnel is microscopic — and we haven't even asked how any of these groups vote. That's section 3, and the answer makes the picture worse.
+**100 → 74 → 40 → 12 → 1.** Each step shrinks the bloc by a factor of two to twelve. What survives at the bottom of the funnel is microscopic. And we haven't even asked how any of these groups vote. That's section 3, and the answer makes the picture worse.
 
 **Notes**
 
@@ -77,23 +77,23 @@ Tighten one more notch — require *centrist on every issue, not just on average
 
 ### 3 · So who actually swings? (almost nobody)
 
-§2 walked the funnel by *policy position* and showed the coherent centrist is a sliver. Now ask the second question: how do these voters actually *behave* in elections — not just once, but across cycles?
+§2 walked the funnel by *policy position* and showed the coherent centrist is a sliver. Now ask the second question: how do these voters actually *behave* in elections, not just once, but across cycles?
 
 Because here's the hidden bias the electability pitch never accounts for: **the moderate *label* doesn't predict a moderate *voting pattern*.** Even voters with centrist views mostly vote like consistent partisans. Single-cycle vote share makes the middle look up for grabs; multi-cycle behavior shows it isn't.
 
-Look at the same respondents tracked across three presidential elections — 2012, 2016, and 2020 — broken out by their 2016 self-ID:[1]
+Look at the same respondents tracked across three presidential elections (2012, 2016, and 2020), broken out by their 2016 self-ID:[1]
 
 - **Self-described liberals: 94% voted Democrat all three cycles.** Consistent.
 - **Self-described conservatives: 84% voted Republican all three cycles.** Consistent.
-- **Self-described moderates: 85% voted the same party all three cycles** — 54% Democrat → Democrat → Democrat, 31% Republican → Republican → Republican. **Just as consistent.**
+- **Self-described moderates: 85% voted the same party all three cycles** (54% Democrat → Democrat → Democrat, 31% Republican → Republican → Republican). **Just as consistent.**
 
-So the "moderate" label hides a near-even split between two committed partisan blocs. It isn't a courtable middle — it's the *tie zone* where two consistent partisan groups happen to use the same self-ID word.
+So the "moderate" label hides a near-even split between two committed partisan blocs. It isn't a courtable middle. It's the *tie zone* where two consistent partisan groups happen to use the same self-ID word.
 
-The actual swing voters — people who voted one party in one cycle and the other in a different cycle — are a thin slice across all three bands:
+The actual swing voters (people who voted one party in one cycle and the other in a different cycle) are a thin slice across all three bands:
 
-- **15% of self-described moderates** — roughly 5–6% of all voters.
-- **5% of self-described liberals** — roughly 1–2% of voters.
-- **8% of self-described conservatives** — roughly 2–3% of voters.
+- **15% of self-described moderates**, roughly 5–6% of all voters.
+- **5% of self-described liberals**, roughly 1–2% of voters.
+- **8% of self-described conservatives**, roughly 2–3% of voters.
 
 Total: around **8–9% of the electorate** are genuine cross-cycle swing voters, distributed across the ideology spectrum, not concentrated in the middle.[2]
 
@@ -101,7 +101,7 @@ Single-cycle data tells the same lock-in story. **92% of partisan-leaning voters
 
 What does that leave us with?
 
-A genuinely small group actually up for grabs — defined by **behavior** across cycles, not by self-label or policy position. They *switch*, or they *don't reliably show up*. From here on, when we say "the voters in play," we mean exactly that group: **the switchers and the no-shows.** Two completely different problems. A small subset of all voters, distributed across the spectrum, not concentrated in the middle.[7]
+A genuinely small group actually up for grabs, defined by **behavior** across cycles, not by self-label or policy position. They *switch*, or they *don't reliably show up*. From here on, when we say "the voters in play," we mean exactly that group: **the switchers and the no-shows.** Two completely different problems. A small subset of all voters, distributed across the spectrum, not concentrated in the middle.[7]
 
 **Notes**
 
@@ -119,12 +119,12 @@ A genuinely small group actually up for grabs — defined by **behavior** across
 
 ### 4 · Two completely different jobs
 
-Let's sum up where we are. The voters actually in play — the **switchers** and the **no-shows** from §3 — are a small minority of the electorate. Switchers are roughly **1 in 10**; no-shows are a separate group, similarly small.[1] And those two groups are **two completely separate problems** for a campaign:
+Let's sum up where we are. The voters actually in play (the **switchers** and the **no-shows** from §3) are a small minority of the electorate. Switchers are roughly **1 in 10**; no-shows are a separate group, similarly small.[1] And those two groups are **two completely separate problems** for a campaign:
 
-1. **Switchers** are a **choice** problem — they'll show up, but they haven't decided who to pick.
-2. **No-shows** are a **turnout** problem — they're already decided in principle, but they're not showing up.
+1. **Switchers** are a **choice** problem: they'll show up, but they haven't decided who to pick.
+2. **No-shows** are a **turnout** problem: they're already decided in principle, but they're not showing up.
 
-These don't respond to the same things — and that turns out to be the whole ballgame.[2]
+These don't respond to the same things, and that turns out to be the whole ballgame.[2]
 
 **Notes**
 
@@ -137,23 +137,23 @@ Campaigns already split voters by the two problems we just named. For every name
 - **Which side does this person lean?** Democrat, **persuadable** (unsure between the two), or Republican?
 - **How reliably do they show up to vote?** Almost always, sometimes, or rarely?
 
-Cross those two questions and you get nine groups — what the campaign world calls the **9-box grid**. Each box gets a mechanical strategy:[1]
+Cross those two questions and you get nine groups, what the campaign world calls the **9-box grid**. Each box gets a mechanical strategy:[1]
 
-- Voters who lean your way and always vote — **skip them**. They're already with you.
-- Voters who lean your way but rarely show up — **knock on the door**. Get them to the polls.
-- Persuadables who always vote — **send mail and ads**. Try to flip them.
-- Persuadables who rarely vote — the hardest box. You have to do both.
-- Voters who lean against you — **skip them**.
+- Voters who lean your way and always vote: **skip them**. They're already with you.
+- Voters who lean your way but rarely show up: **knock on the door**. Get them to the polls.
+- Persuadables who always vote: **send mail and ads**. Try to flip them.
+- Persuadables who rarely vote: the hardest box. You have to do both.
+- Voters who lean against you: **skip them**.
 
-This is roughly how Democratic data firms — Catalist, NGP-VAN, Hawkfish — and the DCCC plan campaigns.[2]
+This is roughly how Democratic data firms (Catalist, NGP-VAN, Hawkfish) and the DCCC plan campaigns.[2]
 
 It's a useful grid. But it hides three assumptions that turn out to be wrong:
 
-1. **The "persuadable" voter sits in the political middle.** Section 3 said no — the voters genuinely up for grabs span the whole spectrum: left, right, and middle. This matters because the grid's middle-of-the-spectrum framing is what makes *"move to the center"* feel like the natural strategy for winning them. If persuadables aren't actually in the middle, then moving toward the middle isn't moving toward them. *Persuadable is not moderate is not centrist is not swing.*
-2. **Voters who lean your way but don't show up are loyal but lazy.** Often they're not — they're **disaffected**. They don't vote *because* they don't trust your candidate, and a louder push from that candidate makes it worse. The grid sees *who* doesn't show up, not *why* — and that blind spot has a measurable cost: in 2016, **about 8% of voters who looked Democrat on the voter file actually voted Trump (about 1 in 13), rising to roughly 1 in 9 among the distrustful subset** that GOTV targeting hits hardest.[4] A campaign that follows the grid can spend real money on door-knocks that produce votes for the opponent — a disaster the grid hides because it measures behavior without measuring motivation.
+1. **The "persuadable" voter sits in the political middle.** Section 3 said no: the voters genuinely up for grabs span the whole spectrum, left, right, and middle. This matters because the grid's middle-of-the-spectrum framing is what makes *"move to the center"* feel like the natural strategy for winning them. If persuadables aren't actually in the middle, then moving toward the middle isn't moving toward them. *Persuadable is not moderate is not centrist is not swing.*
+2. **Voters who lean your way but don't show up are loyal but lazy.** Often they're not. They're **disaffected**. They don't vote *because* they don't trust your candidate, and a louder push from that candidate makes it worse. The grid sees *who* doesn't show up, not *why*, and that blind spot has a measurable cost: in 2016, **about 8% of voters who looked Democrat on the voter file actually voted Trump (about 1 in 13), rising to roughly 1 in 9 among the distrustful subset** that GOTV targeting hits hardest.[4] A campaign that follows the grid can spend real money on door-knocks that produce votes for the opponent. That's a disaster the grid hides because it measures behavior without measuring motivation.
 3. **Persuasion and turnout are independent moves.** They aren't. The grid plans them in separate columns, so the question *"what does this persuasion move cost me on the turnout side?"* never gets asked. A *"safe, electable"* pitch designed to win persuadables can simultaneously dampen turnout among disaffected supporters who needed inspiration to show up. The trade-off is real; the grid just hides it.[3]
 
-So we'll unpack the two problems separately — choice (Part III) and turnout (Part IV) — and we'll keep asking the question the grid doesn't: *whose reaction is each campaign move actually causing?*
+So we'll unpack the two problems separately (choice in Part III, turnout in Part IV) and we'll keep asking the question the grid doesn't: *whose reaction is each campaign move actually causing?*
 
 **Notes**
 
