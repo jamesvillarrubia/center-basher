@@ -65,7 +65,15 @@ Start with 100 American voters.
 
 Tighten one more notch (require *centrist on every issue, not just on average*) and that 12 collapses to **about 1.**[5] One in a hundred American voters holds the coherent, across-the-board centrist policy profile the textbook imagines. Call them the **True Middlers**.
 
-**100 → 74 → 40 → 12 → 1.** Each step shrinks the bloc by a factor of two to twelve. What survives at the bottom of the funnel is microscopic. And we haven't even asked how any of these groups vote. That's section 3, and the answer makes the picture worse.
+**100 → 74 → 40 → 12 → 1.** Each step shrinks the bloc by a factor of two to twelve. What survives at the bottom of the funnel is microscopic.
+
+Even the 12 MidMiddlers aren't a coherent target. Their issue means land near the center because strong-left positions cancel strong-right ones — so *"shift to the center on policy X"* reaches a different MidMiddler with every X you pick. There's no shared platform you could move toward and reach all 12 at once; their centrism is a statistical artifact of opposite extremes, not a place on the issue map.
+
+The only voter for whom a single centrist agenda cohesively lands is the True Middler — centrist on every issue at the same time. That's **1 in 100**.
+
+That's the courtable middle the textbook actually describes. One voter, surrounded by 99 who are either disengaged, partisan, or wearing the moderate label over policy that pulls hard in one direction. The lie isn't that moderates exist. The lie is that *"the center"* is a coherent place a candidate can run toward.
+
+And we haven't even asked yet how any of these groups vote. That's section 3, and the answer makes the picture worse.
 
 **Notes**
 
