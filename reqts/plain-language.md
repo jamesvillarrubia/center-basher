@@ -450,15 +450,15 @@ So 2016 wasn't a story of Clinton failing to win over moderate Republicans. It's
 
 ### 18 · The centrist's bad trade — robbing your own camp
 
-Now imagine you are planning a 2028 Presidential Campaign.  You're in a campaign war room in some swing state looking at data about swing voters and partisanship.
+Imagine you're planning a 2028 presidential campaign. You're in a war room in some swing state, looking at the data on swing voters and partisanship.
 
-You see that the biggest single clump is in the **middle** — about 26% of "self-declared moderates" are "swing", more than any other slice (roughly 5% of all voters).[1] So the obvious play: tack to the center and scoop them up. Not crazy. But zoom out and the trade falls apart, for two reasons.
+The biggest single clump is in the **middle**: about **26% of self-declared moderates** are "swing," the highest swing rate of any ideological slice. Because moderates are roughly 20% of the electorate, the moderate-swing bucket is about **5% of all voters**, bigger than any other swing bucket on the board.[1] So the obvious play: tack to the center and scoop them up. Not crazy. But zoom out and the trade falls apart, two ways.
 
-First, **the middle is the hardest mass to actually move.** Those moderate swing voters are only average-trust, and — as we saw — only about half even hold centrist *policy* views, so there's no single "center" you can stand on to win them; and repositioning moves general-election minds by roughly zero anyway (§6).
+**First, the middle is the hardest mass to actually move.** Those moderate swing voters score only **0.22 on the 3-item trust index** (mid-pack across ideology bands).[1] §2 showed that the "middle" is itself fragmented: only ~1 in 8 voters even hold loose centrist policy views, and only ~1 in 100 are consistent centrists on every issue. So there's no single "center" you can stand on to win them. And §6's K&B meta says repositioning moves general-election minds by roughly zero anyway.
 
-Second — and this is the killer — **the swing voters in your own camp are the distrustful ones.** A Democrat's lean-left swing voters sit at **0.17 trust — the lowest of any group.**[2] They're the anti-establishment progressives, and they swing *on trust.* The very move meant to win the middle — looking more moderate, more establishment, more "safe" — is exactly the move that **repels them.** You reach for one uncertain moderate and shove away a lean-left voter who was yours to keep, because they were never swinging on policy in the first place.
+**Second, and this is the killer: your own camp's swing voters are the distrustful ones.** A Democrat's lean-left swing voters score **0.17 on the trust index, the lowest of any subgroup measured** (compare moderate-swing 0.22; strong-left non-defector 0.27).[2] These are the same anti-establishment progressives who switched Obama→Trump in 2016: §17's Sanders→Trump arithmetic decided WI / MI / PA, and §16 Note [15]'s VSG panel shows the same switchers scored substantially higher on populist orientation than Obama→Clinton loyalists. The centrist tack (looking more moderate, more establishment, more "safe") moves a candidate **structurally further** from this cohort's measured trust position, not closer. We cannot say with panel evidence that centrist positioning *causes* lean-left defection, but the structural distance argument is empirical (Note [3]).
 
-That's the trap. The mass in the middle is real, but it's the **most expensive, least convertible mass on the board** — and you pay for chasing it in the currency of your own base's distrustful edge. The centrist tack and the anti-establishment energy point in opposite directions; you cannot run toward both.
+That's the trap. The mass in the middle is real, but it's the **most expensive, least convertible mass on the board**, and the cost of chasing it is structural distance from your own base's distrustful edge. The centrist tack and the anti-establishment energy point in opposite directions. You cannot run toward both.
 
 **Notes**
 
