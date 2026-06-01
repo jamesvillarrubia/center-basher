@@ -482,12 +482,15 @@ That's the trap. The mass in the middle is real, but it's the **most expensive, 
 Put it together and the famous "move to the center to be electable" advice fails three different ways at once:
 - the **center you're chasing barely exists** (about 1 in 8 voters, and they don't even agree with each other);
 - you **can't move turnout with policy** anyway;
-- and the thing that actually wins — being trusted as a real, on-your-side outsider — **can't be faked by triangulating.**
-For years "electability" has been the club used to tell progressives to sit down and pick the safe, moderate option. The data says it's backwards. **In a low-trust era, the safe establishment candidate is the *risky* one.** The center isn't where elections are won. It's a comforting story — and it's a lie.
+- and the thing that actually wins, being trusted as a real on-your-side outsider, **can't be faked by triangulating.**
+
+For years "electability" has been the club used to tell progressives to sit down and pick the safe, moderate option. The data says it's backwards. **In a low-trust era, the safe establishment candidate is the *risky* one.** §20 walks out what this means for progressive strategy specifically: the change lane is real, but it requires holding message discipline on both economic populism and culture-war framing.
+
+The center isn't where elections are won. It's a comforting story. And it's a lie.
 
 **Notes**
 
-[1] Recap pointers (no new claims): "1 in 8 voters" funnel → §2 [3]; "can't move turnout with policy" → §12 [2] (Gerber-Green meta); "can't fake authentic outsider" → §8 [2] (trait crossover) + §9 [1] (3-cycle on/off pattern); "safe establishment is the risky bet" → §16 [1] (five-election change-lane table).
+[1] Recap pointers (no new claims): "1 in 8 voters" funnel → §2 [3]; "can't move turnout with policy" → §12 [2] (Gerber-Green meta); "can't fake authentic outsider" → §8 [2] (trait crossover) + §9 [1] (3-cycle on/off pattern); "safe establishment is the risky bet" → §16 [2] (7-cycle change-lane table).
 
 ### 20 · The progressive trap (and Bernie's discipline)
 The change lane is real and progressives have a credible shot at it. Bernie Sanders owned it across two primary cycles, and the §16 data says the outsider wins. But progressives carry a second piece of baggage the change lane alone can't offset: **the social/cultural positions associated with the Democratic Party brand are deeply unpopular**, especially with the working-class voters most receptive to economic populism. This is the progressive trap. The candidate runs as the change agent against the system, but the party brand drags the culture-war framing into every contest.
