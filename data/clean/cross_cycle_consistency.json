@@ -1,0 +1,42 @@
+{
+  "source": "Democracy Fund VOTER Survey (VSG) panel \u2014 same respondents across 2012/2016/2020 presidential elections; data/derived/VOTER-Survey-Panel-Data-Files-2021Dec/...",
+  "variables": [
+    "presvote_2012 (1=Obama, 2=Romney)",
+    "presvote_2016 (1=Clinton, 2=Trump)",
+    "presvote_2020Nov (1=Trump, 2=Biden) \u2014 FLIPPED from 2016 coding",
+    "ideo5_2016 (1=Very lib, 2=Lib, 3=Mod, 4=Con, 5=Very con)",
+    "weight_genpop_2016"
+  ],
+  "filter": "Voted in all three cycles AND non-missing ideology AND positive weight.",
+  "method": "Weighted partition into always-Dem, always-Rep, switched. Switched = voted both parties at some point across the three cycles.",
+  "n": 2628,
+  "rows": [
+    {
+      "band": "liberal",
+      "n_unweighted": 772,
+      "always_dem_pct": 94.2,
+      "always_rep_pct": 0.5,
+      "switched_pct": 5.2,
+      "consistent_pct": 94.7
+    },
+    {
+      "band": "moderate",
+      "n_unweighted": 967,
+      "always_dem_pct": 53.8,
+      "always_rep_pct": 31.0,
+      "switched_pct": 15.2,
+      "consistent_pct": 84.8
+    },
+    {
+      "band": "conservative",
+      "n_unweighted": 889,
+      "always_dem_pct": 7.1,
+      "always_rep_pct": 84.3,
+      "switched_pct": 8.6,
+      "consistent_pct": 91.4
+    }
+  ],
+  "supports": [
+    "plain-language.md \u00a73 [1]"
+  ]
+}
