@@ -1,0 +1,36 @@
+{
+  "source": "ANES CDF 1948-2024 \u2014 data/derived/anes_timeseries_cdf_csv_20260205/.",
+  "variables": [
+    "VCF0004 (cycle)",
+    "VCF0009z (weight)",
+    "VCF0901a (state FIPS)",
+    "VCF0604 (gov do-right, reversed)",
+    "VCF0605 (benefit of all)",
+    "VCF0609 (waste tax money)"
+  ],
+  "filter": "Presidential cycles 2000-2024. State sample n >= 20 required for state estimate.",
+  "weight": "VCF0009z",
+  "method": "Trust composite = mean of 3 items normalized 0-1 (HIGH = MORE trust). Weighted mean per cycle per state. 'diff_from_national' = state mean minus that cycle's national mean.",
+  "n": 14051,
+  "supports": [
+    "plain-language.md \u00a716 (popular-vote-vs-EC caveat)"
+  ],
+  "caveats": [
+    "ANES state n is small (typically 50-300 per cycle per swing state); individual cycle-state estimates have wide SEs. The PATTERN across cycles and across states is what's load-bearing, not any single number.",
+    "VCF0604 missing 2016-2024; trust composite for those cycles uses 0605+0609 only (matches the \u00a715 pipeline footnote).",
+    "Self-reported trust is concurrent with the vote, not pre-treatment. Trust and partisanship co-vary; partisan composition of each state's sample shapes the trust mean as well.",
+    "States with n < 20 in a cycle are reported as missing rather than estimated."
+  ],
+  "name": "swing_state_trust",
+  "schema": [
+    "cycle",
+    "wh_incumbent",
+    "state",
+    "fips",
+    "n_unweighted",
+    "trust_mean",
+    "diff_from_national",
+    "swing_category"
+  ],
+  "row_count": 98
+}
