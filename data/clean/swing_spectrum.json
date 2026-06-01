@@ -1,0 +1,66 @@
+{
+  "source": "ANES 2016 Time Series \u2014 data/raw/anes_timeseries_2016.dta",
+  "variables": [
+    "V160101 (weight)",
+    "V161126 (self-place 7-pt lib-con; 1=Extremely lib, 7=Extremely con)",
+    "V161158x (PID, 7-pt, leaners)",
+    "V162034a (presidential vote; 1=Clinton, 2=Trump)"
+  ],
+  "definitions": {
+    "Dem\u2192Trump": "V161158x \u2208 {1,2,3} (Dem leaners+) AND V162034a = 2",
+    "Rep\u2192Clinton": "V161158x \u2208 {5,6,7} (Rep leaners+) AND V162034a = 1",
+    "swing voter (this chart)": "any single-cycle PID-line defector"
+  },
+  "labels": {
+    "1": "Extremely lib",
+    "2": "Liberal",
+    "3": "Slight lib",
+    "4": "Moderate",
+    "5": "Slight con",
+    "6": "Conservative",
+    "7": "Extremely con"
+  },
+  "distribution_pct": {
+    "Dem_to_Trump": {
+      "1": 4.2,
+      "2": 10.0,
+      "3": 26.7,
+      "4": 42.2,
+      "5": 10.8,
+      "6": 6.1,
+      "7": 0.0
+    },
+    "Rep_to_Clinton": {
+      "1": 0.0,
+      "2": 2.8,
+      "3": 3.5,
+      "4": 29.9,
+      "5": 49.5,
+      "6": 12.9,
+      "7": 1.3
+    },
+    "all_swings": {
+      "1": 1.9,
+      "2": 6.1,
+      "3": 14.0,
+      "4": 35.5,
+      "5": 32.0,
+      "6": 9.8,
+      "7": 0.7
+    }
+  },
+  "weighted_mean_position": {
+    "Dem_to_Trump": 3.64,
+    "Rep_to_Clinton": 4.7,
+    "all_swings": 4.22
+  },
+  "pct_at_position_4_middle": 35.5,
+  "n_unweighted": {
+    "Dem_to_Trump": 55,
+    "Rep_to_Clinton": 72,
+    "all_swings": 127
+  },
+  "supports": [
+    "plain-language.md \u00a73 [7]"
+  ]
+}
