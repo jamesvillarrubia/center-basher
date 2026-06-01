@@ -1,0 +1,67 @@
+{
+  "source": "ANES 2016 Time Series \u2014 data/raw/anes_timeseries_2016.dta",
+  "variables": [
+    "V160101 (weight)",
+    "V161126 (self-place lib-con)",
+    "V161158x (PID, 7-pt, leaners)",
+    "V162034a (presidential vote)",
+    "V161178 (7-pt issue)",
+    "V161181 (7-pt issue)",
+    "V161184 (7-pt issue)",
+    "V161189 (7-pt issue)",
+    "V161193 (7-pt issue)",
+    "V161196 (7-pt issue)",
+    "V161198 (7-pt issue)",
+    "V161204 (7-pt issue)",
+    "V161208 (7-pt issue)",
+    "V161213 (7-pt issue)"
+  ],
+  "definitions": {
+    "M (Moderate)": "self-place 7-pt lib-con = 4 (strict pure moderate)",
+    "C (Centrist)": "10-item policy mean within \u00b10.5 of 4 (center)",
+    "S (Swing)": "PID-line crosser: Dem-leaner\u2192Trump or Rep-leaner\u2192Clinton"
+  },
+  "method": "Weighted shares; cell (row, col) = % of row-group who are also col-group.",
+  "pop_share_pct": {
+    "M": 27.1,
+    "C": 16.4,
+    "S": 4.3
+  },
+  "matrix_pct": {
+    "M": {
+      "M": 100.0,
+      "C": 16.8,
+      "S": 5.1
+    },
+    "C": {
+      "M": 25.1,
+      "C": 100.0,
+      "S": 4.1
+    },
+    "S": {
+      "M": 35.5,
+      "C": 15.6,
+      "S": 100.0
+    }
+  },
+  "n_cells": {
+    "M": {
+      "M": 894,
+      "C": 894,
+      "S": 894
+    },
+    "C": {
+      "M": 606,
+      "C": 730,
+      "S": 730
+    },
+    "S": {
+      "M": 127,
+      "C": 178,
+      "S": 178
+    }
+  },
+  "supports": [
+    "plain-language.md \u00a71 [2]"
+  ]
+}
