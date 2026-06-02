@@ -29,13 +29,20 @@ def main():
     vote = pd.to_numeric(d["V162034a"], errors="coerce")
     voted = (vote >= 1) & (vote <= 9)
 
-    base = thermo_c.notna() & thermo_t.notna() & (w > 0)
+    # V161004 = political interest. 1 = very, 2 = somewhat, 3 = not very.
+    # The "gettable" subset (per §13 footnote [2]) is V161004 = 3, the voters
+    # GOTV is actually trying to reach.
+    interest = pd.to_numeric(d["V161004"], errors="coerce")
+    is_gettable = (interest == 3)
+
+    base_all      = thermo_c.notna() & thermo_t.notna() & (w > 0)
+    base_gettable = base_all & is_gettable
 
     warmth     = pd.concat([thermo_c, thermo_t], axis=1).max(axis=1) / 100.0
     coldness   = (100.0 - pd.concat([thermo_c, thermo_t], axis=1).min(axis=1)) / 100.0
     spread     = (thermo_c - thermo_t).abs() / 100.0
 
-    def quintile_turnout(metric, label):
+    def quintile_turnout(metric, label, base):
         m = base & metric.notna()
         x = metric[m]
         ww = w[m]
@@ -63,9 +70,17 @@ def main():
             })
         return rows
 
-    warmth_rows   = quintile_turnout(warmth,   "warmth")
-    coldness_rows = quintile_turnout(coldness, "coldness")
-    spread_rows   = quintile_turnout(spread,   "spread")
+    # Two passes: full sample and gettable subset.
+    warmth_all,    coldness_all,    spread_all    = (
+        quintile_turnout(warmth,   "warmth",   base_all),
+        quintile_turnout(coldness, "coldness", base_all),
+        quintile_turnout(spread,   "spread",   base_all),
+    )
+    warmth_get,    coldness_get,    spread_get    = (
+        quintile_turnout(warmth,   "warmth",   base_gettable),
+        quintile_turnout(coldness, "coldness", base_gettable),
+        quintile_turnout(spread,   "spread",   base_gettable),
+    )
 
     out = {
         "source": "ANES 2016 Time Series — data/raw/anes_timeseries_2016.dta",
@@ -81,9 +96,18 @@ def main():
             "affect_spread":        "|V161086 - V161087| / 100  — 'love + fear combined'",
         },
         "method": "Weighted quintile binning on each metric; turnout = % of bin with V162034a non-missing, weighted by V160101.",
-        "warmth":   warmth_rows,
-        "coldness": coldness_rows,
-        "spread":   spread_rows,
+        "all": {
+            "label": "All voters (full ANES 2016 sample)",
+            "warmth":   warmth_all,
+            "coldness": coldness_all,
+            "spread":   spread_all,
+        },
+        "gettable": {
+            "label": "Gettable voters (V161004 = 3, low political interest)",
+            "warmth":   warmth_get,
+            "coldness": coldness_get,
+            "spread":   spread_get,
+        },
         "supports": ["plain-language.md §13 [4]", "plain-language.md §13 [5]"],
     }
 
@@ -92,17 +116,21 @@ def main():
         json.dump(out, f, indent=2)
 
     print(f"Wrote {out_path}")
-    print()
-    print("Turnout by quintile (Q1=weakest feeling, Q5=strongest):")
-    print(f"{'Q':>4} {'warmth (love own)':>20} {'coldness (fear other)':>24} {'spread (love+fear)':>22}")
-    for q in range(1, 6):
-        w_row = next((r for r in warmth_rows if r['q'] == q), None)
-        c_row = next((r for r in coldness_rows if r['q'] == q), None)
-        s_row = next((r for r in spread_rows if r['q'] == q), None)
-        w_str = f"{w_row['turnout_pct']:5.1f}% (n={w_row['n_unweighted']:>4d})" if w_row else "  --  "
-        c_str = f"{c_row['turnout_pct']:5.1f}% (n={c_row['n_unweighted']:>4d})" if c_row else "  --  "
-        s_str = f"{s_row['turnout_pct']:5.1f}% (n={s_row['n_unweighted']:>4d})" if s_row else "  --  "
-        print(f"{q:>4} {w_str:>20} {c_str:>24} {s_str:>22}")
+    for label, ws, cs, sp in [
+        ("ALL voters",      warmth_all, coldness_all, spread_all),
+        ("GETTABLE voters", warmth_get, coldness_get, spread_get),
+    ]:
+        print()
+        print(f"=== {label} ===")
+        print(f"{'Q':>4} {'warmth (love own)':>22} {'coldness (fear other)':>26} {'spread (love+fear)':>22}")
+        for q in range(1, 6):
+            w_row = next((r for r in ws if r['q'] == q), None)
+            c_row = next((r for r in cs if r['q'] == q), None)
+            s_row = next((r for r in sp if r['q'] == q), None)
+            w_str = f"{w_row['turnout_pct']:5.1f}% (n={w_row['n_unweighted']:>3d})" if w_row else "  --  "
+            c_str = f"{c_row['turnout_pct']:5.1f}% (n={c_row['n_unweighted']:>3d})" if c_row else "  --  "
+            s_str = f"{s_row['turnout_pct']:5.1f}% (n={s_row['n_unweighted']:>3d})" if s_row else "  --  "
+            print(f"{q:>4} {w_str:>22} {c_str:>26} {s_str:>22}")
 
 
 if __name__ == "__main__":
