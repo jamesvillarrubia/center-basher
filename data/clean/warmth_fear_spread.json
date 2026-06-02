@@ -1,0 +1,130 @@
+{
+  "source": "ANES 2016 Time Series \u2014 data/raw/anes_timeseries_2016.dta",
+  "variables": [
+    "V160101 (weight)",
+    "V161086 (Clinton feeling thermometer 0-100)",
+    "V161087 (Trump feeling thermometer 0-100)",
+    "V162034a (presidential vote; non-missing = turnout proxy)"
+  ],
+  "definitions": {
+    "warmth_to_favorite": "max(V161086, V161087) / 100  \u2014 'love your own'",
+    "coldness_to_other": "(100 - min(V161086, V161087)) / 100  \u2014 'fear the other'",
+    "affect_spread": "|V161086 - V161087| / 100  \u2014 'love + fear combined'"
+  },
+  "method": "Weighted quintile binning on each metric; turnout = % of bin with V162034a non-missing, weighted by V160101.",
+  "warmth": [
+    {
+      "q": 1,
+      "turnout_pct": 49.5,
+      "n_unweighted": 926,
+      "metric_low": 0.0,
+      "metric_high": 0.5
+    },
+    {
+      "q": 2,
+      "turnout_pct": 63.4,
+      "n_unweighted": 764,
+      "metric_low": 0.51,
+      "metric_high": 0.61
+    },
+    {
+      "q": 3,
+      "turnout_pct": 62.4,
+      "n_unweighted": 873,
+      "metric_low": 0.62,
+      "metric_high": 0.71
+    },
+    {
+      "q": 4,
+      "turnout_pct": 63.6,
+      "n_unweighted": 944,
+      "metric_low": 0.72,
+      "metric_high": 0.85
+    },
+    {
+      "q": 5,
+      "turnout_pct": 66.6,
+      "n_unweighted": 701,
+      "metric_low": 0.86,
+      "metric_high": 1.0
+    }
+  ],
+  "coldness": [
+    {
+      "q": 1,
+      "turnout_pct": 52.3,
+      "n_unweighted": 842,
+      "metric_low": 0.0,
+      "metric_high": 0.7
+    },
+    {
+      "q": 2,
+      "turnout_pct": 61.1,
+      "n_unweighted": 841,
+      "metric_low": 0.7,
+      "metric_high": 0.96
+    },
+    {
+      "q": 3,
+      "turnout_pct": 67.0,
+      "n_unweighted": 842,
+      "metric_low": 0.96,
+      "metric_high": 1.0
+    },
+    {
+      "q": 4,
+      "turnout_pct": 62.6,
+      "n_unweighted": 841,
+      "metric_low": 1.0,
+      "metric_high": 1.0
+    },
+    {
+      "q": 5,
+      "turnout_pct": 60.3,
+      "n_unweighted": 842,
+      "metric_low": 1.0,
+      "metric_high": 1.0
+    }
+  ],
+  "spread": [
+    {
+      "q": 1,
+      "turnout_pct": 49.9,
+      "n_unweighted": 843,
+      "metric_low": 0.0,
+      "metric_high": 0.27
+    },
+    {
+      "q": 2,
+      "turnout_pct": 54.8,
+      "n_unweighted": 864,
+      "metric_low": 0.28,
+      "metric_high": 0.5
+    },
+    {
+      "q": 3,
+      "turnout_pct": 65.9,
+      "n_unweighted": 1240,
+      "metric_low": 0.51,
+      "metric_high": 0.7
+    },
+    {
+      "q": 4,
+      "turnout_pct": 66.9,
+      "n_unweighted": 694,
+      "metric_low": 0.71,
+      "metric_high": 0.85
+    },
+    {
+      "q": 5,
+      "turnout_pct": 66.8,
+      "n_unweighted": 567,
+      "metric_low": 0.86,
+      "metric_high": 1.0
+    }
+  ],
+  "supports": [
+    "plain-language.md \u00a713 [4]",
+    "plain-language.md \u00a713 [5]"
+  ]
+}
