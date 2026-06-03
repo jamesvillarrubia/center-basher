@@ -1,0 +1,126 @@
+{
+  "source": "ANES Cumulative Data File (1980-2008) + ANES standalone files (2016/2020/2024).",
+  "variables": [
+    "VCF0354 (Dem candidate honesty, 1=fits very well..4=not well)",
+    "VCF0355 (Rep candidate honesty, same scale)",
+    "VCF0604/0605/0609 (3-item trust composite)",
+    "VCF0009z (weight)"
+  ],
+  "method": "Per cycle: tercile-cut trust composite on full electorate. Compute weighted mean of CANDIDATE HONESTY among the bottom tercile (System Critics). Pre-2016 CDF values rescaled from 0-3 to 0-4 via *4/3 to share an axis with the standalone-file 2016+ ratings.",
+  "cycles": [
+    {
+      "cycle": 1980,
+      "dem_low_trust": 2.55,
+      "rep_low_trust": 2.72,
+      "source": "cdf (rescaled 0-3 \u2192 0-4)",
+      "inpower": "D",
+      "dem_name": "Carter",
+      "rep_name": "Reagan",
+      "winner": "Reagan"
+    },
+    {
+      "cycle": 1984,
+      "dem_low_trust": 2.68,
+      "rep_low_trust": 2.66,
+      "source": "cdf (rescaled 0-3 \u2192 0-4)",
+      "inpower": "R",
+      "dem_name": "Mondale",
+      "rep_name": "Reagan",
+      "winner": "Reagan"
+    },
+    {
+      "cycle": 1988,
+      "dem_low_trust": 2.56,
+      "rep_low_trust": 2.48,
+      "source": "cdf (rescaled 0-3 \u2192 0-4)",
+      "inpower": "R",
+      "dem_name": "Dukakis",
+      "rep_name": "Bush GHW",
+      "winner": "Bush GHW"
+    },
+    {
+      "cycle": 1992,
+      "dem_low_trust": 2.62,
+      "rep_low_trust": 1.87,
+      "source": "cdf (rescaled 0-3 \u2192 0-4)",
+      "inpower": "R",
+      "dem_name": "Clinton",
+      "rep_name": "Bush GHW",
+      "winner": "Clinton"
+    },
+    {
+      "cycle": 1996,
+      "dem_low_trust": 2.67,
+      "rep_low_trust": 1.49,
+      "source": "cdf (rescaled 0-3 \u2192 0-4)",
+      "inpower": "D",
+      "dem_name": "Clinton",
+      "rep_name": "Dole",
+      "winner": "Clinton"
+    },
+    {
+      "cycle": 2000,
+      "dem_low_trust": 2.68,
+      "rep_low_trust": 2.44,
+      "source": "cdf (rescaled 0-3 \u2192 0-4)",
+      "inpower": "D",
+      "dem_name": "Gore",
+      "rep_name": "Bush GWB",
+      "winner": "Bush GWB"
+    },
+    {
+      "cycle": 2004,
+      "dem_low_trust": 2.72,
+      "rep_low_trust": 2.48,
+      "source": "cdf (rescaled 0-3 \u2192 0-4)",
+      "inpower": "R",
+      "dem_name": "Kerry",
+      "rep_name": "Bush GWB",
+      "winner": "Bush GWB"
+    },
+    {
+      "cycle": 2008,
+      "dem_low_trust": 2.62,
+      "rep_low_trust": 2.46,
+      "source": "cdf (rescaled 0-3 \u2192 0-4)",
+      "inpower": "R",
+      "dem_name": "Obama",
+      "rep_name": "McCain",
+      "winner": "Obama"
+    },
+    {
+      "cycle": 2016,
+      "dem_low_trust": 0.54,
+      "rep_low_trust": 1.58,
+      "source": "standalone",
+      "inpower": "D",
+      "dem_name": "Clinton",
+      "rep_name": "Trump",
+      "winner": "Trump"
+    },
+    {
+      "cycle": 2020,
+      "dem_low_trust": 1.43,
+      "rep_low_trust": 0.96,
+      "source": "standalone",
+      "inpower": "R",
+      "dem_name": "Biden",
+      "rep_name": "Trump",
+      "winner": "Biden"
+    },
+    {
+      "cycle": 2024,
+      "dem_low_trust": 0.98,
+      "rep_low_trust": 1.39,
+      "source": "standalone",
+      "inpower": "D",
+      "dem_name": "Harris",
+      "rep_name": "Trump",
+      "winner": "Trump"
+    }
+  ],
+  "caveats": [
+    "Pre-2016 (CDF) and 2016+ (standalone) use different underlying ANES items with different question wordings. The rescaled values are roughly comparable but not identical. The qualitative claim (which candidate is higher among Critics) is robust to this rescaling.",
+    "VCF0354/0355 are absent in the CDF for 1972, 1976, and 2012, so those cycles are not included."
+  ]
+}

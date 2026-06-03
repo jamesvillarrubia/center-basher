@@ -1,0 +1,180 @@
+{
+  "source": "ANES Cumulative Data File 1948-2024; presidential cycles 1972-2024.",
+  "variables": [
+    "VCF0004 (year)",
+    "VCF0009z (weight)",
+    "VCF0704 (presidential vote; 1=Dem, 2=Rep)",
+    "VCF0604, VCF0605, VCF0609 (3-item trust composite, HIGH=MORE trust)"
+  ],
+  "method": "Per cycle, normalize 3-item trust composite to [0,1] HIGH=MORE trust. Tercile-split on that cycle's full electorate. For each tercile compute weighted % who voted for the in-power party's candidate. Tagged kept_change_lane=true for 2004 (Bush, wartime leadership lane) and 2012 (Obama, residual hope/change).",
+  "cycles": [
+    {
+      "cycle": 1972,
+      "wh_incumbent": "R",
+      "n_unweighted": 1586,
+      "kept_change_lane": false,
+      "low_inpower_share": 56.4,
+      "low_n": 636,
+      "mid_inpower_share": 59.6,
+      "mid_n": 433,
+      "high_inpower_share": 78.1,
+      "high_n": 517
+    },
+    {
+      "cycle": 1976,
+      "wh_incumbent": "R",
+      "n_unweighted": 1320,
+      "kept_change_lane": false,
+      "low_inpower_share": 40.7,
+      "low_n": 503,
+      "mid_inpower_share": 42.3,
+      "mid_n": 410,
+      "high_inpower_share": 66.1,
+      "high_n": 407
+    },
+    {
+      "cycle": 1980,
+      "wh_incumbent": "D",
+      "n_unweighted": 875,
+      "kept_change_lane": false,
+      "low_inpower_share": 42.9,
+      "low_n": 315,
+      "mid_inpower_share": 37.4,
+      "mid_n": 321,
+      "high_inpower_share": 52.7,
+      "high_n": 239
+    },
+    {
+      "cycle": 1984,
+      "wh_incumbent": "R",
+      "n_unweighted": 1375,
+      "kept_change_lane": false,
+      "low_inpower_share": 50.0,
+      "low_n": 486,
+      "mid_inpower_share": 53.4,
+      "mid_n": 479,
+      "high_inpower_share": 73.7,
+      "high_n": 410
+    },
+    {
+      "cycle": 1988,
+      "wh_incumbent": "R",
+      "n_unweighted": 1190,
+      "kept_change_lane": false,
+      "low_inpower_share": 43.5,
+      "low_n": 421,
+      "mid_inpower_share": 52.0,
+      "mid_n": 485,
+      "high_inpower_share": 68.7,
+      "high_n": 284
+    },
+    {
+      "cycle": 1992,
+      "wh_incumbent": "R",
+      "n_unweighted": 1355,
+      "kept_change_lane": false,
+      "low_inpower_share": 39.8,
+      "low_n": 533,
+      "mid_inpower_share": 38.1,
+      "mid_n": 430,
+      "high_inpower_share": 47.5,
+      "high_n": 392
+    },
+    {
+      "cycle": 1996,
+      "wh_incumbent": "D",
+      "n_unweighted": 1031,
+      "kept_change_lane": false,
+      "low_inpower_share": 54.7,
+      "low_n": 473,
+      "mid_inpower_share": 62.2,
+      "mid_n": 235,
+      "high_inpower_share": 61.0,
+      "high_n": 323
+    },
+    {
+      "cycle": 2000,
+      "wh_incumbent": "D",
+      "n_unweighted": 1120,
+      "kept_change_lane": false,
+      "low_inpower_share": 54.4,
+      "low_n": 424,
+      "mid_inpower_share": 51.6,
+      "mid_n": 412,
+      "high_inpower_share": 48.9,
+      "high_n": 284
+    },
+    {
+      "cycle": 2004,
+      "wh_incumbent": "R",
+      "n_unweighted": 811,
+      "kept_change_lane": true,
+      "low_inpower_share": 34.8,
+      "low_n": 311,
+      "mid_inpower_share": 49.2,
+      "mid_n": 299,
+      "high_inpower_share": 74.6,
+      "high_n": 201
+    },
+    {
+      "cycle": 2008,
+      "wh_incumbent": "R",
+      "n_unweighted": 1531,
+      "kept_change_lane": false,
+      "low_inpower_share": 44.6,
+      "low_n": 736,
+      "mid_inpower_share": 44.3,
+      "mid_n": 385,
+      "high_inpower_share": 46.7,
+      "high_n": 410
+    },
+    {
+      "cycle": 2012,
+      "wh_incumbent": "D",
+      "n_unweighted": 4158,
+      "kept_change_lane": true,
+      "low_inpower_share": 50.2,
+      "low_n": 1386,
+      "mid_inpower_share": 49.4,
+      "mid_n": 1386,
+      "high_inpower_share": 61.1,
+      "high_n": 1386
+    },
+    {
+      "cycle": 2016,
+      "wh_incumbent": "D",
+      "n_unweighted": 2605,
+      "kept_change_lane": false,
+      "low_inpower_share": 49.2,
+      "low_n": 868,
+      "mid_inpower_share": 49.0,
+      "mid_n": 868,
+      "high_inpower_share": 60.5,
+      "high_n": 869
+    },
+    {
+      "cycle": 2020,
+      "wh_incumbent": "R",
+      "n_unweighted": 6118,
+      "kept_change_lane": false,
+      "low_inpower_share": 45.2,
+      "low_n": 2039,
+      "mid_inpower_share": 41.7,
+      "mid_n": 2039,
+      "high_inpower_share": 45.2,
+      "high_n": 2040
+    },
+    {
+      "cycle": 2024,
+      "wh_incumbent": "D",
+      "n_unweighted": 3944,
+      "kept_change_lane": false,
+      "low_inpower_share": 54.2,
+      "low_n": 1315,
+      "mid_inpower_share": 50.5,
+      "mid_n": 1314,
+      "high_inpower_share": 61.4,
+      "high_n": 1315
+    }
+  ]
+}
