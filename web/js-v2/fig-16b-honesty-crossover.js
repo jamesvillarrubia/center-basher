@@ -95,42 +95,28 @@ export function drawHonestyCrossover(selector, data) {
     const cx = x(c.cycle) + colW / 2
     const xDem = cx - dotOffset
     const xRep = cx + dotOffset
-    const hasData = (c.dem_low_trust !== null && c.rep_low_trust !== null)
 
-    if (hasData) {
-      // Connecting line (gap)
-      g.append('line').attr('class', 'hc-gapline')
-        .attr('x1', xDem).attr('x2', xRep)
-        .attr('y1', y(c.dem_low_trust)).attr('y2', y(c.rep_low_trust))
+    // Connecting line (gap)
+    g.append('line').attr('class', 'hc-gapline')
+      .attr('x1', xDem).attr('x2', xRep)
+      .attr('y1', y(c.dem_low_trust)).attr('y2', y(c.rep_low_trust))
 
-      // Dem dot
-      g.append('circle').attr('class', 'hc-dot')
-        .attr('cx', xDem).attr('cy', y(c.dem_low_trust)).attr('r', 6)
-        .attr('fill', COLOR_DEM)
-      // Rep dot
-      g.append('circle').attr('class', 'hc-dot')
-        .attr('cx', xRep).attr('cy', y(c.rep_low_trust)).attr('r', 6)
-        .attr('fill', COLOR_REP)
+    // Dem dot
+    g.append('circle').attr('class', 'hc-dot')
+      .attr('cx', xDem).attr('cy', y(c.dem_low_trust)).attr('r', 6)
+      .attr('fill', COLOR_DEM)
+    // Rep dot
+    g.append('circle').attr('class', 'hc-dot')
+      .attr('cx', xRep).attr('cy', y(c.rep_low_trust)).attr('r', 6)
+      .attr('fill', COLOR_REP)
 
-      // Winner ✓ (popular-vote winner)
-      const pvWinnerIsDem = (c.pv_winner === c.dem_name)
-      const wx = pvWinnerIsDem ? xDem : xRep
-      const wy = pvWinnerIsDem ? y(c.dem_low_trust) : y(c.rep_low_trust)
-      g.append('text').attr('class', 'hc-winner-check')
-        .attr('x', wx).attr('y', wy - 12).attr('text-anchor', 'middle')
-        .text('✓')
-    } else {
-      // "trait not measured" — vertical dashed line + small label
-      g.append('line').attr('class', 'hc-nodata-line')
-        .attr('x1', cx).attr('x2', cx)
-        .attr('y1', y(2.4)).attr('y2', y(1.8))
-        .attr('stroke', '#999').attr('stroke-width', 1)
-        .attr('stroke-dasharray', '2,2')
-      g.append('text').attr('class', 'hc-nodata-tag')
-        .attr('x', cx).attr('y', y(2.1) + 3).attr('text-anchor', 'middle')
-        .attr('fill', '#888').attr('font-size', '9px').attr('font-style', 'italic')
-        .text('item n/a*')
-    }
+    // Winner ✓ (popular-vote winner)
+    const pvWinnerIsDem = (c.pv_winner === c.dem_name)
+    const wx = pvWinnerIsDem ? xDem : xRep
+    const wy = pvWinnerIsDem ? y(c.dem_low_trust) : y(c.rep_low_trust)
+    g.append('text').attr('class', 'hc-winner-check')
+      .attr('x', wx).attr('y', wy - 12).attr('text-anchor', 'middle')
+      .text('✓')
 
     // EC ≠ PV tag (2000, 2016) — placed below in-power tag to avoid year ticks
     if (c.ec_winner !== c.pv_winner) {
@@ -146,11 +132,8 @@ export function drawHonestyCrossover(selector, data) {
       .text(c.inpower === 'D' ? 'D held WH' : 'R held WH')
   }
 
-  // Footer notes (two lines)
-  svg.append('text').attr('class', 'hc-foot')
-    .attr('x', margin.left).attr('y', H - 18)
-    .text('CDF VCF0354/0355 (1980–2008), standalone files (2016+). Critics = bottom trust tercile.')
+  // Footer note
   svg.append('text').attr('class', 'hc-foot')
     .attr('x', margin.left).attr('y', H - 4)
-    .text('*2012: honesty item not in CDF; proxy trait pair (VCF0358/0359) shows Obama 3.38 > Romney 3.17 (different baseline, not plotted).')
+    .text('CDF VCF0354/0355 (1980–2008), ANES standalone files (2012–2024). Critics = bottom trust tercile that cycle.')
 }

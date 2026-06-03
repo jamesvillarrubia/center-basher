@@ -38,8 +38,11 @@ META = {
 }
 
 # Standalone-file ratings (already on a 0-4 scale with HIGH = more honest).
-# Source: §9 footnote [1] / fig-9c-cycle-cards.js data.
+# 2012 from ANES 2012 Time Series (ctrait_dpchonst/ctrait_rpchonst,
+# rescaled 1-5 → 0-4 via 5-x; trust from trustgov_grev|grstd + trust_social).
+# 2016/2020/2024 from §9 footnote [1] / fig-9c-cycle-cards.js data.
 RECENT = {
+    2012: { 'dem_low_trust': 2.01, 'rep_low_trust': 1.39 },
     2016: { 'dem_low_trust': 0.54, 'rep_low_trust': 1.58 },
     2020: { 'dem_low_trust': 1.43, 'rep_low_trust': 0.96 },
     2024: { 'dem_low_trust': 0.98, 'rep_low_trust': 1.39 },
@@ -90,23 +93,6 @@ def main():
             })
             continue
 
-        # 2012: honesty item (VCF0354/0355) absent from CDF; companion
-        # trait (VCF0358/0359) exists on a different baseline (~0.6
-        # higher on average; per-cycle offset varies 0.2-1.6, so a flat
-        # calibration would be dishonest). We leave the slot in the
-        # timeline but record null values; the chart draws an "trait
-        # not measured" marker. The qualitative finding is preserved in
-        # the figcaption/footnote.
-        if y == 2012:
-            out.append({
-                'cycle':         y,
-                'dem_low_trust': None,
-                'rep_low_trust': None,
-                'source':        'cdf trait not available (VCF0358/0359 proxy: Obama 3.38, Romney 3.17, Obama higher)',
-                **meta,
-            })
-            continue
-
         m = (yr == y) & h_dem.notna() & h_rep.notna() & trust.notna() & (w > 0)
         if m.sum() < 100:
             print(f"  skip {y}: insufficient obs ({m.sum()})")
@@ -147,14 +133,13 @@ def main():
         ),
         'cycles': out,
         'caveats': [
-            'Pre-2016 (CDF) and 2016+ (standalone) use different underlying ANES items '
-            'with different question wordings. The rescaled values are roughly '
-            'comparable but not identical. The qualitative claim (which candidate is '
-            'higher among Critics) is robust to this rescaling.',
-            '2012 uses VCF0358/0359, a closely related candidate-character trait that '
-            'is in the CDF for that year (VCF0354/0355 is not). The qualitative pattern '
-            '(Obama > Romney among Critics) is consistent with the overall trait pair.',
-            '1972 and 1976 are still omitted (neither pair is in the CDF).',
+            'Pre-2012 (CDF) and 2012+ (standalone files) use different underlying ANES '
+            'items with different question wordings; rescaled to a common 0-4 axis. '
+            'The qualitative claim (which candidate is higher among Critics) is robust '
+            'across both sources.',
+            '2012 from ANES 2012 Time Series standalone (ctrait_dpchonst/ctrait_rpchonst, '
+            '1-5 → 0-4 via 5-x); trust composite from trustgov_grev|grstd + trust_social.',
+            '1972 and 1976 are omitted (honesty trait not asked in CDF for those cycles).',
         ],
     }
 
@@ -165,9 +150,6 @@ def main():
     print()
     print(f"{'cycle':>6} {'in-pow':>7} {'Dem':>6} {'Rep':>6} {'crit-pick':>10} {'EC won':>10} {'PV won':>10} {'PV match':>9}")
     for r in out:
-        if r['dem_low_trust'] is None:
-            print(f"{r['cycle']:>6} {r['inpower']:>7} {'n/a':>6} {'n/a':>6} {'(proxy)':>10} {r['ec_winner']:>10} {r['pv_winner']:>10} {'-':>9}")
-            continue
         higher = 'Dem' if r['dem_low_trust'] > r['rep_low_trust'] else 'Rep'
         crit_name = r['dem_name'] if higher == 'Dem' else r['rep_name']
         pv_match  = '✓' if crit_name == r['pv_winner'] else '✗'

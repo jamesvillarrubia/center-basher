@@ -98,9 +98,9 @@
     },
     {
       "cycle": 2012,
-      "dem_low_trust": null,
-      "rep_low_trust": null,
-      "source": "cdf trait not available (VCF0358/0359 proxy: Obama 3.38, Romney 3.17, Obama higher)",
+      "dem_low_trust": 2.01,
+      "rep_low_trust": 1.39,
+      "source": "standalone",
       "inpower": "D",
       "dem_name": "Obama",
       "rep_name": "Romney",
@@ -142,8 +142,8 @@
     }
   ],
   "caveats": [
-    "Pre-2016 (CDF) and 2016+ (standalone) use different underlying ANES items with different question wordings. The rescaled values are roughly comparable but not identical. The qualitative claim (which candidate is higher among Critics) is robust to this rescaling.",
-    "2012 uses VCF0358/0359, a closely related candidate-character trait that is in the CDF for that year (VCF0354/0355 is not). The qualitative pattern (Obama > Romney among Critics) is consistent with the overall trait pair.",
-    "1972 and 1976 are still omitted (neither pair is in the CDF)."
+    "Pre-2012 (CDF) and 2012+ (standalone files) use different underlying ANES items with different question wordings; rescaled to a common 0-4 axis. The qualitative claim (which candidate is higher among Critics) is robust across both sources.",
+    "2012 from ANES 2012 Time Series standalone (ctrait_dpchonst/ctrait_rpchonst, 1-5 \u2192 0-4 via 5-x); trust composite from trustgov_grev|grstd + trust_social.",
+    "1972 and 1976 are omitted (honesty trait not asked in CDF for those cycles)."
   ]
 }
