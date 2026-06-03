@@ -17,6 +17,7 @@ import * as d3 from 'https://esm.sh/d3@7'
 const COLOR_DEM = '#2c5b9c'
 const COLOR_REP = '#b8240f'
 const COLOR_SPLIT = '#a06400'
+const COLOR_WASH = '#9a9a9a'
 
 export function drawHonestyCrossover(selector, data) {
   const container = document.querySelector(selector)
@@ -25,7 +26,7 @@ export function drawHonestyCrossover(selector, data) {
 
   const cycles = data.cycles
   const W = container.clientWidth || 680
-  const margin = { top: 110, right: 24, bottom: 110, left: 60 }
+  const margin = { top: 110, right: 24, bottom: 130, left: 60 }
   const innerW = W - margin.left - margin.right
   const innerH = 280
   const H = margin.top + innerH + margin.bottom
@@ -44,7 +45,7 @@ export function drawHonestyCrossover(selector, data) {
     .text('Mean rating from low-trust voters (bottom trust tercile that cycle), 0–4 axis.')
   svg.append('text').attr('class', 'hc-subtitle')
     .attr('x', margin.left).attr('y', 58)
-    .text('✓ on the popular-vote winner. "EC≠PV" flags cycles where the EC split from the popular vote (2000, 2016).')
+    .text('✓ on popular-vote winner. Grey/dashed = "wash" (|gap| < 0.2 — Critics barely distinguished candidates).')
 
   // Legend
   const legY = 78
@@ -95,30 +96,35 @@ export function drawHonestyCrossover(selector, data) {
     const cx = x(c.cycle) + colW / 2
     const xDem = cx - dotOffset
     const xRep = cx + dotOffset
+    const isWash = !!c.is_wash
 
-    // Connecting line (gap)
-    g.append('line').attr('class', 'hc-gapline')
+    // Connecting line (gap) — dashed for wash
+    const line = g.append('line').attr('class', 'hc-gapline')
       .attr('x1', xDem).attr('x2', xRep)
       .attr('y1', y(c.dem_low_trust)).attr('y2', y(c.rep_low_trust))
+    if (isWash) line.attr('stroke-dasharray', '3,3').attr('stroke', COLOR_WASH)
 
     // Dem dot
     g.append('circle').attr('class', 'hc-dot')
       .attr('cx', xDem).attr('cy', y(c.dem_low_trust)).attr('r', 6)
-      .attr('fill', COLOR_DEM)
+      .attr('fill', isWash ? COLOR_WASH : COLOR_DEM)
+      .attr('stroke', isWash ? COLOR_DEM : 'none').attr('stroke-width', isWash ? 1.5 : 0)
     // Rep dot
     g.append('circle').attr('class', 'hc-dot')
       .attr('cx', xRep).attr('cy', y(c.rep_low_trust)).attr('r', 6)
-      .attr('fill', COLOR_REP)
+      .attr('fill', isWash ? COLOR_WASH : COLOR_REP)
+      .attr('stroke', isWash ? COLOR_REP : 'none').attr('stroke-width', isWash ? 1.5 : 0)
 
-    // Winner ✓ (popular-vote winner)
+    // Winner ✓ (popular-vote winner). Faded if wash.
     const pvWinnerIsDem = (c.pv_winner === c.dem_name)
     const wx = pvWinnerIsDem ? xDem : xRep
     const wy = pvWinnerIsDem ? y(c.dem_low_trust) : y(c.rep_low_trust)
     g.append('text').attr('class', 'hc-winner-check')
       .attr('x', wx).attr('y', wy - 12).attr('text-anchor', 'middle')
+      .attr('opacity', isWash ? 0.35 : 1)
       .text('✓')
 
-    // EC ≠ PV tag (2000, 2016) — placed below in-power tag to avoid year ticks
+    // EC ≠ PV tag (2000, 2016) — placed below in-power tag
     if (c.ec_winner !== c.pv_winner) {
       g.append('text').attr('class', 'hc-split-tag')
         .attr('x', cx).attr('y', innerH + 50).attr('text-anchor', 'middle')
@@ -126,11 +132,33 @@ export function drawHonestyCrossover(selector, data) {
         .text('EC≠PV')
     }
 
+    // "wash" tag for low-gap cycles
+    if (isWash) {
+      g.append('text').attr('class', 'hc-wash-tag')
+        .attr('x', cx).attr('y', innerH + 50).attr('text-anchor', 'middle')
+        .attr('fill', COLOR_WASH).attr('font-weight', '700').attr('font-size', '10px')
+        .attr('font-style', 'italic')
+        .text('wash')
+    }
+
     // In-power tag below the cycle
     g.append('text').attr('class', 'hc-inpower-tag')
       .attr('x', cx).attr('y', innerH + 32).attr('text-anchor', 'middle')
       .text(c.inpower === 'D' ? 'D held WH' : 'R held WH')
+
+    // Trust mean (small numeric) at the very bottom row
+    if (c.trust_mean != null) {
+      g.append('text').attr('class', 'hc-trust-tag')
+        .attr('x', cx).attr('y', innerH + 68).attr('text-anchor', 'middle')
+        .attr('font-size', '9.5px').attr('fill', '#555')
+        .text(c.trust_mean.toFixed(2))
+    }
   }
+  // Trust label
+  g.append('text').attr('class', 'hc-trust-label')
+    .attr('x', -8).attr('y', innerH + 68).attr('text-anchor', 'end')
+    .attr('font-size', '9.5px').attr('fill', '#555').attr('font-style', 'italic')
+    .text('mean trust (0–1)')
 
   // Footer note
   svg.append('text').attr('class', 'hc-foot')

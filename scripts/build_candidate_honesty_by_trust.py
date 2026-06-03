@@ -48,6 +48,21 @@ RECENT = {
     2024: { 'dem_low_trust': 0.98, 'rep_low_trust': 1.39 },
 }
 
+# Weighted mean of the trust composite (0-1 scale, HIGH=more trust) per cycle.
+# CDF (1980-2008): VCF0604(rev)/0605/0609 — same composite the tercile is cut on.
+# 2012: trustgov_grev|grstd + trust_social — same as the tercile composite.
+# 2016/2020/2024: 3-item gov-trust composite from the standalone files
+# (do-right + run-for-all + waste), normalized 0-1 HIGH=trust.
+TRUST_MEAN = {
+    1980: 0.401, 1984: 0.416, 1988: 0.428, 1992: 0.396, 1996: 0.406,
+    2000: 0.423, 2004: 0.459, 2008: 0.367, 2012: 0.519, 2016: 0.231,
+    2020: 0.239, 2024: 0.242,
+}
+
+# Cycles where the Critics' Dem-vs-Rep gap is too small to call a "pick"
+# (|gap| < WASH_THRESHOLD on the 0-4 honesty scale). Coin-flippy cycles.
+WASH_THRESHOLD = 0.20
+
 def norm(s, lo, hi, reverse=False):
     x = (s - lo) / (hi - lo)
     return (1 - x) if reverse else x
@@ -82,12 +97,15 @@ def main():
         meta = META[y]
 
         if y in RECENT:
-            # Use the existing 0-4 scaled standalone values
             r = RECENT[y]
+            d, rp = r['dem_low_trust'], r['rep_low_trust']
             out.append({
                 'cycle':           y,
-                'dem_low_trust':   round(r['dem_low_trust'], 2),
-                'rep_low_trust':   round(r['rep_low_trust'], 2),
+                'dem_low_trust':   round(d, 2),
+                'rep_low_trust':   round(rp, 2),
+                'gap':             round(d - rp, 2),
+                'is_wash':         abs(d - rp) < WASH_THRESHOLD,
+                'trust_mean':      TRUST_MEAN.get(y),
                 'source':          'standalone',
                 **meta,
             })
@@ -113,6 +131,9 @@ def main():
             'cycle':           y,
             'dem_low_trust':   round(dem_avg, 2),
             'rep_low_trust':   round(rep_avg, 2),
+            'gap':             round(dem_avg - rep_avg, 2),
+            'is_wash':         abs(dem_avg - rep_avg) < WASH_THRESHOLD,
+            'trust_mean':      TRUST_MEAN.get(y),
             'source':          'cdf VCF0354/0355',
             **meta,
         })
@@ -148,13 +169,24 @@ def main():
         json.dump(payload, f, indent=2)
     print(f'Wrote {out_path}')
     print()
-    print(f"{'cycle':>6} {'in-pow':>7} {'Dem':>6} {'Rep':>6} {'crit-pick':>10} {'EC won':>10} {'PV won':>10} {'PV match':>9}")
+    print(f"{'cyc':>4} {'D':>5} {'R':>5} {'gap':>6} {'wash':>5} {'trust':>6} {'crit-pick':>10} {'PV won':>10} {'match':>6}")
+    n_clear = n_clear_hits = 0
     for r in out:
         higher = 'Dem' if r['dem_low_trust'] > r['rep_low_trust'] else 'Rep'
         crit_name = r['dem_name'] if higher == 'Dem' else r['rep_name']
         pv_match  = '✓' if crit_name == r['pv_winner'] else '✗'
-        print(f"{r['cycle']:>6} {r['inpower']:>7} {r['dem_low_trust']:>6.2f} {r['rep_low_trust']:>6.2f} "
-              f"{crit_name:>10} {r['ec_winner']:>10} {r['pv_winner']:>10} {pv_match:>9}")
+        wash_tag = '≈' if r['is_wash'] else ''
+        print(f"{r['cycle']:>4} {r['dem_low_trust']:>5.2f} {r['rep_low_trust']:>5.2f} "
+              f"{r['gap']:>+6.2f} {wash_tag:>5} {r['trust_mean']:>6.3f} "
+              f"{crit_name:>10} {r['pv_winner']:>10} {pv_match:>6}")
+        if not r['is_wash']:
+            n_clear += 1
+            if pv_match == '✓': n_clear_hits += 1
+    n_total = len(out)
+    n_wash  = sum(1 for r in out if r['is_wash'])
+    print(f"\nOverall: {sum(1 for r in out if (r['pv_winner']==(r['dem_name'] if r['dem_low_trust']>r['rep_low_trust'] else r['rep_name'])))}/{n_total} hits.")
+    print(f"Wash cycles (|gap| < {WASH_THRESHOLD}): {n_wash}.")
+    print(f"Clear cycles only: {n_clear_hits}/{n_clear} hits.")
 
 
 if __name__ == '__main__':
