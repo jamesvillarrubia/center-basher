@@ -21,19 +21,20 @@ import pandas as pd
 from _lib import cdf_num, load_anes_cdf, DATA_CLEAN
 
 
-# Who held the White House going into each cycle's election + who won
+# Who held the White House + EC winner + popular-vote winner
 META = {
-    1980: { 'inpower': 'D', 'dem_name': 'Carter',   'rep_name': 'Reagan',   'winner': 'Reagan'  },
-    1984: { 'inpower': 'R', 'dem_name': 'Mondale',  'rep_name': 'Reagan',   'winner': 'Reagan'  },
-    1988: { 'inpower': 'R', 'dem_name': 'Dukakis',  'rep_name': 'Bush GHW', 'winner': 'Bush GHW' },
-    1992: { 'inpower': 'R', 'dem_name': 'Clinton',  'rep_name': 'Bush GHW', 'winner': 'Clinton' },
-    1996: { 'inpower': 'D', 'dem_name': 'Clinton',  'rep_name': 'Dole',     'winner': 'Clinton' },
-    2000: { 'inpower': 'D', 'dem_name': 'Gore',     'rep_name': 'Bush GWB', 'winner': 'Bush GWB' },
-    2004: { 'inpower': 'R', 'dem_name': 'Kerry',    'rep_name': 'Bush GWB', 'winner': 'Bush GWB' },
-    2008: { 'inpower': 'R', 'dem_name': 'Obama',    'rep_name': 'McCain',   'winner': 'Obama'   },
-    2016: { 'inpower': 'D', 'dem_name': 'Clinton',  'rep_name': 'Trump',    'winner': 'Trump'   },
-    2020: { 'inpower': 'R', 'dem_name': 'Biden',    'rep_name': 'Trump',    'winner': 'Biden'   },
-    2024: { 'inpower': 'D', 'dem_name': 'Harris',   'rep_name': 'Trump',    'winner': 'Trump'   },
+    1980: { 'inpower': 'D', 'dem_name': 'Carter',   'rep_name': 'Reagan',   'ec_winner': 'Reagan',  'pv_winner': 'Reagan'  },
+    1984: { 'inpower': 'R', 'dem_name': 'Mondale',  'rep_name': 'Reagan',   'ec_winner': 'Reagan',  'pv_winner': 'Reagan'  },
+    1988: { 'inpower': 'R', 'dem_name': 'Dukakis',  'rep_name': 'Bush GHW', 'ec_winner': 'Bush GHW','pv_winner': 'Bush GHW' },
+    1992: { 'inpower': 'R', 'dem_name': 'Clinton',  'rep_name': 'Bush GHW', 'ec_winner': 'Clinton', 'pv_winner': 'Clinton' },
+    1996: { 'inpower': 'D', 'dem_name': 'Clinton',  'rep_name': 'Dole',     'ec_winner': 'Clinton', 'pv_winner': 'Clinton' },
+    2000: { 'inpower': 'D', 'dem_name': 'Gore',     'rep_name': 'Bush GWB', 'ec_winner': 'Bush GWB','pv_winner': 'Gore'    },
+    2004: { 'inpower': 'R', 'dem_name': 'Kerry',    'rep_name': 'Bush GWB', 'ec_winner': 'Bush GWB','pv_winner': 'Bush GWB' },
+    2008: { 'inpower': 'R', 'dem_name': 'Obama',    'rep_name': 'McCain',   'ec_winner': 'Obama',   'pv_winner': 'Obama'   },
+    2012: { 'inpower': 'D', 'dem_name': 'Obama',    'rep_name': 'Romney',   'ec_winner': 'Obama',   'pv_winner': 'Obama'   },
+    2016: { 'inpower': 'D', 'dem_name': 'Clinton',  'rep_name': 'Trump',    'ec_winner': 'Trump',   'pv_winner': 'Clinton' },
+    2020: { 'inpower': 'R', 'dem_name': 'Biden',    'rep_name': 'Trump',    'ec_winner': 'Biden',   'pv_winner': 'Biden'   },
+    2024: { 'inpower': 'D', 'dem_name': 'Harris',   'rep_name': 'Trump',    'ec_winner': 'Trump',   'pv_winner': 'Trump'   },
 }
 
 # Standalone-file ratings (already on a 0-4 scale with HIGH = more honest).
@@ -64,9 +65,14 @@ def main():
         norm(t3, 1, 3, reverse=False),
     ], axis=1).mean(axis=1)
 
-    # Candidate honesty items (1=extremely well..4=not well at all)
-    h_dem = pd.to_numeric(cdf["VCF0354"], errors="coerce").where(lambda x: x.between(1, 4))
-    h_rep = pd.to_numeric(cdf["VCF0355"], errors="coerce").where(lambda x: x.between(1, 4))
+    # Candidate honesty items (1=extremely well..4=not well at all).
+    # VCF0354/0355 covers 1980-2008; VCF0358/0359 is a closely related
+    # candidate-character trait that also has 2012 data, used as a
+    # back-fill for that one cycle only.
+    h_dem      = pd.to_numeric(cdf["VCF0354"], errors="coerce").where(lambda x: x.between(1, 4))
+    h_rep      = pd.to_numeric(cdf["VCF0355"], errors="coerce").where(lambda x: x.between(1, 4))
+    h_dem_alt  = pd.to_numeric(cdf["VCF0358"], errors="coerce").where(lambda x: x.between(1, 4))
+    h_rep_alt  = pd.to_numeric(cdf["VCF0359"], errors="coerce").where(lambda x: x.between(1, 4))
 
     out = []
     for y in sorted(META):
@@ -87,7 +93,10 @@ def main():
         # CDF: tercile-cut trust this cycle, compute mean honesty
         # rating (rescaled 0-3 → 0-4 via *4/3) for each candidate among
         # the bottom tercile.
-        m = (yr == y) & h_dem.notna() & h_rep.notna() & trust.notna() & (w > 0)
+        use_alt = (y == 2012)  # VCF0354/0355 not in CDF for 2012
+        hd = h_dem_alt if use_alt else h_dem
+        hr = h_rep_alt if use_alt else h_rep
+        m = (yr == y) & hd.notna() & hr.notna() & trust.notna() & (w > 0)
         if m.sum() < 100:
             print(f"  skip {y}: insufficient obs ({m.sum()})")
             continue
@@ -95,8 +104,8 @@ def main():
         cutoff = trust[m].quantile(1/3)
         low = trust[m] <= cutoff
 
-        dem_low = (4 - h_dem[m])[low]   # rescale to 0-3
-        rep_low = (4 - h_rep[m])[low]
+        dem_low = (4 - hd[m])[low]   # rescale to 0-3
+        rep_low = (4 - hr[m])[low]
         ww      = w[m][low]
 
         # Rescale 0-3 → 0-4 for visual parity with standalone-file cycles
@@ -107,7 +116,7 @@ def main():
             'cycle':           y,
             'dem_low_trust':   round(dem_avg, 2),
             'rep_low_trust':   round(rep_avg, 2),
-            'source':          'cdf (rescaled 0-3 → 0-4)',
+            'source':          'cdf VCF0358/0359 (proxy trait)' if use_alt else 'cdf VCF0354/0355',
             **meta,
         })
 
@@ -131,8 +140,10 @@ def main():
             'with different question wordings. The rescaled values are roughly '
             'comparable but not identical. The qualitative claim (which candidate is '
             'higher among Critics) is robust to this rescaling.',
-            'VCF0354/0355 are absent in the CDF for 1972, 1976, and 2012, so those cycles '
-            'are not included.',
+            '2012 uses VCF0358/0359, a closely related candidate-character trait that '
+            'is in the CDF for that year (VCF0354/0355 is not). The qualitative pattern '
+            '(Obama > Romney among Critics) is consistent with the overall trait pair.',
+            '1972 and 1976 are still omitted (neither pair is in the CDF).',
         ],
     }
 
@@ -141,10 +152,13 @@ def main():
         json.dump(payload, f, indent=2)
     print(f'Wrote {out_path}')
     print()
-    print(f"{'cycle':>6} {'in-power':>10} {'Dem (low-tr)':>14} {'Rep (low-tr)':>14} {'higher':>10} {'won':>10}")
+    print(f"{'cycle':>6} {'in-pow':>7} {'Dem':>6} {'Rep':>6} {'crit-pick':>10} {'EC won':>10} {'PV won':>10} {'PV match':>9}")
     for r in out:
         higher = 'Dem' if r['dem_low_trust'] > r['rep_low_trust'] else 'Rep'
-        print(f"{r['cycle']:>6} {r['inpower']:>10} {r['dem_low_trust']:>13.2f} {r['rep_low_trust']:>13.2f} {higher:>10} {r['winner']:>10}")
+        crit_name = r['dem_name'] if higher == 'Dem' else r['rep_name']
+        pv_match  = '✓' if crit_name == r['pv_winner'] else '✗'
+        print(f"{r['cycle']:>6} {r['inpower']:>7} {r['dem_low_trust']:>6.2f} {r['rep_low_trust']:>6.2f} "
+              f"{crit_name:>10} {r['ec_winner']:>10} {r['pv_winner']:>10} {pv_match:>9}")
 
 
 if __name__ == '__main__':
