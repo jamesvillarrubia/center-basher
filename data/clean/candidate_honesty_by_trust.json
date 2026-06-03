@@ -98,9 +98,9 @@
     },
     {
       "cycle": 2012,
-      "dem_low_trust": 3.38,
-      "rep_low_trust": 3.17,
-      "source": "cdf VCF0358/0359 (proxy trait)",
+      "dem_low_trust": null,
+      "rep_low_trust": null,
+      "source": "cdf trait not available (VCF0358/0359 proxy: Obama 3.38, Romney 3.17, Obama higher)",
       "inpower": "D",
       "dem_name": "Obama",
       "rep_name": "Romney",

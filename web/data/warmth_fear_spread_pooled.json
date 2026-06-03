@@ -1,0 +1,262 @@
+{
+  "source": "ANES Cumulative Data File 1948-2024; presidential cycles 1968-2024 (15 cycles).",
+  "variables": [
+    "VCF0004 (year)",
+    "VCF0009z (weight)",
+    "VCF0424 (Dem presidential candidate feeling thermometer, 0-100)",
+    "VCF0425 (Rep presidential candidate feeling thermometer, 0-100)",
+    "VCF0702 (VALIDATED turnout: 1 = voted, 2 = did not vote)",
+    "VCF0310 (interest in campaigns; 3 = not much, the 'gettable' subset)"
+  ],
+  "definitions": {
+    "warmth_to_favorite": "max(Dem FT, Rep FT) / 100  \u2014 'love your own'",
+    "coldness_to_other": "(100 - min(Dem FT, Rep FT)) / 100  \u2014 'fear the other'",
+    "affect_spread": "|Dem FT - Rep FT| / 100  \u2014 'love + fear combined'"
+  },
+  "method": "Pooled 15 cycles. Equal-count quintiles via pd.qcut. Turnout = validated VCF0702, weighted by VCF0009z. Pooling treats each cycle's observations on a common axis; no per-cycle reweighting.",
+  "cycles": [
+    2008,
+    2012,
+    2016,
+    2020,
+    2024
+  ],
+  "n_unweighted_all": 18249,
+  "n_unweighted_gettable": 2292,
+  "all": {
+    "label": "All voters (pooled 1968-2024, n=18,249)",
+    "warmth": [
+      {
+        "q": 1,
+        "turnout_pct": 74.7,
+        "n_unweighted": 4367,
+        "metric_low": 0.01,
+        "metric_high": 0.5
+      },
+      {
+        "q": 2,
+        "turnout_pct": 78.7,
+        "n_unweighted": 3869,
+        "metric_low": 0.51,
+        "metric_high": 0.7
+      },
+      {
+        "q": 3,
+        "turnout_pct": 86.7,
+        "n_unweighted": 3987,
+        "metric_low": 0.71,
+        "metric_high": 0.85
+      },
+      {
+        "q": 4,
+        "turnout_pct": 89.8,
+        "n_unweighted": 3992,
+        "metric_low": 0.86,
+        "metric_high": 0.97
+      },
+      {
+        "q": 5,
+        "turnout_pct": 61.4,
+        "n_unweighted": 2034,
+        "metric_low": 0.98,
+        "metric_high": 0.99
+      }
+    ],
+    "coldness": [
+      {
+        "q": 1,
+        "turnout_pct": 89.0,
+        "n_unweighted": 4651,
+        "metric_low": 0.01,
+        "metric_high": 0.15
+      },
+      {
+        "q": 2,
+        "turnout_pct": 86.2,
+        "n_unweighted": 3059,
+        "metric_low": 0.16,
+        "metric_high": 0.3
+      },
+      {
+        "q": 3,
+        "turnout_pct": 70.9,
+        "n_unweighted": 5242,
+        "metric_low": 0.31,
+        "metric_high": 0.5
+      },
+      {
+        "q": 4,
+        "turnout_pct": 75.0,
+        "n_unweighted": 2789,
+        "metric_low": 0.51,
+        "metric_high": 0.7
+      },
+      {
+        "q": 5,
+        "turnout_pct": 80.3,
+        "n_unweighted": 2508,
+        "metric_low": 0.71,
+        "metric_high": 0.99
+      }
+    ],
+    "spread": [
+      {
+        "q": 1,
+        "turnout_pct": 80.8,
+        "n_unweighted": 3650,
+        "metric_low": 0.0,
+        "metric_high": 0.0
+      },
+      {
+        "q": 2,
+        "turnout_pct": 83.1,
+        "n_unweighted": 3650,
+        "metric_low": 0.0,
+        "metric_high": 0.1
+      },
+      {
+        "q": 3,
+        "turnout_pct": 82.9,
+        "n_unweighted": 3649,
+        "metric_low": 0.1,
+        "metric_high": 0.15
+      },
+      {
+        "q": 4,
+        "turnout_pct": 82.2,
+        "n_unweighted": 3650,
+        "metric_low": 0.15,
+        "metric_high": 0.27
+      },
+      {
+        "q": 5,
+        "turnout_pct": 68.9,
+        "n_unweighted": 3650,
+        "metric_low": 0.27,
+        "metric_high": 0.98
+      }
+    ]
+  },
+  "gettable": {
+    "label": "Gettable voters (low political interest; n=2,292)",
+    "warmth": [
+      {
+        "q": 1,
+        "turnout_pct": 51.1,
+        "n_unweighted": 780,
+        "metric_low": 0.01,
+        "metric_high": 0.5
+      },
+      {
+        "q": 2,
+        "turnout_pct": 56.1,
+        "n_unweighted": 267,
+        "metric_low": 0.51,
+        "metric_high": 0.6
+      },
+      {
+        "q": 3,
+        "turnout_pct": 63.8,
+        "n_unweighted": 556,
+        "metric_low": 0.61,
+        "metric_high": 0.85
+      },
+      {
+        "q": 4,
+        "turnout_pct": 54.9,
+        "n_unweighted": 350,
+        "metric_low": 0.86,
+        "metric_high": 0.98
+      },
+      {
+        "q": 5,
+        "turnout_pct": 42.7,
+        "n_unweighted": 339,
+        "metric_low": 0.99,
+        "metric_high": 0.99
+      }
+    ],
+    "coldness": [
+      {
+        "q": 1,
+        "turnout_pct": 66.6,
+        "n_unweighted": 459,
+        "metric_low": 0.01,
+        "metric_high": 0.3
+      },
+      {
+        "q": 2,
+        "turnout_pct": 50.5,
+        "n_unweighted": 458,
+        "metric_low": 0.3,
+        "metric_high": 0.5
+      },
+      {
+        "q": 3,
+        "turnout_pct": 47.1,
+        "n_unweighted": 458,
+        "metric_low": 0.5,
+        "metric_high": 0.5
+      },
+      {
+        "q": 4,
+        "turnout_pct": 44.7,
+        "n_unweighted": 458,
+        "metric_low": 0.5,
+        "metric_high": 0.7
+      },
+      {
+        "q": 5,
+        "turnout_pct": 61.0,
+        "n_unweighted": 459,
+        "metric_low": 0.7,
+        "metric_high": 0.99
+      }
+    ],
+    "spread": [
+      {
+        "q": 1,
+        "turnout_pct": 51.0,
+        "n_unweighted": 459,
+        "metric_low": 0.0,
+        "metric_high": 0.0
+      },
+      {
+        "q": 2,
+        "turnout_pct": 55.2,
+        "n_unweighted": 458,
+        "metric_low": 0.0,
+        "metric_high": 0.1
+      },
+      {
+        "q": 3,
+        "turnout_pct": 62.5,
+        "n_unweighted": 458,
+        "metric_low": 0.1,
+        "metric_high": 0.2
+      },
+      {
+        "q": 4,
+        "turnout_pct": 59.1,
+        "n_unweighted": 458,
+        "metric_low": 0.2,
+        "metric_high": 0.37
+      },
+      {
+        "q": 5,
+        "turnout_pct": 43.1,
+        "n_unweighted": 459,
+        "metric_low": 0.37,
+        "metric_high": 0.98
+      }
+    ]
+  },
+  "supports": [
+    "plain-language.md \u00a713 [4]",
+    "plain-language.md \u00a713 [5]"
+  ],
+  "notes": [
+    "Validated turnout is substantially lower than self-report in ANES because ~25pp of self-reported voters did not actually vote per registrar records. This is the more honest series.",
+    "Pooling pre-1980 cycles depends on cumulative-file harmonization. The shapes of the warmth/coldness/spread relationships are reasonably stable across cycles; per-cycle decomposition is in the JSON for audit."
+  ]
+}

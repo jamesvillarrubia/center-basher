@@ -54,13 +54,15 @@ def main():
         scale = sp[m]
         total_w = ww.sum()
         out = {}
+        n_cell = {}
         for pos in range(1, 8):
             out[pos] = round(float(ww[scale == pos].sum() / total_w) * 100, 1) if total_w > 0 else 0.0
-        return out
+            n_cell[pos] = int((scale == pos).sum())
+        return out, n_cell
 
-    dist_d2t = dist(dem_to_trump)
-    dist_r2c = dist(rep_to_clinton)
-    dist_all = dist(any_swing)
+    dist_d2t, n_d2t_cell = dist(dem_to_trump)
+    dist_r2c, n_r2c_cell = dist(rep_to_clinton)
+    dist_all, n_all_cell = dist(any_swing)
 
     # Means
     def wmean(mask):
@@ -105,6 +107,11 @@ def main():
             "Dem_to_Trump":   n_d2t,
             "Rep_to_Clinton": n_r2c,
             "all_swings":     n_swing,
+        },
+        "n_cell_unweighted": {
+            "Dem_to_Trump":   n_d2t_cell,
+            "Rep_to_Clinton": n_r2c_cell,
+            "all_swings":     n_all_cell,
         },
         "supports": ["plain-language.md §3 [7]"],
     }

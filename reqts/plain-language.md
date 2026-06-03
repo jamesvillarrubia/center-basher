@@ -67,11 +67,11 @@ Tighten one more notch (require *centrist on every issue, not just on average*) 
 
 **100 → 74 → 40 → 12 → 1.** Each step shrinks the bloc by a factor of two to twelve. What survives at the bottom of the funnel is microscopic.
 
-Even the 12 MidMiddlers aren't a coherent target. Their issue means land near the center because strong-left positions cancel strong-right ones — so *"shift to the center on policy X"* reaches a different MidMiddler with every X you pick. There's no shared platform you could move toward and reach all 12 at once; their centrism is a statistical artifact of opposite extremes, not a place on the issue map.
+Even the 12 MidMiddlers aren't a coherent target, because the average of their issues' left-right scoring only lands near the center by accident: strong-left positions on some issues cancel strong-right ones on others, and *"shift to the center on policy X"* reaches a different MidMiddler with every X you pick. There's no shared platform that gets all 12 of them at once, and their centrism is a statistical artifact of opposite extremes rather than a position on the issue map.
 
-The only voter for whom a single centrist agenda cohesively lands is the True Middler — centrist on every issue at the same time. That's **1 in 100**.
+The only voter for whom a single centrist agenda cohesively lands is the True Middler, who is centrist on every issue at the same time, and that voter is **1 in 100**.
 
-That's the courtable middle the textbook actually describes. One voter, surrounded by 99 who are either disengaged, partisan, or wearing the moderate label over policy that pulls hard in one direction. The lie isn't that moderates exist. The lie is that *"the center"* is a coherent place a candidate can run toward.
+That's the courtable middle the textbook actually describes: one voter, surrounded by 99 who are either disengaged, partisan, or wearing the moderate label over policy that pulls hard in one direction. The lie isn't that moderates exist, and it isn't that voters never shift. The lie is that *"the center"* is a coherent place a candidate can run toward.
 
 And we haven't even asked yet how any of these groups vote. That's section 3, and the answer makes the picture worse.
 
@@ -230,6 +230,8 @@ You don't get "authentic" by being authentic in the abstract. You get it by bein
 Watch what happens to that "authentic outsider" magic when the outsider becomes the boss. In **2016**, System Critics rated Trump honest at **1.58** and Clinton at **0.54** — the classic crossover. In **2020**, with Trump now the incumbent president, the magic **vanished**: Biden was rated more honest than Trump at every trust level. Then in **2024**, with Trump out of power again, the crossover **came back even stronger** than 2016.[1]
 
 The anti-establishment halo goes to whoever is *fighting* the system, and it disappears the moment they *become* the system. That on-off-on pattern is how you know it's real, not just people liking their own guy.[2]
+
+A fair skeptic could note that low-trust voters happened to back the winner in all three of these cycles, and three elections isn't a replication. The structural version of the finding — does the trust-to-vote relationship actually flip with the candidate's role across many cycles, and not just three? — is the load-bearing work in **§15**, which reruns the analysis across 14 cycles back to 1972. The §9 pattern is suggestive; §15 is where we go look for the fire.
 
 **Notes**
 

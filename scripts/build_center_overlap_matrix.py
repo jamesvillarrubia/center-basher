@@ -63,25 +63,26 @@ def main():
         "S": pid.notna() & vote.notna() & (w > 0),
     }
 
-    # Cell (row, col) = weighted % of row's base who are *also* in col.
-    # For diagonal we report group share of electorate (for the bar context).
-    rows = []
+    # Common base: respondents with non-null data on ALL FOUR dimensions
+    # (self-place, policy mean, PID, vote). Single base makes the per-row
+    # partitions clean (mutually exclusive subsets that sum to 100%).
+    common = base["M"] & base["C"] & base["S"]
+
+    # Population shares on the common base
     pop_shares = {}
     for k in ["M", "C", "S"]:
-        m = base[k] & groups[k]
-        share = float(np.average(groups[k][base[k]], weights=w[base[k]])) * 100
+        share = float(np.average(groups[k][common], weights=w[common])) * 100
         pop_shares[k] = round(share, 1)
 
+    # Conditional overlap matrix — independent conditionals, kept for back-compat
     matrix = {}
     n_cells = {}
     for r in ["M", "C", "S"]:
         matrix[r] = {}
         n_cells[r] = {}
-        # Row base: respondents who are in group r AND have data for the col dimension
+        row_pop = common & groups[r]
+        n = int(row_pop.sum())
         for c in ["M", "C", "S"]:
-            both_base = base[r] & base[c]
-            row_pop = both_base & groups[r]
-            n = int(row_pop.sum())
             if n == 0:
                 matrix[r][c] = None
                 n_cells[r][c] = 0
@@ -89,6 +90,39 @@ def main():
             pct = float(np.average(groups[c][row_pop], weights=w[row_pop])) * 100
             matrix[r][c] = round(pct, 1)
             n_cells[r][c] = n
+
+    # Mutually exclusive per-row partitions for the fan-out chart.
+    # For row group r, partition into:
+    #   only_r          : in r, not in either other group
+    #   also_c1_only    : in r and other1, not other2
+    #   also_c2_only    : in r and other2, not other1
+    #   all_three       : in r and both other groups
+    partition = {}
+    n_row = {}
+    for r in ["M", "C", "S"]:
+        others = [k for k in ["M", "C", "S"] if k != r]
+        c1, c2 = others
+        row_pop = common & groups[r]
+        n = int(row_pop.sum())
+        n_row[r] = n
+        if n == 0:
+            partition[r] = None
+            continue
+
+        in_c1 = groups[c1][row_pop]
+        in_c2 = groups[c2][row_pop]
+        ww = w[row_pop]
+
+        def wpct(mask):
+            return round(float(np.average(mask, weights=ww)) * 100, 1)
+
+        partition[r] = {
+            "others": [c1, c2],
+            "only_row": wpct(~in_c1 & ~in_c2),
+            f"also_{c1}_only": wpct(in_c1 & ~in_c2),
+            f"also_{c2}_only": wpct(~in_c1 & in_c2),
+            "all_three": wpct(in_c1 & in_c2),
+        }
 
     out = {
         "source": "ANES 2016 Time Series — data/raw/anes_timeseries_2016.dta",
@@ -107,6 +141,8 @@ def main():
         "pop_share_pct": pop_shares,
         "matrix_pct": matrix,
         "n_cells": n_cells,
+        "partition_pct": partition,
+        "n_row": n_row,
         "supports": ["plain-language.md §1 [2]"],
     }
 
@@ -128,6 +164,14 @@ def main():
     print("Cell n (unweighted):")
     for r in ["M", "C", "S"]:
         print(f"  {r}: ", {c: n_cells[r][c] for c in ['M','C','S']})
+    print()
+    print("Mutually exclusive partition (each row sums to 100):")
+    for r in ["M", "C", "S"]:
+        p = partition[r]
+        if not p: continue
+        c1, c2 = p["others"]
+        total = p["only_row"] + p[f"also_{c1}_only"] + p[f"also_{c2}_only"] + p["all_three"]
+        print(f"  {r} (n={n_row[r]}): only={p['only_row']}, also-{c1}-only={p[f'also_{c1}_only']}, also-{c2}-only={p[f'also_{c2}_only']}, all3={p['all_three']}  (sum={total:.1f})")
 
 
 if __name__ == "__main__":

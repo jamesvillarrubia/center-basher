@@ -90,13 +90,24 @@ def main():
             })
             continue
 
-        # CDF: tercile-cut trust this cycle, compute mean honesty
-        # rating (rescaled 0-3 → 0-4 via *4/3) for each candidate among
-        # the bottom tercile.
-        use_alt = (y == 2012)  # VCF0354/0355 not in CDF for 2012
-        hd = h_dem_alt if use_alt else h_dem
-        hr = h_rep_alt if use_alt else h_rep
-        m = (yr == y) & hd.notna() & hr.notna() & trust.notna() & (w > 0)
+        # 2012: honesty item (VCF0354/0355) absent from CDF; companion
+        # trait (VCF0358/0359) exists on a different baseline (~0.6
+        # higher on average; per-cycle offset varies 0.2-1.6, so a flat
+        # calibration would be dishonest). We leave the slot in the
+        # timeline but record null values; the chart draws an "trait
+        # not measured" marker. The qualitative finding is preserved in
+        # the figcaption/footnote.
+        if y == 2012:
+            out.append({
+                'cycle':         y,
+                'dem_low_trust': None,
+                'rep_low_trust': None,
+                'source':        'cdf trait not available (VCF0358/0359 proxy: Obama 3.38, Romney 3.17, Obama higher)',
+                **meta,
+            })
+            continue
+
+        m = (yr == y) & h_dem.notna() & h_rep.notna() & trust.notna() & (w > 0)
         if m.sum() < 100:
             print(f"  skip {y}: insufficient obs ({m.sum()})")
             continue
@@ -104,8 +115,8 @@ def main():
         cutoff = trust[m].quantile(1/3)
         low = trust[m] <= cutoff
 
-        dem_low = (4 - hd[m])[low]   # rescale to 0-3
-        rep_low = (4 - hr[m])[low]
+        dem_low = (4 - h_dem[m])[low]   # rescale to 0-3
+        rep_low = (4 - h_rep[m])[low]
         ww      = w[m][low]
 
         # Rescale 0-3 → 0-4 for visual parity with standalone-file cycles
@@ -116,7 +127,7 @@ def main():
             'cycle':           y,
             'dem_low_trust':   round(dem_avg, 2),
             'rep_low_trust':   round(rep_avg, 2),
-            'source':          'cdf VCF0358/0359 (proxy trait)' if use_alt else 'cdf VCF0354/0355',
+            'source':          'cdf VCF0354/0355',
             **meta,
         })
 
@@ -154,6 +165,9 @@ def main():
     print()
     print(f"{'cycle':>6} {'in-pow':>7} {'Dem':>6} {'Rep':>6} {'crit-pick':>10} {'EC won':>10} {'PV won':>10} {'PV match':>9}")
     for r in out:
+        if r['dem_low_trust'] is None:
+            print(f"{r['cycle']:>6} {r['inpower']:>7} {'n/a':>6} {'n/a':>6} {'(proxy)':>10} {r['ec_winner']:>10} {r['pv_winner']:>10} {'-':>9}")
+            continue
         higher = 'Dem' if r['dem_low_trust'] > r['rep_low_trust'] else 'Rep'
         crit_name = r['dem_name'] if higher == 'Dem' else r['rep_name']
         pv_match  = '✓' if crit_name == r['pv_winner'] else '✗'

@@ -1,0 +1,2292 @@
+/* Center-basher v2 — section-by-section build */
+
+:root {
+  --ink: #1b1b1d;
+  --ink-soft: #3a3a3d;
+  --ink-faint: #6b6b70;
+  --paper: #fbfbf8;
+  --rule: #d8d4cc;
+  --accent: #b8240f;
+  --col-greatest:   #5b3a8e;
+  --col-silent:     #4674b7;
+  --col-boomer:     #2a9d8f;
+  --col-genx:       #e9a52e;
+  --col-millennial: #e85d28;
+  --col-genz:       #c12a3a;
+  --col-national:   #1b1b1d;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 17px/1.55 "Iowan Old Style", "Charter", Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.essay {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 8rem;
+}
+
+.masthead {
+  padding: 4.5rem 0 3.5rem;
+  margin-bottom: 0;            /* parthead's top rule serves as the divider */
+  border-top: 4px solid var(--ink);
+  text-align: center;
+}
+.kicker {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1.75rem;
+}
+.masthead h1 {
+  /* clamp so the title scales to fit one line on the 632px content column */
+  font: 700 clamp(2.6rem, 8vw, 3.8rem)/1.05 "Iowan Old Style", "Charter", Georgia, serif;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.dek {
+  font: italic 1.15rem/1.5 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-soft);
+  max-width: 42ch;
+  margin: 0 auto;
+}
+
+.sec {
+  margin-bottom: 4rem;
+  padding-top: 2rem;
+}
+
+.seclabel {
+  font: 600 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.5rem;
+}
+.sec h2 {
+  font-size: 1.6rem;
+  line-height: 1.2;
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.005em;
+}
+
+.lede {
+  font-size: 1.15rem;
+  line-height: 1.55;
+  margin: 0 0 2rem;
+}
+.lede strong {
+  background: linear-gradient(180deg, transparent 60%, #ffe7a8 60%);
+  padding: 0 2px;
+}
+
+/* Bulleted list at lede weight (used for findings lists inside body) */
+.lede-list {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  margin: 0 0 2rem;
+  padding-left: 1.6rem;
+}
+.lede-list li {
+  margin-bottom: 0.85rem;
+}
+.lede-list li:last-child { margin-bottom: 0; }
+.lede-list strong {
+  background: none;
+  padding: 0;
+}
+
+/* Footnote markers in body prose */
+.fnref {
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0 0 0 1px;
+  white-space: nowrap;
+}
+.fnref sup {
+  font: 600 0.7rem/1 -apple-system, "Helvetica Neue", sans-serif;
+  vertical-align: super;
+  letter-spacing: 0;
+}
+.fnref:hover sup,
+.fnref:focus sup {
+  background: #ffe7a8;
+  border-radius: 2px;
+  box-shadow: 0 0 0 3px #ffe7a8;
+}
+:target.fnref-target,
+:target {
+  scroll-margin-top: 1rem;
+}
+
+/* Numbered footnote list inside "How we know" */
+.footnotes {
+  margin: 0.75rem 0 0;
+  padding: 0 0 0 1.4rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.footnotes li {
+  margin: 0 0 0.85rem;
+  padding-left: 0.2rem;
+}
+.footnotes li:last-child {
+  margin-bottom: 0;
+}
+/* Footnote :target highlight removed — it persisted confusingly after
+   anchor clicks. The browser still scrolls to the right footnote. */
+.footnotes code {
+  background: rgba(0,0,0,0.04);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 0.92em;
+}
+.fnret {
+  text-decoration: none;
+  color: var(--ink-faint);
+  margin-left: 0.25rem;
+}
+.fnret:hover {
+  color: var(--accent);
+}
+
+.fig {
+  margin: 2rem 0;
+}
+.fig-svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+figcaption {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.howweknow {
+  margin: 1.5rem 0;
+  border-top: 1px solid var(--rule);
+  padding-top: 0.75rem;
+}
+.howweknow summary {
+  cursor: pointer;
+  font: 600 13px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.howweknow p {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0.75rem 0 0;
+}
+.howweknow code {
+  background: rgba(0,0,0,0.04);
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 0.85em;
+}
+
+/* Chart-specific */
+.cohort-chart .axis path,
+.cohort-chart .axis line {
+  stroke: var(--rule);
+}
+.cohort-chart .axis text {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.cohort-chart .grid line {
+  stroke: var(--rule);
+  stroke-opacity: 0.5;
+  stroke-dasharray: 2 2;
+}
+.cohort-chart .grid path {
+  display: none;
+}
+.cohort-chart .line {
+  fill: none;
+  stroke-width: 2;
+  opacity: 0.85;
+  transition: opacity 160ms ease, stroke-width 160ms ease;
+}
+.cohort-chart .line.national {
+  stroke-width: 3.5;
+  opacity: 1;
+  stroke-dasharray: 0;
+}
+.cohort-chart .line.muted {
+  opacity: 0.12;
+}
+.cohort-chart .line.highlighted {
+  opacity: 1;
+  stroke-width: 4;
+}
+.cohort-chart .line.highlighted.national {
+  stroke-width: 5;
+}
+.cohort-chart .label {
+  font: 600 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  transition: opacity 160ms ease, font-size 160ms ease;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.cohort-chart .label.muted {
+  opacity: 0.25;
+}
+.cohort-chart .label.highlighted {
+  font-size: 13px;
+  font-weight: 700;
+}
+.cohort-chart .line-hit {
+  pointer-events: stroke;
+}
+.cohort-chart .annotation {
+  font: italic 11px/1.2 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.cohort-chart .annotation-line {
+  stroke: var(--ink-faint);
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+}
+
+/* Fig 1 — three-blocks cascading narrowing */
+.cascade-chart .cb-block-title {
+  font: 700 13px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.cascade-chart .cb-track {
+  fill: #e6dfd0;          /* warm tan — full-row background */
+}
+.cascade-chart .cb-bar {
+  /* fill set inline per row; full saturation */
+}
+.cascade-chart .cb-row-label-inside {
+  font: 600 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: #fbfbf8;          /* white on the colored bar */
+}
+.cascade-chart .cb-row-label-outside {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);       /* dark ink on the tan track */
+}
+.cascade-chart .cb-row-pct {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+  text-anchor: start;
+}
+.cascade-chart .cascade-axis path,
+.cascade-chart .cascade-axis line {
+  stroke: var(--rule);
+}
+.cascade-chart .cascade-axis text {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.cascade-chart .cascade-axis-title {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+
+/* Fig 2 — 100-voter waffle */
+.waffle-chart .waffle-dot {
+  stroke: #fbfbf8;
+  stroke-width: 1;
+}
+.waffle-chart .waffle-dot--true {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+.waffle-chart .waffle-true-ring {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 2 2;
+}
+.waffle-chart .waffle-bucket-name {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.waffle-chart .waffle-bucket-blurb {
+  font: italic 11px/1.2 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.waffle-chart .waffle-funnel {
+  font: 700 13px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--accent);
+  letter-spacing: 0.02em;
+}
+.waffle-chart .waffle-funnel-sub {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.waffle-chart .waffle-stage-caption {
+  font: 600 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.waffle-chart .waffle-zoom-box {
+  stroke: var(--ink);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.waffle-chart .waffle-zoom-arrow {
+  stroke: var(--ink-soft);
+  stroke-width: 1.2;
+}
+.waffle-chart .waffle-zoom-arrow-head {
+  fill: none;
+  stroke: var(--ink-soft);
+  stroke-width: 1.2;
+}
+.waffle-chart .waffle-zoom-label {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+
+/* Fig 3 — cross-cycle consistency */
+.consistency-chart .consistency-legend {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-soft);
+}
+.consistency-chart .consistency-rowlabel {
+  font: 600 13px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.consistency-chart .consistency-rowsub {
+  font: italic 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.consistency-chart .consistency-seg {
+  stroke: #fbfbf8;
+  stroke-width: 1;
+}
+.consistency-chart .consistency-pct {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: #fbfbf8;
+}
+.consistency-chart .consistency-pct-dark {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.consistency-chart .consistency-pct-outside {
+  font: 700 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-soft);
+}
+.consistency-chart .consistency-axis path,
+.consistency-chart .consistency-axis line {
+  stroke: var(--rule);
+}
+.consistency-chart .consistency-axis text {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.consistency-chart .consistency-axis-title {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+
+/* Fig 3b — butterfly histogram */
+.spectrum-chart .spectrum-center {
+  stroke: var(--ink);
+  stroke-width: 1.2;
+}
+.spectrum-chart .spectrum-grid-line {
+  stroke: var(--rule);
+  stroke-opacity: 0.4;
+  stroke-dasharray: 2 3;
+}
+.spectrum-chart .spectrum-grid-pct {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.spectrum-chart .spectrum-middle-band {
+  fill: #ffe7a8;
+  opacity: 0.35;
+}
+.spectrum-chart .spectrum-bar {
+  stroke: #fbfbf8;
+  stroke-width: 0.5;
+}
+.spectrum-chart .spectrum-pct {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.spectrum-chart .spectrum-xnum {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.spectrum-chart .spectrum-end-label {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.spectrum-chart .spectrum-mid-hint {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--accent);
+}
+.spectrum-chart .spectrum-mean-line {
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+  opacity: 0.7;
+}
+.spectrum-chart .spectrum-mean-label {
+  font: 600 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+}
+.spectrum-chart .spectrum-legend {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-soft);
+}
+.spectrum-chart .spectrum-suppressed {
+  font: italic 9px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+
+/* Part header — full-bleed division between major parts */
+.parthead {
+  margin: 5rem -1.5rem 3rem;
+  padding: 3rem 1.5rem 3rem;
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+  text-align: center;
+}
+/* First parthead sits directly under the masthead, so don't double-rule
+   or double-margin between them. */
+.parthead--first {
+  margin-top: 0;
+  border-top: none;
+}
+.parthead-tag {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.85rem;
+}
+.parthead-title {
+  font-size: 2.1rem;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0 0 1rem;
+  color: var(--ink);
+}
+.parthead-sub {
+  font: italic 1rem/1.5 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-soft);
+  margin: 0 auto;
+  max-width: 50ch;
+}
+
+/* Big quote — full-bleed pull-quote between sections */
+.bigquote {
+  margin: 4rem -1.5rem;
+  padding: 3rem 1.5rem;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+  text-align: center;
+}
+.bigquote-mark {
+  font: 700 5rem/0.7 "Iowan Old Style", Georgia, serif;
+  color: var(--accent);
+  margin: 0 0 0.25rem;
+  user-select: none;
+}
+.bigquote-text {
+  font: italic 1.7rem/1.3 "Iowan Old Style", Georgia, serif;
+  color: var(--ink);
+  margin: 0 auto;
+  max-width: 32ch;
+  letter-spacing: -0.005em;
+}
+
+/* Picker UI (shared by sections where you pick a figure) */
+.picker-note {
+  margin: 1.5rem 0;
+  padding: 0.85rem 1rem;
+  background: #fff5d9;
+  border: 1px dashed var(--accent);
+  border-radius: 3px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+.picker-note strong {
+  color: var(--accent);
+}
+.picker-label {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.6rem;
+}
+
+/* §4 — comparison cards */
+.comparison-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 0.5rem 0;
+}
+.comp-card {
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1rem 1.1rem;
+  background: var(--paper);
+}
+.comp-card--switcher {
+  border-top: 4px solid #e85d28;
+}
+.comp-card--noshow {
+  border-top: 4px solid #5b3a8e;
+}
+.comp-card-tag {
+  font: 600 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 0.4rem;
+}
+.comp-card-title {
+  font-size: 1.2rem;
+  margin: 0 0 0.6rem;
+  letter-spacing: -0.01em;
+}
+.comp-card-blurb {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin: 0 0 0.75rem;
+  color: var(--ink-soft);
+}
+.comp-card-lever {
+  font: italic 0.92rem/1.5 "Iowan Old Style", Georgia, serif;
+  margin: 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--rule);
+  color: var(--ink);
+}
+
+/* §5 — 9-box grid */
+.ninebox {
+  display: grid;
+  grid-template-columns: 110px repeat(3, 1fr);
+  gap: 4px;
+  margin: 0.5rem 0;
+}
+.ninebox--small {
+  grid-template-columns: 64px repeat(3, 1fr);
+  gap: 2px;
+}
+.ninebox-corner {
+  background: transparent;
+}
+.ninebox-colhead {
+  font: 700 11px/1.1 -apple-system, "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  text-align: center;
+  padding: 0.4rem 0.2rem;
+}
+.ninebox-rowhead {
+  font: 700 11px/1.1 -apple-system, "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 0.5rem;
+}
+.ninebox-cell {
+  background: #efece4;
+  border-radius: 3px;
+  padding: 0.6rem 0.5rem;
+  min-height: 60px;
+  text-align: center;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.ninebox--small .ninebox-cell {
+  min-height: 44px;
+  padding: 0.35rem;
+}
+.cell-strat {
+  font: 700 12px/1.1 -apple-system, "Helvetica Neue", sans-serif;
+  color: var(--ink);
+  margin: 0;
+}
+.cell-note {
+  font: italic 10px/1.2 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-soft);
+  margin: 0.2rem 0 0;
+}
+.ninebox-cell[data-strat="bank"]    { background: #d4e2f0; }
+.ninebox-cell[data-strat="persuade"] { background: #f4e4ce; }
+.ninebox-cell[data-strat="avoid"]   { background: #e8e5dd; }
+.ninebox-cell[data-strat="gotv"]    { background: #c5dccd; }
+.ninebox-cell[data-strat="hardest"] { background: #efd6d2; }
+.ninebox-cell--flagged {
+  background: rgba(184, 36, 15, 0.12) !important;
+  border: 1px solid var(--accent);
+}
+.ninebox-cell--flagged .cell-strat {
+  color: var(--accent);
+}
+
+.ninebox-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin: 0.5rem 0;
+}
+.ninebox-pair-title {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  margin: 0 0 0.4rem;
+  text-align: center;
+}
+
+/* §5c — defection bars */
+.defection-chart .defection-track {
+  fill: #e6dfd0;
+}
+.defection-chart .defection-bar {
+  fill: var(--accent);
+}
+.defection-chart .defection-pct {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.defection-chart .defection-inline {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.defection-chart .defection-rowlabel {
+  font: 600 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.defection-chart .defection-axis path,
+.defection-chart .defection-axis line { stroke: var(--rule); }
+.defection-chart .defection-axis text {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.defection-chart .defection-axis-title {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+
+/* §6a — zero-effect chart */
+.zero-effect-chart .ze-headline {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.zero-effect-chart .ze-subhead {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.zero-effect-chart .ze-axis-line { stroke: var(--ink); stroke-width: 1.4; }
+.zero-effect-chart .ze-tick { stroke: var(--ink-soft); stroke-width: 1; }
+.zero-effect-chart .ze-tick-label {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.zero-effect-chart .ze-ci-line {
+  stroke: var(--accent); stroke-width: 1.5;
+}
+.zero-effect-chart .ze-ci-label {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--accent);
+}
+.zero-effect-chart .ze-point {
+  fill: var(--accent);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+.zero-effect-chart .ze-point-label {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+
+/* §6b — contexts cards */
+.contexts-chart .ctx-card {
+  fill: var(--paper);
+  stroke: var(--rule);
+  stroke-width: 1;
+  rx: 4;
+}
+.contexts-chart .ctx-card--null {
+  fill: rgba(184, 36, 15, 0.05);
+  stroke: var(--accent);
+}
+.contexts-chart .ctx-badge {
+  fill: #2a9d8f;
+}
+.contexts-chart .ctx-badge--null {
+  fill: var(--accent);
+}
+.contexts-chart .ctx-badge-text {
+  font: 700 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: #fbfbf8;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.contexts-chart .ctx-bar-track {
+  fill: #efece4;
+}
+.contexts-chart .ctx-bar {
+  fill: #2a9d8f;
+}
+.contexts-chart .ctx-bar-null {
+  fill: var(--accent);
+}
+.contexts-chart .ctx-bar-cap {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.contexts-chart .ctx-foot {
+  font: italic 10px/1.2 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.ctx-label {
+  font: 700 12px/1.3 -apple-system, "Helvetica Neue", sans-serif;
+  color: var(--ink);
+}
+.ctx-note {
+  font: italic 11px/1.4 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-soft);
+}
+
+/* §6 — K&B "nothing moves it" card */
+.kb-bigcard {
+  border: 1px solid var(--rule);
+  border-left: 5px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.5rem 1.5rem 1.25rem;
+  background: var(--paper);
+  margin: 0.5rem 0;
+}
+.kb-bigcard-tag {
+  font: 600 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 0.4rem;
+}
+.kb-bigcard-headline {
+  font: 700 2.2rem/1.05 "Iowan Old Style", Georgia, serif;
+  margin: 0 0 0.5rem;
+  color: var(--accent);
+  letter-spacing: -0.015em;
+}
+.kb-bigcard-sub {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin: 0 0 1.25rem;
+}
+
+.kb-tactics {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  border-top: 1px solid var(--rule);
+}
+.kb-tactics li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.55rem 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.kb-tactic-name {
+  font: 1.05rem/1 "Iowan Old Style", Georgia, serif;
+  color: var(--ink);
+}
+.kb-tactic-val {
+  font: 700 1.4rem/1 -apple-system, "Helvetica Neue", sans-serif;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+}
+
+.kb-bigcard-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.85rem 0 0.6rem;
+  margin: 0 0 1rem;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+}
+.kb-total-label {
+  font: 700 0.95rem/1 -apple-system, "Helvetica Neue", sans-serif;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.kb-total-val {
+  font: 700 1.8rem/1 -apple-system, "Helvetica Neue", sans-serif;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+}
+.kb-total-ci {
+  font: italic 0.9rem/1 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-soft);
+  margin-left: auto;
+}
+
+.kb-bigcard-quote {
+  font: italic 1.05rem/1.5 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-soft);
+  margin: 0 0 1rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid transparent;
+}
+.kb-bigcard-caveat {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ink-faint);
+  margin: 0;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--rule);
+}
+.kb-bigcard-caveat strong {
+  color: var(--ink-soft);
+}
+
+/* §7/§8 — loyalty / perception panels */
+.loyalty-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin: 0.5rem 0;
+}
+.loyalty-panel {
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1rem 1.1rem 0.9rem;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+}
+.loyalty-header {
+  margin: 0 0 0.85rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+.loyalty-tent {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  margin: 0 0 0.35rem;
+}
+.loyalty-q {
+  font-size: 1.05rem;
+  margin: 0;
+  color: var(--ink);
+}
+.loyalty-q strong {
+  color: var(--accent);
+}
+
+.loyalty-bars {
+  margin: 0 0 0.85rem;
+}
+.loyalty-row {
+  margin-bottom: 0.7rem;
+}
+.loyalty-row:last-child { margin-bottom: 0; }
+.loyalty-trustlabel {
+  font: 600 0.85rem/1.2 -apple-system, "Helvetica Neue", sans-serif;
+  color: var(--ink-soft);
+  margin: 0 0 0.25rem;
+}
+.loyalty-bar-and-pct {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.loyalty-track {
+  flex: 1 1 auto;
+  height: 22px;
+  background: #efece4;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.loyalty-fill {
+  height: 100%;
+  border-radius: 3px;
+  opacity: 0.92;
+}
+.loyalty-pct {
+  flex: 0 0 auto;
+  font: 700 13px/22px -apple-system, "Helvetica Neue", sans-serif;
+  color: var(--ink);
+  min-width: 36px;
+  text-align: right;
+}
+
+.loyalty-foot {
+  margin-top: auto;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--rule);
+}
+.loyalty-headline {
+  font: 700 0.95rem/1.35 -apple-system, "Helvetica Neue", sans-serif;
+  color: var(--ink);
+  margin: 0 0 0.35rem;
+}
+.loyalty-cause {
+  font: italic 0.85rem/1.45 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* §8b — crossing lines */
+.crossing-chart .crossing-title {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.crossing-chart .crossing-subtitle {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.crossing-chart .crossing-grid line {
+  stroke: var(--rule);
+  stroke-opacity: 0.5;
+  stroke-dasharray: 2 3;
+}
+.crossing-chart .crossing-grid path { display: none; }
+.crossing-chart .crossing-axis path,
+.crossing-chart .crossing-axis line { stroke: var(--rule); }
+.crossing-chart .crossing-axis text {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.crossing-chart .crossing-axis-title {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.crossing-chart .crossing-line {
+  fill: none;
+  stroke-width: 2.5;
+  opacity: 0.95;
+}
+.crossing-chart .crossing-dot { stroke: #fbfbf8; stroke-width: 1.5; }
+.crossing-chart .crossing-pt-label {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+}
+.crossing-chart .crossing-end-label {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+}
+.mirror-chart .mirror-colname {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+}
+.mirror-chart .mirror-whotag {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.mirror-chart .mirror-track {
+  fill: #efece4;
+}
+.mirror-chart .mirror-bar {
+  stroke: #fbfbf8;
+  stroke-width: 1;
+}
+.mirror-chart .mirror-val {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.mirror-chart .mirror-axis path,
+.mirror-chart .mirror-axis line { stroke: var(--rule); }
+.mirror-chart .mirror-axis text {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.mirror-chart .mirror-foot {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+
+/* §9a — three cycle rows */
+.cycle-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.cycle-row-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  margin-bottom: -0.5rem;
+}
+.cycle-row-year {
+  font: 700 1.4rem/1 "Iowan Old Style", Georgia, serif;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.cycle-row-role {
+  font: italic 0.95rem/1 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-soft);
+}
+.cycle-row-badge {
+  font: 600 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+.cycle-row-badge.is-on  { background: rgba(46, 125, 50, 0.12); color: #2e7d32; }
+.cycle-row-badge.is-off { background: rgba(184, 36, 15, 0.12); color: var(--accent); }
+
+/* §9b — gap lines */
+.gap-chart .gap-title {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.gap-chart .gap-subtitle {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.gap-chart .gap-zero-line {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+.gap-chart .gap-zero-label {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.gap-chart .gap-grid line {
+  stroke: var(--rule);
+  stroke-opacity: 0.4;
+  stroke-dasharray: 2 3;
+}
+.gap-chart .gap-grid path { display: none; }
+.gap-chart .gap-axis path,
+.gap-chart .gap-axis line { stroke: var(--rule); }
+.gap-chart .gap-axis text {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.gap-chart .gap-y-title,
+.gap-chart .gap-region-label {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.gap-chart .gap-line {
+  fill: none;
+  opacity: 0.95;
+}
+.gap-chart .gap-dot { stroke: #fbfbf8; stroke-width: 1.5; }
+.gap-chart .gap-end-label {
+  font: 600 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+}
+
+/* §9c — cycle cards */
+.cycle-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.85rem;
+  margin: 0.5rem 0;
+}
+.cycle-card {
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.9rem 1rem 1rem;
+  background: var(--paper);
+}
+.cycle-card.is-on  { border-top: 4px solid #2e7d32; }
+.cycle-card.is-off { border-top: 4px solid var(--accent); }
+
+.cycle-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+.cycle-card-year {
+  font: 700 1.3rem/1 "Iowan Old Style", Georgia, serif;
+  color: var(--ink);
+}
+.cycle-card-pill {
+  font: 700 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+.cycle-card-pill.pill-on  { background: rgba(46, 125, 50, 0.12); color: #2e7d32; }
+.cycle-card-pill.pill-off { background: rgba(184, 36, 15, 0.12); color: var(--accent); }
+
+.cycle-card-role {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-faint);
+  margin: 0 0 0.5rem;
+}
+.cycle-card-matchup {
+  font-size: 0.92rem;
+  margin: 0 0 0.7rem;
+  color: var(--ink-soft);
+}
+.cycle-card-rows {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--rule);
+}
+.cycle-card-rows li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px dashed var(--rule);
+  font-size: 0.85rem;
+}
+.cycle-card-rows li:last-child { border-bottom: none; }
+.cycle-row-tag {
+  color: var(--ink-faint);
+  flex-basis: 100%;
+  font-size: 0.78rem;
+  margin-bottom: -0.15rem;
+}
+.cycle-row-leader {
+  font-weight: 700;
+}
+.cycle-row-gap {
+  color: var(--ink-faint);
+  margin-left: auto;
+  font: italic 0.8rem/1 "Iowan Old Style", Georgia, serif;
+}
+
+/* §10 — trust fork (v3, top-down with elbow connectors) */
+.fork-chart {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  margin: 0.5rem 0;
+}
+.fork-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.fork-tag {
+  font: 700 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 0.3rem;
+}
+.fork-box {
+  position: absolute;
+  z-index: 2;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.7rem 0.95rem;
+  background: var(--paper);
+}
+
+/* Input centered horizontally at the top */
+.fork-input-box {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  text-align: center;
+}
+.fork-input-name {
+  font: 700 1.1rem/1.15 -apple-system, "Helvetica Neue", sans-serif;
+  color: var(--ink);
+  margin: 0 0 0.25rem;
+}
+.fork-input-sub {
+  font: italic 0.85rem/1.4 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* Trust pill just below the input box (matches SVG y≈22..31) */
+.fork-trust-pill {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 22%;
+  transform: translate(-50%, -50%);
+  background: #1b1b1d;
+  color: #fbfbf8;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  text-align: center;
+  line-height: 1;
+}
+.fork-trust-sup {
+  display: block;
+  font: 700 9px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.1em;
+  opacity: 0.85;
+  margin-bottom: 3px;
+}
+.fork-trust-main {
+  display: block;
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.04em;
+}
+
+/* Outputs at the bottom, side by side (left = authentic, right = cynical).
+   Top edge at 60% leaves a clear gap for arrowheads to land above them. */
+.fork-output {
+  top: 60%;
+  width: 47%;
+}
+.fork-output--up {
+  left: 0;
+  border-top: 4px solid #2e7d32;
+}
+.fork-output--down {
+  right: 0;
+  border-top: 4px solid var(--accent);
+}
+.fork-verdict {
+  font: 700 1.1rem/1.2 "Iowan Old Style", Georgia, serif;
+  margin: 0 0 0.15rem;
+  letter-spacing: -0.005em;
+}
+.fork-output--up .fork-verdict   { color: #2e7d32; }
+.fork-output--down .fork-verdict { color: var(--accent); }
+.fork-judgment {
+  font: 600 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 0.45rem;
+}
+.fork-example {
+  font: 0.85rem/1.5 "Iowan Old Style", Georgia, serif;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* §11a — switch-coefficient bars */
+.switch-coef-chart .sc-title {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.switch-coef-chart .sc-subtitle {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.switch-coef-chart .sc-rowlabel {
+  font: 600 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.switch-coef-chart .sc-bar {
+  stroke: #fbfbf8;
+  stroke-width: 1;
+}
+.switch-coef-chart .sc-coef-label {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.switch-coef-chart .sc-zero {
+  stroke: var(--ink);
+  stroke-width: 1.2;
+}
+.switch-coef-chart .sc-zero-label {
+  font: italic 10px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.switch-coef-chart .sc-axis path,
+.switch-coef-chart .sc-axis line { stroke: var(--rule); }
+.switch-coef-chart .sc-axis text {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.switch-coef-chart .sc-axis-title {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.switch-coef-chart .sc-row-note {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--accent);
+}
+
+/* §11b — RR over cycles */
+.rr-time-chart .rr-title {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.rr-time-chart .rr-subtitle {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.rr-time-chart .rr-grid line {
+  stroke: var(--rule);
+  stroke-opacity: 0.4;
+  stroke-dasharray: 2 3;
+}
+.rr-time-chart .rr-grid path { display: none; }
+.rr-time-chart .rr-axis path,
+.rr-time-chart .rr-axis line { stroke: var(--rule); }
+.rr-time-chart .rr-axis text {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.rr-time-chart .rr-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.4;
+}
+.rr-time-chart .rr-dot {
+  fill: var(--accent);
+  stroke: #fbfbf8;
+  stroke-width: 1.5;
+}
+.rr-time-chart .rr-pt-label {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.rr-time-chart .rr-annot-line {
+  stroke: var(--ink-faint);
+  stroke-width: 1;
+  stroke-dasharray: 2 2;
+}
+.rr-time-chart .rr-annot-text {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.rr-time-chart .rr-y-title {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+
+/* §11c — mechanism diagram */
+.mech-chart {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 36px;
+  margin: 0.5rem 0;
+}
+.mech-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.mech-stage {
+  position: relative;
+  z-index: 1;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.85rem 0.95rem;
+  background: var(--paper);
+}
+.mech-stage-1 { border-top: 4px solid #e9a52e; }
+.mech-stage-2 { border-top: 4px solid #5b3a8e; }
+.mech-stage-3 { border-top: 4px solid var(--accent); }
+
+.mech-tag {
+  font: 700 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 0.35rem;
+}
+.mech-name {
+  font: 700 1.05rem/1.15 -apple-system, "Helvetica Neue", sans-serif;
+  color: var(--ink);
+  margin: 0 0 0.45rem;
+}
+.mech-blurb {
+  font: 0.85rem/1.5 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.mech-foot {
+  grid-column: 1 / -1;
+  font: italic 0.85rem/1.55 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-faint);
+  margin: 0.6rem 0 0;
+}
+
+/* §12a — GOTV ranked bars */
+.gotv-chart .gotv-title {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.gotv-chart .gotv-subtitle {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.gotv-chart .gotv-rowlabel-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  height: 100%;
+  text-align: right;
+  padding-right: 4px;
+}
+.gotv-chart .gotv-rowlabel-name {
+  font: 600 12px/1.15 -apple-system, "Helvetica Neue", sans-serif;
+  color: var(--ink);
+  margin: 0;
+}
+.gotv-chart .gotv-rowlabel-sub {
+  font: italic 10px/1.2 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-faint);
+  margin: 2px 0 0;
+}
+.gotv-chart .gotv-bar { stroke: #fbfbf8; stroke-width: 1; }
+.gotv-chart .gotv-pct {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.gotv-chart .gotv-divider {
+  stroke: var(--ink);
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+  opacity: 0.55;
+}
+.gotv-chart .gotv-axis path,
+.gotv-chart .gotv-axis line { stroke: var(--rule); }
+.gotv-chart .gotv-axis text {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.gotv-chart .gotv-axis-title {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+
+/* §13a — care vs don't-care turnout gap */
+.caregap-chart .cg-title {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.caregap-chart .cg-subtitle {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.caregap-chart .cg-panel-title {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.caregap-chart .cg-grid line {
+  stroke: var(--rule);
+  stroke-opacity: 0.4;
+  stroke-dasharray: 2 3;
+}
+.caregap-chart .cg-grid path { display: none; }
+.caregap-chart .cg-axis path,
+.caregap-chart .cg-axis line { stroke: var(--rule); }
+.caregap-chart .cg-axis text {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.caregap-chart .cg-bar { stroke: #fbfbf8; stroke-width: 1; }
+.caregap-chart .cg-pct {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.caregap-chart .cg-gap {
+  font: 700 12px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--accent);
+  letter-spacing: -0.005em;
+}
+
+/* §13b — warmth vs spread lines */
+.ws-chart .ws-title {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.ws-chart .ws-subtitle {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.ws-chart .ws-grid line {
+  stroke: var(--rule);
+  stroke-opacity: 0.4;
+  stroke-dasharray: 2 3;
+}
+.ws-chart .ws-grid path { display: none; }
+.ws-chart .ws-axis path,
+.ws-chart .ws-axis line { stroke: var(--rule); }
+.ws-chart .ws-axis text {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.ws-chart .ws-xlabel,
+.ws-chart .ws-ylabel {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.ws-chart .ws-line {
+  fill: none;
+  stroke-width: 2.5;
+}
+.ws-chart .ws-dot { stroke: #fbfbf8; stroke-width: 1.5; }
+.ws-chart .ws-pt-label {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+}
+.ws-chart .ws-end-label {
+  font: 700 12px/1.2 -apple-system, "Helvetica Neue", sans-serif;
+}
+.ws-chart .ws-annot-text {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+}
+.ws-chart .ws-panel-title {
+  font: 700 13px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.ws-chart .ws-panel-sub {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.ws-chart .ws-leg-line { }
+.ws-chart .ws-leg-label {
+  font: 600 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-soft);
+}
+
+/* §13c — turnout-coefficient race */
+.turnout-coef-chart .tc-title {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.turnout-coef-chart .tc-subtitle {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.turnout-coef-chart .tc-rowlabel {
+  font: 600 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.turnout-coef-chart .tc-bar { stroke: #fbfbf8; stroke-width: 1; }
+.turnout-coef-chart .tc-coef-label {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.turnout-coef-chart .tc-zero {
+  stroke: var(--ink);
+  stroke-width: 1.2;
+}
+.turnout-coef-chart .tc-zero-label {
+  font: italic 10px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.turnout-coef-chart .tc-axis path,
+.turnout-coef-chart .tc-axis line { stroke: var(--rule); }
+.turnout-coef-chart .tc-axis text {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.turnout-coef-chart .tc-axis-title {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.turnout-coef-chart .tc-row-note {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--accent);
+}
+
+/* §12c — two-dials parallel chart */
+.twodials-chart .td-title {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.twodials-chart .td-subtitle {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.twodials-chart .td-outcome {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.twodials-chart .td-outcome-sub {
+  font: italic 10px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.twodials-chart .td-bar { stroke: #fbfbf8; stroke-width: 1; }
+.twodials-chart .td-bar--content { fill: #bdb7a8; }
+.twodials-chart .td-bar--contact { fill: #2e7d32; }
+.twodials-chart .td-bar-name {
+  font: 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.twodials-chart .td-bar-name-light {
+  font: 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: #fbfbf8;
+}
+.twodials-chart .td-bar-val {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.twodials-chart .td-na {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.twodials-chart .td-axis path,
+.twodials-chart .td-axis line { stroke: var(--rule); }
+.twodials-chart .td-axis text {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.twodials-chart .td-axis-title {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+
+
+/* Honest-correction blockquote */
+blockquote.correction {
+  margin: 1.25rem 0 0;
+  padding: 0.85rem 1rem;
+  border-left: 3px solid var(--accent);
+  background: rgba(184, 36, 15, 0.045);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  border-radius: 0 3px 3px 0;
+}
+blockquote.correction strong {
+  color: var(--accent);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+/* ─── Mobile fallbacks (kept at end-of-file so they override
+       grid-template-columns rules defined earlier) ─── */
+@media (max-width: 640px) {
+  /* Stack all two/three-column card layouts vertically. */
+  .ninebox-pair,
+  .comparison-cards,
+  .cycle-cards,
+  .loyalty-panels,
+  .mech-chart {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Title wraps onto multiple lines and uses a smaller min size. */
+  .masthead h1 {
+    white-space: normal;
+    font-size: clamp(1.9rem, 9vw, 2.6rem);
+  }
+  .masthead {
+    padding: 3rem 0 2.5rem;
+  }
+
+  /* Charts: scale to fit the viewport naturally. The text will be small
+     at narrow widths, which is fine because users can pinch-zoom — the
+     viewport meta tag deliberately allows zoom. */
+  .fig {
+    margin: 1.5rem 0;
+  }
+  .fig-svg {
+    padding: 0;
+  }
+  .fig-svg svg {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Section padding tightened a touch on narrow viewports. */
+  .essay {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* §14a — typology over time */
+.typology-chart .ty-title {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.typology-chart .ty-subtitle {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.typology-chart .ty-grid line {
+  stroke: var(--rule);
+  stroke-opacity: 0.4;
+  stroke-dasharray: 2 3;
+}
+.typology-chart .ty-grid path { display: none; }
+.typology-chart .ty-axis path,
+.typology-chart .ty-axis line { stroke: var(--rule); }
+.typology-chart .ty-axis text {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.typology-chart .ty-line {
+  fill: none;
+  stroke-width: 2.4;
+  opacity: 0.95;
+}
+.typology-chart .ty-dot { stroke: #fbfbf8; stroke-width: 1.5; }
+.typology-chart .ty-end-label {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+}
+.typology-chart .ty-end-sub {
+  font: italic 11px/1.2 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.typology-chart .ty-y-title {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+
+/* §14c — post-mortems grid */
+.postmortems-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 0.5rem 0;
+}
+.pm-card {
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--ink-soft);
+  border-radius: 4px;
+  padding: 0.9rem 1.05rem;
+  background: var(--paper);
+}
+.pm-card--dem           { border-top-color: #2c5b9c; }
+.pm-card--establishment { border-top-color: #5b3a8e; }
+.pm-card--neutral       { border-top-color: #6b6b70; }
+.pm-card--prog          { border-top-color: #b8240f; }
+
+.pm-card-tag {
+  font: 700 10px/1.2 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 0.35rem;
+}
+.pm-card-title {
+  font-size: 1.05rem;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.005em;
+  line-height: 1.25;
+}
+.pm-card-finding {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin: 0;
+  color: var(--ink-soft);
+}
+.pm-foot {
+  font: italic 0.88rem/1.55 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-faint);
+  margin: 0.85rem 0 0;
+}
+
+/* Stack the post-mortems grid on mobile too */
+@media (max-width: 640px) {
+  .postmortems-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+/* §15a — per-cycle trust-vote bars */
+.tvc-chart .tvc-title {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.tvc-chart .tvc-subtitle {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.tvc-chart .tvc-zero {
+  stroke: var(--ink);
+  stroke-width: 1.2;
+}
+.tvc-chart .tvc-grid line {
+  stroke: var(--rule);
+  stroke-opacity: 0.4;
+  stroke-dasharray: 2 3;
+}
+.tvc-chart .tvc-grid path { display: none; }
+.tvc-chart .tvc-axis path,
+.tvc-chart .tvc-axis line { stroke: var(--rule); }
+.tvc-chart .tvc-axis text {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.tvc-chart .tvc-bar {
+  stroke: #fbfbf8;
+  stroke-width: 1;
+}
+.tvc-chart .tvc-tick {
+  font: 700 13px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: #2e7d32;
+}
+.tvc-chart .tvc-cross {
+  font: 700 13px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--accent);
+}
+.tvc-chart .tvc-region {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+}
+.tvc-chart .tvc-y-title {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.tvc-chart .tvc-key {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-soft);
+}
+
+/* §15b — scoreboard table */
+.scoreboard {
+  margin: 0.5rem 0;
+}
+.sb-headline {
+  font: italic 0.95rem/1.4 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-soft);
+  margin: 0 0 0.85rem;
+}
+.sb-headline strong {
+  color: var(--ink);
+}
+.sb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.sb-table th {
+  font: 700 11px/1.2 -apple-system, "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--ink);
+}
+.sb-table td {
+  padding: 8px;
+  border-bottom: 1px solid var(--rule);
+}
+.sb-table tr.sb-miss td {
+  background: rgba(184, 36, 15, 0.05);
+}
+.sb-year { font-weight: 600; }
+.sb-pty {
+  display: inline-block;
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  color: #fbfbf8;
+  padding: 3px 7px;
+  border-radius: 3px;
+}
+.pty-d { background: #2c5b9c; }
+.pty-r { background: #b8240f; }
+.sb-coef { font-family: -apple-system, "Helvetica Neue", sans-serif; font-weight: 700; }
+.sb-mark { font-size: 1.1rem; text-align: center; }
+.sb-miss .sb-mark { color: var(--accent); }
+.sb-table tr:not(.sb-miss) .sb-mark { color: #2e7d32; }
+.sb-why {
+  font: italic 0.82rem/1.3 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-faint);
+}
+
+/* §15c — running record */
+.rr-chart .rr-title {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.rr-chart .rr-subtitle {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.rr-chart .rr-tally {
+  font: 700 13px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.rr-chart .rr-baseline {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+.rr-chart .rr-stamp {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: #fbfbf8;
+}
+.rr-chart .rr-year {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.rr-chart .rr-miss-note {
+  font: italic 10px/1.2 "Iowan Old Style", Georgia, serif;
+}
+
+/* §16a — change-lane scoreboard */
+.cls-board { margin: 0.5rem 0; }
+.cls-headline {
+  font: italic 0.95rem/1.45 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-soft);
+  margin: 0 0 0.85rem;
+}
+.cls-headline strong { color: var(--ink); }
+.cls-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+.cls-table th {
+  font: 700 10px/1.2 -apple-system, "Helvetica Neue", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--ink);
+}
+.cls-table td {
+  padding: 7px 8px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+.cls-table tr.cls-mixed td {
+  background: rgba(232, 165, 46, 0.08);
+}
+.cls-year { font-weight: 700; }
+.cls-incumbent { font-weight: 600; }
+.cls-cast {
+  font: italic 0.82rem/1.3 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-soft);
+}
+.cls-lane { font-weight: 600; color: var(--accent); }
+.cls-note {
+  font: italic 0.78rem/1.3 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-faint);
+}
+.cls-outcome {
+  font-weight: 700;
+  color: #2e7d32;
+  text-align: center;
+}
+.cls-mixed .cls-outcome { color: #e9a52e; }
+.cls-foot {
+  font: italic 0.8rem/1.45 "Iowan Old Style", Georgia, serif;
+  color: var(--ink-faint);
+  margin: 0.65rem 0 0;
+}
+
+/* §16b — economy puzzle */
+.ep-chart .ep-title {
+  font: 700 14px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.ep-chart .ep-subtitle {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.ep-chart .ep-grid line {
+  stroke: var(--rule);
+  stroke-opacity: 0.4;
+  stroke-dasharray: 2 3;
+}
+.ep-chart .ep-grid path { display: none; }
+.ep-chart .ep-axis path,
+.ep-chart .ep-axis line { stroke: var(--rule); }
+.ep-chart .ep-axis text {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.ep-chart .ep-axis-title {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.ep-chart .ep-ref {
+  stroke: var(--ink-faint);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  opacity: 0.6;
+}
+.ep-chart .ep-ref-label {
+  font: italic 10px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.ep-chart .ep-dot {
+  stroke: #fbfbf8;
+  stroke-width: 2;
+}
+.ep-chart .ep-label {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.ep-chart .ep-cast {
+  font: italic 11px/1.2 "Iowan Old Style", Georgia, serif;
+}
+.ep-chart .ep-leg {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-soft);
+}
+
+/* §16c — switcher gap */
+.sg-chart .sg-title {
+  font: 700 14px/1.2 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.sg-chart .sg-subtitle {
+  font: italic 11px/1.3 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.sg-chart .sg-leg {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-soft);
+}
+.sg-chart .sg-item-label {
+  font: 700 13px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.sg-chart .sg-item-note {
+  font: italic 10px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.sg-chart .sg-track { fill: var(--rule); }
+.sg-chart .sg-gapline {
+  stroke: var(--ink-faint);
+  stroke-width: 2;
+  opacity: 0.5;
+}
+.sg-chart .sg-dot {
+  stroke: #fbfbf8;
+  stroke-width: 1.5;
+}
+.sg-chart .sg-val {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+}
+.sg-chart .sg-gap {
+  font: italic 12px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink);
+  font-weight: 700;
+}
+.sg-chart .sg-tick-label {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+
+/* §16b1 — trust bands by cycle */
+.tb-chart .tb-title {
+  font: 700 14px/1.2 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.tb-chart .tb-subtitle {
+  font: italic 11px/1.3 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.tb-chart .tb-leg {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-soft);
+}
+.tb-chart .tb-grid line {
+  stroke: var(--rule);
+  stroke-opacity: 0.4;
+  stroke-dasharray: 2 3;
+}
+.tb-chart .tb-grid path { display: none; }
+.tb-chart .tb-axis path,
+.tb-chart .tb-axis line { stroke: var(--rule); }
+.tb-chart .tb-axis text {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.tb-chart .tb-axis-title {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.tb-chart .tb-line {
+  fill: none;
+  stroke-width: 2.4;
+  opacity: 0.95;
+}
+.tb-chart .tb-dot {
+  stroke: #fbfbf8;
+  stroke-width: 1.5;
+}
+.tb-chart .tb-exception-ring {
+  opacity: 0.9;
+}
+.tb-chart .tb-ref {
+  stroke: var(--ink);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  opacity: 0.4;
+}
+.tb-chart .tb-ref-label {
+  font: italic 10px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.tb-chart .tb-end-label {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+}
+
+/* §16b2 — honesty crossover among Critics */
+.hc-chart .hc-title {
+  font: 700 14px/1.2 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.hc-chart .hc-subtitle {
+  font: italic 11px/1.3 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
+.hc-chart .hc-leg {
+  font: 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-soft);
+}
+.hc-chart .hc-year {
+  font: 700 16px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink);
+}
+.hc-chart .hc-wh {
+  font: italic 10px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.hc-chart .hc-track { fill: var(--rule); }
+.hc-chart .hc-gapline {
+  stroke: var(--ink-faint);
+  stroke-width: 2;
+  opacity: 0.5;
+}
+.hc-chart .hc-dot {
+  stroke: #fbfbf8;
+  stroke-width: 1.5;
+}
+.hc-chart .hc-val {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+}
+.hc-chart .hc-name {
+  font: 600 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.hc-chart .hc-role {
+  font: italic 10px/1.2 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+
+/* §16b — gap chart additions */
+.tb-chart .tb-axis-zero {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+.tb-chart .tb-axis-zero-label {
+  font: 700 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.tb-chart .tb-bar { stroke: #fbfbf8; stroke-width: 1; }
+.tb-chart .tb-bar-val {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.tb-chart .tb-region-label {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.tb-chart .tb-region-divider {
+  stroke: var(--ink-faint);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  opacity: 0.4;
+}
+
+/* §16b — honesty crossover additions */
+.hc-chart .hc-axis-title {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.hc-chart .hc-axis-dir {
+  font: italic 10px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.hc-chart .hc-grid line {
+  stroke: var(--rule);
+  stroke-opacity: 0.4;
+  stroke-dasharray: 2 3;
+}
+.hc-chart .hc-grid path { display: none; }
+.hc-chart .hc-axis path,
+.hc-chart .hc-axis line { stroke: var(--rule); }
+.hc-chart .hc-axis text {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink-faint);
+}
+.hc-chart .hc-cand-name {
+  font: 600 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: var(--ink);
+}
+.hc-chart .hc-cand-role {
+  font: italic 10px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.hc-chart .hc-winner-check {
+  font: 700 11px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: #2e7d32;
+}
+
+/* §16b — popular-vote overlay on the trust gap chart */
+.tb-chart .tb-axis-right path,
+.tb-chart .tb-axis-right line { stroke: var(--rule); }
+.tb-chart .tb-axis-right text {
+  font: 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  fill: #2c5b9c;
+}
+.tb-chart .tb-popvote-line {
+  fill: none;
+  stroke: #2c5b9c;
+  stroke-width: 2.5;
+  opacity: 0.95;
+}
+.tb-chart .tb-popvote-dot {
+  fill: #2c5b9c;
+  stroke: #fbfbf8;
+  stroke-width: 1.5;
+}
+.tb-chart .tb-50-line {
+  stroke: #2c5b9c;
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  opacity: 0.5;
+}
+.tb-chart .tb-50-label {
+  font: italic 10px/1 "Iowan Old Style", Georgia, serif;
+  fill: #2c5b9c;
+}
+
+/* §16b honesty crossover — additions for the 11-cycle layout */
+.hc-chart .hc-inpower-tag {
+  font: italic 9px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}
+.hc-chart .hc-foot {
+  font: italic 10px/1.2 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-faint);
+}

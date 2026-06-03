@@ -1,0 +1,8 @@
+tent,trust_band,vote_own_pct,vote_other_pct,vote_third_pct,broad_swing_pct,mean_trust_index,n_unweighted
+Non-Republicans (Dems+indeps),low-trust,47.0,40.7,12.3,53.0,0.0,104
+Non-Republicans (Dems+indeps),mid-trust,76.8,14.7,8.5,23.2,0.122,842
+Non-Republicans (Dems+indeps),high-trust,90.3,5.0,4.7,9.7,0.441,558
+Republicans (lean/strong),low-trust,94.3,2.5,3.2,5.7,0.0,193
+Republicans (lean/strong),mid-trust,87.9,6.2,5.9,12.1,0.083,524
+Republicans (lean/strong),high-trust,79.7,12.1,8.2,20.3,0.263,426
+[ref] all defectors,—,,,,,0.153,284

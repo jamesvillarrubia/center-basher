@@ -1,0 +1,99 @@
+// Center-basher v2 — section-by-section
+import { drawTrustByCohort } from './fig-0-cohort.js'
+import { drawOverlapMatrix } from './fig-1-overlap.js'
+import { drawHundredVoters } from './fig-2-waffle.js'
+import { drawCrossCycleConsistency } from './fig-3-consistency.js'
+import { drawSwingSpectrum } from './fig-3b-swing-spectrum.js'
+import { drawDefection } from './fig-5c-defection.js'
+import { drawLoyalty } from './fig-7-loyalty.js'
+import { drawPerceptionPanels } from './fig-8a-perception-panels.js'
+import { drawCycleCards } from './fig-9c-cycle-cards.js'
+import { drawTrustFork } from './fig-10-fork.js'
+import { drawSwitchCoefficients } from './fig-11a-coefficients.js'
+import { drawRRTimeline } from './fig-11b-rr-over-time.js'
+import { drawMechanism } from './fig-11c-mechanism.js'
+import { drawGOTV } from './fig-12a-gotv-bars.js'
+import { drawCareGap } from './fig-13a-care-gap.js'
+import { drawTurnoutCoef } from './fig-13c-coefficients.js'
+import { drawTypologyOverTime } from './fig-14a-typology-over-time.js'
+import { drawTrustVoteCycles } from './fig-15a-trust-vote-cycles.js'
+import { drawChangeLaneScoreboard } from './fig-16a-scoreboard.js'
+import { drawEconPuzzle } from './fig-16b-econ-puzzle.js'
+import { drawTrustBandsByCycle } from './fig-16b-trust-bands.js'
+import { drawHonestyCrossover } from './fig-16b-honesty-crossover.js'
+import { drawSwitcherGap } from './fig-16c-switcher-gap.js'
+
+async function init() {
+  // §0 — trust by cohort
+  const cohort = await (await fetch('data/trust_by_cohort.json')).json()
+  drawTrustByCohort('#fig-0-svg', cohort)
+
+  // §1 — three-group overlap matrix
+  const overlap = await (await fetch('data/center_overlap_matrix.json')).json()
+  drawOverlapMatrix('#fig-1-svg', overlap)
+
+  // §2 — 100-voter waffle (counts hard-coded in fig-2-waffle.js from ANES 2016)
+  drawHundredVoters('#fig-2-svg')
+
+  // §3 — cross-cycle vote consistency by self-ID (VSG panel 2012/2016/2020)
+  const consistency = await (await fetch('data/cross_cycle_consistency.json')).json()
+  drawCrossCycleConsistency('#fig-3-svg', consistency)
+
+  // §3b — swing voters distributed across the 7-pt lib-con scale (ANES 2016 defectors)
+  const spectrum = await (await fetch('data/swing_spectrum.json')).json()
+  drawSwingSpectrum('#fig-3b-svg', spectrum)
+
+  // §4 — pure typographic comparison cards (Option B); no JS chart needed.
+
+  // §5 — three options to choose from
+  drawDefection('#fig-5c-svg')
+
+  // §6 — pure typographic K&B card; no JS chart needed.
+
+  // §7 — loyalty rate by trust level, two panels (plain-language redesign)
+  drawLoyalty('#fig-7-target')
+
+  // §8 — perception panels (matches §7 structure)
+  drawPerceptionPanels('#fig-8a-target')
+
+  // §9 — cycle cards with on/off pills
+  drawCycleCards('#fig-9c-target')
+
+  // §10 — single trust-fork visual: same act, opposite read
+  drawTrustFork('#fig-10-target')
+
+  // §11 — three options to choose from
+  drawSwitchCoefficients('#fig-11a-svg')
+  drawRRTimeline('#fig-11b-svg')
+  drawMechanism('#fig-11c-target')
+
+  // §12 — ranked turnout-lift bars (per intervention)
+  drawGOTV('#fig-12a-svg')
+
+  // §13 — care-gap chart + standardized-coefficient race.
+  // (Dropped the warmth/spread quintile chart because the pattern doesn't
+  // hold up under multi-cycle pooling; the §13 prose now leans on the
+  // coefficient model + care-gap.)
+  drawCareGap('#fig-13a-svg')
+  drawTurnoutCoef('#fig-13c-svg')
+
+  // §14 — cross-cycle no-show typology trend
+  drawTypologyOverTime('#fig-14a-svg')
+
+  // §15 — per-cycle trust→vote coefficient bar chart
+  drawTrustVoteCycles('#fig-15a-svg')
+
+  // §16 — change-lane scoreboard + two Figure B candidates (gap chart + honesty crossover)
+  drawChangeLaneScoreboard('#fig-16a-target')
+  const tbData = await (await fetch('data/vote_share_by_trust_band.json')).json()
+  drawTrustBandsByCycle('#fig-16b1-svg', tbData)
+  const hcData = await (await fetch('data/candidate_honesty_by_trust.json')).json()
+  drawHonestyCrossover('#fig-16b2-svg', hcData)
+}
+
+init().catch(err => {
+  console.error(err)
+  const target = document.querySelector('#fig-0-svg') || document.body
+  target.innerHTML =
+    `<pre style="color:#b8240f;padding:1rem;border:1px solid #b8240f;border-radius:6px">Init failed: ${err.message}</pre>`
+})
