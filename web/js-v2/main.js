@@ -25,6 +25,8 @@ import { drawSwitcherGap } from './fig-16c-switcher-gap.js'
 import { drawBaselineRegime } from './fig-16c-baseline-regime.js'
 import { drawTrustTurnout } from './fig-16d-trust-turnout.js'
 import { drawWithinCycle } from './fig-16e-within-cycle.js'
+import { drawNationscapePanel } from './fig-16f-nationscape-panel.js'
+import { drawWeeklyTrajectory } from './fig-16g-weekly-trajectory.js'
 
 async function init() {
   // §0 — trust by cohort
@@ -100,6 +102,12 @@ async function init() {
   // Within-cycle FT-gap movement (VSG panel 2020 Sep→Nov)
   const wcData = await (await fetch(`data/within_cycle_movement_2020.json?v=${Date.now()}`, {cache: 'no-store'})).json()
   drawWithinCycle('#fig-16e-svg', wcData)
+  // Cross-validation: Nationscape Apr→Jul panel
+  const nsPanel = await (await fetch(`data/nationscape_panel_april_july_2020.json?v=${Date.now()}`, {cache: 'no-store'})).json()
+  drawNationscapePanel('#fig-16f-svg', nsPanel)
+  // Weekly aggregate trajectory
+  const wtData = await (await fetch(`data/nationscape_weekly_trajectory.json?v=${Date.now()}`, {cache: 'no-store'})).json()
+  drawWeeklyTrajectory('#fig-16g-svg', wtData)
 }
 
 init().catch(err => {
