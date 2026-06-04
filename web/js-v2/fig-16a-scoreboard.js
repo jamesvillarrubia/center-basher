@@ -19,6 +19,46 @@ const MIXED = '#7a4d8a'
 
 const CYCLES = [
   {
+    year: 1980,
+    inPower:    { label: 'D', color: D },
+    changeOwner:{ name: 'Reagan', party: 'R', color: R },
+    exitPoll:   '"Are you better off than four years ago?" — Reagan owned the change frame against Carter / stagflation / hostages',
+    trust:      { era: 'low',  value: 0.40 },
+    winner:     { name: 'Reagan', party: 'R', color: R },
+  },
+  {
+    year: 1984,
+    inPower:    { label: 'R', color: R },
+    changeOwner:{ name: 'Reagan', party: 'R', color: R, asterisk: true },
+    exitPoll:   '"Morning in America" — Reagan ran on recovery, Mondale was the change/restoration figure but couldn\'t puncture the boom',
+    trust:      { era: 'high', value: 0.42 },
+    winner:     { name: 'Reagan', party: 'R', color: R },
+  },
+  {
+    year: 1988,
+    inPower:    { label: 'R', color: R },
+    changeOwner:{ name: 'Bush GHW', party: 'R', color: R, asterisk: true },
+    exitPoll:   'Bush ran as Reagan\'s heir but cast Dukakis as the elitist (tank-photo, "L-word"). High-trust era held continuity.',
+    trust:      { era: 'high', value: 0.43 },
+    winner:     { name: 'Bush GHW', party: 'R', color: R },
+  },
+  {
+    year: 1992,
+    inPower:    { label: 'R', color: R },
+    changeOwner:{ name: 'Clinton', party: 'D', color: D },
+    exitPoll:   '"It\'s the economy, stupid." Bush GHW = recession-era incumbent; Clinton + Perot together held the change lane',
+    trust:      { era: 'low',  value: 0.40 },
+    winner:     { name: 'Clinton', party: 'D', color: D },
+  },
+  {
+    year: 1996,
+    inPower:    { label: 'D', color: D },
+    changeOwner:{ name: 'Clinton', party: 'D', color: D, asterisk: true },
+    exitPoll:   'Incumbent Clinton ran on recovery; Dole was the establishment Senate-figure',
+    trust:      { era: 'low',  value: 0.41 },
+    winner:     { name: 'Clinton', party: 'D', color: D },
+  },
+  {
     year: 2000,
     inPower:    { label: 'D', color: D },
     changeOwner:{ name: 'Bush',   party: 'R', color: R },
@@ -113,8 +153,11 @@ export function drawChangeLaneScoreboard(selector) {
   root.innerHTML = `
     <div class="cls-board">
       <p class="cls-headline">
-        The change-lane owner wins, every cycle since 2000.
-        <strong>In-power successors get cast as the establishment and lose, 4-for-4.</strong>
+        The change-lane owner wins, every cycle since 1980 (12 of 12, with the
+        2020 mixed exception). <strong>In-power successors lose, 4 of 4.</strong>
+        Incumbents who can plausibly claim outsider/change framing win (Reagan
+        '84, Bush '88, Clinton '96, Bush '04, Obama '12); incumbents who can't
+        lose (Carter '80, Bush GHW '92, Biden→Harris '24).
         The rule fires in <span style="color:${R};font-weight:700;">high-trust</span> and
         <span style="color:#2a6a3a;font-weight:700;">low-trust</span> regimes alike.
       </p>

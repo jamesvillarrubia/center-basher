@@ -123,32 +123,42 @@ export function drawHonestyCrossover(selector, data) {
     const xRep = cx + dotOffset
     const isWash = !!c.is_wash
 
-    // Connector
+    // Connector (heavier and more dashed for wash cycles)
     g.append('line').attr('class', 'hc-gapline')
       .attr('x1', xDem).attr('x2', xRep)
       .attr('y1', y(c.dem_low_trust)).attr('y2', y(c.rep_low_trust))
-      .attr('stroke', isWash ? COLOR_WASH : '#bababa')
+      .attr('stroke', isWash ? COLOR_WASH : '#888')
       .attr('stroke-width', isWash ? 1.5 : 1.5)
-      .attr('stroke-dasharray', isWash ? '3,3' : null)
+      .attr('stroke-dasharray', isWash ? '5,4' : null)
 
-    // Dots
+    // Dots (hollow for wash, solid for clear)
     g.append('circle')
       .attr('cx', xDem).attr('cy', y(c.dem_low_trust)).attr('r', 6)
       .attr('fill', isWash ? '#fff' : COLOR_DEM)
-      .attr('stroke', COLOR_DEM).attr('stroke-width', isWash ? 1.8 : 0)
+      .attr('stroke', COLOR_DEM).attr('stroke-width', isWash ? 2 : 0)
     g.append('circle')
       .attr('cx', xRep).attr('cy', y(c.rep_low_trust)).attr('r', 6)
       .attr('fill', isWash ? '#fff' : COLOR_REP)
-      .attr('stroke', COLOR_REP).attr('stroke-width', isWash ? 1.8 : 0)
+      .attr('stroke', COLOR_REP).attr('stroke-width', isWash ? 2 : 0)
 
-    // ✓ on swing winner
+    // ✓ on swing winner — heavily faded for wash cycles (signal is weak)
     const winnerIsDem = (c.swing_winner === c.dem_name)
     const wx = winnerIsDem ? xDem : xRep
     const wy = winnerIsDem ? y(c.dem_low_trust) : y(c.rep_low_trust)
     g.append('text').attr('class', 'hc-winner-check')
       .attr('x', wx).attr('y', wy - 11).attr('text-anchor', 'middle')
       .attr('fill', '#2e7d32').attr('font-weight', '700').attr('font-size', '15px')
+      .attr('opacity', isWash ? 0.30 : 1)
       .text('✓')
+
+    // Explicit "wash" label below the year axis (back, per user feedback)
+    if (isWash) {
+      g.append('text').attr('class', 'hc-wash-tag')
+        .attr('x', cx).attr('y', innerH + 16).attr('text-anchor', 'middle')
+        .attr('font-size', '10px').attr('font-weight', '700').attr('font-style', 'italic')
+        .attr('fill', COLOR_WASH)
+        .text('wash')
+    }
 
     // WH-held row
     g.append('text').attr('class', 'hc-inpower-tag')

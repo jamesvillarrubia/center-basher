@@ -98,19 +98,12 @@ async function init() {
   // Swing-state trust × turnout scatter
   const ttData = await (await fetch(`data/swing_trust_turnout.json?v=${Date.now()}`, {cache: 'no-store'})).json()
   drawTrustTurnout('#fig-16d-svg', ttData)
-  // Within-cycle FT-gap movement (VSG panel 2020 Sep→Nov)
-  const wcData = await (await fetch(`data/within_cycle_movement_2020.json?v=${Date.now()}`, {cache: 'no-store'})).json()
-  drawWithinCycle('#fig-16e-svg', wcData)
-
   // §17 — Switcher cohort gap (VSG panel)
   const scData = await (await fetch(`data/switcher_cohort_vsg.json?v=${Date.now()}`, {cache: 'no-store'})).json()
   drawSwitcherCohort('#fig-17a-svg', scData)
-  // Cross-validation: Nationscape Apr→Jul panel
-  const nsPanel = await (await fetch(`data/nationscape_panel_april_july_2020.json?v=${Date.now()}`, {cache: 'no-store'})).json()
-  drawNationscapePanel('#fig-16f-svg', nsPanel)
-  // Weekly aggregate trajectory — 3-cycle 538 polling averages
-  const wtData = await (await fetch(`data/poll_trajectory_multi.json?v=${Date.now()}`, {cache: 'no-store'})).json()
-  drawWeeklyTrajectory('#fig-16g-svg', wtData)
+  // Figures E (VSG within-cycle), F (Nationscape cross-check), G (3-cycle trajectory)
+  // are CUT from the page render per user feedback (June 2026 review).
+  // The underlying JS modules and data files are kept on disk.
 }
 
 init().catch(err => {
