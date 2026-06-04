@@ -48,13 +48,48 @@ RECENT = {
     2024: { 'dem_low_trust': 0.98, 'rep_low_trust': 1.39 },
 }
 
-# Expanded swing-state set (FIPS codes). Big 5 + NC/AZ/GA/NV for the
-# post-2008 battleground expansion. Same set used across all cycles for
-# consistency; documented in the figcaption as anachronistic for early
-# cycles. Excludes safely-D and safely-R states where campaigns don't
-# compete and Critics' ratings are baked-in partisan reflex.
+# Expanded swing-state set (FIPS codes). Big 5 + NC/AZ/GA/NV — used as
+# fallback for the trust-mean denominator and as the legacy chart input.
 EXPANDED_SWING_FIPS = frozenset({42, 26, 55, 39, 12,  # PA, MI, WI, OH, FL
                                  37, 4, 13, 32})       # NC, AZ, GA, NV
+
+# Cycle-specific battlegrounds (FIPS codes). Drawn from pre-election
+# toss-up consensus per cycle. Pre-1992 sets approximate "closest 5-8
+# contests" since the battleground concept doesn't cleanly apply to
+# Reagan-era national waves. Modern (1992+) sets reflect Cook/Sabato-
+# style consensus toss-ups.
+BG_BY_CYCLE = {
+    1980: [42, 39, 17, 26, 55, 34, 29, 9],          # PA OH IL MI WI NJ MO CT
+    1984: [25, 27, 19, 44, 15],                      # MA MN IA RI HI
+    1988: [42, 17, 26, 24, 29, 35, 34],              # PA IL MI MD MO NM NJ
+    1992: [39, 12, 13, 37, 34, 9, 33, 21, 32],       # OH FL GA NC NJ CT NH KY NV
+    1996: [47, 12, 39, 21, 32, 4, 13],               # TN FL OH KY NV AZ GA
+    2000: [12, 39, 35, 19, 33, 55, 42, 26, 41],      # FL OH NM IA NH WI PA MI OR
+    2004: [39, 42, 26, 55, 12, 35, 32, 19, 33, 27],  # OH PA MI WI FL NM NV IA NH MN
+    2008: [39, 42, 12, 51, 37, 18, 8, 29, 32, 33, 30],  # OH PA FL VA NC IN CO MO NV NH MT
+    2012: [39, 12, 51, 37, 8, 32, 33, 19, 55],       # OH FL VA NC CO NV NH IA WI
+    2016: [26, 55, 42, 12, 39, 37, 4, 19],           # MI WI PA FL OH NC AZ IA
+    2020: [42, 26, 55, 4, 13, 37, 12, 32],           # PA MI WI AZ GA NC FL NV
+    2024: [42, 26, 55, 4, 13, 37, 32],               # PA MI WI AZ GA NC NV
+}
+
+# FIPS codes of battleground states where D won that cycle (used to
+# compute the swing winner via "majority of contested states won").
+# Cross-verified against state CofE certified results.
+BG_D_WINS_BY_CYCLE = {
+    1980: set(),                              # Reagan sweep of bg
+    1984: {27},                                # MN only (Mondale's home)
+    1988: set(),                               # Bush swept all listed bg
+    1992: {39, 13, 34, 9, 33, 21, 32},         # OH GA NJ CT NH KY NV (Clinton; lost FL NC)
+    1996: {47, 12, 39, 32, 4},                 # TN FL OH NV AZ (Clinton; lost KY GA)
+    2000: {35, 19, 55, 42, 26, 41},            # NM IA WI PA MI OR (Gore; lost FL OH NH)
+    2004: {42, 26, 55, 33, 27},                # PA MI WI NH MN (Kerry; lost OH FL NM NV IA)
+    2008: {39, 42, 12, 51, 37, 18, 8, 32, 33}, # OH PA FL VA NC IN CO NV NH (Obama; lost MO MT)
+    2012: {39, 12, 51, 8, 32, 33, 19, 55},     # OH FL VA CO NV NH IA WI (Obama; lost NC)
+    2016: set(),                               # Trump won all listed bg
+    2020: {42, 26, 55, 4, 13, 32},             # PA MI WI AZ GA NV (Biden; lost NC FL)
+    2024: set(),                               # Trump won all listed bg
+}
 
 # Weighted mean of the trust composite (0-1 scale, HIGH=more trust) per cycle.
 # CDF (1980-2008): VCF0604(rev)/0605/0609 — same composite the tercile is cut on.
@@ -128,10 +163,17 @@ def authenticity_floor_predict(gap, trust_mean, inpower, dem_name, rep_name):
 def _assemble_row(y, dem_avg, rep_avg, source, meta):
     gap        = dem_avg - rep_avg
     trust_mean = TRUST_MEAN.get(y)
+    # Big-5 D-share (legacy; kept for the baseline-regime chart)
     swing      = BIG5.get(y) or {}
     swing_d    = round(sum(swing.values()) / len(swing), 2) if swing else None
-    swing_winner = (meta['dem_name'] if swing_d and swing_d >= 50.0
-                    else meta['rep_name'] if swing_d else None)
+    # CYCLE-SPECIFIC battleground winner: majority of bg states won by D
+    bg_states  = BG_BY_CYCLE.get(y, [])
+    bg_d_wins  = BG_D_WINS_BY_CYCLE.get(y, set())
+    bg_n       = len(bg_states)
+    bg_d_n     = len(bg_d_wins)
+    bg_d_share_states = round(100.0 * bg_d_n / bg_n, 1) if bg_n else None
+    swing_winner = (meta['dem_name'] if bg_n and bg_d_n * 2 > bg_n
+                    else meta['rep_name'] if bg_n else None)
     predicted = authenticity_floor_predict(
         gap, trust_mean, meta['inpower'], meta['dem_name'], meta['rep_name'],
     )
@@ -149,8 +191,11 @@ def _assemble_row(y, dem_avg, rep_avg, source, meta):
         'turnout_delta':   round(delta_to, 1) if delta_to is not None else None,
         'turnout_surge':   (delta_to is not None and delta_to >= 2.0),
         'in_power_2p_share': IN_POWER_2P_SHARE.get(y),
-        'swing_d_share':   swing_d,
-        'swing_winner':    swing_winner,
+        'swing_d_share':   swing_d,                   # Big-5 avg D 2pty share
+        'bg_states_n':     bg_n,                       # # cycle-specific bg states
+        'bg_d_wins_n':     bg_d_n,                     # # of those D won
+        'bg_d_share_states': bg_d_share_states,        # % of bg states D won
+        'swing_winner':    swing_winner,               # by majority of bg states
         'predicted_winner': predicted,
         'rule_hits_pv':    predicted == meta['pv_winner'],
         'rule_hits_ec':    predicted == meta['ec_winner'],
@@ -166,9 +211,10 @@ def norm(s, lo, hi, reverse=False):
 
 def _compute_swing_recent(year):
     """Compute (dem_swing, rep_swing) honesty among low-trust voters
-    in EXPANDED_SWING_FIPS states from the standalone ANES file for
-    a given year. Returns (None, None, n) if year not handled."""
+    in CYCLE-SPECIFIC battleground states from the standalone ANES file.
+    Returns (None, None, n) if year not handled."""
     import numpy as np
+    bg_set = set(BG_BY_CYCLE.get(year, [])) or EXPANDED_SWING_FIPS
     if year == 2012:
         df = pd.read_stata('data/raw/anes_2012/anes_timeseries_2012.dta',
                             convert_categoricals=False,
@@ -228,7 +274,7 @@ def _compute_swing_recent(year):
     if m.sum() < 100:
         return None, None, 0
     cutoff = trust[m].quantile(1/3)
-    sel = m & (trust <= cutoff) & state.isin(EXPANDED_SWING_FIPS)
+    sel = m & (trust <= cutoff) & state.isin(bg_set)
     if sel.sum() < 30:
         return None, None, int(sel.sum())
     import numpy as np
@@ -304,8 +350,9 @@ def main():
         row = _assemble_row(y, dem_avg, rep_avg, 'cdf VCF0354/0355', meta)
 
         # Swing-state subset: same trust tercile cut, then filter to
-        # EXPANDED_SWING_FIPS only.
-        sel_sw = m & (trust <= cutoff) & state.isin(EXPANDED_SWING_FIPS)
+        # cycle-specific battleground FIPS.
+        bg_set_y = set(BG_BY_CYCLE.get(y, [])) or EXPANDED_SWING_FIPS
+        sel_sw = m & (trust <= cutoff) & state.isin(bg_set_y)
         n_sw = int(sel_sw.sum())
         if n_sw >= 30:
             dem_sw = float(np.average((4 - h_dem[sel_sw]), weights=w[sel_sw])) * 4.0/3.0

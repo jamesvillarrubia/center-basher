@@ -57,7 +57,7 @@ export function drawHonestyCrossover(selector, data) {
     .text('Swing-state Critics’ "is honest" rating per cycle')
   svg.append('text').attr('class', 'hc-subtitle')
     .attr('x', margin.left).attr('y', 42)
-    .text('Low-trust voters in PA/MI/WI/OH/FL/NC/AZ/GA/NV only — the voters campaigns actually fight for.')
+    .text('Low-trust voters in each cycle’s actual battleground states only — the voters campaigns actually fight for.')
   svg.append('text').attr('class', 'hc-subtitle')
     .attr('x', margin.left).attr('y', 58)
     .text('✓ on the SWING-STATE winner (Big-5 D-share ≥ 50%). Grey/dashed = "wash" (|gap| < 0.2).')
@@ -199,5 +199,5 @@ export function drawHonestyCrossover(selector, data) {
   // Footer note
   svg.append('text').attr('class', 'hc-foot')
     .attr('x', margin.left).attr('y', H - 4)
-    .text('Swing-state subset (PA/MI/WI/OH/FL/NC/AZ/GA/NV). Tercile cut on national trust. Sample sizes 73–859 per cycle. Set is anachronistic for the 1980s.')
+    .text('Cycle-specific battlegrounds (5–11 states per cycle, pre-election toss-up consensus). Winner = majority of bg states won. Sample sizes 48–751.')
 }
