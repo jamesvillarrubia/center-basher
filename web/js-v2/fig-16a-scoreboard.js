@@ -1,54 +1,86 @@
-// Fig 16a (Option A) — The 7-cycle change-lane scoreboard.
+// Fig 16a — The change-lane scoreboard, 2000-2024.
 //
-// Each row is one presidential cycle 2000–2024. Columns: cycle,
-// in-power party's candidate, how they were cast, who claimed the
-// change lane, exit-poll backing, did the rule hold. The 7-for-7
-// (with a mixed 2020) is the visual.
+// Each row is one cycle. Columns:
+//   • Cycle (year)
+//   • Party in power (D / R, color-coded blue / red)
+//   • Change-lane owner (name, color-coded by party)
+//   • Exit-poll backing (the headline number that documents it)
+//   • Trust era (high / low, based on Authenticity Floor 0.41)
+//   • Winner (name, color-coded by party)
+//
+// The visual story: the in-power column is the loser column 6 of 7 times.
+// The change-lane column == the winner column 6 of 7 times. (2020 is the
+// mixed cycle.) The trust-era column shows that the rule fires in BOTH
+// regimes — high-trust 2000/2004 and low-trust 2008/2016/2020/2024 alike.
+
+const D = '#2c5b9c'
+const R = '#b8240f'
+const MIXED = '#7a4d8a'
 
 const CYCLES = [
   {
-    year: 2000, inPower: 'Gore (D)',     castAs: 'establishment 8-yr VP',
-    changeLane: 'Bush',                  outcome: 'Yes',
-    note: 'Bush dominated character traits, Gore Clinton-era drag',
-    ok: true,
+    year: 2000,
+    inPower:    { label: 'D', color: D },
+    changeOwner:{ name: 'Bush',   party: 'R', color: R },
+    exitPoll:   'Bush dominated character traits; Gore carried Clinton-era drag',
+    trust:      { era: 'high', value: 0.42 },
+    winner:     { name: 'Bush',   party: 'R', color: R, note: 'EC' },
   },
   {
-    year: 2004, inPower: 'Bush (R, inc.)', castAs: 'wartime strong leader',
-    changeLane: 'Bush',                  outcome: 'Yes*',
-    note: 'Bush kept the leadership/clarity lane despite incumbency',
-    ok: true, partial: true,
+    year: 2004,
+    inPower:    { label: 'R', color: R },
+    changeOwner:{ name: 'Bush',   party: 'R', color: R, asterisk: true },
+    exitPoll:   'Wartime "strong-leader" lane (Gallup +20pp); Kerry won the literal "change" word but only 25% picked it',
+    trust:      { era: 'high', value: 0.46 },
+    winner:     { name: 'Bush',   party: 'R', color: R },
   },
   {
-    year: 2008, inPower: "McCain (R, Bush's heir)", castAs: 'Bush-tied Senator',
-    changeLane: 'Obama',                 outcome: 'Yes',
-    note: '"Bring change" 34% → Obama 89-9 (decisive)',
-    ok: true,
+    year: 2008,
+    inPower:    { label: 'R', color: R },
+    changeOwner:{ name: 'Obama',  party: 'D', color: D },
+    exitPoll:   '"Bring change" 34% → Obama 89-9 (decisive)',
+    trust:      { era: 'mid',  value: 0.37 },
+    winner:     { name: 'Obama',  party: 'D', color: D },
   },
   {
-    year: 2012, inPower: 'Obama (D, inc.)', castAs: 'residual hope/change',
-    changeLane: 'Obama',                 outcome: 'Yes',
-    note: 'Romney was almost more establishment than Obama',
-    ok: true,
+    year: 2012,
+    inPower:    { label: 'D', color: D },
+    changeOwner:{ name: 'Obama',  party: 'D', color: D },
+    exitPoll:   '"Cares about people" 21% → Obama 81-18 (Romney = max-establishment)',
+    trust:      { era: 'mid',  value: 0.41 },
+    winner:     { name: 'Obama',  party: 'D', color: D },
   },
   {
-    year: 2016, inPower: "Clinton (D, Obama's heir)", castAs: 'establishment continuity',
-    changeLane: 'Trump',                 outcome: 'Yes',
-    note: '"Brings needed change" 39% → Trump 83-14',
-    ok: true,
+    year: 2016,
+    inPower:    { label: 'D', color: D },
+    changeOwner:{ name: 'Trump',  party: 'R', color: R },
+    exitPoll:   '"Brings needed change" 39% → Trump 83-14',
+    trust:      { era: 'low',  value: 0.23 },
+    winner:     { name: 'Trump',  party: 'R', color: R, note: 'EC' },
   },
   {
-    year: 2020, inPower: 'Trump (R, inc.)', castAs: 'now "the system"',
-    changeLane: 'Biden (mixed)',         outcome: 'Yes (mixed)',
-    note: 'Trust signal flat, election decided on COVID + economy',
-    ok: true, mixed: true,
+    year: 2020,
+    inPower:    { label: 'R', color: R },
+    changeOwner:{ name: 'Biden',  party: 'D', color: MIXED, mixed: true },
+    exitPoll:   'Mixed — Trump kept "needed change," Biden owned "good judgment"; trust signal flat',
+    trust:      { era: 'low',  value: 0.24 },
+    winner:     { name: 'Biden',  party: 'D', color: D },
   },
   {
-    year: 2024, inPower: "Harris (D, Biden's heir)", castAs: 'establishment continuity',
-    changeLane: 'Trump',                 outcome: 'Yes',
-    note: '"Ability to lead" 30% → Trump 66-33; 74% wanted new direction',
-    ok: true,
+    year: 2024,
+    inPower:    { label: 'D', color: D },
+    changeOwner:{ name: 'Trump',  party: 'R', color: R },
+    exitPoll:   '"Ability to lead" 30% → Trump 66-33; 74% wanted new direction',
+    trust:      { era: 'low',  value: 0.24 },
+    winner:     { name: 'Trump',  party: 'R', color: R },
   },
 ]
+
+function chip(color, text, opts = {}) {
+  const weight = opts.weight || 700
+  const bg = opts.faded ? `${color}22` : `${color}1a`
+  return `<span style="display:inline-block;padding:2px 8px;border-radius:3px;background:${bg};color:${color};font-weight:${weight};">${text}</span>`
+}
 
 export function drawChangeLaneScoreboard(selector) {
   const root = document.querySelector(selector)
@@ -56,42 +88,55 @@ export function drawChangeLaneScoreboard(selector) {
 
   let rows = ''
   for (const c of CYCLES) {
-    const winsByEstablishment = c.inPower.startsWith(c.changeLane.split(' ')[0])
+    const winnerIsInPower = c.winner.party === c.inPower.label
+    const rowStyle = winnerIsInPower ? '' : 'background:#fafafa;'
     rows += `
-      <tr${c.mixed ? ' class="cls-mixed"' : ''}${c.partial ? ' class="cls-partial"' : ''}>
-        <td class="cls-year">${c.year}</td>
-        <td class="cls-incumbent">${c.inPower}</td>
-        <td class="cls-cast">${c.castAs}</td>
-        <td class="cls-lane">${c.changeLane}</td>
-        <td class="cls-note">${c.note}</td>
-        <td class="cls-outcome">${c.outcome}</td>
+      <tr style="${rowStyle}">
+        <td class="cls-year" style="text-align:center;font-variant-numeric:tabular-nums;">${c.year}</td>
+        <td style="text-align:center;">${chip(c.inPower.color, c.inPower.label)}</td>
+        <td style="text-align:left;">
+          ${chip(c.changeOwner.color, c.changeOwner.name + (c.changeOwner.asterisk ? '*' : '') + (c.changeOwner.mixed ? ' (mixed)' : ''))}
+        </td>
+        <td class="cls-note" style="font-size:13px;color:#444;">${c.exitPoll}</td>
+        <td style="text-align:center;">
+          <span style="font-weight:600;color:${c.trust.era === 'high' ? '#a06400' : c.trust.era === 'mid' ? '#666' : '#2a6a3a'};">
+            ${c.trust.era}
+          </span>
+          <span style="font-size:11px;color:#888;display:block;">trust ${c.trust.value.toFixed(2)}</span>
+        </td>
+        <td style="text-align:left;">
+          ${chip(c.winner.color, c.winner.name + (c.winner.note ? ' (' + c.winner.note + ')' : ''))}
+        </td>
       </tr>`
   }
 
   root.innerHTML = `
     <div class="cls-board">
       <p class="cls-headline">
-        The candidate who owns the dominant outsider attribute wins, every cycle since 2000.
-        <strong>Successors get cast as the in-power establishment and lose, 4 for 4.</strong>
+        The change-lane owner wins, every cycle since 2000.
+        <strong>In-power successors get cast as the establishment and lose, 4-for-4.</strong>
+        The rule fires in <span style="color:${R};font-weight:700;">high-trust</span> and
+        <span style="color:#2a6a3a;font-weight:700;">low-trust</span> regimes alike.
       </p>
-      <table class="cls-table">
+      <table class="cls-table" style="font-size:14px;width:100%;border-collapse:collapse;">
         <thead>
-          <tr>
-            <th>Cycle</th>
-            <th>In-power party's candidate</th>
-            <th>Cast as</th>
-            <th>Change lane</th>
-            <th>Exit-poll backing</th>
-            <th>Rule</th>
+          <tr style="border-bottom:2px solid #1b1b1d;">
+            <th style="text-align:center;padding:8px 6px;">Cycle</th>
+            <th style="text-align:center;padding:8px 6px;">Party in power</th>
+            <th style="text-align:left;padding:8px 6px;">Change-lane owner</th>
+            <th style="text-align:left;padding:8px 6px;">Exit-poll backing</th>
+            <th style="text-align:center;padding:8px 6px;">Trust era</th>
+            <th style="text-align:left;padding:8px 6px;">Winner</th>
           </tr>
         </thead>
         <tbody>${rows}</tbody>
       </table>
-      <p class="cls-foot">
-        * 2004: Bush won the dominant leadership/clarity lane despite being incumbent.
-        Kerry won the literal "change" attribute (95-5) within only 25% of voters; the
-        rule holds on the dominant outsider lane for that wartime cycle, not on the
-        literal word.
+      <p class="cls-foot" style="font-size:12px;color:#666;margin-top:0.6rem;font-style:italic;">
+        * 2004 (Bush re-elect): Bush retained the dominant <em>leadership / clarity</em> lane despite incumbency
+        (Gallup pre-election: Bush +20pp on "strong and decisive leader"). Kerry won the literal "change" attribute
+        95-5 but only 25% of voters picked it. The rule holds on the dominant outsider lane that cycle, not on the
+        literal word "change." 2020 is the <em>mixed</em> cycle: Trump retained anti-establishment branding even
+        as incumbent, Biden owned the "judgment / normalcy" lane, and the trust→vote signal went flat.
       </p>
     </div>
   `

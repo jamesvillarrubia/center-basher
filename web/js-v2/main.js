@@ -88,10 +88,8 @@ async function init() {
   // §15 — per-cycle trust→vote coefficient bar chart
   drawTrustVoteCycles('#fig-15a-svg')
 
-  // §16 — change-lane scoreboard + two Figure B candidates (gap chart + honesty crossover)
+  // §16 — change-lane scoreboard + honesty crossover (Figure B Concept 1 trust-bands hidden per user feedback)
   drawChangeLaneScoreboard('#fig-16a-target')
-  const tbData = await (await fetch('data/vote_share_by_trust_band.json')).json()
-  drawTrustBandsByCycle('#fig-16b1-svg', tbData)
   const hcData = await (await fetch(`data/candidate_honesty_by_trust.json?cyclebg=v3&t=${Date.now()}`, {cache: 'no-store'})).json()
   drawHonestyCrossover('#fig-16b2-svg', hcData)
   // Baseline-regime scatter (reuses same JSON)
