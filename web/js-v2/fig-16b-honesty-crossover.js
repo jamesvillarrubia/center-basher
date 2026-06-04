@@ -41,7 +41,7 @@ export function drawHonestyCrossover(selector, data) {
     cycle: c.cycle, d: c.dem_low_trust, r: c.rep_low_trust, gap: c.gap, wash: c.is_wash
   })))
   const W = container.clientWidth || 680
-  const margin = { top: 110, right: 24, bottom: 175, left: 90 }
+  const margin = { top: 110, right: 65, bottom: 175, left: 90 }
   const innerW = W - margin.left - margin.right
   const innerH = 280
   const H = margin.top + innerH + margin.bottom
@@ -79,8 +79,55 @@ export function drawHonestyCrossover(selector, data) {
   const colW = x.bandwidth()
   const dotOffset = Math.min(10, colW * 0.25)
 
-  // Y scale
+  // Y scale (honesty rating, primary axis)
   const y = d3.scaleLinear().domain([0, 3]).range([innerH, 0])
+
+  // Secondary Y scale for trust (right axis). Domain 0.15..0.55 covers the
+  // observed range; the 0.41 floor line is the headline annotation.
+  const yTrust = d3.scaleLinear().domain([0.15, 0.55]).range([innerH, 0])
+
+  // Trust area underlay (drawn BEHIND the dots) — light blue ribbon.
+  const trustPts = cycles
+    .filter(c => c.trust_mean != null)
+    .map(c => ({ cycle: c.cycle, t: c.trust_mean }))
+  const cxOf = c => x(c) + colW / 2
+  const lineGen = d3.line().x(d => cxOf(d.cycle)).y(d => yTrust(d.t)).curve(d3.curveMonotoneX)
+  const areaGen = d3.area()
+    .x(d => cxOf(d.cycle))
+    .y0(innerH)
+    .y1(d => yTrust(d.t))
+    .curve(d3.curveMonotoneX)
+  g.append('path').attr('class', 'hc-trust-area')
+    .datum(trustPts).attr('d', areaGen)
+    .attr('fill', '#cad7e6').attr('opacity', 0.45)
+  g.append('path').attr('class', 'hc-trust-line')
+    .datum(trustPts).attr('d', lineGen)
+    .attr('fill', 'none').attr('stroke', '#3a6f9c').attr('stroke-width', 2)
+  // Trust dots per cycle
+  for (const p of trustPts) {
+    g.append('circle').attr('class', 'hc-trust-pt')
+      .attr('cx', cxOf(p.cycle)).attr('cy', yTrust(p.t)).attr('r', 2.5)
+      .attr('fill', '#3a6f9c')
+  }
+  // 0.41 floor line
+  g.append('line').attr('class', 'hc-trust-floor')
+    .attr('x1', 0).attr('x2', innerW)
+    .attr('y1', yTrust(0.41)).attr('y2', yTrust(0.41))
+    .attr('stroke', '#a06400').attr('stroke-width', 1.5)
+    .attr('stroke-dasharray', '4,3').attr('opacity', 0.85)
+  g.append('text').attr('class', 'hc-trust-floor-label')
+    .attr('x', innerW - 4).attr('y', yTrust(0.41) - 4).attr('text-anchor', 'end')
+    .attr('font-size', '10px').attr('font-weight', '700').attr('fill', '#a06400')
+    .text('Authenticity Floor (trust=0.41)')
+
+  // Right Y axis for trust
+  g.append('g').attr('class', 'hc-axis hc-axis-right')
+    .attr('transform', `translate(${innerW}, 0)`)
+    .call(d3.axisRight(yTrust).ticks(5).tickFormat(d => d.toFixed(2)).tickSizeOuter(0))
+  svg.append('text').attr('class', 'hc-axis-title')
+    .attr('transform', `translate(${W - 12}, ${margin.top + innerH / 2}) rotate(-90)`)
+    .attr('text-anchor', 'middle').attr('fill', '#3a6f9c')
+    .text('mean trust composite (0–1)')
 
   // Gridlines
   g.append('g').attr('class', 'hc-grid')
