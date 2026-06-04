@@ -1,25 +1,26 @@
-// Fig 16b (v5 — SWING STATE FILTER) — Honesty rating among System
-// Critics WHO LIVE IN SWING STATES, across 12 presidential cycles
-// (1980-2024). Filters out the highly partisan states (CA, TX, NY, WY,
-// etc.) where campaigns don't compete and Critics' honesty ratings are
-// largely baked-in partisan reflex.
+// Fig 16b (v6 — SIMPLIFIED) — Honesty rating among swing-state Critics
+// across 12 presidential cycles (1980-2024).
 //
-// Swing-state set (consistent across cycles): PA, MI, WI, OH, FL, NC,
-// AZ, GA, NV. Anachronistic for the 1980s (Reagan-era battlegrounds
-// included IL/NJ/MO) but defensible for the modern era; documented in
-// the figcaption.
+// What this chart shows (and ONLY this):
+//   - Per cycle: how low-trust voters in that cycle's battleground states
+//     rated the Dem (blue) and Rep (red) candidates on honesty.
+//   - ✓ on whoever WON the swing states (majority of bgs).
+//   - Trust regime context: era band shading (high-trust 1980-2004 right,
+//     low-trust 2008+ left) and trust value per cycle colored by regime.
 //
-// Same chart mechanics as the national version: ✓ on popular-vote
-// winner; "EC≠PV" tag for 2000 and 2016. Per-cycle sample sizes shown
-// in the data JSON (n_swing field) — ranges from 73 (2004) to 859 (2020).
+// What we REMOVED for clarity:
+//   - Right Y axis + area chart of trust (moved to Figure D)
+//   - "Rule branch" row (rule mechanics shown in figcaption text)
+//   - Δturnout row (lives on Figure D)
+//   - Inline "wash" labels (dashed connector + grey dots is enough)
+//   - Sw≠EC / Sw≠PV tags (called out in figcaption)
 //
-// Data: scripts/build_candidate_honesty_by_trust.py → candidate_honesty_by_trust.json
+// Data: scripts/build_candidate_honesty_by_trust.py
 // Fields used: dem_low_trust_swing, rep_low_trust_swing, gap_swing, is_wash_swing
 import * as d3 from 'https://esm.sh/d3@7'
 
 const COLOR_DEM = '#2c5b9c'
 const COLOR_REP = '#b8240f'
-const COLOR_SPLIT = '#a06400'
 const COLOR_WASH = '#9a9a9a'
 
 export function drawHonestyCrossover(selector, data) {
@@ -27,8 +28,6 @@ export function drawHonestyCrossover(selector, data) {
   if (!container) throw new Error(`No container at ${selector}`)
   container.innerHTML = ''
 
-  // Pull swing-state values; cycles missing swing data fall back to null
-  // so they render with the "n/a" marker.
   const cycles = data.cycles.map(c => ({
     ...c,
     dem_low_trust: c.dem_low_trust_swing,
@@ -36,12 +35,9 @@ export function drawHonestyCrossover(selector, data) {
     gap:           c.gap_swing,
     is_wash:       c.is_wash_swing,
   }))
-  // eslint-disable-next-line no-console
-  console.log('[fig-16b] swing values:', cycles.map(c => ({
-    cycle: c.cycle, d: c.dem_low_trust, r: c.rep_low_trust, gap: c.gap, wash: c.is_wash
-  })))
+
   const W = container.clientWidth || 680
-  const margin = { top: 110, right: 65, bottom: 175, left: 90 }
+  const margin = { top: 100, right: 20, bottom: 105, left: 60 }
   const innerW = W - margin.left - margin.right
   const innerH = 280
   const H = margin.top + innerH + margin.bottom
@@ -51,87 +47,57 @@ export function drawHonestyCrossover(selector, data) {
     .attr('class', 'hc-chart')
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
-  // Title block
+  // Title
   svg.append('text').attr('class', 'hc-title')
     .attr('x', margin.left).attr('y', 22)
-    .text('Swing-state Critics’ "is honest" rating per cycle')
+    .text('Swing-state Critics’ honesty rating per cycle')
   svg.append('text').attr('class', 'hc-subtitle')
     .attr('x', margin.left).attr('y', 42)
-    .text('Low-trust voters in each cycle’s actual battleground states only — the voters campaigns actually fight for.')
-  svg.append('text').attr('class', 'hc-subtitle')
-    .attr('x', margin.left).attr('y', 58)
-    .text('✓ on the SWING-STATE winner (Big-5 D-share ≥ 50%). Grey/dashed = "wash" (|gap| < 0.2).')
+    .text('Low-trust voters in each cycle’s actual battleground states. ✓ on the swing-state winner.')
 
   // Legend
-  const legY = 78
-  svg.append('circle').attr('cx', margin.left + 6).attr('cy', legY + 4).attr('r', 5).attr('fill', COLOR_DEM)
-  svg.append('text').attr('class', 'hc-leg').attr('x', margin.left + 16).attr('y', legY + 8)
-    .text('Dem candidate')
-  svg.append('circle').attr('cx', margin.left + 130).attr('cy', legY + 4).attr('r', 5).attr('fill', COLOR_REP)
-  svg.append('text').attr('class', 'hc-leg').attr('x', margin.left + 140).attr('y', legY + 8)
-    .text('Rep candidate')
-  svg.append('text').attr('class', 'hc-leg').attr('x', margin.left + 240).attr('y', legY + 8)
-    .attr('fill', '#2e7d32').attr('font-weight', '700')
-    .text('✓ = swing-state winner')
+  const legY = 64
+  svg.append('circle').attr('cx', margin.left + 6).attr('cy', legY).attr('r', 5).attr('fill', COLOR_DEM)
+  svg.append('text').attr('class', 'hc-leg').attr('x', margin.left + 16).attr('y', legY + 4).text('Dem candidate')
+  svg.append('circle').attr('cx', margin.left + 130).attr('cy', legY).attr('r', 5).attr('fill', COLOR_REP)
+  svg.append('text').attr('class', 'hc-leg').attr('x', margin.left + 140).attr('y', legY + 4).text('Rep candidate')
+  svg.append('text').attr('class', 'hc-leg').attr('x', margin.left + 240).attr('y', legY + 4)
+    .attr('fill', '#2e7d32').attr('font-weight', '700').text('✓ swing-state winner')
+  svg.append('line').attr('x1', margin.left + 380).attr('x2', margin.left + 398)
+    .attr('y1', legY).attr('y2', legY)
+    .attr('stroke', COLOR_WASH).attr('stroke-width', 2).attr('stroke-dasharray', '3,3')
+  svg.append('text').attr('class', 'hc-leg').attr('x', margin.left + 402).attr('y', legY + 4)
+    .attr('fill', '#777').text('grey/dashed = wash (no clear pick)')
 
-  // X scale (cycle as band)
-  const x = d3.scaleBand().domain(cycles.map(c => c.cycle)).range([0, innerW]).padding(0.2)
+  // Era band shading
+  const x = d3.scaleBand().domain(cycles.map(c => c.cycle)).range([0, innerW]).padding(0.18)
   const colW = x.bandwidth()
-  const dotOffset = Math.min(10, colW * 0.25)
+  const dotOffset = Math.min(10, colW * 0.28)
+  const eraDividerCycle = 2008
+  const eraDividerX = x(eraDividerCycle) - x.step() / 2 + x.bandwidth() / 2
+  g.append('rect').attr('x', 0).attr('y', 0)
+    .attr('width', eraDividerX).attr('height', innerH)
+    .attr('fill', '#fbf3e3').attr('opacity', 0.45)
+  g.append('rect').attr('x', eraDividerX).attr('y', 0)
+    .attr('width', innerW - eraDividerX).attr('height', innerH)
+    .attr('fill', '#e8efe6').attr('opacity', 0.45)
+  // Era labels
+  g.append('text')
+    .attr('x', eraDividerX / 2).attr('y', 12).attr('text-anchor', 'middle')
+    .attr('font-size', '10.5px').attr('font-weight', '700').attr('fill', '#a06400')
+    .text('High-trust era (trust ≥ 0.41)')
+  g.append('text')
+    .attr('x', eraDividerX + (innerW - eraDividerX) / 2).attr('y', 12).attr('text-anchor', 'middle')
+    .attr('font-size', '10.5px').attr('font-weight', '700').attr('fill', '#2a6a3a')
+    .text('Low-trust era (trust < 0.41)')
 
-  // Y scale (honesty rating, primary axis)
+  // Y scale
   const y = d3.scaleLinear().domain([0, 3]).range([innerH, 0])
 
-  // Secondary Y scale for trust (right axis). Domain 0.15..0.55 covers the
-  // observed range; the 0.41 floor line is the headline annotation.
-  const yTrust = d3.scaleLinear().domain([0.15, 0.55]).range([innerH, 0])
-
-  // Trust area underlay (drawn BEHIND the dots) — light blue ribbon.
-  const trustPts = cycles
-    .filter(c => c.trust_mean != null)
-    .map(c => ({ cycle: c.cycle, t: c.trust_mean }))
-  const cxOf = c => x(c) + colW / 2
-  const lineGen = d3.line().x(d => cxOf(d.cycle)).y(d => yTrust(d.t)).curve(d3.curveMonotoneX)
-  const areaGen = d3.area()
-    .x(d => cxOf(d.cycle))
-    .y0(innerH)
-    .y1(d => yTrust(d.t))
-    .curve(d3.curveMonotoneX)
-  g.append('path').attr('class', 'hc-trust-area')
-    .datum(trustPts).attr('d', areaGen)
-    .attr('fill', '#cad7e6').attr('opacity', 0.45)
-  g.append('path').attr('class', 'hc-trust-line')
-    .datum(trustPts).attr('d', lineGen)
-    .attr('fill', 'none').attr('stroke', '#3a6f9c').attr('stroke-width', 2)
-  // Trust dots per cycle
-  for (const p of trustPts) {
-    g.append('circle').attr('class', 'hc-trust-pt')
-      .attr('cx', cxOf(p.cycle)).attr('cy', yTrust(p.t)).attr('r', 2.5)
-      .attr('fill', '#3a6f9c')
-  }
-  // 0.41 floor line
-  g.append('line').attr('class', 'hc-trust-floor')
-    .attr('x1', 0).attr('x2', innerW)
-    .attr('y1', yTrust(0.41)).attr('y2', yTrust(0.41))
-    .attr('stroke', '#a06400').attr('stroke-width', 1.5)
-    .attr('stroke-dasharray', '4,3').attr('opacity', 0.85)
-  g.append('text').attr('class', 'hc-trust-floor-label')
-    .attr('x', innerW - 4).attr('y', yTrust(0.41) - 4).attr('text-anchor', 'end')
-    .attr('font-size', '10px').attr('font-weight', '700').attr('fill', '#a06400')
-    .text('Authenticity Floor (trust=0.41)')
-
-  // Right Y axis for trust
-  g.append('g').attr('class', 'hc-axis hc-axis-right')
-    .attr('transform', `translate(${innerW}, 0)`)
-    .call(d3.axisRight(yTrust).ticks(5).tickFormat(d => d.toFixed(2)).tickSizeOuter(0))
-  svg.append('text').attr('class', 'hc-axis-title')
-    .attr('transform', `translate(${W - 12}, ${margin.top + innerH / 2}) rotate(-90)`)
-    .attr('text-anchor', 'middle').attr('fill', '#3a6f9c')
-    .text('mean trust composite (0–1)')
-
-  // Gridlines
+  // Gridlines (subtle)
   g.append('g').attr('class', 'hc-grid')
     .call(d3.axisLeft(y).ticks(4).tickSize(-innerW).tickFormat(''))
+    .selectAll('line').attr('stroke', '#e6e6e6')
 
   // Y axis
   g.append('g').attr('class', 'hc-axis')
@@ -140,151 +106,86 @@ export function drawHonestyCrossover(selector, data) {
     .attr('transform', `translate(20, ${margin.top + innerH / 2}) rotate(-90)`)
     .attr('text-anchor', 'middle')
     .text('Critics’ "is honest" rating (0–4)')
-  // Direction labels
   g.append('text').attr('class', 'hc-axis-dir')
-    .attr('x', -8).attr('y', y(2.85)).attr('text-anchor', 'end')
-    .text('↑ more honest')
+    .attr('x', -8).attr('y', y(2.9)).attr('text-anchor', 'end').text('↑ more honest')
   g.append('text').attr('class', 'hc-axis-dir')
-    .attr('x', -8).attr('y', y(0.15)).attr('text-anchor', 'end')
-    .text('↓ less honest')
+    .attr('x', -8).attr('y', y(0.1)).attr('text-anchor', 'end').text('↓ less honest')
 
   // X axis (years)
   g.append('g').attr('class', 'hc-axis')
     .attr('transform', `translate(0, ${innerH})`)
     .call(d3.axisBottom(x).tickFormat(d => `'${String(d).slice(2)}`).tickSizeOuter(0))
 
-  // Per cycle: draw two dots + connecting line + winner ✓
+  // Per-cycle dots, connector, winner ✓
   for (const c of cycles) {
     const cx = x(c.cycle) + colW / 2
     const xDem = cx - dotOffset
     const xRep = cx + dotOffset
     const isWash = !!c.is_wash
 
-    // Connecting line (gap) — dashed for wash
-    const line = g.append('line').attr('class', 'hc-gapline')
+    // Connector
+    g.append('line').attr('class', 'hc-gapline')
       .attr('x1', xDem).attr('x2', xRep)
       .attr('y1', y(c.dem_low_trust)).attr('y2', y(c.rep_low_trust))
-    if (isWash) line.attr('stroke-dasharray', '3,3').attr('stroke', COLOR_WASH)
+      .attr('stroke', isWash ? COLOR_WASH : '#bababa')
+      .attr('stroke-width', isWash ? 1.5 : 1.5)
+      .attr('stroke-dasharray', isWash ? '3,3' : null)
 
-    // Dem dot
-    g.append('circle').attr('class', 'hc-dot')
+    // Dots
+    g.append('circle')
       .attr('cx', xDem).attr('cy', y(c.dem_low_trust)).attr('r', 6)
-      .attr('fill', isWash ? COLOR_WASH : COLOR_DEM)
-      .attr('stroke', isWash ? COLOR_DEM : 'none').attr('stroke-width', isWash ? 1.5 : 0)
-    // Rep dot
-    g.append('circle').attr('class', 'hc-dot')
+      .attr('fill', isWash ? '#fff' : COLOR_DEM)
+      .attr('stroke', COLOR_DEM).attr('stroke-width', isWash ? 1.8 : 0)
+    g.append('circle')
       .attr('cx', xRep).attr('cy', y(c.rep_low_trust)).attr('r', 6)
-      .attr('fill', isWash ? COLOR_WASH : COLOR_REP)
-      .attr('stroke', isWash ? COLOR_REP : 'none').attr('stroke-width', isWash ? 1.5 : 0)
+      .attr('fill', isWash ? '#fff' : COLOR_REP)
+      .attr('stroke', COLOR_REP).attr('stroke-width', isWash ? 1.8 : 0)
 
-    // Winner ✓ (SWING-STATE winner — D won Big 5 ≥ 50% D-share).
-    // Consistent with the Critics subset: swing-state Critics' pick is
-    // checked against swing-state outcome, not national PV.
+    // ✓ on swing winner
     const winnerIsDem = (c.swing_winner === c.dem_name)
     const wx = winnerIsDem ? xDem : xRep
     const wy = winnerIsDem ? y(c.dem_low_trust) : y(c.rep_low_trust)
     g.append('text').attr('class', 'hc-winner-check')
-      .attr('x', wx).attr('y', wy - 12).attr('text-anchor', 'middle')
-      .attr('opacity', isWash ? 0.35 : 1)
+      .attr('x', wx).attr('y', wy - 11).attr('text-anchor', 'middle')
+      .attr('fill', '#2e7d32').attr('font-weight', '700').attr('font-size', '15px')
       .text('✓')
 
-    // Flag cycles where Swing winner diverged from EC OR national PV
-    const tags = []
-    if (c.swing_winner !== c.ec_winner) tags.push('Sw≠EC')
-    if (c.swing_winner !== c.pv_winner) tags.push('Sw≠PV')
-    if (tags.length) {
-      g.append('text').attr('class', 'hc-split-tag')
-        .attr('x', cx).attr('y', innerH + 50).attr('text-anchor', 'middle')
-        .attr('fill', COLOR_SPLIT).attr('font-weight', '700').attr('font-size', '9px')
-        .text(tags.join(' '))
-    }
-
-    // "wash" tag for low-gap cycles
-    if (isWash) {
-      g.append('text').attr('class', 'hc-wash-tag')
-        .attr('x', cx).attr('y', innerH + 50).attr('text-anchor', 'middle')
-        .attr('fill', COLOR_WASH).attr('font-weight', '700').attr('font-size', '10px')
-        .attr('font-style', 'italic')
-        .text('wash')
-    }
-
-    // In-power tag below the cycle
+    // WH-held row
     g.append('text').attr('class', 'hc-inpower-tag')
-      .attr('x', cx).attr('y', innerH + 32).attr('text-anchor', 'middle')
-      .text(c.inpower === 'D' ? 'D held WH' : 'R held WH')
+      .attr('x', cx).attr('y', innerH + 30).attr('text-anchor', 'middle')
+      .attr('font-size', '10px').attr('fill', '#555')
+      .text(c.inpower === 'D' ? 'D' : 'R')
 
-    // Trust mean — color-coded by the Authenticity Floor (>=0.41 = high trust
-    // regime, in-power structural advantage). Below 0.41 = low trust regime,
-    // anti-system mode where Critics' direction tips outcomes.
+    // Trust value (color-coded by regime)
     if (c.trust_mean != null) {
       const aboveFloor = c.trust_mean >= 0.41
-      g.append('text').attr('class', 'hc-trust-tag')
-        .attr('x', cx).attr('y', innerH + 68).attr('text-anchor', 'middle')
-        .attr('font-size', '10px').attr('font-weight', '700')
+      g.append('text')
+        .attr('x', cx).attr('y', innerH + 50).attr('text-anchor', 'middle')
+        .attr('font-size', '10.5px').attr('font-weight', '700')
         .attr('fill', aboveFloor ? '#a06400' : '#2a6a3a')
         .text(c.trust_mean.toFixed(2))
     }
-
-    // Authenticity-Floor rule branch indicator
-    // G = gap big (>= 0.30, Critics' pick wins)
-    // T = trust high (>=0.41 AND gap < 0.30, in-power retains)
-    // L = low trust + narrow gap (Critics' direction wins by tilt)
-    if (c.trust_mean != null && c.gap != null) {
-      const absGap = Math.abs(c.gap)
-      let branch = 'L'
-      let bColor = '#2a6a3a'
-      if (absGap >= 0.30) { branch = 'G'; bColor = '#1b4f8a' }
-      else if (c.trust_mean >= 0.41) { branch = 'T'; bColor = '#a06400' }
-      g.append('text').attr('class', 'hc-rule-tag')
-        .attr('x', cx).attr('y', innerH + 100).attr('text-anchor', 'middle')
-        .attr('font-size', '9.5px').attr('font-weight', '700').attr('fill', bColor)
-        .text(branch)
-    }
-
-    // Turnout delta (with surge highlight)
-    if (c.turnout_delta != null) {
-      const isSurge = c.turnout_surge
-      const sign = c.turnout_delta >= 0 ? '+' : ''
-      g.append('text').attr('class', 'hc-todelta-tag')
-        .attr('x', cx).attr('y', innerH + 84).attr('text-anchor', 'middle')
-        .attr('font-size', '9.5px')
-        .attr('font-weight', isSurge ? '700' : '400')
-        .attr('fill', isSurge ? '#b8240f' : '#555')
-        .text(`${sign}${c.turnout_delta.toFixed(1)}`)
-    }
   }
+
   // Row labels
   g.append('text')
-    .attr('x', -8).attr('y', innerH + 68).attr('text-anchor', 'end')
-    .attr('font-size', '9.5px').attr('fill', '#555').attr('font-style', 'italic')
-    .text('mean trust (floor=0.41)')
+    .attr('x', -8).attr('y', innerH + 30).attr('text-anchor', 'end')
+    .attr('font-size', '10px').attr('fill', '#555').attr('font-style', 'italic')
+    .text('held WH')
   g.append('text')
-    .attr('x', -8).attr('y', innerH + 84).attr('text-anchor', 'end')
-    .attr('font-size', '9.5px').attr('fill', '#555').attr('font-style', 'italic')
-    .text('Δ turnout (pp)')
-  g.append('text')
-    .attr('x', -8).attr('y', innerH + 100).attr('text-anchor', 'end')
-    .attr('font-size', '9.5px').attr('fill', '#555').attr('font-style', 'italic')
-    .text('rule branch')
+    .attr('x', -8).attr('y', innerH + 50).attr('text-anchor', 'end')
+    .attr('font-size', '10px').attr('fill', '#555').attr('font-style', 'italic')
+    .text('trust (floor=0.41)')
 
-  // Footer note (two lines)
+  // Era divider (vertical between 2004 and 2008)
+  g.append('line')
+    .attr('x1', eraDividerX).attr('x2', eraDividerX)
+    .attr('y1', 0).attr('y2', innerH)
+    .attr('stroke', '#a06400').attr('stroke-width', 1.5)
+    .attr('stroke-dasharray', '4,3').attr('opacity', 0.6)
+
+  // Footer
   svg.append('text').attr('class', 'hc-foot')
-    .attr('x', margin.left).attr('y', H - 22)
-    .text('Cycle-specific battlegrounds (5–11 states per cycle). Winner = majority of bg states won. Sample sizes 48–751.')
-  svg.append('text').attr('class', 'hc-foot')
-    .attr('x', margin.left).attr('y', H - 8).attr('font-size', '10px')
-    .text('Rule branches: ')
-    .append('tspan').attr('fill', '#1b4f8a').attr('font-weight', '700').text('G').node()
-  svg.append('text').attr('class', 'hc-foot')
-    .attr('x', margin.left + 80).attr('y', H - 8).attr('font-size', '10px')
-    .attr('fill', '#1b4f8a')
-    .text('G = big Critics gap (≥0.30) → Critics\' pick wins')
-  svg.append('text').attr('class', 'hc-foot')
-    .attr('x', margin.left + 280).attr('y', H - 8).attr('font-size', '10px')
-    .attr('fill', '#a06400')
-    .text('T = high trust (≥0.41) + narrow gap → in-power retains')
-  svg.append('text').attr('class', 'hc-foot')
-    .attr('x', margin.left + 510).attr('y', H - 8).attr('font-size', '10px')
-    .attr('fill', '#2a6a3a')
-    .text('L = low trust → tilt')
+    .attr('x', margin.left).attr('y', H - 6)
+    .text('Cycle-specific battlegrounds (5–11 states; pre-election toss-up consensus). Trust composite normalized 0–1. Notable swing-vs-EC/PV splits: 2000, 2016.')
 }
