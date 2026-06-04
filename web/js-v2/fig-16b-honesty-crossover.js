@@ -35,8 +35,11 @@ export function drawHonestyCrossover(selector, data) {
     rep_low_trust: c.rep_low_trust_swing,
     gap:           c.gap_swing,
     is_wash:       c.is_wash_swing,
-    // ec/pv/inpower/names already on root
   }))
+  // eslint-disable-next-line no-console
+  console.log('[fig-16b] swing values:', cycles.map(c => ({
+    cycle: c.cycle, d: c.dem_low_trust, r: c.rep_low_trust, gap: c.gap, wash: c.is_wash
+  })))
   const W = container.clientWidth || 680
   const margin = { top: 110, right: 24, bottom: 150, left: 90 }
   const innerW = W - margin.left - margin.right
