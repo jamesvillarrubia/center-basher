@@ -23,6 +23,7 @@ import { drawTrustBandsByCycle } from './fig-16b-trust-bands.js'
 import { drawHonestyCrossover } from './fig-16b-honesty-crossover.js'
 import { drawSwitcherGap } from './fig-16c-switcher-gap.js'
 import { drawBaselineRegime } from './fig-16c-baseline-regime.js'
+import { drawTrustTurnout } from './fig-16d-trust-turnout.js'
 
 async function init() {
   // §0 — trust by cohort
@@ -92,6 +93,9 @@ async function init() {
   drawHonestyCrossover('#fig-16b2-svg', hcData)
   // Baseline-regime scatter (reuses same JSON)
   drawBaselineRegime('#fig-16c-svg', hcData)
+  // Swing-state trust × turnout scatter
+  const ttData = await (await fetch(`data/swing_trust_turnout.json?v=${Date.now()}`, {cache: 'no-store'})).json()
+  drawTrustTurnout('#fig-16d-svg', ttData)
 }
 
 init().catch(err => {

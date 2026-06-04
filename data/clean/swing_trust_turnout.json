@@ -1,0 +1,91 @@
+{
+  "source": "ANES CDF (1980-2008) + ANES standalone files (2012-2020). 2024 omitted (vote-validated coding shift).",
+  "method": "For each cycle, restrict to ANES respondents living in that cycle's battleground states (cycle-specific set, see BG_BY_CYCLE in build_candidate_honesty_by_trust.py). Compute weighted mean of the trust composite (CDF: VCF0604rev/0605/0609; 2012: trustgov + trust_social; 2016-2020: do-right/run-for-all/waste). Compute weighted self-reported turnout (CDF: VCF0702==2; 2012: voted for any candidate; 2016/2020: voter-validated vote==1).",
+  "caveats": [
+    "ANES self-reported turnout over-reports by ~25pp; absolute levels not comparable to VEP. Relative patterns across cycles are meaningful.",
+    "2024 omitted: V242065 coding (4=majority of respondents) needs verification.",
+    "Trust composite definition shifts between CDF and standalone files; 2012 mean (0.519) sits high because trust_social inflates the composite."
+  ],
+  "overall_r": -0.351,
+  "pre_2008_r": 0.858,
+  "post_2004_r": -0.908,
+  "cycles": [
+    {
+      "cycle": 1980,
+      "swing_trust": 0.379,
+      "swing_turnout": 70.2,
+      "n": 400,
+      "source": "CDF"
+    },
+    {
+      "cycle": 1984,
+      "swing_trust": 0.47,
+      "swing_turnout": 78.2,
+      "n": 124,
+      "source": "CDF"
+    },
+    {
+      "cycle": 1988,
+      "swing_trust": 0.47,
+      "swing_turnout": 73.2,
+      "n": 298,
+      "source": "CDF"
+    },
+    {
+      "cycle": 1992,
+      "swing_trust": 0.395,
+      "swing_turnout": 66.1,
+      "n": 461,
+      "source": "CDF"
+    },
+    {
+      "cycle": 1996,
+      "swing_trust": 0.386,
+      "swing_turnout": 64.7,
+      "n": 280,
+      "source": "CDF"
+    },
+    {
+      "cycle": 2000,
+      "swing_trust": 0.423,
+      "swing_turnout": 74.8,
+      "n": 389,
+      "source": "CDF"
+    },
+    {
+      "cycle": 2004,
+      "swing_trust": 0.483,
+      "swing_turnout": 81.2,
+      "n": 265,
+      "source": "CDF"
+    },
+    {
+      "cycle": 2008,
+      "swing_trust": 0.344,
+      "swing_turnout": 77.6,
+      "n": 521,
+      "source": "CDF"
+    },
+    {
+      "cycle": 2012,
+      "swing_trust": 0.519,
+      "swing_turnout": 63.0,
+      "n": 1341,
+      "source": "standalone"
+    },
+    {
+      "cycle": 2016,
+      "swing_trust": 0.217,
+      "swing_turnout": 77.0,
+      "n": 933,
+      "source": "standalone"
+    },
+    {
+      "cycle": 2020,
+      "swing_trust": 0.241,
+      "swing_turnout": 81.8,
+      "n": 1938,
+      "source": "standalone"
+    }
+  ]
+}
