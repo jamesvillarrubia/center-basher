@@ -60,7 +60,7 @@ export function drawHonestyCrossover(selector, data) {
     .text('Low-trust voters in PA/MI/WI/OH/FL/NC/AZ/GA/NV only — the voters campaigns actually fight for.')
   svg.append('text').attr('class', 'hc-subtitle')
     .attr('x', margin.left).attr('y', 58)
-    .text('✓ on popular-vote winner. Grey/dashed = "wash" (|gap| < 0.2 — Critics barely distinguished candidates).')
+    .text('✓ on the SWING-STATE winner (Big-5 D-share ≥ 50%). Grey/dashed = "wash" (|gap| < 0.2).')
 
   // Legend
   const legY = 78
@@ -72,7 +72,7 @@ export function drawHonestyCrossover(selector, data) {
     .text('Rep candidate')
   svg.append('text').attr('class', 'hc-leg').attr('x', margin.left + 240).attr('y', legY + 8)
     .attr('fill', '#2e7d32').attr('font-weight', '700')
-    .text('✓ = popular-vote winner')
+    .text('✓ = swing-state winner')
 
   // X scale (cycle as band)
   const x = d3.scaleBand().domain(cycles.map(c => c.cycle)).range([0, innerW]).padding(0.2)
@@ -130,21 +130,26 @@ export function drawHonestyCrossover(selector, data) {
       .attr('fill', isWash ? COLOR_WASH : COLOR_REP)
       .attr('stroke', isWash ? COLOR_REP : 'none').attr('stroke-width', isWash ? 1.5 : 0)
 
-    // Winner ✓ (popular-vote winner). Faded if wash.
-    const pvWinnerIsDem = (c.pv_winner === c.dem_name)
-    const wx = pvWinnerIsDem ? xDem : xRep
-    const wy = pvWinnerIsDem ? y(c.dem_low_trust) : y(c.rep_low_trust)
+    // Winner ✓ (SWING-STATE winner — D won Big 5 ≥ 50% D-share).
+    // Consistent with the Critics subset: swing-state Critics' pick is
+    // checked against swing-state outcome, not national PV.
+    const winnerIsDem = (c.swing_winner === c.dem_name)
+    const wx = winnerIsDem ? xDem : xRep
+    const wy = winnerIsDem ? y(c.dem_low_trust) : y(c.rep_low_trust)
     g.append('text').attr('class', 'hc-winner-check')
       .attr('x', wx).attr('y', wy - 12).attr('text-anchor', 'middle')
       .attr('opacity', isWash ? 0.35 : 1)
       .text('✓')
 
-    // EC ≠ PV tag (2000, 2016) — placed below in-power tag
-    if (c.ec_winner !== c.pv_winner) {
+    // Flag cycles where Swing winner diverged from EC OR national PV
+    const tags = []
+    if (c.swing_winner !== c.ec_winner) tags.push('Sw≠EC')
+    if (c.swing_winner !== c.pv_winner) tags.push('Sw≠PV')
+    if (tags.length) {
       g.append('text').attr('class', 'hc-split-tag')
         .attr('x', cx).attr('y', innerH + 50).attr('text-anchor', 'middle')
-        .attr('fill', COLOR_SPLIT).attr('font-weight', '700').attr('font-size', '10px')
-        .text('EC≠PV')
+        .attr('fill', COLOR_SPLIT).attr('font-weight', '700').attr('font-size', '9px')
+        .text(tags.join(' '))
     }
 
     // "wash" tag for low-gap cycles
