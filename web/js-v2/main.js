@@ -105,8 +105,8 @@ async function init() {
   // Cross-validation: Nationscape Apr→Jul panel
   const nsPanel = await (await fetch(`data/nationscape_panel_april_july_2020.json?v=${Date.now()}`, {cache: 'no-store'})).json()
   drawNationscapePanel('#fig-16f-svg', nsPanel)
-  // Weekly aggregate trajectory
-  const wtData = await (await fetch(`data/nationscape_weekly_trajectory.json?v=${Date.now()}`, {cache: 'no-store'})).json()
+  // Weekly aggregate trajectory — 3-cycle 538 polling averages
+  const wtData = await (await fetch(`data/poll_trajectory_multi.json?v=${Date.now()}`, {cache: 'no-store'})).json()
   drawWeeklyTrajectory('#fig-16g-svg', wtData)
 }
 
