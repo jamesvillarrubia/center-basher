@@ -41,7 +41,7 @@ export function drawHonestyCrossover(selector, data) {
     cycle: c.cycle, d: c.dem_low_trust, r: c.rep_low_trust, gap: c.gap, wash: c.is_wash
   })))
   const W = container.clientWidth || 680
-  const margin = { top: 110, right: 24, bottom: 150, left: 90 }
+  const margin = { top: 110, right: 24, bottom: 175, left: 90 }
   const innerW = W - margin.left - margin.right
   const innerH = 280
   const H = margin.top + innerH + margin.bottom
@@ -166,12 +166,32 @@ export function drawHonestyCrossover(selector, data) {
       .attr('x', cx).attr('y', innerH + 32).attr('text-anchor', 'middle')
       .text(c.inpower === 'D' ? 'D held WH' : 'R held WH')
 
-    // Trust mean
+    // Trust mean — color-coded by the Authenticity Floor (>=0.41 = high trust
+    // regime, in-power structural advantage). Below 0.41 = low trust regime,
+    // anti-system mode where Critics' direction tips outcomes.
     if (c.trust_mean != null) {
+      const aboveFloor = c.trust_mean >= 0.41
       g.append('text').attr('class', 'hc-trust-tag')
         .attr('x', cx).attr('y', innerH + 68).attr('text-anchor', 'middle')
-        .attr('font-size', '9.5px').attr('fill', '#555')
+        .attr('font-size', '10px').attr('font-weight', '700')
+        .attr('fill', aboveFloor ? '#a06400' : '#2a6a3a')
         .text(c.trust_mean.toFixed(2))
+    }
+
+    // Authenticity-Floor rule branch indicator
+    // G = gap big (>= 0.30, Critics' pick wins)
+    // T = trust high (>=0.41 AND gap < 0.30, in-power retains)
+    // L = low trust + narrow gap (Critics' direction wins by tilt)
+    if (c.trust_mean != null && c.gap != null) {
+      const absGap = Math.abs(c.gap)
+      let branch = 'L'
+      let bColor = '#2a6a3a'
+      if (absGap >= 0.30) { branch = 'G'; bColor = '#1b4f8a' }
+      else if (c.trust_mean >= 0.41) { branch = 'T'; bColor = '#a06400' }
+      g.append('text').attr('class', 'hc-rule-tag')
+        .attr('x', cx).attr('y', innerH + 100).attr('text-anchor', 'middle')
+        .attr('font-size', '9.5px').attr('font-weight', '700').attr('fill', bColor)
+        .text(branch)
     }
 
     // Turnout delta (with surge highlight)
@@ -190,14 +210,34 @@ export function drawHonestyCrossover(selector, data) {
   g.append('text')
     .attr('x', -8).attr('y', innerH + 68).attr('text-anchor', 'end')
     .attr('font-size', '9.5px').attr('fill', '#555').attr('font-style', 'italic')
-    .text('mean trust (0–1)')
+    .text('mean trust (floor=0.41)')
   g.append('text')
     .attr('x', -8).attr('y', innerH + 84).attr('text-anchor', 'end')
     .attr('font-size', '9.5px').attr('fill', '#555').attr('font-style', 'italic')
     .text('Δ turnout (pp)')
+  g.append('text')
+    .attr('x', -8).attr('y', innerH + 100).attr('text-anchor', 'end')
+    .attr('font-size', '9.5px').attr('fill', '#555').attr('font-style', 'italic')
+    .text('rule branch')
 
-  // Footer note
+  // Footer note (two lines)
   svg.append('text').attr('class', 'hc-foot')
-    .attr('x', margin.left).attr('y', H - 4)
-    .text('Cycle-specific battlegrounds (5–11 states per cycle, pre-election toss-up consensus). Winner = majority of bg states won. Sample sizes 48–751.')
+    .attr('x', margin.left).attr('y', H - 22)
+    .text('Cycle-specific battlegrounds (5–11 states per cycle). Winner = majority of bg states won. Sample sizes 48–751.')
+  svg.append('text').attr('class', 'hc-foot')
+    .attr('x', margin.left).attr('y', H - 8).attr('font-size', '10px')
+    .text('Rule branches: ')
+    .append('tspan').attr('fill', '#1b4f8a').attr('font-weight', '700').text('G').node()
+  svg.append('text').attr('class', 'hc-foot')
+    .attr('x', margin.left + 80).attr('y', H - 8).attr('font-size', '10px')
+    .attr('fill', '#1b4f8a')
+    .text('G = big Critics gap (≥0.30) → Critics\' pick wins')
+  svg.append('text').attr('class', 'hc-foot')
+    .attr('x', margin.left + 280).attr('y', H - 8).attr('font-size', '10px')
+    .attr('fill', '#a06400')
+    .text('T = high trust (≥0.41) + narrow gap → in-power retains')
+  svg.append('text').attr('class', 'hc-foot')
+    .attr('x', margin.left + 510).attr('y', H - 8).attr('font-size', '10px')
+    .attr('fill', '#2a6a3a')
+    .text('L = low trust → tilt')
 }

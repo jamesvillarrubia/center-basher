@@ -88,7 +88,7 @@ async function init() {
   drawChangeLaneScoreboard('#fig-16a-target')
   const tbData = await (await fetch('data/vote_share_by_trust_band.json')).json()
   drawTrustBandsByCycle('#fig-16b1-svg', tbData)
-  const hcData = await (await fetch(`data/candidate_honesty_by_trust.json?v=${Date.now()}`)).json()
+  const hcData = await (await fetch(`data/candidate_honesty_by_trust.json?cyclebg=v3&t=${Date.now()}`, {cache: 'no-store'})).json()
   drawHonestyCrossover('#fig-16b2-svg', hcData)
   // Baseline-regime scatter (reuses same JSON)
   drawBaselineRegime('#fig-16c-svg', hcData)
