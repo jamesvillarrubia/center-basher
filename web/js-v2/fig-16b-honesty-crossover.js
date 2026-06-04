@@ -26,7 +26,7 @@ export function drawHonestyCrossover(selector, data) {
 
   const cycles = data.cycles
   const W = container.clientWidth || 680
-  const margin = { top: 110, right: 24, bottom: 130, left: 60 }
+  const margin = { top: 110, right: 24, bottom: 150, left: 90 }
   const innerW = W - margin.left - margin.right
   const innerH = 280
   const H = margin.top + innerH + margin.bottom
@@ -146,22 +146,38 @@ export function drawHonestyCrossover(selector, data) {
       .attr('x', cx).attr('y', innerH + 32).attr('text-anchor', 'middle')
       .text(c.inpower === 'D' ? 'D held WH' : 'R held WH')
 
-    // Trust mean (small numeric) at the very bottom row
+    // Trust mean
     if (c.trust_mean != null) {
       g.append('text').attr('class', 'hc-trust-tag')
         .attr('x', cx).attr('y', innerH + 68).attr('text-anchor', 'middle')
         .attr('font-size', '9.5px').attr('fill', '#555')
         .text(c.trust_mean.toFixed(2))
     }
+
+    // Turnout delta (with surge highlight)
+    if (c.turnout_delta != null) {
+      const isSurge = c.turnout_surge
+      const sign = c.turnout_delta >= 0 ? '+' : ''
+      g.append('text').attr('class', 'hc-todelta-tag')
+        .attr('x', cx).attr('y', innerH + 84).attr('text-anchor', 'middle')
+        .attr('font-size', '9.5px')
+        .attr('font-weight', isSurge ? '700' : '400')
+        .attr('fill', isSurge ? '#b8240f' : '#555')
+        .text(`${sign}${c.turnout_delta.toFixed(1)}`)
+    }
   }
-  // Trust label
-  g.append('text').attr('class', 'hc-trust-label')
+  // Row labels
+  g.append('text')
     .attr('x', -8).attr('y', innerH + 68).attr('text-anchor', 'end')
     .attr('font-size', '9.5px').attr('fill', '#555').attr('font-style', 'italic')
     .text('mean trust (0–1)')
+  g.append('text')
+    .attr('x', -8).attr('y', innerH + 84).attr('text-anchor', 'end')
+    .attr('font-size', '9.5px').attr('fill', '#555').attr('font-style', 'italic')
+    .text('Δ turnout (pp)')
 
   // Footer note
   svg.append('text').attr('class', 'hc-foot')
     .attr('x', margin.left).attr('y', H - 4)
-    .text('CDF VCF0354/0355 (1980–2008), ANES standalone files (2012–2024). Critics = bottom trust tercile that cycle.')
+    .text('CDF VCF0354/0355 (1980–2008), ANES standalone (2012–24). Critics = bottom trust tercile. Δturnout in red = +2pp surge (in-power lost 3/4 surge cycles).')
 }

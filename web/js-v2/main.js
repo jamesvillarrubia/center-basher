@@ -22,6 +22,7 @@ import { drawEconPuzzle } from './fig-16b-econ-puzzle.js'
 import { drawTrustBandsByCycle } from './fig-16b-trust-bands.js'
 import { drawHonestyCrossover } from './fig-16b-honesty-crossover.js'
 import { drawSwitcherGap } from './fig-16c-switcher-gap.js'
+import { drawBaselineRegime } from './fig-16c-baseline-regime.js'
 
 async function init() {
   // §0 — trust by cohort
@@ -89,6 +90,8 @@ async function init() {
   drawTrustBandsByCycle('#fig-16b1-svg', tbData)
   const hcData = await (await fetch('data/candidate_honesty_by_trust.json')).json()
   drawHonestyCrossover('#fig-16b2-svg', hcData)
+  // Baseline-regime scatter (reuses same JSON)
+  drawBaselineRegime('#fig-16c-svg', hcData)
 }
 
 init().catch(err => {

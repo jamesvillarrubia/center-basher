@@ -94,6 +94,18 @@ TURNOUT_VEP = {
     2004: 60.1, 2008: 61.6, 2012: 58.6, 2016: 60.1, 2020: 66.6, 2024: 63.9,
 }
 
+# In-power party 2-party national PV share (D/(D+R) when in-power=D, else
+# R/(D+R)). From CQ Press / state CofE certified results.
+IN_POWER_2P_SHARE = {
+    1980: 44.7, 1984: 59.2, 1988: 53.9, 1992: 45.3, 1996: 55.2, 2000: 50.0,
+    2004: 51.2, 2008: 46.2, 2012: 51.6, 2016: 51.1, 2020: 47.7, 2024: 49.2,
+}
+
+# Cycle ordering for delta calculations
+_PRIOR_CYCLE = {y: prev for y, prev in zip(
+    sorted(IN_POWER_2P_SHARE), [None] + sorted(IN_POWER_2P_SHARE)[:-1]
+)}
+
 def authenticity_floor_predict(gap, trust_mean, inpower, dem_name, rep_name):
     """The Authenticity Floor decision tree. Returns predicted winner name."""
     if abs(gap) >= GAP_LARGE:
@@ -115,6 +127,9 @@ def _assemble_row(y, dem_avg, rep_avg, source, meta):
     predicted = authenticity_floor_predict(
         gap, trust_mean, meta['inpower'], meta['dem_name'], meta['rep_name'],
     )
+    prior_to = TURNOUT_VEP.get(_PRIOR_CYCLE.get(y)) if _PRIOR_CYCLE.get(y) else None
+    cur_to   = TURNOUT_VEP.get(y)
+    delta_to = (cur_to - prior_to) if (prior_to is not None and cur_to is not None) else None
     return {
         'cycle':           y,
         'dem_low_trust':   round(dem_avg, 2),
@@ -122,7 +137,10 @@ def _assemble_row(y, dem_avg, rep_avg, source, meta):
         'gap':             round(gap, 2),
         'is_wash':         abs(gap) < WASH_THRESHOLD,
         'trust_mean':      trust_mean,
-        'turnout_vep':     TURNOUT_VEP.get(y),
+        'turnout_vep':     cur_to,
+        'turnout_delta':   round(delta_to, 1) if delta_to is not None else None,
+        'turnout_surge':   (delta_to is not None and delta_to >= 2.0),
+        'in_power_2p_share': IN_POWER_2P_SHARE.get(y),
         'swing_d_share':   swing_d,
         'swing_winner':    swing_winner,
         'predicted_winner': predicted,
