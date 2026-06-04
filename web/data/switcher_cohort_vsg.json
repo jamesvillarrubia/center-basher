@@ -1,0 +1,56 @@
+{
+  "source": "Democracy Fund VOTER Survey Panel (VSG), n=8,034 panelists tracked 2011-2020. Subset: Obama-2012 + Romney-2012 voters split by 2016 vote. Item: 'When it comes to important national issues, do you tend to trust the opinions of ordinary people more, or do you tend to trust the opinions of experts more?' (VSG 2017 wave, 1-4 scale, LOWER = trust ordinary side).",
+  "headline": "Obama\u2192Trump switchers scored 0.77 closer to 'trust ordinary over experts' than Obama\u2192Clinton loyalists.",
+  "cohorts": [
+    {
+      "name": "Romney\u2192Trump loyalists",
+      "tag": "rep-pop",
+      "n_unweighted": 2928,
+      "n_weighted": 2509.5,
+      "trust_ordinary_over_experts_2017": 2.08,
+      "anti_elite_2016": 1.83,
+      "trump_changes_system_2018": 3.32,
+      "system_needs_strong_leader_2017": 3.16
+    },
+    {
+      "name": "Obama\u2192Trump switchers",
+      "tag": "switch-pop",
+      "n_unweighted": 254,
+      "n_weighted": 291.8,
+      "trust_ordinary_over_experts_2017": 2.24,
+      "anti_elite_2016": 1.58,
+      "trump_changes_system_2018": 2.65,
+      "system_needs_strong_leader_2017": 2.52
+    },
+    {
+      "name": "[ref] All major-party voters 2012+2016",
+      "tag": "all",
+      "n_unweighted": 6499,
+      "n_weighted": 5710.1,
+      "trust_ordinary_over_experts_2017": 2.54,
+      "anti_elite_2016": 1.75,
+      "trump_changes_system_2018": 2.39,
+      "system_needs_strong_leader_2017": 3.25
+    },
+    {
+      "name": "Romney\u2192Clinton switchers",
+      "tag": "switch-est",
+      "n_unweighted": 141,
+      "n_weighted": 153.4,
+      "trust_ordinary_over_experts_2017": 2.7,
+      "anti_elite_2016": 1.86,
+      "trump_changes_system_2018": 2.12,
+      "system_needs_strong_leader_2017": 3.17
+    },
+    {
+      "name": "Obama\u2192Clinton loyalists",
+      "tag": "dem-est",
+      "n_unweighted": 3176,
+      "n_weighted": 2755.4,
+      "trust_ordinary_over_experts_2017": 3.01,
+      "anti_elite_2016": 1.69,
+      "trump_changes_system_2018": 1.47,
+      "system_needs_strong_leader_2017": 3.43
+    }
+  ]
+}

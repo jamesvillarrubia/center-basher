@@ -1660,9 +1660,6 @@
       </figcaption>
     </figure>
 
-    <!-- Figure B Concept 1 (trust bands) hidden per user feedback (unclear).
-         Kept in JS so it can be brought back; removed from page render. -->
-
     <figure class="fig" id="fig-16b2">
       <p class="picker-label">Figure B — Honesty crossover among SWING-STATE Critics, 12 cycles (1980–2024)</p>
       <div class="fig-svg" id="fig-16b2-svg"></div>
@@ -1688,6 +1685,22 @@
       </figcaption>
     </figure>
 
+    <figure class="fig" id="fig-16c">
+      <p class="picker-label">Figure C — The baseline regime: trust resets where 50% lives</p>
+      <div class="fig-svg" id="fig-16c-svg"></div>
+      <figcaption>
+        Each dot is a cycle. The 50% line is fixed. What moves is the in-power
+        party’s <em>baseline</em> 2-party share. In the high-trust regime
+        (right band, trust ≥ 0.41), the baseline sits ~51–55% — comfortable
+        incumbency margin, takes a big Critics edge to dislodge. In the low-trust
+        regime (left band, trust &lt; 0.30), the baseline collapses to ~47–51% —
+        every cycle sits within ~3 points of the 50% threshold, so tiny structural
+        shoves (Critics’ direction, swing-state geography, EC bias) decide every
+        outcome. The cliff hasn’t moved; the post-2008 era simply parks every
+        cycle next to it. This is what the Authenticity-Floor rule is doing
+        mechanically: it reads which side of the 50% cliff the baseline lands on.
+      </figcaption>
+    </figure>
 
     <figure class="fig" id="fig-16d">
       <p class="picker-label">Figure D — Swing-state trust vs swing-state turnout (the relationship flips at the Floor)</p>
@@ -1711,54 +1724,6 @@
         2024 omitted (V242065 turnout coding needs verification).
       </figcaption>
     </figure>
-
-
-    <figure class="fig" id="fig-16g">
-      <p class="picker-label">Figure G — Aggregate margin barely moves across THREE cycles (2016, 2020, 2024)</p>
-      <div class="fig-svg" id="fig-16g-svg"></div>
-      <figcaption>
-        538 weekly national polling averages for three consecutive presidential
-        cycles. Each panel is one cycle, plotted as the Democratic margin
-        (D − R, percentage points) on a common scale (−5 to +12). Vertical
-        amber lines mark major campaign events. The headline finding:
-        <strong>in every cycle, the within-cycle standard deviation sits
-        between 1.7 and 2.3 percentage points</strong> — roughly the noise
-        floor of national polling. 2016 had Comey, Access Hollywood, and the
-        WikiLeaks DNC emails; the Clinton margin oscillated between 0 and
-        +8 but the cycle-long σ was 2.3pp. 2020 had a pandemic, RBG, Trump
-        COVID, and the Hunter laptop story; σ = 1.7pp. 2024 had a debate
-        catastrophe, an assassination attempt, and a mid-cycle candidate
-        swap; σ = 1.8pp through Sept 12. The aggregate margin is
-        essentially a flat line plus random walk noise — campaign events
-        don't shift it past the noise floor. This is the §16 thesis
-        cashed out at the largest possible scale. Caveat: 538's 2024 data
-        ends Sept 12 (538 wound down before the final 7 weeks).
-      </figcaption>
-    </figure>
-
-
-    <figure class="fig" id="fig-16f">
-      <p class="picker-label">Figure F — Cross-validation: Nationscape panel, April → July 2020</p>
-      <div class="fig-svg" id="fig-16f-svg"></div>
-      <figcaption>
-        Independent replication of Figure E using Nationscape (different
-        dataset), a 1–4 favorability scale (different metric), and an
-        April→July window (different time period). 4,686 matched panel
-        respondents. <strong>Only 15% of people stayed exactly the same.</strong>
-        44.3% shifted toward Biden (blue cells, above the diagonal).
-        40.7% shifted toward Trump (red cells, below). The two off-diagonal
-        regions look like mirror images of each other — which is what
-        symmetric movement looks like. Because the D-shifters and the
-        R-shifters cancel out at the population level, the centroid
-        (+0.20, +0.30) still sits on the diagonal — net shift +0.10 on
-        an 8-point scale. Skewness −0.04 confirms statistical symmetry.
-        <strong>The point isn't that perceptions are locked. The point
-        is that they move in BOTH directions by similar amounts, leaving
-        the aggregate unchanged.</strong> Same finding as Figure E,
-        derived from a completely independent dataset and window.
-      </figcaption>
-    </figure>
-
 
     <figure class="fig" id="fig-16e">
       <p class="picker-label">Figure E — Within-cycle movement test (does the Critics' gap shift during the campaign?)</p>
@@ -1794,21 +1759,48 @@
       </figcaption>
     </figure>
 
-
-    <figure class="fig" id="fig-16c">
-      <p class="picker-label">Figure C — The baseline regime: trust resets where 50% lives</p>
-      <div class="fig-svg" id="fig-16c-svg"></div>
+    <figure class="fig" id="fig-16f">
+      <p class="picker-label">Figure F — Cross-validation: Nationscape panel, April → July 2020</p>
+      <div class="fig-svg" id="fig-16f-svg"></div>
       <figcaption>
-        Each dot is a cycle. The 50% line is fixed. What moves is the in-power
-        party’s <em>baseline</em> 2-party share. In the high-trust regime
-        (right band, trust ≥ 0.41), the baseline sits ~51–55% — comfortable
-        incumbency margin, takes a big Critics edge to dislodge. In the low-trust
-        regime (left band, trust &lt; 0.30), the baseline collapses to ~47–51% —
-        every cycle sits within ~3 points of the 50% threshold, so tiny structural
-        shoves (Critics’ direction, swing-state geography, EC bias) decide every
-        outcome. The cliff hasn’t moved; the post-2008 era simply parks every
-        cycle next to it. This is what the Authenticity-Floor rule is doing
-        mechanically: it reads which side of the 50% cliff the baseline lands on.
+        Independent replication of Figure E using Nationscape (different
+        dataset), a 1–4 favorability scale (different metric), and an
+        April→July window (different time period). 4,686 matched panel
+        respondents. <strong>Only 15% of people stayed exactly the same.</strong>
+        44.3% shifted toward Biden (blue cells, above the diagonal).
+        40.7% shifted toward Trump (red cells, below). The two off-diagonal
+        regions look like mirror images of each other — which is what
+        symmetric movement looks like. Because the D-shifters and the
+        R-shifters cancel out at the population level, the centroid
+        (+0.20, +0.30) still sits on the diagonal — net shift +0.10 on
+        an 8-point scale. Skewness −0.04 confirms statistical symmetry.
+        <strong>The point isn't that perceptions are locked. The point
+        is that they move in BOTH directions by similar amounts, leaving
+        the aggregate unchanged.</strong> Same finding as Figure E,
+        derived from a completely independent dataset and window.
+      </figcaption>
+    </figure>
+
+    <figure class="fig" id="fig-16g">
+      <p class="picker-label">Figure G — Aggregate margin barely moves across THREE cycles (2016, 2020, 2024)</p>
+      <div class="fig-svg" id="fig-16g-svg"></div>
+      <figcaption>
+        538 weekly national polling averages for three consecutive presidential
+        cycles. Each panel is one cycle, plotted as the Democratic margin
+        (D − R, percentage points) on a common scale (−5 to +12). Vertical
+        amber lines mark major campaign events. The headline finding:
+        <strong>in every cycle, the within-cycle standard deviation sits
+        between 1.7 and 2.3 percentage points</strong> — roughly the noise
+        floor of national polling. 2016 had Comey, Access Hollywood, and the
+        WikiLeaks DNC emails; the Clinton margin oscillated between 0 and
+        +8 but the cycle-long σ was 2.3pp. 2020 had a pandemic, RBG, Trump
+        COVID, and the Hunter laptop story; σ = 1.7pp. 2024 had a debate
+        catastrophe, an assassination attempt, and a mid-cycle candidate
+        swap; σ = 1.8pp through Sept 12. The aggregate margin is
+        essentially a flat line plus random walk noise — campaign events
+        don't shift it past the noise floor. This is the §16 thesis
+        cashed out at the largest possible scale. Caveat: 538's 2024 data
+        ends Sept 12 (538 wound down before the final 7 weeks).
       </figcaption>
     </figure>
 
@@ -1899,12 +1891,6 @@
       Republicans select for whoever wins the brawl.
     </p>
 
-    <p style="font-style: italic; color: #666; margin-top: 1.5rem;">
-      §17 (not yet rendered on this preview site) documents how this played out
-      at the level of the actual votes that decided 2016 and 2024.
-    </p>
-
-
     <details class="howweknow">
       <summary>How we know</summary>
       <ol class="footnotes">
@@ -1940,6 +1926,100 @@
         </li>
       </ol>
     </details>
+  </section>
+
+
+  <!-- §17 -->
+  <section>
+    <p class="seclabel">§17 · What actually happened in 2016 (and 2024)</p>
+    <h2>The cohort that decides every close cycle</h2>
+
+    <p>
+      §16 built the model: regime baseline plus candidate-fit plus campaign
+      noise. §17 cashes it out at the level of actual votes.
+    </p>
+
+    <p>
+      2016 wasn’t a story of Clinton failing to win over moderate Republicans.
+      It’s a story of her failing to <strong>hold the people who were already
+      hers</strong>. Enough Bernie Sanders primary voters either flipped to
+      Trump or stayed home to flip Wisconsin, Michigan, and Pennsylvania, and
+      with them the whole election.
+    </p>
+
+    <p>
+      The state-by-state arithmetic, vote-validated by TargetSmart-merged CES 2016:
+    </p>
+
+    <ul>
+      <li><strong>Wisconsin</strong>: Trump’s certified margin was <strong>22,748</strong> votes. Sanders→Trump defectors numbered approximately <strong>61,000</strong> (<strong>2.7×</strong> the margin).</li>
+      <li><strong>Michigan</strong>: Trump’s margin was <strong>10,704</strong>. Sanders→Trump defectors approximately <strong>56,000</strong> (<strong>5.3×</strong>).</li>
+      <li><strong>Pennsylvania</strong>: Trump’s margin was <strong>44,292</strong>. Sanders→Trump defectors approximately <strong>131,000</strong> (<strong>3.0×</strong>).</li>
+    </ul>
+
+    <p>
+      In each of the three states that decided the election, the Sanders→Trump
+      defection bucket alone exceeded Trump’s certified margin of victory. Add
+      the <strong>~30% of Sanders primary voters who didn’t vote in the general
+      at all</strong>, and the consolidation problem becomes the entire story of 2016.
+    </p>
+
+    <p>
+      The switchers weren’t conservatives who got talked rightward. They were
+      anti-establishment voters who were never going to rally behind the
+      ultimate establishment candidate. The VSG panel data confirms this at
+      the cohort level — and it lines up exactly with the §16 thesis at the
+      level of the people whose votes decided WI / MI / PA:
+    </p>
+
+    <figure class="fig" id="fig-17a">
+      <p class="picker-label">Figure A — The switcher gap (VSG panel)</p>
+      <div class="fig-svg" id="fig-17a-svg"></div>
+      <figcaption>
+        Cohorts ranked by the VSG “trust ordinary people over experts” item
+        (2017 wave, 1–4 scale, LOWER = more anti-elite). Romney→Trump loyalists
+        (2.08) sit furthest left. Obama→<strong>Trump switchers</strong>
+        (2.24) — the cohort that flipped WI / MI / PA — sit a hair to their
+        right. Obama→<strong>Clinton loyalists</strong> (3.01) sit nearly
+        a full point to the right of the switchers, on the pro-expert side.
+        <strong>The 0.77-point gap on a 4-point scale</strong> is the §16
+        change-lane thesis tested directly at the cohort that decided 2016.
+        The switchers were not centrists; they were anti-establishment voters
+        who picked the more anti-establishment-coded candidate. <em>Caveat:</em>
+        switcher n = 254 unweighted; individual-mean SEs are non-trivial but
+        the cross-cohort <em>gap</em> is robust.
+      </figcaption>
+    </figure>
+
+    <h3 style="margin-top: 2rem;">2024: same cohort, different mechanism</h3>
+
+    <p>
+      2024 produced the same pattern through a different mechanism: not
+      defection so much as demobilization. <strong>30 million 2020 voters did
+      not return in 2024</strong>, the largest single-cycle drop-off since 2012.
+      The demobilization concentrated among non-white, young, and irregular
+      voters — voters whose 2020 turnout was mobilized in part on
+      anti-Trump grounds and who in 2024 saw no compelling reason to come back
+      when “anti-Trump” was still the Democratic brand’s central frame.
+    </p>
+
+    <p>
+      The 2016 and 2024 mechanisms differ — defection versus no-show — but
+      the cohort losing in each case is the same: the <strong>anti-establishment
+      voter the Democratic establishment had nothing to say to</strong>. In
+      2016 they defected. In 2024 they stayed home. Either way, the
+      Authenticity Floor + candidate-fit model from §16 predicted the
+      outcome: in a low-trust regime, the in-power party’s most insider-coded
+      nominee loses the swing-state Critics, and the swing-state Critics
+      decide the cycle.
+    </p>
+
+    <p>
+      The pattern is not about Bernie Sanders specifically. It is not about
+      Donald Trump specifically. It is about a regime, a hierarchy of effects,
+      and a nominating mechanism. §17’s votes are the §16 model made flesh.
+    </p>
+
   </section>
 
 </main>
