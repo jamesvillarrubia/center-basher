@@ -14,9 +14,12 @@
 // Data: scripts/build_within_cycle_movement.py
 import * as d3 from 'https://esm.sh/d3@7'
 
-const C_BIDEN = '#2c5b9c'
-const C_TRUMP = '#b8240f'
-const C_OTHER = '#9a9a9a'
+// Color BY DIRECTION OF MOVEMENT (matches Figure F).
+// Above diagonal = moved toward Biden. Below = moved toward Trump.
+// Exactly on diagonal = didn't change.
+const C_D = '#2c5b9c'   // above-diagonal movers
+const C_R = '#b8240f'   // below-diagonal movers
+const C_NO = '#666'     // on-diagonal stays
 
 export function drawWithinCycle(selector, data) {
   const container = document.querySelector(selector)
@@ -45,22 +48,35 @@ export function drawWithinCycle(selector, data) {
     .text('Within-cycle FT-gap movement, Sep → Nov 2020')
   svg.append('text').attr('class', 'wc-subtitle')
     .attr('x', margin.left).attr('y', 42)
-    .text(`Each dot = one VSG panel respondent (n = ${all.length}). X: Sep gap (D–R). Y: Nov gap. Diagonal = no change.`)
+    .text(`Most people MOVED. D-shifts and R-shifts cancel — so the centroid stays on the diagonal.`)
   svg.append('text').attr('class', 'wc-subtitle')
     .attr('x', margin.left).attr('y', 58)
-    .text(`Individuals move a lot (median |shift| ≈ 6pt). The aggregate gap shifts only ${stats.mean_shift > 0 ? '+' : ''}${stats.mean_shift}pt — symmetric (skewness ${stats.skewness}).`)
+    .text(`n = ${all.length.toLocaleString()}. Net shift ${stats.mean_shift > 0 ? '+' : ''}${stats.mean_shift}pt on 200-pt scale. Skewness ${stats.skewness}.`)
+  // Tally row
+  svg.append('text')
+    .attr('x', margin.left).attr('y', 78)
+    .attr('font-size', '11px').attr('font-weight', '700').attr('fill', C_D)
+    .text(`${stats.pct_dlean_shift}% moved toward Biden`)
+  svg.append('text')
+    .attr('x', margin.left + 180).attr('y', 78)
+    .attr('font-size', '11px').attr('font-weight', '700').attr('fill', C_R)
+    .text(`${stats.pct_rlean_shift}% moved toward Trump`)
+  svg.append('text')
+    .attr('x', margin.left + 360).attr('y', 78)
+    .attr('font-size', '11px').attr('font-weight', '700').attr('fill', C_NO)
+    .text(`${(100 - stats.pct_dlean_shift - stats.pct_rlean_shift).toFixed(1)}% didn't change`)
 
   // Scales
   const x = d3.scaleLinear().domain([-100, 100]).range([0, innerW])
   const y = d3.scaleLinear().domain([-100, 100]).range([innerH, 0])
 
-  // Quadrant background
-  g.append('rect').attr('x', x(0)).attr('y', 0)
-    .attr('width', x(100) - x(0)).attr('height', y(0))
-    .attr('fill', '#cad7e6').attr('opacity', 0.10)
-  g.append('rect').attr('x', 0).attr('y', y(0))
-    .attr('width', x(0)).attr('height', innerH - y(0))
-    .attr('fill', '#e6c4be').attr('opacity', 0.10)
+  // Triangle tints by movement direction (matches Figure F)
+  g.append('polygon')
+    .attr('points', `${x(-100)},${y(-100)} ${x(100)},${y(100)} ${x(-100)},${y(100)}`)
+    .attr('fill', C_D).attr('opacity', 0.06)
+  g.append('polygon')
+    .attr('points', `${x(-100)},${y(-100)} ${x(100)},${y(100)} ${x(100)},${y(-100)}`)
+    .attr('fill', C_R).attr('opacity', 0.06)
 
   // Gridlines + axes (zero lines emphasized)
   g.append('g').attr('class', 'wc-grid')
@@ -88,25 +104,26 @@ export function drawWithinCycle(selector, data) {
     .attr('font-size', '10.5px').attr('font-style', 'italic').attr('fill', '#444')
     .text('y = x  (no change)')
 
-  // Quadrant labels
-  const qLabel = (cx, cy, txt, color) => {
-    g.append('text')
-      .attr('x', x(cx)).attr('y', y(cy)).attr('text-anchor', 'middle')
-      .attr('font-size', '10.5px').attr('font-weight', '700').attr('fill', color)
-      .attr('opacity', 0.6).text(txt)
-  }
-  qLabel(60, 92, 'D-stable', C_BIDEN)
-  qLabel(-60, -92, 'R-stable', C_TRUMP)
-  qLabel(-70, 88, 'R → D flippers', '#444')
-  qLabel(70, -88, 'D → R flippers', '#444')
+  // Triangle labels (movement direction)
+  g.append('text')
+    .attr('x', x(-65)).attr('y', y(85)).attr('text-anchor', 'middle')
+    .attr('font-size', '11px').attr('font-weight', '700').attr('fill', C_D)
+    .attr('opacity', 0.65).text('moved toward Biden')
+  g.append('text')
+    .attr('x', x(65)).attr('y', y(-85)).attr('text-anchor', 'middle')
+    .attr('font-size', '11px').attr('font-weight', '700').attr('fill', C_R)
+    .attr('opacity', 0.65).text('moved toward Trump')
 
-  // Dots (jittered slightly since shifts are integer-rounded)
+  // Dots colored by DIRECTION OF MOVEMENT (matches Figure F).
+  // Above diagonal (n > s) = blue (D-direction).
+  // Below diagonal (n < s) = red (R-direction).
+  // On diagonal (n == s) = grey.
   const jitter = () => (Math.random() - 0.5) * 1.2
   for (const r of all) {
-    const color = r.v === 'B' ? C_BIDEN : r.v === 'T' ? C_TRUMP : C_OTHER
+    const color = r.n > r.s ? C_D : r.n < r.s ? C_R : C_NO
     g.append('circle')
       .attr('cx', x(r.s + jitter())).attr('cy', y(r.n + jitter()))
-      .attr('r', 1.6).attr('fill', color).attr('opacity', 0.32)
+      .attr('r', 1.6).attr('fill', color).attr('opacity', 0.4)
   }
 
   // Centroid markers — Sep mean → Nov mean (the population-level shift)
