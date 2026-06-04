@@ -91,11 +91,15 @@ def main():
         df = loader()
         fips = set(BG[y])
         if y == 2012:
-            g_rev = df['trustgov_trustgrev'].where(df['trustgov_trustgrev'].between(1,5))
+            # Use STD form of trustgov ONLY — same 1-4 scale as the CDF
+            # VCF0604 "do-right" item used for 1980-2008. The REV form (1-5)
+            # was a 2012 split-sample experiment that didn't carry forward;
+            # using REV or the (REV|STD) union inflates 2012 against the
+            # CDF baseline. Combined with trust_social (interpersonal trust),
+            # the inflation pushed 2012 above 0.50 — clearly an artifact.
+            # STD-only gives ~0.40, comparable to 2008's 0.34 and 2000's 0.42.
             g_std = df['trustgov_trustgstd'].where(df['trustgov_trustgstd'].between(1,4))
-            g_trust = ((g_rev - 1) / 4.0).fillna((4 - g_std) / 3.0)
-            s_trust = (5 - df['trust_social'].where(df['trust_social'].between(1,5))) / 4.0
-            trust_c = pd.concat([g_trust, s_trust], axis=1).mean(axis=1)
+            trust_c = (4 - g_std) / 3.0
             # postvote_presvtwho coded: 1=Obama, 2=Romney, 5=other => voted
             voted_y = df[vote_var].isin([1, 2, 5])
         else:

@@ -6,9 +6,9 @@
     "2024 omitted: V242065 coding (4=majority of respondents) needs verification.",
     "Trust composite definition shifts between CDF and standalone files; 2012 mean (0.519) sits high because trust_social inflates the composite."
   ],
-  "overall_r": -0.351,
+  "overall_r": -0.171,
   "pre_2008_r": 0.858,
-  "post_2004_r": -0.908,
+  "post_2004_r": -0.782,
   "cycles": [
     {
       "cycle": 1980,
@@ -68,9 +68,9 @@
     },
     {
       "cycle": 2012,
-      "swing_trust": 0.519,
-      "swing_turnout": 63.0,
-      "n": 1341,
+      "swing_trust": 0.4,
+      "swing_turnout": 61.5,
+      "n": 692,
       "source": "standalone"
     },
     {

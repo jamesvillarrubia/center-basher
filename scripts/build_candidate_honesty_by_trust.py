@@ -98,8 +98,12 @@ BG_D_WINS_BY_CYCLE = {
 # (do-right + run-for-all + waste), normalized 0-1 HIGH=trust.
 TRUST_MEAN = {
     1980: 0.401, 1984: 0.416, 1988: 0.428, 1992: 0.396, 1996: 0.406,
-    2000: 0.423, 2004: 0.459, 2008: 0.367, 2012: 0.519, 2016: 0.231,
-    2020: 0.239, 2024: 0.242,
+    2000: 0.423, 2004: 0.459, 2008: 0.367,
+    # 2012 recomputed using STD-form trustgov ONLY (1-4 scale, same as CDF
+    # VCF0604), national-weighted. Original value 0.519 was inflated by
+    # using the (REV|STD) union + trust_social interpersonal item.
+    2012: 0.405,
+    2016: 0.231, 2020: 0.239, 2024: 0.242,
 }
 
 # Cycles where the Critics' Dem-vs-Rep gap is too small to call a "pick"
@@ -219,15 +223,12 @@ def _compute_swing_recent(year):
         df = pd.read_stata('data/raw/anes_2012/anes_timeseries_2012.dta',
                             convert_categoricals=False,
                             columns=['ctrait_dpchonst','ctrait_rpchonst',
-                                     'trustgov_trustgrev','trustgov_trustgstd',
-                                     'trust_social','weight_full','sample_stfips'])
+                                     'trustgov_trustgstd','weight_full','sample_stfips'])
         hd = (5 - df['ctrait_dpchonst'].where(df['ctrait_dpchonst'].between(1,5)))
         hr = (5 - df['ctrait_rpchonst'].where(df['ctrait_rpchonst'].between(1,5)))
-        g_rev = df['trustgov_trustgrev'].where(df['trustgov_trustgrev'].between(1,5))
+        # STD-form trustgov ONLY (1-4, matches CDF VCF0604 scale).
         g_std = df['trustgov_trustgstd'].where(df['trustgov_trustgstd'].between(1,4))
-        g_trust = ((g_rev - 1) / 4.0).fillna((4 - g_std) / 3.0)
-        s_trust = (5 - df['trust_social'].where(df['trust_social'].between(1,5))) / 4.0
-        trust = pd.concat([g_trust, s_trust], axis=1).mean(axis=1)
+        trust = (4 - g_std) / 3.0
         w = df['weight_full'].fillna(0).clip(lower=0)
         state = pd.to_numeric(df['sample_stfips'], errors='coerce')
     elif year == 2016:

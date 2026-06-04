@@ -270,7 +270,7 @@
       "rep_low_trust": 1.39,
       "gap": 0.62,
       "is_wash": false,
-      "trust_mean": 0.519,
+      "trust_mean": 0.405,
       "turnout_vep": 58.6,
       "turnout_delta": -3.0,
       "turnout_surge": false,
@@ -290,10 +290,10 @@
       "rep_name": "Romney",
       "ec_winner": "Obama",
       "pv_winner": "Obama",
-      "dem_low_trust_swing": 2.06,
-      "rep_low_trust_swing": 1.36,
-      "n_swing": 467,
-      "gap_swing": 0.7,
+      "dem_low_trust_swing": 1.85,
+      "rep_low_trust_swing": 1.56,
+      "n_swing": 525,
+      "gap_swing": 0.29,
       "is_wash_swing": false
     },
     {
