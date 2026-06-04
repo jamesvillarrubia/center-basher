@@ -63,6 +63,76 @@ TRUST_MEAN = {
 # (|gap| < WASH_THRESHOLD on the 0-4 honesty scale). Coin-flippy cycles.
 WASH_THRESHOLD = 0.20
 
+# Authenticity-Floor rule thresholds. Above TRUST_HIGH and with a narrow
+# Critics gap (< GAP_LARGE), in-power party retains. Below the trust
+# floor, OR with a big Critics gap, Critics' pick wins.
+TRUST_HIGH = 0.41
+GAP_LARGE  = 0.30
+
+# Hand-curated D 2-party vote share in the canonical Big-5 battleground
+# states (PA, MI, WI, OH, FL) per cycle. Source: state CofE certified
+# results. Each value is D% / (D% + R%) for that state.
+BIG5 = {
+    1980: { 'PA': 46.1, 'MI': 43.5, 'WI': 46.6, 'OH': 43.8, 'FL': 39.4 },
+    1984: { 'PA': 46.3, 'MI': 39.5, 'WI': 46.0, 'OH': 41.3, 'FL': 35.9 },
+    1988: { 'PA': 48.8, 'MI': 46.4, 'WI': 51.6, 'OH': 45.4, 'FL': 39.1 },
+    1992: { 'PA': 55.6, 'MI': 51.5, 'WI': 50.6, 'OH': 47.5, 'FL': 47.0 },
+    1996: { 'PA': 55.1, 'MI': 56.7, 'WI': 55.0, 'OH': 52.4, 'FL': 51.5 },
+    2000: { 'PA': 52.2, 'MI': 52.6, 'WI': 50.1, 'OH': 48.2, 'FL': 50.0 },
+    2004: { 'PA': 51.3, 'MI': 51.7, 'WI': 50.2, 'OH': 48.9, 'FL': 47.5 },
+    2008: { 'PA': 55.2, 'MI': 57.9, 'WI': 56.4, 'OH': 51.4, 'FL': 51.4 },
+    2012: { 'PA': 52.7, 'MI': 54.7, 'WI': 52.6, 'OH': 50.7, 'FL': 50.2 },
+    2016: { 'PA': 49.6, 'MI': 49.9, 'WI': 49.6, 'OH': 45.8, 'FL': 49.4 },
+    2020: { 'PA': 50.6, 'MI': 51.4, 'WI': 50.3, 'OH': 47.5, 'FL': 48.7 },
+    2024: { 'PA': 49.2, 'MI': 49.4, 'WI': 49.6, 'OH': 45.0, 'FL': 45.5 },
+}
+
+# National VEP turnout % (voting-eligible population). Source: US
+# Elections Project (Michael McDonald), https://electproject.org.
+TURNOUT_VEP = {
+    1980: 52.6, 1984: 53.3, 1988: 50.3, 1992: 58.1, 1996: 51.7, 2000: 54.2,
+    2004: 60.1, 2008: 61.6, 2012: 58.6, 2016: 60.1, 2020: 66.6, 2024: 63.9,
+}
+
+def authenticity_floor_predict(gap, trust_mean, inpower, dem_name, rep_name):
+    """The Authenticity Floor decision tree. Returns predicted winner name."""
+    if abs(gap) >= GAP_LARGE:
+        return dem_name if gap > 0 else rep_name
+    if trust_mean >= TRUST_HIGH:
+        # in-power party retains
+        return dem_name if inpower == 'D' else rep_name
+    # low trust + narrow Critics' edge: in-power loses (Critics' direction)
+    return dem_name if gap >= 0 else rep_name
+
+
+def _assemble_row(y, dem_avg, rep_avg, source, meta):
+    gap        = dem_avg - rep_avg
+    trust_mean = TRUST_MEAN.get(y)
+    swing      = BIG5.get(y) or {}
+    swing_d    = round(sum(swing.values()) / len(swing), 2) if swing else None
+    swing_winner = (meta['dem_name'] if swing_d and swing_d >= 50.0
+                    else meta['rep_name'] if swing_d else None)
+    predicted = authenticity_floor_predict(
+        gap, trust_mean, meta['inpower'], meta['dem_name'], meta['rep_name'],
+    )
+    return {
+        'cycle':           y,
+        'dem_low_trust':   round(dem_avg, 2),
+        'rep_low_trust':   round(rep_avg, 2),
+        'gap':             round(gap, 2),
+        'is_wash':         abs(gap) < WASH_THRESHOLD,
+        'trust_mean':      trust_mean,
+        'turnout_vep':     TURNOUT_VEP.get(y),
+        'swing_d_share':   swing_d,
+        'swing_winner':    swing_winner,
+        'predicted_winner': predicted,
+        'rule_hits_pv':    predicted == meta['pv_winner'],
+        'rule_hits_ec':    predicted == meta['ec_winner'],
+        'rule_hits_swing': swing_winner is None or predicted == swing_winner,
+        'source':          source,
+        **meta,
+    }
+
 def norm(s, lo, hi, reverse=False):
     x = (s - lo) / (hi - lo)
     return (1 - x) if reverse else x
@@ -99,16 +169,7 @@ def main():
         if y in RECENT:
             r = RECENT[y]
             d, rp = r['dem_low_trust'], r['rep_low_trust']
-            out.append({
-                'cycle':           y,
-                'dem_low_trust':   round(d, 2),
-                'rep_low_trust':   round(rp, 2),
-                'gap':             round(d - rp, 2),
-                'is_wash':         abs(d - rp) < WASH_THRESHOLD,
-                'trust_mean':      TRUST_MEAN.get(y),
-                'source':          'standalone',
-                **meta,
-            })
+            out.append(_assemble_row(y, d, rp, 'standalone', meta))
             continue
 
         m = (yr == y) & h_dem.notna() & h_rep.notna() & trust.notna() & (w > 0)
@@ -127,16 +188,7 @@ def main():
         dem_avg = float(np.average(dem_low, weights=ww)) * 4.0/3.0
         rep_avg = float(np.average(rep_low, weights=ww)) * 4.0/3.0
 
-        out.append({
-            'cycle':           y,
-            'dem_low_trust':   round(dem_avg, 2),
-            'rep_low_trust':   round(rep_avg, 2),
-            'gap':             round(dem_avg - rep_avg, 2),
-            'is_wash':         abs(dem_avg - rep_avg) < WASH_THRESHOLD,
-            'trust_mean':      TRUST_MEAN.get(y),
-            'source':          'cdf VCF0354/0355',
-            **meta,
-        })
+        out.append(_assemble_row(y, dem_avg, rep_avg, 'cdf VCF0354/0355', meta))
 
     payload = {
         'source': 'ANES Cumulative Data File (1980-2008) + ANES standalone files (2016/2020/2024).',
@@ -169,24 +221,23 @@ def main():
         json.dump(payload, f, indent=2)
     print(f'Wrote {out_path}')
     print()
-    print(f"{'cyc':>4} {'D':>5} {'R':>5} {'gap':>6} {'wash':>5} {'trust':>6} {'crit-pick':>10} {'PV won':>10} {'match':>6}")
-    n_clear = n_clear_hits = 0
+    print(f"{'cyc':>4} {'trust':>6} {'gap':>6} {'swD%':>6} {'TO%':>5} {'predict':>10} "
+          f"{'PV':>10} {'EC':>10} {'Swing':>10} {'p/e/s':>6}")
+    pv_hits = ec_hits = sw_hits = 0
     for r in out:
-        higher = 'Dem' if r['dem_low_trust'] > r['rep_low_trust'] else 'Rep'
-        crit_name = r['dem_name'] if higher == 'Dem' else r['rep_name']
-        pv_match  = '✓' if crit_name == r['pv_winner'] else '✗'
-        wash_tag = '≈' if r['is_wash'] else ''
-        print(f"{r['cycle']:>4} {r['dem_low_trust']:>5.2f} {r['rep_low_trust']:>5.2f} "
-              f"{r['gap']:>+6.2f} {wash_tag:>5} {r['trust_mean']:>6.3f} "
-              f"{crit_name:>10} {r['pv_winner']:>10} {pv_match:>6}")
-        if not r['is_wash']:
-            n_clear += 1
-            if pv_match == '✓': n_clear_hits += 1
-    n_total = len(out)
-    n_wash  = sum(1 for r in out if r['is_wash'])
-    print(f"\nOverall: {sum(1 for r in out if (r['pv_winner']==(r['dem_name'] if r['dem_low_trust']>r['rep_low_trust'] else r['rep_name'])))}/{n_total} hits.")
-    print(f"Wash cycles (|gap| < {WASH_THRESHOLD}): {n_wash}.")
-    print(f"Clear cycles only: {n_clear_hits}/{n_clear} hits.")
+        pv = '✓' if r['rule_hits_pv'] else '✗'
+        ec = '✓' if r['rule_hits_ec'] else '✗'
+        sw = '✓' if r['rule_hits_swing'] else '✗'
+        pv_hits += r['rule_hits_pv']
+        ec_hits += r['rule_hits_ec']
+        sw_hits += r['rule_hits_swing']
+        sw_d = r['swing_d_share'] if r['swing_d_share'] is not None else 0
+        print(f"{r['cycle']:>4} {r['trust_mean']:>6.3f} {r['gap']:>+6.2f} {sw_d:>6.2f} "
+              f"{r['turnout_vep']:>5.1f} {r['predicted_winner']:>10} "
+              f"{r['pv_winner']:>10} {r['ec_winner']:>10} "
+              f"{r['swing_winner'] or '-':>10} {pv}{ec}{sw:>4}")
+    n = len(out)
+    print(f"\nAuthenticity-Floor rule: PV {pv_hits}/{n}  EC {ec_hits}/{n}  Swing {sw_hits}/{n}")
 
 
 if __name__ == '__main__':
