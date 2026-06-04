@@ -30,7 +30,12 @@
       "dem_name": "Carter",
       "rep_name": "Reagan",
       "ec_winner": "Reagan",
-      "pv_winner": "Reagan"
+      "pv_winner": "Reagan",
+      "dem_low_trust_swing": 2.66,
+      "rep_low_trust_swing": 2.64,
+      "gap_swing": 0.02,
+      "is_wash_swing": true,
+      "n_swing": 165
     },
     {
       "cycle": 1984,
@@ -54,7 +59,12 @@
       "dem_name": "Mondale",
       "rep_name": "Reagan",
       "ec_winner": "Reagan",
-      "pv_winner": "Reagan"
+      "pv_winner": "Reagan",
+      "dem_low_trust_swing": 2.76,
+      "rep_low_trust_swing": 2.68,
+      "gap_swing": 0.08,
+      "is_wash_swing": true,
+      "n_swing": 206
     },
     {
       "cycle": 1988,
@@ -78,7 +88,12 @@
       "dem_name": "Dukakis",
       "rep_name": "Bush GHW",
       "ec_winner": "Bush GHW",
-      "pv_winner": "Bush GHW"
+      "pv_winner": "Bush GHW",
+      "dem_low_trust_swing": 2.59,
+      "rep_low_trust_swing": 2.41,
+      "gap_swing": 0.18,
+      "is_wash_swing": true,
+      "n_swing": 158
     },
     {
       "cycle": 1992,
@@ -102,7 +117,12 @@
       "dem_name": "Clinton",
       "rep_name": "Bush GHW",
       "ec_winner": "Clinton",
-      "pv_winner": "Clinton"
+      "pv_winner": "Clinton",
+      "dem_low_trust_swing": 2.63,
+      "rep_low_trust_swing": 1.95,
+      "gap_swing": 0.68,
+      "is_wash_swing": false,
+      "n_swing": 241
     },
     {
       "cycle": 1996,
@@ -126,7 +146,12 @@
       "dem_name": "Clinton",
       "rep_name": "Dole",
       "ec_winner": "Clinton",
-      "pv_winner": "Clinton"
+      "pv_winner": "Clinton",
+      "dem_low_trust_swing": 2.63,
+      "rep_low_trust_swing": 1.52,
+      "gap_swing": 1.11,
+      "is_wash_swing": false,
+      "n_swing": 224
     },
     {
       "cycle": 2000,
@@ -150,7 +175,12 @@
       "dem_name": "Gore",
       "rep_name": "Bush GWB",
       "ec_winner": "Bush GWB",
-      "pv_winner": "Gore"
+      "pv_winner": "Gore",
+      "dem_low_trust_swing": 2.54,
+      "rep_low_trust_swing": 2.49,
+      "gap_swing": 0.06,
+      "is_wash_swing": true,
+      "n_swing": 137
     },
     {
       "cycle": 2004,
@@ -174,7 +204,12 @@
       "dem_name": "Kerry",
       "rep_name": "Bush GWB",
       "ec_winner": "Bush GWB",
-      "pv_winner": "Bush GWB"
+      "pv_winner": "Bush GWB",
+      "dem_low_trust_swing": 2.62,
+      "rep_low_trust_swing": 2.41,
+      "gap_swing": 0.2,
+      "is_wash_swing": false,
+      "n_swing": 73
     },
     {
       "cycle": 2008,
@@ -198,7 +233,12 @@
       "dem_name": "Obama",
       "rep_name": "McCain",
       "ec_winner": "Obama",
-      "pv_winner": "Obama"
+      "pv_winner": "Obama",
+      "dem_low_trust_swing": 2.43,
+      "rep_low_trust_swing": 2.23,
+      "gap_swing": 0.21,
+      "is_wash_swing": false,
+      "n_swing": 126
     },
     {
       "cycle": 2012,
@@ -222,7 +262,12 @@
       "dem_name": "Obama",
       "rep_name": "Romney",
       "ec_winner": "Obama",
-      "pv_winner": "Obama"
+      "pv_winner": "Obama",
+      "dem_low_trust_swing": 2.05,
+      "rep_low_trust_swing": 1.4,
+      "n_swing": 637,
+      "gap_swing": 0.65,
+      "is_wash_swing": false
     },
     {
       "cycle": 2016,
@@ -246,7 +291,12 @@
       "dem_name": "Clinton",
       "rep_name": "Trump",
       "ec_winner": "Trump",
-      "pv_winner": "Clinton"
+      "pv_winner": "Clinton",
+      "dem_low_trust_swing": 0.57,
+      "rep_low_trust_swing": 1.65,
+      "n_swing": 468,
+      "gap_swing": -1.07,
+      "is_wash_swing": false
     },
     {
       "cycle": 2020,
@@ -270,7 +320,12 @@
       "dem_name": "Biden",
       "rep_name": "Trump",
       "ec_winner": "Biden",
-      "pv_winner": "Biden"
+      "pv_winner": "Biden",
+      "dem_low_trust_swing": 1.45,
+      "rep_low_trust_swing": 1.08,
+      "n_swing": 859,
+      "gap_swing": 0.38,
+      "is_wash_swing": false
     },
     {
       "cycle": 2024,
@@ -294,7 +349,12 @@
       "dem_name": "Harris",
       "rep_name": "Trump",
       "ec_winner": "Trump",
-      "pv_winner": "Trump"
+      "pv_winner": "Trump",
+      "dem_low_trust_swing": 0.97,
+      "rep_low_trust_swing": 1.39,
+      "n_swing": 356,
+      "gap_swing": -0.42,
+      "is_wash_swing": false
     }
   ],
   "caveats": [

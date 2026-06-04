@@ -48,6 +48,14 @@ RECENT = {
     2024: { 'dem_low_trust': 0.98, 'rep_low_trust': 1.39 },
 }
 
+# Expanded swing-state set (FIPS codes). Big 5 + NC/AZ/GA/NV for the
+# post-2008 battleground expansion. Same set used across all cycles for
+# consistency; documented in the figcaption as anachronistic for early
+# cycles. Excludes safely-D and safely-R states where campaigns don't
+# compete and Critics' ratings are baked-in partisan reflex.
+EXPANDED_SWING_FIPS = frozenset({42, 26, 55, 39, 12,  # PA, MI, WI, OH, FL
+                                 37, 4, 13, 32})       # NC, AZ, GA, NV
+
 # Weighted mean of the trust composite (0-1 scale, HIGH=more trust) per cycle.
 # CDF (1980-2008): VCF0604(rev)/0605/0609 — same composite the tercile is cut on.
 # 2012: trustgov_grev|grstd + trust_social — same as the tercile composite.
@@ -156,10 +164,88 @@ def norm(s, lo, hi, reverse=False):
     return (1 - x) if reverse else x
 
 
+def _compute_swing_recent(year):
+    """Compute (dem_swing, rep_swing) honesty among low-trust voters
+    in EXPANDED_SWING_FIPS states from the standalone ANES file for
+    a given year. Returns (None, None, n) if year not handled."""
+    import numpy as np
+    if year == 2012:
+        df = pd.read_stata('data/raw/anes_2012/anes_timeseries_2012.dta',
+                            convert_categoricals=False,
+                            columns=['ctrait_dpchonst','ctrait_rpchonst',
+                                     'trustgov_trustgrev','trustgov_trustgstd',
+                                     'trust_social','weight_full','sample_stfips'])
+        hd = (5 - df['ctrait_dpchonst'].where(df['ctrait_dpchonst'].between(1,5)))
+        hr = (5 - df['ctrait_rpchonst'].where(df['ctrait_rpchonst'].between(1,5)))
+        g_rev = df['trustgov_trustgrev'].where(df['trustgov_trustgrev'].between(1,5))
+        g_std = df['trustgov_trustgstd'].where(df['trustgov_trustgstd'].between(1,4))
+        g_trust = ((g_rev - 1) / 4.0).fillna((4 - g_std) / 3.0)
+        s_trust = (5 - df['trust_social'].where(df['trust_social'].between(1,5))) / 4.0
+        trust = pd.concat([g_trust, s_trust], axis=1).mean(axis=1)
+        w = df['weight_full'].fillna(0).clip(lower=0)
+        state = pd.to_numeric(df['sample_stfips'], errors='coerce')
+    elif year == 2016:
+        from _lib import load_anes_2016
+        df = load_anes_2016()
+        do_right = df['V161215'].where(df['V161215'].between(1,5))
+        run_all  = df['V161216'].where(df['V161216'].between(1,2))
+        waste    = df['V161217'].where(df['V161217'].between(1,3))
+        trust = pd.concat([(5-do_right)/4, (run_all-1)/1, (waste-1)/2], axis=1).mean(axis=1)
+        # V161162 = Dem (Clinton) "is honest" trait; V161167 = Rep (Trump). 1=very well..5=not well.
+        hd = 5 - df['V161162'].where(df['V161162'].between(1,5))
+        hr = 5 - df['V161167'].where(df['V161167'].between(1,5))
+        w = pd.to_numeric(df.get('V160102', df.get('V160101')), errors='coerce').fillna(0).clip(lower=0)
+        state = pd.to_numeric(df['V161010d'], errors='coerce')
+    elif year == 2020:
+        from _lib import load_anes_2020
+        df = load_anes_2020()
+        do_right = df['V201233'].where(df['V201233'].between(1,5))
+        run_all  = df['V201234'].where(df['V201234'].between(1,2))
+        waste    = df['V201235'].where(df['V201235'].between(1,3))
+        trust = pd.concat([(5-do_right)/4, (run_all-1)/1, (waste-1)/2], axis=1).mean(axis=1)
+        # V201211 = Biden honest; V201215 = Trump honest. Verified to reproduce hardcoded RECENT.
+        hd = 5 - df['V201211'].where(df['V201211'].between(1,5))
+        hr = 5 - df['V201215'].where(df['V201215'].between(1,5))
+        w = pd.to_numeric(df.get('V200010a', df.get('V200010b')), errors='coerce').fillna(0).clip(lower=0)
+        state = pd.to_numeric(df['V201014b'], errors='coerce')
+    elif year == 2024:
+        from _lib import load_anes_2024
+        df = load_anes_2024()
+        do_right = df['V241229'].where(df['V241229'].between(1,5))
+        run_all  = df['V241231'].where(df['V241231'].between(1,2))
+        waste    = df['V241232'].where(df['V241232'].between(1,3))
+        trust = pd.concat([(5-do_right)/4, (run_all-1)/1, (waste-1)/2], axis=1).mean(axis=1)
+        # V241203 = Harris honest; V241208 = Trump honest. Verified.
+        hd = 5 - df['V241203'].where(df['V241203'].between(1,5))
+        hr = 5 - df['V241208'].where(df['V241208'].between(1,5))
+        w = pd.to_numeric(df.get('V240107a', df.get('V240107')), errors='coerce').fillna(0).clip(lower=0)
+        state_str = df['V243002'].astype(str).str.strip()
+        state = pd.to_numeric(state_str, errors='coerce')
+    else:
+        return None, None, 0
+
+    m = hd.notna() & hr.notna() & trust.notna() & (w > 0)
+    if m.sum() < 100:
+        return None, None, 0
+    cutoff = trust[m].quantile(1/3)
+    sel = m & (trust <= cutoff) & state.isin(EXPANDED_SWING_FIPS)
+    if sel.sum() < 30:
+        return None, None, int(sel.sum())
+    import numpy as np
+    # Cast to float arrays since pandas where() can leave object dtype on some columns
+    dem_vals = pd.to_numeric(hd[sel], errors='coerce').astype(float)
+    rep_vals = pd.to_numeric(hr[sel], errors='coerce').astype(float)
+    weights  = pd.to_numeric(w[sel], errors='coerce').astype(float)
+    dem_avg = float(np.average(dem_vals, weights=weights))
+    rep_avg = float(np.average(rep_vals, weights=weights))
+    return dem_avg, rep_avg, int(sel.sum())
+
+
 def main():
     cdf = load_anes_cdf()
     yr = pd.to_numeric(cdf["VCF0004"], errors="coerce")
     w  = pd.to_numeric(cdf["VCF0009z"], errors="coerce").fillna(0).clip(lower=0)
+    state = pd.to_numeric(cdf["VCF0901a"], errors="coerce")
 
     # Trust composite
     t1 = cdf_num(cdf["VCF0604"])
@@ -187,7 +273,16 @@ def main():
         if y in RECENT:
             r = RECENT[y]
             d, rp = r['dem_low_trust'], r['rep_low_trust']
-            out.append(_assemble_row(y, d, rp, 'standalone', meta))
+            row = _assemble_row(y, d, rp, 'standalone', meta)
+            # Compute swing-state-only version for recent cycles
+            ds, rs, n_sw = _compute_swing_recent(y)
+            row['dem_low_trust_swing'] = round(ds, 2) if ds is not None else None
+            row['rep_low_trust_swing'] = round(rs, 2) if rs is not None else None
+            row['n_swing'] = n_sw
+            if ds is not None and rs is not None:
+                row['gap_swing']    = round(ds - rs, 2)
+                row['is_wash_swing'] = abs(ds - rs) < WASH_THRESHOLD
+            out.append(row)
             continue
 
         m = (yr == y) & h_dem.notna() & h_rep.notna() & trust.notna() & (w > 0)
@@ -206,7 +301,24 @@ def main():
         dem_avg = float(np.average(dem_low, weights=ww)) * 4.0/3.0
         rep_avg = float(np.average(rep_low, weights=ww)) * 4.0/3.0
 
-        out.append(_assemble_row(y, dem_avg, rep_avg, 'cdf VCF0354/0355', meta))
+        row = _assemble_row(y, dem_avg, rep_avg, 'cdf VCF0354/0355', meta)
+
+        # Swing-state subset: same trust tercile cut, then filter to
+        # EXPANDED_SWING_FIPS only.
+        sel_sw = m & (trust <= cutoff) & state.isin(EXPANDED_SWING_FIPS)
+        n_sw = int(sel_sw.sum())
+        if n_sw >= 30:
+            dem_sw = float(np.average((4 - h_dem[sel_sw]), weights=w[sel_sw])) * 4.0/3.0
+            rep_sw = float(np.average((4 - h_rep[sel_sw]), weights=w[sel_sw])) * 4.0/3.0
+            row['dem_low_trust_swing'] = round(dem_sw, 2)
+            row['rep_low_trust_swing'] = round(rep_sw, 2)
+            row['gap_swing']    = round(dem_sw - rep_sw, 2)
+            row['is_wash_swing'] = abs(dem_sw - rep_sw) < WASH_THRESHOLD
+        else:
+            row['dem_low_trust_swing'] = None
+            row['rep_low_trust_swing'] = None
+        row['n_swing'] = n_sw
+        out.append(row)
 
     payload = {
         'source': 'ANES Cumulative Data File (1980-2008) + ANES standalone files (2016/2020/2024).',

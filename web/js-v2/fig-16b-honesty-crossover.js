@@ -1,17 +1,20 @@
-// Fig 16b (Concept 2, v4) — Honesty rating among System Critics across
-// 12 presidential cycles (1980-2024), with popular-vote winner marked.
+// Fig 16b (v5 — SWING STATE FILTER) — Honesty rating among System
+// Critics WHO LIVE IN SWING STATES, across 12 presidential cycles
+// (1980-2024). Filters out the highly partisan states (CA, TX, NY, WY,
+// etc.) where campaigns don't compete and Critics' honesty ratings are
+// largely baked-in partisan reflex.
 //
-// Pre-2016 cycles come from the ANES Cumulative File (VCF0354/VCF0355,
-// 2012 backfilled from VCF0358/VCF0359, all rescaled to a 0-4 axis).
-// 2016/2020/2024 come from the standalone files.
+// Swing-state set (consistent across cycles): PA, MI, WI, OH, FL, NC,
+// AZ, GA, NV. Anachronistic for the 1980s (Reagan-era battlegrounds
+// included IL/NJ/MO) but defensible for the modern era; documented in
+// the figcaption.
 //
-// We mark the POPULAR-VOTE winner with ✓ (not the EC winner). This
-// gives the same total of 4 mismatches as EC-framing but swaps
-// 2000 (Gore — Critics pick + PV winner, EC loser) into a hit and
-// 2016 (Trump — Critics pick + EC winner, PV loser) into a miss.
-// Cycles where EC ≠ PV are flagged with a small "EC≠PV" tag.
+// Same chart mechanics as the national version: ✓ on popular-vote
+// winner; "EC≠PV" tag for 2000 and 2016. Per-cycle sample sizes shown
+// in the data JSON (n_swing field) — ranges from 73 (2004) to 859 (2020).
 //
 // Data: scripts/build_candidate_honesty_by_trust.py → candidate_honesty_by_trust.json
+// Fields used: dem_low_trust_swing, rep_low_trust_swing, gap_swing, is_wash_swing
 import * as d3 from 'https://esm.sh/d3@7'
 
 const COLOR_DEM = '#2c5b9c'
@@ -24,7 +27,16 @@ export function drawHonestyCrossover(selector, data) {
   if (!container) throw new Error(`No container at ${selector}`)
   container.innerHTML = ''
 
-  const cycles = data.cycles
+  // Pull swing-state values; cycles missing swing data fall back to null
+  // so they render with the "n/a" marker.
+  const cycles = data.cycles.map(c => ({
+    ...c,
+    dem_low_trust: c.dem_low_trust_swing,
+    rep_low_trust: c.rep_low_trust_swing,
+    gap:           c.gap_swing,
+    is_wash:       c.is_wash_swing,
+    // ec/pv/inpower/names already on root
+  }))
   const W = container.clientWidth || 680
   const margin = { top: 110, right: 24, bottom: 150, left: 90 }
   const innerW = W - margin.left - margin.right
@@ -39,10 +51,10 @@ export function drawHonestyCrossover(selector, data) {
   // Title block
   svg.append('text').attr('class', 'hc-title')
     .attr('x', margin.left).attr('y', 22)
-    .text('Critics’ "is honest" rating per cycle — and who won')
+    .text('Swing-state Critics’ "is honest" rating per cycle')
   svg.append('text').attr('class', 'hc-subtitle')
     .attr('x', margin.left).attr('y', 42)
-    .text('Mean rating from low-trust voters (bottom trust tercile that cycle), 0–4 axis.')
+    .text('Low-trust voters in PA/MI/WI/OH/FL/NC/AZ/GA/NV only — the voters campaigns actually fight for.')
   svg.append('text').attr('class', 'hc-subtitle')
     .attr('x', margin.left).attr('y', 58)
     .text('✓ on popular-vote winner. Grey/dashed = "wash" (|gap| < 0.2 — Critics barely distinguished candidates).')
@@ -179,5 +191,5 @@ export function drawHonestyCrossover(selector, data) {
   // Footer note
   svg.append('text').attr('class', 'hc-foot')
     .attr('x', margin.left).attr('y', H - 4)
-    .text('CDF VCF0354/0355 (1980–2008), ANES standalone (2012–24). Critics = bottom trust tercile. Δturnout in red = +2pp surge (in-power lost 3/4 surge cycles).')
+    .text('Swing-state subset (PA/MI/WI/OH/FL/NC/AZ/GA/NV). Tercile cut on national trust. Sample sizes 73–859 per cycle. Set is anachronistic for the 1980s.')
 }
