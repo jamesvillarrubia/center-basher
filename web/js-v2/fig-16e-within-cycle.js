@@ -153,18 +153,8 @@ export function drawWithinCycle(selector, data) {
     .attr('text-anchor', 'middle')
     .text('Nov 2020 FT gap (Dem − Rep)')
 
-  // Legend
-  const legY = 76
-  svg.append('circle').attr('cx', margin.left + 6).attr('cy', legY).attr('r', 4).attr('fill', C_BIDEN)
-  svg.append('text').attr('x', margin.left + 14).attr('y', legY + 4).attr('font-size', '11px')
-    .text('Voted Biden')
-  svg.append('circle').attr('cx', margin.left + 110).attr('cy', legY).attr('r', 4).attr('fill', C_TRUMP)
-  svg.append('text').attr('x', margin.left + 118).attr('y', legY + 4).attr('font-size', '11px')
-    .text('Voted Trump')
-  svg.append('circle').attr('cx', margin.left + 214).attr('cy', legY).attr('r', 4).attr('fill', C_OTHER)
-  svg.append('text').attr('x', margin.left + 222).attr('y', legY + 4).attr('font-size', '11px')
-    .text('No vote / other')
-  svg.append('text').attr('x', margin.left + 330).attr('y', legY + 4).attr('font-size', '11px').attr('fill', '#444')
+  // Predictive-lift footer note (no separate legend — colors documented in subtitle/figcaption)
+  svg.append('text').attr('x', margin.left).attr('y', 98).attr('font-size', '10.5px').attr('fill', '#444')
     .text(`Sep gap predicts vote ${lift.sep_predicts_vote_pct}% · Nov gap ${lift.nov_predicts_vote_pct}% · lift +${(lift.nov_predicts_vote_pct - lift.sep_predicts_vote_pct).toFixed(1)}pp`)
 
   // Footer
