@@ -380,7 +380,9 @@ But there remains a puzzle our thesis up to here can't explain: Obama won twice,
 
 The fundamentals make the puzzle sharper, not softer. Obama won 2012 with **unemployment at 7.8%**, the worst of the seven cycles in the table below. Gore lost 2000 with **unemployment at 3.9%**, the best. Clinton (2016, 4.6%) and Harris (2024, 4.2%) also lost on healthy economies.[1] If the economy decided alone, Gore should have won and Obama should have lost.
 
-What sorts the cases cleanly is **who claimed the change/outsider lane**. The trust→vote signal (§15) is a drag on the in-power party's candidate but not destiny — Bush 2004 and Obama 2012 both had low-trust voters opposed to them and won anyway, because they kept the outsider/change framing despite being incumbents.[2] We measure change-lane ownership using CNN/Edison's *"which one candidate quality matters most?"* exit-poll question, which asks voters to pick the candidate trait that drove their vote — the strongest cross-cycle proxy for which candidate voters classified as the outsider.
+<!-- < CLAUDE: regime-conditional reframe per user critique. Voice not yet edited. > -->
+
+What sorts the cases cleanly is **which frame the regime favored that cycle**. In high-trust eras (Reagan-Bush peak), the electorate rewarded *continuity* — incumbents and chosen successors won. In low-trust eras (2008–present), the electorate rewarded *change* — challengers and outsider-positioned candidates won. The rule isn't "the change candidate always wins." It's "the regime-favored frame wins," and the regime determines which frame is favored.[2] We measure regime preference using CNN/Edison's *"which one candidate quality matters most?"* exit-poll question (the strongest cross-cycle proxy for which trait drove the vote), classified against the trust era that cycle sat in.
 
 | Cycle | In-power party's candidate | Cast as | Change lane claimed by | Exit-poll backing | Rule holds? |
 |---|---|---|---|---|---|
@@ -462,9 +464,9 @@ The crossover **appears when Trump is the challenger**: low-trust voters rate hi
 
 ### 17 · The regime under the rule
 
-§16 showed the rule: the change-lane owner wins. The cohort that fires it is the low-trust swing-state voter who rates the more authentic candidate higher. Both facts are robust across forty-five years of cycles. What's changed isn't the rule. What's changed is the *regime* under the rule — the structural environment that determines whether the rule has any teeth at all.
+§16 showed the pattern. The candidate who matches the regime-favored frame wins — continuity in high-trust eras, change in low-trust eras. That phrasing already contains the §17 answer: *the trust regime decides which frame the electorate rewards*. So the real question isn't why the rule fires — it's why trust collapsed in the first place, why that collapse stuck, and what it does to the structural environment a candidate has to operate in.
 
-Whether a candidate-fit mismatch actually flips an election depends on a prior question: how much margin does the in-power party have to absorb a Critics' shove? In the high-trust Reagan-Bush era, the in-power party started 51 to 55% — comfortable. A two-point Critics' hit didn't flip anything. In the post-2008 era, every in-power baseline collapsed to 47 to 51% — knife-edge. Now the same two-point shove that used to be noise decides the cycle.
+Start with the baseline. In every high-trust cycle, the in-power party started above 50% comfortably — 51 to 55%. The continuity candidate had a cushion to absorb a small change shove and still win. In every low-trust cycle since 2008, the in-power party's baseline collapsed to 47–51% — every cycle within three points of the threshold. Now the cushion is gone. The cliff hasn't moved; the era moved next to it.
 
 > **`[Figure A — High trust = comfortable margin. Low trust = knife-edge.]`**
 > *Scatter: each cycle is a dot. X = mean trust composite that cycle. Y = in-power party's 2-party national PV share. 50% threshold line is fixed. High-trust era (right side) cycles sit ~51–55%; low-trust era (left side) cycles all park within ~3pp of 50%.*

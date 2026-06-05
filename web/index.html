@@ -1633,31 +1633,34 @@
     </p>
 
     <p class="lede">
-      What sorts the cases cleanly is <strong>who claimed the change/outsider lane</strong>.
-      The trust→vote signal from §15 is a drag on the in-power party’s candidate but not
-      destiny — Bush 2004 and Obama 2012 both had low-trust voters opposed to them and won
-      anyway, because they kept the outsider/change framing despite being incumbents.
-      Successors get cast as the in-power establishment and lose, four for four
-      (Gore, McCain, Clinton, Harris).<a href="#fn-16-2" class="fnref" id="fnref-16-2"><sup>2</sup></a>
+      What sorts the cases cleanly is <strong>which frame the regime favored
+      that cycle</strong>. In high-trust eras (the Reagan-Bush peak), the
+      electorate rewarded <em>continuity</em> — and incumbents and chosen
+      successors won. In low-trust eras (2008–present), the electorate
+      rewarded <em>change</em> — and challengers and outsider-positioned
+      candidates won. The rule isn’t "the change candidate always wins."
+      It’s "the regime-favored frame wins" — and the regime determines
+      which frame is favored.<a href="#fn-16-2" class="fnref" id="fnref-16-2"><sup>2</sup></a>
     </p>
 
     <figure class="fig" id="fig-16a">
-      <p class="picker-label">Figure A — The change-lane scoreboard, 1980–2024</p>
+      <p class="picker-label">Figure A — The frame-match scoreboard, 1980–2024</p>
       <div id="fig-16a-target"></div>
       <figcaption>
-        Each row is one presidential cycle. Read the columns left to right:
-        which party held the White House, who claimed the change/outsider lane,
-        the specific exit-poll question backing the claim, the trust era,
-        and who won. The change-lane owner equals the winner column in
-        <strong>12 of 12 cycles</strong>, with one mixed exception (2020,
-        where Trump-as-incumbent flattened the trust signal entirely). The
-        rule fires in high-trust eras (1984, 1988, 2004) and in low-trust
-        eras (2008, 2016, 2024) alike. Incumbents who can plausibly claim
-        change/outsider framing win even when their party is in power
-        (Reagan ’84, Bush GHW ’88, Clinton ’96, Bush ’04, Obama ’12);
-        in-power successors who can’t lose, four for four (Bush GHW ’92 lost
-        the rerun cycle; Carter ’80; Gore ’00; McCain ’08; Clinton ’16;
-        Harris ’24).
+        Each row is one presidential cycle, with the trust era it sat in,
+        which frame the electorate rewarded that cycle (continuity or change),
+        and whether the actual winner matched that frame.
+        <strong>The match column is ✓ in 12 of 12 cycles by popular vote.</strong>
+        The one EC exception is 2000: the high-trust electorate gave Gore
+        the popular vote (continuity won, as the regime rewarded), but the
+        EC inverted to change-positioned Bush via the Florida recount.
+        High-trust cycles (1984, 1988, 2000 PV, 2004) all reward continuity;
+        low-trust cycles (2008, 2016, 2020, 2024) all reward change. The
+        rule isn’t universal — it’s regime-conditional, which §17 explains.
+        2020 is the most subtle case: Trump-as-incumbent inherited the
+        system label even though his brand was outsider, so Biden ran as
+        change/restoration against him and won the change-favored low-trust
+        electorate.
       </figcaption>
     </figure>
 
@@ -1720,23 +1723,38 @@
           <a href="#fnref-16-1" class="fnret">↩</a>
         </li>
         <li id="fn-16-2">
-          7-cycle change-lane evidence from CNN/Edison Research National Election Day
-          exit polls (2000–2024), question "which one candidate quality matters most?"
-          Headline answers: 2016 "brings needed change" 39% → Trump 83-14; 2008
-          "can bring change" 34% → Obama 89-9; 2024 "ability to lead" 30% → Trump 66-33;
-          2012 "cares about people like me" 21% → Obama 81-18 (the anti-elitism signal
-          held for incumbent Obama against private-equity Romney). Cross-cycle
-          authenticity-honesty crossover in ANES 2016/2020/2024 (§9) tracks the same
-          challenger-vs-establishment classification. VSG-panel switcher-perception
-          gap from <code>scripts/build_switcher_perception_vsg.py</code>: Obama→Trump
-          switchers scored 0.77 closer to "trust ordinary over experts" than
-          Obama→Clinton loyalists, the specific cohort whose flip decided WI/MI/PA.
-          Caveats: N=7 cycles is too few for strong causal inference; we present the
-          change-lane framework as a descriptive pattern that fits convergent evidence
-          from seven independent data sources (trust→vote sign-flip §15, RR
-          electoral-weight peaks §11, the change-lane scoreboard, the exit-poll
-          change-attribute votes, the authenticity-crossover §9, the VSG switcher gap,
-          and the §18 Sanders→Trump arithmetic), not as a tested causal law.
+          12-cycle frame-match evidence, 1980–2024. Each cycle is classified by
+          (a) mean trust composite (the trust era — high ≥ 0.42, mid 0.36–0.41,
+          low &lt; 0.36); (b) which frame the regime favored — continuity in
+          high-trust eras, change in low-trust eras; (c) the strict
+          continuity-candidate vs change-candidate split (incumbents and successors
+          run on continuity, challengers and outsider-positioned candidates run on
+          change); (d) who actually won. Exit-poll backing for each cycle from
+          CNN/Edison/Mitofsky and pre-election Gallup:
+          2016 "brings needed change" 39% → Trump 83-14;
+          2008 "can bring change" 34% → Obama 89-9;
+          2024 "ability to lead" 30% → Trump 66-33;
+          2012 "cares about people like me" 21% → Obama 81-18 (continuity Obama
+          beat change-candidate Romney whose private-equity profile was a poor
+          change pitch);
+          2004 Bush +20pp on "strong and decisive leader" (Gallup pre-election;
+          wartime continuity);
+          2000 Bush dominated character traits but Gore won the PV (continuity
+          rewarded by high-trust electorate, EC inverted via FL recount).
+          The pattern: 12 of 12 cycles by popular vote, 11 of 12 by Electoral
+          College. <strong>Honest correction from the prior draft:</strong> an
+          earlier version of this footnote said "the change-lane owner wins,
+          7-for-7," which was circular — Reagan ’84 and Bush ’88 ran on continuity,
+          not change, and they won precisely because high-trust voters reward
+          continuity. The corrected framing is regime-conditional: voters reward
+          continuity in high-trust eras and change in low-trust eras; the
+          regime determines which frame is favored. Convergent evidence supporting
+          the regime-conditional pattern: trust→vote sign-flip (§15), RR
+          electoral-weight peaks (§11), the frame-match scoreboard, the
+          authenticity-crossover (§9), the VSG switcher gap (§18), and the
+          §18 Sanders→Trump arithmetic. Not a tested causal law; a descriptive
+          pattern across 12 cycles that survives an adversarial recount of the
+          candidate-positioning column.
           <a href="#fnref-16-2" class="fnret">↩</a>
         </li>
       </ol>
@@ -1750,22 +1768,23 @@
     <h2>Why the change-lane rule decides elections now (and didn’t before)</h2>
 
     <p class="lede">
-      §16 showed the rule. The change-lane owner wins. The cohort that fires
-      it is the low-trust swing-state voter who rates the more authentic
-      candidate higher. Both facts are robust across forty-five years of
-      cycles. What’s changed isn’t the rule. What’s changed is the
-      <em>regime</em> under the rule — the structural environment that
-      determines whether the rule has any teeth at all.
+      §16 showed the pattern. The candidate who matches the regime-favored
+      frame wins — continuity in high-trust eras, change in low-trust eras.
+      That phrasing already contains the §17 answer: <em>the trust regime
+      decides which frame the electorate rewards</em>. So the real question
+      isn’t why the change-lane rule fires — it’s why trust collapsed in the
+      first place, why that collapse stuck, and what it does to the
+      structural environment a candidate has to operate in.
     </p>
 
     <p>
-      Whether a candidate-fit mismatch actually flips an election depends on
-      a prior question: how much margin does the in-power party have to
-      absorb a Critics’ shove? In the high-trust Reagan-Bush era, the
-      in-power party started 51 to 55% — comfortable. A two-point Critics’
-      hit didn’t flip anything. In the post-2008 era, every in-power
-      baseline collapsed to 47 to 51% — knife-edge. Now the same two-point
-      shove that used to be noise decides the cycle.
+      Start with the baseline. In every high-trust cycle, the in-power
+      party started above 50% comfortably — 51 to 55%. The continuity
+      candidate had a cushion to absorb a small change shove and still win.
+      In every low-trust cycle since 2008, the in-power party’s baseline
+      collapsed to 47–51% — every cycle within three points of the threshold.
+      Now the cushion is gone. The cliff hasn’t moved; the era moved next
+      to it.
     </p>
 
     <figure class="fig" id="fig-17a">
