@@ -106,7 +106,7 @@ const CYCLES = [
     continuity:   { name: 'Obama (inc)',  party: 'D', color: D },
     change:       { name: 'Romney',       party: 'R', color: R },
     winner:       { name: 'Obama',        party: 'D', color: D, ran: 'continuity' },
-    backing:      'Recovery + "Bin Laden is dead, GM is alive"; Romney = private-equity establishment, a poor change pitch',
+    backing:      'Romney did run on change (anti-Obama businessman outsider) but his $250M wealth + Bain Capital record made him read as the financial-crisis problem incarnate; the Sept "47%" video sealed it. Inauthentic change pitch lost to recovery-incumbent.',
   },
   {
     year: 2016,
