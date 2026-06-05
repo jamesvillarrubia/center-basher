@@ -292,13 +292,24 @@ def main():
         # rigor-process decision 2026-06-05.
         cands = list(CANDIDATES_BY_YEAR[year])
         if year == 2016:
-            cent = compute_centroids(records, {"clinton": "clinton", "trump": "trump"})
-            # Sanders has no general-election cohort; compute from primary
-            sanders = [r for r in records if r.get("pv") == "sanders" and r["w"] > 0]
-            if sanders:
-                sx = weighted_median([r["x"] for r in sanders], [r["w"] for r in sanders])
-                sy = weighted_median([r["y"] for r in sanders], [r["w"] for r in sanders])
-                cent["sanders"] = (round(sx, 3), round(sy, 3), len(sanders))
+            # 2016 centroids match the candidate-blob layer: ALL three are
+            # PRIMARY voters (Clinton, Sanders, Trump). Earlier code used
+            # general-election cohorts for Clinton+Trump and primary for
+            # Sanders — inconsistent bases meant centroid dots did not sit
+            # in their own blobs. Fixed 2026-06-05.
+            cent = {}
+            for pv_key in ["clinton", "sanders", "trump"]:
+                cohort = [r for r in records if r.get("pv") == pv_key and r["w"] > 0]
+                if not cohort:
+                    continue
+                xs = [r["x"] for r in cohort]
+                ys = [r["y"] for r in cohort]
+                ws = [r["w"] for r in cohort]
+                cent[pv_key] = (
+                    round(weighted_median(xs, ws), 3),
+                    round(weighted_median(ys, ws), 3),
+                    len(cohort),
+                )
             for c in cands:
                 if c["id"] in cent:
                     c["x"], c["y"], c["n"] = cent[c["id"]]
