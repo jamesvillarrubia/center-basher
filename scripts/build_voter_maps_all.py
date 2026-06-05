@@ -81,16 +81,25 @@ def build_2016():
     in_swing = state.isin(SWING_2016)
     # Apply the -2 drop by zeroing the weight (assemble_records filters w > 0)
     w = w.where(ascertained_2016, 0)
-    # PERCEIVED-CANDIDATE positions per respondent — non-tautological signal
-    # of candidate identity. CODEBOOK-VERIFIED:
-    #   V161128 = R places Dem candidate on 1-7 lib-cons scale
-    #   V161129 = R places Rep candidate on 1-7 lib-cons scale
-    #   V161162 = R rates Dem honesty 1=ext well..5=not well at all
-    #   V161167 = R rates Rep honesty (same scale)
+    # PERCEIVED-CANDIDATE positions — non-tautological identity signal.
+    # CODEBOOK-VERIFIED:
+    #   V161128/V161129 = R places Dem/Rep cand on 1-7 lib-cons scale
+    #   V161159/V161160 = Dem cand "strong leadership"/"really cares" 1-5
+    #   V161164/V161165 = Rep cand same two traits
+    #
+    # Y AXIS = 2-item composite (cares + strong leadership) averaged.
+    # This is the candidate analog of the voter trust composite which
+    # measures system responsiveness + competence. Honesty was the prior
+    # y-axis source but it's a personal-virtue dimension, not the trust-in-
+    # institutions dimension we want. Switched 2026-06-05.
     dem_perc_x = (safe_num(df, "V161128").where(lambda v: v.between(1, 7)) - 4) / 3.0
     rep_perc_x = (safe_num(df, "V161129").where(lambda v: v.between(1, 7)) - 4) / 3.0
-    dem_perc_y = (5 - safe_num(df, "V161162").where(lambda v: v.between(1, 5))) / 4.0
-    rep_perc_y = (5 - safe_num(df, "V161167").where(lambda v: v.between(1, 5))) / 4.0
+    d_lead  = (5 - safe_num(df, "V161159").where(lambda v: v.between(1, 5))) / 4.0
+    d_cares = (5 - safe_num(df, "V161160").where(lambda v: v.between(1, 5))) / 4.0
+    r_lead  = (5 - safe_num(df, "V161164").where(lambda v: v.between(1, 5))) / 4.0
+    r_cares = (5 - safe_num(df, "V161165").where(lambda v: v.between(1, 5))) / 4.0
+    dem_perc_y = pd.concat([d_lead, d_cares], axis=1).mean(axis=1)
+    rep_perc_y = pd.concat([r_lead, r_cares], axis=1).mean(axis=1)
     return assemble_records(x, trust, party, vote, pv, swing, new_2016, dropoff, in_swing, w,
                             dem_perc_x=dem_perc_x, dem_perc_y=dem_perc_y,
                             rep_perc_x=rep_perc_x, rep_perc_y=rep_perc_y,
@@ -135,11 +144,16 @@ def build_2020():
     w = safe_num(df, "V200010b").fillna(0).clip(lower=0)
     state = safe_num(df, "V201014b")
     in_swing = state.isin(SWING_2020)
-    # Perceived candidate positions: V201202/03 (ideology), V201211/15 (honesty)
+    # Perceived candidate positions: V201202/03 (ideology),
+    # V201208+V201209 (Biden lead+cares) / V201212+V201213 (Trump lead+cares)
     dem_perc_x = (safe_num(df, "V201202").where(lambda v: v.between(1, 7)) - 4) / 3.0
     rep_perc_x = (safe_num(df, "V201203").where(lambda v: v.between(1, 7)) - 4) / 3.0
-    dem_perc_y = (5 - safe_num(df, "V201211").where(lambda v: v.between(1, 5))) / 4.0
-    rep_perc_y = (5 - safe_num(df, "V201215").where(lambda v: v.between(1, 5))) / 4.0
+    d_lead  = (5 - safe_num(df, "V201208").where(lambda v: v.between(1, 5))) / 4.0
+    d_cares = (5 - safe_num(df, "V201209").where(lambda v: v.between(1, 5))) / 4.0
+    r_lead  = (5 - safe_num(df, "V201212").where(lambda v: v.between(1, 5))) / 4.0
+    r_cares = (5 - safe_num(df, "V201213").where(lambda v: v.between(1, 5))) / 4.0
+    dem_perc_y = pd.concat([d_lead, d_cares], axis=1).mean(axis=1)
+    rep_perc_y = pd.concat([r_lead, r_cares], axis=1).mean(axis=1)
     return assemble_records(x, trust, party, vote, pv, swing, new_2020, dropoff, in_swing, w,
                             dem_perc_x=dem_perc_x, dem_perc_y=dem_perc_y,
                             rep_perc_x=rep_perc_x, rep_perc_y=rep_perc_y,
@@ -202,11 +216,16 @@ def build_2024():
     state_str = df["V243002"].astype(str).str.strip() if "V243002" in df.columns else pd.Series([""] * len(df))
     state = pd.to_numeric(state_str, errors="coerce")
     in_swing = state.isin(SWING_2024)
-    # Perceived candidate positions: V241179/80 (ideology), V241203/08 (honesty)
+    # Perceived candidate positions: V241179/80 (ideology),
+    # V241200+V241201 (Harris lead+cares) / V241205+V241206 (Trump lead+cares)
     dem_perc_x = (safe_num(df, "V241179").where(lambda v: v.between(1, 7)) - 4) / 3.0
     rep_perc_x = (safe_num(df, "V241180").where(lambda v: v.between(1, 7)) - 4) / 3.0
-    dem_perc_y = (5 - safe_num(df, "V241203").where(lambda v: v.between(1, 5))) / 4.0
-    rep_perc_y = (5 - safe_num(df, "V241208").where(lambda v: v.between(1, 5))) / 4.0
+    d_lead  = (5 - safe_num(df, "V241200").where(lambda v: v.between(1, 5))) / 4.0
+    d_cares = (5 - safe_num(df, "V241201").where(lambda v: v.between(1, 5))) / 4.0
+    r_lead  = (5 - safe_num(df, "V241205").where(lambda v: v.between(1, 5))) / 4.0
+    r_cares = (5 - safe_num(df, "V241206").where(lambda v: v.between(1, 5))) / 4.0
+    dem_perc_y = pd.concat([d_lead, d_cares], axis=1).mean(axis=1)
+    rep_perc_y = pd.concat([r_lead, r_cares], axis=1).mean(axis=1)
     return assemble_records(x, trust, party, vote, pv, swing, new_v, dropoff, in_swing, w,
                             dem_perc_x=dem_perc_x, dem_perc_y=dem_perc_y,
                             rep_perc_x=rep_perc_x, rep_perc_y=rep_perc_y,

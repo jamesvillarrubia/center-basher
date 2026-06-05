@@ -532,7 +532,7 @@ function drawChart(container, data, opts) {
     .text(`Swing = independents + cross-party defectors. Activated = voted this cycle, not prior. Stayed-home = voted prior cycle, not this one.`)
   svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 18)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
-    .text(`Big dot = candidate's mean voter position (where their actual voters sit). Small dot + 'perc. X' label = where this cohort PERCEIVED the candidate to be (ideology placement × honesty rating). Tether labeled with capture % shows whether perceived proximity translated to capture.`)
+    .text(`Big dot = candidate's mean voter position. Small dot + 'perc. X' label = where this cohort PERCEIVED the candidate to be (ideology placement × cares+leadership composite — the candidate analog of the voter trust composite). Tether labeled with capture % shows whether perceived proximity translated to capture.`)
   svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 4)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
     .text(`Line markers: ● n ≥ 40 (reliable) · ○ n ≥ 15 (moderate) · ✕ n < 15 (uncertain).`)

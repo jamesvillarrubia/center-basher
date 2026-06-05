@@ -110,12 +110,34 @@ KNOWN_ANNOTATIONS = {
     "V243002": "✅ CODEBOOK-VERIFIED: 2024 state code (stored as string in the .csv).",
 
     # Honesty / trait-rating variables — verified but reverse-coded
-    "V161162": "✅ CODEBOOK-VERIFIED with CAVEAT: 2016 Dem-candidate trait 'honest' Likert 1=extremely well..5=not well at all. Code applies (5-x)/4 to flip direction so higher=more honest.",
-    "V161167": "✅ CODEBOOK-VERIFIED with CAVEAT: 2016 Rep-candidate trait, same scale as V161162. Same transform.",
-    "V201211": "✅ CODEBOOK-VERIFIED with CAVEAT: 2020 Dem-candidate honesty. Same scale.",
-    "V201215": "✅ CODEBOOK-VERIFIED with CAVEAT: 2020 Rep-candidate honesty. Same scale.",
-    "V241203": "✅ CODEBOOK-VERIFIED with CAVEAT: 2024 Dem-candidate honesty. Same scale.",
-    "V241208": "✅ CODEBOOK-VERIFIED with CAVEAT: 2024 Rep-candidate honesty. Same scale.",
+    "V161162": "✅ CODEBOOK-VERIFIED: 2016 Dem cand 'honest' Likert 1=extremely well..5=not well at all. Used in build_candidate_honesty_by_trust.py.",
+    "V161167": "✅ CODEBOOK-VERIFIED: 2016 Rep cand 'honest', same scale as V161162.",
+    "V201211": "✅ CODEBOOK-VERIFIED: 2020 Dem cand 'honest'.",
+    "V201215": "✅ CODEBOOK-VERIFIED: 2020 Rep cand 'honest'.",
+    "V241203": "✅ CODEBOOK-VERIFIED: 2024 Dem cand 'honest'.",
+    "V241208": "✅ CODEBOOK-VERIFIED: 2024 Rep cand 'honest'.",
+
+    # Perceived-candidate IDEOLOGY (every R places every candidate on 1-7 scale)
+    "V161128": "✅ CODEBOOK-VERIFIED: 2016 R places Dem cand on 7-pt lib-con scale. Used in voter map for non-tautological perceived-position layer.",
+    "V161129": "✅ CODEBOOK-VERIFIED: 2016 R places Rep cand on 7-pt lib-con scale.",
+    "V201202": "✅ CODEBOOK-VERIFIED: 2020 R places Dem cand on 7-pt lib-con scale.",
+    "V201203": "✅ CODEBOOK-VERIFIED: 2020 R places Rep cand on 7-pt lib-con scale.",
+    "V241179": "✅ CODEBOOK-VERIFIED: 2024 R places Harris on 7-pt lib-con scale (codebook quote: 'Where would you place Kamala Harris on this scale?').",
+    "V241180": "✅ CODEBOOK-VERIFIED: 2024 R places Trump on 7-pt lib-con scale.",
+
+    # CARES + LEADERSHIP composite — voter-map y-axis source (replaced honest 2026-06-05)
+    "V161159": "✅ CODEBOOK-VERIFIED: 2016 Dem cand trait 'strong leadership' 1-5. Voter-map perceived-Dem y composite.",
+    "V161160": "✅ CODEBOOK-VERIFIED: 2016 Dem cand trait 'really cares about people like me' 1-5. Voter-map perceived-Dem y composite.",
+    "V161164": "✅ CODEBOOK-VERIFIED: 2016 Rep cand trait 'strong leadership' 1-5. Voter-map perceived-Rep y composite.",
+    "V161165": "✅ CODEBOOK-VERIFIED: 2016 Rep cand trait 'really cares about people like me' 1-5.",
+    "V201208": "✅ CODEBOOK-VERIFIED: 2020 Dem cand 'strong leadership' Likert 1-5.",
+    "V201209": "✅ CODEBOOK-VERIFIED: 2020 Dem cand 'really cares' Likert 1-5.",
+    "V201212": "✅ CODEBOOK-VERIFIED: 2020 Rep cand 'strong leadership' Likert 1-5.",
+    "V201213": "✅ CODEBOOK-VERIFIED: 2020 Rep cand 'really cares' Likert 1-5.",
+    "V241200": "✅ CODEBOOK-VERIFIED: 2024 Dem (Harris) 'strong leadership' Likert 1-5.",
+    "V241201": "✅ CODEBOOK-VERIFIED: 2024 Dem (Harris) 'really cares' Likert 1-5.",
+    "V241205": "✅ CODEBOOK-VERIFIED: 2024 Rep (Trump) 'strong leadership' Likert 1-5.",
+    "V241206": "✅ CODEBOOK-VERIFIED: 2024 Rep (Trump) 'really cares' Likert 1-5.",
 }
 
 
