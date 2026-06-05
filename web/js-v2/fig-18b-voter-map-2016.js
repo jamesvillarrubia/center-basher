@@ -31,7 +31,25 @@ function partyGroup(p) {
   return 'I'
 }
 
-// All toggleable layers, each declares what it draws (blob? line?) + visibility.
+// Per-candidate blob layers. 2016 uses primary voters (pv) since Sanders had
+// no general-election cohort. 2020/2024 use general-election vote (v).
+const CANDIDATE_LAYERS_BY_YEAR = {
+  2016: {
+    cand_clinton16: { kind: 'blob', label: 'Clinton (primary)', color: '#2c5b9c', visible: false, filter: v => v.pv === 'clinton' },
+    cand_sanders16: { kind: 'blob', label: 'Sanders (primary)', color: '#4a9b6d', visible: false, filter: v => v.pv === 'sanders' },
+    cand_trump16:   { kind: 'blob', label: 'Trump (primary)',   color: '#b8240f', visible: false, filter: v => v.pv === 'trump' },
+  },
+  2020: {
+    cand_biden20:   { kind: 'blob', label: 'Biden (general)',   color: '#2c5b9c', visible: false, filter: v => v.v === 'biden' },
+    cand_trump20:   { kind: 'blob', label: 'Trump (general)',   color: '#b8240f', visible: false, filter: v => v.v === 'trump' },
+  },
+  2024: {
+    cand_harris24:  { kind: 'blob', label: 'Harris (general)',  color: '#2c5b9c', visible: false, filter: v => v.v === 'harris' },
+    cand_trump24:   { kind: 'blob', label: 'Trump (general)',   color: '#b8240f', visible: false, filter: v => v.v === 'trump' },
+  },
+}
+
+// Year-independent layers
 const LAYER_DEFAULTS = {
   party_D:    { kind: 'blob', label: 'Democratic blob',  color: COLOR_DEM,   visible: true,  filter: v => v.p === 'dem' },
   party_R:    { kind: 'blob', label: 'Republican blob',  color: COLOR_REP,   visible: true,  filter: v => v.p === 'rep' },
@@ -51,11 +69,23 @@ function cloneLayers(src) {
   return out
 }
 
+function buildLayersForYear(year) {
+  // Merge year-independent defaults with the candidate blob set for this year.
+  // Preserve any visibility the user already toggled (so switching tabs is sticky).
+  const out = cloneLayers(LAYER_DEFAULTS)
+  const cands = CANDIDATE_LAYERS_BY_YEAR[year] || {}
+  for (const k of Object.keys(cands)) out[k] = { ...cands[k] }
+  return out
+}
+
 let __state = {
   year: 2016,
   scope: 'national',
   dataByYear: {},
-  layers: cloneLayers(LAYER_DEFAULTS),
+  layers: buildLayersForYear(2016),
+  // Preserve toggled visibility across year switches by candidate-name suffix.
+  // E.g., if user turns ON 'cand_trump16', also turn on 'cand_trump20', 'cand_trump24'.
+  stickyCandVisible: { clinton: false, sanders: false, trump: false, biden: false, harris: false },
 }
 
 export function mountVoterMapTabbed(selector, dataByYear) {
@@ -78,7 +108,22 @@ export function mountVoterMapTabbed(selector, dataByYear) {
     btn.dataset.year = y
     btn.className = 'vm-tab vm-year-tab'
     btn.style.cssText = 'padding:5px 14px;border-radius:4px;border:1px solid #888;background:#fff;color:#333;cursor:pointer;font-weight:600;'
-    btn.addEventListener('click', () => { __state.year = y; renderAll(container) })
+    btn.addEventListener('click', () => {
+      __state.year = y
+      // Rebuild layer set for this year, restoring sticky candidate toggles
+      const fresh = buildLayersForYear(y)
+      for (const k of Object.keys(fresh)) {
+        if (k.startsWith('cand_')) {
+          const candName = candNameFromKey(k)
+          fresh[k].visible = !!__state.stickyCandVisible[candName]
+        } else if (__state.layers[k]) {
+          fresh[k].visible = __state.layers[k].visible
+        }
+      }
+      __state.layers = fresh
+      rebuildLayerPanel(container)
+      renderAll(container)
+    })
     tabBar.appendChild(btn)
   })
   const sep = document.createElement('span'); sep.textContent = '|'; sep.style.cssText = 'color:#bbb;margin:0 4px;'
@@ -93,19 +138,10 @@ export function mountVoterMapTabbed(selector, dataByYear) {
     tabBar.appendChild(btn)
   })
 
-  // Layer toggle panel (checkboxes grouped: blobs | lines)
+  // Layer toggle panel (rebuilds when year changes so candidate set updates)
   const layerPanel = document.createElement('div')
   layerPanel.className = 'vm-layer-panel'
   layerPanel.style.cssText = 'display:flex;flex-direction:column;gap:6px;margin-bottom:0.75rem;padding:8px 10px;border:1px solid #ddd;border-radius:6px;background:#fafafa;font-size:12px;'
-
-  const blobRow = makeLayerRow('Blobs (density)', [
-    'party_D', 'party_R', 'party_I', 'swing_blob', 'activ_blob', 'drop_blob',
-  ], container)
-  const lineRow = makeLayerRow('Lines (avg trust by ideology)', [
-    'line_all', 'swing_line', 'activ_line', 'drop_line',
-  ], container)
-  layerPanel.appendChild(blobRow)
-  layerPanel.appendChild(lineRow)
 
   const chartWrap = document.createElement('div')
   chartWrap.className = 'vm-chart-wrap'
@@ -113,7 +149,32 @@ export function mountVoterMapTabbed(selector, dataByYear) {
   container.appendChild(tabBar)
   container.appendChild(layerPanel)
   container.appendChild(chartWrap)
+  rebuildLayerPanel(container)
   renderAll(container)
+}
+
+function candNameFromKey(layerKey) {
+  // 'cand_trump16' → 'trump'; 'cand_harris24' → 'harris'
+  return layerKey.replace(/^cand_/, '').replace(/\d+$/, '')
+}
+
+function rebuildLayerPanel(container) {
+  const layerPanel = container.querySelector('.vm-layer-panel')
+  if (!layerPanel) return
+  layerPanel.innerHTML = ''
+  // Candidate blobs row (this year's set)
+  const candKeys = Object.keys(__state.layers).filter(k => k.startsWith('cand_'))
+  if (candKeys.length > 0) {
+    layerPanel.appendChild(makeLayerRow('Candidate blobs', candKeys, container))
+  }
+  // Party + cohort blobs
+  layerPanel.appendChild(makeLayerRow('Party / cohort blobs', [
+    'party_D', 'party_R', 'party_I', 'swing_blob', 'activ_blob', 'drop_blob',
+  ], container))
+  // Lines
+  layerPanel.appendChild(makeLayerRow('Lines (avg trust)', [
+    'line_all', 'swing_line', 'activ_line', 'drop_line',
+  ], container))
 }
 
 function makeLayerRow(title, layerKeys, container) {
@@ -125,6 +186,7 @@ function makeLayerRow(title, layerKeys, container) {
   row.appendChild(titleEl)
   for (const key of layerKeys) {
     const L = __state.layers[key]
+    if (!L) continue
     const wrap = document.createElement('label')
     wrap.style.cssText = 'display:inline-flex;align-items:center;gap:5px;cursor:pointer;user-select:none;'
     const cb = document.createElement('input')
@@ -132,6 +194,10 @@ function makeLayerRow(title, layerKeys, container) {
     cb.checked = L.visible
     cb.addEventListener('change', () => {
       __state.layers[key].visible = cb.checked
+      // Sticky across years for candidate toggles
+      if (key.startsWith('cand_')) {
+        __state.stickyCandVisible[candNameFromKey(key)] = cb.checked
+      }
       renderAll(container)
     })
     const swatch = document.createElement('span')
@@ -207,17 +273,26 @@ function drawChart(container, data, opts) {
       .attr('stroke', color).attr('stroke-opacity', strokeOp).attr('stroke-width', 0.7)
   }
 
-  // Party blobs (under): bigger bandwidth, broad fills.
-  const blobOrder = ['party_I', 'party_D', 'party_R', 'swing_blob', 'activ_blob', 'drop_blob']
+  // Blob rendering order (bottom → top):
+  //   Party blobs first (broad), then cohort blobs, then candidate blobs on top
+  const blobOrder = [
+    'party_I', 'party_D', 'party_R',
+    'swing_blob', 'activ_blob', 'drop_blob',
+    ...Object.keys(__state.layers).filter(k => k.startsWith('cand_')),
+  ]
   for (const key of blobOrder) {
     const L = __state.layers[key]
-    if (!L.visible) continue
+    if (!L || !L.visible) continue
     const pts = voters.filter(L.filter)
-    // Cohort blobs use higher contrast + larger bandwidth (smaller-n samples need more smoothing)
     const isCohort = key === 'swing_blob' || key === 'activ_blob' || key === 'drop_blob'
-    drawDensity(pts, L.color, isCohort
-      ? { minN: 25, bandwidth: 34, thresholds: 5, fillBase: 0.07, fillStep: 0.14, strokeOp: 0.40 }
-      : { minN: 30, bandwidth: 28, thresholds: 6, fillBase: 0.06, fillStep: 0.10, strokeOp: 0.30 })
+    const isCand = key.startsWith('cand_')
+    if (isCand) {
+      drawDensity(pts, L.color, { minN: 25, bandwidth: 30, thresholds: 6, fillBase: 0.08, fillStep: 0.16, strokeOp: 0.55 })
+    } else if (isCohort) {
+      drawDensity(pts, L.color, { minN: 25, bandwidth: 34, thresholds: 5, fillBase: 0.07, fillStep: 0.14, strokeOp: 0.40 })
+    } else {
+      drawDensity(pts, L.color, { minN: 30, bandwidth: 28, thresholds: 6, fillBase: 0.06, fillStep: 0.10, strokeOp: 0.30 })
+    }
   }
 
   // LINE LAYERS — trend = weighted mean trust per ideology bin.
