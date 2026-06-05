@@ -446,29 +446,18 @@ function drawChart(container, data, opts) {
       g.append('line').attr('x1', ccx).attr('y1', ccy).attr('x2', pcx).attr('y2', pcy)
         .attr('stroke', cand.color).attr('stroke-width', 1.6)
         .attr('stroke-opacity', 0.7).attr('stroke-dasharray', '4,3')
-      // Perceived position dot (small candidate-colored marker)
-      g.append('circle').attr('cx', pcx).attr('cy', pcy).attr('r', 5)
-        .attr('fill', cand.color).attr('stroke', '#fff').attr('stroke-width', 1.8)
-      // Capture-share pill near the perceived dot
-      if (p.capture != null) {
-        const ang = Math.atan2(pcy - ccy, pcx - ccx)
-        const offset = 16
-        const lx = pcx + Math.cos(ang) * offset
-        const ly = pcy + Math.sin(ang) * offset
-        const pct = Math.round(p.capture * 100)
-        const txt = `${pct}%`
-        const w_pill = txt.length * 7 + 6
-        g.append('rect').attr('x', lx - w_pill/2).attr('y', ly - 8).attr('width', w_pill).attr('height', 14)
-          .attr('rx', 3).attr('fill', '#fff')
-          .attr('stroke', cand.color).attr('stroke-width', 1)
-        g.append('text').attr('x', lx).attr('y', ly + 3.5)
-          .attr('text-anchor', 'middle').attr('font-size', '10.5px')
-          .attr('font-weight', '700').attr('fill', cand.color).text(txt)
+      // Perceived position: candidate-colored ring with capture % INSIDE.
+      // No external label or pill — keeps the chart uncluttered.
+      const pct = p.capture != null ? Math.round(p.capture * 100) : null
+      g.append('circle').attr('cx', pcx).attr('cy', pcy).attr('r', 13)
+        .attr('fill', '#fff').attr('stroke', cand.color).attr('stroke-width', 2)
+      g.append('circle').attr('cx', pcx).attr('cy', pcy).attr('r', 13)
+        .attr('fill', cand.color).attr('fill-opacity', 0.12).attr('stroke', 'none')
+      if (pct != null) {
+        g.append('text').attr('x', pcx).attr('y', pcy + 4)
+          .attr('text-anchor', 'middle').attr('font-size', '11px')
+          .attr('font-weight', '800').attr('fill', cand.color).text(`${pct}%`)
       }
-      // Label "Perceived X" small italic above the dot
-      g.append('text').attr('x', pcx).attr('y', pcy - 9).attr('text-anchor', 'middle')
-        .attr('font-size', '9px').attr('font-style', 'italic').attr('fill', cand.color)
-        .text(`perc. ${cand.short}`)
     }
   }
 
@@ -484,16 +473,18 @@ function drawChart(container, data, opts) {
       .text(`(${c.x > 0 ? '+' : ''}${c.x}, ${c.y})`)
   }
 
-  // Subcohort centroids per candidate — only render when that cohort's
-  // layer (line OR blob) is visible. Small dot in candidate color, edged
-  // with cohort color, with a thin tether line back to the base centroid.
+  // Subcohort centroids per candidate (small S/A/D markers).
+  // SUPPRESSED for swing + activated when the perceived-candidate layer
+  // is showing those cohorts — they tell a tautological version of the
+  // same story and clutter the chart. Still shown for stayed-home.
   const cohortRender = [
-    { key: 'swing', layerKeys: ['swing_line', 'swing_blob'], color: COLOR_SWING, glyph: 'swing' },
-    { key: 'activated', layerKeys: ['activ_line', 'activ_blob'], color: COLOR_ACTIV, glyph: 'activ' },
-    { key: 'stayed_home', layerKeys: ['drop_line', 'drop_blob'], color: COLOR_DROP, glyph: 'drop' },
+    { key: 'swing', layerKeys: ['swing_line', 'swing_blob'], color: COLOR_SWING, glyph: 'swing', supressedByPerceived: true },
+    { key: 'activated', layerKeys: ['activ_line', 'activ_blob'], color: COLOR_ACTIV, glyph: 'activ', supressedByPerceived: true },
+    { key: 'stayed_home', layerKeys: ['drop_line', 'drop_blob'], color: COLOR_DROP, glyph: 'drop', supressedByPerceived: false },
   ]
   for (const cr of cohortRender) {
     if (!cr.layerKeys.some(k => __state.layers[k].visible)) continue
+    if (cr.supressedByPerceived) continue   // perceived layer wins for these cohorts
     for (const c of cands) {
       const sc = c.subcohorts && c.subcohorts[cr.key]
       if (!sc) continue
