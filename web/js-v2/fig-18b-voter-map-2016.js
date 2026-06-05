@@ -1,96 +1,58 @@
 // Fig 18 — Multi-year, tabbed voter map (trust × ideology).
 //
-// Three years (2016 / 2020 / 2024) × two scopes (national / swing-state) ×
-// per-layer toggles for both density blobs and trend lines.
+// Scenario-based design (2026-06-05 redesign):
+//   Each "scenario" is a cohort that bundles its blob + line + centroid
+//   ring + capture pills as ONE toggle. User picks scenarios to overlay.
 //
-// Layers (each independently toggleable; show blob, line, or both):
-//   Party blobs:   Democratic / Republican / Independent
-//   Cohort lines:  All voters / Swing / Activated (new) / Stayed-home (drop-off)
-//   Cohort blobs:  Swing / Activated / Stayed-home
+//   Behavioral scenarios:   Swing / Activated / Stayed-home
+//   Party-ID scenarios:     Democrats / Republicans / Independents
+//   Primary scenarios:      Clinton primary / Sanders primary / Trump primary (2016 only)
 //
-// Cohort definitions (consistent across years):
-//   Swing (sw):       independents OR cross-party defectors
-//   Activated (n2):   voted this cycle, NOT the prior cycle
-//   Stayed-home (do): voted prior cycle, NOT this cycle
+// Always shown: candidate-voter centroids (big colored dots), candidate name labels.
+// Default: Swing scenario ON, all others OFF.
 //
 // Data: scripts/build_voter_maps_all.py → voter_map_2016.json / _2020 / _2024
+
 import * as d3 from 'https://esm.sh/d3@7'
 import { contourDensity } from 'https://esm.sh/d3-contour@4'
 
+// ---- Colors ----
 const COLOR_DEM = '#2c5b9c'
 const COLOR_REP = '#b8240f'
 const COLOR_IND = '#666'
 const COLOR_SWING = '#a06400'
 const COLOR_ACTIV = '#2e7d32'
 const COLOR_DROP  = '#7a4d8a'
-const COLOR_ALL   = '#1b1b1d'
+const COLOR_CLINTON_PV = '#5588cc'
+const COLOR_SANDERS_PV = '#4a9b6d'
+const COLOR_TRUMP_PV   = '#d35a3d'
 
-function partyGroup(p) {
-  if (p === 'dem') return 'D'
-  if (p === 'rep') return 'R'
-  return 'I'
-}
+// ---- Scenarios ----
+// Each scenario is one toggle that bundles:
+//   blob + line + cohort centroid + capture pills next to candidate dots
+// `filter` selects voters in the cohort.
+// `has_capture` controls whether capture % pills render (stayed-home doesn't vote).
+// `years` (optional) restricts the scenario to a subset of cycles.
+const SCENARIOS = [
+  // Behavioral cohorts
+  { id: 'swing',       label: 'Swing voters',        group: 'Behavioral', color: COLOR_SWING, filter: v => v.sw, dash: '4,3', has_capture: true },
+  { id: 'activated',   label: 'Activated (new)',     group: 'Behavioral', color: COLOR_ACTIV, filter: v => v.n2, dash: '2,3', has_capture: true },
+  { id: 'stayed_home', label: 'Stayed-home',         group: 'Behavioral', color: COLOR_DROP,  filter: v => v.do, dash: '1,3', has_capture: false },
+  // Party ID cohorts
+  { id: 'dem',         label: 'Democrats',           group: 'Party ID',   color: COLOR_DEM,   filter: v => v.p === 'dem', dash: '5,2', has_capture: true },
+  { id: 'rep',         label: 'Republicans',         group: 'Party ID',   color: COLOR_REP,   filter: v => v.p === 'rep', dash: '5,2', has_capture: true },
+  { id: 'ind',         label: 'Independents',        group: 'Party ID',   color: COLOR_IND,   filter: v => v.p === 'ind', dash: '5,2', has_capture: true },
+  // Primary cohorts (2016 only)
+  { id: 'clinton_pv',  label: 'Clinton primary',     group: 'Primary',    color: COLOR_CLINTON_PV, filter: v => v.pv === 'clinton', dash: '3,2', has_capture: true, years: [2016] },
+  { id: 'sanders_pv',  label: 'Sanders primary',     group: 'Primary',    color: COLOR_SANDERS_PV, filter: v => v.pv === 'sanders', dash: '3,2', has_capture: true, years: [2016] },
+  { id: 'trump_pv',    label: 'Trump primary',       group: 'Primary',    color: COLOR_TRUMP_PV,   filter: v => v.pv === 'trump',   dash: '3,2', has_capture: true, years: [2016] },
+]
 
-// Per-candidate blob layers. 2016 uses primary voters (pv) since Sanders had
-// no general-election cohort. 2020/2024 use general-election vote (v).
-const CANDIDATE_LAYERS_BY_YEAR = {
-  2016: {
-    cand_clinton16: { kind: 'blob', label: 'Clinton (primary)', color: '#2c5b9c', visible: false, filter: v => v.pv === 'clinton' },
-    cand_sanders16: { kind: 'blob', label: 'Sanders (primary)', color: '#4a9b6d', visible: false, filter: v => v.pv === 'sanders' },
-    cand_trump16:   { kind: 'blob', label: 'Trump (primary)',   color: '#b8240f', visible: false, filter: v => v.pv === 'trump' },
-  },
-  2020: {
-    cand_biden20:   { kind: 'blob', label: 'Biden (general)',   color: '#2c5b9c', visible: false, filter: v => v.v === 'biden' },
-    cand_trump20:   { kind: 'blob', label: 'Trump (general)',   color: '#b8240f', visible: false, filter: v => v.v === 'trump' },
-  },
-  2024: {
-    cand_harris24:  { kind: 'blob', label: 'Harris (general)',  color: '#2c5b9c', visible: false, filter: v => v.v === 'harris' },
-    cand_trump24:   { kind: 'blob', label: 'Trump (general)',   color: '#b8240f', visible: false, filter: v => v.v === 'trump' },
-  },
-}
-
-// Year-independent layers.
-// DEFAULTS chosen to tell the CAUSAL swing story on first load:
-//   - Swing blob + line ON (where swing voters sit + their trust trend)
-//   - All other layers OFF — user toggles to overlay more
-//   - show_centroids OFF (tautological "where candidate's voters are"
-//     hidden by default; perceived-candidate discs carry the causal story)
-const LAYER_DEFAULTS = {
-  party_D:    { kind: 'blob', label: 'Democratic blob',  color: COLOR_DEM,   visible: false, filter: v => v.p === 'dem' },
-  party_R:    { kind: 'blob', label: 'Republican blob',  color: COLOR_REP,   visible: false, filter: v => v.p === 'rep' },
-  party_I:    { kind: 'blob', label: 'Independent blob', color: COLOR_IND,   visible: false, filter: v => v.p === 'ind' },
-  line_all:   { kind: 'line', label: 'All-voter line', color: COLOR_ALL,   visible: false, filter: v => true, dash: null,  width: 2.6, stat: 'median' },
-  swing_blob: { kind: 'blob', label: 'Swing blob',     color: COLOR_SWING, visible: true,  filter: v => v.sw },
-  swing_line: { kind: 'line', label: 'Swing line',     color: COLOR_SWING, visible: true,  filter: v => v.sw, dash: '4,3', width: 1.9, stat: 'median' },
-  activ_blob: { kind: 'blob', label: 'Activated blob', color: COLOR_ACTIV, visible: false, filter: v => v.n2 },
-  activ_line: { kind: 'line', label: 'Activated line', color: COLOR_ACTIV, visible: false, filter: v => v.n2, dash: '2,3', width: 1.7, stat: 'median' },
-  drop_blob:  { kind: 'blob', label: 'Stayed-home blob', color: COLOR_DROP, visible: false, filter: v => v.do },
-  drop_line:  { kind: 'line', label: 'Stayed-home line', color: COLOR_DROP, visible: false, filter: v => v.do, dash: '1,3', width: 1.7, stat: 'median' },
-}
-
-function cloneLayers(src) {
-  const out = {}
-  for (const k of Object.keys(src)) out[k] = { ...src[k] }
-  return out
-}
-
-function buildLayersForYear(year) {
-  // Merge year-independent defaults with the candidate blob set for this year.
-  // Preserve any visibility the user already toggled (so switching tabs is sticky).
-  const out = cloneLayers(LAYER_DEFAULTS)
-  const cands = CANDIDATE_LAYERS_BY_YEAR[year] || {}
-  for (const k of Object.keys(cands)) out[k] = { ...cands[k] }
-  return out
-}
-
-let __state = {
+const __state = {
   year: 2016,
   scope: 'national',
   dataByYear: {},
-  layers: buildLayersForYear(2016),
-  // Preserve toggled visibility across year switches by candidate-name suffix.
-  // E.g., if user turns ON 'cand_trump16', also turn on 'cand_trump20', 'cand_trump24'.
-  stickyCandVisible: { clinton: false, sanders: false, trump: false, biden: false, harris: false },
+  enabled: { swing: true },   // scenario id → true
 }
 
 export function mountVoterMapTabbed(selector, dataByYear) {
@@ -99,121 +61,80 @@ export function mountVoterMapTabbed(selector, dataByYear) {
   container.innerHTML = ''
   __state.dataByYear = dataByYear
 
-  // Year × scope tabs
   const tabBar = document.createElement('div')
   tabBar.style.cssText = 'display:flex;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap;align-items:center;font-size:13px;'
-  const yearTabs = [2016, 2020, 2024]
-  const scopeTabs = [
-    { key: 'national', label: 'National' },
-    { key: 'swing',    label: 'Swing states only' },
-  ]
-  yearTabs.forEach(y => {
+  ;[2016, 2020, 2024].forEach(yr => {
     const btn = document.createElement('button')
-    btn.textContent = y
-    btn.dataset.year = y
-    btn.className = 'vm-tab vm-year-tab'
+    btn.textContent = yr; btn.dataset.year = yr; btn.className = 'vm-tab vm-year-tab'
     btn.style.cssText = 'padding:5px 14px;border-radius:4px;border:1px solid #888;background:#fff;color:#333;cursor:pointer;font-weight:600;'
     btn.addEventListener('click', () => {
-      __state.year = y
-      // Rebuild layer set for this year, restoring sticky candidate toggles
-      const fresh = buildLayersForYear(y)
-      for (const k of Object.keys(fresh)) {
-        if (k.startsWith('cand_')) {
-          const candName = candNameFromKey(k)
-          fresh[k].visible = !!__state.stickyCandVisible[candName]
-        } else if (__state.layers[k]) {
-          fresh[k].visible = __state.layers[k].visible
-        }
-      }
-      __state.layers = fresh
-      rebuildLayerPanel(container)
+      __state.year = yr
+      rebuildScenarioPanel(container)
       renderAll(container)
     })
     tabBar.appendChild(btn)
   })
   const sep = document.createElement('span'); sep.textContent = '|'; sep.style.cssText = 'color:#bbb;margin:0 4px;'
   tabBar.appendChild(sep)
-  scopeTabs.forEach(s => {
+  ;[{ key: 'national', label: 'National' }, { key: 'swing', label: 'Swing states only' }].forEach(s => {
     const btn = document.createElement('button')
-    btn.textContent = s.label
-    btn.dataset.scope = s.key
-    btn.className = 'vm-tab vm-scope-tab'
+    btn.textContent = s.label; btn.dataset.scope = s.key; btn.className = 'vm-tab vm-scope-tab'
     btn.style.cssText = 'padding:5px 14px;border-radius:4px;border:1px solid #888;background:#fff;color:#333;cursor:pointer;font-weight:600;'
     btn.addEventListener('click', () => { __state.scope = s.key; renderAll(container) })
     tabBar.appendChild(btn)
   })
 
-  // Layer toggle panel (rebuilds when year changes so candidate set updates)
-  const layerPanel = document.createElement('div')
-  layerPanel.className = 'vm-layer-panel'
-  layerPanel.style.cssText = 'display:flex;flex-direction:column;gap:6px;margin-bottom:0.75rem;padding:8px 10px;border:1px solid #ddd;border-radius:6px;background:#fafafa;font-size:12px;'
+  const scenarioPanel = document.createElement('div')
+  scenarioPanel.className = 'vm-scenario-panel'
+  scenarioPanel.style.cssText = 'display:flex;flex-direction:column;gap:8px;margin-bottom:0.75rem;padding:10px 12px;border:1px solid #ddd;border-radius:6px;background:#fafafa;font-size:12px;'
 
   const chartWrap = document.createElement('div')
   chartWrap.className = 'vm-chart-wrap'
 
   container.appendChild(tabBar)
-  container.appendChild(layerPanel)
+  container.appendChild(scenarioPanel)
   container.appendChild(chartWrap)
-  rebuildLayerPanel(container)
+  rebuildScenarioPanel(container)
   renderAll(container)
 }
 
-function candNameFromKey(layerKey) {
-  // 'cand_trump16' → 'trump'; 'cand_harris24' → 'harris'
-  return layerKey.replace(/^cand_/, '').replace(/\d+$/, '')
+function scenariosForYear(year) {
+  return SCENARIOS.filter(s => !s.years || s.years.includes(year))
 }
 
-function rebuildLayerPanel(container) {
-  const layerPanel = container.querySelector('.vm-layer-panel')
-  if (!layerPanel) return
-  layerPanel.innerHTML = ''
-  // Cohort layers (primary story)
-  layerPanel.appendChild(makeLayerRow('Cohort', [
-    'swing_blob', 'swing_line', 'activ_blob', 'activ_line', 'drop_blob', 'drop_line',
-  ], container))
-  // Reference layers (off by default)
-  layerPanel.appendChild(makeLayerRow('Reference', [
-    'line_all', 'party_D', 'party_R', 'party_I',
-  ], container))
-  // Candidate-voter blobs (off by default)
-  const candKeys = Object.keys(__state.layers).filter(k => k.startsWith('cand_'))
-  if (candKeys.length > 0) {
-    layerPanel.appendChild(makeLayerRow('Candidate blobs', candKeys, container))
+function rebuildScenarioPanel(container) {
+  const panel = container.querySelector('.vm-scenario-panel')
+  if (!panel) return
+  panel.innerHTML = ''
+  const scenarios = scenariosForYear(__state.year)
+  const groups = ['Behavioral', 'Party ID', 'Primary']
+  for (const g of groups) {
+    const groupScenarios = scenarios.filter(s => s.group === g)
+    if (groupScenarios.length === 0) continue
+    const row = document.createElement('div')
+    row.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;'
+    const title = document.createElement('span')
+    title.textContent = g + ':'
+    title.style.cssText = 'font-weight:700;color:#444;min-width:90px;font-size:12px;'
+    row.appendChild(title)
+    for (const s of groupScenarios) {
+      const wrap = document.createElement('label')
+      wrap.style.cssText = 'display:inline-flex;align-items:center;gap:6px;cursor:pointer;user-select:none;'
+      const cb = document.createElement('input')
+      cb.type = 'checkbox'; cb.checked = !!__state.enabled[s.id]
+      cb.addEventListener('change', () => {
+        __state.enabled[s.id] = cb.checked
+        renderAll(container)
+      })
+      const swatch = document.createElement('span')
+      swatch.style.cssText = `display:inline-block;width:14px;height:10px;background:${s.color};opacity:0.45;border:1.5px solid ${s.color};border-radius:2px;`
+      const txt = document.createElement('span')
+      txt.textContent = s.label; txt.style.color = '#333'
+      wrap.appendChild(cb); wrap.appendChild(swatch); wrap.appendChild(txt)
+      row.appendChild(wrap)
+    }
+    panel.appendChild(row)
   }
-}
-
-function makeLayerRow(title, layerKeys, container) {
-  const row = document.createElement('div')
-  row.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;'
-  const titleEl = document.createElement('span')
-  titleEl.textContent = title + ':'
-  titleEl.style.cssText = 'font-weight:700;color:#444;min-width:170px;'
-  row.appendChild(titleEl)
-  for (const key of layerKeys) {
-    const L = __state.layers[key]
-    if (!L) continue
-    const wrap = document.createElement('label')
-    wrap.style.cssText = 'display:inline-flex;align-items:center;gap:5px;cursor:pointer;user-select:none;'
-    const cb = document.createElement('input')
-    cb.type = 'checkbox'
-    cb.checked = L.visible
-    cb.addEventListener('change', () => {
-      __state.layers[key].visible = cb.checked
-      // Sticky across years for candidate toggles
-      if (key.startsWith('cand_')) {
-        __state.stickyCandVisible[candNameFromKey(key)] = cb.checked
-      }
-      renderAll(container)
-    })
-    const swatch = document.createElement('span')
-    swatch.style.cssText = `display:inline-block;width:12px;height:12px;background:${L.color};opacity:${L.kind === 'blob' ? 0.35 : 1};border:1px solid ${L.color};border-radius:${L.kind === 'blob' ? '2px' : '6px'};`
-    const txt = document.createElement('span')
-    txt.textContent = L.label
-    txt.style.color = '#333'
-    wrap.appendChild(cb); wrap.appendChild(swatch); wrap.appendChild(txt)
-    row.appendChild(wrap)
-  }
-  return row
 }
 
 function renderAll(container) {
@@ -239,7 +160,7 @@ function drawChart(container, data, opts) {
   const cands = data.candidates
 
   const W = container.clientWidth || 680
-  const margin = { top: 110, right: 30, bottom: 108, left: 70 }
+  const margin = { top: 110, right: 30, bottom: 92, left: 70 }
   const innerW = W - margin.left - margin.right
   const innerH = Math.min(innerW, 460)
   const H = margin.top + innerH + margin.bottom
@@ -247,262 +168,166 @@ function drawChart(container, data, opts) {
   const svg = d3.select(container).append('svg').attr('viewBox', `0 0 ${W} ${H}`)
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
+  // Title + subtitle
   svg.append('text').attr('class', 'vm-title').attr('x', margin.left).attr('y', 22)
     .text(`${year} trust × ideology voter map${swingOnly ? ' — swing states only' : ''}`)
   svg.append('text').attr('class', 'vm-subtitle').attr('x', margin.left).attr('y', 42)
-    .text(`n = ${voters.length.toLocaleString()} ANES respondents. X = ideology (V161126 / V201200 / V241177). Y = trust composite (0–0.8 shown; full scale 0–1, almost no voters above 0.8).`)
+    .text(`n = ${voters.length.toLocaleString()} ANES respondents. X = self-reported ideology (1-7 → -1..+1). Y = institutional trust composite (0–0.8 shown).`)
   svg.append('text').attr('class', 'vm-subtitle').attr('x', margin.left).attr('y', 58)
-    .text('READING THE CHART: blob = cohort density. Dashed line = trust trend by ideology. Open ring = cohort centroid. Big colored dot = candidate-voter centroid. Capture % pill (in cohort color, near candidate dot) = candidate share of cohort vote. Closer dot to ring + higher pill → spatial-voting capture.')
+    .text('Each scenario toggles a cohort blob + trust-by-ideology line + open ring (cohort centroid) + capture % pills next to candidate dots.')
 
   const x = d3.scaleLinear().domain([-1, 1]).range([0, innerW])
   const y = d3.scaleLinear().domain([0, 0.8]).range([innerH, 0])
 
+  // Center crosshairs
   g.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', innerH).attr('stroke', '#ccc')
   g.append('line').attr('x1', 0).attr('x2', innerW).attr('y1', y(0.4)).attr('y2', y(0.4)).attr('stroke', '#ccc')
 
-  // BLOB LAYERS — render in declared order so party blobs go first (under), cohort blobs over.
+  // Active scenarios for this year
+  const activeScenarios = scenariosForYear(year).filter(s => __state.enabled[s.id])
+
+  // Helper: weighted median
+  function weightedMedian(items, key) {
+    const sorted = items.slice().sort((a, b) => a[key] - b[key])
+    const total = sorted.reduce((s, it) => s + (it.w || 1), 0)
+    let cum = 0
+    for (const it of sorted) {
+      cum += (it.w || 1)
+      if (cum >= total / 2) return it[key]
+    }
+    return sorted[sorted.length - 1][key]
+  }
+  function weightedMean(items, key) {
+    let tw = 0, s = 0
+    for (const it of items) { const w = it.w || 1; tw += w; s += it[key] * w }
+    return tw > 0 ? s / tw : 0
+  }
+
+  // ---- 1. Blobs (one per active scenario) ----
   function drawDensity(pts, color, opts = {}) {
-    const minN = opts.minN ?? 30
+    const minN = opts.minN ?? 25
     if (pts.length < minN) return
-    const bandwidth = opts.bandwidth ?? 28
-    const thresholds = opts.thresholds ?? 6
-    const fillBase = opts.fillBase ?? 0.06
-    const fillStep = opts.fillStep ?? 0.10
-    const strokeOp = opts.strokeOp ?? 0.30
     const density = contourDensity()
       .x(d => x(d.x)).y(d => y(d.y))
-      .size([innerW, innerH]).bandwidth(bandwidth).thresholds(thresholds)(pts)
+      .size([innerW, innerH]).bandwidth(opts.bandwidth ?? 30).thresholds(opts.thresholds ?? 6)(pts)
     g.append('g').selectAll('path').data(density).join('path')
       .attr('d', d3.geoPath())
-      .attr('fill', color).attr('fill-opacity', (d, i) => fillBase + (i / Math.max(1, density.length)) * fillStep)
-      .attr('stroke', color).attr('stroke-opacity', strokeOp).attr('stroke-width', 0.7)
+      .attr('fill', color).attr('fill-opacity', (d, i) => 0.06 + (i / Math.max(1, density.length)) * 0.14)
+      .attr('stroke', color).attr('stroke-opacity', 0.4).attr('stroke-width', 0.8)
+  }
+  for (const s of activeScenarios) {
+    drawDensity(voters.filter(s.filter), s.color)
   }
 
-  // Blob rendering order (bottom → top):
-  //   Party blobs first (broad), then cohort blobs, then candidate blobs on top
-  const blobOrder = [
-    'party_I', 'party_D', 'party_R',
-    'swing_blob', 'activ_blob', 'drop_blob',
-    ...Object.keys(__state.layers).filter(k => k.startsWith('cand_')),
-  ]
-  for (const key of blobOrder) {
-    const L = __state.layers[key]
-    if (!L || !L.visible) continue
-    const pts = voters.filter(L.filter)
-    const isCohort = key === 'swing_blob' || key === 'activ_blob' || key === 'drop_blob'
-    const isCand = key.startsWith('cand_')
-    if (isCand) {
-      drawDensity(pts, L.color, { minN: 25, bandwidth: 30, thresholds: 6, fillBase: 0.08, fillStep: 0.16, strokeOp: 0.55 })
-    } else if (isCohort) {
-      drawDensity(pts, L.color, { minN: 25, bandwidth: 34, thresholds: 5, fillBase: 0.07, fillStep: 0.14, strokeOp: 0.40 })
-    } else {
-      drawDensity(pts, L.color, { minN: 30, bandwidth: 28, thresholds: 6, fillBase: 0.06, fillStep: 0.10, strokeOp: 0.30 })
-    }
-  }
-
-  // LINE LAYERS — trend = weighted mean trust per ideology bin.
-  function trendFor(filter, stat = 'mean') {
+  // ---- 2. Lines (median trust per ideology bin, one per active scenario) ----
+  function trendFor(filter) {
     const bins = new Map()
     for (const v of voters) {
       if (!filter(v)) continue
       const key = Math.round(v.x * 6) / 6
-      const b = bins.get(key) || { items: [], sw: 0, swy: 0, n: 0 }
-      const w = v.w || 1
-      b.items.push({ y: v.y, w })
-      b.sw += w; b.swy += w * v.y; b.n += 1
+      const b = bins.get(key) || { items: [], n: 0 }
+      b.items.push({ y: v.y, w: v.w || 1 }); b.n += 1
       bins.set(key, b)
-    }
-    function weightedMedian(items) {
-      const sorted = items.slice().sort((a, b) => a.y - b.y)
-      const totalW = sorted.reduce((s, it) => s + it.w, 0)
-      let cum = 0
-      for (const it of sorted) {
-        cum += it.w
-        if (cum >= totalW / 2) return it.y
-      }
-      return sorted[sorted.length - 1].y
     }
     return [...bins.entries()]
       .filter(([_, b]) => b.n >= 3)
-      .map(([xv, b]) => ({
-        x: xv,
-        y: stat === 'median' ? weightedMedian(b.items) : b.swy / b.sw,
-        n: b.n,
-      }))
+      .map(([xv, b]) => ({ x: xv, y: weightedMedian(b.items, 'y'), n: b.n }))
       .sort((a, b) => a.x - b.x)
   }
   const trendLine = d3.line().x(d => x(d.x)).y(d => y(d.y)).curve(d3.curveMonotoneX)
   const N_HI = 40, N_LO = 15
-
-  const lineOrder = ['line_all', 'swing_line', 'activ_line', 'drop_line']
-  for (const key of lineOrder) {
-    const L = __state.layers[key]
-    if (!L || !L.visible) continue
-    const pts = trendFor(L.filter, L.stat || 'mean')
+  for (const s of activeScenarios) {
+    const pts = trendFor(s.filter)
     if (pts.length < 2) continue
-    // Draw the CONNECTING LINE only through reliable bins (n >= N_LO).
-    // Sparse-bin X markers float as standalone — they don't anchor the path,
-    // so the line reflects where the cohort actually clusters.
-    const reliablePts = pts.filter(p => p.n >= N_LO)
-    if (reliablePts.length >= 2) {
-      g.append('path').datum(reliablePts).attr('d', trendLine)
-        .attr('fill', 'none').attr('stroke', L.color).attr('stroke-width', L.width)
-        .attr('stroke-dasharray', L.dash).attr('opacity', 0.7)
+    const reliable = pts.filter(p => p.n >= N_LO)
+    if (reliable.length >= 2) {
+      g.append('path').datum(reliable).attr('d', trendLine)
+        .attr('fill', 'none').attr('stroke', s.color).attr('stroke-width', 1.8)
+        .attr('stroke-dasharray', s.dash).attr('opacity', 0.7)
     }
     for (const p of pts) {
-      const cx = x(p.x), cy = y(p.y)
+      const cx_ = x(p.x), cy_ = y(p.y)
       if (p.n >= N_HI) {
-        g.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 3.5)
-          .attr('fill', L.color).attr('stroke', '#fff').attr('stroke-width', 1)
+        g.append('circle').attr('cx', cx_).attr('cy', cy_).attr('r', 3.2).attr('fill', s.color).attr('stroke', '#fff').attr('stroke-width', 1)
       } else if (p.n >= N_LO) {
-        g.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 3)
-          .attr('fill', '#fff').attr('stroke', L.color).attr('stroke-width', 1.5)
+        g.append('circle').attr('cx', cx_).attr('cy', cy_).attr('r', 2.8).attr('fill', '#fff').attr('stroke', s.color).attr('stroke-width', 1.3)
       } else {
-        const s = 4
-        g.append('line').attr('x1', cx-s).attr('x2', cx+s).attr('y1', cy-s).attr('y2', cy+s)
-          .attr('stroke', L.color).attr('stroke-width', 1.6).attr('opacity', 0.55)
-        g.append('line').attr('x1', cx-s).attr('x2', cx+s).attr('y1', cy+s).attr('y2', cy-s)
-          .attr('stroke', L.color).attr('stroke-width', 1.6).attr('opacity', 0.55)
+        const sz = 3.5
+        g.append('line').attr('x1', cx_ - sz).attr('x2', cx_ + sz).attr('y1', cy_ - sz).attr('y2', cy_ + sz).attr('stroke', s.color).attr('stroke-width', 1.4).attr('opacity', 0.55)
+        g.append('line').attr('x1', cx_ - sz).attr('x2', cx_ + sz).attr('y1', cy_ + sz).attr('y2', cy_ - sz).attr('stroke', s.color).attr('stroke-width', 1.4).attr('opacity', 0.55)
       }
-    }
-    // Place label at the rightmost RELIABLE bin (not at an X marker)
-    const labelTarget = reliablePts.length > 0 ? reliablePts[reliablePts.length - 1] : pts[pts.length - 1]
-    g.append('text').attr('x', x(labelTarget.x) + 6).attr('y', y(labelTarget.y) + 4)
-      .attr('font-size', '10px').attr('font-weight', '700').attr('fill', L.color)
-      .text(L.label.replace(/ line$/, '').replace(/^All-voter$/, 'All'))
-  }
-
-  // COHORT-CENTROID + CAPTURE-LABEL LAYER
-  // For each visible cohort, render:
-  //   - Open ring at the cohort centroid (where these voters sit)
-  //   - Small capture % label next to each big candidate centroid showing
-  //     what share of THIS cohort voted for that candidate
-  // The big colored candidate centroids are drawn elsewhere (always on).
-  // The proximity story reads: which candidate centroid is closest to the
-  // open ring? Their capture % should be highest (most of the time).
-  const cohortDisplay = [
-    { key: 'swing',     layerKeys: ['swing_line', 'swing_blob'], color: COLOR_SWING, label: 'Swing center' },
-    { key: 'activated', layerKeys: ['activ_line', 'activ_blob'], color: COLOR_ACTIV, label: 'Activated center' },
-    { key: 'stayed_home', layerKeys: ['drop_line', 'drop_blob'], color: COLOR_DROP, label: 'Stayed-home center' },
-  ]
-  const cohortCentroids = data.cohort_centroids || {}
-  for (const cd of cohortDisplay) {
-    const visible = cd.layerKeys.some(k => __state.layers[k] && __state.layers[k].visible)
-    if (!visible) continue
-    // Compute cohort centroid + per-candidate capture share for the
-    // current scope (national vs swing-state).
-    const filt = cd.key === 'swing' ? (v => v.sw)
-              : cd.key === 'activated' ? (v => v.n2)
-              : (v => v.do)
-    const inCohort = voters.filter(filt)
-    if (inCohort.length === 0) continue
-    let tw = 0, sx = 0, sy = 0
-    for (const v of inCohort) { const w = v.w || 1; tw += w; sx += v.x * w; sy += v.y * w }
-    const cc = { x: sx / tw, y: sy / tw, n: inCohort.length }
-    const ccx = x(cc.x), ccy = y(cc.y)
-
-    // Cohort centroid: open ring + name + n
-    g.append('circle').attr('cx', ccx).attr('cy', ccy).attr('r', 7)
-      .attr('fill', '#fff').attr('stroke', cd.color).attr('stroke-width', 2.4)
-    g.append('text').attr('x', ccx).attr('y', ccy - 11).attr('text-anchor', 'middle')
-      .attr('font-size', '10px').attr('font-weight', '700').attr('fill', cd.color)
-      .text(`${cd.label} · n=${cc.n}`)
-
-    // Capture-share pill next to each candidate centroid. Skip when the
-    // candidate's centroid isn't being shown (perceived layer also off).
-    if (cd.key === 'stayed_home') continue   // stayed-home didn't vote; capture is 0
-    for (const c of cands) {
-      // Skip Sanders (no general-election capture)
-      if (c.id === 'sanders') continue
-      let twTotal = 0, twCand = 0
-      for (const v of inCohort) {
-        const w = v.w || 1; twTotal += w; if (v.v === c.id) twCand += w
-      }
-      if (twTotal === 0) continue
-      const pct = Math.round((twCand / twTotal) * 100)
-      const cx_ = x(c.x), cy_ = y(c.y)
-      // Pill positioned to the side of the candidate dot, in cohort color
-      const isLeftCand = c.x < 0
-      const px = isLeftCand ? cx_ - 30 : cx_ + 30
-      const py = cy_
-      const w_pill = 36
-      g.append('rect').attr('x', px - w_pill/2).attr('y', py - 9).attr('width', w_pill).attr('height', 18)
-        .attr('rx', 4).attr('fill', '#fff')
-        .attr('stroke', cd.color).attr('stroke-width', 1.4)
-      g.append('text').attr('x', px).attr('y', py + 4)
-        .attr('text-anchor', 'middle').attr('font-size', '11px')
-        .attr('font-weight', '800').attr('fill', cd.color).text(`${pct}%`)
-      // Thin tether from candidate dot to pill (subtle)
-      g.append('line').attr('x1', cx_).attr('y1', cy_).attr('x2', px - (isLeftCand ? -w_pill/2 : w_pill/2)).attr('y2', py)
-        .attr('stroke', cd.color).attr('stroke-opacity', 0.4).attr('stroke-width', 0.8)
     }
   }
 
-  // Big candidate-voter centroids — ALWAYS shown. These mark where each
-  // candidate's voter base sits on average. Capture-share labels (in cohort
-  // color) appear next to them when a cohort layer is on.
+  // ---- 3. Big candidate centroids (ALWAYS shown) ----
   for (const c of cands) {
-    const cx = x(c.x); const cy = y(c.y)
-    g.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 9).attr('fill', c.color).attr('stroke', '#fff').attr('stroke-width', 2)
-    const labelOffsetY = c.id === 'sanders' ? 26 : c.id === 'clinton' || c.id === 'biden' || c.id === 'harris' ? -16 : 26
-    g.append('text').attr('x', cx).attr('y', cy + labelOffsetY).attr('text-anchor', 'middle')
+    const cx_ = x(c.x), cy_ = y(c.y)
+    g.append('circle').attr('cx', cx_).attr('cy', cy_).attr('r', 9).attr('fill', c.color).attr('stroke', '#fff').attr('stroke-width', 2)
+    const labelOffsetY = c.id === 'sanders' ? 26 : (c.id === 'clinton' || c.id === 'biden' || c.id === 'harris' ? -16 : 26)
+    g.append('text').attr('x', cx_).attr('y', cy_ + labelOffsetY).attr('text-anchor', 'middle')
       .attr('font-size', '13px').attr('font-weight', '700').attr('fill', c.color).text(c.short)
   }
 
-  // Subcohort centroids per candidate (small S/A/D markers).
-  // SUPPRESSED for swing + activated when the perceived-candidate layer
-  // is showing those cohorts — they tell a tautological version of the
-  // same story and clutter the chart. Still shown for stayed-home.
-  const cohortRender = [
-    { key: 'swing', layerKeys: ['swing_line', 'swing_blob'], color: COLOR_SWING, glyph: 'swing', supressedByPerceived: true },
-    { key: 'activated', layerKeys: ['activ_line', 'activ_blob'], color: COLOR_ACTIV, glyph: 'activ', supressedByPerceived: true },
-    { key: 'stayed_home', layerKeys: ['drop_line', 'drop_blob'], color: COLOR_DROP, glyph: 'drop', supressedByPerceived: false },
-  ]
-  for (const cr of cohortRender) {
-    if (!cr.layerKeys.some(k => __state.layers[k].visible)) continue
-    if (cr.supressedByPerceived) continue   // perceived layer wins for these cohorts
+  // ---- 4. Per-scenario cohort centroid + capture pills ----
+  // For multiple active scenarios, stack capture pills vertically next to each candidate
+  // (one pill per active scenario per candidate).
+  const stackOffsets = new Map()   // candidateId → next vertical offset for pill
+  for (const s of activeScenarios) {
+    const inCohort = voters.filter(s.filter)
+    if (inCohort.length === 0) continue
+
+    // Cohort centroid (weighted-mean x,y)
+    const ccx_v = weightedMean(inCohort, 'x')
+    const ccy_v = weightedMean(inCohort, 'y')
+    const ccx = x(ccx_v), ccy = y(ccy_v)
+    g.append('circle').attr('cx', ccx).attr('cy', ccy).attr('r', 7)
+      .attr('fill', '#fff').attr('stroke', s.color).attr('stroke-width', 2.2)
+    g.append('text').attr('x', ccx).attr('y', ccy - 10).attr('text-anchor', 'middle')
+      .attr('font-size', '10px').attr('font-weight', '700').attr('fill', s.color)
+      .text(`${s.label} · n=${inCohort.length}`)
+
+    if (!s.has_capture) continue
+
+    // Capture pills, stacked vertically near each candidate dot
+    let totalW = 0
+    for (const v of inCohort) totalW += (v.w || 1)
     for (const c of cands) {
-      const sc = c.subcohorts && c.subcohorts[cr.key]
-      if (!sc) continue
-      const bx = x(c.x), by = y(c.y)
-      const sx = x(sc.x), sy = y(sc.y)
-      // Tether line from base centroid to subcohort dot
-      g.append('line').attr('x1', bx).attr('y1', by).attr('x2', sx).attr('y2', sy)
-        .attr('stroke', c.color).attr('stroke-opacity', 0.45)
-        .attr('stroke-dasharray', '2,2').attr('stroke-width', 1)
-      // Outer ring in cohort color
-      g.append('circle').attr('cx', sx).attr('cy', sy).attr('r', 6)
-        .attr('fill', 'none').attr('stroke', cr.color).attr('stroke-width', 1.8)
-      // Inner fill in candidate color
-      g.append('circle').attr('cx', sx).attr('cy', sy).attr('r', 4)
-        .attr('fill', c.color).attr('stroke', '#fff').attr('stroke-width', 1)
-      // Small label (cohort initial letter)
-      const letter = cr.key === 'swing' ? 'S' : cr.key === 'activated' ? 'A' : 'D'
-      g.append('text').attr('x', sx).attr('y', sy - 9).attr('text-anchor', 'middle')
-        .attr('font-size', '9px').attr('font-weight', '700').attr('fill', cr.color)
-        .text(letter)
+      if (c.id === 'sanders') continue   // primary-only, no general capture
+      let candW = 0
+      for (const v of inCohort) { if (v.v === c.id) candW += (v.w || 1) }
+      if (totalW === 0) continue
+      const pct = Math.round((candW / totalW) * 100)
+      const cx_ = x(c.x), cy_ = y(c.y)
+      const isLeft = c.x < 0
+      const baseX = isLeft ? cx_ - 38 : cx_ + 38
+      const slotIdx = stackOffsets.get(c.id) || 0
+      const baseY = cy_ - 22 + slotIdx * 19
+      stackOffsets.set(c.id, slotIdx + 1)
+      const pillW = 44
+      g.append('rect').attr('x', baseX - pillW / 2).attr('y', baseY - 9).attr('width', pillW).attr('height', 16)
+        .attr('rx', 3).attr('fill', '#fff').attr('stroke', s.color).attr('stroke-width', 1.4)
+      g.append('text').attr('x', baseX).attr('y', baseY + 4)
+        .attr('text-anchor', 'middle').attr('font-size', '11px')
+        .attr('font-weight', '800').attr('fill', s.color).text(`${pct}%`)
     }
   }
 
-  // Axes
+  // ---- Axes ----
   g.append('g').attr('class', 'vm-axis').attr('transform', `translate(0, ${innerH})`)
     .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format('.1f')).tickSizeOuter(0))
   g.append('g').attr('class', 'vm-axis').call(d3.axisLeft(y).ticks(5).tickFormat(d3.format('.1f')).tickSizeOuter(0))
-  svg.append('text').attr('class', 'vm-axis-title').attr('x', margin.left + innerW / 2).attr('y', H - 50).attr('text-anchor', 'middle')
+  svg.append('text').attr('class', 'vm-axis-title').attr('x', margin.left + innerW / 2).attr('y', H - 48).attr('text-anchor', 'middle')
     .text('← liberal       Ideology       conservative →')
   svg.append('text').attr('class', 'vm-axis-title').attr('transform', `translate(20, ${margin.top + innerH / 2}) rotate(-90)`).attr('text-anchor', 'middle')
-    .text('Institutional trust  (low ← → high)')
+    .text('Institutional trust (low ← → high)')
 
-  // Footer with cohort definitions
-  svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 32)
+  // Footer
+  svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 22)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
-    .text(`Swing = independents + cross-party defectors. Activated = voted this cycle, not prior. Stayed-home = voted prior cycle, not this one.`)
-  svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 18)
+    .text('Swing = independents + cross-party defectors. Activated = voted this cycle, not the prior. Stayed-home = voted prior, not this. Primary = 2016 only.')
+  svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 8)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
-    .text(`Big dot = candidate's mean voter position. Small dot + 'perc. X' label = where this cohort PERCEIVED the candidate to be (ideology placement × cares+leadership composite — the candidate analog of the voter trust composite). Tether labeled with capture % shows whether perceived proximity translated to capture.`)
-  svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 4)
-    .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
-    .text(`Line markers: ● n ≥ 40 (reliable) · ○ n ≥ 15 (moderate) · ✕ n < 15 (uncertain).`)
+    .text('Line markers: ● n ≥ 40 (reliable) · ○ n ≥ 15 (moderate) · ✕ n < 15 (uncertain).')
 }
 
 // Backwards-compat single-render API
