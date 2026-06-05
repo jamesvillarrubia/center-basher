@@ -25,6 +25,37 @@ This rule exists because we already had a drift incident in this codebase. Don't
 
 ---
 
+## 1a · Data rigor process is MANDATORY
+
+**Read [`reqts/data-rigor-process.md`](reqts/data-rigor-process.md) before touching ANY ANES variable or figure.**
+
+That document defines the five gates every figure must pass through:
+1. Codebook-grounded variable claims (annotation in `scripts/generate_variable_audit.py`)
+2. Observed distribution matches the codebook
+3. Pre vs Post weight alignment
+4. Substantive sense-check
+5. Footnote provenance
+
+When the user says *"I see something weird in figure X"* or *"that doesn't look right"* — that is the canonical trigger for the **forensic pass** documented in `reqts/data-rigor-process.md` §"Workflow when the user says...". **Believe the user.** Almost every catastrophic bug in this project was caught because the user said something like "Trump should sit closer to swing voters" or "Independents shouldn't anchor on the right."
+
+**Hard gates from the rigor doc** (do NOT skip):
+- No new figure ships without its variables having a ✅ VERIFIED or 🔥 KNOWN-BUG-FIXED annotation in `reqts/variable-audit.md`
+- Vote-choice / post-election analyses MUST use POST weights (V160102 / V200010b / V240107b), not PRE
+- ANES missing codes (-9, -8, -7, -6, -1, -2) must be explicitly excluded — never let them silently fall to "valid"
+- The user's intuition is a hard signal, not a nit. Run the forensic pass before pushing back.
+
+Tools to re-run after any variable change:
+```
+python scripts/extract_codebook_entries.py     # refresh codebook entries
+python scripts/generate_variable_audit.py      # refresh audit table
+```
+
+Bugs already caught (and now permanently annotated in `reqts/variable-audit.md`):
+V241049, V242065, V161158x, V201231x, V162031x, V201101, V242067 code-3, 2020+2024 pre→post weight switch.
+See `reqts/data-rigor-process.md` §"Process bugs we have already caught" for the full list.
+
+---
+
 ## 2 · Statistical claims must be footnoted
 
 Every statistical claim in body prose carries an inline `[N]` marker pointing to a Notes block at the

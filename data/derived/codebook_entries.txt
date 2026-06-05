@@ -1,0 +1,1123 @@
+
+
+=== V160001 [2016] ===
+V160001
+
+Label:      2016 Case ID
+Item name:  Not applicable; administrative or derived variable
+
+Question:   Not applicable
+
+Unique to each respondent.
+From: 1
+To: 5090
+
+                            ANES 2016 Codebook - Version 20190904 - page 10
+
+V160001_orig
+
+Label:      Original (6-digit) Westat Case ID
+Item name:  Not applicable; administrative or derived variable
+
+Question:   Not applicable
+
+Unique to each respondent.
+From: 300001
+To: 407800
+
+                            ANES 2016 Codebook - Version 20190904 - page 11
+
+
+
+=== V160101 [2016] ===
+V160101
+
+Label:      Pre-election weight -full sample
+Item name:  Not applicable; administrative or derived variable
+
+Question:   Not applicable
+
+            Unweighted Summary
+
+                Min.   FTF     Web    Total
+             1st Qu.  0.0895  0.2464  0.0895
+            Median    0.4738  0.6151  0.5717
+                      0.7691  0.8407  0.8240
+               Mean   0.9323  1.0256  0.9998
+            3rd Qu.   1.1590  1.2769  1.2425
+                      6.8139  6.0624  6.8139
+                Max.  0.6803  0.6638  0.6696
+            Std Dev
+
+                                      ANES 2016 Codebook - Version 20190904 - page 12
+
+
+
+=== V160102 [2016] ===
+V160102
+
+Label:      Post-election weight -full sample
+Item name:  Not applicable; administrative or derived variable
+
+Question:   Not applicable
+
+            Unweighted Summary
+
+                Min.   FTF     Web    Total
+             1st Qu.  0.0000  0.0000  0.0000
+            Median    0.3769  0.3989  0.3934
+                      0.7016  0.7540  0.7481
+               Mean   0.8481  0.8564  0.8541
+            3rd Qu.   1.1158  1.1343  1.1294
+                      6.4445  6.1986  6.4445
+                Max.  0.7212  0.7184  0.7191
+            Std Dev
+
+                                      ANES 2016 Codebook - Version 20190904 - page 15
+
+
+
+=== V161004 [2016] ===
+21  V161004             PRE: How interested in following campaigns
+
+
+
+=== V161005 [2016] ===
+22  V161005             PRE: Did R vote for President in 2012
+
+
+
+=== V161010d [2016] ===
+30  V161010d            PRE: Vote section- FIPS state code for sample address
+
+
+
+=== V161021 [2016] ===
+49  V161021   PRE: Did R vote in a Presidential primary or caucus
+
+
+
+=== V161022 [2016] ===
+51  V161022   PRE: Already voted in General Election
+
+
+
+=== V161022x [2016] ===
+(NOT FOUND IN CODEBOOK)
+
+
+=== V161023 [2016] ===
+53  V161023   PRE: In what manner did R vote
+
+
+
+=== V161031 [2016] ===
+64  V161031   PRE: For whom does R intend to vote for President
+
+
+
+=== V161086 [2016] ===
+V161086
+
+Label:      PRE: Feeling Thermometer: Democratic Presidential cand
+Item name:  THERMPRE_THDPC
+
+Question:   (Looking at page [PRELOAD: page] of the booklet) (How would you rate:)
+            Hillary Clinton PROBE for don't know response: when you say don't know,
+            do you mean that you don't know who the person is, or do you have some-
+            thing else in mind?
+            ENTER number 0-100 For Web administration, the optional reference to the
+            respondent booklet was omitted.
+            RANDOMIZATION: Order of major party Presidential cands
+
+99 unique outcomes. 20 most frequently appearing outcomes:
+
+            Unweighted Frequencies
+
+                           0  FTF     Web                   Total
+                         85     280     667                    947
+                         70     148     286                    434
+                         60     144     269                    413
+                         15     124     249                    373
+                         30     112     220                    332
+                        100      78     179                    257
+                         40      71     161                    232
+                         50      92     136                    228
+                                 84     111                    195
+                           1       1     80                     81
+                           2       0     69                     69
+            -99. Refused           2     34                     36
+                         16        0     33                     33
+                         61        0     33                     33
+                         90        5     28                     33
+                         71        0     31                     31
+                         80        5     20                     25
+                           3       0     24                     24
+                         31        0     24                     24
+                         75        3     19                     22
+
+                                                            ANES 2016 Codebook - Version 20190904 - page 156
+... [truncated]
+
+
+=== V161087 [2016] ===
+V161087
+
+Label:      PRE: Feeling Thermometer: Republican Presidential cand
+Item name:  THERMPRE_THRPC
+
+Question:   (Looking at page [PRELOAD: page] of the booklet) (How would you rate:)
+            Donald Trump PROBE for don't know response: when you say don't know,
+            do you mean that you don't know who the person is, or do you have some-
+            thing else in mind?
+            ENTER number 0-100 For Web administration, the optional reference to the
+            respondent booklet was omitted.
+            RANDOMIZATION: Order of major party Presidential cands
+
+96 unique outcomes. 20 most frequently appearing outcomes:
+
+            Unweighted Frequencies
+
+                           0  FTF     Web                   Total
+                         70     363     925                  1288
+                         60     133     216                    349
+                         85     119     228                    347
+                         15     112     228                    340
+                        100      95     199                    294
+                         30      59     179                    238
+                         40      80     133                    213
+                         50      79     114                    193
+                                 94      98                    192
+                           1       1    109                    110
+                           2       0     74                     74
+            -99. Refused           2     36                     38
+                         61        0     30                     30
+                         10        8     19                     27
+                         86        0     26                     26
+                           3       1     24                     25
+                         90        4     21                     25
+                         75        4     18                     22
+                           5       0     21                     21
+                         16        0     20                     20
+
+                                                            ANES 2016 Codebook - Version 20190904 - page 157
+... [truncated]
+
+
+=== V161126 [2016] ===
+171 V161126   PRE: 7pt scale Liberal conservative self-placement
+172 V161127   PRE: If R had to choose liberal or conservative self-placemt
+
+
+=== V161158x [2016] ===
+217 V161158x  PRE: SUMMARY - Party ID
+218 V161159   PRE: Pres Dem cand trait strong leadership
+
+
+=== V161162 [2016] ===
+221 V161162   PRE: Pres Dem cand trait honest
+222 V161163   PRE: Pres Dem cand trait speaks mind
+
+
+=== V161167 [2016] ===
+226 V161167   PRE: Pres Rep cand trait honest
+227 V161168   PRE: Pres Rep cand trait speaks mind
+
+
+=== V161178 [2016] ===
+237 V161178   PRE: 7pt scale spending and Services self-placement
+238 V161179   PRE: 7pt scale spending and Services Dem Presidential cand
+
+
+=== V161181 [2016] ===
+240 V161181   PRE: 7pt scale defense spending self-placement
+241 V161182   PRE: 7pt scale defense spending Dem Pres cand
+
+
+=== V161184 [2016] ===
+243 V161184   PRE: 7pt scale govt-private medical insur scale: self-plmt
+244 V161185   PRE: 7pt scale govt-private medical insur scale: Dem Pres cand
+
+
+=== V161189 [2016] ===
+248 V161189   PRE: 7pt scale guaranteed job-income scale: self-placement
+249 V161190   PRE: 7pt scale guaranteed job-income scale: Dem Pres cand
+
+
+=== V161193 [2016] ===
+252 V161193   PRE: Favor or oppose ending birthright citizenship
+253 V161193a  PRE: Strength R favors or opposes ending birthright citizenship
+
+
+=== V161196 [2016] ===
+258 V161196   PRE: Build a wall with Mexico
+259 V161196a  PRE: Build a wall with Mexico strength follow-up
+
+
+=== V161198 [2016] ===
+262 V161198   PRE: 7pt scale govt assistance to blacks scale: self-placemt
+263 V161199   PRE: 7pt scale govt assistance to blacks scale: Dem Pres cand
+
+
+=== V161204 [2016] ===
+268 V161204   PRE: Does R favor or oppose affirmative action in universities
+269 V161204a  PRE: How much does R favor affirmative action in universities
+
+
+=== V161208 [2016] ===
+275 V161208   PRE: Federal Budget Spending: dealing with crime
+276 V161209   PRE: Federal Budget Spending: welfare programs
+
+
+=== V161213 [2016] ===
+280 V161213   PRE: Sending troops to fight ISIS
+281 V161213a  PRE: Sending troops to fight ISIS follow-up
+
+
+=== V161215 [2016] ===
+286 V161215   PRE: REV How often trust govt in Wash to do what is right
+287 V161216   PRE: Govt run by a few big interests or for benefit of all
+
+
+=== V161216 [2016] ===
+287 V161216   PRE: Govt run by a few big interests or for benefit of all
+288 V161217   PRE: Does government waste much tax money
+
+
+=== V161217 [2016] ===
+288 V161217   PRE: Does government waste much tax money
+289 V161218   PRE: How many in government are corrupt
+
+
+=== V161267 [2016] ===
+368 V161267   PRE: Respondent age
+369 V161267a  PRE: RESTRICTED- Birthdate: month of birth
+
+
+=== V162031x [2016] ===
+722 V162031x  PRE-POST: SUMMARY -Did R vote in 2016
+723 V162032x  POST: SUMMARY - Post vote status for registered respondents
+
+
+=== V162034a [2016] ===
+728 V162034a  POST: For whom did R vote for President
+729 V162035   POST: Preference strong for Pres cand for whom R voted
+
+
+=== V162078 [2016] ===
+787 V162078   POST: Feeling thermometer: Democratic Presidential candidate
+788 V162079   POST: Feeling thermometer: Republican Presidential candidate
+
+
+=== V162079 [2016] ===
+788 V162079   POST: Feeling thermometer: Republican Presidential candidate
+789 V162080   POST: Feeling thermometer: Libertarian Presidential candidate
+
+
+=== V162215 [2016] ===
+977 V162215   POST: [STD] Publ officials don't care what people think
+978 V162216   POST: [STD] Have no say about what govt does
+
+
+=== V162216 [2016] ===
+978 V162216   POST: [STD] Have no say about what govt does
+979 V162217   POST: [REV] Politics/govt too complicated to understand
+
+
+=== V200010a [2020] ===
+V200010a	FULL SAMPLE PRE-ELECTION WEIGHT
+Variable Note	Draft weights from the preliminary release have been updated and replaced.
+
+
+
+
+
+
+=== V200010b [2020] ===
+V200010b	FULL SAMPLE POST-ELECTION WEIGHT
+Variable Note	Draft weights from the preliminary release have been updated and replaced.
+
+
+
+
+
+
+=== V201014b [2020] ===
+V201014b	PRE: REGISTRATION STATE (ALL REGISTRATIONS)
+Value Labels	-1. Inapplicable
+
+1. Alabama  2. Alaska  4. Arizona
+5. Arkansas  6. California  8. Colorado
+9. Connecticut  10. Delaware
+11. Washington DC
+12. Florida  13. Georgia   15. Hawaii
+16. Idaho   17. Illinois   18. Indiana
+19. Iowa   20. Kansas   21. Kentucky
+22. Louisiana   23. Maine   24. Maryland
+25. Massachusetts   26. Michigan   27. Minnesota
+28. Mississippi   29. Missouri   30. Montana
+31. Nebraska   32. Nevada   33. New Hampshire
+34. New Jersey   35. New Mexico   36. New York
+37. North Carolina   38. North Dakota   39. Ohio
+40. Oklahoma   41. Oregon   42. Pennsylvania
+44. Rhode Island   45. South Carolina   46. South Dakota
+47. Tennessee   48. Texas   49. Utah
+50. Vermont   51. Virginia   53. Washington
+54. West Virginia   55. Wisconsin   56. Wyoming
+
+
+
+
+
+
+=== V201101 [2020] ===
+V201101	PRE: DID R VOTE FOR PRESIDENT IN 2016 [REVISED]
+Question	Four years ago, in 2016, Hillary Clinton ran on the Democratic ticket against Donald Trump for the Republicans. We talk to many people who tell us they did not vote. And we talk to a few people who tell us they did vote, who really did not. We can tell they did not vote by checking with official government records. What about you? If we check the official government voter records, will they show that you voted in the 2016 presidential election, or that you did not vote in that election?
+Value Labels	-9. Refused
+-8. Don’t know
+-1. Inapplicable
+1. Yes, voted
+2. No, didn’t vote
+Universe	IF R SELECTED FOR VERSION 1A OF VERSION 1A / VERSION 1B SPLICE:
+Survey Question(s)	RETROVOTE_PRESVTLASTREV
+Randomization	Selection for question administered, RETROVOTE_PRESVTLASTREV or RETROVOTE_PRESVTLAST (Rand var randint_presvtlast: 1=RETROVOTE_PRESVTLASTREV, 2=RETROVOTE_PRESVTLAST)
+
+
+
+
+
+
+=== V201103 [2020] ===
+V201103	PRE: RECALL OF LAST (2016) PRESIDENTIAL VOTE CHOICE
+Question	Which one did you vote for?
+Value Labels	-9. Refused
+-8. Don’t know
+-1. Inapplicable
+1. Hillary Clinton
+2. Donald Trump
+5. Other {SPECIFY}
+Universe	IF R SAYS VOTED FOR PRESIDENT IN LAST PRESIDENTIAL ELECTION:
+Survey Question(s)	RETROVOTE_PREVVTWHO
+Interviewer Instruction	{DO NOT PROBE ‘DK’ RESPONSE}
+
+
+
+
+
+
+=== V201151 [2020] ===
+V201151	PRE: FEELING THERMOMETER: JOE BIDEN, DEMOCRATIC PRESIDENTIAL CANDIDATE
+Question	How would you rate:
+Joe Biden
+Value Labels	-9. Refused
+-4. Technical error
+998. Don’t know (don’t know where to rate)
+Survey Question(s)	THERMPRE_THDPC
+Randomization	Order of Presidential cand thermometers (as 1st or 2nd individual thermometers)
+Interviewer Instruction	{PROBE FOR DON’T KNOW RESPONSE: when you say don’t know, do you mean that you don’t know who the person is, or do you have something else in mind?
+ENTER number 0-100
+ENTER ‘998’ for ‘Don’t know where to rate’
+ENTER ‘999’ for ‘Don’t recognize’ .}
+
+
+
+
+
+
+=== V201152 [2020] ===
+V201152	PRE: FEELING THERMOMETER: DONALD TRUMP, REPUBLICAN PRESIDENTIAL CANDIDATE
+Question	How would you rate:
+Donald Trump
+Value Labels	-9. Refused
+Survey Question(s)	THERMPRE_THRPC
+Randomization	Order of Presidential cand thermometers (as 1st or 2nd individual thermometers)
+Interviewer Instruction	{PROBE FOR DON’T KNOW RESPONSE: when you say don’t know, do you mean that you don’t know who the person is, or do you have something else in mind?
+ENTER number 0-100
+ENTER ‘998’ for ‘Don’t know where to rate’
+ENTER ‘999’ for ‘Don’t recognize’ .}
+
+
+
+
+
+
+=== V201200 [2020] ===
+V201200	PRE: 7PT SCALE LIBERAL-CONSERVATIVE SELF-PLACEMENT
+Question	Where would you place yourself on this scale, or haven’t you thought much about this?
+Value Labels	-9. Refused
+-8. Don’t know
+1. Extremely liberal
+2. Liberal
+3. Slightly liberal
+4. Moderate; middle of the road
+5. Slightly conservative
+6. Conservative
+7. Extremely conservative
+99. Haven’t thought much about this
+Survey Question(s)	LIBCPRE_LCSELF
+Interviewer Instruction	{DO NOT PROBE}
+
+
+
+
+
+
+=== V201211 [2020] ===
+V201211	PRE: DEMOCRATIC PRESIDENTIAL CANDIDATE TRAIT: HONEST
+Question	What about ‘is honest’?
+Does this phrase describe Joe Biden extremelywell, very well, moderately well, slightly well, or not well at all?
+Value Labels	-9. Refused
+-8. Don’t know
+1. Extremely well
+2. Very well
+3. Moderately well
+4. Slightly well
+5. Not well at all
+Universe	IF TRAIT IS 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE /
+IF TRAIT IS NOT 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE:
+Survey Question(s)	CTRAIT_DPCHONST
+Randomization	Order of Presidential cands for sets of traits; order of traits administered for each candidate. Traits should be randomized in the same order for each candidate.
+Response Order	Forward/Reverse order
+Interviewer Instruction	{DO NOT PROBE DON’T KNOW}
+
+
+
+
+
+
+=== V201215 [2020] ===
+V201215	PRE: REPUBLICAN PRESIDENTIAL CANDIDATE TRAIT: HONEST
+Question	What about ‘is honest’?
+Does this phrase describe Donald Trump extremely well, very well, moderately well, slightly well, or not well at all?
+Value Labels	-9. Refused
+-8. Don’t know
+1. Extremely well
+2. Very well
+3. Moderately well
+4. Slightly well
+5. Not well at all
+Universe	IF TRAIT IS 1ST TRAIT FOR REPUBLICAN PRESIDENTIAL CANDIDATE /
+IF TRAIT IS NOT 1ST TRAIT FOR REPUBLICAN PRESIDENTIAL CANDIDATE:
+Survey Question(s)	CTRAIT_RPCHONST
+Randomization	Order of Presidential cands for sets of traits; order of traits administered for each candidate. Traits should be randomized in the same order for each candidate.
+Response Order	Forward/Reverse order
+Interviewer Instruction	{DO NOT PROBE DON’T KNOW}
+
+
+
+
+
+
+=== V201231x [2020] ===
+V201231x	PRE: SUMMARY: PARTY ID
+Value Labels	-9. Refused
+-8. Don’t know
+1. Strong Democrat
+2. Not very strong Democrat
+3. Independent-Democrat
+4. Independent
+5. Independent-Republican
+6. Not very strong Republican
+7. Strong Republican
+Survey Question(s)	PTYID_RPTYID, PTYID_STRPTYID, PTYID_LEANPTY
+
+
+
+
+
+
+=== V201233 [2020] ===
+V201233	PRE: HOW OFTEN TRUST GOVERNMENT IN WASHINGTON TO DO WHAT IS RIGHT [REVISED]
+Question	How often can you trust the federal government in Washington to do what is right?
+Value Labels	-9. Refused
+-8. Don’t know
+1. Always
+2. Most of the time
+3. About half the time
+4. Some of the time
+5. Never
+Survey Question(s)	TRUSTGOV_TRUSTGREV
+Response Order	Forward/Reverse order
+
+
+
+
+
+
+=== V201234 [2020] ===
+V201234	PRE: GOVERNMENT RUN BY A FEW BIG INTERESTS OR FOR BENEFIT OF ALL
+Question	Would you say the government is pretty much run by a few big interests looking out for themselves or that it is run for the benefit of all the people?
+Value Labels	-9. Refused
+-8. Don’t know
+1. Run by a few big interests
+2. For the benefit of all the people
+Survey Question(s)	TRUSTGOV_BIGINTRST
+
+
+
+
+
+
+=== V201235 [2020] ===
+V201235	PRE: DOES GOVERNMENT WASTE MUCH TAX MONEY
+Question	Do you think that people in government waste a lot of the money we pay in taxes, waste some of it, or don’t waste very much of it?
+Value Labels	-9. Refused
+-8. Don’t know
+1. Waste a lot
+2. Waste some
+3. Don’t waste very much
+Survey Question(s)	TRUSTGOV_WASTE
+Response Order	Forward/Reverse order
+
+
+
+
+
+
+=== V201507x [2020] ===
+V201507x	PRE: SUMMARY: RESPONDENT AGE
+Value Labels	-9. Refused
+80. Age 80 or older
+Survey Question(s)	DEM_BIRTHMO, DEM_BIRTHDY, DEM_BIRTHYR
+
+
+
+
+
+
+=== V202073 [2020] ===
+V202073	POST: FOR WHOM DID R VOTE FOR PRESIDENT
+Question	Who did you vote for? [Joe Biden, Donald Trump/Donald Trump, Joe Biden], Jo Jorgensen, Howie Hawkins, or someone else?
+Value Labels	-9. Refused
+-8. Don’t know
+-7. No post-election data, deleted due to incomplete interview
+-6. No post-election interview
+-1. Inapplicable
+1. Joe Biden
+2. Donald Trump
+3. Jo Jorgensen
+4. Howie Hawkins
+5. Other candidate {SPECIFY}
+7. Specified as Republican candidate
+8. Specified as Libertarian candidate
+11. Specified as don’t know
+12. Specified as refused
+Universe	IF R DID NOT INDICATE IN THE PRE THAT R ALREADY VOTED:
+IF R REPORTED IN THE POST THAT R VOTED:
+IF R VOTED FOR PRESIDENT:
+Survey Question(s)	POSTVOTE_PRESVTWHO
+Randomization	Order of Democratic Pres cand and Republican Pres cand names, according to ballot color
+assigned in Pre (other response options in fixed order 3rd, 4th, 5th positions)
+Response Order	Randomize 2 major parties
+
+
+
+
+
+
+=== V202109x [2020] ===
+V202109x	PRE-POST: SUMMARY: VOTER TURNOUT IN 2020
+Value Labels	-2. Not reported
+0. Did not vote
+1. Voted
+Survey Question(s)	PREVOTE_HOWVOTE, POSTVOTE_RVOTE, POSTVOTE_REGIST
+
+
+
+
+
+
+=== V202143 [2020] ===
+V202143	POST: FEELING THERMOMETER: DEMOCRATIC PRESIDENTIAL CANDIDATE: JOE BIDEN
+Question	On the feeling thermometer scale from 0 to 100, how would you rate Joe Biden?
+Value Labels	-9. Refused
+-7. No post-election data, deleted due to incomplete interview
+-6. No post-election interview
+-5. Interview breakoff (sufficient partial IW)
+-4. Technical error
+Survey Question(s)	THERMPO_THPODPC
+Randomization	Order of Democratic and Republican Presidential cand thermometer ratings
+Interviewer Instruction	{PROBE FOR DON’T KNOW RESPONSE: when you say don’t know, do you mean that you don’t know who the person is, or do you have something else in mind?
+ENTER number 0-100}
+
+
+
+
+
+
+=== V202144 [2020] ===
+V202144	POST: FEELING THERMOMETER: REPUBLICAN PRESIDENTIAL CANDIDATE: DONALD TRUMP
+Question	How would you rate:
+Donald Trump
+Value Labels	-9. Refused
+-7. No post-election data, deleted due to incomplete interview
+-6. No post-election interview
+-5. Interview breakoff (sufficient partial IW)
+-4. Technical error
+Survey Question(s)	THERMPO_THPORPC
+Randomization	Order of Democratic and Republican Presidential cand thermometer ratings
+Interviewer Instruction	{PROBE FOR DON’T KNOW RESPONSE: when you say don’t know, do you mean that you don’t know who the person is, or do you have something else in mind?
+ENTER number 0-100}
+
+
+
+
+
+
+=== V240107 [2024] ===
+(NOT FOUND IN CODEBOOK)
+
+
+=== V240107a [2024] ===
+V240107a
+PRE-ELECTION RAKED WEIGHT: 2016-2024 PANEL, FACE-TO-FACE (FTF) & WEB SAMPLES COMBINED W/PAPI [FINAL]
+
+
+
+
+
+=== V240107b [2024] ===
+V240107b
+POST-ELECTION RAKED WEIGHT: 2016-2024 PANEL, FACE-TO-FACE (FTF) & WEB SAMPLES COMBINED W/PAPI [FINAL]
+
+
+
+
+
+=== V240108a [2024] ===
+V240108a
+PRE-ELECTION RAKED WEIGHT: FACE-TO-FACE (FTF), WEB, & 2016-2024 PANEL SAMPLES COMBINED [FINAL]
+
+
+
+
+
+=== V241049 [2024] ===
+V241049
+PRE: IF ELECTION JUST BETWEEN HARRIS AND TRUMP, WHO WOULD R VOTE FOR
+Question
+If the election were just between Kamala Harris (Democrat) and Donald Trump (Republican) / Donald Trump (Republican) and Kamala Harris (Democrat), who would you vote for, or would you not vote?
+Value Labels
+-9. Refused
+-8. Don’t know
+-4. Error
+1. Kamala Harris
+2. Donald Trump
+3. Would not vote
+Survey Question(s)
+PREVOTE_VTPRES2, PAPI PRE Q9
+Note: The following specifications were implemented exclusively in the computerized survey instrument and are not applicable to the paper questionnaire.
+Randomization
+Order of names in question text according to value in var candidateorder.
+Order of response options 1-2 according to value in var candidateorder.
+Response Order
+Randomize 2 major parties
+
+
+
+
+
+=== V241106x [2024] ===
+V241106x
+PRE: SUMMARY: RECALL OF LAST (2020) PRESIDENTIAL VOTE
+Value Labels
+-4. Error
+-2. DK/RF in V241103, V241104, or V241105
+1. No, didn’t vote for president in 2020
+2. Yes, for Joe Biden
+3. Yes, for Donald Trump
+4. Yes, for another candidate
+Survey Question(s)
+RETROVOTE_PRESVTLASTREV, RETROVOTE_PREVVTWHO, PAPI PRE Q11
+
+
+
+
+
+=== V241156 [2024] ===
+V241156
+PRE: FEELING THERMOMETER: KAMALA HARRIS, DEMOCRATIC PRESIDENTIAL CANDIDATE
+Question
+(How would you rate:) Kamala Harris
+Value Labels
+-9. Refused
+-8. Don’t know
+Survey Question(s)
+THERMPRE_THDPC, PAPI PRE Q15
+Note: The following specifications were implemented exclusively in the computerized survey instrument and are not applicable to the paper questionnaire.
+Randomization
+Order of Presidential cand + Biden thermometers (first three items of the THERMPRE submodule)
+
+
+
+
+
+=== V241157 [2024] ===
+V241157
+PRE: FEELING THERMOMETER: DONALD TRUMP, REPUBLICAN PRESIDENTIAL CANDIDATE
+Question
+(How would you rate:) Donald Trump
+Value Labels
+-9. Refused
+-8. Don’t know
+-1. Inapplicable
+Survey Question(s)
+THERMPRE_THRPC, PAPI PRE Q14
+Note: The following specifications were implemented exclusively in the computerized survey instrument and are not applicable to the paper questionnaire.
+Randomization
+Order of Presidential cand + Biden thermometers (first three items of the THERMPRE submodule)
+
+
+
+
+
+=== V241177 [2024] ===
+V241177
+PRE: 7PT SCALE LIBERAL-CONSERVATIVE SELF-PLACEMENT
+Question
+Where would you place yourself on this scale, or haven’t you thought much about this?
+Value Labels
+-9. Refused
+-4. Error
+1. Extremely liberal
+2. Liberal
+3. Slightly liberal
+4. Moderate; middle of the road
+5. Slightly conservative
+6. Conservative
+7. Extremely conservative
+99. Haven’t thought much about this
+Survey Question(s)
+LIBCPRE_LCSELF, PAPI PRE Q44
+Note: The following specifications were implemented exclusively in the computerized survey instrument and are not applicable to the paper questionnaire.
+
+
+
+
+
+=== V241203 [2024] ===
+V241203
+PRE: DEMOCRATIC PRESIDENTIAL CANDIDATE TRAIT: HONEST
+Question
+[Think about Kamala Harris. In your opinion, does the phrase ‘she is honest’ describe Kamala Harris [extremely well, very well, moderately well, slightly well, or not well at all/ not well at all, slightly well, moderately well, very well, or extremely well]? / (What about) ‘is honest’? Does this phrase describe Kamala Harris [extremely well, very well, moderately well, slightly well, or not well at all/ not well at all, slightly well, moderately well, very well, or extremely well]?]
+Value Labels
+-9. Refused
+-8. Don’t know
+-1. Inapplicable
+1. Extremely well
+2. Very well
+3. Moderately well
+4. Slightly well
+5. Not well at all
+Survey Question(s)
+CTRAIT_DPCHONST
+Universe
+IF TRAIT IS 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE /
+IF TRAIT IS NOT 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE:
+Randomization
+Order of Presidential cands for sets of traits;
+order of traits administered for each candidate. Traits should be randomized in the same order for each candidate.
+Response Order
+Forward/Reverse order
+
+
+
+
+
+=== V241208 [2024] ===
+V241208
+PRE: REPUBLICAN PRESIDENTIAL CANDIDATE TRAIT: HONEST
+Question
+[Think about Donald Trump. In your opinion, does the phrase ‘he is honest’ describe Donald Trump [extremely well, very well, moderately well, slightly well, or not well at all/ not well at all, slightly well, moderately well, very well, or extremely well]? / (What about) ‘is honest’? Does this phrase describe Donald Trump [extremely well, very well, moderately well, slightly well, or not well at all/ not well at all, slightly well, moderately well, very well, or extremely well]?]
+Value Labels
+-9. Refused
+-8. Don’t know
+-1. Inapplicable
+1. Extremely well
+2. Very well
+3. Moderately well
+4. Slightly well
+5. Not well at all
+Survey Question(s)
+CTRAIT_RPCHONST
+Universe
+IF TRAIT IS 1ST TRAIT FOR REPUBLICAN PRESIDENTIAL CANDIDATE /
+IF TRAIT IS NOT 1ST TRAIT FOR REPUBLICAN PRESIDENTIAL CANDIDATE:
+Randomization
+Order of Presidential cands for sets of traits;
+order of traits administered for each candidate. Traits should be randomized in the same order for each candidate.
+Response Order
+Forward/Reverse order
+
+
+
+
+
+=== V241227x [2024] ===
+V241227x
+PRE: SUMMARY: PARTY ID
+Value Labels
+-9. Refused
+-8. Don’t know
+-4. Error
+1. Strong Democrat
+2. Not very strong Democrat
+3. Independent-Democrat
+4. Independent
+5. Independent-Republican
+6. Not very strong Republican
+7. Strong Republican
+Survey Question(s)
+PTYID_RPTYID, PTYID_STRPTYID, PTYID_LEANPTY, PTYID_NEITHERID, PAPI PRE Q23
+
+
+
+
+
+=== V241228 [2024] ===
+V241228
+PRE: PARTY IDENTITY IMPORTANCE
+Question
+How important is being [a Democrat/a Republican/an Independent] to your identity? [Extremely important, very important, moderately important, a little important, or not at all important / Not at all important, a little important, moderately important, very important, or extremely important]?
+Value Labels
+-9. Refused
+-1. Inapplicable
+1. Extremely important
+2. Very important
+3. Moderately important
+4. A little important
+5. Not at all important
+Survey Question(s)
+PTYID_PTYIDIMP
+Universe
+IF R CONSIDERS SELF A DEMOCRAT /
+IF R CONSIDERS SELF A REPUBLICAN /
+IF R CONSIDERS SELF AN INDEPENDENT:
+Response Order
+Forward/Reverse order
+
+
+
+
+
+=== V241229 [2024] ===
+V241229
+PRE: HOW OFTEN TRUST GOVERNMENT IN WASHINGTON TO DO WHAT IS RIGHT [REVISED]
+Question
+How often can you trust the federal government in Washington to do what is right? [Always, most of the time, about half the time, some of the time, or never / Never, some of the time, about half the time, most of the time, or always]?
+Value Labels
+-9. Refused
+-8. Don’t know
+-1. Inapplicable
+1. Always
+2. Most of the time
+3. About half the time
+4. Some of the time
+5. Never
+Survey Question(s)
+TRUSTGOV_TRUSTGREV, PAPI PRE Q24
+Note: The following specifications were implemented exclusively in the computerized survey instrument and are not applicable to the paper questionnaire.
+Response Order
+Forward/Reverse order
+
+
+
+
+
+=== V241231 [2024] ===
+V241231
+PRE: GOVERNMENT RUN BY A FEW BIG INTERESTS OR FOR BENEFIT OF ALL
+Question
+Would you say the government is pretty much run by a few big interests looking out for themselves or that it is run for the benefit of all the people?
+Value Labels
+-9. Refused
+-8. Don’t know
+-1. Inapplicable
+1. Run by a few big interests
+2. For the benefit of all the people
+Survey Question(s)
+TRUSTGOV_BIGINTRST
+
+
+
+
+
+=== V241232 [2024] ===
+V241232
+PRE: DOES GOVERNMENT WASTE MUCH TAX MONEY
+Question
+Do you think that people in government [waste a lot of the money we pay in taxes, waste some of it, or don’t waste very much of it / don’t waste very much of the money we pay in taxes, waste some of it, or waste a lot of it]?
+Value Labels
+-9. Refused
+-8. Don’t know
+-1. Inapplicable
+1. Waste a lot
+2. Waste some
+3. Don’t waste very much
+Survey Question(s)
+TRUSTGOV_WASTE
+Response Order
+Forward/Reverse order
+
+
+
+
+
+=== V241458x [2024] ===
+V241458x
+PRE: SUMMARY: RESPONDENT AGE ON ELECTION DAY
+Value Labels
+-2. Missing, exact birth date not given
+80. Eighty years old or older
+Survey Question(s)
+DEM_BIRTHMO, DEM_BIRTHDY, DEM_BIRTHYR, PAPI PRE Q33
+
+
+
+
+
+=== V242065 [2024] ===
+V242065
+POST: DID R VOTE IN THE 2024 ELECTION
+Question
+In talking to people about elections, we often find that a lot of people were not able to vote because they weren’t registered, they were sick, or they just didn’t have time. Which of the following statements best describes you: One, I did not vote (in the election this November); Two, I thought about voting this time, but didn’t; Three, I usually vote, but didn’t this time; or Four, I am sure I voted?
+Value Labels
+-9. Refused
+-8. Don’t know
+-7. Insufficient partial, interview deleted
+-6. No post interview
+-1. Inapplicable
+1. I did not vote (in the election this November)
+2. I thought about voting this time, but didn’t
+3. I usually vote, but didn’t this time
+4. I am sure I voted
+Survey Question(s)
+POSTVOTE_RVOTE, PAPI POST Q14
+Note: The following specifications were implemented exclusively in the computerized survey instrument and are not applicable to the paper questionnaire.
+Universe
+IF R DID NOT REPORT IN THE PRE THAT R ALREADY VOTED:
+
+
+
+
+
+=== V242066 [2024] ===
+V242066
+POST: DID R VOTE FOR PRESIDENT
+Question
+How about the election for President? Did you vote for a candidate for President?
+Value Labels
+-7. Insufficient partial, interview deleted
+-6. No post interview
+-1. Inapplicable
+1. Yes, voted for President
+2. No, didn’t vote for President
+Survey Question(s)
+POSTVOTE_PRESVT
+Universe
+IF R REPORTED IN THE POST SURVEY THAT R VOTED:
+
+
+
+
+
+=== V242067 [2024] ===
+V242067
+POST: FOR WHOM DID R VOTE FOR PRESIDENT
+Question
+Who did you vote for? [ Kamala Harris (Democrat), Donald Trump (Republican) / Donald Trump (Republican), Kamala Harris (Democrat)], Cornel West (Independent), Jill Stein (Green), or someone else?
+Value Labels
+-9. Refused
+-8. Don’t know
+-7. Insufficient partial, interview deleted
+-6. No post interview
+-1. Inapplicable
+1. Kamala Harris
+2. Donald Trump
+4. Cornel West
+5. Jill Stein
+6. Another candidate {SPECIFY}
+Survey Question(s)
+POSTVOTE_PRESVTWHO
+Universe
+IF R REPORTED IN THE POST THAT R VOTED FOR PRESIDENT:
+Randomization
+Order of Democratic Pres cand and Republican Pres cand names, according to candidateorder assigned in Pre (other response options in fixed order 3rd, 4th, 5th positions)
+Response Order
+Randomize 2 major parties
+
+
+
+
+
+=== V242125 [2024] ===
+V242125
+POST: FEELING THERMOMETER: DEMOCRATIC PRESIDENTIAL CANDIDATE: KAMALA HARRIS
+Question
+How would you rate: Kamala Harris
+Value Labels
+-9. Refused
+-7. Insufficient partial, interview deleted
+-6. No post interview
+-5. Sufficient partial, breakoff
+-1. Inapplicable
+998. Don’t know (where to rate)
+999. Don’t recognize
+Survey Question(s)
+THERMPO_THPODPC, PAPI POST Q32
+Note: The following specifications were implemented exclusively in the computerized survey instrument and are not applicable to the paper questionnaire.
+Randomization
+Order of Democratic and Republican Presidential candidate thermometers
+
+
+
+
+
+=== V242126 [2024] ===
+V242126
+POST: FEELING THERMOMETER: REPUBLICAN PRESIDENTIAL CANDIDATE: DONALD TRUMP
+Question
+How would you rate: Donald Trump
+Value Labels
+-9. Refused
+-7. Insufficient partial, interview deleted
+-6. No post interview
+-5. Sufficient partial, breakoff
+-1. Inapplicable
+998. Don’t know (where to rate)
+999. Don’t recognize
+Survey Question(s)
+THERMPO_THPORPC, PAPI POST Q31
+Note: The following specifications were implemented exclusively in the computerized survey instrument and are not applicable to the paper questionnaire.
+Randomization
+Order of Democratic and Republican Presidential candidate thermometers
+
+
+
+
+
+=== V243002 [2024] ===
+V243002
+SAMPLE: SAMPLE LOCATION FIPS STATE CODE
+Value Labels
+1. Alabama  2. Alaska  4. Arizona
+5. Arkansas  6. California  8. Colorado
+9. Connecticut  10. Delaware
+11. Washington DC
+12. Florida  13. Georgia   15. Hawaii
+16. Idaho   17. Illinois   18. Indiana
+19. Iowa   20. Kansas   21. Kentucky
+22. Louisiana   23. Maine   24. Maryland
+25. Massachusetts   26. Michigan   27. Minnesota
+28. Mississippi   29. Missouri   30. Montana
+31. Nebraska   32. Nevada   33. New Hampshire
+34. New Jersey   35. New Mexico   36. New York
+37. North Carolina   38. North Dakota   39. Ohio
+40. Oklahoma   41. Oregon   42. Pennsylvania
+44. Rhode Island   45. South Carolina   46. South Dakota
+47. Tennessee   48. Texas   49. Utah
+50. Vermont   51. Virginia   53. Washington
+54. West Virginia   55. Wisconsin   56. Wyoming
+
+
+

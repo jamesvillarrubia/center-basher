@@ -97,7 +97,10 @@ def build_2020():
     voted_2020 = safe_num(df, "V202109x")
     new_2020 = ((voted_2016 == 2) & (voted_2020 == 1)).fillna(False)
     dropoff  = ((voted_2016 == 1) & (voted_2020 == 0)).fillna(False)
-    w = safe_num(df, "V200010a").fillna(0).clip(lower=0)
+    # Weight: V200010b is POST weight (correct for vote-choice analysis since
+    # voters' vote is collected post-election). V200010a was incorrectly used
+    # earlier; the audit caught it.
+    w = safe_num(df, "V200010b").fillna(0).clip(lower=0)
     state = safe_num(df, "V201014b")
     in_swing = state.isin(SWING_2020)
     return assemble_records(x, trust, party, vote, pv, swing, new_2020, dropoff, in_swing, w)
@@ -116,9 +119,11 @@ def build_2024():
     pty = safe_num(df, "V241227x")
     party = pty.apply(lambda p: "dem" if p in (1, 2, 3) else "rep" if p in (5, 6, 7) else "ind" if p == 4 else "")
     gen = safe_num(df, "V242067")
-    # 2024 vote: 1=Harris, 2=Trump, 4=West, 5=Stein, 6=Other. Code 6 was
-    # silently dropped before the audit.
-    vote = gen.map({1: "harris", 2: "trump", 3: "kennedy", 4: "west", 5: "stein", 6: "other"}).fillna("")
+    # 2024 vote: 1=Harris, 2=Trump, 4=West, 5=Stein, 6=Other.
+    # CODEBOOK-VERIFIED: code 3 does NOT exist for this variable. Kennedy
+    # withdrew from the race before the codebook was finalized. Earlier
+    # versions of this code had {3: "kennedy"} — that's dead code and removed.
+    vote = gen.map({1: "harris", 2: "trump", 4: "west", 5: "stein", 6: "other"}).fillna("")
     pv = ["" for _ in range(len(df))]
     swing = (party == "ind") | ((party == "dem") & (vote == "trump")) | ((party == "rep") & (vote == "harris"))
     # PRIOR (2020) TURNOUT — fixed per adversarial audit:
@@ -137,7 +142,9 @@ def build_2024():
     voted_2024_no  = (p24 == 2)
     new_v   = (voted_2020_no  & voted_2024_yes).fillna(False)
     dropoff = (voted_2020_yes & voted_2024_no ).fillna(False)
-    w = safe_num(df, "V240107a").fillna(0).clip(lower=0)
+    # Weight: V240107b is POST weight (correct for vote-choice analysis).
+    # V240107a is PRE weight — was incorrectly used earlier.
+    w = safe_num(df, "V240107b").fillna(0).clip(lower=0)
     state_str = df["V243002"].astype(str).str.strip() if "V243002" in df.columns else pd.Series([""] * len(df))
     state = pd.to_numeric(state_str, errors="coerce")
     in_swing = state.isin(SWING_2024)
