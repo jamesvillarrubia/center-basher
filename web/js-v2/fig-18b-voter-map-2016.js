@@ -273,9 +273,12 @@ function drawChart(container, data, opts) {
   }
 
   // ---- 4. Per-scenario cohort centroid + capture pills ----
-  // For multiple active scenarios, stack capture pills vertically next to each candidate
-  // (one pill per active scenario per candidate).
-  const stackOffsets = new Map()   // candidateId → next vertical offset for pill
+  // For each active scenario, draw its cohort centroid ring.
+  // Capture pills near candidate dots are shown ONLY when exactly one
+  // scenario is active (to avoid the "whose pill is this?" ambiguity).
+  // When multiple scenarios are on, the user is comparing positions
+  // visually — the chart stays free of competing % labels.
+  const showCapturePills = activeScenarios.filter(s => s.has_capture).length === 1
   for (const s of activeScenarios) {
     const inCohort = voters.filter(s.filter)
     if (inCohort.length === 0) continue
@@ -285,30 +288,28 @@ function drawChart(container, data, opts) {
     const ccy_v = weightedMean(inCohort, 'y')
     const ccx = x(ccx_v), ccy = y(ccy_v)
     g.append('circle').attr('cx', ccx).attr('cy', ccy).attr('r', 7)
-      .attr('fill', '#fff').attr('stroke', s.color).attr('stroke-width', 2.2)
+      .attr('fill', '#fff').attr('stroke', s.color).attr('stroke-width', 2.4)
     g.append('text').attr('x', ccx).attr('y', ccy - 10).attr('text-anchor', 'middle')
       .attr('font-size', '10px').attr('font-weight', '700').attr('fill', s.color)
       .text(`${s.label} · n=${inCohort.length}`)
 
-    if (!s.has_capture) continue
+    if (!s.has_capture || !showCapturePills) continue
 
-    // Capture pills, stacked vertically near each candidate dot
+    // Capture pills next to each general-election candidate
     let totalW = 0
     for (const v of inCohort) totalW += (v.w || 1)
+    if (totalW === 0) continue
     for (const c of cands) {
       if (c.id === 'sanders') continue   // primary-only, no general capture
       let candW = 0
       for (const v of inCohort) { if (v.v === c.id) candW += (v.w || 1) }
-      if (totalW === 0) continue
       const pct = Math.round((candW / totalW) * 100)
       const cx_ = x(c.x), cy_ = y(c.y)
       const isLeft = c.x < 0
       const baseX = isLeft ? cx_ - 38 : cx_ + 38
-      const slotIdx = stackOffsets.get(c.id) || 0
-      const baseY = cy_ - 22 + slotIdx * 19
-      stackOffsets.set(c.id, slotIdx + 1)
+      const baseY = cy_ - 22
       const pillW = 44
-      g.append('rect').attr('x', baseX - pillW / 2).attr('y', baseY - 9).attr('width', pillW).attr('height', 16)
+      g.append('rect').attr('x', baseX - pillW/2).attr('y', baseY - 9).attr('width', pillW).attr('height', 16)
         .attr('rx', 3).attr('fill', '#fff').attr('stroke', s.color).attr('stroke-width', 1.4)
       g.append('text').attr('x', baseX).attr('y', baseY + 4)
         .attr('text-anchor', 'middle').attr('font-size', '11px')
