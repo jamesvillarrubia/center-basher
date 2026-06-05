@@ -245,15 +245,15 @@ function drawChart(container, data, opts) {
   svg.append('text').attr('class', 'vm-title').attr('x', margin.left).attr('y', 22)
     .text(`${year} trust × ideology voter map${swingOnly ? ' — swing states only' : ''}`)
   svg.append('text').attr('class', 'vm-subtitle').attr('x', margin.left).attr('y', 42)
-    .text(`n = ${voters.length.toLocaleString()} ANES respondents. X = ideology (V161126 / V201200 / V241177). Y = trust composite (0–1).`)
+    .text(`n = ${voters.length.toLocaleString()} ANES respondents. X = ideology (V161126 / V201200 / V241177). Y = trust composite (0–0.8 shown; full scale 0–1, almost no voters above 0.8).`)
   svg.append('text').attr('class', 'vm-subtitle').attr('x', margin.left).attr('y', 58)
     .text('Toggle blobs and lines above. Each cohort can show either density blob, trust-by-ideology line, or both.')
 
   const x = d3.scaleLinear().domain([-1, 1]).range([0, innerW])
-  const y = d3.scaleLinear().domain([0, 1]).range([innerH, 0])
+  const y = d3.scaleLinear().domain([0, 0.8]).range([innerH, 0])
 
   g.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', innerH).attr('stroke', '#ccc')
-  g.append('line').attr('x1', 0).attr('x2', innerW).attr('y1', y(0.5)).attr('y2', y(0.5)).attr('stroke', '#ccc')
+  g.append('line').attr('x1', 0).attr('x2', innerW).attr('y1', y(0.4)).attr('y2', y(0.4)).attr('stroke', '#ccc')
 
   // BLOB LAYERS — render in declared order so party blobs go first (under), cohort blobs over.
   function drawDensity(pts, color, opts = {}) {
