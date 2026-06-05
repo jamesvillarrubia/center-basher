@@ -55,11 +55,18 @@ def build_2016():
     swing = (party == "ind") | ((party == "dem") & (vote == "trump")) | ((party == "rep") & (vote == "clinton"))
     voted_2012 = safe_num(df, "V161005")
     voted_2016 = safe_num(df, "V162031x")
+    # AUDIT FIX (per user direction): drop V162031x == -2 (not ascertained)
+    # respondents from the dataset entirely. -2 = the post-election turnout
+    # question wasn't successfully asked, so we cannot classify them as
+    # voters or non-voters and should not include them in the voter map.
+    ascertained_2016 = voted_2016.isin([0, 1])  # only keep clean 0/1 values
     new_2016 = ((voted_2012 == 2) & (voted_2016 == 1)).fillna(False)
     dropoff  = ((voted_2012 == 1) & (voted_2016 == 0)).fillna(False)
     w = safe_num(df, "V160102").fillna(0).clip(lower=0)
     state = safe_num(df, "V161010d")
     in_swing = state.isin(SWING_2016)
+    # Apply the -2 drop by zeroing the weight (assemble_records filters w > 0)
+    w = w.where(ascertained_2016, 0)
     return assemble_records(x, trust, party, vote, pv, swing, new_2016, dropoff, in_swing, w)
 
 
@@ -186,6 +193,31 @@ def compute_centroids(records, vote_to_label):
     return out
 
 
+def compute_subcohort_centroids(records, vote_keys):
+    """For each candidate's general-election voters, compute the within-base
+    weighted centroid for sub-cohorts: swing, activated (n2), stayed-home (do).
+    Returns {vote_key: {cohort: {x, y, n}}}.
+    """
+    cohorts = [("sw", "swing"), ("n2", "activated"), ("do", "stayed_home")]
+    out = {}
+    for vk in vote_keys:
+        base = [r for r in records if r["v"] == vk and r["w"] > 0]
+        if not base:
+            continue
+        sub = {}
+        for flag, label in cohorts:
+            rows = [r for r in base if r.get(flag)]
+            if not rows:
+                continue
+            sw = sum(r["w"] for r in rows)
+            cx = sum(r["x"] * r["w"] for r in rows) / sw
+            cy = sum(r["y"] * r["w"] for r in rows) / sw
+            sub[label] = {"x": round(cx, 3), "y": round(cy, 3), "n": len(rows)}
+        if sub:
+            out[vk] = sub
+    return out
+
+
 def main():
     for year, builder in [(2016, build_2016), (2020, build_2020), (2024, build_2024)]:
         print(f"=== {year} ===")
@@ -204,6 +236,13 @@ def main():
             for c in cands:
                 if c["id"] in cent:
                     c["x"], c["y"], c["n"] = cent[c["id"]]
+
+        # Sub-cohort centroids per candidate (swing / activated / stayed-home)
+        general_keys = [c["id"] for c in cands if c["id"] != "sanders"]
+        sub_cents = compute_subcohort_centroids(records, general_keys)
+        for c in cands:
+            if c["id"] in sub_cents:
+                c["subcohorts"] = sub_cents[c["id"]]
 
         payload = {
             "year": year,
