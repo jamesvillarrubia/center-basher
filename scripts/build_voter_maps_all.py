@@ -103,15 +103,27 @@ def build_2024():
     pty = safe_num(df, "V241227x")
     party = pty.apply(lambda p: "dem" if p in (1, 2, 3) else "rep" if p in (5, 6, 7) else "ind" if p == 4 else "")
     gen = safe_num(df, "V242067")
-    # 2024 vote: 1=Harris, 2=Trump (verified by counts)
-    vote = gen.map({1: "harris", 2: "trump", 3: "kennedy", 5: "other"}).fillna("")
+    # 2024 vote: 1=Harris, 2=Trump, 4=West, 5=Stein, 6=Other. Code 6 was
+    # silently dropped before the audit.
+    vote = gen.map({1: "harris", 2: "trump", 3: "kennedy", 4: "west", 5: "stein", 6: "other"}).fillna("")
     pv = ["" for _ in range(len(df))]
     swing = (party == "ind") | ((party == "dem") & (vote == "trump")) | ((party == "rep") & (vote == "harris"))
-    # 2020 turnout proxy: V241049 (binary, n≈5,000) — voted 2020 (1=yes, 2=no)
-    voted_2020 = safe_num(df, "V241049")
-    voted_2024 = safe_num(df, "V242065")  # POST: voted in 2024 (1=yes, 2=no per dist)
-    new_v   = ((voted_2020 == 2) & (voted_2024 == 1)).fillna(False)
-    dropoff = ((voted_2020 == 1) & (voted_2024 == 2)).fillna(False)
+    # PRIOR (2020) TURNOUT — fixed per adversarial audit:
+    #   V241049 is NOT 2020 turnout. It's a hypothetical "if Harris vs Trump
+    #   head-to-head, who would you vote for or not vote" question.
+    #   V241106x is the actual prior-vote recall (1=did not vote 2020,
+    #   2=Biden, 3=Trump, 4=other). voted_2020_yes = code in {2,3,4}.
+    p20 = safe_num(df, "V241106x")
+    voted_2020_yes = p20.isin([2, 3, 4])
+    voted_2020_no  = (p20 == 1)
+    # 2024 TURNOUT — fixed per audit:
+    #   V242065 codes 1=did NOT vote, 4=sure voted (2 & 3 are intermediate).
+    #   V242066 is the cleaner binary (1=voted for president, 2=did not).
+    p24 = safe_num(df, "V242066")
+    voted_2024_yes = (p24 == 1)
+    voted_2024_no  = (p24 == 2)
+    new_v   = (voted_2020_no  & voted_2024_yes).fillna(False)
+    dropoff = (voted_2020_yes & voted_2024_no ).fillna(False)
     w = safe_num(df, "V240107a").fillna(0).clip(lower=0)
     state_str = df["V243002"].astype(str).str.strip() if "V243002" in df.columns else pd.Series([""] * len(df))
     state = pd.to_numeric(state_str, errors="coerce")

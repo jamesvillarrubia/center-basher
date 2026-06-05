@@ -136,8 +136,9 @@ function drawChart(container, data, opts) {
   drawDensity(groups.D, COLOR_DEM, 6)
   drawDensity(groups.R, COLOR_REP, 6)
 
-  // Trend lines
-  function trendFor(filter, minN = 12) {
+  // Trend lines — ALWAYS render, mark low-N bins with X instead of dot.
+  // Per user direction: 'put the lines in so I can see them.'
+  function trendFor(filter) {
     const bins = new Map()
     for (const v of voters) {
       if (!filter(v)) continue
@@ -148,27 +149,43 @@ function drawChart(container, data, opts) {
       bins.set(key, b)
     }
     return [...bins.entries()]
-      .filter(([_, b]) => b.n >= minN)
+      .filter(([_, b]) => b.n >= 3)   // hard floor (need at least 3 for any signal)
       .map(([xv, b]) => ({ x: xv, y: b.swy / b.sw, n: b.n }))
       .sort((a, b) => a.x - b.x)
   }
   const trendLine = d3.line().x(d => x(d.x)).y(d => y(d.y)).curve(d3.curveMonotoneX)
-  // Tighter minimum bin sizes so the trend lines don't spike on noisy
-  // small subsamples (n<40 was producing misleading reads, esp. at
-  // ideology extremes where the cross-pressured cohort is structurally tiny).
+
+  // Sample-size thresholds: above hi → solid dot; mid → small dot; below lo → X marker (uncertain)
+  const N_HI = 40
+  const N_LO = 15
   const trends = [
-    { pts: trendFor(v => true, 40),               color: '#1b1b1d', label: 'All',             dash: null,  width: 2.8 },
-    { pts: trendFor(v => v.sw, 30),               color: '#a06400', label: 'Cross-pressured', dash: '4,3', width: 2.0 },
-    { pts: trendFor(v => v.n2 || v.do, 15),       color: '#7a4d8a', label: 'Irregular',       dash: '2,3', width: 2.0 },
+    { pts: trendFor(v => true),               color: '#1b1b1d', label: 'All',             dash: null,  width: 2.8 },
+    { pts: trendFor(v => v.sw),               color: '#a06400', label: 'Cross-pressured', dash: '4,3', width: 2.0 },
+    { pts: trendFor(v => v.n2 || v.do),       color: '#7a4d8a', label: 'Irregular',       dash: '2,3', width: 2.0 },
   ]
   for (const t of trends) {
     if (t.pts.length < 2) continue
     g.append('path').datum(t.pts).attr('d', trendLine)
       .attr('fill', 'none').attr('stroke', t.color).attr('stroke-width', t.width)
-      .attr('stroke-dasharray', t.dash).attr('opacity', 0.9)
+      .attr('stroke-dasharray', t.dash).attr('opacity', 0.65)
     for (const p of t.pts) {
-      g.append('circle').attr('cx', x(p.x)).attr('cy', y(p.y)).attr('r', 3)
-        .attr('fill', t.color).attr('stroke', '#fff').attr('stroke-width', 1)
+      const cx = x(p.x), cy = y(p.y)
+      if (p.n >= N_HI) {
+        // Reliable: solid dot
+        g.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 3.5)
+          .attr('fill', t.color).attr('stroke', '#fff').attr('stroke-width', 1)
+      } else if (p.n >= N_LO) {
+        // Moderate: smaller hollow dot
+        g.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 3)
+          .attr('fill', '#fff').attr('stroke', t.color).attr('stroke-width', 1.5)
+      } else {
+        // LOW-N: X marker (sample too small for a reliable estimate)
+        const s = 4
+        g.append('line').attr('x1', cx-s).attr('x2', cx+s).attr('y1', cy-s).attr('y2', cy+s)
+          .attr('stroke', t.color).attr('stroke-width', 1.6).attr('opacity', 0.8)
+        g.append('line').attr('x1', cx-s).attr('x2', cx+s).attr('y1', cy+s).attr('y2', cy-s)
+          .attr('stroke', t.color).attr('stroke-width', 1.6).attr('opacity', 0.8)
+      }
     }
     const last = t.pts[t.pts.length - 1]
     g.append('text').attr('x', x(last.x) + 6).attr('y', y(last.y) + 4)
@@ -219,7 +236,7 @@ function drawChart(container, data, opts) {
     .text(`Cross-pressured = independents + cross-party defectors (Dem voted Rep candidate OR Rep voted Dem candidate). Irregular = voted current cycle but not prior, OR prior but not current.`)
   svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 4)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
-    .text(`Trend lines drawn only where bin n ≥ 40 (all) / 30 (cross-pressured) / 15 (irregular).`)
+    .text(`Markers: ● n ≥ 40 (reliable) · ○ n ≥ 15 (moderate) · ✕ n < 15 (uncertain; treat with caution).`)
 }
 
 // Backwards-compat single-render API (used if HTML still has the old element)
