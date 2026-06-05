@@ -56,7 +56,8 @@ const LAYER_DEFAULTS = {
   party_I:    { kind: 'blob', label: 'Independent blob', color: COLOR_IND,   visible: true,  filter: v => v.p === 'ind' },
   line_all:   { kind: 'line', label: 'All-voter line',   color: COLOR_ALL,   visible: true,  filter: v => true,        dash: null,  width: 2.6 },
   swing_blob: { kind: 'blob', label: 'Swing blob',       color: COLOR_SWING, visible: false, filter: v => v.sw },
-  swing_line: { kind: 'line', label: 'Swing line',       color: COLOR_SWING, visible: true,  filter: v => v.sw,        dash: '4,3', width: 1.9 },
+  swing_line: { kind: 'line', label: 'Swing line (mean)', color: COLOR_SWING, visible: true,  filter: v => v.sw,        dash: '4,3', width: 1.9 },
+  swing_med:  { kind: 'line', label: 'Swing line (median)', color: '#d77400', visible: false, filter: v => v.sw,        dash: '6,2', width: 1.9, stat: 'median' },
   activ_blob: { kind: 'blob', label: 'Activated blob',   color: COLOR_ACTIV, visible: false, filter: v => v.n2 },
   activ_line: { kind: 'line', label: 'Activated line',   color: COLOR_ACTIV, visible: true,  filter: v => v.n2,        dash: '2,3', width: 1.7 },
   drop_blob:  { kind: 'blob', label: 'Stayed-home blob', color: COLOR_DROP,  visible: false, filter: v => v.do },
@@ -173,7 +174,7 @@ function rebuildLayerPanel(container) {
   ], container))
   // Lines
   layerPanel.appendChild(makeLayerRow('Lines (avg trust)', [
-    'line_all', 'swing_line', 'activ_line', 'drop_line',
+    'line_all', 'swing_line', 'swing_med', 'activ_line', 'drop_line',
   ], container))
 }
 
@@ -296,29 +297,44 @@ function drawChart(container, data, opts) {
   }
 
   // LINE LAYERS — trend = weighted mean trust per ideology bin.
-  function trendFor(filter) {
+  function trendFor(filter, stat = 'mean') {
     const bins = new Map()
     for (const v of voters) {
       if (!filter(v)) continue
       const key = Math.round(v.x * 6) / 6
-      const b = bins.get(key) || { sw: 0, swy: 0, n: 0 }
+      const b = bins.get(key) || { items: [], sw: 0, swy: 0, n: 0 }
       const w = v.w || 1
+      b.items.push({ y: v.y, w })
       b.sw += w; b.swy += w * v.y; b.n += 1
       bins.set(key, b)
     }
+    function weightedMedian(items) {
+      const sorted = items.slice().sort((a, b) => a.y - b.y)
+      const totalW = sorted.reduce((s, it) => s + it.w, 0)
+      let cum = 0
+      for (const it of sorted) {
+        cum += it.w
+        if (cum >= totalW / 2) return it.y
+      }
+      return sorted[sorted.length - 1].y
+    }
     return [...bins.entries()]
       .filter(([_, b]) => b.n >= 3)
-      .map(([xv, b]) => ({ x: xv, y: b.swy / b.sw, n: b.n }))
+      .map(([xv, b]) => ({
+        x: xv,
+        y: stat === 'median' ? weightedMedian(b.items) : b.swy / b.sw,
+        n: b.n,
+      }))
       .sort((a, b) => a.x - b.x)
   }
   const trendLine = d3.line().x(d => x(d.x)).y(d => y(d.y)).curve(d3.curveMonotoneX)
   const N_HI = 40, N_LO = 15
 
-  const lineOrder = ['line_all', 'swing_line', 'activ_line', 'drop_line']
+  const lineOrder = ['line_all', 'swing_line', 'swing_med', 'activ_line', 'drop_line']
   for (const key of lineOrder) {
     const L = __state.layers[key]
-    if (!L.visible) continue
-    const pts = trendFor(L.filter)
+    if (!L || !L.visible) continue
+    const pts = trendFor(L.filter, L.stat || 'mean')
     if (pts.length < 2) continue
     // Draw the CONNECTING LINE only through reliable bins (n >= N_LO).
     // Sparse-bin X markers float as standalone — they don't anchor the path,
