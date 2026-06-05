@@ -81,7 +81,20 @@ def build_2016():
     in_swing = state.isin(SWING_2016)
     # Apply the -2 drop by zeroing the weight (assemble_records filters w > 0)
     w = w.where(ascertained_2016, 0)
-    return assemble_records(x, trust, party, vote, pv, swing, new_2016, dropoff, in_swing, w)
+    # PERCEIVED-CANDIDATE positions per respondent — non-tautological signal
+    # of candidate identity. CODEBOOK-VERIFIED:
+    #   V161128 = R places Dem candidate on 1-7 lib-cons scale
+    #   V161129 = R places Rep candidate on 1-7 lib-cons scale
+    #   V161162 = R rates Dem honesty 1=ext well..5=not well at all
+    #   V161167 = R rates Rep honesty (same scale)
+    dem_perc_x = (safe_num(df, "V161128").where(lambda v: v.between(1, 7)) - 4) / 3.0
+    rep_perc_x = (safe_num(df, "V161129").where(lambda v: v.between(1, 7)) - 4) / 3.0
+    dem_perc_y = (5 - safe_num(df, "V161162").where(lambda v: v.between(1, 5))) / 4.0
+    rep_perc_y = (5 - safe_num(df, "V161167").where(lambda v: v.between(1, 5))) / 4.0
+    return assemble_records(x, trust, party, vote, pv, swing, new_2016, dropoff, in_swing, w,
+                            dem_perc_x=dem_perc_x, dem_perc_y=dem_perc_y,
+                            rep_perc_x=rep_perc_x, rep_perc_y=rep_perc_y,
+                            dem_id="clinton", rep_id="trump")
 
 
 def build_2020():
@@ -122,7 +135,15 @@ def build_2020():
     w = safe_num(df, "V200010b").fillna(0).clip(lower=0)
     state = safe_num(df, "V201014b")
     in_swing = state.isin(SWING_2020)
-    return assemble_records(x, trust, party, vote, pv, swing, new_2020, dropoff, in_swing, w)
+    # Perceived candidate positions: V201202/03 (ideology), V201211/15 (honesty)
+    dem_perc_x = (safe_num(df, "V201202").where(lambda v: v.between(1, 7)) - 4) / 3.0
+    rep_perc_x = (safe_num(df, "V201203").where(lambda v: v.between(1, 7)) - 4) / 3.0
+    dem_perc_y = (5 - safe_num(df, "V201211").where(lambda v: v.between(1, 5))) / 4.0
+    rep_perc_y = (5 - safe_num(df, "V201215").where(lambda v: v.between(1, 5))) / 4.0
+    return assemble_records(x, trust, party, vote, pv, swing, new_2020, dropoff, in_swing, w,
+                            dem_perc_x=dem_perc_x, dem_perc_y=dem_perc_y,
+                            rep_perc_x=rep_perc_x, rep_perc_y=rep_perc_y,
+                            dem_id="biden", rep_id="trump")
 
 
 def build_2024():
@@ -181,13 +202,28 @@ def build_2024():
     state_str = df["V243002"].astype(str).str.strip() if "V243002" in df.columns else pd.Series([""] * len(df))
     state = pd.to_numeric(state_str, errors="coerce")
     in_swing = state.isin(SWING_2024)
-    return assemble_records(x, trust, party, vote, pv, swing, new_v, dropoff, in_swing, w)
+    # Perceived candidate positions: V241179/80 (ideology), V241203/08 (honesty)
+    dem_perc_x = (safe_num(df, "V241179").where(lambda v: v.between(1, 7)) - 4) / 3.0
+    rep_perc_x = (safe_num(df, "V241180").where(lambda v: v.between(1, 7)) - 4) / 3.0
+    dem_perc_y = (5 - safe_num(df, "V241203").where(lambda v: v.between(1, 5))) / 4.0
+    rep_perc_y = (5 - safe_num(df, "V241208").where(lambda v: v.between(1, 5))) / 4.0
+    return assemble_records(x, trust, party, vote, pv, swing, new_v, dropoff, in_swing, w,
+                            dem_perc_x=dem_perc_x, dem_perc_y=dem_perc_y,
+                            rep_perc_x=rep_perc_x, rep_perc_y=rep_perc_y,
+                            dem_id="harris", rep_id="trump")
 
 
-def assemble_records(x, trust, party, vote, pv, swing, new_v, dropoff, in_swing, w):
+def assemble_records(x, trust, party, vote, pv, swing, new_v, dropoff, in_swing, w,
+                     dem_perc_x=None, dem_perc_y=None, rep_perc_x=None, rep_perc_y=None,
+                     dem_id=None, rep_id=None):
     m = x.notna() & trust.notna() & (w > 0)
     records = []
     n_swing = n_new = n_drop = n_in_swing = 0
+    perc_meta = {
+        "dem_perc_x": dem_perc_x, "dem_perc_y": dem_perc_y,
+        "rep_perc_x": rep_perc_x, "rep_perc_y": rep_perc_y,
+        "dem_id": dem_id, "rep_id": rep_id,
+    }
     for i in range(len(x)):
         if not m.iloc[i]:
             continue
@@ -203,9 +239,23 @@ def assemble_records(x, trust, party, vote, pv, swing, new_v, dropoff, in_swing,
             "do":  bool(dropoff.iloc[i]),
             "s":   bool(in_swing.iloc[i]),
         }
+        # Attach perceived-candidate positions per respondent. Stored as
+        # px_d/py_d (perceived Dem cand) and px_r/py_r (perceived Rep cand).
+        # NaN -> None so JSON serializes cleanly.
+        def safe(series):
+            if series is None: return None
+            v = series.iloc[i] if hasattr(series, "iloc") else None
+            return None if (v is None or pd.isna(v)) else round(float(v), 3)
+        rec["px_d"] = safe(perc_meta["dem_perc_x"])
+        rec["py_d"] = safe(perc_meta["dem_perc_y"])
+        rec["px_r"] = safe(perc_meta["rep_perc_x"])
+        rec["py_r"] = safe(perc_meta["rep_perc_y"])
         records.append(rec)
         n_swing += rec["sw"]; n_new += rec["n2"]; n_drop += rec["do"]; n_in_swing += rec["s"]
-    return records, dict(n=len(records), n_swing=n_swing, n_new=n_new, n_drop=n_drop, n_in_swing=n_in_swing)
+    return records, dict(
+        n=len(records), n_swing=n_swing, n_new=n_new, n_drop=n_drop, n_in_swing=n_in_swing,
+        dem_id=perc_meta["dem_id"], rep_id=perc_meta["rep_id"],
+    )
 
 
 CANDIDATES_BY_YEAR = {
@@ -366,10 +416,69 @@ def main():
             if c["id"] in sub_cents:
                 c["subcohorts"] = sub_cents[c["id"]]
 
+        # PERCEIVED CANDIDATE POSITIONS BY COHORT — non-tautological signal
+        # of candidate identity. For each (cohort × candidate), compute the
+        # weighted mean perceived position (where voters in that cohort
+        # PLACED the candidate) + capture share (what % voted for them).
+        dem_id, rep_id = stats.get("dem_id"), stats.get("rep_id")
+        cohort_filters = [
+            ("swing", lambda r: r["sw"]),
+            ("activated", lambda r: r["n2"]),
+            ("stayed_home", lambda r: r["do"]),
+            ("all", lambda r: True),
+        ]
+        def wmean_pair(rows, xkey, ykey):
+            xs, ys, ws = [], [], []
+            for r in rows:
+                if r.get(xkey) is None or r.get(ykey) is None: continue
+                if r["w"] <= 0: continue
+                xs.append(r[xkey]); ys.append(r[ykey]); ws.append(r["w"])
+            if not ws or sum(ws) == 0: return None
+            tw = sum(ws)
+            return {
+                "x": round(sum(x_i * w_i for x_i, w_i in zip(xs, ws)) / tw, 3),
+                "y": round(sum(y_i * w_i for y_i, w_i in zip(ys, ws)) / tw, 3),
+                "n": len(xs),
+            }
+        def capture_share(rows, cand_id):
+            if not rows: return None
+            tw = sum(r["w"] for r in rows)
+            if tw == 0: return None
+            cw = sum(r["w"] for r in rows if r.get("v") == cand_id)
+            return round(cw / tw, 3)
+        for c in cands:
+            perc_field, cand_id = ("d", dem_id) if c["id"] == dem_id else ("r", rep_id) if c["id"] == rep_id else (None, None)
+            if perc_field is None:
+                # 2016 Sanders — no general-election capture; skip perceived layer
+                continue
+            perc = {}
+            for cohort_name, filt in cohort_filters:
+                rows = [r for r in records if filt(r) and r["w"] > 0]
+                pos = wmean_pair(rows, f"px_{perc_field}", f"py_{perc_field}")
+                cap = capture_share(rows, cand_id) if cohort_name != "stayed_home" else 0.0
+                if pos is None and cap is None: continue
+                perc[cohort_name] = {**(pos or {}), "capture": cap}
+            c["perceived"] = perc
+
+        # Also bake cohort-centroid (voter self-position median) per cohort
+        # so the chart can render the proximity tethers symmetrically.
+        cohort_self_centroids = {}
+        for cohort_name, filt in cohort_filters:
+            rows = [r for r in records if filt(r) and r["w"] > 0]
+            if not rows: continue
+            xs = [r["x"] for r in rows]; ys = [r["y"] for r in rows]; ws = [r["w"] for r in rows]
+            tw = sum(ws)
+            cohort_self_centroids[cohort_name] = {
+                "x": round(sum(x_i * w_i for x_i, w_i in zip(xs, ws)) / tw, 3),
+                "y": round(sum(y_i * w_i for y_i, w_i in zip(ys, ws)) / tw, 3),
+                "n": len(rows),
+            }
+
         payload = {
             "year": year,
             "source": f"ANES {year} Time Series Study, weighted.",
             "candidates": cands,
+            "cohort_centroids": cohort_self_centroids,
             "n_voters": stats["n"],
             "n_swing": stats["n_swing"],
             "n_new":   stats["n_new"],

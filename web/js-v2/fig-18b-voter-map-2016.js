@@ -371,24 +371,110 @@ function drawChart(container, data, opts) {
       .text(L.label.replace(/ line$/, '').replace(/^All-voter$/, 'All'))
   }
 
-  // Candidate centroids (always shown) + IQR ellipses
+  // PERCEIVED-CANDIDATE LAYER: for each visible cohort, render:
+  //   - Cohort centroid (open ring at voter self-position median)
+  //   - PERCEIVED candidate position (candidate-colored dot at where this
+  //     cohort PLACED the candidate on ideology × honesty)
+  //   - Tether between them, labeled with capture share
+  //
+  // This breaks the spatial-voting tautology: where voters PERCEIVE the
+  // candidate to be is independent of who they voted for. Every respondent
+  // placed every candidate. Proximity between cohort centroid and
+  // perceived-candidate position is a non-tautological signal of identity.
+  const perceivedCohorts = [
+    { key: 'swing',     layerKeys: ['swing_line', 'swing_blob'], color: COLOR_SWING, shortLabel: 'Swing' },
+    { key: 'activated', layerKeys: ['activ_line', 'activ_blob'], color: COLOR_ACTIV, shortLabel: 'Activated' },
+  ]
+  const cohortCentroids = data.cohort_centroids || {}
+  for (const pc of perceivedCohorts) {
+    const visible = pc.layerKeys.some(k => __state.layers[k] && __state.layers[k].visible)
+    if (!visible) continue
+    // For swing-state scope, recompute cohort centroid + perceived position
+    // from the filtered voter set (data has national-scope values baked in)
+    let cc, perceivedByCand
+    if (swingOnly) {
+      // Recompute cohort centroid from swing-state voters in this cohort
+      const inCohort = voters.filter(v => pc.key === 'swing' ? v.sw : v.n2)
+      if (inCohort.length === 0) continue
+      let tw = 0, sx = 0, sy = 0
+      for (const v of inCohort) { const w = v.w || 1; tw += w; sx += v.x * w; sy += v.y * w }
+      cc = { x: sx / tw, y: sy / tw, n: inCohort.length }
+      perceivedByCand = {}
+      for (const c of cands) {
+        const isDem = c.id === 'clinton' || c.id === 'biden' || c.id === 'harris'
+        const isRep = c.id === 'trump'
+        if (!isDem && !isRep) continue
+        const xkey = isDem ? 'px_d' : 'px_r'
+        const ykey = isDem ? 'py_d' : 'py_r'
+        let twP = 0, sxP = 0, syP = 0, twC = 0, twCcand = 0
+        for (const v of inCohort) {
+          if (v[xkey] != null && v[ykey] != null) {
+            const w = v.w || 1; twP += w; sxP += v[xkey] * w; syP += v[ykey] * w
+          }
+          twC += v.w || 1; if (v.v === c.id) twCcand += v.w || 1
+        }
+        if (twP === 0) continue
+        perceivedByCand[c.id] = {
+          x: sxP / twP, y: syP / twP,
+          capture: twC > 0 ? twCcand / twC : null,
+        }
+      }
+    } else {
+      cc = cohortCentroids[pc.key]
+      perceivedByCand = {}
+      for (const c of cands) {
+        const p = c.perceived && c.perceived[pc.key]
+        if (!p) continue
+        perceivedByCand[c.id] = p
+      }
+    }
+    if (!cc) continue
+    const ccx = x(cc.x), ccy = y(cc.y)
+    // Cohort centroid marker
+    g.append('circle').attr('cx', ccx).attr('cy', ccy).attr('r', 7)
+      .attr('fill', '#fff').attr('stroke', pc.color).attr('stroke-width', 2.4)
+    g.append('text').attr('x', ccx).attr('y', ccy - 11).attr('text-anchor', 'middle')
+      .attr('font-size', '10px').attr('font-weight', '700').attr('fill', pc.color)
+      .text(`${pc.shortLabel} center`)
+    // Perceived-candidate position + tether per candidate
+    for (const candId of Object.keys(perceivedByCand)) {
+      const cand = cands.find(c => c.id === candId)
+      if (!cand) continue
+      const p = perceivedByCand[candId]
+      const pcx = x(p.x), pcy = y(p.y)
+      // Tether from cohort centroid to perceived candidate position
+      g.append('line').attr('x1', ccx).attr('y1', ccy).attr('x2', pcx).attr('y2', pcy)
+        .attr('stroke', cand.color).attr('stroke-width', 1.6)
+        .attr('stroke-opacity', 0.7).attr('stroke-dasharray', '4,3')
+      // Perceived position dot (small candidate-colored marker)
+      g.append('circle').attr('cx', pcx).attr('cy', pcy).attr('r', 5)
+        .attr('fill', cand.color).attr('stroke', '#fff').attr('stroke-width', 1.8)
+      // Capture-share pill near the perceived dot
+      if (p.capture != null) {
+        const ang = Math.atan2(pcy - ccy, pcx - ccx)
+        const offset = 16
+        const lx = pcx + Math.cos(ang) * offset
+        const ly = pcy + Math.sin(ang) * offset
+        const pct = Math.round(p.capture * 100)
+        const txt = `${pct}%`
+        const w_pill = txt.length * 7 + 6
+        g.append('rect').attr('x', lx - w_pill/2).attr('y', ly - 8).attr('width', w_pill).attr('height', 14)
+          .attr('rx', 3).attr('fill', '#fff')
+          .attr('stroke', cand.color).attr('stroke-width', 1)
+        g.append('text').attr('x', lx).attr('y', ly + 3.5)
+          .attr('text-anchor', 'middle').attr('font-size', '10.5px')
+          .attr('font-weight', '700').attr('fill', cand.color).text(txt)
+      }
+      // Label "Perceived X" small italic above the dot
+      g.append('text').attr('x', pcx).attr('y', pcy - 9).attr('text-anchor', 'middle')
+        .attr('font-size', '9px').attr('font-style', 'italic').attr('fill', cand.color)
+        .text(`perc. ${cand.short}`)
+    }
+  }
+
+  // Candidate centroids (always shown)
   for (const c of cands) {
     const cx = x(c.x); const cy = y(c.y)
-    // IQR ellipse: CENTERED ON THE CENTROID DOT so the dot is always inside.
-    // Half-axes sized to reach the farther IQR endpoint in each direction,
-    // so the ellipse always covers both q25 and q75. When the centroid sits
-    // asymmetrically inside the IQR, the ellipse extends past the closer
-    // endpoint to the farther one — honest about distribution skew.
-    if (c.x25 != null && c.x75 != null && c.y25 != null && c.y75 != null) {
-      const rxPx = Math.max(Math.abs(x(c.x) - x(c.x25)), Math.abs(x(c.x75) - x(c.x)))
-      const ryPx = Math.max(Math.abs(y(c.y) - y(c.y25)), Math.abs(y(c.y75) - y(c.y)))
-      g.append('ellipse')
-        .attr('cx', cx).attr('cy', cy)
-        .attr('rx', rxPx).attr('ry', ryPx)
-        .attr('fill', c.color).attr('fill-opacity', 0.08)
-        .attr('stroke', c.color).attr('stroke-opacity', 0.55)
-        .attr('stroke-width', 1.4).attr('stroke-dasharray', '3,2')
-    }
     g.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 9).attr('fill', c.color).attr('stroke', '#fff').attr('stroke-width', 2)
     const labelOffsetY = c.id === 'sanders' ? 26 : c.id === 'clinton' || c.id === 'biden' || c.id === 'harris' ? -16 : 26
     g.append('text').attr('x', cx).attr('y', cy + labelOffsetY).attr('text-anchor', 'middle')
@@ -446,7 +532,7 @@ function drawChart(container, data, opts) {
     .text(`Swing = independents + cross-party defectors. Activated = voted this cycle, not prior. Stayed-home = voted prior cycle, not this one.`)
   svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 18)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
-    .text(`Big dot = candidate's MEAN voter position. Dashed ellipse = IQR (25th–75th percentile in both dimensions), centered on the dot. Small dots (S / A / D) = within-base medians for swing / activated / stayed-home subcohorts.`)
+    .text(`Big dot = candidate's mean voter position (where their actual voters sit). Small dot + 'perc. X' label = where this cohort PERCEIVED the candidate to be (ideology placement × honesty rating). Tether labeled with capture % shows whether perceived proximity translated to capture.`)
   svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 4)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
     .text(`Line markers: ● n ≥ 40 (reliable) · ○ n ≥ 15 (moderate) · ✕ n < 15 (uncertain).`)
