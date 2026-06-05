@@ -50,10 +50,21 @@ def build_2016():
     party = pty.apply(lambda p: "dem" if p in (1, 2, 3) else "rep" if p in (5, 6, 7) else "ind" if p == 4 else "")
     gen = safe_num(df, "V162034a")
     vote = gen.map({1: "clinton", 2: "trump", 3: "johnson", 4: "stein", 5: "other"}).fillna("")
-    dem_prim = safe_num(df, "V161022")
-    rep_prim = safe_num(df, "V161023")
-    pv = [("clinton" if d == 1 else "sanders" if d == 2 else "trump" if r == 1 else "")
-          for d, r in zip(dem_prim.fillna(0), rep_prim.fillna(0))]
+    # PRIMARY VOTE — 2016 ANES uses V161021a (NOT V161022 / V161023).
+    # CODEBOOK-VERIFIED: V161021a 'For which candidate did R vote in Presidential prim'
+    #   1=Clinton, 2=Sanders, 3=Another Dem, 4=Trump, 5=Cruz, 6=Kasich,
+    #   7=Rubio, 8=Another Rep, 9=Someone else not D/R.
+    # Universe: IF R VOTED IN A PRESIDENTIAL PRIMARY OR CAUCUS.
+    #
+    # KNOWN-BUG-FIXED 2026-06-05: earlier code used V161022 ("Already voted
+    # in General Election", 1=have voted, 2=have not voted) treating code
+    # 2 as 'sanders'. That misclassified 3,467 respondents as Sanders
+    # primary voters. And V161023 ("In what manner did R vote") had been
+    # misused as the Republican primary; that is the early-vote method
+    # question, not a candidate question.
+    prim = safe_num(df, "V161021a")
+    pv_map = {1: "clinton", 2: "sanders", 4: "trump"}
+    pv = [pv_map.get(int(p), "") if pd.notna(p) and p in pv_map else "" for p in prim]
     # Swing = behavioral cross-pressure: independents OR cross-party defectors
     swing = (party == "ind") | ((party == "dem") & (vote == "trump")) | ((party == "rep") & (vote == "clinton"))
     voted_2012 = safe_num(df, "V161005")

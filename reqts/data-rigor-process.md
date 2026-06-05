@@ -18,10 +18,11 @@ Every ANES variable used in a build script must have:
 - **A line-level annotation** in `scripts/generate_variable_audit.py`'s `KNOWN_ANNOTATIONS` dict that states what the codebook says (verbatim quote when possible)
 - **A row in `reqts/variable-audit.md`** showing the observed distribution side-by-side with the annotation
 
-**Two fields of the codebook entry must be checked, not one:**
+**Three fields of the codebook entry must be checked, not one:**
 
-1. **Value Labels** — what each code means (1=yes, 2=no, -9=refused, etc.)
-2. **Universe** — WHO was asked the question. This field is often skipped, and it has caused multiple catastrophic bugs (V242066, V201101). Examples of dangerous Universe values:
+1. **Label** — what the variable IS (e.g. "PRE: Already voted in General Election", NOT a primary-vote question). This is the field most often skipped because the variable is named after the script's purpose ("dem_prim", "voted_2020") instead of named after the variable's actual meaning.
+2. **Value Labels** — what each code means (1=yes, 2=no, -9=refused, etc.)
+3. **Universe** — WHO was asked the question. This field is often skipped, and it has caused multiple catastrophic bugs (V242066, V201101). Examples of dangerous Universe values:
    - `"IF R REPORTED IN THE POST SURVEY THAT R VOTED"` → conditional question, not a turnout question
    - `"IF R SELECTED FOR VERSION 1A OF 1A/1B SPLICE"` → randomized half-sample; companion variable for the other half
    - `"IF TRAIT IS 1ST FOR DPC / IF TRAIT IS NOT 1ST FOR DPC"` → safe (covers everyone via the OR)
@@ -185,6 +186,9 @@ The rigor is in the SOURCE chain: variable → codebook entry → annotation →
 - **2020 / 2024 PRE weights** were used for vote-choice analyses — should be POST weights
 - **V242066 [UNIVERSE BUG]** was used as 2024 turnout. Universe is "IF R REPORTED IN THE POST SURVEY THAT R VOTED" — it's a conditional sub-question ("of voters, did you vote for president"), not a turnout question. Only 39 of 5,521 respondents code as non-voters. The actual 2024 turnout binary requires combining V241035 (early voted in pre) with V242065 (post-survey turnout).
 - **V201101 [UNIVERSE BUG]** was used alone as "voted in 2016." Universe is "IF R SELECTED FOR VERSION 1A OF 1A/1B SPLICE" — randomized half-sample. The companion V201102 covers the other half. Using V201101 alone missed ~half the 2020 sample. Cohort counts (drop-off, new) approximately DOUBLED after the fix.
+- **V161022 [LABEL MISMATCH BUG]** was used as "Democratic primary vote (1=Clinton, 2=Sanders)". Its actual codebook label is "PRE: Already voted in General Election" (1=have voted early, 2=have not voted yet). This labeled 3,467 'have-not-voted-yet' respondents as Sanders primary voters and put the Sanders centroid at x=0 (the average of the whole electorate). The actual primary-vote variable is V161021a (codes 1=Clinton, 2=Sanders, 3=Another Dem, 4=Trump, ...). V161023 (early-vote method) was similarly misused as Republican primary. Now corrected to V161021a; Sanders primary cohort dropped from 2,448 to 300, centroid moved from x=0 to x=-0.67.
+
+**This bug exposes a Gate 1 weakness**: the audit checked Value Labels exist, but didn't verify the variable's LABEL matches the variable's USAGE. Going forward, Gate 1 also requires reading the codebook's Label line for each variable and confirming the code's semantic claim about that variable.
 
 **Pattern**: every catastrophic bug except the off-by-one ones came from a missed Universe clause. That's why Gate 1 now requires both **Value Labels** AND **Universe** to be checked, and that's why Gate 1 is the most important gate.
 
