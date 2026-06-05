@@ -18,13 +18,26 @@ Every ANES variable used in a build script must have:
 - **A line-level annotation** in `scripts/generate_variable_audit.py`'s `KNOWN_ANNOTATIONS` dict that states what the codebook says (verbatim quote when possible)
 - **A row in `reqts/variable-audit.md`** showing the observed distribution side-by-side with the annotation
 
+**Two fields of the codebook entry must be checked, not one:**
+
+1. **Value Labels** — what each code means (1=yes, 2=no, -9=refused, etc.)
+2. **Universe** — WHO was asked the question. This field is often skipped, and it has caused multiple catastrophic bugs (V242066, V201101). Examples of dangerous Universe values:
+   - `"IF R REPORTED IN THE POST SURVEY THAT R VOTED"` → conditional question, not a turnout question
+   - `"IF R SELECTED FOR VERSION 1A OF 1A/1B SPLICE"` → randomized half-sample; companion variable for the other half
+   - `"IF TRAIT IS 1ST FOR DPC / IF TRAIT IS NOT 1ST FOR DPC"` → safe (covers everyone via the OR)
+   - `"IF R IS REGISTERED"` → only registered voters
+
+**If the Universe is anything other than "all respondents," you MUST either:**
+- (a) Document the restriction in the annotation and respect it in the analysis, OR
+- (b) Find the companion variable(s) and combine to recover the full sample
+
 Status legend:
-- ✅ **VERIFIED**: codebook entry on disk + annotation + matches observed distribution
+- ✅ **VERIFIED**: codebook entry on disk + Universe checked + annotation + matches observed distribution
 - 🔥 **KNOWN-BUG-FIXED**: was wrong, now correct, with a permanent annotation so it can't silently regress
 - ⚠️ **COVERAGE LIMIT** / **CAVEAT**: usable but with documented constraint
 - ❓ **UNVERIFIED**: NOT to be used in a figure until upgraded to one of the above
 
-**Failure mode this catches**: off-by-one variable codings (V161158x), inverted scales (V242065), wrong variable entirely (V241049 ≠ 2020 turnout).
+**Failure mode this catches**: off-by-one variable codings (V161158x), inverted scales (V242065), wrong variable entirely (V241049 ≠ 2020 turnout), **universe-restricted variables used as full-sample variables (V242066 caught 39 of 822 actual non-voters; V201101 alone missed half the 2020 sample)**.
 
 ### Gate 2 — Observed distribution matches the codebook
 
@@ -168,10 +181,12 @@ The rigor is in the SOURCE chain: variable → codebook entry → annotation →
 - **V242065** was used as "voted in 2024" with code 1 meaning voted — actually 1 = did NOT vote (inverted)
 - **V161158x / V201231x** off-by-one mapping silently dropped 875 / 2,286 strong Republicans
 - **V162031x `-2`** was being treated as "did not vote" — actually means "not ascertained"
-- **V201101** has 4,193 inapplicable responses — cohort flags were silently undercounted
 - **V242067 code 3** was mapped to "kennedy" — codebook says code 3 does not exist (Kennedy withdrew)
 - **2020 / 2024 PRE weights** were used for vote-choice analyses — should be POST weights
-- Three variables (`V160001` / `V160101` etc.) appeared to be weights but had not been distinguished as PRE vs POST
+- **V242066 [UNIVERSE BUG]** was used as 2024 turnout. Universe is "IF R REPORTED IN THE POST SURVEY THAT R VOTED" — it's a conditional sub-question ("of voters, did you vote for president"), not a turnout question. Only 39 of 5,521 respondents code as non-voters. The actual 2024 turnout binary requires combining V241035 (early voted in pre) with V242065 (post-survey turnout).
+- **V201101 [UNIVERSE BUG]** was used alone as "voted in 2016." Universe is "IF R SELECTED FOR VERSION 1A OF 1A/1B SPLICE" — randomized half-sample. The companion V201102 covers the other half. Using V201101 alone missed ~half the 2020 sample. Cohort counts (drop-off, new) approximately DOUBLED after the fix.
+
+**Pattern**: every catastrophic bug except the off-by-one ones came from a missed Universe clause. That's why Gate 1 now requires both **Value Labels** AND **Universe** to be checked, and that's why Gate 1 is the most important gate.
 
 Every one of these would have shipped to readers without this process. They didn't, because:
 1. The codebook is on disk and grep-able

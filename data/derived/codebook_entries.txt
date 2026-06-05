@@ -387,18 +387,18 @@ Randomization	Selection for question administered, RETROVOTE_PRESVTLASTREV or RE
 
 
 
-=== V201103 [2020] ===
-V201103	PRE: RECALL OF LAST (2016) PRESIDENTIAL VOTE CHOICE
-Question	Which one did you vote for?
+=== V201102 [2020] ===
+V201102	PRE: DID R VOTE FOR PRESIDENT IN 2016
+Question	Four years ago, in 2016, Hillary Clinton ran on the Democratic ticket against Donald Trump for the Republicans. Do you remember for sure whether or not you voted in that election?
 Value Labels	-9. Refused
 -8. Don’t know
 -1. Inapplicable
-1. Hillary Clinton
-2. Donald Trump
-5. Other {SPECIFY}
-Universe	IF R SAYS VOTED FOR PRESIDENT IN LAST PRESIDENTIAL ELECTION:
-Survey Question(s)	RETROVOTE_PREVVTWHO
-Interviewer Instruction	{DO NOT PROBE ‘DK’ RESPONSE}
+1. Yes, voted
+2. No, didn’t vote
+Universe	IF R SELECTED FOR VERSION 1B OF VERSION 1A / VERSION 1B SPLICE:
+Survey Question(s)	RETROVOTE_PRESVTLAST
+Randomization	Selection for question administered, RETROVOTE_PRESVTLASTREV or RETROVOTE_PRESVTLAST (Rand var randint_presvtlast: 1=RETROVOTE_PRESVTLASTREV, 2=RETROVOTE_PRESVTLAST)
+Interviewer Instruction	{DO NOT PROBE ‘DON’T KNOW’ RESPONSES}
 
 
 
@@ -687,6 +687,30 @@ POST-ELECTION RAKED WEIGHT: 2016-2024 PANEL, FACE-TO-FACE (FTF) & WEB SAMPLES CO
 === V240108a [2024] ===
 V240108a
 PRE-ELECTION RAKED WEIGHT: FACE-TO-FACE (FTF), WEB, & 2016-2024 PANEL SAMPLES COMBINED [FINAL]
+
+
+
+
+
+=== V241035 [2024] ===
+V241035
+PRE: ALREADY VOTED IN GENERAL ELECTION
+Question
+This next question is not about the primary elections and caucuses that were held a few months ago.
+
+Instead, we’d like to ask you about the election for President to be held on November 5, in which [Donald Trump is running against Kamala Harris / Kamala Harris is running against Donald Trump].
+
+Have you already voted in that election, or have you not voted?
+Value Labels
+-9. Refused
+-8. Don’t know
+-1. Inapplicable
+1. Have voted
+2. Have not voted
+Survey Question(s)
+PREVOTE_VOTED
+Randomization
+Order of names in question text
 
 
 

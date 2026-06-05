@@ -63,12 +63,15 @@ def short_dist(df, var):
 KNOWN_ANNOTATIONS = {
     # Catastrophic bugs caught + fixed; never let regress
     "V241049": "🔥 KNOWN-BUG-FIXED: codebook label is a HYPOTHETICAL Harris-vs-Trump question, NOT '2020 turnout'. We no longer use it for prior-vote. Replaced by V241106x.",
-    "V242065": "🔥 KNOWN-BUG-FIXED: codes INVERTED per codebook (1 = did NOT vote, 4 = sure voted). Replaced in voter-map by V242066 which is a clean binary (1=voted, 2=did not).",
+    "V242065": "✅ CODEBOOK-VERIFIED with CAVEAT: 2024 POST: 'Did R vote in 2024?'. Codes 1=did not vote, 2=thought about but didn't, 3=usually but didn't, 4=sure voted. Universe: 'IF R DID NOT REPORT IN THE PRE THAT R ALREADY VOTED' — so early voters (V241035==1) are EXCLUDED. Use combined V241035 ∨ V242065 for full turnout.",
     "V161158x": "🔥 KNOWN-BUG-FIXED: codebook-verified ANES 7-pt party summary 1=strong D … 7=strong R. Earlier off-by-one mapping dropped codes 6,7 to empty bucket. Now: 1,2,3 → dem, 4 → ind, 5,6,7 → rep.",
     "V201231x": "🔥 KNOWN-BUG-FIXED: codebook-verified — 'PRE: SUMMARY: PARTY ID', 1=Strong Democrat … 7=Strong Republican. Off-by-one corrected. Now: 1,2,3 → dem, 4 → ind, 5,6,7 → rep.",
     "V162031x": "🔥 KNOWN-BUG-FIXED: codebook-verified — 1=voted, 0=did not vote in 2016, -2=not ascertained. We drop -2 voters from the voter map (was previously folded silently into 'did not vote').",
     "V242067": "🔥 KNOWN-BUG-FIXED: codebook lists ONLY codes 1=Harris, 2=Trump, 4=West, 5=Stein, 6=other. Code 3 does NOT exist (Kennedy withdrew). Earlier code had {3:'kennedy'} — dead code, removed.",
-    "V201101": "⚠️ COVERAGE LIMIT: 'voted in 2016?' was only asked of a subset; ~4193 / 8280 respondents have -1 (inapplicable). Cohort flags (new/dropoff) only computable for the ~2860 with valid answers.",
+    "V201101": "🔥 KNOWN-BUG-FIXED: Universe 'IF R SELECTED FOR VERSION 1A OF VERSION 1A/1B SPLICE'. V201101 and V201102 are RANDOMIZED HALVES of the same 2016-recall question. Each respondent gets only one. Using V201101 alone misses ~half the sample. Build now combines V201101 ∨ V201102. Effect: 2020 drop-off count was 101, now 230; new-voter count was 372, now 679.",
+    "V201102": "🔥 KNOWN-BUG-FIXED: Companion to V201101 (versions 1A/1B). Was previously unused. Now combined with V201101 to recover full sample.",
+    "V242066": "🔥 KNOWN-BUG-FIXED: Universe 'IF R REPORTED IN THE POST SURVEY THAT R VOTED'. V242066 is conditional on already-voted; it asks 'did you vote for president specifically'. NOT a turnout question. Using it alone undercounts non-voters by ~95% (only 39 of 5521 code as 2). REPLACED in voter-map by combined V241035 (early voted in pre) ∨ V242065 (post-survey turnout, code 4=voted).",
+    "V241035": "✅ CODEBOOK-VERIFIED: 2024 PRE: 'Have you already voted?' 1=have voted (early voter), 2=have not voted. Used in combined 2024 turnout binary.",
     "V161031": "🔥 RETIRED: codebook label is 'For whom does R intend to vote' — measured intention not undecidedness. Previously misused as swing flag. Replaced by behavioral cross-pressure definition.",
 
     # Verified against codebook (✅ — codebook entries confirm the usage)
@@ -85,7 +88,6 @@ KNOWN_ANNOTATIONS = {
     "V241231": "✅ CODEBOOK-VERIFIED: 2024 analog of V161216 (few interests vs all).",
     "V241232": "✅ CODEBOOK-VERIFIED: 2024 analog of V161217 (tax money wasted).",
     "V202109x": "✅ CODEBOOK-VERIFIED: 2020 turnout summary (validated). 0=did not vote, 1=voted, -2=not reported.",
-    "V242066": "✅ CODEBOOK-VERIFIED: 2024 turnout binary. 1=voted for president, 2=did not. Clean replacement for V242065.",
     "V241106x": "✅ CODEBOOK-VERIFIED: 2024 prior-vote recall. 1=did not vote 2020, 2=Biden, 3=Trump, 4=other.",
     "V241227x": "✅ CODEBOOK-VERIFIED: 2024 7-pt party summary. Same scale as V161158x/V201231x. Already mapped correctly (1,2,3→dem; 4→ind; 5,6,7→rep).",
     "V162034a": "✅ CODEBOOK-VERIFIED: 2016 general-election vote. 1=Clinton, 2=Trump, 3=Johnson, 4=Stein, 5=other.",

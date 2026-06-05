@@ -92,8 +92,16 @@ def build_2020():
     pv = ["" for _ in range(len(df))]  # primary vote not heavily reported for 2020 in this format
     # Swing = behavioral cross-pressure
     swing = (party == "ind") | ((party == "dem") & (vote == "trump")) | ((party == "rep") & (vote == "biden"))
-    # Prior vote: 2016 (V201101=did you vote in 2016, V201103=who)
-    voted_2016 = safe_num(df, "V201101")
+    # Prior vote: 2020 ANES split-sampled the 2016-recall question into
+    # V201101 (version 1A) and V201102 (version 1B). EACH respondent got
+    # only one of the two; the other shows -1 (inapplicable). Using V201101
+    # alone misses ~half the sample.
+    # CORRECT: take whichever value the respondent has.
+    v1 = safe_num(df, "V201101")
+    v2 = safe_num(df, "V201102")
+    voted_2016 = pd.Series([float("nan")] * len(df), index=df.index)
+    voted_2016 = voted_2016.where(~v1.isin([1, 2]), v1)
+    voted_2016 = voted_2016.where(~v2.isin([1, 2]), v2)
     voted_2020 = safe_num(df, "V202109x")
     new_2020 = ((voted_2016 == 2) & (voted_2020 == 1)).fillna(False)
     dropoff  = ((voted_2016 == 1) & (voted_2020 == 0)).fillna(False)
@@ -134,12 +142,26 @@ def build_2024():
     p20 = safe_num(df, "V241106x")
     voted_2020_yes = p20.isin([2, 3, 4])
     voted_2020_no  = (p20 == 1)
-    # 2024 TURNOUT — fixed per audit:
-    #   V242065 codes 1=did NOT vote, 4=sure voted (2 & 3 are intermediate).
-    #   V242066 is the cleaner binary (1=voted for president, 2=did not).
-    p24 = safe_num(df, "V242066")
-    voted_2024_yes = (p24 == 1)
-    voted_2024_no  = (p24 == 2)
+    # 2024 TURNOUT — corrected 2026-06-05 after V242066-universe miss.
+    #
+    # V242066 Universe: "IF R REPORTED IN THE POST SURVEY THAT R VOTED".
+    # That means V242066 is asking "of voters, did you vote for PRESIDENT".
+    # It is NOT a turnout question. Used as such, it under-counts non-voters
+    # by ~95% (only 39 of 5521 respondents have V242066==2).
+    #
+    # V242065 Universe: "IF R DID NOT REPORT IN THE PRE THAT R ALREADY VOTED".
+    # So V242065 captures everyone who hadn't already early-voted. Codes
+    # 1/2/3 = various did-not-vote; 4 = sure voted.
+    #
+    # V241035 == 1: "Have voted" in pre-election (early voters).
+    #
+    # CORRECT turnout binary combines both:
+    #   voted = (V241035 == 1)  OR  (V242065 == 4)
+    #   not_voted = (V242065 in {1,2,3}) AND NOT (V241035 == 1)
+    early_voted = (safe_num(df, "V241035") == 1)
+    v242065 = safe_num(df, "V242065")
+    voted_2024_yes = (early_voted | (v242065 == 4)).fillna(False)
+    voted_2024_no  = (v242065.isin([1, 2, 3]) & ~early_voted).fillna(False)
     new_v   = (voted_2020_no  & voted_2024_yes).fillna(False)
     dropoff = (voted_2020_yes & voted_2024_no ).fillna(False)
     # Weight: V240107b is POST weight (correct for vote-choice analysis).
