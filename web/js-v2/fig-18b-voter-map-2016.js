@@ -371,10 +371,22 @@ function drawChart(container, data, opts) {
       .text(L.label.replace(/ line$/, '').replace(/^All-voter$/, 'All'))
   }
 
-  // Candidate centroids (always shown)
+  // Candidate centroids (always shown) + IQR ellipses
   for (const c of cands) {
     const cx = x(c.x); const cy = y(c.y)
-    g.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 18).attr('fill', c.color).attr('opacity', 0.18)
+    // IQR ellipse: half-axes = (x75-x25)/2 and (y75-y25)/2 mapped to pixel scale
+    if (c.x25 != null && c.x75 != null && c.y25 != null && c.y75 != null) {
+      const rxPx = Math.abs(x(c.x75) - x(c.x25)) / 2
+      const ryPx = Math.abs(y(c.y25) - y(c.y75)) / 2
+      const exCenter = (x(c.x25) + x(c.x75)) / 2
+      const eyCenter = (y(c.y25) + y(c.y75)) / 2
+      g.append('ellipse')
+        .attr('cx', exCenter).attr('cy', eyCenter)
+        .attr('rx', rxPx).attr('ry', ryPx)
+        .attr('fill', c.color).attr('fill-opacity', 0.08)
+        .attr('stroke', c.color).attr('stroke-opacity', 0.55)
+        .attr('stroke-width', 1.4).attr('stroke-dasharray', '3,2')
+    }
     g.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 9).attr('fill', c.color).attr('stroke', '#fff').attr('stroke-width', 2)
     const labelOffsetY = c.id === 'sanders' ? 26 : c.id === 'clinton' || c.id === 'biden' || c.id === 'harris' ? -16 : 26
     g.append('text').attr('x', cx).attr('y', cy + labelOffsetY).attr('text-anchor', 'middle')
@@ -432,7 +444,7 @@ function drawChart(container, data, opts) {
     .text(`Swing = independents + cross-party defectors. Activated = voted this cycle, not prior. Stayed-home = voted prior cycle, not this one.`)
   svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 18)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
-    .text(`Big dot = candidate's full voter-base centroid. Small dots (S / A / D) = same candidate's within-base mean for swing / activated / stayed-home subcohorts.`)
+    .text(`Big dot = candidate's MEDIAN voter (typical voter). Dashed ellipse = IQR (25th–75th percentile in both dimensions). Small dots (S / A / D) = same candidate's within-base medians for swing / activated / stayed-home subcohorts.`)
   svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 4)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
     .text(`Line markers: ● n ≥ 40 (reliable) · ○ n ≥ 15 (moderate) · ✕ n < 15 (uncertain).`)

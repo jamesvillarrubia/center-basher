@@ -237,22 +237,50 @@ def weighted_median(values, weights):
     return pairs[-1][0]
 
 
+def weighted_quantile(values, weights, q):
+    """Weighted q-quantile (q in [0, 1])."""
+    pairs = sorted(zip(values, weights), key=lambda p: p[0])
+    total = sum(w for _, w in pairs)
+    cum = 0
+    for v, w in pairs:
+        cum += w
+        if cum >= total * q:
+            return v
+    return pairs[-1][0]
+
+
+def median_and_iqr(rows):
+    """Return (mx, my, x25, x75, y25, y75, n) for a list of {x,y,w} records."""
+    xs = [r["x"] for r in rows]
+    ys = [r["y"] for r in rows]
+    ws = [r["w"] for r in rows]
+    return (
+        round(weighted_median(xs, ws), 3),
+        round(weighted_median(ys, ws), 3),
+        round(weighted_quantile(xs, ws, 0.25), 3),
+        round(weighted_quantile(xs, ws, 0.75), 3),
+        round(weighted_quantile(ys, ws, 0.25), 3),
+        round(weighted_quantile(ys, ws, 0.75), 3),
+        len(rows),
+    )
+
+
 def compute_centroids(records, vote_to_label):
-    """Per-candidate MEDIAN (x, y) — the typical voter, not the centroid of
-    mass. Median tracks where the density blob peaks; mean is biased by the
-    bounded-skewed trust distribution. Switched 2026-06-05.
+    """Per-candidate MEDIAN (x, y) + IQR ellipse parameters.
+
+    Returns {label: dict(x, y, x25, x75, y25, y75, n)} so the chart can draw
+    both the median dot AND an IQR ellipse showing each base's spread.
     """
     out = {}
     for vote_key, label in vote_to_label.items():
         cohort = [r for r in records if r["v"] == vote_key and r["w"] > 0]
         if not cohort:
             continue
-        xs = [r["x"] for r in cohort]
-        ys = [r["y"] for r in cohort]
-        ws = [r["w"] for r in cohort]
-        cx = weighted_median(xs, ws)
-        cy = weighted_median(ys, ws)
-        out[label] = (round(cx, 3), round(cy, 3), len(cohort))
+        mx, my, x25, x75, y25, y75, n = median_and_iqr(cohort)
+        out[label] = {
+            "x": mx, "y": my, "n": n,
+            "x25": x25, "x75": x75, "y25": y25, "y75": y75,
+        }
     return out
 
 
@@ -291,38 +319,35 @@ def main():
         # Compute candidate centroids from data — MEDIAN (x, y), per
         # rigor-process decision 2026-06-05.
         cands = list(CANDIDATES_BY_YEAR[year])
+        def apply_centroid(c, info):
+            for k in ("x", "y", "n", "x25", "x75", "y25", "y75"):
+                if k in info:
+                    c[k] = info[k]
+
         if year == 2016:
             # 2016 centroids match the candidate-blob layer: ALL three are
-            # PRIMARY voters (Clinton, Sanders, Trump). Earlier code used
-            # general-election cohorts for Clinton+Trump and primary for
-            # Sanders — inconsistent bases meant centroid dots did not sit
-            # in their own blobs. Fixed 2026-06-05.
+            # PRIMARY voters. Earlier code used general for Clinton+Trump
+            # and primary for Sanders — inconsistent bases.
             cent = {}
             for pv_key in ["clinton", "sanders", "trump"]:
                 cohort = [r for r in records if r.get("pv") == pv_key and r["w"] > 0]
                 if not cohort:
                     continue
-                xs = [r["x"] for r in cohort]
-                ys = [r["y"] for r in cohort]
-                ws = [r["w"] for r in cohort]
-                cent[pv_key] = (
-                    round(weighted_median(xs, ws), 3),
-                    round(weighted_median(ys, ws), 3),
-                    len(cohort),
-                )
+                mx, my, x25, x75, y25, y75, n = median_and_iqr(cohort)
+                cent[pv_key] = dict(x=mx, y=my, n=n, x25=x25, x75=x75, y25=y25, y75=y75)
             for c in cands:
                 if c["id"] in cent:
-                    c["x"], c["y"], c["n"] = cent[c["id"]]
+                    apply_centroid(c, cent[c["id"]])
         elif year == 2020:
             cent = compute_centroids(records, {"biden": "biden", "trump": "trump"})
             for c in cands:
                 if c["id"] in cent:
-                    c["x"], c["y"], c["n"] = cent[c["id"]]
+                    apply_centroid(c, cent[c["id"]])
         elif year == 2024:
             cent = compute_centroids(records, {"harris": "harris", "trump": "trump"})
             for c in cands:
                 if c["id"] in cent:
-                    c["x"], c["y"], c["n"] = cent[c["id"]]
+                    apply_centroid(c, cent[c["id"]])
 
         # Sub-cohort centroids per candidate (swing / activated / stayed-home)
         general_keys = [c["id"] for c in cands if c["id"] != "sanders"]
