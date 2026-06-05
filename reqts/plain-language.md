@@ -520,9 +520,9 @@ The prescription for political journalism is simple. Stop leading with endorseme
 §18 documents who specifically decided 2016 and 2024 — and confirms they were exactly the cohort the model predicts.
 
 ### 18 · What actually happened in 2016 (and 2024)
-So 2016 wasn't a story of Clinton failing to win over moderate Republicans. It's a story of her failing to **hold the people who were already hers.** Enough Bernie Sanders primary voters either flipped to Trump or stayed home to flip Wisconsin, Michigan, and Pennsylvania, and with them the whole election.
+2016 wasn't a story of Clinton failing to win over moderate Republicans. It also wasn't a story of her failing to hold voters who were ever really hers. The Sanders primary voters who flipped to Trump — or stayed home — were **never structurally Democratic**. They were swing-state Critics (§16) whose temporary entry into the Democratic primary was conditional on the Democratic candidate being one of them. Sanders was. When the nominating process took the regime-fit candidate off the table, those voters reverted to their structural state: anti-establishment voters in swing states picking the more authentic-coded candidate, or — when neither remaining option counted as authentic — not voting at all. Clinton couldn't have held them by campaigning harder, attacking smarter, or moving on any policy axis. They were never hers to lose.
 
-The state-by-state arithmetic, vote-validated by TargetSmart-merged CES 2016:[1]
+The state-by-state arithmetic — vote-validated by TargetSmart-merged CES 2016 — quantifies what that structural mismatch looked like at the level of actual votes:[1]
 
 - **Wisconsin**: Trump's certified margin was **22,748** votes. Sanders→Trump defectors numbered approximately **61,000** (**2.7×** the margin).
 - **Michigan**: Trump's margin was **10,704**. Sanders→Trump defectors approximately **56,000** (**5.3×**).
