@@ -31,14 +31,14 @@ Archived: <https://archive.ph/T0HWG>.
 
 **Where it lands.**
 
-- **§18 — "the centrist's bad trade" (primary home).** Centrists openly
+- **§19 — "the centrist's bad trade" (primary home).** Centrists openly
   withholding support from a left progressive nominee is the live
   empirical reveal of the asymmetric loyalty problem the section
   formalizes. The "vote blue no matter who" demand has historically only
   been pointed at the left; this is the test of whether it cuts the
   other way too.
 
-- **§17 — populist message discipline (Sanders / Mamdani comparison).**
+- **§18 — populist message discipline (Sanders / Mamdani comparison).**
   Sanders's "Fighting Oligarchy" tour and Platner's win over the
   Schumer-anointed Mills are direct evidence that the populist anti-elite
   message + retail presence works against an establishment alternative.
@@ -49,7 +49,7 @@ Archived: <https://archive.ph/T0HWG>.
   shows in general elections (7 of last 8 cycles, the
   perceived-establishment candidate loses).
 
-- **§19 / closing argument.** The "vote blue no matter who" demand has
+- **§20 / closing argument.** The "vote blue no matter who" demand has
   always been asymmetric — applied to the left, never to centrists. Now
   that the shoe is on the other foot, centrists are refusing to fall in
   line. That asymmetry reveals what the electability pitch was always
@@ -63,4 +63,4 @@ nominee is on the wrong wing for them, "party unity" stops mattering.
 **Quote to consider as a pull line:**
 Melissa DeRosa, on Fox News: *"There are a lot of moderate Democrats
 like myself who will not cry tears should we lose Maine."*
-That is the §18 argument in eleven words.
+That is the §19 argument in eleven words.

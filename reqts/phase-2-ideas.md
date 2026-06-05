@@ -22,7 +22,7 @@ American political economy:
 - The actionable inverse: **in a low-trust era, the safe establishment
   candidate is the *risky* one. Anti-establishment positioning IS the
   electable lane.**
-- Coda (§20): progressives can hold the change lane *only if* they
+- Coda (§21): progressives can hold the change lane *only if* they
   hold discipline on culture-war framing — the Bernie/MFA model.
 
 **Essay 2 (Phase 2, planned): Wealth as the system.**
@@ -266,14 +266,14 @@ that resolves the contradiction in favor of the wealthy.
 
 Each Phase 2 essay closes a loop the current essay leaves open:
 
-- **§19 of center-basher closes**: *"the safe establishment candidate
+- **§20 of center-basher closes**: *"the safe establishment candidate
   is the risky one… The center isn't where elections are won. It's a
   comforting story — and it's a lie."* But the current essay doesn't
   fully answer **who keeps telling that story** and **why**. Essay 2
   answers: the wealthy, because the alternative threatens their
   policy menu.
 
-- **§20 of center-basher closes**: progressives can hold the change
+- **§21 of center-basher closes**: progressives can hold the change
   lane only if they hold message discipline on culture-war framing.
   But the current essay doesn't fully answer **why culture-war
   framing keeps getting forced onto them**. Essay 3 answers: because

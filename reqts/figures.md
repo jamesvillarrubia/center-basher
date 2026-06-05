@@ -198,18 +198,18 @@ Complexity: `easy`.
 
 ---
 
-## §17 · What actually happened in 2016
+## §18 · What actually happened in 2016
 
 **Fig 17 · "The Sanders → Trump consolidation arithmetic, by swing state."**
 What: three bar pairs (WI / MI / PA), each showing Trump margin (small) vs Sanders→Trump defectors (taller).
-Why: the §17 closer made visceral.
+Why: the §18 closer made visceral.
 Data: hard-coded (CES vote-validated).
 Status: `LEGACY` (`web/js/chartConsolidation.js`).
 Complexity: `easy`.
 
 ---
 
-## §18 · The bad trade
+## §19 · The bad trade
 
 **Fig 18 · "Swing voters by ideology — and the trade-off."**
 What: 5 vertical bars (strong-left / lean-left / moderate / lean-right / strong-right) showing swing rate and mean trust simultaneously (twin-axis or color-encoded). Annotate the lean-left bar as "the lowest-trust group" and moderate as "the largest but flattest mass."
@@ -220,7 +220,7 @@ Complexity: `medium`.
 
 ---
 
-## §19 · Closing
+## §20 · Closing
 
 (prose-only; no chart needed.)
 

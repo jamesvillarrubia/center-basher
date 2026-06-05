@@ -27,7 +27,7 @@ import { drawTrustTurnout } from './fig-16d-trust-turnout.js'
 import { drawWithinCycle } from './fig-16e-within-cycle.js'
 import { drawNationscapePanel } from './fig-16f-nationscape-panel.js'
 import { drawWeeklyTrajectory } from './fig-16g-weekly-trajectory.js'
-import { drawSwitcherCohort } from './fig-17a-switcher-cohort.js'
+import { drawSwitcherCohort } from './fig-18a-switcher-cohort.js'
 
 async function init() {
   // §0 — trust by cohort
@@ -98,9 +98,9 @@ async function init() {
   // Swing-state trust × turnout scatter
   const ttData = await (await fetch(`data/swing_trust_turnout.json?v=${Date.now()}`, {cache: 'no-store'})).json()
   drawTrustTurnout('#fig-16d-svg', ttData)
-  // §17 — Switcher cohort gap (VSG panel)
+  // §18 — Switcher cohort gap (VSG panel)
   const scData = await (await fetch(`data/switcher_cohort_vsg.json?v=${Date.now()}`, {cache: 'no-store'})).json()
-  drawSwitcherCohort('#fig-17a-svg', scData)
+  drawSwitcherCohort('#fig-18a-svg', scData)
   // Figures E (VSG within-cycle), F (Nationscape cross-check), G (3-cycle trajectory)
   // are CUT from the page render per user feedback (June 2026 review).
   // The underlying JS modules and data files are kept on disk.

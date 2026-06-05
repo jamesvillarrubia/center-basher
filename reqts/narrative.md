@@ -61,13 +61,13 @@ drivers, and "move to the center" fails both. Swing/reachable voters → **Choic
 |---|---|---|
 | "That was just 2016" — no, every election | `PL §15` | ANES CDF 1976–2024: trust→vote flips sign with the in-party in **11 of 13 cycles**; ideology dominant, growing 1.07→2.64 |
 | The puzzle (Obama/Bush won; Clinton/Harris lost) | `PL §16` | role · trust→vote · result: Bush'04 +0.79 WON; Obama'12 −0.39 WON; Clinton'16 −0.28 LOST; Trump'20 ~0 LOST; Harris'24 −0.58 LOST. *Caveat: multi-causal, small N* |
-| What actually happened in 2016 | `PL §17` | CES vote-validated (Schaffner 12%): switchers 2.7× (WI) / 5.3× (MI) / 3.0× (PA) the margin; ~30% of Sanders primary voters didn't vote. Bounded — arithmetic of consolidation |
+| What actually happened in 2016 | `PL §18` | CES vote-validated (Schaffner 12%): switchers 2.7× (WI) / 5.3× (MI) / 3.0× (PA) the margin; ~30% of Sanders primary voters didn't vote. Bounded — arithmetic of consolidation |
 
 ## PART VI — The payoff
 | beat | source | STATS |
 |---|---|---|
-| The centrist's bad trade — robbing your own camp | `PL §18` | swing rate / mean trust by ideology: strong-left 7%/0.24, **lean-left 16%/0.17**, moderate 26%/0.22, lean-right 21%/0.21, strong-right 5%/0.12 |
-| So what — why this matters for progressives | `PL §19` | the three-way failure; "safe establishment = the risky bet" |
+| The centrist's bad trade — robbing your own camp | `PL §19` | swing rate / mean trust by ideology: strong-left 7%/0.24, **lean-left 16%/0.17**, moderate 26%/0.22, lean-right 21%/0.21, strong-right 5%/0.12 |
+| So what — why this matters for progressives | `PL §20` | the three-way failure; "safe establishment = the risky bet" |
 
 **Recommendation — two threads, two levers** *(not yet a `plain-language.md` beat — write one when ready):*
 - **Choice:** can't triangulate past a status/identity headwind — the lever is *which lane you own* (change vs. establishment), not left-right.
