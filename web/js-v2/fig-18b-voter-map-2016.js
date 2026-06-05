@@ -35,7 +35,7 @@ function partyGroup(p) {
 const LAYER_DEFAULTS = {
   party_D:    { kind: 'blob', label: 'Democratic blob',  color: COLOR_DEM,   visible: true,  filter: v => v.p === 'dem' },
   party_R:    { kind: 'blob', label: 'Republican blob',  color: COLOR_REP,   visible: true,  filter: v => v.p === 'rep' },
-  party_I:    { kind: 'blob', label: 'Independent blob', color: COLOR_IND,   visible: true,  filter: v => v.p === 'ind' || (v.p !== 'dem' && v.p !== 'rep') },
+  party_I:    { kind: 'blob', label: 'Independent blob', color: COLOR_IND,   visible: true,  filter: v => v.p === 'ind' },
   line_all:   { kind: 'line', label: 'All-voter line',   color: COLOR_ALL,   visible: true,  filter: v => true,        dash: null,  width: 2.6 },
   swing_blob: { kind: 'blob', label: 'Swing blob',       color: COLOR_SWING, visible: false, filter: v => v.sw },
   swing_line: { kind: 'line', label: 'Swing line',       color: COLOR_SWING, visible: true,  filter: v => v.sw,        dash: '4,3', width: 1.9 },
@@ -45,11 +45,17 @@ const LAYER_DEFAULTS = {
   drop_line:  { kind: 'line', label: 'Stayed-home line', color: COLOR_DROP,  visible: true,  filter: v => v.do,        dash: '1,3', width: 1.7 },
 }
 
+function cloneLayers(src) {
+  const out = {}
+  for (const k of Object.keys(src)) out[k] = { ...src[k] }
+  return out
+}
+
 let __state = {
   year: 2016,
   scope: 'national',
   dataByYear: {},
-  layers: structuredClone(LAYER_DEFAULTS),
+  layers: cloneLayers(LAYER_DEFAULTS),
 }
 
 export function mountVoterMapTabbed(selector, dataByYear) {

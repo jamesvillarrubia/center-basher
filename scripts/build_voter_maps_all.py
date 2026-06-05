@@ -43,8 +43,11 @@ def build_2016():
     run_all  = safe_num(df, "V161216").where(lambda v: v.between(1, 2))
     waste    = safe_num(df, "V161217").where(lambda v: v.between(1, 3))
     trust = pd.concat([(5 - do_right) / 4, (run_all - 1) / 1, (waste - 1) / 2], axis=1).mean(axis=1)
+    # V161158x is the standard ANES 7-pt party summary:
+    #   1=Strong D, 2=Weak D, 3=Lean D, 4=Pure Independent,
+    #   5=Lean R, 6=Weak R, 7=Strong R
     pty = safe_num(df, "V161158x")
-    party = pty.apply(lambda p: "dem" if p in (1, 2) else "rep" if p in (4, 5) else "ind" if p == 3 else "")
+    party = pty.apply(lambda p: "dem" if p in (1, 2, 3) else "rep" if p in (5, 6, 7) else "ind" if p == 4 else "")
     gen = safe_num(df, "V162034a")
     vote = gen.map({1: "clinton", 2: "trump", 3: "johnson", 4: "stein", 5: "other"}).fillna("")
     dem_prim = safe_num(df, "V161022")
@@ -78,8 +81,11 @@ def build_2020():
     run_all  = safe_num(df, "V201234").where(lambda v: v.between(1, 2))
     waste    = safe_num(df, "V201235").where(lambda v: v.between(1, 3))
     trust = pd.concat([(5 - do_right) / 4, (run_all - 1) / 1, (waste - 1) / 2], axis=1).mean(axis=1)
+    # V201231x is the standard ANES 7-pt party summary (same scale as 2016/2024):
+    #   1=Strong D, 2=Weak D, 3=Lean D, 4=Pure Independent,
+    #   5=Lean R, 6=Weak R, 7=Strong R
     pty = safe_num(df, "V201231x")
-    party = pty.apply(lambda p: "dem" if p in (1, 2) else "rep" if p in (4, 5) else "ind" if p == 3 else "")
+    party = pty.apply(lambda p: "dem" if p in (1, 2, 3) else "rep" if p in (5, 6, 7) else "ind" if p == 4 else "")
     gen = safe_num(df, "V202073")
     # 2020 post-election vote: 1=Biden, 2=Trump, 3=Jorgensen, 4=Hawkins, 5=other
     vote = gen.map({1: "biden", 2: "trump", 3: "jorgensen", 4: "hawkins", 5: "other"}).fillna("")
