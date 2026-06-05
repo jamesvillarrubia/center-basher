@@ -49,22 +49,24 @@ const CANDIDATE_LAYERS_BY_YEAR = {
   },
 }
 
-// Year-independent layers
+// Year-independent layers.
+// DEFAULTS chosen to tell the CAUSAL swing story on first load:
+//   - Swing blob + line ON (where swing voters sit + their trust trend)
+//   - All other layers OFF — user toggles to overlay more
+//   - show_centroids OFF (tautological "where candidate's voters are"
+//     hidden by default; perceived-candidate discs carry the causal story)
 const LAYER_DEFAULTS = {
-  party_D:    { kind: 'blob', label: 'Democratic blob',  color: COLOR_DEM,   visible: true,  filter: v => v.p === 'dem' },
-  party_R:    { kind: 'blob', label: 'Republican blob',  color: COLOR_REP,   visible: true,  filter: v => v.p === 'rep' },
-  party_I:    { kind: 'blob', label: 'Independent blob', color: COLOR_IND,   visible: true,  filter: v => v.p === 'ind' },
-  // Lines show MEDIAN trust per ideology bin (not mean). Median is robust to
-  // outliers and tracks where the typical voter sits — which is what the
-  // density blob is also showing. Mean was systematically biased upward
-  // because the trust composite is bounded [0,1] but skewed low.
-  line_all:   { kind: 'line', label: 'All-voter line', color: COLOR_ALL,   visible: true,  filter: v => true, dash: null,  width: 2.6, stat: 'median' },
-  swing_blob: { kind: 'blob', label: 'Swing blob',     color: COLOR_SWING, visible: false, filter: v => v.sw },
+  show_centroids: { kind: 'meta', label: 'Candidate-voter centroids (big dots)', color: '#666', visible: false },
+  party_D:    { kind: 'blob', label: 'Democratic blob',  color: COLOR_DEM,   visible: false, filter: v => v.p === 'dem' },
+  party_R:    { kind: 'blob', label: 'Republican blob',  color: COLOR_REP,   visible: false, filter: v => v.p === 'rep' },
+  party_I:    { kind: 'blob', label: 'Independent blob', color: COLOR_IND,   visible: false, filter: v => v.p === 'ind' },
+  line_all:   { kind: 'line', label: 'All-voter line', color: COLOR_ALL,   visible: false, filter: v => true, dash: null,  width: 2.6, stat: 'median' },
+  swing_blob: { kind: 'blob', label: 'Swing blob',     color: COLOR_SWING, visible: true,  filter: v => v.sw },
   swing_line: { kind: 'line', label: 'Swing line',     color: COLOR_SWING, visible: true,  filter: v => v.sw, dash: '4,3', width: 1.9, stat: 'median' },
   activ_blob: { kind: 'blob', label: 'Activated blob', color: COLOR_ACTIV, visible: false, filter: v => v.n2 },
-  activ_line: { kind: 'line', label: 'Activated line', color: COLOR_ACTIV, visible: true,  filter: v => v.n2, dash: '2,3', width: 1.7, stat: 'median' },
+  activ_line: { kind: 'line', label: 'Activated line', color: COLOR_ACTIV, visible: false, filter: v => v.n2, dash: '2,3', width: 1.7, stat: 'median' },
   drop_blob:  { kind: 'blob', label: 'Stayed-home blob', color: COLOR_DROP, visible: false, filter: v => v.do },
-  drop_line:  { kind: 'line', label: 'Stayed-home line', color: COLOR_DROP, visible: true,  filter: v => v.do, dash: '1,3', width: 1.7, stat: 'median' },
+  drop_line:  { kind: 'line', label: 'Stayed-home line', color: COLOR_DROP, visible: false, filter: v => v.do, dash: '1,3', width: 1.7, stat: 'median' },
 }
 
 function cloneLayers(src) {
@@ -166,19 +168,25 @@ function rebuildLayerPanel(container) {
   const layerPanel = container.querySelector('.vm-layer-panel')
   if (!layerPanel) return
   layerPanel.innerHTML = ''
-  // Candidate blobs row (this year's set)
-  const candKeys = Object.keys(__state.layers).filter(k => k.startsWith('cand_'))
-  if (candKeys.length > 0) {
-    layerPanel.appendChild(makeLayerRow('Candidate blobs', candKeys, container))
-  }
-  // Party + cohort blobs
-  layerPanel.appendChild(makeLayerRow('Party / cohort blobs', [
-    'party_D', 'party_R', 'party_I', 'swing_blob', 'activ_blob', 'drop_blob',
+  // Meta row — show/hide the tautological "candidate-voter centroids" view
+  layerPanel.appendChild(makeLayerRow('Overlay', ['show_centroids'], container))
+  // Cohort blobs (the 'where they sit' layer for each cohort)
+  layerPanel.appendChild(makeLayerRow('Cohort blobs', [
+    'swing_blob', 'activ_blob', 'drop_blob',
   ], container))
   // Lines (median trust per ideology bin)
-  layerPanel.appendChild(makeLayerRow('Lines (median trust)', [
-    'line_all', 'swing_line', 'activ_line', 'drop_line',
+  layerPanel.appendChild(makeLayerRow('Cohort lines', [
+    'swing_line', 'activ_line', 'drop_line', 'line_all',
   ], container))
+  // Party blobs (always-on context — off by default)
+  layerPanel.appendChild(makeLayerRow('Party blobs', [
+    'party_D', 'party_R', 'party_I',
+  ], container))
+  // Candidate-voter blobs row (this year's set)
+  const candKeys = Object.keys(__state.layers).filter(k => k.startsWith('cand_'))
+  if (candKeys.length > 0) {
+    layerPanel.appendChild(makeLayerRow('Candidate-voter blobs', candKeys, container))
+  }
 }
 
 function makeLayerRow(title, layerKeys, container) {
@@ -251,7 +259,7 @@ function drawChart(container, data, opts) {
   svg.append('text').attr('class', 'vm-subtitle').attr('x', margin.left).attr('y', 42)
     .text(`n = ${voters.length.toLocaleString()} ANES respondents. X = ideology (V161126 / V201200 / V241177). Y = trust composite (0–0.8 shown; full scale 0–1, almost no voters above 0.8).`)
   svg.append('text').attr('class', 'vm-subtitle').attr('x', margin.left).attr('y', 58)
-    .text('Toggle blobs and lines above. Lines show MEDIAN trust per ideology bin (robust to outliers; tracks where the typical voter sits).')
+    .text('READING THE CHART: open ring = where this cohort of voters sits (their own ideology × trust). Colored discs = where this cohort PERCEIVES each candidate (their ideology placement × cares+leadership rating). % inside disc = cohort capture share. Closer disc + higher % → identity drove capture. Closer disc + lower % → regime/other forces overrode.')
 
   const x = d3.scaleLinear().domain([-1, 1]).range([0, innerW])
   const y = d3.scaleLinear().domain([0, 0.8]).range([innerH, 0])
@@ -447,30 +455,38 @@ function drawChart(container, data, opts) {
         .attr('stroke', cand.color).attr('stroke-width', 1.6)
         .attr('stroke-opacity', 0.7).attr('stroke-dasharray', '4,3')
       // Perceived position: candidate-colored ring with capture % INSIDE.
-      // No external label or pill — keeps the chart uncluttered.
+      // Candidate name labeled BELOW so the disc is self-explanatory.
       const pct = p.capture != null ? Math.round(p.capture * 100) : null
-      g.append('circle').attr('cx', pcx).attr('cy', pcy).attr('r', 13)
-        .attr('fill', '#fff').attr('stroke', cand.color).attr('stroke-width', 2)
-      g.append('circle').attr('cx', pcx).attr('cy', pcy).attr('r', 13)
-        .attr('fill', cand.color).attr('fill-opacity', 0.12).attr('stroke', 'none')
+      g.append('circle').attr('cx', pcx).attr('cy', pcy).attr('r', 14)
+        .attr('fill', '#fff').attr('stroke', cand.color).attr('stroke-width', 2.2)
+      g.append('circle').attr('cx', pcx).attr('cy', pcy).attr('r', 14)
+        .attr('fill', cand.color).attr('fill-opacity', 0.15).attr('stroke', 'none')
       if (pct != null) {
-        g.append('text').attr('x', pcx).attr('y', pcy + 4)
-          .attr('text-anchor', 'middle').attr('font-size', '11px')
+        g.append('text').attr('x', pcx).attr('y', pcy + 4.5)
+          .attr('text-anchor', 'middle').attr('font-size', '12px')
           .attr('font-weight', '800').attr('fill', cand.color).text(`${pct}%`)
       }
+      // Candidate name below the disc
+      g.append('text').attr('x', pcx).attr('y', pcy + 28)
+        .attr('text-anchor', 'middle').attr('font-size', '11px')
+        .attr('font-weight', '700').attr('fill', cand.color).text(cand.short)
     }
   }
 
-  // Candidate centroids (always shown)
-  for (const c of cands) {
-    const cx = x(c.x); const cy = y(c.y)
-    g.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 9).attr('fill', c.color).attr('stroke', '#fff').attr('stroke-width', 2)
-    const labelOffsetY = c.id === 'sanders' ? 26 : c.id === 'clinton' || c.id === 'biden' || c.id === 'harris' ? -16 : 26
-    g.append('text').attr('x', cx).attr('y', cy + labelOffsetY).attr('text-anchor', 'middle')
-      .attr('font-size', '13px').attr('font-weight', '700').attr('fill', c.color).text(c.short)
-    g.append('text').attr('x', cx).attr('y', cy + labelOffsetY + 13).attr('text-anchor', 'middle')
-      .attr('font-size', '10px').attr('fill', '#444').attr('font-style', 'italic')
-      .text(`(${c.x > 0 ? '+' : ''}${c.x}, ${c.y})`)
+  // Candidate-voter centroids — TAUTOLOGICAL view (where the candidate's
+  // OWN voters self-place). Hidden by default since it conflates with the
+  // perceived-candidate causal story. Toggle 'show_centroids' to display.
+  if (__state.layers.show_centroids && __state.layers.show_centroids.visible) {
+    for (const c of cands) {
+      const cx = x(c.x); const cy = y(c.y)
+      g.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 9).attr('fill', c.color).attr('stroke', '#fff').attr('stroke-width', 2)
+      const labelOffsetY = c.id === 'sanders' ? 26 : c.id === 'clinton' || c.id === 'biden' || c.id === 'harris' ? -16 : 26
+      g.append('text').attr('x', cx).attr('y', cy + labelOffsetY).attr('text-anchor', 'middle')
+        .attr('font-size', '13px').attr('font-weight', '700').attr('fill', c.color).text(c.short)
+      g.append('text').attr('x', cx).attr('y', cy + labelOffsetY + 13).attr('text-anchor', 'middle')
+        .attr('font-size', '10px').attr('fill', '#444').attr('font-style', 'italic')
+        .text(`(${c.x > 0 ? '+' : ''}${c.x}, ${c.y})`)
+    }
   }
 
   // Subcohort centroids per candidate (small S/A/D markers).
