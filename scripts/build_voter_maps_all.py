@@ -122,7 +122,14 @@ def build_2020():
     gen = safe_num(df, "V202073")
     # 2020 post-election vote: 1=Biden, 2=Trump, 3=Jorgensen, 4=Hawkins, 5=other
     vote = gen.map({1: "biden", 2: "trump", 3: "jorgensen", 4: "hawkins", 5: "other"}).fillna("")
-    pv = ["" for _ in range(len(df))]  # primary vote not heavily reported for 2020 in this format
+    # 2020 PRIMARY VOTE — V201021 (CODEBOOK-VERIFIED).
+    # Codes: 1=Biden, 2=Bloomberg, 3=Buttigieg, 4=Klobuchar, 5=Sanders,
+    # 6=Warren, 7=Another Dem, 8=Trump, 9=Another Rep, 10=Someone else.
+    # We retain only Biden / Sanders / Trump for the primary scenarios.
+    # Universe: "IF R VOTED IN A PRESIDENTIAL PRIMARY OR CAUCUS".
+    prim = safe_num(df, "V201021")
+    pv_map_2020 = {1: "biden", 5: "sanders", 8: "trump"}
+    pv = [pv_map_2020.get(int(p), "") if pd.notna(p) and p in pv_map_2020 else "" for p in prim]
     # Swing = behavioral cross-pressure
     swing = (party == "ind") | ((party == "dem") & (vote == "trump")) | ((party == "rep") & (vote == "biden"))
     # Prior vote: 2020 ANES split-sampled the 2016-recall question into

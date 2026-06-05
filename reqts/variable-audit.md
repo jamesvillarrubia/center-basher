@@ -90,7 +90,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_center_overlap_matrix.py:14` — `Weighted with V160101 (post-election weight).`
 - `build_center_overlap_matrix.py:33` — `w = pd.to_numeric(d["V160101"], errors="coerce").fillna(0).clip(lower=0)`
 - `build_center_overlap_matrix.py:130` — `"V160101 (weight)",`
-- `generate_variable_audit.py:100` — `"V160101": "✅ CODEBOOK-VERIFIED: ANES 2016 PRE survey weight. Use for pre-election analyses.",`
+- `generate_variable_audit.py:102` — `"V160101": "✅ CODEBOOK-VERIFIED: ANES 2016 PRE survey weight. Use for pre-election analyses.",`
 - `build_partisan_loyalty.py:14` — `w = clean_var(df, "V160101", 0, 1e9).fillna(0).clip(lower=0)`
 - `build_partisan_loyalty.py:112` — `"variables": ["V160101 (weight)", "V161158x (7-pt PID, branched)",`
 - `build_partisan_loyalty.py:115` — `"weight": "V160101 (post-election)",`
@@ -141,7 +141,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_map_2016.py:25` — `w:           V160102 weight`
 - `build_voter_map_2016.py:119` — `w = pd.to_numeric(df.get("V160102", df.get("V160101")), errors="coerce").fillna(0).clip(lower=0)`
 - `build_voter_map_2016.py:178` — `"source": "ANES 2016 Time Series Study, weighted (V160102). x=V161126 ideology (1-7 → -1..+1). y=V161215/V161216/V161217 trust ...`
-- `generate_variable_audit.py:101` — `"V160102": "✅ CODEBOOK-VERIFIED: ANES 2016 POST survey weight. Use for vote-choice / post-election analyses. (Currently used in...`
+- `generate_variable_audit.py:103` — `"V160102": "✅ CODEBOOK-VERIFIED: ANES 2016 POST survey weight. Use for vote-choice / post-election analyses. (Currently used in...`
 - `build_within_cycle_multi.py:12` — `V162078 (Clinton POST), V162079 (Trump POST), V160102 (weight)`
 - `build_within_cycle_multi.py:44` — `"weight": "V160102",`
 - `build_candidate_honesty_by_trust.py:244` — `w = pd.to_numeric(df.get('V160102', df.get('V160101')), errors='coerce').fillna(0).clip(lower=0)`
@@ -224,7 +224,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_map_2016.py:121` — `# STATE FIPS — V161010d`
 - `build_voter_map_2016.py:122` — `state = pd.to_numeric(df["V161010d"], errors="coerce") if "V161010d" in df.columns else pd.Series([None]*len(df))`
 - `build_voter_map_2016.py:122` — `state = pd.to_numeric(df["V161010d"], errors="coerce") if "V161010d" in df.columns else pd.Series([None]*len(df))`
-- `generate_variable_audit.py:108` — `"V161010d": "✅ CODEBOOK-VERIFIED: 2016 state FIPS code (numeric).",`
+- `generate_variable_audit.py:110` — `"V161010d": "✅ CODEBOOK-VERIFIED: 2016 state FIPS code (numeric).",`
 - `build_candidate_honesty_by_trust.py:245` — `state = pd.to_numeric(df['V161010d'], errors='coerce')`
 - `build_voter_maps_all.py:80` — `state = safe_num(df, "V161010d")`
 - `build_swing_trust_turnout.py:82` — `(2016, None, 'V162031x', 'V160102', 'V161010d'),`
@@ -266,8 +266,8 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 **Usage sites (6)**:
 
 - `generate_variable_audit.py:76` — `"V161021a": "✅ CODEBOOK-VERIFIED: 2016 PRE: 'For which candidate did R vote in Presidential primary'. 1=Clinton, 2=Sanders, 3=A...`
-- `generate_variable_audit.py:77` — `"V161022": "🔥 KNOWN-BUG-FIXED: codebook label is 'PRE: Already voted in General Election' (1=have voted early, 2=have not voted...`
-- `generate_variable_audit.py:78` — `"V161023": "🔥 KNOWN-BUG-FIXED: codebook label is 'PRE: In what manner did R vote' (early-vote method: in-person / mail / etc.)....`
+- `generate_variable_audit.py:79` — `"V161022": "🔥 KNOWN-BUG-FIXED: codebook label is 'PRE: Already voted in General Election' (1=have voted early, 2=have not voted...`
+- `generate_variable_audit.py:80` — `"V161023": "🔥 KNOWN-BUG-FIXED: codebook label is 'PRE: In what manner did R vote' (early-vote method: in-person / mail / etc.)....`
 - `build_voter_maps_all.py:53` — `# PRIMARY VOTE — 2016 ANES uses V161021a (NOT V161022 / V161023).`
 - `build_voter_maps_all.py:54` — `# CODEBOOK-VERIFIED: V161021a 'For which candidate did R vote in Presidential prim'`
 - `build_voter_maps_all.py:65` — `prim = safe_num(df, "V161021a")`
@@ -290,7 +290,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_map_2016.py:79` — `dem_prim = pd.to_numeric(df["V161022"], errors="coerce") if "V161022" in df.columns else pd.Series([], dtype=float)`
 - `build_voter_map_2016.py:79` — `dem_prim = pd.to_numeric(df["V161022"], errors="coerce") if "V161022" in df.columns else pd.Series([], dtype=float)`
 - `generate_variable_audit.py:76` — `"V161021a": "✅ CODEBOOK-VERIFIED: 2016 PRE: 'For which candidate did R vote in Presidential primary'. 1=Clinton, 2=Sanders, 3=A...`
-- `generate_variable_audit.py:77` — `"V161022": "🔥 KNOWN-BUG-FIXED: codebook label is 'PRE: Already voted in General Election' (1=have voted early, 2=have not voted...`
+- `generate_variable_audit.py:79` — `"V161022": "🔥 KNOWN-BUG-FIXED: codebook label is 'PRE: Already voted in General Election' (1=have voted early, 2=have not voted...`
 - `build_voter_maps_all.py:53` — `# PRIMARY VOTE — 2016 ANES uses V161021a (NOT V161022 / V161023).`
 - `build_voter_maps_all.py:59` — `# KNOWN-BUG-FIXED 2026-06-05: earlier code used V161022 ("Already voted`
 
@@ -319,7 +319,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_map_2016.py:80` — `rep_prim = pd.to_numeric(df["V161023"], errors="coerce") if "V161023" in df.columns else pd.Series([], dtype=float)`
 - `build_voter_map_2016.py:80` — `rep_prim = pd.to_numeric(df["V161023"], errors="coerce") if "V161023" in df.columns else pd.Series([], dtype=float)`
 - `build_voter_map_2016.py:84` — `if r == 1: return "trump"  # 1 in V161023 = Trump`
-- `generate_variable_audit.py:78` — `"V161023": "🔥 KNOWN-BUG-FIXED: codebook label is 'PRE: In what manner did R vote' (early-vote method: in-person / mail / etc.)....`
+- `generate_variable_audit.py:80` — `"V161023": "🔥 KNOWN-BUG-FIXED: codebook label is 'PRE: In what manner did R vote' (early-vote method: in-person / mail / etc.)....`
 - `build_voter_maps_all.py:53` — `# PRIMARY VOTE — 2016 ANES uses V161021a (NOT V161022 / V161023).`
 - `build_voter_maps_all.py:62` — `# primary voters. And V161023 ("In what manner did R vote") had been`
 
@@ -451,8 +451,8 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_center_overlap_matrix.py:5` — `- M (Moderate): self-place 7-pt lib-con (V161126) in {3,4,5}`
 - `build_center_overlap_matrix.py:40` — `selfplace = pd.to_numeric(d["V161126"], errors="coerce")`
 - `build_center_overlap_matrix.py:131` — `"V161126 (self-place lib-con)",`
-- `generate_variable_audit.py:81` — `"V161126": "✅ CODEBOOK-VERIFIED: 'PRE: 7pt scale Liberal conservative self-placement'. 1=extremely liberal, 4=moderate, 7=extre...`
-- `generate_variable_audit.py:82` — `"V201200": "✅ CODEBOOK-VERIFIED: 2020 ideology self-placement, same 1-7 scale as V161126.",`
+- `generate_variable_audit.py:83` — `"V161126": "✅ CODEBOOK-VERIFIED: 'PRE: 7pt scale Liberal conservative self-placement'. 1=extremely liberal, 4=moderate, 7=extre...`
+- `generate_variable_audit.py:84` — `"V201200": "✅ CODEBOOK-VERIFIED: 2020 ideology self-placement, same 1-7 scale as V161126.",`
 - `build_partisan_loyalty.py:17` — `ideo = clean_var(df, "V161126", 1, 7, also_missing=(99,))`
 - `build_partisan_loyalty.py:113` — `"V161126 (lib-con)", "V162034a (presidential vote)"],`
 - `build_center_breakdown.py:21` — `ideo_raw = pd.to_numeric(df["V161126"], errors="coerce")`
@@ -481,7 +481,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:121` — `"V161128": "✅ CODEBOOK-VERIFIED: 2016 R places Dem cand on 7-pt lib-con scale. Used in voter map for non-tautological perceived...`
+- `generate_variable_audit.py:123` — `"V161128": "✅ CODEBOOK-VERIFIED: 2016 R places Dem cand on 7-pt lib-con scale. Used in voter map for non-tautological perceived...`
 - `build_voter_maps_all.py:86` — `#   V161128/V161129 = R places Dem/Rep cand on 1-7 lib-cons scale`
 - `build_voter_maps_all.py:95` — `dem_perc_x = (safe_num(df, "V161128").where(lambda v: v.between(1, 7)) - 4) / 3.0`
 
@@ -503,7 +503,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:122` — `"V161129": "✅ CODEBOOK-VERIFIED: 2016 R places Rep cand on 7-pt lib-con scale.",`
+- `generate_variable_audit.py:124` — `"V161129": "✅ CODEBOOK-VERIFIED: 2016 R places Rep cand on 7-pt lib-con scale.",`
 - `build_voter_maps_all.py:86` — `#   V161128/V161129 = R places Dem/Rep cand on 1-7 lib-cons scale`
 - `build_voter_maps_all.py:96` — `rep_perc_x = (safe_num(df, "V161129").where(lambda v: v.between(1, 7)) - 4) / 3.0`
 
@@ -534,7 +534,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_center_overlap_matrix.py:51` — `pid = pd.to_numeric(d["V161158x"], errors="coerce")  # 1=SD .. 7=SR`
 - `build_center_overlap_matrix.py:132` — `"V161158x (PID, 7-pt, leaners)",`
 - `generate_variable_audit.py:67` — `"V161158x": "🔥 KNOWN-BUG-FIXED: codebook-verified ANES 7-pt party summary 1=strong D … 7=strong R. Earlier off-by-one mapping d...`
-- `generate_variable_audit.py:95` — `"V241227x": "✅ CODEBOOK-VERIFIED: 2024 7-pt party summary. Same scale as V161158x/V201231x. Already mapped correctly (1,2,3→dem...`
+- `generate_variable_audit.py:97` — `"V241227x": "✅ CODEBOOK-VERIFIED: 2024 7-pt party summary. Same scale as V161158x/V201231x. Already mapped correctly (1,2,3→dem...`
 - `build_partisan_loyalty.py:16` — `pid = clean_var(df, "V161158x", 1, 7)`
 - `build_partisan_loyalty.py:63` — `"metric": "Pure independents (V161158x=4)",`
 - `build_partisan_loyalty.py:112` — `"variables": ["V160101 (weight)", "V161158x (7-pt PID, branched)",`
@@ -565,7 +565,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:129` — `"V161159": "✅ CODEBOOK-VERIFIED: 2016 Dem cand trait 'strong leadership' 1-5. Voter-map perceived-Dem y composite.",`
+- `generate_variable_audit.py:131` — `"V161159": "✅ CODEBOOK-VERIFIED: 2016 Dem cand trait 'strong leadership' 1-5. Voter-map perceived-Dem y composite.",`
 - `build_voter_maps_all.py:87` — `#   V161159/V161160 = Dem cand "strong leadership"/"really cares" 1-5`
 - `build_voter_maps_all.py:97` — `d_lead  = (5 - safe_num(df, "V161159").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -585,7 +585,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:130` — `"V161160": "✅ CODEBOOK-VERIFIED: 2016 Dem cand trait 'really cares about people like me' 1-5. Voter-map perceived-Dem y composi...`
+- `generate_variable_audit.py:132` — `"V161160": "✅ CODEBOOK-VERIFIED: 2016 Dem cand trait 'really cares about people like me' 1-5. Voter-map perceived-Dem y composi...`
 - `build_voter_maps_all.py:87` — `#   V161159/V161160 = Dem cand "strong leadership"/"really cares" 1-5`
 - `build_voter_maps_all.py:98` — `d_cares = (5 - safe_num(df, "V161160").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -605,8 +605,8 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (5)**:
 
-- `generate_variable_audit.py:113` — `"V161162": "✅ CODEBOOK-VERIFIED: 2016 Dem cand 'honest' Likert 1=extremely well..5=not well at all. Used in build_candidate_hon...`
-- `generate_variable_audit.py:114` — `"V161167": "✅ CODEBOOK-VERIFIED: 2016 Rep cand 'honest', same scale as V161162.",`
+- `generate_variable_audit.py:115` — `"V161162": "✅ CODEBOOK-VERIFIED: 2016 Dem cand 'honest' Likert 1=extremely well..5=not well at all. Used in build_candidate_hon...`
+- `generate_variable_audit.py:116` — `"V161167": "✅ CODEBOOK-VERIFIED: 2016 Rep cand 'honest', same scale as V161162.",`
 - `build_candidate_honesty_by_trust.py:241` — `# V161162 = Dem (Clinton) "is honest" trait; V161167 = Rep (Trump). 1=very well..5=not well.`
 - `build_candidate_honesty_by_trust.py:242` — `hd = 5 - df['V161162'].where(df['V161162'].between(1,5))`
 - `build_candidate_honesty_by_trust.py:242` — `hd = 5 - df['V161162'].where(df['V161162'].between(1,5))`
@@ -627,7 +627,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:131` — `"V161164": "✅ CODEBOOK-VERIFIED: 2016 Rep cand trait 'strong leadership' 1-5. Voter-map perceived-Rep y composite.",`
+- `generate_variable_audit.py:133` — `"V161164": "✅ CODEBOOK-VERIFIED: 2016 Rep cand trait 'strong leadership' 1-5. Voter-map perceived-Rep y composite.",`
 - `build_voter_maps_all.py:88` — `#   V161164/V161165 = Rep cand same two traits`
 - `build_voter_maps_all.py:99` — `r_lead  = (5 - safe_num(df, "V161164").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -647,7 +647,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:132` — `"V161165": "✅ CODEBOOK-VERIFIED: 2016 Rep cand trait 'really cares about people like me' 1-5.",`
+- `generate_variable_audit.py:134` — `"V161165": "✅ CODEBOOK-VERIFIED: 2016 Rep cand trait 'really cares about people like me' 1-5.",`
 - `build_voter_maps_all.py:88` — `#   V161164/V161165 = Rep cand same two traits`
 - `build_voter_maps_all.py:100` — `r_cares = (5 - safe_num(df, "V161165").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -667,7 +667,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (4)**:
 
-- `generate_variable_audit.py:114` — `"V161167": "✅ CODEBOOK-VERIFIED: 2016 Rep cand 'honest', same scale as V161162.",`
+- `generate_variable_audit.py:116` — `"V161167": "✅ CODEBOOK-VERIFIED: 2016 Rep cand 'honest', same scale as V161162.",`
 - `build_candidate_honesty_by_trust.py:241` — `# V161162 = Dem (Clinton) "is honest" trait; V161167 = Rep (Trump). 1=very well..5=not well.`
 - `build_candidate_honesty_by_trust.py:243` — `hr = 5 - df['V161167'].where(df['V161167'].between(1,5))`
 - `build_candidate_honesty_by_trust.py:243` — `hr = 5 - df['V161167'].where(df['V161167'].between(1,5))`
@@ -886,9 +886,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_map_2016.py:18` — `y:           trust composite from V161215/V161216/V161217 (0 = no trust, 1 = full)`
 - `build_voter_map_2016.py:54` — `do_right = pd.to_numeric(df["V161215"], errors="coerce").where(lambda v: v.between(1, 5))`
 - `build_voter_map_2016.py:178` — `"source": "ANES 2016 Time Series Study, weighted (V160102). x=V161126 ideology (1-7 → -1..+1). y=V161215/V161216/V161217 trust ...`
-- `generate_variable_audit.py:84` — `"V161215": "✅ CODEBOOK-VERIFIED: 'PRE: REV How often trust govt in Wash to do what is right' Likert 1-5 (1=always, 5=never). Co...`
-- `generate_variable_audit.py:87` — `"V201233": "✅ CODEBOOK-VERIFIED: 2020 analog of V161215. Same scale.",`
-- `generate_variable_audit.py:90` — `"V241229": "✅ CODEBOOK-VERIFIED: 2024 analog of V161215 (gov-officials do right).",`
+- `generate_variable_audit.py:86` — `"V161215": "✅ CODEBOOK-VERIFIED: 'PRE: REV How often trust govt in Wash to do what is right' Likert 1-5 (1=always, 5=never). Co...`
+- `generate_variable_audit.py:89` — `"V201233": "✅ CODEBOOK-VERIFIED: 2020 analog of V161215. Same scale.",`
+- `generate_variable_audit.py:92` — `"V241229": "✅ CODEBOOK-VERIFIED: 2024 analog of V161215 (gov-officials do right).",`
 - `build_within_tent_bolt.py:22` — `t1 = clean_var(df, "V161215", 1, 5)`
 - `build_within_tent_bolt.py:27` — `#   V161215: 1 always..5 never → higher = LESS trust → normalize to 1-(s-1)/4`
 - `build_within_tent_bolt.py:99` — `"V161215/V161216/V161217 (3-item trust index, PRE-election)",`
@@ -919,9 +919,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_map_2016.py:18` — `y:           trust composite from V161215/V161216/V161217 (0 = no trust, 1 = full)`
 - `build_voter_map_2016.py:55` — `run_all  = pd.to_numeric(df["V161216"], errors="coerce").where(lambda v: v.between(1, 2))`
 - `build_voter_map_2016.py:178` — `"source": "ANES 2016 Time Series Study, weighted (V160102). x=V161126 ideology (1-7 → -1..+1). y=V161215/V161216/V161217 trust ...`
-- `generate_variable_audit.py:85` — `"V161216": "✅ CODEBOOK-VERIFIED: 'gov run by few big interests vs benefit of all', 1=few/2=all. Code transforms (x-1) so 1=more...`
-- `generate_variable_audit.py:88` — `"V201234": "✅ CODEBOOK-VERIFIED: 2020 analog of V161216. Same scale.",`
-- `generate_variable_audit.py:91` — `"V241231": "✅ CODEBOOK-VERIFIED: 2024 analog of V161216 (few interests vs all).",`
+- `generate_variable_audit.py:87` — `"V161216": "✅ CODEBOOK-VERIFIED: 'gov run by few big interests vs benefit of all', 1=few/2=all. Code transforms (x-1) so 1=more...`
+- `generate_variable_audit.py:90` — `"V201234": "✅ CODEBOOK-VERIFIED: 2020 analog of V161216. Same scale.",`
+- `generate_variable_audit.py:93` — `"V241231": "✅ CODEBOOK-VERIFIED: 2024 analog of V161216 (few interests vs all).",`
 - `build_within_tent_bolt.py:23` — `t2 = clean_var(df, "V161216", 1, 2)`
 - `build_within_tent_bolt.py:28` — `#   V161216: 1 few big int..2 benefit all → higher = MORE trust → normalize to (s-1)/1`
 - `build_within_tent_bolt.py:99` — `"V161215/V161216/V161217 (3-item trust index, PRE-election)",`
@@ -949,9 +949,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_map_2016.py:18` — `y:           trust composite from V161215/V161216/V161217 (0 = no trust, 1 = full)`
 - `build_voter_map_2016.py:56` — `waste    = pd.to_numeric(df["V161217"], errors="coerce").where(lambda v: v.between(1, 3))`
 - `build_voter_map_2016.py:178` — `"source": "ANES 2016 Time Series Study, weighted (V160102). x=V161126 ideology (1-7 → -1..+1). y=V161215/V161216/V161217 trust ...`
-- `generate_variable_audit.py:86` — `"V161217": "✅ CODEBOOK-VERIFIED: 'how much tax money wasted' 1=a lot, 3=not much. Code transforms (x-1)/2 so higher=more trust.",`
-- `generate_variable_audit.py:89` — `"V201235": "✅ CODEBOOK-VERIFIED: 2020 analog of V161217. Same scale.",`
-- `generate_variable_audit.py:92` — `"V241232": "✅ CODEBOOK-VERIFIED: 2024 analog of V161217 (tax money wasted).",`
+- `generate_variable_audit.py:88` — `"V161217": "✅ CODEBOOK-VERIFIED: 'how much tax money wasted' 1=a lot, 3=not much. Code transforms (x-1)/2 so higher=more trust.",`
+- `generate_variable_audit.py:91` — `"V201235": "✅ CODEBOOK-VERIFIED: 2020 analog of V161217. Same scale.",`
+- `generate_variable_audit.py:94` — `"V241232": "✅ CODEBOOK-VERIFIED: 2024 analog of V161217 (tax money wasted).",`
 - `build_within_tent_bolt.py:24` — `t3 = clean_var(df, "V161217", 1, 5)`
 - `build_within_tent_bolt.py:29` — `#   V161217: 1 a lot waste..5 not at all → higher = MORE trust → normalize (s-1)/4`
 - `build_within_tent_bolt.py:99` — `"V161215/V161216/V161217 (3-item trust index, PRE-election)",`
@@ -1053,7 +1053,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_center_overlap_matrix.py:8` — `voted for the other party's nominee. From V161158x (PID) × V162034a (vote).`
 - `build_center_overlap_matrix.py:52` — `vote = pd.to_numeric(d["V162034a"], errors="coerce")  # 1=Clinton, 2=Trump`
 - `build_center_overlap_matrix.py:133` — `"V162034a (presidential vote)",`
-- `generate_variable_audit.py:96` — `"V162034a": "✅ CODEBOOK-VERIFIED: 2016 general-election vote. 1=Clinton, 2=Trump, 3=Johnson, 4=Stein, 5=other.",`
+- `generate_variable_audit.py:98` — `"V162034a": "✅ CODEBOOK-VERIFIED: 2016 general-election vote. 1=Clinton, 2=Trump, 3=Johnson, 4=Stein, 5=other.",`
 - `build_partisan_loyalty.py:18` — `vch = clean_var(df, "V162034a", 1, 7)`
 - `build_partisan_loyalty.py:113` — `"V161126 (lib-con)", "V162034a (presidential vote)"],`
 - `build_within_tent_bolt.py:37` — `vch = clean_var(df, "V162034a", 1, 7)`
@@ -1211,11 +1211,11 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (7)**:
 
-- `generate_variable_audit.py:102` — `"V200010a": "🔥 KNOWN-BUG-FIXED: ANES 2020 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
+- `generate_variable_audit.py:104` — `"V200010a": "🔥 KNOWN-BUG-FIXED: ANES 2020 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
 - `build_within_cycle_multi.py:14` — `V202143 (Biden POST), V202144 (Trump POST), V200010a (weight)`
 - `build_within_cycle_multi.py:53` — `"weight": "V200010a",`
 - `build_candidate_honesty_by_trust.py:256` — `w = pd.to_numeric(df.get('V200010a', df.get('V200010b')), errors='coerce').fillna(0).clip(lower=0)`
-- `build_voter_maps_all.py:142` — `# voters' vote is collected post-election). V200010a was incorrectly used`
+- `build_voter_maps_all.py:149` — `# voters' vote is collected post-election). V200010a was incorrectly used`
 - `build_trust_by_cohort.py:97` — `w = pd.to_numeric(d["V200010a"], errors="coerce").fillna(0).clip(lower=0)`
 - `build_swing_trust_turnout.py:83` — `(2020, None, 'V202109x', 'V200010a', 'V201014b'),`
 
@@ -1248,11 +1248,11 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (5)**:
 
-- `generate_variable_audit.py:102` — `"V200010a": "🔥 KNOWN-BUG-FIXED: ANES 2020 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
-- `generate_variable_audit.py:103` — `"V200010b": "✅ CODEBOOK-VERIFIED: ANES 2020 POST weight. Now used for the voter map (vote choice is post-election data).",`
+- `generate_variable_audit.py:104` — `"V200010a": "🔥 KNOWN-BUG-FIXED: ANES 2020 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
+- `generate_variable_audit.py:105` — `"V200010b": "✅ CODEBOOK-VERIFIED: ANES 2020 POST weight. Now used for the voter map (vote choice is post-election data).",`
 - `build_candidate_honesty_by_trust.py:256` — `w = pd.to_numeric(df.get('V200010a', df.get('V200010b')), errors='coerce').fillna(0).clip(lower=0)`
-- `build_voter_maps_all.py:141` — `# Weight: V200010b is POST weight (correct for vote-choice analysis since`
-- `build_voter_maps_all.py:144` — `w = safe_num(df, "V200010b").fillna(0).clip(lower=0)`
+- `build_voter_maps_all.py:148` — `# Weight: V200010b is POST weight (correct for vote-choice analysis since`
+- `build_voter_maps_all.py:151` — `w = safe_num(df, "V200010b").fillna(0).clip(lower=0)`
 
 ### `V201014b` [2020]  —  ✅ CODEBOOK-VERIFIED: 2020 state FIPS code.
 
@@ -1283,10 +1283,51 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (4)**:
 
-- `generate_variable_audit.py:109` — `"V201014b": "✅ CODEBOOK-VERIFIED: 2020 state FIPS code.",`
+- `generate_variable_audit.py:111` — `"V201014b": "✅ CODEBOOK-VERIFIED: 2020 state FIPS code.",`
 - `build_candidate_honesty_by_trust.py:257` — `state = pd.to_numeric(df['V201014b'], errors='coerce')`
-- `build_voter_maps_all.py:145` — `state = safe_num(df, "V201014b")`
+- `build_voter_maps_all.py:152` — `state = safe_num(df, "V201014b")`
 - `build_swing_trust_turnout.py:83` — `(2020, None, 'V202109x', 'V200010a', 'V201014b'),`
+
+### `V201020` [2020]  —  ✅ CODEBOOK-VERIFIED: 2020 PRE: 'Did R vote in Presidential primary or caucus?' 1=yes, 2=no.
+
+**Observed distribution** (top values, numeric):
+
+```
+          -9: 13
+          -8: 6
+           1: 4102
+           2: 4159
+```
+
+**Usage sites (1)**:
+
+- `generate_variable_audit.py:77` — `"V201020": "✅ CODEBOOK-VERIFIED: 2020 PRE: 'Did R vote in Presidential primary or caucus?' 1=yes, 2=no.",`
+
+### `V201021` [2020]  —  ✅ CODEBOOK-VERIFIED: 2020 PRE: 'For which candidate did R vote in Presidential primary'. 1=Biden, 2=Bloomberg, 3=Buttigieg, 4=Klobuchar, 5=Sanders, 6=Warren, 7=Another Dem, 8=Trump, 9=Another Rep, 10=Someone else. Universe: 'IF R VOTED IN A PRESIDENTIAL PRIMARY OR CAUCUS'. Used in voter map to identify Biden/Sanders/Trump primary cohorts.
+
+**Observed distribution** (top values, numeric):
+
+```
+          -9: 36
+          -8: 8
+          -1: 4177
+           1: 1439
+           2: 72
+           3: 112
+           4: 72
+           5: 489
+           6: 242
+           7: 60
+           8: 1389
+           9: 70
+          10: 114
+```
+
+**Usage sites (3)**:
+
+- `generate_variable_audit.py:78` — `"V201021": "✅ CODEBOOK-VERIFIED: 2020 PRE: 'For which candidate did R vote in Presidential primary'. 1=Biden, 2=Bloomberg, 3=Bu...`
+- `build_voter_maps_all.py:125` — `# 2020 PRIMARY VOTE — V201021 (CODEBOOK-VERIFIED).`
+- `build_voter_maps_all.py:130` — `prim = safe_num(df, "V201021")`
 
 ### `V201101` [2020]  —  🔥 KNOWN-BUG-FIXED: Universe 'IF R SELECTED FOR VERSION 1A OF VERSION 1A/1B SPLICE'. V201101 and V201102 are RANDOMIZED HALVES of the same 2016-recall question. Each respondent gets only one. Using V201101 alone misses ~half the sample. Build now combines V201101 ∨ V201102. Effect: 2020 drop-off count was 101, now 230; new-voter count was 372, now 679.
 
@@ -1308,9 +1349,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `generate_variable_audit.py:71` — `"V201101": "🔥 KNOWN-BUG-FIXED: Universe 'IF R SELECTED FOR VERSION 1A OF VERSION 1A/1B SPLICE'. V201101 and V201102 are RANDOMI...`
 - `generate_variable_audit.py:72` — `"V201102": "🔥 KNOWN-BUG-FIXED: Companion to V201101 (versions 1A/1B). Was previously unused. Now combined with V201101 to recov...`
 - `generate_variable_audit.py:72` — `"V201102": "🔥 KNOWN-BUG-FIXED: Companion to V201101 (versions 1A/1B). Was previously unused. Now combined with V201101 to recov...`
-- `build_voter_maps_all.py:129` — `# V201101 (version 1A) and V201102 (version 1B). EACH respondent got`
-- `build_voter_maps_all.py:130` — `# only one of the two; the other shows -1 (inapplicable). Using V201101`
-- `build_voter_maps_all.py:133` — `v1 = safe_num(df, "V201101")`
+- `build_voter_maps_all.py:136` — `# V201101 (version 1A) and V201102 (version 1B). EACH respondent got`
+- `build_voter_maps_all.py:137` — `# only one of the two; the other shows -1 (inapplicable). Using V201101`
+- `build_voter_maps_all.py:140` — `v1 = safe_num(df, "V201101")`
 
 ### `V201102` [2020]  —  🔥 KNOWN-BUG-FIXED: Companion to V201101 (versions 1A/1B). Was previously unused. Now combined with V201101 to recover full sample.
 
@@ -1329,8 +1370,8 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `generate_variable_audit.py:71` — `"V201101": "🔥 KNOWN-BUG-FIXED: Universe 'IF R SELECTED FOR VERSION 1A OF VERSION 1A/1B SPLICE'. V201101 and V201102 are RANDOMI...`
 - `generate_variable_audit.py:71` — `"V201101": "🔥 KNOWN-BUG-FIXED: Universe 'IF R SELECTED FOR VERSION 1A OF VERSION 1A/1B SPLICE'. V201101 and V201102 are RANDOMI...`
 - `generate_variable_audit.py:72` — `"V201102": "🔥 KNOWN-BUG-FIXED: Companion to V201101 (versions 1A/1B). Was previously unused. Now combined with V201101 to recov...`
-- `build_voter_maps_all.py:129` — `# V201101 (version 1A) and V201102 (version 1B). EACH respondent got`
-- `build_voter_maps_all.py:134` — `v2 = safe_num(df, "V201102")`
+- `build_voter_maps_all.py:136` — `# V201101 (version 1A) and V201102 (version 1B). EACH respondent got`
+- `build_voter_maps_all.py:141` — `v2 = safe_num(df, "V201102")`
 
 ### `V201151` [2020]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
 
@@ -1415,7 +1456,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (2)**:
 
-- `generate_variable_audit.py:82` — `"V201200": "✅ CODEBOOK-VERIFIED: 2020 ideology self-placement, same 1-7 scale as V161126.",`
+- `generate_variable_audit.py:84` — `"V201200": "✅ CODEBOOK-VERIFIED: 2020 ideology self-placement, same 1-7 scale as V161126.",`
 - `build_voter_maps_all.py:111` — `ideo = safe_num(df, "V201200").where(lambda x: x.between(1, 7))`
 
 ### `V201202` [2020]  —  ✅ CODEBOOK-VERIFIED: 2020 R places Dem cand on 7-pt lib-con scale.
@@ -1436,9 +1477,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:123` — `"V201202": "✅ CODEBOOK-VERIFIED: 2020 R places Dem cand on 7-pt lib-con scale.",`
-- `build_voter_maps_all.py:147` — `# Perceived candidate positions: V201202/03 (ideology),`
-- `build_voter_maps_all.py:149` — `dem_perc_x = (safe_num(df, "V201202").where(lambda v: v.between(1, 7)) - 4) / 3.0`
+- `generate_variable_audit.py:125` — `"V201202": "✅ CODEBOOK-VERIFIED: 2020 R places Dem cand on 7-pt lib-con scale.",`
+- `build_voter_maps_all.py:154` — `# Perceived candidate positions: V201202/03 (ideology),`
+- `build_voter_maps_all.py:156` — `dem_perc_x = (safe_num(df, "V201202").where(lambda v: v.between(1, 7)) - 4) / 3.0`
 
 ### `V201203` [2020]  —  ✅ CODEBOOK-VERIFIED: 2020 R places Rep cand on 7-pt lib-con scale.
 
@@ -1459,8 +1500,8 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (2)**:
 
-- `generate_variable_audit.py:124` — `"V201203": "✅ CODEBOOK-VERIFIED: 2020 R places Rep cand on 7-pt lib-con scale.",`
-- `build_voter_maps_all.py:150` — `rep_perc_x = (safe_num(df, "V201203").where(lambda v: v.between(1, 7)) - 4) / 3.0`
+- `generate_variable_audit.py:126` — `"V201203": "✅ CODEBOOK-VERIFIED: 2020 R places Rep cand on 7-pt lib-con scale.",`
+- `build_voter_maps_all.py:157` — `rep_perc_x = (safe_num(df, "V201203").where(lambda v: v.between(1, 7)) - 4) / 3.0`
 
 ### `V201208` [2020]  —  ✅ CODEBOOK-VERIFIED: 2020 Dem cand 'strong leadership' Likert 1-5.
 
@@ -1478,9 +1519,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:133` — `"V201208": "✅ CODEBOOK-VERIFIED: 2020 Dem cand 'strong leadership' Likert 1-5.",`
-- `build_voter_maps_all.py:148` — `# V201208+V201209 (Biden lead+cares) / V201212+V201213 (Trump lead+cares)`
-- `build_voter_maps_all.py:151` — `d_lead  = (5 - safe_num(df, "V201208").where(lambda v: v.between(1, 5))) / 4.0`
+- `generate_variable_audit.py:135` — `"V201208": "✅ CODEBOOK-VERIFIED: 2020 Dem cand 'strong leadership' Likert 1-5.",`
+- `build_voter_maps_all.py:155` — `# V201208+V201209 (Biden lead+cares) / V201212+V201213 (Trump lead+cares)`
+- `build_voter_maps_all.py:158` — `d_lead  = (5 - safe_num(df, "V201208").where(lambda v: v.between(1, 5))) / 4.0`
 
 ### `V201209` [2020]  —  ✅ CODEBOOK-VERIFIED: 2020 Dem cand 'really cares' Likert 1-5.
 
@@ -1498,9 +1539,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:134` — `"V201209": "✅ CODEBOOK-VERIFIED: 2020 Dem cand 'really cares' Likert 1-5.",`
-- `build_voter_maps_all.py:148` — `# V201208+V201209 (Biden lead+cares) / V201212+V201213 (Trump lead+cares)`
-- `build_voter_maps_all.py:152` — `d_cares = (5 - safe_num(df, "V201209").where(lambda v: v.between(1, 5))) / 4.0`
+- `generate_variable_audit.py:136` — `"V201209": "✅ CODEBOOK-VERIFIED: 2020 Dem cand 'really cares' Likert 1-5.",`
+- `build_voter_maps_all.py:155` — `# V201208+V201209 (Biden lead+cares) / V201212+V201213 (Trump lead+cares)`
+- `build_voter_maps_all.py:159` — `d_cares = (5 - safe_num(df, "V201209").where(lambda v: v.between(1, 5))) / 4.0`
 
 ### `V201211` [2020]  —  ✅ CODEBOOK-VERIFIED: 2020 Dem cand 'honest'.
 
@@ -1518,7 +1559,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (4)**:
 
-- `generate_variable_audit.py:115` — `"V201211": "✅ CODEBOOK-VERIFIED: 2020 Dem cand 'honest'.",`
+- `generate_variable_audit.py:117` — `"V201211": "✅ CODEBOOK-VERIFIED: 2020 Dem cand 'honest'.",`
 - `build_candidate_honesty_by_trust.py:253` — `# V201211 = Biden honest; V201215 = Trump honest. Verified to reproduce hardcoded RECENT.`
 - `build_candidate_honesty_by_trust.py:254` — `hd = 5 - df['V201211'].where(df['V201211'].between(1,5))`
 - `build_candidate_honesty_by_trust.py:254` — `hd = 5 - df['V201211'].where(df['V201211'].between(1,5))`
@@ -1538,9 +1579,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:135` — `"V201212": "✅ CODEBOOK-VERIFIED: 2020 Rep cand 'strong leadership' Likert 1-5.",`
-- `build_voter_maps_all.py:148` — `# V201208+V201209 (Biden lead+cares) / V201212+V201213 (Trump lead+cares)`
-- `build_voter_maps_all.py:153` — `r_lead  = (5 - safe_num(df, "V201212").where(lambda v: v.between(1, 5))) / 4.0`
+- `generate_variable_audit.py:137` — `"V201212": "✅ CODEBOOK-VERIFIED: 2020 Rep cand 'strong leadership' Likert 1-5.",`
+- `build_voter_maps_all.py:155` — `# V201208+V201209 (Biden lead+cares) / V201212+V201213 (Trump lead+cares)`
+- `build_voter_maps_all.py:160` — `r_lead  = (5 - safe_num(df, "V201212").where(lambda v: v.between(1, 5))) / 4.0`
 
 ### `V201213` [2020]  —  ✅ CODEBOOK-VERIFIED: 2020 Rep cand 'really cares' Likert 1-5.
 
@@ -1557,9 +1598,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:136` — `"V201213": "✅ CODEBOOK-VERIFIED: 2020 Rep cand 'really cares' Likert 1-5.",`
-- `build_voter_maps_all.py:148` — `# V201208+V201209 (Biden lead+cares) / V201212+V201213 (Trump lead+cares)`
-- `build_voter_maps_all.py:154` — `r_cares = (5 - safe_num(df, "V201213").where(lambda v: v.between(1, 5))) / 4.0`
+- `generate_variable_audit.py:138` — `"V201213": "✅ CODEBOOK-VERIFIED: 2020 Rep cand 'really cares' Likert 1-5.",`
+- `build_voter_maps_all.py:155` — `# V201208+V201209 (Biden lead+cares) / V201212+V201213 (Trump lead+cares)`
+- `build_voter_maps_all.py:161` — `r_cares = (5 - safe_num(df, "V201213").where(lambda v: v.between(1, 5))) / 4.0`
 
 ### `V201215` [2020]  —  ✅ CODEBOOK-VERIFIED: 2020 Rep cand 'honest'.
 
@@ -1577,7 +1618,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (4)**:
 
-- `generate_variable_audit.py:116` — `"V201215": "✅ CODEBOOK-VERIFIED: 2020 Rep cand 'honest'.",`
+- `generate_variable_audit.py:118` — `"V201215": "✅ CODEBOOK-VERIFIED: 2020 Rep cand 'honest'.",`
 - `build_candidate_honesty_by_trust.py:253` — `# V201211 = Biden honest; V201215 = Trump honest. Verified to reproduce hardcoded RECENT.`
 - `build_candidate_honesty_by_trust.py:255` — `hr = 5 - df['V201215'].where(df['V201215'].between(1,5))`
 - `build_candidate_honesty_by_trust.py:255` — `hr = 5 - df['V201215'].where(df['V201215'].between(1,5))`
@@ -1602,7 +1643,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 - `extract_codebook_entries.py:50` — `'V201231x\tPRE: SUMMARY: PARTY ID' (2020/2024 tab-delimited format)`
 - `generate_variable_audit.py:68` — `"V201231x": "🔥 KNOWN-BUG-FIXED: codebook-verified — 'PRE: SUMMARY: PARTY ID', 1=Strong Democrat … 7=Strong Republican. Off-by-o...`
-- `generate_variable_audit.py:95` — `"V241227x": "✅ CODEBOOK-VERIFIED: 2024 7-pt party summary. Same scale as V161158x/V201231x. Already mapped correctly (1,2,3→dem...`
+- `generate_variable_audit.py:97` — `"V241227x": "✅ CODEBOOK-VERIFIED: 2024 7-pt party summary. Same scale as V161158x/V201231x. Already mapped correctly (1,2,3→dem...`
 - `build_voter_maps_all.py:117` — `# V201231x is the standard ANES 7-pt party summary (same scale as 2016/2024):`
 - `build_voter_maps_all.py:120` — `pty = safe_num(df, "V201231x")`
 
@@ -1622,7 +1663,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (8)**:
 
-- `generate_variable_audit.py:87` — `"V201233": "✅ CODEBOOK-VERIFIED: 2020 analog of V161215. Same scale.",`
+- `generate_variable_audit.py:89` — `"V201233": "✅ CODEBOOK-VERIFIED: 2020 analog of V161215. Same scale.",`
 - `build_candidate_honesty_by_trust.py:249` — `do_right = df['V201233'].where(df['V201233'].between(1,5))`
 - `build_candidate_honesty_by_trust.py:249` — `do_right = df['V201233'].where(df['V201233'].between(1,5))`
 - `build_voter_maps_all.py:113` — `do_right = safe_num(df, "V201233").where(lambda v: v.between(1, 5))`
@@ -1644,7 +1685,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (5)**:
 
-- `generate_variable_audit.py:88` — `"V201234": "✅ CODEBOOK-VERIFIED: 2020 analog of V161216. Same scale.",`
+- `generate_variable_audit.py:90` — `"V201234": "✅ CODEBOOK-VERIFIED: 2020 analog of V161216. Same scale.",`
 - `build_candidate_honesty_by_trust.py:250` — `run_all  = df['V201234'].where(df['V201234'].between(1,2))`
 - `build_candidate_honesty_by_trust.py:250` — `run_all  = df['V201234'].where(df['V201234'].between(1,2))`
 - `build_voter_maps_all.py:114` — `run_all  = safe_num(df, "V201234").where(lambda v: v.between(1, 2))`
@@ -1664,7 +1705,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (5)**:
 
-- `generate_variable_audit.py:89` — `"V201235": "✅ CODEBOOK-VERIFIED: 2020 analog of V161217. Same scale.",`
+- `generate_variable_audit.py:91` — `"V201235": "✅ CODEBOOK-VERIFIED: 2020 analog of V161217. Same scale.",`
 - `build_candidate_honesty_by_trust.py:251` — `waste    = df['V201235'].where(df['V201235'].between(1,3))`
 - `build_candidate_honesty_by_trust.py:251` — `waste    = df['V201235'].where(df['V201235'].between(1,3))`
 - `build_voter_maps_all.py:115` — `waste    = safe_num(df, "V201235").where(lambda v: v.between(1, 3))`
@@ -1723,7 +1764,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (2)**:
 
-- `generate_variable_audit.py:97` — `"V202073": "✅ CODEBOOK-VERIFIED: 2020 general-election vote. 1=Biden, 2=Trump, 3=Jorgensen, 4=Hawkins, 5=other.",`
+- `generate_variable_audit.py:99` — `"V202073": "✅ CODEBOOK-VERIFIED: 2020 general-election vote. 1=Biden, 2=Trump, 3=Jorgensen, 4=Hawkins, 5=other.",`
 - `build_voter_maps_all.py:122` — `gen = safe_num(df, "V202073")`
 
 ### `V202109x` [2020]  —  ✅ CODEBOOK-VERIFIED: 2020 turnout summary (validated). 0=did not vote, 1=voted, -2=not reported.
@@ -1738,8 +1779,8 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:93` — `"V202109x": "✅ CODEBOOK-VERIFIED: 2020 turnout summary (validated). 0=did not vote, 1=voted, -2=not reported.",`
-- `build_voter_maps_all.py:138` — `voted_2020 = safe_num(df, "V202109x")`
+- `generate_variable_audit.py:95` — `"V202109x": "✅ CODEBOOK-VERIFIED: 2020 turnout summary (validated). 0=did not vote, 1=voted, -2=not reported.",`
+- `build_voter_maps_all.py:145` — `voted_2020 = safe_num(df, "V202109x")`
 - `build_swing_trust_turnout.py:83` — `(2020, None, 'V202109x', 'V200010a', 'V201014b'),`
 
 ### `V202143` [2020]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
@@ -1846,11 +1887,11 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (6)**:
 
-- `generate_variable_audit.py:104` — `"V240107a": "🔥 KNOWN-BUG-FIXED: ANES 2024 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
+- `generate_variable_audit.py:106` — `"V240107a": "🔥 KNOWN-BUG-FIXED: ANES 2024 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
 - `build_within_cycle_multi.py:16` — `V242125 (Dem POST), V242126 (Rep POST), V240107a (weight)`
 - `build_within_cycle_multi.py:62` — `"weight": "V240107a",`
 - `build_candidate_honesty_by_trust.py:268` — `w = pd.to_numeric(df.get('V240107a', df.get('V240107')), errors='coerce').fillna(0).clip(lower=0)`
-- `build_voter_maps_all.py:214` — `# V240107a is PRE weight — was incorrectly used earlier.`
+- `build_voter_maps_all.py:221` — `# V240107a is PRE weight — was incorrectly used earlier.`
 - `build_trust_by_cohort.py:107` — `for w_col in ["V240107a", "V240107b", "V240108a"]:`
 
 ### `V240107b` [2024]  —  ✅ CODEBOOK-VERIFIED: ANES 2024 POST weight. Now used for the voter map.
@@ -1882,10 +1923,10 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (5)**:
 
-- `generate_variable_audit.py:104` — `"V240107a": "🔥 KNOWN-BUG-FIXED: ANES 2024 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
-- `generate_variable_audit.py:105` — `"V240107b": "✅ CODEBOOK-VERIFIED: ANES 2024 POST weight. Now used for the voter map.",`
-- `build_voter_maps_all.py:213` — `# Weight: V240107b is POST weight (correct for vote-choice analysis).`
-- `build_voter_maps_all.py:215` — `w = safe_num(df, "V240107b").fillna(0).clip(lower=0)`
+- `generate_variable_audit.py:106` — `"V240107a": "🔥 KNOWN-BUG-FIXED: ANES 2024 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
+- `generate_variable_audit.py:107` — `"V240107b": "✅ CODEBOOK-VERIFIED: ANES 2024 POST weight. Now used for the voter map.",`
+- `build_voter_maps_all.py:220` — `# Weight: V240107b is POST weight (correct for vote-choice analysis).`
+- `build_voter_maps_all.py:222` — `w = safe_num(df, "V240107b").fillna(0).clip(lower=0)`
 - `build_trust_by_cohort.py:107` — `for w_col in ["V240107a", "V240107b", "V240108a"]:`
 
 ### `V240108a` [2024]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
@@ -1937,10 +1978,10 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `generate_variable_audit.py:66` — `"V242065": "✅ CODEBOOK-VERIFIED with CAVEAT: 2024 POST: 'Did R vote in 2024?'. Codes 1=did not vote, 2=thought about but didn't...`
 - `generate_variable_audit.py:73` — `"V242066": "🔥 KNOWN-BUG-FIXED: Universe 'IF R REPORTED IN THE POST SURVEY THAT R VOTED'. V242066 is conditional on already-vote...`
 - `generate_variable_audit.py:74` — `"V241035": "✅ CODEBOOK-VERIFIED: 2024 PRE: 'Have you already voted?' 1=have voted (early voter), 2=have not voted. Used in comb...`
-- `build_voter_maps_all.py:202` — `# V241035 == 1: "Have voted" in pre-election (early voters).`
-- `build_voter_maps_all.py:205` — `#   voted = (V241035 == 1)  OR  (V242065 == 4)`
-- `build_voter_maps_all.py:206` — `#   not_voted = (V242065 in {1,2,3}) AND NOT (V241035 == 1)`
-- `build_voter_maps_all.py:207` — `early_voted = (safe_num(df, "V241035") == 1)`
+- `build_voter_maps_all.py:209` — `# V241035 == 1: "Have voted" in pre-election (early voters).`
+- `build_voter_maps_all.py:212` — `#   voted = (V241035 == 1)  OR  (V242065 == 4)`
+- `build_voter_maps_all.py:213` — `#   not_voted = (V242065 in {1,2,3}) AND NOT (V241035 == 1)`
+- `build_voter_maps_all.py:214` — `early_voted = (safe_num(df, "V241035") == 1)`
 
 ### `V241049` [2024]  —  🔥 KNOWN-BUG-FIXED: codebook label is a HYPOTHETICAL Harris-vs-Trump question, NOT '2020 turnout'. We no longer use it for prior-vote. Replaced by V241106x.
 
@@ -1958,7 +1999,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 **Usage sites (2)**:
 
 - `generate_variable_audit.py:65` — `"V241049": "🔥 KNOWN-BUG-FIXED: codebook label is a HYPOTHETICAL Harris-vs-Trump question, NOT '2020 turnout'. We no longer use ...`
-- `build_voter_maps_all.py:184` — `#   V241049 is NOT 2020 turnout. It's a hypothetical "if Harris vs Trump`
+- `build_voter_maps_all.py:191` — `#   V241049 is NOT 2020 turnout. It's a hypothetical "if Harris vs Trump`
 
 ### `V241106x` [2024]  —  ✅ CODEBOOK-VERIFIED: 2024 prior-vote recall. 1=did not vote 2020, 2=Biden, 3=Trump, 4=other.
 
@@ -1976,9 +2017,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 **Usage sites (4)**:
 
 - `generate_variable_audit.py:65` — `"V241049": "🔥 KNOWN-BUG-FIXED: codebook label is a HYPOTHETICAL Harris-vs-Trump question, NOT '2020 turnout'. We no longer use ...`
-- `generate_variable_audit.py:94` — `"V241106x": "✅ CODEBOOK-VERIFIED: 2024 prior-vote recall. 1=did not vote 2020, 2=Biden, 3=Trump, 4=other.",`
-- `build_voter_maps_all.py:186` — `#   V241106x is the actual prior-vote recall (1=did not vote 2020,`
-- `build_voter_maps_all.py:188` — `p20 = safe_num(df, "V241106x")`
+- `generate_variable_audit.py:96` — `"V241106x": "✅ CODEBOOK-VERIFIED: 2024 prior-vote recall. 1=did not vote 2020, 2=Biden, 3=Trump, 4=other.",`
+- `build_voter_maps_all.py:193` — `#   V241106x is the actual prior-vote recall (1=did not vote 2020,`
+- `build_voter_maps_all.py:195` — `p20 = safe_num(df, "V241106x")`
 
 ### `V241156` [2024]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
 
@@ -2063,8 +2104,8 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (2)**:
 
-- `generate_variable_audit.py:83` — `"V241177": "✅ CODEBOOK-VERIFIED: 2024 ideology self-placement, same 1-7 scale.",`
-- `build_voter_maps_all.py:165` — `ideo = safe_num(df, "V241177").where(lambda x: x.between(1, 7))`
+- `generate_variable_audit.py:85` — `"V241177": "✅ CODEBOOK-VERIFIED: 2024 ideology self-placement, same 1-7 scale.",`
+- `build_voter_maps_all.py:172` — `ideo = safe_num(df, "V241177").where(lambda x: x.between(1, 7))`
 
 ### `V241179` [2024]  —  ✅ CODEBOOK-VERIFIED: 2024 R places Harris on 7-pt lib-con scale (codebook quote: 'Where would you place Kamala Harris on this scale?').
 
@@ -2085,9 +2126,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:125` — `"V241179": "✅ CODEBOOK-VERIFIED: 2024 R places Harris on 7-pt lib-con scale (codebook quote: 'Where would you place Kamala Harr...`
-- `build_voter_maps_all.py:219` — `# Perceived candidate positions: V241179/80 (ideology),`
-- `build_voter_maps_all.py:221` — `dem_perc_x = (safe_num(df, "V241179").where(lambda v: v.between(1, 7)) - 4) / 3.0`
+- `generate_variable_audit.py:127` — `"V241179": "✅ CODEBOOK-VERIFIED: 2024 R places Harris on 7-pt lib-con scale (codebook quote: 'Where would you place Kamala Harr...`
+- `build_voter_maps_all.py:226` — `# Perceived candidate positions: V241179/80 (ideology),`
+- `build_voter_maps_all.py:228` — `dem_perc_x = (safe_num(df, "V241179").where(lambda v: v.between(1, 7)) - 4) / 3.0`
 
 ### `V241180` [2024]  —  ✅ CODEBOOK-VERIFIED: 2024 R places Trump on 7-pt lib-con scale.
 
@@ -2108,8 +2149,8 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (2)**:
 
-- `generate_variable_audit.py:126` — `"V241180": "✅ CODEBOOK-VERIFIED: 2024 R places Trump on 7-pt lib-con scale.",`
-- `build_voter_maps_all.py:222` — `rep_perc_x = (safe_num(df, "V241180").where(lambda v: v.between(1, 7)) - 4) / 3.0`
+- `generate_variable_audit.py:128` — `"V241180": "✅ CODEBOOK-VERIFIED: 2024 R places Trump on 7-pt lib-con scale.",`
+- `build_voter_maps_all.py:229` — `rep_perc_x = (safe_num(df, "V241180").where(lambda v: v.between(1, 7)) - 4) / 3.0`
 
 ### `V241200` [2024]  —  ✅ CODEBOOK-VERIFIED: 2024 Dem (Harris) 'strong leadership' Likert 1-5.
 
@@ -2128,9 +2169,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:137` — `"V241200": "✅ CODEBOOK-VERIFIED: 2024 Dem (Harris) 'strong leadership' Likert 1-5.",`
-- `build_voter_maps_all.py:220` — `# V241200+V241201 (Harris lead+cares) / V241205+V241206 (Trump lead+cares)`
-- `build_voter_maps_all.py:223` — `d_lead  = (5 - safe_num(df, "V241200").where(lambda v: v.between(1, 5))) / 4.0`
+- `generate_variable_audit.py:139` — `"V241200": "✅ CODEBOOK-VERIFIED: 2024 Dem (Harris) 'strong leadership' Likert 1-5.",`
+- `build_voter_maps_all.py:227` — `# V241200+V241201 (Harris lead+cares) / V241205+V241206 (Trump lead+cares)`
+- `build_voter_maps_all.py:230` — `d_lead  = (5 - safe_num(df, "V241200").where(lambda v: v.between(1, 5))) / 4.0`
 
 ### `V241201` [2024]  —  ✅ CODEBOOK-VERIFIED: 2024 Dem (Harris) 'really cares' Likert 1-5.
 
@@ -2149,9 +2190,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:138` — `"V241201": "✅ CODEBOOK-VERIFIED: 2024 Dem (Harris) 'really cares' Likert 1-5.",`
-- `build_voter_maps_all.py:220` — `# V241200+V241201 (Harris lead+cares) / V241205+V241206 (Trump lead+cares)`
-- `build_voter_maps_all.py:224` — `d_cares = (5 - safe_num(df, "V241201").where(lambda v: v.between(1, 5))) / 4.0`
+- `generate_variable_audit.py:140` — `"V241201": "✅ CODEBOOK-VERIFIED: 2024 Dem (Harris) 'really cares' Likert 1-5.",`
+- `build_voter_maps_all.py:227` — `# V241200+V241201 (Harris lead+cares) / V241205+V241206 (Trump lead+cares)`
+- `build_voter_maps_all.py:231` — `d_cares = (5 - safe_num(df, "V241201").where(lambda v: v.between(1, 5))) / 4.0`
 
 ### `V241203` [2024]  —  ✅ CODEBOOK-VERIFIED: 2024 Dem cand 'honest'.
 
@@ -2170,7 +2211,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (4)**:
 
-- `generate_variable_audit.py:117` — `"V241203": "✅ CODEBOOK-VERIFIED: 2024 Dem cand 'honest'.",`
+- `generate_variable_audit.py:119` — `"V241203": "✅ CODEBOOK-VERIFIED: 2024 Dem cand 'honest'.",`
 - `build_candidate_honesty_by_trust.py:265` — `# V241203 = Harris honest; V241208 = Trump honest. Verified.`
 - `build_candidate_honesty_by_trust.py:266` — `hd = 5 - df['V241203'].where(df['V241203'].between(1,5))`
 - `build_candidate_honesty_by_trust.py:266` — `hd = 5 - df['V241203'].where(df['V241203'].between(1,5))`
@@ -2192,9 +2233,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:139` — `"V241205": "✅ CODEBOOK-VERIFIED: 2024 Rep (Trump) 'strong leadership' Likert 1-5.",`
-- `build_voter_maps_all.py:220` — `# V241200+V241201 (Harris lead+cares) / V241205+V241206 (Trump lead+cares)`
-- `build_voter_maps_all.py:225` — `r_lead  = (5 - safe_num(df, "V241205").where(lambda v: v.between(1, 5))) / 4.0`
+- `generate_variable_audit.py:141` — `"V241205": "✅ CODEBOOK-VERIFIED: 2024 Rep (Trump) 'strong leadership' Likert 1-5.",`
+- `build_voter_maps_all.py:227` — `# V241200+V241201 (Harris lead+cares) / V241205+V241206 (Trump lead+cares)`
+- `build_voter_maps_all.py:232` — `r_lead  = (5 - safe_num(df, "V241205").where(lambda v: v.between(1, 5))) / 4.0`
 
 ### `V241206` [2024]  —  ✅ CODEBOOK-VERIFIED: 2024 Rep (Trump) 'really cares' Likert 1-5.
 
@@ -2213,9 +2254,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:140` — `"V241206": "✅ CODEBOOK-VERIFIED: 2024 Rep (Trump) 'really cares' Likert 1-5.",`
-- `build_voter_maps_all.py:220` — `# V241200+V241201 (Harris lead+cares) / V241205+V241206 (Trump lead+cares)`
-- `build_voter_maps_all.py:226` — `r_cares = (5 - safe_num(df, "V241206").where(lambda v: v.between(1, 5))) / 4.0`
+- `generate_variable_audit.py:142` — `"V241206": "✅ CODEBOOK-VERIFIED: 2024 Rep (Trump) 'really cares' Likert 1-5.",`
+- `build_voter_maps_all.py:227` — `# V241200+V241201 (Harris lead+cares) / V241205+V241206 (Trump lead+cares)`
+- `build_voter_maps_all.py:233` — `r_cares = (5 - safe_num(df, "V241206").where(lambda v: v.between(1, 5))) / 4.0`
 
 ### `V241208` [2024]  —  ✅ CODEBOOK-VERIFIED: 2024 Rep cand 'honest'.
 
@@ -2234,7 +2275,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (4)**:
 
-- `generate_variable_audit.py:118` — `"V241208": "✅ CODEBOOK-VERIFIED: 2024 Rep cand 'honest'.",`
+- `generate_variable_audit.py:120` — `"V241208": "✅ CODEBOOK-VERIFIED: 2024 Rep cand 'honest'.",`
 - `build_candidate_honesty_by_trust.py:265` — `# V241203 = Harris honest; V241208 = Trump honest. Verified.`
 - `build_candidate_honesty_by_trust.py:267` — `hr = 5 - df['V241208'].where(df['V241208'].between(1,5))`
 - `build_candidate_honesty_by_trust.py:267` — `hr = 5 - df['V241208'].where(df['V241208'].between(1,5))`
@@ -2258,9 +2299,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:95` — `"V241227x": "✅ CODEBOOK-VERIFIED: 2024 7-pt party summary. Same scale as V161158x/V201231x. Already mapped correctly (1,2,3→dem...`
-- `build_voter_maps_all.py:172` — `# V241227x is the canonical 7-pt party ID summary (1=strong D, 7=strong R, 4=ind).`
-- `build_voter_maps_all.py:173` — `pty = safe_num(df, "V241227x")`
+- `generate_variable_audit.py:97` — `"V241227x": "✅ CODEBOOK-VERIFIED: 2024 7-pt party summary. Same scale as V161158x/V201231x. Already mapped correctly (1,2,3→dem...`
+- `build_voter_maps_all.py:179` — `# V241227x is the canonical 7-pt party ID summary (1=strong D, 7=strong R, 4=ind).`
+- `build_voter_maps_all.py:180` — `pty = safe_num(df, "V241227x")`
 
 ### `V241228` [2024]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
 
@@ -2278,7 +2319,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (1)**:
 
-- `build_voter_maps_all.py:171` — `# FIXED: V241228 is a single-item party question with non-standard codes.`
+- `build_voter_maps_all.py:178` — `# FIXED: V241228 is a single-item party question with non-standard codes.`
 
 ### `V241229` [2024]  —  ✅ CODEBOOK-VERIFIED: 2024 analog of V161215 (gov-officials do right).
 
@@ -2296,10 +2337,10 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (7)**:
 
-- `generate_variable_audit.py:90` — `"V241229": "✅ CODEBOOK-VERIFIED: 2024 analog of V161215 (gov-officials do right).",`
+- `generate_variable_audit.py:92` — `"V241229": "✅ CODEBOOK-VERIFIED: 2024 analog of V161215 (gov-officials do right).",`
 - `build_candidate_honesty_by_trust.py:261` — `do_right = df['V241229'].where(df['V241229'].between(1,5))`
 - `build_candidate_honesty_by_trust.py:261` — `do_right = df['V241229'].where(df['V241229'].between(1,5))`
-- `build_voter_maps_all.py:167` — `do_right = safe_num(df, "V241229").where(lambda v: v.between(1, 5))`
+- `build_voter_maps_all.py:174` — `do_right = safe_num(df, "V241229").where(lambda v: v.between(1, 5))`
 - `build_trust_by_cohort.py:13` — `- ANES standalone 2016 V161215, 2020 V201233, 2024 V241229: 5-pt scale`
 - `build_trust_by_cohort.py:115` — `t = clean_var(d, "V241229", 1, 5)`
 - `build_trust_by_cohort.py:135` — `"source": "ANES CDF 1958-2012 (VCF0604) + ANES standalone 2016/2020/2024 (V161215/V201233/V241229). Headline metric: % saying '...`
@@ -2318,10 +2359,10 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (4)**:
 
-- `generate_variable_audit.py:91` — `"V241231": "✅ CODEBOOK-VERIFIED: 2024 analog of V161216 (few interests vs all).",`
+- `generate_variable_audit.py:93` — `"V241231": "✅ CODEBOOK-VERIFIED: 2024 analog of V161216 (few interests vs all).",`
 - `build_candidate_honesty_by_trust.py:262` — `run_all  = df['V241231'].where(df['V241231'].between(1,2))`
 - `build_candidate_honesty_by_trust.py:262` — `run_all  = df['V241231'].where(df['V241231'].between(1,2))`
-- `build_voter_maps_all.py:168` — `run_all  = safe_num(df, "V241231").where(lambda v: v.between(1, 2))`
+- `build_voter_maps_all.py:175` — `run_all  = safe_num(df, "V241231").where(lambda v: v.between(1, 2))`
 
 ### `V241232` [2024]  —  ✅ CODEBOOK-VERIFIED: 2024 analog of V161217 (tax money wasted).
 
@@ -2338,10 +2379,10 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (4)**:
 
-- `generate_variable_audit.py:92` — `"V241232": "✅ CODEBOOK-VERIFIED: 2024 analog of V161217 (tax money wasted).",`
+- `generate_variable_audit.py:94` — `"V241232": "✅ CODEBOOK-VERIFIED: 2024 analog of V161217 (tax money wasted).",`
 - `build_candidate_honesty_by_trust.py:263` — `waste    = df['V241232'].where(df['V241232'].between(1,3))`
 - `build_candidate_honesty_by_trust.py:263` — `waste    = df['V241232'].where(df['V241232'].between(1,3))`
-- `build_voter_maps_all.py:169` — `waste    = safe_num(df, "V241232").where(lambda v: v.between(1, 3))`
+- `build_voter_maps_all.py:176` — `waste    = safe_num(df, "V241232").where(lambda v: v.between(1, 3))`
 
 ### `V241458x` [2024]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
 
@@ -2395,11 +2436,11 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `generate_variable_audit.py:66` — `"V242065": "✅ CODEBOOK-VERIFIED with CAVEAT: 2024 POST: 'Did R vote in 2024?'. Codes 1=did not vote, 2=thought about but didn't...`
 - `generate_variable_audit.py:66` — `"V242065": "✅ CODEBOOK-VERIFIED with CAVEAT: 2024 POST: 'Did R vote in 2024?'. Codes 1=did not vote, 2=thought about but didn't...`
 - `generate_variable_audit.py:73` — `"V242066": "🔥 KNOWN-BUG-FIXED: Universe 'IF R REPORTED IN THE POST SURVEY THAT R VOTED'. V242066 is conditional on already-vote...`
-- `build_voter_maps_all.py:198` — `# V242065 Universe: "IF R DID NOT REPORT IN THE PRE THAT R ALREADY VOTED".`
-- `build_voter_maps_all.py:199` — `# So V242065 captures everyone who hadn't already early-voted. Codes`
-- `build_voter_maps_all.py:205` — `#   voted = (V241035 == 1)  OR  (V242065 == 4)`
-- `build_voter_maps_all.py:206` — `#   not_voted = (V242065 in {1,2,3}) AND NOT (V241035 == 1)`
-- `build_voter_maps_all.py:208` — `v242065 = safe_num(df, "V242065")`
+- `build_voter_maps_all.py:205` — `# V242065 Universe: "IF R DID NOT REPORT IN THE PRE THAT R ALREADY VOTED".`
+- `build_voter_maps_all.py:206` — `# So V242065 captures everyone who hadn't already early-voted. Codes`
+- `build_voter_maps_all.py:212` — `#   voted = (V241035 == 1)  OR  (V242065 == 4)`
+- `build_voter_maps_all.py:213` — `#   not_voted = (V242065 in {1,2,3}) AND NOT (V241035 == 1)`
+- `build_voter_maps_all.py:215` — `v242065 = safe_num(df, "V242065")`
 - `build_swing_trust_turnout.py:155` — `'2024 omitted: V242065 coding (4=majority of respondents) needs verification.',`
 
 ### `V242066` [2024]  —  🔥 KNOWN-BUG-FIXED: Universe 'IF R REPORTED IN THE POST SURVEY THAT R VOTED'. V242066 is conditional on already-voted; it asks 'did you vote for president specifically'. NOT a turnout question. Using it alone undercounts non-voters by ~95% (only 39 of 5521 code as 2). REPLACED in voter-map by combined V241035 (early voted in pre) ∨ V242065 (post-survey turnout, code 4=voted).
@@ -2418,10 +2459,10 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 - `generate_variable_audit.py:73` — `"V242066": "🔥 KNOWN-BUG-FIXED: Universe 'IF R REPORTED IN THE POST SURVEY THAT R VOTED'. V242066 is conditional on already-vote...`
 - `generate_variable_audit.py:73` — `"V242066": "🔥 KNOWN-BUG-FIXED: Universe 'IF R REPORTED IN THE POST SURVEY THAT R VOTED'. V242066 is conditional on already-vote...`
-- `build_voter_maps_all.py:191` — `# 2024 TURNOUT — corrected 2026-06-05 after V242066-universe miss.`
-- `build_voter_maps_all.py:193` — `# V242066 Universe: "IF R REPORTED IN THE POST SURVEY THAT R VOTED".`
-- `build_voter_maps_all.py:194` — `# That means V242066 is asking "of voters, did you vote for PRESIDENT".`
-- `build_voter_maps_all.py:196` — `# by ~95% (only 39 of 5521 respondents have V242066==2).`
+- `build_voter_maps_all.py:198` — `# 2024 TURNOUT — corrected 2026-06-05 after V242066-universe miss.`
+- `build_voter_maps_all.py:200` — `# V242066 Universe: "IF R REPORTED IN THE POST SURVEY THAT R VOTED".`
+- `build_voter_maps_all.py:201` — `# That means V242066 is asking "of voters, did you vote for PRESIDENT".`
+- `build_voter_maps_all.py:203` — `# by ~95% (only 39 of 5521 respondents have V242066==2).`
 
 ### `V242067` [2024]  —  🔥 KNOWN-BUG-FIXED: codebook lists ONLY codes 1=Harris, 2=Trump, 4=West, 5=Stein, 6=other. Code 3 does NOT exist (Kennedy withdrew). Earlier code had {3:'kennedy'} — dead code, removed.
 
@@ -2443,7 +2484,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 **Usage sites (2)**:
 
 - `generate_variable_audit.py:70` — `"V242067": "🔥 KNOWN-BUG-FIXED: codebook lists ONLY codes 1=Harris, 2=Trump, 4=West, 5=Stein, 6=other. Code 3 does NOT exist (Ke...`
-- `build_voter_maps_all.py:175` — `gen = safe_num(df, "V242067")`
+- `build_voter_maps_all.py:182` — `gen = safe_num(df, "V242067")`
 
 ### `V242125` [2024]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
 
@@ -2538,17 +2579,17 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 
 **Usage sites (4)**:
 
-- `generate_variable_audit.py:110` — `"V243002": "✅ CODEBOOK-VERIFIED: 2024 state code (stored as string in the .csv).",`
+- `generate_variable_audit.py:112` — `"V243002": "✅ CODEBOOK-VERIFIED: 2024 state code (stored as string in the .csv).",`
 - `build_candidate_honesty_by_trust.py:269` — `state_str = df['V243002'].astype(str).str.strip()`
-- `build_voter_maps_all.py:216` — `state_str = df["V243002"].astype(str).str.strip() if "V243002" in df.columns else pd.Series([""] * len(df))`
-- `build_voter_maps_all.py:216` — `state_str = df["V243002"].astype(str).str.strip() if "V243002" in df.columns else pd.Series([""] * len(df))`
+- `build_voter_maps_all.py:223` — `state_str = df["V243002"].astype(str).str.strip() if "V243002" in df.columns else pd.Series([""] * len(df))`
+- `build_voter_maps_all.py:223` — `state_str = df["V243002"].astype(str).str.strip() if "V243002" in df.columns else pd.Series([""] * len(df))`
 
 ---
 
 ## Summary
 
-- Total ANES variables in use: **99**
-- With explicit audit annotation: **64**
+- Total ANES variables in use: **101**
+- With explicit audit annotation: **66**
 - Marked UNVERIFIED (default): **35**
 
 ## Process for new variables
