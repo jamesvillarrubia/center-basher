@@ -250,13 +250,18 @@ def weighted_quantile(values, weights, q):
 
 
 def median_and_iqr(rows):
-    """Return (mx, my, x25, x75, y25, y75, n) for a list of {x,y,w} records."""
+    """Return (mx, my, x25, x75, y25, y75, n) where (mx,my) is the weighted
+    MEAN — that's the centroid for the candidate dot. IQR still uses 25th/75th
+    weighted percentiles so the ellipse shows real distribution boundaries."""
     xs = [r["x"] for r in rows]
     ys = [r["y"] for r in rows]
     ws = [r["w"] for r in rows]
+    sw = sum(ws)
+    mx = sum(x_i * w_i for x_i, w_i in zip(xs, ws)) / sw
+    my = sum(y_i * w_i for y_i, w_i in zip(ys, ws)) / sw
     return (
-        round(weighted_median(xs, ws), 3),
-        round(weighted_median(ys, ws), 3),
+        round(mx, 3),
+        round(my, 3),
         round(weighted_quantile(xs, ws, 0.25), 3),
         round(weighted_quantile(xs, ws, 0.75), 3),
         round(weighted_quantile(ys, ws, 0.25), 3),
@@ -266,10 +271,15 @@ def median_and_iqr(rows):
 
 
 def compute_centroids(records, vote_to_label):
-    """Per-candidate MEDIAN (x, y) + IQR ellipse parameters.
+    """Per-candidate MEAN (x, y) + IQR ellipse parameters.
 
     Returns {label: dict(x, y, x25, x75, y25, y75, n)} so the chart can draw
-    both the median dot AND an IQR ellipse showing each base's spread.
+    both the centroid dot AND an IQR ellipse showing each base's spread.
+    User direction 2026-06-05: median produced too-coarse centroids on the
+    trust composite (only 5 discrete y values cluster at 0.083/0.167/0.25/
+    0.333), making distinct cohorts visually identical. Mean reveals the
+    underlying gradient; IQR ellipse still uses 25th/75th percentiles so
+    distribution boundaries are honest.
     """
     out = {}
     for vote_key, label in vote_to_label.items():

@@ -374,14 +374,16 @@ function drawChart(container, data, opts) {
   // Candidate centroids (always shown) + IQR ellipses
   for (const c of cands) {
     const cx = x(c.x); const cy = y(c.y)
-    // IQR ellipse: half-axes = (x75-x25)/2 and (y75-y25)/2 mapped to pixel scale
+    // IQR ellipse: CENTERED ON THE CENTROID DOT so the dot is always inside.
+    // Half-axes sized to reach the farther IQR endpoint in each direction,
+    // so the ellipse always covers both q25 and q75. When the centroid sits
+    // asymmetrically inside the IQR, the ellipse extends past the closer
+    // endpoint to the farther one — honest about distribution skew.
     if (c.x25 != null && c.x75 != null && c.y25 != null && c.y75 != null) {
-      const rxPx = Math.abs(x(c.x75) - x(c.x25)) / 2
-      const ryPx = Math.abs(y(c.y25) - y(c.y75)) / 2
-      const exCenter = (x(c.x25) + x(c.x75)) / 2
-      const eyCenter = (y(c.y25) + y(c.y75)) / 2
+      const rxPx = Math.max(Math.abs(x(c.x) - x(c.x25)), Math.abs(x(c.x75) - x(c.x)))
+      const ryPx = Math.max(Math.abs(y(c.y) - y(c.y25)), Math.abs(y(c.y75) - y(c.y)))
       g.append('ellipse')
-        .attr('cx', exCenter).attr('cy', eyCenter)
+        .attr('cx', cx).attr('cy', cy)
         .attr('rx', rxPx).attr('ry', ryPx)
         .attr('fill', c.color).attr('fill-opacity', 0.08)
         .attr('stroke', c.color).attr('stroke-opacity', 0.55)
@@ -444,7 +446,7 @@ function drawChart(container, data, opts) {
     .text(`Swing = independents + cross-party defectors. Activated = voted this cycle, not prior. Stayed-home = voted prior cycle, not this one.`)
   svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 18)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
-    .text(`Big dot = candidate's MEDIAN voter (typical voter). Dashed ellipse = IQR (25th–75th percentile in both dimensions). Small dots (S / A / D) = same candidate's within-base medians for swing / activated / stayed-home subcohorts.`)
+    .text(`Big dot = candidate's MEAN voter position. Dashed ellipse = IQR (25th–75th percentile in both dimensions), centered on the dot. Small dots (S / A / D) = within-base medians for swing / activated / stayed-home subcohorts.`)
   svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 4)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
     .text(`Line markers: ● n ≥ 40 (reliable) · ○ n ≥ 15 (moderate) · ✕ n < 15 (uncertain).`)
