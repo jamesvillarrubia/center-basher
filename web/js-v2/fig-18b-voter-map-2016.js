@@ -96,38 +96,47 @@ export function drawVoterMap2016(selector, data) {
   drawDensity(groups.D, COLOR_DEM, 6)
   drawDensity(groups.R, COLOR_REP, 6)
 
-  // Trust-by-ideology trend line — per ideology bucket, weighted mean trust
-  const bins = new Map()
-  for (const v of voters) {
-    const key = Math.round(v.x * 6) / 6  // ANES 7-pt scale resolution
-    const b = bins.get(key) || { sw: 0, swy: 0, n: 0 }
-    const w = v.w || 1
-    b.sw += w
-    b.swy += w * v.y
-    b.n += 1
-    bins.set(key, b)
+  // Trust-by-ideology trend lines — per ideology bucket, weighted mean trust.
+  // Three cohorts: all voters, swing voters (undecided), irregular voters
+  // (new in 2016 OR dropped off from 2012).
+  function trendFor(filter) {
+    const bins = new Map()
+    for (const v of voters) {
+      if (!filter(v)) continue
+      const key = Math.round(v.x * 6) / 6
+      const b = bins.get(key) || { sw: 0, swy: 0, n: 0 }
+      const w = v.w || 1
+      b.sw += w; b.swy += w * v.y; b.n += 1
+      bins.set(key, b)
+    }
+    return [...bins.entries()]
+      .filter(([_, b]) => b.n >= 20)  // drop sparse bins (lower threshold for cohort lines)
+      .map(([xv, b]) => ({ x: xv, y: b.swy / b.sw, n: b.n }))
+      .sort((a, b) => a.x - b.x)
   }
-  const trendPts = [...bins.entries()]
-    .filter(([_, b]) => b.n >= 30)  // drop sparse bins
-    .map(([xv, b]) => ({ x: xv, y: b.swy / b.sw, n: b.n }))
-    .sort((a, b) => a.x - b.x)
-  const trendLine = d3.line()
-    .x(d => x(d.x))
-    .y(d => y(d.y))
-    .curve(d3.curveMonotoneX)
-  g.append('path').datum(trendPts).attr('d', trendLine)
-    .attr('fill', 'none').attr('stroke', '#1b1b1d').attr('stroke-width', 2.5)
-    .attr('opacity', 0.85)
-  // Trend-line label at the rightmost point
-  const last = trendPts[trendPts.length - 1]
-  g.append('text')
-    .attr('x', x(last.x) + 6).attr('y', y(last.y) + 4)
-    .attr('font-size', '10.5px').attr('font-weight', '700').attr('fill', '#1b1b1d')
-    .text('avg. trust by ideology')
-  // Dots at each bin
-  for (const p of trendPts) {
-    g.append('circle').attr('cx', x(p.x)).attr('cy', y(p.y)).attr('r', 3.5)
-      .attr('fill', '#1b1b1d').attr('stroke', '#fff').attr('stroke-width', 1)
+  const trendLine = d3.line().x(d => x(d.x)).y(d => y(d.y)).curve(d3.curveMonotoneX)
+
+  const trends = [
+    { pts: trendFor(v => true),               color: '#1b1b1d', label: 'All voters',          dash: null,    width: 2.8 },
+    { pts: trendFor(v => v.sw),               color: '#a06400', label: 'Swing (undecided)',   dash: '4,3',  width: 2.2 },
+    { pts: trendFor(v => v.n2 || v.do),       color: '#7a4d8a', label: 'Irregular ('
+                                                                       + 'new 2016 + drop-off)', dash: '2,3', width: 2.2 },
+  ]
+  for (const t of trends) {
+    if (t.pts.length < 2) continue
+    g.append('path').datum(t.pts).attr('d', trendLine)
+      .attr('fill', 'none').attr('stroke', t.color).attr('stroke-width', t.width)
+      .attr('stroke-dasharray', t.dash).attr('opacity', 0.9)
+    for (const p of t.pts) {
+      g.append('circle').attr('cx', x(p.x)).attr('cy', y(p.y)).attr('r', 3)
+        .attr('fill', t.color).attr('stroke', '#fff').attr('stroke-width', 1)
+    }
+    // Label at rightmost point
+    const last = t.pts[t.pts.length - 1]
+    g.append('text')
+      .attr('x', x(last.x) + 6).attr('y', y(last.y) + 4)
+      .attr('font-size', '10px').attr('font-weight', '700').attr('fill', t.color)
+      .text(t.label)
   }
 
   // Candidate centroids — drawn on top, BIG and labeled
