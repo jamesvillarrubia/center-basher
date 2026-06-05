@@ -104,9 +104,11 @@ async function init() {
   // §18 — Switcher cohort gap (VSG panel)
   const scData = await (await fetch(`data/switcher_cohort_vsg.json?v=${Date.now()}`, {cache: 'no-store'})).json()
   drawSwitcherCohort('#fig-18a-svg', scData)
-  // §18 Figure B — 2016 trust × ideology voter map (port of v1 chartCandidates)
+  // §18 Figure A — 2016 trust × ideology voter map (national)
   const vmData = await (await fetch(`data/voter_map_2016.json?v=${Date.now()}`, {cache: 'no-store'})).json()
   drawVoterMap2016('#fig-18b-svg', vmData)
+  // §18 Figure A2 — same chart, restricted to swing-state voters
+  drawVoterMap2016('#fig-18b2-svg', vmData, { swingStatesOnly: true })
   // §18 Figure C — per-state defection bars (port of v1 chartConsolidation)
   drawDefectionBars('#fig-18c-svg')
   // §18 Figure D — coalition × moveable mass (port of v1 chartGravity)

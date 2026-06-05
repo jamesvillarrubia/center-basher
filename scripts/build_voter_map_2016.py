@@ -93,6 +93,12 @@ def main():
     # WEIGHT
     w = pd.to_numeric(df.get("V160102", df.get("V160101")), errors="coerce").fillna(0).clip(lower=0)
 
+    # STATE FIPS — V161010d
+    state = pd.to_numeric(df["V161010d"], errors="coerce") if "V161010d" in df.columns else pd.Series([None]*len(df))
+    # 2016 swing states: PA=42, MI=26, WI=55, AZ=4, GA=13, NC=37, FL=12, NV=32, IA=19, OH=39
+    SWING_2016 = {42, 26, 55, 4, 13, 37, 12, 32, 19, 39}
+    in_swing = state.isin(SWING_2016)
+
     # Drop rows missing core fields
     m = x.notna() & trust.notna() & (w > 0)
     records = []
@@ -110,6 +116,7 @@ def main():
             "sw":  bool(swing.iloc[i]),
             "n2":  bool(new_2016.iloc[i]),
             "do":  bool(dropoff.iloc[i]),
+            "s":   bool(in_swing.iloc[i]),
         }
         records.append(rec)
         n_new   += rec["n2"]

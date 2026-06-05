@@ -25,12 +25,13 @@ function partyGroup(p) {
   return 'I'
 }
 
-export function drawVoterMap2016(selector, data) {
+export function drawVoterMap2016(selector, data, opts = {}) {
   const container = document.querySelector(selector)
   if (!container) throw new Error(`No container at ${selector}`)
   container.innerHTML = ''
 
-  const voters = data.voters
+  const swingOnly = !!opts.swingStatesOnly
+  const voters = swingOnly ? data.voters.filter(v => v.s) : data.voters
   const cands  = data.candidates
   const W = container.clientWidth || 680
   const margin = { top: 110, right: 30, bottom: 90, left: 70 }
@@ -46,13 +47,19 @@ export function drawVoterMap2016(selector, data) {
   // Title
   svg.append('text').attr('class', 'vm-title')
     .attr('x', margin.left).attr('y', 22)
-    .text('Where were Sanders voters actually sitting in 2016?')
+    .text(swingOnly
+      ? 'Swing-state voters only — 2016 trust × ideology'
+      : 'Where were Sanders voters actually sitting in 2016?')
   svg.append('text').attr('class', 'vm-subtitle')
     .attr('x', margin.left).attr('y', 42)
-    .text(`Density blobs per party (n = ${voters.length.toLocaleString()} ANES respondents). X = ideology. Y = institutional trust.`)
+    .text(swingOnly
+      ? `Same chart restricted to ANES respondents in the ten 2016 swing states (n = ${voters.length.toLocaleString()}).`
+      : `Density blobs per party (n = ${voters.length.toLocaleString()} ANES respondents). X = ideology. Y = institutional trust.`)
   svg.append('text').attr('class', 'vm-subtitle')
     .attr('x', margin.left).attr('y', 58)
-    .text('Sanders sits in the Independent / low-trust blob — not in the Democratic blob.')
+    .text(swingOnly
+      ? 'PA / MI / WI / OH / FL / NC / AZ / GA / NV / IA. Compare the cohort lines below the national chart above.'
+      : 'Sanders sits in the Independent / low-trust blob — not in the Democratic blob.')
 
   // Scales
   const x = d3.scaleLinear().domain([-1, 1]).range([0, innerW])
