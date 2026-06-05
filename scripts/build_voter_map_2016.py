@@ -70,9 +70,19 @@ def main():
         return ""
     pv = [prim_label(d, r) for d, r in zip(dem_prim.fillna(0), rep_prim.fillna(0))]
 
-    # SWING: V161031 vote intention — 2 = haven't decided / probable / not sure
-    intent = pd.to_numeric(df["V161031"], errors="coerce") if "V161031" in df.columns else None
-    swing = (intent == 2) if intent is not None else pd.Series([False] * len(df))
+    # SWING (behavioral): cross-pressured voters whose vote did not match a
+    # straight partisan signal. Three components:
+    #   • Independents (party=ind) — structurally not committed to either side
+    #   • Dem→Trump defectors (party_lean dem but voted Trump in general)
+    #   • Rep→Clinton defectors (party_lean rep but voted Clinton in general)
+    # The old V161031 definition (undecided pre-election) was right-skewed
+    # because it captured "wavering Republican" sentiment in 2016 specifically,
+    # not the broader cross-pressured cohort.
+    swing = (
+        (party == "ind")
+        | ((party == "dem") & (vote == "trump"))
+        | ((party == "rep") & (vote == "clinton"))
+    )
 
     # 2012 turnout (V161005: 1=yes, 2=no)
     voted_2012 = pd.to_numeric(df["V161005"], errors="coerce")

@@ -28,7 +28,7 @@ import { drawWithinCycle } from './fig-16e-within-cycle.js'
 import { drawNationscapePanel } from './fig-16f-nationscape-panel.js'
 import { drawWeeklyTrajectory } from './fig-16g-weekly-trajectory.js'
 import { drawSwitcherCohort } from './fig-18a-switcher-cohort.js'
-import { drawVoterMap2016 } from './fig-18b-voter-map-2016.js'
+import { drawVoterMap2016, mountVoterMapTabbed } from './fig-18b-voter-map-2016.js'
 import { drawDefectionBars } from './fig-18c-defection-bars.js'
 import { drawGravityOverlap } from './fig-18d-gravity-overlap.js'
 
@@ -104,11 +104,13 @@ async function init() {
   // §18 — Switcher cohort gap (VSG panel)
   const scData = await (await fetch(`data/switcher_cohort_vsg.json?v=${Date.now()}`, {cache: 'no-store'})).json()
   drawSwitcherCohort('#fig-18a-svg', scData)
-  // §18 Figure A — 2016 trust × ideology voter map (national)
-  const vmData = await (await fetch(`data/voter_map_2016.json?v=${Date.now()}`, {cache: 'no-store'})).json()
-  drawVoterMap2016('#fig-18b-svg', vmData)
-  // §18 Figure A2 — same chart, restricted to swing-state voters
-  drawVoterMap2016('#fig-18b2-svg', vmData, { swingStatesOnly: true })
+  // §18 Figure A — tabbed multi-year voter map (2016 / 2020 / 2024 × national / swing-state)
+  const [vm16, vm20, vm24] = await Promise.all([
+    fetch(`data/voter_map_2016.json?v=${Date.now()}`, {cache: 'no-store'}).then(r => r.json()),
+    fetch(`data/voter_map_2020.json?v=${Date.now()}`, {cache: 'no-store'}).then(r => r.json()),
+    fetch(`data/voter_map_2024.json?v=${Date.now()}`, {cache: 'no-store'}).then(r => r.json()),
+  ])
+  mountVoterMapTabbed('#fig-18b-mount', { 2016: vm16, 2020: vm20, 2024: vm24 })
   // §18 Figure C — per-state defection bars (port of v1 chartConsolidation)
   drawDefectionBars('#fig-18c-svg')
   // §18 Figure D — coalition × moveable mass (port of v1 chartGravity)
