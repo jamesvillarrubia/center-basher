@@ -214,24 +214,40 @@ CANDIDATES_BY_YEAR = {
 }
 
 
+def weighted_median(values, weights):
+    """Weighted median: smallest v such that cumulative weight ≥ totalW/2."""
+    pairs = sorted(zip(values, weights), key=lambda p: p[0])
+    total = sum(w for _, w in pairs)
+    cum = 0
+    for v, w in pairs:
+        cum += w
+        if cum >= total / 2:
+            return v
+    return pairs[-1][0]
+
+
 def compute_centroids(records, vote_to_label):
-    """For 2020/2024, compute candidate centroids from the actual data."""
+    """Per-candidate MEDIAN (x, y) — the typical voter, not the centroid of
+    mass. Median tracks where the density blob peaks; mean is biased by the
+    bounded-skewed trust distribution. Switched 2026-06-05.
+    """
     out = {}
     for vote_key, label in vote_to_label.items():
         cohort = [r for r in records if r["v"] == vote_key and r["w"] > 0]
         if not cohort:
             continue
-        sw = sum(r["w"] for r in cohort)
-        cx = sum(r["x"] * r["w"] for r in cohort) / sw
-        cy = sum(r["y"] * r["w"] for r in cohort) / sw
+        xs = [r["x"] for r in cohort]
+        ys = [r["y"] for r in cohort]
+        ws = [r["w"] for r in cohort]
+        cx = weighted_median(xs, ws)
+        cy = weighted_median(ys, ws)
         out[label] = (round(cx, 3), round(cy, 3), len(cohort))
     return out
 
 
 def compute_subcohort_centroids(records, vote_keys):
-    """For each candidate's general-election voters, compute the within-base
-    weighted centroid for sub-cohorts: swing, activated (n2), stayed-home (do).
-    Returns {vote_key: {cohort: {x, y, n}}}.
+    """Per-candidate MEDIAN (x, y) for within-base subcohorts (swing /
+    activated / stayed-home). Matches the main-centroid switch to median.
     """
     cohorts = [("sw", "swing"), ("n2", "activated"), ("do", "stayed_home")]
     out = {}
@@ -244,9 +260,11 @@ def compute_subcohort_centroids(records, vote_keys):
             rows = [r for r in base if r.get(flag)]
             if not rows:
                 continue
-            sw = sum(r["w"] for r in rows)
-            cx = sum(r["x"] * r["w"] for r in rows) / sw
-            cy = sum(r["y"] * r["w"] for r in rows) / sw
+            xs = [r["x"] for r in rows]
+            ys = [r["y"] for r in rows]
+            ws = [r["w"] for r in rows]
+            cx = weighted_median(xs, ws)
+            cy = weighted_median(ys, ws)
             sub[label] = {"x": round(cx, 3), "y": round(cy, 3), "n": len(rows)}
         if sub:
             out[vk] = sub
@@ -259,9 +277,21 @@ def main():
         records, stats = builder()
         print(f"  {stats}")
 
-        # Compute candidate centroids from data for 2020/2024
+        # Compute candidate centroids from data — MEDIAN (x, y), per
+        # rigor-process decision 2026-06-05.
         cands = list(CANDIDATES_BY_YEAR[year])
-        if year == 2020:
+        if year == 2016:
+            cent = compute_centroids(records, {"clinton": "clinton", "trump": "trump"})
+            # Sanders has no general-election cohort; compute from primary
+            sanders = [r for r in records if r.get("pv") == "sanders" and r["w"] > 0]
+            if sanders:
+                sx = weighted_median([r["x"] for r in sanders], [r["w"] for r in sanders])
+                sy = weighted_median([r["y"] for r in sanders], [r["w"] for r in sanders])
+                cent["sanders"] = (round(sx, 3), round(sy, 3), len(sanders))
+            for c in cands:
+                if c["id"] in cent:
+                    c["x"], c["y"], c["n"] = cent[c["id"]]
+        elif year == 2020:
             cent = compute_centroids(records, {"biden": "biden", "trump": "trump"})
             for c in cands:
                 if c["id"] in cent:
