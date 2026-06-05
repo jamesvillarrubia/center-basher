@@ -54,14 +54,17 @@ const LAYER_DEFAULTS = {
   party_D:    { kind: 'blob', label: 'Democratic blob',  color: COLOR_DEM,   visible: true,  filter: v => v.p === 'dem' },
   party_R:    { kind: 'blob', label: 'Republican blob',  color: COLOR_REP,   visible: true,  filter: v => v.p === 'rep' },
   party_I:    { kind: 'blob', label: 'Independent blob', color: COLOR_IND,   visible: true,  filter: v => v.p === 'ind' },
-  line_all:   { kind: 'line', label: 'All-voter line',   color: COLOR_ALL,   visible: true,  filter: v => true,        dash: null,  width: 2.6 },
-  swing_blob: { kind: 'blob', label: 'Swing blob',       color: COLOR_SWING, visible: false, filter: v => v.sw },
-  swing_line: { kind: 'line', label: 'Swing line (mean)', color: COLOR_SWING, visible: true,  filter: v => v.sw,        dash: '4,3', width: 1.9 },
-  swing_med:  { kind: 'line', label: 'Swing line (median)', color: '#d77400', visible: false, filter: v => v.sw,        dash: '6,2', width: 1.9, stat: 'median' },
-  activ_blob: { kind: 'blob', label: 'Activated blob',   color: COLOR_ACTIV, visible: false, filter: v => v.n2 },
-  activ_line: { kind: 'line', label: 'Activated line',   color: COLOR_ACTIV, visible: true,  filter: v => v.n2,        dash: '2,3', width: 1.7 },
-  drop_blob:  { kind: 'blob', label: 'Stayed-home blob', color: COLOR_DROP,  visible: false, filter: v => v.do },
-  drop_line:  { kind: 'line', label: 'Stayed-home line', color: COLOR_DROP,  visible: true,  filter: v => v.do,        dash: '1,3', width: 1.7 },
+  // Lines show MEDIAN trust per ideology bin (not mean). Median is robust to
+  // outliers and tracks where the typical voter sits — which is what the
+  // density blob is also showing. Mean was systematically biased upward
+  // because the trust composite is bounded [0,1] but skewed low.
+  line_all:   { kind: 'line', label: 'All-voter line', color: COLOR_ALL,   visible: true,  filter: v => true, dash: null,  width: 2.6, stat: 'median' },
+  swing_blob: { kind: 'blob', label: 'Swing blob',     color: COLOR_SWING, visible: false, filter: v => v.sw },
+  swing_line: { kind: 'line', label: 'Swing line',     color: COLOR_SWING, visible: true,  filter: v => v.sw, dash: '4,3', width: 1.9, stat: 'median' },
+  activ_blob: { kind: 'blob', label: 'Activated blob', color: COLOR_ACTIV, visible: false, filter: v => v.n2 },
+  activ_line: { kind: 'line', label: 'Activated line', color: COLOR_ACTIV, visible: true,  filter: v => v.n2, dash: '2,3', width: 1.7, stat: 'median' },
+  drop_blob:  { kind: 'blob', label: 'Stayed-home blob', color: COLOR_DROP, visible: false, filter: v => v.do },
+  drop_line:  { kind: 'line', label: 'Stayed-home line', color: COLOR_DROP, visible: true,  filter: v => v.do, dash: '1,3', width: 1.7, stat: 'median' },
 }
 
 function cloneLayers(src) {
@@ -172,9 +175,9 @@ function rebuildLayerPanel(container) {
   layerPanel.appendChild(makeLayerRow('Party / cohort blobs', [
     'party_D', 'party_R', 'party_I', 'swing_blob', 'activ_blob', 'drop_blob',
   ], container))
-  // Lines
-  layerPanel.appendChild(makeLayerRow('Lines (avg trust)', [
-    'line_all', 'swing_line', 'swing_med', 'activ_line', 'drop_line',
+  // Lines (median trust per ideology bin)
+  layerPanel.appendChild(makeLayerRow('Lines (median trust)', [
+    'line_all', 'swing_line', 'activ_line', 'drop_line',
   ], container))
 }
 
@@ -248,7 +251,7 @@ function drawChart(container, data, opts) {
   svg.append('text').attr('class', 'vm-subtitle').attr('x', margin.left).attr('y', 42)
     .text(`n = ${voters.length.toLocaleString()} ANES respondents. X = ideology (V161126 / V201200 / V241177). Y = trust composite (0–0.8 shown; full scale 0–1, almost no voters above 0.8).`)
   svg.append('text').attr('class', 'vm-subtitle').attr('x', margin.left).attr('y', 58)
-    .text('Toggle blobs and lines above. Each cohort can show either density blob, trust-by-ideology line, or both.')
+    .text('Toggle blobs and lines above. Lines show MEDIAN trust per ideology bin (robust to outliers; tracks where the typical voter sits).')
 
   const x = d3.scaleLinear().domain([-1, 1]).range([0, innerW])
   const y = d3.scaleLinear().domain([0, 0.8]).range([innerH, 0])
@@ -330,7 +333,7 @@ function drawChart(container, data, opts) {
   const trendLine = d3.line().x(d => x(d.x)).y(d => y(d.y)).curve(d3.curveMonotoneX)
   const N_HI = 40, N_LO = 15
 
-  const lineOrder = ['line_all', 'swing_line', 'swing_med', 'activ_line', 'drop_line']
+  const lineOrder = ['line_all', 'swing_line', 'activ_line', 'drop_line']
   for (const key of lineOrder) {
     const L = __state.layers[key]
     if (!L || !L.visible) continue
