@@ -153,10 +153,13 @@ function drawChart(container, data, opts) {
       .sort((a, b) => a.x - b.x)
   }
   const trendLine = d3.line().x(d => x(d.x)).y(d => y(d.y)).curve(d3.curveMonotoneX)
+  // Tighter minimum bin sizes so the trend lines don't spike on noisy
+  // small subsamples (n<40 was producing misleading reads, esp. at
+  // ideology extremes where the cross-pressured cohort is structurally tiny).
   const trends = [
-    { pts: trendFor(v => true, 30),               color: '#1b1b1d', label: 'All',         dash: null,  width: 2.8 },
-    { pts: trendFor(v => v.sw, 12),               color: '#a06400', label: 'Swing',       dash: '4,3', width: 2.0 },
-    { pts: trendFor(v => v.n2 || v.do, 10),       color: '#7a4d8a', label: 'Irregular',   dash: '2,3', width: 2.0 },
+    { pts: trendFor(v => true, 40),               color: '#1b1b1d', label: 'All',             dash: null,  width: 2.8 },
+    { pts: trendFor(v => v.sw, 30),               color: '#a06400', label: 'Cross-pressured', dash: '4,3', width: 2.0 },
+    { pts: trendFor(v => v.n2 || v.do, 15),       color: '#7a4d8a', label: 'Irregular',       dash: '2,3', width: 2.0 },
   ]
   for (const t of trends) {
     if (t.pts.length < 2) continue
@@ -210,10 +213,13 @@ function drawChart(container, data, opts) {
     lx += 20 + it.label.length * 6.5 + 18
   }
 
-  // Footer with cohort N
-  svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 6)
+  // Footer with cohort definitions made explicit
+  svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 18)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
-    .text(`Cohorts: swing (cross-pressured: indep + cross-party defectors) and irregular (new + drop-off vs prior cycle).${year === 2024 ? ' [2024: prior-vote join not available; irregular line empty.]' : ''}`)
+    .text(`Cross-pressured = independents + cross-party defectors (Dem voted Rep candidate OR Rep voted Dem candidate). Irregular = voted current cycle but not prior, OR prior but not current.`)
+  svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 4)
+    .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
+    .text(`Trend lines drawn only where bin n ≥ 40 (all) / 30 (cross-pressured) / 15 (irregular).`)
 }
 
 // Backwards-compat single-render API (used if HTML still has the old element)

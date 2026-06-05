@@ -98,16 +98,20 @@ def build_2024():
     run_all  = safe_num(df, "V241231").where(lambda v: v.between(1, 2))
     waste    = safe_num(df, "V241232").where(lambda v: v.between(1, 3))
     trust = pd.concat([(5 - do_right) / 4, (run_all - 1) / 1, (waste - 1) / 2], axis=1).mean(axis=1)
-    pty = safe_num(df, "V241228")  # 5-pt party in 2024 (no 7-pt summary)
-    party = pty.apply(lambda p: "dem" if p in (1, 2) else "rep" if p in (4, 5) else "ind" if p == 3 else "")
+    # FIXED: V241228 is a single-item party question with non-standard codes.
+    # V241227x is the canonical 7-pt party ID summary (1=strong D, 7=strong R, 4=ind).
+    pty = safe_num(df, "V241227x")
+    party = pty.apply(lambda p: "dem" if p in (1, 2, 3) else "rep" if p in (5, 6, 7) else "ind" if p == 4 else "")
     gen = safe_num(df, "V242067")
     # 2024 vote: 1=Harris, 2=Trump (verified by counts)
     vote = gen.map({1: "harris", 2: "trump", 3: "kennedy", 5: "other"}).fillna("")
     pv = ["" for _ in range(len(df))]
     swing = (party == "ind") | ((party == "dem") & (vote == "trump")) | ((party == "rep") & (vote == "harris"))
-    # No reliable prior-vote join for 2024; set new/dropoff to False
-    new_v = pd.Series([False] * len(df))
-    dropoff = pd.Series([False] * len(df))
+    # 2020 turnout proxy: V241049 (binary, n≈5,000) — voted 2020 (1=yes, 2=no)
+    voted_2020 = safe_num(df, "V241049")
+    voted_2024 = safe_num(df, "V242065")  # POST: voted in 2024 (1=yes, 2=no per dist)
+    new_v   = ((voted_2020 == 2) & (voted_2024 == 1)).fillna(False)
+    dropoff = ((voted_2020 == 1) & (voted_2024 == 2)).fillna(False)
     w = safe_num(df, "V240107a").fillna(0).clip(lower=0)
     state_str = df["V243002"].astype(str).str.strip() if "V243002" in df.columns else pd.Series([""] * len(df))
     state = pd.to_numeric(state_str, errors="coerce")
