@@ -30,6 +30,7 @@ import { drawWeeklyTrajectory } from './fig-16g-weekly-trajectory.js'
 import { drawSwitcherCohort } from './fig-18a-switcher-cohort.js'
 import { drawVoterMap2016 } from './fig-18b-voter-map-2016.js'
 import { drawDefectionBars } from './fig-18c-defection-bars.js'
+import { drawGravityOverlap } from './fig-18d-gravity-overlap.js'
 
 async function init() {
   // §0 — trust by cohort
@@ -108,6 +109,8 @@ async function init() {
   drawVoterMap2016('#fig-18b-svg', vmData)
   // §18 Figure C — per-state defection bars (port of v1 chartConsolidation)
   drawDefectionBars('#fig-18c-svg')
+  // §18 Figure D — coalition × moveable mass (port of v1 chartGravity)
+  drawGravityOverlap('#fig-18d-svg')
   // Figures E (VSG within-cycle), F (Nationscape cross-check), G (3-cycle trajectory)
   // are CUT from the page render per user feedback (June 2026 review).
   // The underlying JS modules and data files are kept on disk.
