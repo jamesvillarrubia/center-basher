@@ -29,6 +29,7 @@ import { drawNationscapePanel } from './fig-16f-nationscape-panel.js'
 import { drawWeeklyTrajectory } from './fig-16g-weekly-trajectory.js'
 import { drawSwitcherCohort } from './fig-18a-switcher-cohort.js'
 import { drawVoterMap2016 } from './fig-18b-voter-map-2016.js'
+import { drawDefectionBars } from './fig-18c-defection-bars.js'
 
 async function init() {
   // §0 — trust by cohort
@@ -105,6 +106,8 @@ async function init() {
   // §18 Figure B — 2016 trust × ideology voter map (port of v1 chartCandidates)
   const vmData = await (await fetch(`data/voter_map_2016.json?v=${Date.now()}`, {cache: 'no-store'})).json()
   drawVoterMap2016('#fig-18b-svg', vmData)
+  // §18 Figure C — per-state defection bars (port of v1 chartConsolidation)
+  drawDefectionBars('#fig-18c-svg')
   // Figures E (VSG within-cycle), F (Nationscape cross-check), G (3-cycle trajectory)
   // are CUT from the page render per user feedback (June 2026 review).
   // The underlying JS modules and data files are kept on disk.
