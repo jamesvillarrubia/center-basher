@@ -320,9 +320,15 @@ function drawChart(container, data, opts) {
     if (!L.visible) continue
     const pts = trendFor(L.filter)
     if (pts.length < 2) continue
-    g.append('path').datum(pts).attr('d', trendLine)
-      .attr('fill', 'none').attr('stroke', L.color).attr('stroke-width', L.width)
-      .attr('stroke-dasharray', L.dash).attr('opacity', 0.7)
+    // Draw the CONNECTING LINE only through reliable bins (n >= N_LO).
+    // Sparse-bin X markers float as standalone — they don't anchor the path,
+    // so the line reflects where the cohort actually clusters.
+    const reliablePts = pts.filter(p => p.n >= N_LO)
+    if (reliablePts.length >= 2) {
+      g.append('path').datum(reliablePts).attr('d', trendLine)
+        .attr('fill', 'none').attr('stroke', L.color).attr('stroke-width', L.width)
+        .attr('stroke-dasharray', L.dash).attr('opacity', 0.7)
+    }
     for (const p of pts) {
       const cx = x(p.x), cy = y(p.y)
       if (p.n >= N_HI) {
@@ -334,13 +340,14 @@ function drawChart(container, data, opts) {
       } else {
         const s = 4
         g.append('line').attr('x1', cx-s).attr('x2', cx+s).attr('y1', cy-s).attr('y2', cy+s)
-          .attr('stroke', L.color).attr('stroke-width', 1.6).attr('opacity', 0.8)
+          .attr('stroke', L.color).attr('stroke-width', 1.6).attr('opacity', 0.55)
         g.append('line').attr('x1', cx-s).attr('x2', cx+s).attr('y1', cy+s).attr('y2', cy-s)
-          .attr('stroke', L.color).attr('stroke-width', 1.6).attr('opacity', 0.8)
+          .attr('stroke', L.color).attr('stroke-width', 1.6).attr('opacity', 0.55)
       }
     }
-    const last = pts[pts.length - 1]
-    g.append('text').attr('x', x(last.x) + 6).attr('y', y(last.y) + 4)
+    // Place label at the rightmost RELIABLE bin (not at an X marker)
+    const labelTarget = reliablePts.length > 0 ? reliablePts[reliablePts.length - 1] : pts[pts.length - 1]
+    g.append('text').attr('x', x(labelTarget.x) + 6).attr('y', y(labelTarget.y) + 4)
       .attr('font-size', '10px').attr('font-weight', '700').attr('fill', L.color)
       .text(L.label.replace(/ line$/, '').replace(/^All-voter$/, 'All'))
   }
