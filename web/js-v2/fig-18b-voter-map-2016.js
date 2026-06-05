@@ -56,7 +56,6 @@ const CANDIDATE_LAYERS_BY_YEAR = {
 //   - show_centroids OFF (tautological "where candidate's voters are"
 //     hidden by default; perceived-candidate discs carry the causal story)
 const LAYER_DEFAULTS = {
-  show_centroids: { kind: 'meta', label: 'Candidate-voter centroids (big dots)', color: '#666', visible: false },
   party_D:    { kind: 'blob', label: 'Democratic blob',  color: COLOR_DEM,   visible: false, filter: v => v.p === 'dem' },
   party_R:    { kind: 'blob', label: 'Republican blob',  color: COLOR_REP,   visible: false, filter: v => v.p === 'rep' },
   party_I:    { kind: 'blob', label: 'Independent blob', color: COLOR_IND,   visible: false, filter: v => v.p === 'ind' },
@@ -168,24 +167,18 @@ function rebuildLayerPanel(container) {
   const layerPanel = container.querySelector('.vm-layer-panel')
   if (!layerPanel) return
   layerPanel.innerHTML = ''
-  // Meta row — show/hide the tautological "candidate-voter centroids" view
-  layerPanel.appendChild(makeLayerRow('Overlay', ['show_centroids'], container))
-  // Cohort blobs (the 'where they sit' layer for each cohort)
-  layerPanel.appendChild(makeLayerRow('Cohort blobs', [
-    'swing_blob', 'activ_blob', 'drop_blob',
+  // Cohort layers (primary story)
+  layerPanel.appendChild(makeLayerRow('Cohort', [
+    'swing_blob', 'swing_line', 'activ_blob', 'activ_line', 'drop_blob', 'drop_line',
   ], container))
-  // Lines (median trust per ideology bin)
-  layerPanel.appendChild(makeLayerRow('Cohort lines', [
-    'swing_line', 'activ_line', 'drop_line', 'line_all',
+  // Reference layers (off by default)
+  layerPanel.appendChild(makeLayerRow('Reference', [
+    'line_all', 'party_D', 'party_R', 'party_I',
   ], container))
-  // Party blobs (always-on context — off by default)
-  layerPanel.appendChild(makeLayerRow('Party blobs', [
-    'party_D', 'party_R', 'party_I',
-  ], container))
-  // Candidate-voter blobs row (this year's set)
+  // Candidate-voter blobs (off by default)
   const candKeys = Object.keys(__state.layers).filter(k => k.startsWith('cand_'))
   if (candKeys.length > 0) {
-    layerPanel.appendChild(makeLayerRow('Candidate-voter blobs', candKeys, container))
+    layerPanel.appendChild(makeLayerRow('Candidate blobs', candKeys, container))
   }
 }
 
@@ -259,7 +252,7 @@ function drawChart(container, data, opts) {
   svg.append('text').attr('class', 'vm-subtitle').attr('x', margin.left).attr('y', 42)
     .text(`n = ${voters.length.toLocaleString()} ANES respondents. X = ideology (V161126 / V201200 / V241177). Y = trust composite (0–0.8 shown; full scale 0–1, almost no voters above 0.8).`)
   svg.append('text').attr('class', 'vm-subtitle').attr('x', margin.left).attr('y', 58)
-    .text('READING THE CHART: open ring = where this cohort of voters sits (their own ideology × trust). Colored discs = where this cohort PERCEIVES each candidate (their ideology placement × cares+leadership rating). % inside disc = cohort capture share. Closer disc + higher % → identity drove capture. Closer disc + lower % → regime/other forces overrode.')
+    .text('READING THE CHART: blob = cohort density. Dashed line = trust trend by ideology. Open ring = cohort centroid. Big colored dot = candidate-voter centroid. Capture % pill (in cohort color, near candidate dot) = candidate share of cohort vote. Closer dot to ring + higher pill → spatial-voting capture.')
 
   const x = d3.scaleLinear().domain([-1, 1]).range([0, innerW])
   const y = d3.scaleLinear().domain([0, 0.8]).range([innerH, 0])
@@ -379,114 +372,81 @@ function drawChart(container, data, opts) {
       .text(L.label.replace(/ line$/, '').replace(/^All-voter$/, 'All'))
   }
 
-  // PERCEIVED-CANDIDATE LAYER: for each visible cohort, render:
-  //   - Cohort centroid (open ring at voter self-position median)
-  //   - PERCEIVED candidate position (candidate-colored dot at where this
-  //     cohort PLACED the candidate on ideology × honesty)
-  //   - Tether between them, labeled with capture share
-  //
-  // This breaks the spatial-voting tautology: where voters PERCEIVE the
-  // candidate to be is independent of who they voted for. Every respondent
-  // placed every candidate. Proximity between cohort centroid and
-  // perceived-candidate position is a non-tautological signal of identity.
-  const perceivedCohorts = [
-    { key: 'swing',     layerKeys: ['swing_line', 'swing_blob'], color: COLOR_SWING, shortLabel: 'Swing' },
-    { key: 'activated', layerKeys: ['activ_line', 'activ_blob'], color: COLOR_ACTIV, shortLabel: 'Activated' },
+  // COHORT-CENTROID + CAPTURE-LABEL LAYER
+  // For each visible cohort, render:
+  //   - Open ring at the cohort centroid (where these voters sit)
+  //   - Small capture % label next to each big candidate centroid showing
+  //     what share of THIS cohort voted for that candidate
+  // The big colored candidate centroids are drawn elsewhere (always on).
+  // The proximity story reads: which candidate centroid is closest to the
+  // open ring? Their capture % should be highest (most of the time).
+  const cohortDisplay = [
+    { key: 'swing',     layerKeys: ['swing_line', 'swing_blob'], color: COLOR_SWING, label: 'Swing center' },
+    { key: 'activated', layerKeys: ['activ_line', 'activ_blob'], color: COLOR_ACTIV, label: 'Activated center' },
+    { key: 'stayed_home', layerKeys: ['drop_line', 'drop_blob'], color: COLOR_DROP, label: 'Stayed-home center' },
   ]
   const cohortCentroids = data.cohort_centroids || {}
-  for (const pc of perceivedCohorts) {
-    const visible = pc.layerKeys.some(k => __state.layers[k] && __state.layers[k].visible)
+  for (const cd of cohortDisplay) {
+    const visible = cd.layerKeys.some(k => __state.layers[k] && __state.layers[k].visible)
     if (!visible) continue
-    // For swing-state scope, recompute cohort centroid + perceived position
-    // from the filtered voter set (data has national-scope values baked in)
-    let cc, perceivedByCand
-    if (swingOnly) {
-      // Recompute cohort centroid from swing-state voters in this cohort
-      const inCohort = voters.filter(v => pc.key === 'swing' ? v.sw : v.n2)
-      if (inCohort.length === 0) continue
-      let tw = 0, sx = 0, sy = 0
-      for (const v of inCohort) { const w = v.w || 1; tw += w; sx += v.x * w; sy += v.y * w }
-      cc = { x: sx / tw, y: sy / tw, n: inCohort.length }
-      perceivedByCand = {}
-      for (const c of cands) {
-        const isDem = c.id === 'clinton' || c.id === 'biden' || c.id === 'harris'
-        const isRep = c.id === 'trump'
-        if (!isDem && !isRep) continue
-        const xkey = isDem ? 'px_d' : 'px_r'
-        const ykey = isDem ? 'py_d' : 'py_r'
-        let twP = 0, sxP = 0, syP = 0, twC = 0, twCcand = 0
-        for (const v of inCohort) {
-          if (v[xkey] != null && v[ykey] != null) {
-            const w = v.w || 1; twP += w; sxP += v[xkey] * w; syP += v[ykey] * w
-          }
-          twC += v.w || 1; if (v.v === c.id) twCcand += v.w || 1
-        }
-        if (twP === 0) continue
-        perceivedByCand[c.id] = {
-          x: sxP / twP, y: syP / twP,
-          capture: twC > 0 ? twCcand / twC : null,
-        }
-      }
-    } else {
-      cc = cohortCentroids[pc.key]
-      perceivedByCand = {}
-      for (const c of cands) {
-        const p = c.perceived && c.perceived[pc.key]
-        if (!p) continue
-        perceivedByCand[c.id] = p
-      }
-    }
-    if (!cc) continue
+    // Compute cohort centroid + per-candidate capture share for the
+    // current scope (national vs swing-state).
+    const filt = cd.key === 'swing' ? (v => v.sw)
+              : cd.key === 'activated' ? (v => v.n2)
+              : (v => v.do)
+    const inCohort = voters.filter(filt)
+    if (inCohort.length === 0) continue
+    let tw = 0, sx = 0, sy = 0
+    for (const v of inCohort) { const w = v.w || 1; tw += w; sx += v.x * w; sy += v.y * w }
+    const cc = { x: sx / tw, y: sy / tw, n: inCohort.length }
     const ccx = x(cc.x), ccy = y(cc.y)
-    // Cohort centroid marker
+
+    // Cohort centroid: open ring + name + n
     g.append('circle').attr('cx', ccx).attr('cy', ccy).attr('r', 7)
-      .attr('fill', '#fff').attr('stroke', pc.color).attr('stroke-width', 2.4)
+      .attr('fill', '#fff').attr('stroke', cd.color).attr('stroke-width', 2.4)
     g.append('text').attr('x', ccx).attr('y', ccy - 11).attr('text-anchor', 'middle')
-      .attr('font-size', '10px').attr('font-weight', '700').attr('fill', pc.color)
-      .text(`${pc.shortLabel} center`)
-    // Perceived-candidate position + tether per candidate
-    for (const candId of Object.keys(perceivedByCand)) {
-      const cand = cands.find(c => c.id === candId)
-      if (!cand) continue
-      const p = perceivedByCand[candId]
-      const pcx = x(p.x), pcy = y(p.y)
-      // Tether from cohort centroid to perceived candidate position
-      g.append('line').attr('x1', ccx).attr('y1', ccy).attr('x2', pcx).attr('y2', pcy)
-        .attr('stroke', cand.color).attr('stroke-width', 1.6)
-        .attr('stroke-opacity', 0.7).attr('stroke-dasharray', '4,3')
-      // Perceived position: candidate-colored ring with capture % INSIDE.
-      // Candidate name labeled BELOW so the disc is self-explanatory.
-      const pct = p.capture != null ? Math.round(p.capture * 100) : null
-      g.append('circle').attr('cx', pcx).attr('cy', pcy).attr('r', 14)
-        .attr('fill', '#fff').attr('stroke', cand.color).attr('stroke-width', 2.2)
-      g.append('circle').attr('cx', pcx).attr('cy', pcy).attr('r', 14)
-        .attr('fill', cand.color).attr('fill-opacity', 0.15).attr('stroke', 'none')
-      if (pct != null) {
-        g.append('text').attr('x', pcx).attr('y', pcy + 4.5)
-          .attr('text-anchor', 'middle').attr('font-size', '12px')
-          .attr('font-weight', '800').attr('fill', cand.color).text(`${pct}%`)
+      .attr('font-size', '10px').attr('font-weight', '700').attr('fill', cd.color)
+      .text(`${cd.label} · n=${cc.n}`)
+
+    // Capture-share pill next to each candidate centroid. Skip when the
+    // candidate's centroid isn't being shown (perceived layer also off).
+    if (cd.key === 'stayed_home') continue   // stayed-home didn't vote; capture is 0
+    for (const c of cands) {
+      // Skip Sanders (no general-election capture)
+      if (c.id === 'sanders') continue
+      let twTotal = 0, twCand = 0
+      for (const v of inCohort) {
+        const w = v.w || 1; twTotal += w; if (v.v === c.id) twCand += w
       }
-      // Candidate name below the disc
-      g.append('text').attr('x', pcx).attr('y', pcy + 28)
+      if (twTotal === 0) continue
+      const pct = Math.round((twCand / twTotal) * 100)
+      const cx_ = x(c.x), cy_ = y(c.y)
+      // Pill positioned to the side of the candidate dot, in cohort color
+      const isLeftCand = c.x < 0
+      const px = isLeftCand ? cx_ - 30 : cx_ + 30
+      const py = cy_
+      const w_pill = 36
+      g.append('rect').attr('x', px - w_pill/2).attr('y', py - 9).attr('width', w_pill).attr('height', 18)
+        .attr('rx', 4).attr('fill', '#fff')
+        .attr('stroke', cd.color).attr('stroke-width', 1.4)
+      g.append('text').attr('x', px).attr('y', py + 4)
         .attr('text-anchor', 'middle').attr('font-size', '11px')
-        .attr('font-weight', '700').attr('fill', cand.color).text(cand.short)
+        .attr('font-weight', '800').attr('fill', cd.color).text(`${pct}%`)
+      // Thin tether from candidate dot to pill (subtle)
+      g.append('line').attr('x1', cx_).attr('y1', cy_).attr('x2', px - (isLeftCand ? -w_pill/2 : w_pill/2)).attr('y2', py)
+        .attr('stroke', cd.color).attr('stroke-opacity', 0.4).attr('stroke-width', 0.8)
     }
   }
 
-  // Candidate-voter centroids — TAUTOLOGICAL view (where the candidate's
-  // OWN voters self-place). Hidden by default since it conflates with the
-  // perceived-candidate causal story. Toggle 'show_centroids' to display.
-  if (__state.layers.show_centroids && __state.layers.show_centroids.visible) {
-    for (const c of cands) {
-      const cx = x(c.x); const cy = y(c.y)
-      g.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 9).attr('fill', c.color).attr('stroke', '#fff').attr('stroke-width', 2)
-      const labelOffsetY = c.id === 'sanders' ? 26 : c.id === 'clinton' || c.id === 'biden' || c.id === 'harris' ? -16 : 26
-      g.append('text').attr('x', cx).attr('y', cy + labelOffsetY).attr('text-anchor', 'middle')
-        .attr('font-size', '13px').attr('font-weight', '700').attr('fill', c.color).text(c.short)
-      g.append('text').attr('x', cx).attr('y', cy + labelOffsetY + 13).attr('text-anchor', 'middle')
-        .attr('font-size', '10px').attr('fill', '#444').attr('font-style', 'italic')
-        .text(`(${c.x > 0 ? '+' : ''}${c.x}, ${c.y})`)
-    }
+  // Big candidate-voter centroids — ALWAYS shown. These mark where each
+  // candidate's voter base sits on average. Capture-share labels (in cohort
+  // color) appear next to them when a cohort layer is on.
+  for (const c of cands) {
+    const cx = x(c.x); const cy = y(c.y)
+    g.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 9).attr('fill', c.color).attr('stroke', '#fff').attr('stroke-width', 2)
+    const labelOffsetY = c.id === 'sanders' ? 26 : c.id === 'clinton' || c.id === 'biden' || c.id === 'harris' ? -16 : 26
+    g.append('text').attr('x', cx).attr('y', cy + labelOffsetY).attr('text-anchor', 'middle')
+      .attr('font-size', '13px').attr('font-weight', '700').attr('fill', c.color).text(c.short)
   }
 
   // Subcohort centroids per candidate (small S/A/D markers).
