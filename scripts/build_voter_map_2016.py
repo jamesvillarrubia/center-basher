@@ -1,4 +1,16 @@
 """
+[DEPRECATED 2026-06-05] — DO NOT RUN. Superseded by build_voter_maps_all.py.
+This script writes to data/clean/voter_map_2016.json which is the SAME path
+that build_voter_maps_all.py writes to. This older single-year script still
+contains the off-by-one V161158x party mapping (1,2→dem, 3→ind, 4,5→rep)
+that was a catastrophic bug fixed on 2026-06-05. Running this script would
+silently regress the fix.
+
+If you need to rebuild voter-map data, run:
+    python scripts/build_voter_maps_all.py
+
+See reqts/variable-audit.md for the full V161158x annotation.
+
 build_voter_map_2016.py — Build §18 Figure A data directly from ANES 2016.
 
 Per-voter fields needed:
@@ -15,12 +27,15 @@ Per-voter fields needed:
 Candidate centroids stay hardcoded from the v1 candidates.js methodology
 (ANES voter-base means for Clinton, Trump, Sanders).
 """
-import json
 import sys
-import warnings
+sys.exit("[DEPRECATED] Run scripts/build_voter_maps_all.py instead. See top-of-file note.")
 
-import numpy as np
-import pandas as pd
+import json
+import sys  # noqa: E402,F811
+import warnings  # noqa: E402
+
+import numpy as np  # noqa: E402
+import pandas as pd  # noqa: E402
 
 warnings.filterwarnings("ignore")
 
