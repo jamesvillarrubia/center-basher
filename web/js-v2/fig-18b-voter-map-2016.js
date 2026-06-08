@@ -84,7 +84,7 @@ export function mountVoterMapTabbed(selector, dataByYear) {
     const btn = document.createElement('button')
     btn.textContent = s.label; btn.dataset.scope = s.key; btn.className = 'vm-tab vm-scope-tab'
     btn.style.cssText = 'padding:5px 14px;border-radius:4px;border:1px solid #888;background:#fff;color:#333;cursor:pointer;font-weight:600;'
-    btn.addEventListener('click', () => { __state.scope = s.key; renderAll(container) })
+    btn.addEventListener('click', () => { __state.scope = s.key; rebuildScenarioPanel(container); renderAll(container) })
     tabBar.appendChild(btn)
   })
 
@@ -111,14 +111,21 @@ function rebuildScenarioPanel(container) {
   if (!panel) return
   panel.innerHTML = ''
   const scenarios = scenariosForYear(__state.year)
+  // Compute current n for each scenario so the panel can show it next to
+  // the label when the cohort is active.
+  const data = __state.dataByYear[__state.year]
+  const voters = data ? (__state.scope === 'swing' ? data.voters.filter(v => v.s) : data.voters) : []
+  function cohortN(scenario) {
+    return voters.filter(scenario.filter).length
+  }
   const groups = ['Behavioral', 'Party ID', 'Primary']
-  for (const g of groups) {
-    const groupScenarios = scenarios.filter(s => s.group === g)
+  for (const grp of groups) {
+    const groupScenarios = scenarios.filter(s => s.group === grp)
     if (groupScenarios.length === 0) continue
     const row = document.createElement('div')
     row.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;'
     const title = document.createElement('span')
-    title.textContent = g + ':'
+    title.textContent = grp + ':'
     title.style.cssText = 'font-weight:700;color:#444;min-width:90px;font-size:12px;'
     row.appendChild(title)
     for (const s of groupScenarios) {
@@ -128,12 +135,17 @@ function rebuildScenarioPanel(container) {
       cb.type = 'checkbox'; cb.checked = !!__state.enabled[s.id]
       cb.addEventListener('change', () => {
         __state.enabled[s.id] = cb.checked
+        rebuildScenarioPanel(container)   // refresh n suffixes
         renderAll(container)
       })
       const swatch = document.createElement('span')
       swatch.style.cssText = `display:inline-block;width:14px;height:10px;background:${s.color};opacity:0.45;border:1.5px solid ${s.color};border-radius:2px;`
       const txt = document.createElement('span')
-      txt.textContent = s.label; txt.style.color = '#333'
+      const n = cohortN(s)
+      txt.innerHTML = __state.enabled[s.id]
+        ? `${s.label} <span style="color:${s.color};font-weight:700">· n=${n}</span>`
+        : s.label
+      txt.style.color = '#333'
       wrap.appendChild(cb); wrap.appendChild(swatch); wrap.appendChild(txt)
       row.appendChild(wrap)
     }
@@ -263,58 +275,141 @@ function drawChart(container, data, opts) {
     }
   }
 
-  // ---- 3. Big candidate centroids (ALWAYS shown) ----
-  for (const c of cands) {
-    const cx_ = x(c.x), cy_ = y(c.y)
-    g.append('circle').attr('cx', cx_).attr('cy', cy_).attr('r', 9).attr('fill', c.color).attr('stroke', '#fff').attr('stroke-width', 2)
-    const labelOffsetY = c.id === 'sanders' ? 26 : (c.id === 'clinton' || c.id === 'biden' || c.id === 'harris' ? -16 : 26)
-    g.append('text').attr('x', cx_).attr('y', cy_ + labelOffsetY).attr('text-anchor', 'middle')
-      .attr('font-size', '13px').attr('font-weight', '700').attr('fill', c.color).text(c.short)
+  // ---- 3 + 4. Markers with collision-avoidance label placement ----
+  //
+  // First pass: compute marker positions (candidate dots + cohort rings).
+  // Second pass: draw markers + connector lines.
+  // Third pass: place labels using collision avoidance against ALL markers
+  // and previously-placed labels.
+
+  // Estimate label box around a center point given text length + font size
+  function labelBox(cx, cy, text, fontSize) {
+    const w = text.length * fontSize * 0.55 + 6
+    const h = fontSize + 4
+    return { cx, cy, x1: cx - w/2, y1: cy - h/2, x2: cx + w/2, y2: cy + h/2, w, h }
+  }
+  function rectOverlap(a, b, pad = 2) {
+    return !(a.x2 + pad < b.x1 || a.x1 - pad > b.x2 || a.y2 + pad < b.y1 || a.y1 - pad > b.y2)
+  }
+  // Find a label position around an anchor that doesn't collide with any
+  // existing obstacle. Tries 16 angles × increasing radius.
+  function placeLabel(anchorX, anchorY, text, fontSize, obstacles) {
+    const w = text.length * fontSize * 0.55 + 6
+    const h = fontSize + 4
+    const N_ANGLES = 16
+    for (let dist = 14; dist <= 110; dist += 8) {
+      for (let i = 0; i < N_ANGLES; i++) {
+        // Bias toward NE / above first by starting near -π/2 and alternating
+        const a = -Math.PI/2 + (i % 2 === 0 ? 1 : -1) * Math.ceil(i/2) * (Math.PI * 2 / N_ANGLES)
+        const cx = anchorX + Math.cos(a) * dist
+        const cy = anchorY + Math.sin(a) * dist
+        const rect = { cx, cy, x1: cx - w/2, y1: cy - h/2, x2: cx + w/2, y2: cy + h/2, w, h }
+        if (rect.x1 < 4 || rect.x2 > innerW - 4) continue
+        if (rect.y1 < 4 || rect.y2 > innerH - 4) continue
+        let hit = false
+        for (const o of obstacles) {
+          if (rectOverlap(rect, o)) { hit = true; break }
+        }
+        if (!hit) return rect
+      }
+    }
+    // Fallback: directly above the anchor
+    return labelBox(anchorX, anchorY - 18, text, fontSize)
   }
 
-  // ---- 4. Per-scenario cohort centroid + capture pills ----
-  // For each active scenario, draw its cohort centroid ring.
-  // Capture pills near candidate dots are shown ONLY when exactly one
-  // scenario is active (to avoid the "whose pill is this?" ambiguity).
-  // When multiple scenarios are on, the user is comparing positions
-  // visually — the chart stays free of competing % labels.
-  const showCapturePills = activeScenarios.filter(s => s.has_capture).length === 1
+  // Compute cohort centroid positions first
+  const cohortMarkers = []
   for (const s of activeScenarios) {
     const inCohort = voters.filter(s.filter)
     if (inCohort.length === 0) continue
+    const ccx = x(weightedMean(inCohort, 'x'))
+    const ccy = y(weightedMean(inCohort, 'y'))
+    cohortMarkers.push({ s, ccx, ccy, n: inCohort.length, inCohort })
+  }
 
-    // Cohort centroid (weighted-mean x,y)
-    const ccx_v = weightedMean(inCohort, 'x')
-    const ccy_v = weightedMean(inCohort, 'y')
-    const ccx = x(ccx_v), ccy = y(ccy_v)
-    g.append('circle').attr('cx', ccx).attr('cy', ccy).attr('r', 7)
-      .attr('fill', '#fff').attr('stroke', s.color).attr('stroke-width', 2.4)
-    g.append('text').attr('x', ccx).attr('y', ccy - 10).attr('text-anchor', 'middle')
-      .attr('font-size', '10px').attr('font-weight', '700').attr('fill', s.color)
-      .text(`${s.label} · n=${inCohort.length}`)
+  // Build initial obstacle list: candidate dots (circle bboxes)
+  const obstacles = []
+  for (const c of cands) {
+    const cx_ = x(c.x), cy_ = y(c.y)
+    obstacles.push({ x1: cx_ - 11, y1: cy_ - 11, x2: cx_ + 11, y2: cy_ + 11 })
+  }
+  for (const m of cohortMarkers) {
+    obstacles.push({ x1: m.ccx - 9, y1: m.ccy - 9, x2: m.ccx + 9, y2: m.ccy + 9 })
+  }
 
-    if (!s.has_capture || !showCapturePills) continue
-
-    // Capture pills next to each general-election candidate
-    let totalW = 0
-    for (const v of inCohort) totalW += (v.w || 1)
-    if (totalW === 0) continue
-    for (const c of cands) {
-      if (c.id === 'sanders') continue   // primary-only, no general capture
-      let candW = 0
-      for (const v of inCohort) { if (v.v === c.id) candW += (v.w || 1) }
-      const pct = Math.round((candW / totalW) * 100)
-      const cx_ = x(c.x), cy_ = y(c.y)
-      const isLeft = c.x < 0
-      const baseX = isLeft ? cx_ - 38 : cx_ + 38
-      const baseY = cy_ - 22
-      const pillW = 44
-      g.append('rect').attr('x', baseX - pillW/2).attr('y', baseY - 9).attr('width', pillW).attr('height', 16)
-        .attr('rx', 3).attr('fill', '#fff').attr('stroke', s.color).attr('stroke-width', 1.4)
-      g.append('text').attr('x', baseX).attr('y', baseY + 4)
-        .attr('text-anchor', 'middle').attr('font-size', '11px')
-        .attr('font-weight', '800').attr('fill', s.color).text(`${pct}%`)
+  // ---- Capture pills (single-scenario only) ----
+  // Compute pill bboxes upfront so labels can avoid them.
+  const showCapturePills = activeScenarios.filter(s => s.has_capture).length === 1
+  const pillsToDraw = []
+  if (showCapturePills) {
+    const s = activeScenarios.find(s => s.has_capture)
+    if (s) {
+      const inCohort = voters.filter(s.filter)
+      let totalW = 0
+      for (const v of inCohort) totalW += (v.w || 1)
+      if (totalW > 0) {
+        for (const c of cands) {
+          if (c.id === 'sanders') continue
+          let candW = 0
+          for (const v of inCohort) { if (v.v === c.id) candW += (v.w || 1) }
+          const pct = Math.round((candW / totalW) * 100)
+          const cx_ = x(c.x), cy_ = y(c.y)
+          const isLeft = c.x < 0
+          const px = isLeft ? cx_ - 38 : cx_ + 38
+          const py = cy_ - 22
+          const pillW = 44, pillH = 16
+          const rect = { x1: px - pillW/2, y1: py - pillH/2, x2: px + pillW/2, y2: py + pillH/2 }
+          pillsToDraw.push({ rect, px, py, pct, color: s.color })
+          obstacles.push(rect)
+        }
+      }
     }
+  }
+
+  // ---- Draw cohort centroid rings + their lines/blobs already drawn ----
+  for (const m of cohortMarkers) {
+    g.append('circle').attr('cx', m.ccx).attr('cy', m.ccy).attr('r', 7)
+      .attr('fill', '#fff').attr('stroke', m.s.color).attr('stroke-width', 2.4)
+  }
+
+  // ---- Draw candidate dots ----
+  for (const c of cands) {
+    const cx_ = x(c.x), cy_ = y(c.y)
+    g.append('circle').attr('cx', cx_).attr('cy', cy_).attr('r', 9)
+      .attr('fill', c.color).attr('stroke', '#fff').attr('stroke-width', 2)
+  }
+
+  // ---- Place candidate labels (with collision avoidance) ----
+  const placedLabelBoxes = []
+  for (const c of cands) {
+    const cx_ = x(c.x), cy_ = y(c.y)
+    const lbl = placeLabel(cx_, cy_, c.short, 13, [...obstacles, ...placedLabelBoxes])
+    // Thin connector if pushed beyond 18px from the dot
+    const dx = lbl.cx - cx_, dy = lbl.cy - cy_
+    const dist = Math.sqrt(dx*dx + dy*dy)
+    if (dist > 22) {
+      g.append('line').attr('x1', cx_).attr('y1', cy_).attr('x2', lbl.cx).attr('y2', lbl.cy)
+        .attr('stroke', c.color).attr('stroke-opacity', 0.4).attr('stroke-width', 0.7)
+    }
+    g.append('text').attr('x', lbl.cx).attr('y', lbl.cy + 4).attr('text-anchor', 'middle')
+      .attr('font-size', '13px').attr('font-weight', '700').attr('fill', c.color).text(c.short)
+    placedLabelBoxes.push(lbl)
+  }
+
+  // Cohort labels deliberately NOT rendered on the chart. The n count is
+  // surfaced in the layer panel next to each scenario's checkbox; the
+  // ring color matches the panel swatch so you identify the cohort there.
+  // This trades on-chart density for a clean visual, since cohort rings
+  // often cluster in the same region.
+
+  // ---- Draw capture pills (now that labels are placed) ----
+  for (const p of pillsToDraw) {
+    g.append('rect').attr('x', p.rect.x1).attr('y', p.rect.y1)
+      .attr('width', p.rect.x2 - p.rect.x1).attr('height', p.rect.y2 - p.rect.y1)
+      .attr('rx', 3).attr('fill', '#fff').attr('stroke', p.color).attr('stroke-width', 1.4)
+    g.append('text').attr('x', p.px).attr('y', p.py + 4)
+      .attr('text-anchor', 'middle').attr('font-size', '11px')
+      .attr('font-weight', '800').attr('fill', p.color).text(`${p.pct}%`)
   }
 
   // ---- Axes ----
