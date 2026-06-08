@@ -52,10 +52,11 @@ const SCENARIOS = [
   { id: 'biden_pv',    label: 'Biden primary',       group: 'Primary',    color: COLOR_CLINTON_PV, filter: v => v.pv === 'biden',   dash: '3,2', has_capture: true, years: [2020] },
 ]
 
-// ---- Narrative presets ----
-// Each preset is a one-click configuration that tells a specific story.
-// Loading a preset sets the year, scope, enabled scenarios, and surfaces
-// a caption below the chart.
+// ---- Narrative presets (5 most impactful) ----
+// Trimmed from 10 to 5 — the ones that actually carry §17/§18 weight.
+// Each preset loads year + scope + scenarios + caption, and is reachable
+// either from the chart's preset bar OR from inline buttons embedded in
+// the prose (matching data-preset-id attribute).
 const PRESETS = [
   {
     id: 'p_2016_swing',
@@ -79,20 +80,6 @@ const PRESETS = [
     caption: "Sanders primary voters spread ACROSS the ideology spectrum (even into the conservative side) but cluster LOW on institutional trust. Clinton primary voters cluster on the left ideologically but reach HIGHER on trust. Sanders had broader ideological appeal; Clinton had higher-trust depth.",
   },
   {
-    id: 'p_2020_swing',
-    label: '2020 · Swing (national)',
-    year: 2020, scope: 'national',
-    enabled: ['swing'],
-    caption: 'Biden and Trump are roughly equidistant from the swing centroid in 2020 — Biden a hair closer. The "gravity field" shape suggests both candidates were competitive for this cohort.',
-  },
-  {
-    id: 'p_2020_activated',
-    label: '2020 · Activated (national)',
-    year: 2020, scope: 'national',
-    enabled: ['activated'],
-    caption: 'New 2020 voters who skipped 2016. Biden sits clearly closer to their centroid than Trump. The activation lever favored Biden — consistent with the turnout edge that put him over.',
-  },
-  {
     id: 'p_2024_swing',
     label: '2024 · Swing (national)',
     year: 2024, scope: 'national',
@@ -100,32 +87,11 @@ const PRESETS = [
     caption: 'Swing voters span the full institutional-trust range but concentrate LOW. Trump sits inside that swing-voter field; Harris is far outside it. Identity proximity ran sharply against Harris.',
   },
   {
-    id: 'p_2024_activated',
-    label: '2024 · Activated (national)',
-    year: 2024, scope: 'national',
-    enabled: ['activated'],
-    caption: '2024 activated voters split into TWO masses: one near ideology=0, one further right. Trump splits the difference; Harris is far from both. The activation cohort itself is bimodal in 2024 — different from 2016 / 2020.',
-  },
-  {
-    id: 'p_2024_independents',
-    label: '2024 · Independents (national)',
-    year: 2024, scope: 'national',
-    enabled: ['ind'],
-    caption: 'Pure independents in 2024. Trump nearly equidistant from their centroid; Harris noticeably farther. Independents are closer to where Trump\'s base sits than where Harris\'s does.',
-  },
-  {
-    id: 'p_2024_swing_ss',
-    label: '2024 · Swing (swing states only)',
-    year: 2024, scope: 'swing',
-    enabled: ['swing'],
-    caption: 'Swing voters within the seven swing states only. Even narrower sample (n≈48) but same pattern: Trump inside the field, Harris outside. The capture lever ran the same direction even in the cycles that mattered for the EC.',
-  },
-  {
     id: 'p_2024_activated_ss',
-    label: '2024 · Activated (swing states only)',
+    label: '2024 · Activated (swing states)',
     year: 2024, scope: 'swing',
     enabled: ['activated'],
-    caption: 'Activated voters in the seven swing states. Trump\'s distance to their centroid is the SHORTEST in the entire dataset (d≈0.27). His swing-state activation edge is the cleanest spatial-voting confirmation across all cycles.',
+    caption: "Activated voters in the seven swing states. Trump's distance to their centroid is the SHORTEST in the entire dataset (d≈0.27). His swing-state activation edge is the cleanest spatial-voting confirmation across all cycles — and where the 2024 EC was decided.",
   },
 ]
 
@@ -192,6 +158,31 @@ export function mountVoterMapTabbed(selector, dataByYear) {
   rebuildPresetBar(container)
   rebuildScenarioPanel(container)
   renderAll(container)
+
+  // Wire inline preset buttons embedded in prose (data-preset-id="p_...")
+  // Click → scroll to figure → load preset → flash highlight.
+  for (const btn of document.querySelectorAll('[data-preset-id]')) {
+    if (btn.__vmWired) continue
+    btn.__vmWired = true
+    btn.addEventListener('click', (e) => {
+      e.preventDefault()
+      const presetId = btn.getAttribute('data-preset-id')
+      const preset = PRESETS.find(p => p.id === presetId)
+      if (!preset) return
+      // Scroll to figure, then load preset (so user sees the transition)
+      container.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      setTimeout(() => {
+        loadPreset(container, preset)
+        // Brief highlight flash
+        const chartWrap = container.querySelector('.vm-chart-wrap')
+        if (chartWrap) {
+          chartWrap.style.transition = 'box-shadow 0.4s ease'
+          chartWrap.style.boxShadow = '0 0 0 4px #d8c26a'
+          setTimeout(() => { chartWrap.style.boxShadow = '' }, 1200)
+        }
+      }, 350)
+    })
+  }
 }
 
 function rebuildPresetBar(container) {
