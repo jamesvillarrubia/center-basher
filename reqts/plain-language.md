@@ -217,7 +217,7 @@ Here's the catch. On the GOP side in 2016 the pattern *flips*: **System Critics 
 ### 8 · "Authenticity" depends on who's looking
 Here's the surprising part. Whether a candidate seems **honest** and like they **care about people like you** isn't a fixed fact about the candidate. It depends on the voter.[1]
 
-In 2016, System Critics saw Trump as the honest one and Clinton as the phony. System Believers saw the exact opposite. Same two humans — judgment completely flipped.[2]
+In 2016, System Critics saw Trump as the honest one and Clinton as the phony. System Believers saw the exact opposite. Same two candidates — judgment completely flipped.[2]
 
 You don't get "authentic" by being authentic in the abstract. You get it by being **close to where the voter already stands** on trust. System Critics read anti-establishment candidates as authentic; System Believers read establishment ones the same way. **Alignment** between voter and candidate is what reads as real. And we can watch the switch flip on, off, and on again across three elections.
 
