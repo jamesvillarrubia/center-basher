@@ -689,6 +689,24 @@ figcaption {
   color: var(--accent);
 }
 
+/* Flag tag — letter label inside flagged cells (and inline in figcaption /
+   body prose). Visually distinct from <sup>N</sup> footnote markers so the
+   buried-assumption labels (A/B/C) don't read like footnotes. */
+.flag-tag {
+  display: inline-block;
+  font: 700 10px/1 -apple-system, "Helvetica Neue", sans-serif;
+  background: var(--accent);
+  color: #fff;
+  padding: 2px 5px 2px;
+  margin-right: 4px;
+  border-radius: 3px;
+  vertical-align: 1px;
+  letter-spacing: 0.04em;
+}
+.flag-tag--inline {
+  margin: 0 1px;
+}
+
 .ninebox-pair {
   display: grid;
   grid-template-columns: 1fr 1fr;
