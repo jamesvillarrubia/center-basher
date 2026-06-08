@@ -103,18 +103,18 @@ async function init() {
   drawTrustTurnout('#fig-16d-svg', ttData)
   // §18 — Switcher cohort gap (VSG panel)
   const scData = await (await fetch(`data/switcher_cohort_vsg.json?v=${Date.now()}`, {cache: 'no-store'})).json()
-  drawSwitcherCohort('#fig-18a-svg', scData)
+  drawSwitcherCohort('#fig-19a-svg', scData)
   // §18 Figure A — tabbed multi-year voter map (2016 / 2020 / 2024 × national / swing-state)
   const [vm16, vm20, vm24] = await Promise.all([
     fetch(`data/voter_map_2016.json?v=${Date.now()}`, {cache: 'no-store'}).then(r => r.json()),
     fetch(`data/voter_map_2020.json?v=${Date.now()}`, {cache: 'no-store'}).then(r => r.json()),
     fetch(`data/voter_map_2024.json?v=${Date.now()}`, {cache: 'no-store'}).then(r => r.json()),
   ])
-  mountVoterMapTabbed('#fig-18b-mount', { 2016: vm16, 2020: vm20, 2024: vm24 })
+  mountVoterMapTabbed('#fig-19b-mount', { 2016: vm16, 2020: vm20, 2024: vm24 })
   // §18 Figure C — per-state defection bars (port of v1 chartConsolidation)
-  drawDefectionBars('#fig-18c-svg')
+  drawDefectionBars('#fig-19c-svg')
   // §18 Figure D — coalition × moveable mass (port of v1 chartGravity)
-  drawGravityOverlap('#fig-18d-svg')
+  drawGravityOverlap('#fig-19d-svg')
   // Figures E (VSG within-cycle), F (Nationscape cross-check), G (3-cycle trajectory)
   // are CUT from the page render per user feedback (June 2026 review).
   // The underlying JS modules and data files are kept on disk.

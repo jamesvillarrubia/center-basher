@@ -488,7 +488,9 @@ Putting these together, three things compound to produce a presidential outcome.
 
 The numbers compound in order. A regime that favors D by 7 + a well-fit D candidate at +2 − 1 bad cycle of campaign events = D wins by 8. A regime that favors D by 1 + a *misfit* D candidate at −2 + neutral campaign events = D loses by 1, the Republican wins narrowly. That's 2020 versus 2024 in a single line of arithmetic.
 
-#### What this means for "electability"
+<!-- < CLAUDE: §17 was too long per user direction (2026-06-08); split this section out at the 'electability' subsection so the metrics + selection-mechanism material lives in its own §18. Renumbered §18→§19 in cross-refs. > -->
+
+### 18 · What this means for "electability"
 
 The pundit-class question — *"is this candidate electable?"* — is malformed. A candidate is not electable in the abstract. They are electable **conditional on a regime**. Hillary Clinton was a plausible nominee against, say, Jeb Bush in a high-trust election. She was structurally unelectable as the maximum-insider candidate in a low-trust anti-establishment regime. Same candidate, same résumé, two different regimes, two different verdicts. Kamala Harris as a governor with no DC ties was a plausible 2024 challenger. Kamala Harris as Joe Biden's vice president inherited 100% of his regime-mismatch baggage. Same person, different positioning.
 
@@ -517,9 +519,9 @@ These four metrics aren't novel — campaigns track them internally because they
 
 The prescription for political journalism is simple. Stop leading with endorsement count, dollar fundraising totals, and party-elder polling. Lead with: **unique donor count, first-time donor percentage, cross-coalition donor count, swing-state donor geography**. A press class that reports these four numbers will surface regime-fit candidates regardless of which faction of the party they come from. A press class that doesn't will keep crowning regime-misfit nominees and being surprised when the model the §16 scoreboard describes does what it has done in twelve consecutive cycles.
 
-§18 documents who specifically decided 2016 and 2024 — and confirms they were exactly the cohort the model predicts.
+§19 documents who specifically decided 2016 and 2024 — and confirms they were exactly the cohort the model predicts.
 
-### 18 · What actually happened in 2016 (and 2024)
+### 19 · What actually happened in 2016 (and 2024)
 2016 wasn't a story of Clinton failing to win over moderate Republicans. It also wasn't a story of her failing to hold voters who were ever really hers. The Sanders primary voters who flipped to Trump — or stayed home — were **never structurally Democratic**. They were swing-state Critics (§16) whose temporary entry into the Democratic primary was conditional on the Democratic candidate being one of them. Sanders was. When the nominating process took the regime-fit candidate off the table, those voters reverted to their structural state: anti-establishment voters in swing states picking the more authentic-coded candidate, or — when neither remaining option counted as authentic — not voting at all. Clinton couldn't have held them by campaigning harder, attacking smarter, or moving on any policy axis. They were never hers to lose.
 
 The state-by-state arithmetic — vote-validated by TargetSmart-merged CES 2016 — quantifies what that structural mismatch looked like at the level of actual votes:[1]
@@ -543,9 +545,9 @@ The switchers weren't conservatives who got talked rightward. They were anti-est
 
 ## PART VI — The payoff
 
-### 19 · The centrist's bad trade — robbing your own camp
+### 20 · The centrist's bad trade — robbing your own camp
 
-§18 documented **who** decided the last two cycles. The cross-cycle data (§15, §16) explains **why** establishment Dems keep losing. This section explains **why campaigns keep making the move anyway**: the data on swing voters, read naively, sets a logical trap.
+§19 documented **who** decided the last two cycles. The cross-cycle data (§15, §16) explains **why** establishment Dems keep losing. This section explains **why campaigns keep making the move anyway**: the data on swing voters, read naively, sets a logical trap.
 
 Imagine you're planning a 2028 presidential campaign. In the war room, you pull up ANES data on swing voters. Two definitions need separating cleanly. **Self-declared moderates** are voters who put themselves at positions 3–5 on ANES's 7-point liberal-conservative scale — about **20% of the electorate**. **Swing voters** are voters who didn't vote for the candidate their pre-election party ID predicted — *behavioral*, not self-reported.[1]
 
@@ -565,7 +567,7 @@ That's the trap. The mass in the middle is real, but it's the **most expensive, 
 [2] The lean-left swing bucket (lib-con = 3, defected from Clinton) has the **lowest mean trust of any subgroup measured: 0.17** (3-item trust index, scale 0-1). This compares to the moderate-swing mean of 0.22 and the strong-left non-defector mean of 0.27. The lean-left swing is the *causal target* of the "bad trade" claim: a centrist move (which appeals to the moderate swing's trust position by accident, not policy alignment) actively *increases distance* from the lean-left swing's trust position. The trade-off is *empirical*, not rhetorical.
 [3] Honest caveat on the bad-trade claim: this is *cross-sectional*, not a panel test. The strongest version ("a centrist move *causes* lean-left swing defection") would need (a) a panel measuring lean-left swing intention before and after candidate positioning shifts, or (b) a natural experiment. We have neither. What we have is the *distance argument* — that the centrist position is structurally farther from the lean-left swing's measured trust position than from the moderate swing's — and the *behavioral pattern* (the 2016 Sanders→Trump arithmetic in §18). Together these are suggestive, not conclusive.
 
-### 20 · So what — and why this matters for progressives
+### 21 · So what — and why this matters for progressives
 Put it together and the famous "move to the center to be electable" advice fails three different ways at once:
 - the **center you're chasing barely exists** (about 1 in 8 voters, and they don't even agree with each other);
 - you **can't move turnout with policy** anyway;
