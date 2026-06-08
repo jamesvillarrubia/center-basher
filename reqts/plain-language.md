@@ -41,7 +41,7 @@ Let us start with one fact that explains a shocking amount of American politics:
 [3] The decline is broad but party-of-president-reactive (the in-party trusts more). Republican mean trust 47% (Bush II average) → 13% (Obama average, lowest recorded for either party); Democrats 16% (Bush II) → 29% (Obama). Pew, *Beyond Distrust* (2015). This is the confound that makes a single 2016 cross-section conflate "low trust" with "Republican" — netted out in §15.
 
 ### 1 · The conventional wisdom — "win the middle"
-Despite this ocean of distrust, almost every campaign consultant believes the same thing: there's a big bloc of gettable, **moderate** voters sitting in the middle, and if you soften your positions to win them over, you win. *"Don't scare the moderates."* *"Move to the center."* The advice is so widespread that nobody checks whether it's true.[1] So we checked.
+Despite this ocean of distrust, almost every campaign consultant believes the same thing about policy positions: there's a big bloc of gettable, **moderate** voters sitting in the middle, and if you soften your positions to win them over, you win. *"Don't scare the moderates."* *"Move to the center."* The advice is so widespread that nobody checks whether it's true.[1] So we checked.
 
 Turns out **moderate**, **centrist**, and **swing voter** aren't even the same group of people.[2] But the strategy textbook treats them like one bloc. Whoops.
 
