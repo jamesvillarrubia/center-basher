@@ -1954,6 +1954,18 @@ blockquote.correction strong {
   margin: 0 0 0.85rem;
 }
 .cls-headline strong { color: var(--ink); }
+/* Footer: explanatory text below the table. Match figcaption size so the
+   two italic explanatory paragraphs that sit next to each other read at
+   the same weight. (Set font-size separately from font shorthand — the
+   shorthand was computing 0.85rem against 16px instead of the html 17px.) */
+.cls-foot {
+  font-family: "Iowan Old Style", Charter, Georgia, serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0.75rem 0 0;
+}
 .cls-table {
   width: 100%;
   border-collapse: collapse;
@@ -2058,11 +2070,8 @@ blockquote.correction strong {
   text-align: center;
 }
 .cls-mixed .cls-outcome { color: #e9a52e; }
-.cls-foot {
-  font: italic 0.8rem/1.45 "Iowan Old Style", Georgia, serif;
-  color: var(--ink-faint);
-  margin: 0.65rem 0 0;
-}
+/* (.cls-foot defined earlier — duplicate removed 2026-06-08 since it was
+   overriding the consistency fix and computing 0.8rem instead of 0.85rem.) */
 
 /* §16b — economy puzzle */
 .ep-chart .ep-title {

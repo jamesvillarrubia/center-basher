@@ -221,7 +221,7 @@ export function drawChangeLaneScoreboard(selector) {
         </thead>
         <tbody>${rows}</tbody>
       </table>
-      <p class="cls-foot" style="font-size:12px;color:#666;margin-top:0.6rem;font-style:italic;">
+      <p class="cls-foot">
         "Trust era" buckets the mean trust composite that cycle: <strong>high</strong> ≥ 0.42,
         <strong>mid</strong> 0.36–0.41, <strong>mid-low / low</strong> &lt; 0.36. "Regime favors"
         is the frame the electorate rewarded in cycles of that era. "Continuity vs Change" lists
