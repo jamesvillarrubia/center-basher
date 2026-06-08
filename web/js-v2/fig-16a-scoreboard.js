@@ -175,7 +175,6 @@ export function drawChangeLaneScoreboard(selector) {
     // Trust era color
     const trustColor = c.trust.era === 'high' ? '#a06400'
       : c.trust.era.startsWith('mid') ? '#888' : '#2a6a3a'
-    // Winner-frame label (italic, smaller, inline with winner chip)
     const ranAs = c.winner.split ? 'split' : c.winner.ran
     rows += `
       <tr>
@@ -186,10 +185,12 @@ export function drawChangeLaneScoreboard(selector) {
         </td>
         <td class="cls-regime">${chip(regimeColor, c.regimeFavors)}</td>
         <td class="cls-pair">
-          ${chip(c.continuity.color, c.continuity.name)}<span class="cls-vs">vs</span>${chip(c.change.color, c.change.name)}
+          ${chip(c.continuity.color, c.continuity.name)}
+          ${chip(c.change.color, c.change.name)}
         </td>
         <td class="cls-winner">
-          ${chip(c.winner.color, c.winner.name + (c.winner.note ? ' (' + c.winner.note + ')' : ''))}<span class="cls-ranas">ran ${ranAs}</span>
+          ${chip(c.winner.color, c.winner.name + (c.winner.note ? ' (' + c.winner.note + ')' : ''))}
+          <span class="cls-ranas">ran ${ranAs}</span>
         </td>
         <td class="cls-match">${matchCell}</td>
         <td class="cls-note">${c.backing}</td>

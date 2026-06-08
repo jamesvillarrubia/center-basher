@@ -1977,23 +1977,25 @@ blockquote.correction strong {
    nowrap content, the rest is tight. The earlier 'width: 1%; nowrap' trick
    accidentally squeezed backing because the browser couldn't allocate
    leftover space to nowrap cells. */
-/* With table-layout: fixed, these column widths are enforced. */
-.cls-table th:nth-child(1), .cls-table td:nth-child(1) { width: 5%;  text-align: center; }   /* cycle */
-.cls-table th:nth-child(2), .cls-table td:nth-child(2) { width: 8%;  text-align: center; }   /* trust */
-.cls-table th:nth-child(3), .cls-table td:nth-child(3) { width: 8%;  text-align: center; }   /* regime */
-.cls-table th:nth-child(4), .cls-table td:nth-child(4) { width: 19%; }                       /* cont vs change */
-.cls-table th:nth-child(5), .cls-table td:nth-child(5) { width: 16%; }                       /* winner */
-.cls-table th:nth-child(6), .cls-table td:nth-child(6) { width: 4%;  text-align: center; }   /* match */
-.cls-table th:nth-child(7), .cls-table td:nth-child(7) { width: 40%; }                       /* backing */
+/* table-layout: fixed enforces these widths. Targeted at a 629px container.
+   Pair + Winner cells stack their chips vertically (2 lines tight) because
+   a single line of 'Carter (inc) vs Reagan' doesn't fit at this width. */
+.cls-table th:nth-child(1), .cls-table td:nth-child(1) { width: 8%;  text-align: center; }   /* cycle ~50px */
+.cls-table th:nth-child(2), .cls-table td:nth-child(2) { width: 11%; text-align: center; }   /* trust ~70px */
+.cls-table th:nth-child(3), .cls-table td:nth-child(3) { width: 13%; text-align: center; }   /* regime ~82px */
+.cls-table th:nth-child(4), .cls-table td:nth-child(4) { width: 17%; }                       /* cont vs change ~107px (stacked chips) */
+.cls-table th:nth-child(5), .cls-table td:nth-child(5) { width: 14%; }                       /* winner ~88px (chip + ran X stacked) */
+.cls-table th:nth-child(6), .cls-table td:nth-child(6) { width: 4%;  text-align: center; }   /* match ~25px */
+.cls-table th:nth-child(7), .cls-table td:nth-child(7) { width: 33%; }                       /* backing ~208px */
 .cls-table th {
   font: 700 10px/1.2 -apple-system, "Helvetica Neue", sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--ink-faint);
   text-align: left;
-  padding: 5px 6px;
+  padding: 5px 4px;
   border-bottom: 2px solid var(--ink);
-  white-space: nowrap;
+  /* Header text wraps if column is narrow — avoids 'CYCLETRUST' collisions */
 }
 .cls-table td {
   padding: 4px 6px;
@@ -2017,21 +2019,25 @@ blockquote.correction strong {
   font-variant-numeric: tabular-nums;
 }
 .cls-table .cls-regime { text-align: center; }
+/* Pair cell: stacked chips, tight vertical rhythm */
 .cls-table .cls-pair {
-  /* width controlled at column level */
+  line-height: 1.5;
 }
-.cls-table .cls-pair .cls-vs {
-  margin: 0 6px;
-  color: var(--ink-faint);
-  font-style: italic;
-  font-size: 10.5px;
+.cls-table .cls-pair .cls-chip {
+  display: inline-block;
+  margin-bottom: 2px;
 }
+.cls-table .cls-pair .cls-chip:last-child {
+  margin-bottom: 0;
+}
+/* Winner cell: chip on first line, 'ran X' label small below */
 .cls-table .cls-winner {
-  /* width controlled at column level */
+  line-height: 1.4;
 }
 .cls-table .cls-winner .cls-ranas {
-  margin-left: 6px;
-  font: italic 10.5px/1 "Iowan Old Style", Georgia, serif;
+  display: block;
+  margin-top: 2px;
+  font: italic 10.5px/1.1 "Iowan Old Style", Georgia, serif;
   color: #888;
 }
 .cls-table .cls-match {
