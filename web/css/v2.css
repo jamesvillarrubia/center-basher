@@ -34,15 +34,19 @@ html, body {
 }
 
 /* === Body-prose text scale ==========================================
-   Explicit so paragraphs don't drift through the cascade. Four levels:
+   Explicit so paragraphs don't drift through the cascade.
 
-   1. Body  →  <p>, <li> (no class)                           1rem    (17px)
-   2. Lede  →  <p class="lede"> (section-opening framing)     1.15rem (19.55px)
-   3. Aside →  <p class="aside">, <figcaption>                0.85rem (14.45px)
-   4. Meta  →  .seclabel, .picker-label, .cls-foot, etc.      0.75rem (12px)
+   1. Body / Lede →  <p>, <p class="lede">, <li>              1rem    (17px)
+                     Lede + body render at the SAME size per user
+                     direction 2026-06-08. The .lede class still marks
+                     section-opening framing prose via a yellow strong-
+                     highlight and a slightly wider bottom margin; the
+                     font-size is no longer distinct.
+   2. Aside       →  <p class="aside">, <figcaption>          0.85rem (14.45px)
+   3. Meta        →  .seclabel, .picker-label, .cls-foot, etc. 0.75rem (12px)
 
-   Rules below set 1-3. Meta-scale labels keep their own class definitions
-   further down the stylesheet (.seclabel, .picker-label, etc.).
+   Rules below set the body scale; class-based labels keep their own
+   class definitions further down the stylesheet.
    ==================================================================== */
 
 /* (1) Body — explicit default. Wrapped in :where() so the selector has
@@ -120,8 +124,13 @@ html, body {
   letter-spacing: -0.005em;
 }
 
+/* Lede paragraphs render at body size per user direction 2026-06-08
+   ('I don't like that LEDE paragraphs and normal ones have different
+   sizes. Stop that.'). The class still distinguishes opening framing
+   prose via the yellow strong-highlight + a slightly wider bottom
+   margin; only the font-size no longer differs. */
 .lede {
-  font-size: 1.15rem;
+  font-size: 1rem;
   line-height: 1.55;
   margin: 0 0 2rem;
 }
@@ -130,9 +139,9 @@ html, body {
   padding: 0 2px;
 }
 
-/* Bulleted list at lede weight (used for findings lists inside body) */
+/* Bulleted list inside body (matches body size, used for findings lists) */
 .lede-list {
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.55;
   margin: 0 0 2rem;
   padding-left: 1.6rem;
