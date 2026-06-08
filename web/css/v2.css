@@ -1959,16 +1959,20 @@ blockquote.correction strong {
   border-collapse: collapse;
   font-size: 0.82rem;
   line-height: 1.35;
-  table-layout: auto;
+  table-layout: fixed;   /* respect explicit column widths so backing gets its share */
 }
-/* Width hints — backing should soak the leftover space; others stay tight */
-.cls-table th:nth-child(1), .cls-table td:nth-child(1) { width: 5%; }   /* cycle */
-.cls-table th:nth-child(2), .cls-table td:nth-child(2) { width: 8%; }   /* trust */
-.cls-table th:nth-child(3), .cls-table td:nth-child(3) { width: 9%; }   /* regime */
-.cls-table th:nth-child(4), .cls-table td:nth-child(4) { width: 1%; white-space: nowrap; } /* pair — shrink to content */
-.cls-table th:nth-child(5), .cls-table td:nth-child(5) { width: 1%; white-space: nowrap; } /* winner — shrink to content */
-.cls-table th:nth-child(6), .cls-table td:nth-child(6) { width: 3%; }   /* match */
-.cls-table th:nth-child(7), .cls-table td:nth-child(7) { width: auto; } /* backing — fills the rest */
+/* Width hints — backing gets ~30% explicitly, pair/winner shrink to their
+   nowrap content, the rest is tight. The earlier 'width: 1%; nowrap' trick
+   accidentally squeezed backing because the browser couldn't allocate
+   leftover space to nowrap cells. */
+/* With table-layout: fixed, these column widths are enforced. */
+.cls-table th:nth-child(1), .cls-table td:nth-child(1) { width: 5%;  text-align: center; }   /* cycle */
+.cls-table th:nth-child(2), .cls-table td:nth-child(2) { width: 8%;  text-align: center; }   /* trust */
+.cls-table th:nth-child(3), .cls-table td:nth-child(3) { width: 8%;  text-align: center; }   /* regime */
+.cls-table th:nth-child(4), .cls-table td:nth-child(4) { width: 19%; }                       /* cont vs change */
+.cls-table th:nth-child(5), .cls-table td:nth-child(5) { width: 16%; }                       /* winner */
+.cls-table th:nth-child(6), .cls-table td:nth-child(6) { width: 4%;  text-align: center; }   /* match */
+.cls-table th:nth-child(7), .cls-table td:nth-child(7) { width: 40%; }                       /* backing */
 .cls-table th {
   font: 700 10px/1.2 -apple-system, "Helvetica Neue", sans-serif;
   text-transform: uppercase;
