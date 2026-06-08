@@ -52,7 +52,7 @@ Turns out **moderate**, **centrist**, and **swing voter** aren't even the same g
 
 ### 2 · The center is a lie
 
-The electability pitch imagines a courtable policy middle: voters who hold moderate views on the actual issues, waiting for a moderate candidate. Walk the funnel and that bloc all but vanishes.
+If swing, moderate, and centrist are different groups, where does this confusion come from? Well, the electability pitch imagines a courtable policy middle: voters who hold moderate views on the actual issues, waiting for a moderate candidate. Walk the funnel and that bloc all but vanishes.
 
 Start with 100 American voters.
 
