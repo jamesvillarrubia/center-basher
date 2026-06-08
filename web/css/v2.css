@@ -33,6 +33,46 @@ html, body {
   padding: 4rem 1.5rem 8rem;
 }
 
+/* === Body-prose text scale ==========================================
+   Explicit so paragraphs don't drift through the cascade. Four levels:
+
+   1. Body  →  <p>, <li> (no class)                           1rem    (17px)
+   2. Lede  →  <p class="lede"> (section-opening framing)     1.15rem (19.55px)
+   3. Aside →  <p class="aside">, <figcaption>                0.85rem (14.45px)
+   4. Meta  →  .seclabel, .picker-label, .cls-foot, etc.      0.75rem (12px)
+
+   Rules below set 1-3. Meta-scale labels keep their own class definitions
+   further down the stylesheet (.seclabel, .picker-label, etc.).
+   ==================================================================== */
+
+/* (1) Body — explicit default. Wrapped in :where() so the selector has
+       specificity (0,0,1) — same as a bare `p` — letting any class-based
+       label rule (.seclabel, .picker-label, .cls-foot, .cls-headline,
+       .lede, etc., specificity 0,1,0) win automatically. */
+:where(.essay) p,
+:where(.essay) li {
+  font-family: "Iowan Old Style", Charter, Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.55;
+  margin: 0 0 1.5rem;
+}
+:where(.essay) li {
+  margin-bottom: 0.5rem;
+}
+:where(.essay) p:last-child,
+:where(.essay) li:last-child {
+  margin-bottom: 0;
+}
+
+/* (3) Aside — small italic explanatory text in body prose. Same scale
+       as figcaption so the two read as one voice. */
+.essay p.aside {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
 .masthead {
   padding: 4.5rem 0 3.5rem;
   margin-bottom: 0;            /* parthead's top rule serves as the divider */
