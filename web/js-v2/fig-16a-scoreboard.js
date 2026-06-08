@@ -140,7 +140,7 @@ const CYCLES = [
 function chip(color, text, opts = {}) {
   const weight = opts.weight || 700
   const bg = `${color}1a`
-  return `<span style="display:inline-block;padding:2px 8px;border-radius:3px;background:${bg};color:${color};font-weight:${weight};">${text}</span>`
+  return `<span class="cls-chip" style="background:${bg};color:${color};font-weight:${weight};">${text}</span>`
 }
 
 export function drawChangeLaneScoreboard(selector) {
@@ -172,26 +172,27 @@ export function drawChangeLaneScoreboard(selector) {
         : `<span style="font-weight:700;color:#b8240f;font-size:16px;">✗</span>`
     }
 
+    // Trust era color
+    const trustColor = c.trust.era === 'high' ? '#a06400'
+      : c.trust.era.startsWith('mid') ? '#888' : '#2a6a3a'
+    // Winner-frame label (italic, smaller, inline with winner chip)
+    const ranAs = c.winner.split ? 'split' : c.winner.ran
     rows += `
       <tr>
-        <td style="text-align:center;font-variant-numeric:tabular-nums;">${c.year}</td>
-        <td style="text-align:center;font-size:11.5px;">
-          <span style="font-weight:600;color:${c.trust.era === 'high' ? '#a06400' : c.trust.era.startsWith('mid') ? '#666' : '#2a6a3a'};">${c.trust.era}</span>
-          <span style="display:block;font-size:10.5px;color:#888;">${c.trust.value.toFixed(2)}</span>
+        <td class="cls-cycle">${c.year}</td>
+        <td class="cls-trust">
+          <span style="color:${trustColor};font-weight:600;">${c.trust.era}</span>
+          <span class="cls-trust-val">${c.trust.value.toFixed(2)}</span>
         </td>
-        <td style="text-align:center;">${chip(regimeColor, c.regimeFavors)}</td>
-        <td style="text-align:left;font-size:12.5px;">
-          <span style="color:#888;font-size:10.5px;">cont:</span> ${chip(c.continuity.color, c.continuity.name)}<br>
-          <span style="color:#888;font-size:10.5px;">change:</span> ${chip(c.change.color, c.change.name)}
+        <td class="cls-regime">${chip(regimeColor, c.regimeFavors)}</td>
+        <td class="cls-pair">
+          ${chip(c.continuity.color, c.continuity.name)}<span class="cls-vs">vs</span>${chip(c.change.color, c.change.name)}
         </td>
-        <td style="text-align:left;">
-          ${chip(c.winner.color, c.winner.name + (c.winner.note ? ' (' + c.winner.note + ')' : ''))}
-          <span style="display:block;font-size:10.5px;color:#666;font-style:italic;margin-top:2px;">
-            ran as ${c.winner.split ? 'split (see note)' : c.winner.ran}
-          </span>
+        <td class="cls-winner">
+          ${chip(c.winner.color, c.winner.name + (c.winner.note ? ' (' + c.winner.note + ')' : ''))}<span class="cls-ranas">ran ${ranAs}</span>
         </td>
-        <td style="text-align:center;">${matchCell}</td>
-        <td class="cls-note" style="font-size:12px;color:#444;">${c.backing}</td>
+        <td class="cls-match">${matchCell}</td>
+        <td class="cls-note">${c.backing}</td>
       </tr>`
   }
 
@@ -206,16 +207,16 @@ export function drawChangeLaneScoreboard(selector) {
         <strong>${pvHits} of ${CYCLES.length} cycles by popular vote</strong>
         — 2000 is the EC inversion (PV went continuity, EC went change).
       </p>
-      <table class="cls-table" style="font-size:13.5px;width:100%;border-collapse:collapse;">
+      <table class="cls-table">
         <thead>
-          <tr style="border-bottom:2px solid #1b1b1d;">
-            <th style="text-align:center;padding:8px 4px;">Cycle</th>
-            <th style="text-align:center;padding:8px 4px;">Trust</th>
-            <th style="text-align:center;padding:8px 4px;">Regime favors</th>
-            <th style="text-align:left;padding:8px 4px;">Continuity vs Change</th>
-            <th style="text-align:left;padding:8px 4px;">Winner</th>
-            <th style="text-align:center;padding:8px 4px;">Match</th>
-            <th style="text-align:left;padding:8px 4px;">Backing</th>
+          <tr>
+            <th>Cycle</th>
+            <th>Trust</th>
+            <th>Regime</th>
+            <th>Continuity vs Change</th>
+            <th>Winner</th>
+            <th>M</th>
+            <th>Backing</th>
           </tr>
         </thead>
         <tbody>${rows}</tbody>
