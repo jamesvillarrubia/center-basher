@@ -500,6 +500,46 @@
       </figcaption>
     </figure>
 
+    <p>
+      It’s a useful grid. But it hides three assumptions that turn out to be wrong:
+    </p>
+
+    <ol class="lede-list">
+      <li>
+        <strong>The “persuadable” voter sits in the political middle.</strong>
+        <a href="#sec-3" class="secref">§3</a> said no: the voters genuinely up for grabs span
+        the whole spectrum — left, right, and middle. This matters because the grid’s
+        middle-of-the-spectrum framing is what makes <em>“move to the center”</em> feel like
+        the natural strategy for winning them. If persuadables aren’t actually in the middle,
+        then moving toward the middle isn’t moving toward them.
+        <em>Persuadable is not moderate is not centrist is not swing.</em>
+      </li>
+      <li>
+        <strong>Voters who lean your way but don’t show up are loyal but lazy.</strong>
+        Often they’re not. They’re <strong>disaffected</strong>. They don’t vote
+        <em>because</em> they don’t trust your candidate, and a louder push from that
+        candidate makes it worse. The grid sees <em>who</em> doesn’t show up, not
+        <em>why</em>, and that blind spot has a measurable cost: a campaign that follows the
+        grid can spend real money on door-knocks that produce votes for the opponent.<a href="#fn-5-2" class="fnref" id="fnref-5-2"><sup>11</sup></a>
+      </li>
+      <li>
+        <strong>Persuasion and turnout are independent moves.</strong>
+        They aren’t. The grid plans them in separate columns, so the question <em>“what does
+        this persuasion move cost me on the turnout side?”</em> never gets asked. A
+        <em>“safe, electable”</em> pitch designed to win persuadables can simultaneously
+        dampen turnout among disaffected supporters who needed inspiration to show up. The
+        trade-off is real; the grid just hides it.<a href="#fn-5-3" class="fnref" id="fnref-5-3"><sup>12</sup></a>
+      </li>
+    </ol>
+
+    <p>
+      Figure B is the same nine cells with the three buried assumptions marked. Two cells —
+      the entire persuadable column — get flagged for assumption ¹ (no coherent middle). The
+      low-propensity lean-D cell gets flagged for assumption ² (the hidden defection risk).
+      The low-propensity persuadable cell — already the hardest box — gets flagged for ³
+      (interaction between persuasion and turnout moves).
+    </p>
+
     <figure class="fig" id="fig-5b">
       <p class="picker-label">Figure B — What’s actually there</p>
       <div class="ninebox">
@@ -532,11 +572,20 @@
         The same grid Figure A treats as nine clean cells, after the buried assumptions are
         marked. Three are load-bearing: ¹ the persuadable column isn’t a coherent middle bloc
         (<a href="#sec-3" class="secref">§3</a>), ² the low-propensity lean-D cell carries a
-        <strong>10–20% hidden defection risk</strong> under grievance conditions
-        (<a href="#sec-5" class="secref">§5</a> [4]), and ³ persuasion and turnout moves interact
-        rather than living in separate columns.
+        <strong>10–20% hidden defection risk</strong> under grievance conditions, and
+        ³ persuasion and turnout moves interact rather than living in separate columns.
       </figcaption>
     </figure>
+
+    <p>
+      Zoom in on assumption ² — the one with the most measurable cost. The grid sees the
+      voter file’s “lean-Dem” label but not the disaffection underneath it. The label combines
+      voter history, demographics, and survey-modeled partisanship, but it doesn’t carry a
+      trust dimension. So when the grid tells a campaign to mobilize a low-propensity lean-D
+      voter, that voter may already trust the system enough to come back home — or they may
+      have stopped trusting it years ago and be one push from defecting. The grid can’t tell
+      the difference. Figure C shows what that costs.
+    </p>
 
     <figure class="fig" id="fig-5c">
       <p class="picker-label">Figure C — Defection rate among Dem-leaners by trust level (candidate for <a href="#sec-11" class="secref">§11</a>)</p>
@@ -547,9 +596,15 @@
         was 7.8% (about 1 in 13). For low-grievance (high-trust) Dem-leaners it was 3.7%,
         and for high-grievance (low-trust) Dem-leaners it was 10.8% — about 1 in 9. A GOTV
         program built on the file’s label alone is paying to mobilize a meaningful share of
-        opponent voters.
+        opponent voters.<a href="#fn-5-4" class="fnref" id="fnref-5-4"><sup>13</sup></a>
       </figcaption>
     </figure>
+
+    <p>
+      So we’ll unpack the two problems separately — choice in Part III, turnout in Part IV —
+      and we’ll keep asking the question the grid doesn’t: <em>whose reaction is each
+      campaign move actually causing?</em>
+    </p>
 
     <details class="howweknow">
       <summary>How we know</summary>
@@ -562,6 +617,42 @@
           partisanship (lean-D / persuadable / lean-R) × turnout propensity (high / mid /
           low), nine cells, mechanical strategy per cell.
           <a href="#fnref-5-1" class="fnret">↩</a>
+        </li>
+        <li id="fn-5-2" value="13">
+          Critique sources for the “disaffection invisible to the file label” reading: Sean
+          McElwee / Data for Progress memos (2019–2024) made variants of this point publicly.
+          The empirical backbone is reproduced in Figure C from ANES 2016 (weighted by
+          <code>V160101</code>): Dem-leaners with above-median grievance on the 3-item
+          institutional-trust index (<code>V161215 / V161216 / V161217</code>) defect to the
+          opposing candidate at <strong>~3× the rate</strong> of low-grievance Dem-leaners.
+          The directional finding — the file’s “lean Dem” label substantially misses the
+          trust/disaffection dimension — is robust across both voter-file scoring (Catalist,
+          NGP-VAN) and ANES self-ID PID. The precise magnitude depends on which model.
+          <a href="#fnref-5-2" class="fnret">↩</a>
+        </li>
+        <li id="fn-5-3" value="14">
+          The strategy-interaction critique — that persuasion and turnout moves don’t live in
+          separate columns and that a “safe / electable” persuasion pitch can simultaneously
+          dampen turnout among disaffected supporters — comes out of the post-2024 Working
+          Families Party and Catalist <em>“What Happened”</em> post-mortems, and is the
+          load-bearing finding of <a href="#sec-19" class="secref">§19</a>. Empirical backbone
+          for the trade-off in <code>reqts/the-center-is-a-lie.md</code> §11–§12.
+          <a href="#fnref-5-3" class="fnret">↩</a>
+        </li>
+        <li id="fn-5-4" value="15">
+          ANES 2016, weighted by <code>V160101</code>. Dem-leaners and stronger
+          (<code>V161158x ∈ {1,2,3}</code>) who voted Trump (<code>V162034a = 2</code>):
+          <strong>2.28% of the electorate, n = 92</strong> ≈ <strong>7.8% of Dem-leaning
+          voters</strong> (1 in 13). Among Dem-leaners with above-median grievance on the
+          3-item institutional-trust index (<code>V161215 / V161216 / V161217</code>):
+          defection rate to Trump = <strong>10.8% (1 in 9)</strong> vs <strong>3.7%</strong>
+          for low-grievance Dem-leaners. Trust is a ~3× multiplier on within-tent defection.
+          The “1 in 13 / 1 in 9” framing approximates the rate at which a GOTV intervention on
+          a Dem-scored low-propensity target produces a vote for the opponent instead.
+          <em>Caveat:</em> voter-file partisanship scoring (Catalist, NGP-VAN, etc.) combines
+          voter history, demographics, and survey-modeled signals — it isn’t identical to
+          ANES self-ID PID. The directional finding is robust across both measures.
+          <a href="#fnref-5-4" class="fnret">↩</a>
         </li>
       </ol>
     </details>
@@ -588,11 +679,11 @@
     <p class="lede">
       This has been tested and tested again — across <strong>49 field experiments</strong>.
       Between two well-known candidates, all the ads and door-knocks combined move vote
-      choice by <strong>roughly zero</strong>.<a href="#fn-6-1" class="fnref" id="fnref-6-1"><sup>11</sup></a>
+      choice by <strong>roughly zero</strong>.<a href="#fn-6-1" class="fnref" id="fnref-6-1"><sup>14</sup></a>
       Once you’ve got two famous nominees, the election runs on
-      <em>who they already are</em> rather than what they say in the last stretch,<a href="#fn-6-2" class="fnref" id="fnref-6-2"><sup>12</sup></a>
+      <em>who they already are</em> rather than what they say in the last stretch,<a href="#fn-6-2" class="fnref" id="fnref-6-2"><sup>15</sup></a>
       and the decision that mattered was made earlier, at the
-      <strong>nomination</strong>.<a href="#fn-6-3" class="fnref" id="fnref-6-3"><sup>13</sup></a>
+      <strong>nomination</strong>.<a href="#fn-6-3" class="fnref" id="fnref-6-3"><sup>16</sup></a>
     </p>
 
     <figure class="fig" id="fig-6">
@@ -645,8 +736,8 @@
 
     <details class="howweknow">
       <summary>How we know</summary>
-      <ol class="footnotes" start="13">
-        <li id="fn-6-1" value="13">
+      <ol class="footnotes" start="16">
+        <li id="fn-6-1" value="16">
           Joshua Kalla and David E. Broockman (2018), "The Minimal Persuasive Effects of
           Campaign Contact in General Elections: Evidence from 49 Field Experiments,"
           <em>American Political Science Review</em> 112(1): 148–166. Meta-analysis of
@@ -654,7 +745,7 @@
           calls, mail, TV/digital advertising) on vote choice in general elections.
           <a href="#fnref-6-1" class="fnret">↩</a>
         </li>
-        <li id="fn-6-2" value="14">
+        <li id="fn-6-2" value="17">
           K&amp;B point estimate of the persuasion effect = <strong>0.0 percentage points</strong>;
           95% CI excludes effects larger than approximately <strong>0.6pp</strong>.
           Persuasion <em>does</em> bite (a) for unknown candidates, (b) early in
@@ -663,7 +754,7 @@
           between two famous nominees.
           <a href="#fnref-6-2" class="fnret">↩</a>
         </li>
-        <li id="fn-6-3" value="15">
+        <li id="fn-6-3" value="18">
           The "discovery, not persuasion" framing comes from Andrew Gelman and Gary King
           (1993), "Why Are American Presidential Election Campaign Polls So Variable When
           Votes Are So Predictable?" <em>British Journal of Political Science</em> 23(4):
@@ -684,7 +775,7 @@
       If choice doesn’t depend on policy positions, then what makes a swing voter swing? The
       obvious guess in a low-trust era is <strong>distrust</strong>: the disaffected are the
       ones who bolt. Call voters with low institutional trust <strong>System Critics</strong>
-      and those with high trust <strong>System Believers</strong>.<a href="#fn-7-1" class="fnref" id="fnref-7-1"><sup>14</sup></a>
+      and those with high trust <strong>System Believers</strong>.<a href="#fn-7-1" class="fnref" id="fnref-7-1"><sup>17</sup></a>
     </p>
 
     <p class="lede">
@@ -694,7 +785,7 @@
       Republican base, and trust snaps into focus. Among non-Republicans (Dems + indeps),
       System Critics defect at <strong>53%</strong> and System Believers at just
       <strong>10%</strong>. On the GOP side the pattern <em>flips</em> — distrust there
-      meant staying loyal to Trump.<a href="#fn-7-2" class="fnref" id="fnref-7-2"><sup>15</sup></a>
+      meant staying loyal to Trump.<a href="#fn-7-2" class="fnref" id="fnref-7-2"><sup>18</sup></a>
     </p>
 
     <figure class="fig" id="fig-7">
@@ -711,8 +802,8 @@
 
     <details class="howweknow">
       <summary>How we know</summary>
-      <ol class="footnotes" start="16">
-        <li id="fn-7-1" value="16">
+      <ol class="footnotes" start="19">
+        <li id="fn-7-1" value="19">
           ANES 2016 weighted with <code>V160101</code>, n≈3,300. Trust index is the mean of
           three pre-election items: <code>V161215</code> ("how often can you trust the
           government to do what is right," inverted), <code>V161216</code> ("government run
@@ -722,7 +813,7 @@
           the party-of-president confound hides.
           <a href="#fnref-7-1" class="fnret">↩</a>
         </li>
-        <li id="fn-7-2" value="17">
+        <li id="fn-7-2" value="20">
           Restrict to non-Republicans (<code>V161158x</code> ≤ 4: Dem leaners + stronger
           plus pure independents; n=1,505 voters). By trust tercile:
           <strong>broad swing rate (any non-Clinton vote)</strong> = 53.0% / 23.2% / 9.7%
@@ -747,13 +838,13 @@
     <p class="lede">
       Whether a candidate seems <strong>honest</strong> and like they
       <strong>care about people like you</strong> isn’t a fixed fact about the candidate.
-      It depends on the voter.<a href="#fn-8-1" class="fnref" id="fnref-8-1"><sup>16</sup></a>
+      It depends on the voter.<a href="#fn-8-1" class="fnref" id="fnref-8-1"><sup>19</sup></a>
     </p>
 
     <p class="lede">
       In 2016, low-trust voters saw Trump as the honest one and Clinton as the phony.
       High-trust voters saw the exact opposite. Same two humans — judgment completely
-      flipped.<a href="#fn-8-2" class="fnref" id="fnref-8-2"><sup>17</sup></a> You don’t get
+      flipped.<a href="#fn-8-2" class="fnref" id="fnref-8-2"><sup>20</sup></a> You don’t get
       "authentic" by being authentic in the abstract. You get it by being <em>close to where
       the voter already stands</em> on trust. <strong>Alignment</strong> between voter and
       candidate is what reads as real.
@@ -771,8 +862,8 @@
 
     <details class="howweknow">
       <summary>How we know</summary>
-      <ol class="footnotes" start="18">
-        <li id="fn-8-1" value="18">
+      <ol class="footnotes" start="21">
+        <li id="fn-8-1" value="21">
           Candidate trait items (ANES 2016): <code>V161162</code> ("honest" — Clinton),
           <code>V161167</code> ("honest" — Trump); paired "cares about people like you"
           items <code>V161160</code> (Clinton) / <code>V161165</code> (Trump). Each rated
@@ -782,7 +873,7 @@
           (same as <a href="#sec-7" class="secref">§7</a>).
           <a href="#fnref-8-1" class="fnret">↩</a>
         </li>
-        <li id="fn-8-2" value="19">
+        <li id="fn-8-2" value="22">
           Weighted by <code>V160101</code>, n≈3,300. Low-trust voters rated Trump honest at
           <strong>1.58</strong> and Clinton at <strong>0.54</strong>. High-trust voters
           rated Clinton at <strong>1.77</strong> and Trump at <strong>0.93</strong> — the
@@ -810,13 +901,13 @@
       <strong>2020</strong>, with Trump as the incumbent president, the magic
       <strong>vanished</strong>: Biden was rated more honest than Trump at every trust
       level. Then in <strong>2024</strong>, with Trump out of power again, the crossover
-      <strong>came back even stronger</strong> than 2016.<a href="#fn-9-1" class="fnref" id="fnref-9-1"><sup>18</sup></a>
+      <strong>came back even stronger</strong> than 2016.<a href="#fn-9-1" class="fnref" id="fnref-9-1"><sup>21</sup></a>
     </p>
 
     <p class="lede">
       The anti-establishment halo goes to whoever is <em>fighting</em> the system, and it
       disappears the moment they <em>become</em> the system. That on-off-on pattern is how
-      you know it’s real, and not just people liking their own guy.<a href="#fn-9-2" class="fnref" id="fnref-9-2"><sup>19</sup></a>
+      you know it’s real, and not just people liking their own guy.<a href="#fn-9-2" class="fnref" id="fnref-9-2"><sup>22</sup></a>
     </p>
 
     <figure class="fig" id="fig-9">
@@ -841,8 +932,8 @@
 
     <details class="howweknow">
       <summary>How we know</summary>
-      <ol class="footnotes" start="20">
-        <li id="fn-9-1" value="20">
+      <ol class="footnotes" start="23">
+        <li id="fn-9-1" value="23">
           Cross-cycle authenticity crossover. Three-cycle test using comparable ANES trait
           items in 2020 and 2024. Variables: 2020 — <code>V201211</code> (Biden honest),
           <code>V201215</code> (Trump honest); 2024 — <code>V241203</code> (Harris honest),
@@ -861,7 +952,7 @@
           (largest gap at the high-trust end).
           <a href="#fnref-9-1" class="fnret">↩</a>
         </li>
-        <li id="fn-9-2" value="21">
+        <li id="fn-9-2" value="24">
           Trust → presidential vote, standardized weighted logistic coefficient per cycle,
           from <code>data/clean/trust_vote_by_cycle.csv</code>: 2016 <strong>−0.275</strong>
           (Clinton vs. Trump); 2020 <strong>+0.049</strong> (Biden vs. Trump, effectively
@@ -883,7 +974,7 @@
     <p class="lede">
       This is also why Trump could reverse Republican positions overnight and his voters
       just followed. Researchers tested it directly: tell Republicans "Trump backs this
-      liberal idea," and they’ll back it too, even against their own stated beliefs.<a href="#fn-10-1" class="fnref" id="fnref-10-1"><sup>20</sup></a>
+      liberal idea," and they’ll back it too, even against their own stated beliefs.<a href="#fn-10-1" class="fnref" id="fnref-10-1"><sup>23</sup></a>
       <strong>When voters trust you as one of them, your exact policies barely matter.</strong>
     </p>
 
@@ -891,7 +982,7 @@
       When they think you’re a calculating insider (the way they saw Clinton), the same flip
       looks like a cynical move. Trump rewrites his platform and it’s
       <em>"telling it like it is."</em> Clinton shifts left to match Bernie and it’s
-      <em>"she’ll say anything."</em> Same act, opposite reaction.<a href="#fn-10-2" class="fnref" id="fnref-10-2"><sup>21</sup></a>
+      <em>"she’ll say anything."</em> Same act, opposite reaction.<a href="#fn-10-2" class="fnref" id="fnref-10-2"><sup>24</sup></a>
       Trust, not policy.
     </p>
 
@@ -910,8 +1001,8 @@
 
     <details class="howweknow">
       <summary>How we know</summary>
-      <ol class="footnotes" start="22">
-        <li id="fn-10-1" value="22">
+      <ol class="footnotes" start="25">
+        <li id="fn-10-1" value="25">
           Michael Barber and Jeremy C. Pope (2019), "Does Party Trump Ideology?
           Disentangling Party and Ideology in America," <em>American Political Science
           Review</em> 113(1): 38–54. Survey experiment: Republicans told "Trump backs this
@@ -922,7 +1013,7 @@
           stated positions against ideology.
           <a href="#fnref-10-1" class="fnret">↩</a>
         </li>
-        <li id="fn-10-2" value="23">
+        <li id="fn-10-2" value="26">
           ANES 2016 trait rating (1–5 scale; higher = less honest), full sample weighted by
           <code>V160101</code>: Trump <strong>3.72</strong>, Clinton <strong>3.95</strong>.
           Voters rated Trump more honest than Clinton in 2016 despite the documented
@@ -956,7 +1047,7 @@
       move to the center. That begs the question, what does flip a swing voter? To answer
       that, we have to measure the same people before and after an election. The Democracy
       Fund VOTER Survey is a panel that did exactly that, with racial-resentment items
-      administered in 2011, four years before the Obama→Trump switch.<a href="#fn-11-1" class="fnref" id="fnref-11-1"><sup>22</sup></a>
+      administered in 2011, four years before the Obama→Trump switch.<a href="#fn-11-1" class="fnref" id="fnref-11-1"><sup>25</sup></a>
     </p>
 
     <p class="lede">
@@ -964,7 +1055,7 @@
       switch on policy, and they didn’t switch on distrust in government. What moved them
       was a <strong>sense of lost status with a racial edge</strong>, the feeling that
       <em>"the system now puts other groups ahead of people like me."</em> Obama’s
-      election stirred this up, and Trump’s campaign used it to its advantage.<a href="#fn-11-2" class="fnref" id="fnref-11-2"><sup>23</sup></a>
+      election stirred this up, and Trump’s campaign used it to its advantage.<a href="#fn-11-2" class="fnref" id="fnref-11-2"><sup>26</sup></a>
       We hold this loosely, on purpose. It does not mean half the country is simply racist.
       It means that’s the line that grew.
     </p>
@@ -992,7 +1083,7 @@
       About that distrust bar. It looks like it contradicts the rest of this essay, but it
       doesn’t. Distrust hasn’t stopped mattering, it’s stopped discriminating. In 2016,
       <strong>71% of all voters</strong> scored in the bottom quarter of the trust index
-      and <strong>45%</strong> sat at the absolute floor.<a href="#fn-11-3" class="fnref" id="fnref-11-3"><sup>24</sup></a>
+      and <strong>45%</strong> sat at the absolute floor.<a href="#fn-11-3" class="fnref" id="fnref-11-3"><sup>27</sup></a>
       A variable that almost everyone shares can’t tell you which of them switched. Racial
       resentment varies across voters, so it can discriminate. Distrust is now universal,
       so it can’t.
@@ -1031,7 +1122,7 @@
       group status. Status threat won, by a lot. Sides, Tesler, and Vavreck’s
       <em>Identity Crisis</em> and Tesler’s <em>Post-Racial or Most-Racial</em> say the
       same thing: Obama’s election didn’t create racial resentment, it activated and
-      racialized what was already there.<a href="#fn-11-4" class="fnref" id="fnref-11-4"><sup>25</sup></a>
+      racialized what was already there.<a href="#fn-11-4" class="fnref" id="fnref-11-4"><sup>28</sup></a>
     </p>
 
     <p class="lede">
@@ -1042,7 +1133,7 @@
       <em>"They took our jobs"</em> is a one-clause explanation. <em>"Automation plus
       offshoring plus the college wage premium plus the long decline of unionized
       manufacturing"</em> is the actual story, but you can’t tell that one at a rally, and
-      it doesn’t fit on a hat.<a href="#fn-11-5" class="fnref" id="fnref-11-5"><sup>26</sup></a>
+      it doesn’t fit on a hat.<a href="#fn-11-5" class="fnref" id="fnref-11-5"><sup>29</sup></a>
     </p>
 
     <p class="lede">
@@ -1052,7 +1143,7 @@
       displaces onto safer out-groups. When a fifty-year-old man loses a stable factory job
       in Ohio, the cause is largely structural. But the villain who is actually within
       reach is the immigrant down the road, or the program he believes is favoring somebody
-      else.<a href="#fn-11-6" class="fnref" id="fnref-11-6"><sup>27</sup></a>
+      else.<a href="#fn-11-6" class="fnref" id="fnref-11-6"><sup>30</sup></a>
     </p>
 
     <p class="lede">
@@ -1099,8 +1190,8 @@
 
     <details class="howweknow">
       <summary>How we know</summary>
-      <ol class="footnotes" start="24">
-        <li id="fn-11-1" value="24">
+      <ol class="footnotes" start="27">
+        <li id="fn-11-1" value="27">
           Democracy Fund / UCLA <strong>Voter Study Group / VOTER Survey</strong> (VSG)
           panel: same respondents surveyed in 2011, 2016, 2017, 2018, 2019, 2020.
           Racial-resentment items administered in <strong>2011</strong>, four years before
@@ -1109,7 +1200,7 @@
           2016 vote (10% switched).
           <a href="#fnref-11-1" class="fnret">↩</a>
         </li>
-        <li id="fn-11-2" value="25">
+        <li id="fn-11-2" value="28">
           Standardized weighted logistic on P(Trump | voted Obama in 2012), weight
           <code>weight_genpop_2016</code>. <strong>Trust alone</strong> +0.00.
           <strong>Racial resentment alone</strong> +0.97. <strong>Trust + RR jointly:</strong>
@@ -1126,7 +1217,7 @@
           Most-Racial?</em> (2016).
           <a href="#fnref-11-2" class="fnret">↩</a>
         </li>
-        <li id="fn-11-3" value="26">
+        <li id="fn-11-3" value="29">
           The "trust no longer differentiates voters" framing is a compressed-variance /
           floor artifact, not evidence that trust doesn’t matter. ANES 3-item trust index
           distribution: <strong>median 0.17, 45% at the floor</strong> (≤0.10),
@@ -1137,7 +1228,7 @@
           the era, not the lever.
           <a href="#fnref-11-3" class="fnret">↩</a>
         </li>
-        <li id="fn-11-4" value="27">
+        <li id="fn-11-4" value="30">
           Diana C. Mutz (2018), "Status Threat, Not Economic Hardship, Explains the 2016
           Presidential Vote," <em>PNAS</em> 115(19): E4330–E4339. Panel test on the
           2012–2016 ANES sub-panel showing perceived loss of group status outpredicts
@@ -1154,7 +1245,7 @@
           through 2024.
           <a href="#fnref-11-4" class="fnret">↩</a>
         </li>
-        <li id="fn-11-5" value="28">
+        <li id="fn-11-5" value="31">
           Philip E. Tetlock and others on integrative complexity: Tetlock (1983),
           "Cognitive style and political ideology," <em>JPSP</em> 45(1); Suedfeld and
           Tetlock (1977). Under threat, people switch from differentiated, conditional
@@ -1163,7 +1254,7 @@
           is more accurate.
           <a href="#fnref-11-5" class="fnret">↩</a>
         </li>
-        <li id="fn-11-6" value="29">
+        <li id="fn-11-6" value="32">
           Realistic group conflict theory: Muzafer Sherif et al. (1961), <em>Intergroup
           Conflict and Cooperation: The Robbers Cave Experiment</em> (University of
           Oklahoma); Robert LeVine and Donald Campbell (1972), <em>Ethnocentrism</em>.
@@ -1194,14 +1285,14 @@
       to swing voters with policy, can we at least change their turnout with it? The
       simple version of the question: can a better policy platform get more people to
       vote? We don’t have to guess. Campaigns have run real experiments for decades:
-      knock on this door, mail this flyer, see who shows up.<a href="#fn-12-1" class="fnref" id="fnref-12-1"><sup>28</sup></a>
+      knock on this door, mail this flyer, see who shows up.<a href="#fn-12-1" class="fnref" id="fnref-12-1"><sup>31</sup></a>
     </p>
 
     <p class="lede">
       The answer is the same as on the choice side. What gets people to vote is being
       contacted and feeling something: a knock, a neighbor, or really just a reason to
       care. A mailer explaining your health-care plan does basically nothing to turnout.
-      A postcard telling you your neighbors are watching does a lot.<a href="#fn-12-2" class="fnref" id="fnref-12-2"><sup>29</sup></a>
+      A postcard telling you your neighbors are watching does a lot.<a href="#fn-12-2" class="fnref" id="fnref-12-2"><sup>32</sup></a>
       You don’t talk people into voting with policy.
     </p>
 
@@ -1220,8 +1311,8 @@
 
     <details class="howweknow">
       <summary>How we know</summary>
-      <ol class="footnotes" start="30">
-        <li id="fn-12-1" value="30">
+      <ol class="footnotes" start="33">
+        <li id="fn-12-1" value="33">
           Alan S. Gerber and Donald P. Green, <em>Get Out the Vote: How to Increase Voter
           Turnout</em> (3rd ed., 2019, Brookings) — meta-synthesis of two decades of
           randomized GOTV field experiments. Earlier benchmark: Gerber, Green &amp; Larimer
@@ -1230,7 +1321,7 @@
           "your neighbors are watching" effect.
           <a href="#fnref-12-1" class="fnret">↩</a>
         </li>
-        <li id="fn-12-2" value="31">
+        <li id="fn-12-2" value="34">
           Average per-treatment turnout lifts (Gerber-Green meta): policy / persuasion
           message content ≈<strong>0pp</strong>; standard GOTV mail <strong>+0.8pp</strong>;
           volunteer phone <strong>+2.0pp</strong>; door-to-door canvassing
@@ -1262,7 +1353,7 @@
       The ANES 2016 measure of stakes is whether the voter "cares a good deal who wins."
       Voters who do turn out at about <strong>71%</strong>. Voters who don’t turn out at
       about <strong>36%</strong>. That’s a 35-point gap, the biggest single bivariate
-      predictor of turnout in the file.<a href="#fn-13-1" class="fnref" id="fnref-13-1"><sup>30</sup></a>
+      predictor of turnout in the file.<a href="#fn-13-1" class="fnref" id="fnref-13-1"><sup>33</sup></a>
     </p>
 
     <p class="lede">
@@ -1270,7 +1361,7 @@
       in it more often. The cleaner test is to look only at voters who aren’t political
       junkies to start with, the gettable ones any GOTV operation is trying to mobilize.
       Even among that group, voters who care turn out at <strong>52%</strong> and voters
-      who don’t turn out at <strong>26%</strong>.<a href="#fn-13-2" class="fnref" id="fnref-13-2"><sup>31</sup></a>
+      who don’t turn out at <strong>26%</strong>.<a href="#fn-13-2" class="fnref" id="fnref-13-2"><sup>34</sup></a>
       So "caring" isn’t just a stand-in for general political engagement. It has its own
       pull on whether someone shows up.
     </p>
@@ -1301,7 +1392,7 @@
       a real lift. But the one variable that’s supposed to be the engine, warmth to your
       own candidate, comes out at essentially zero and possibly slightly negative.
       Voters who love their candidate more are not noticeably more likely to show up
-      than voters who just kind of like them.<a href="#fn-13-3" class="fnref" id="fnref-13-3"><sup>32</sup></a>
+      than voters who just kind of like them.<a href="#fn-13-3" class="fnref" id="fnref-13-3"><sup>35</sup></a>
     </p>
 
     <figure class="fig" id="fig-13c">
@@ -1321,7 +1412,7 @@
       doesn’t, and we know loving your own candidate isn’t the lever. What we can’t pin
       down is exactly which kind of stakes-framing inside a contact lands hardest. The
       "fear of the other side" hypothesis is suggestive in the 2016 data but doesn’t
-      pool cleanly across multiple cycles.<a href="#fn-13-4" class="fnref" id="fnref-13-4"><sup>33</sup></a>
+      pool cleanly across multiple cycles.<a href="#fn-13-4" class="fnref" id="fnref-13-4"><sup>36</sup></a>
     </p>
 
     <p class="lede">
@@ -1335,19 +1426,19 @@
         <strong>Social pressure.</strong> Mailers showing voters their own and their
         neighbors’ public voting records lift turnout by about <strong>8 points</strong>
         in randomized trials. This is the same Gerber-Green-Larimer result that already
-        anchored <a href="#sec-12" class="secref">§12</a>.<a href="#fn-13-5" class="fnref" id="fnref-13-5"><sup>34</sup></a>
+        anchored <a href="#sec-12" class="secref">§12</a>.<a href="#fn-13-5" class="fnref" id="fnref-13-5"><sup>37</sup></a>
       </li>
       <li>
         <strong>Voter-identity framing.</strong> Asking voters about "being a voter"
         (a noun, an identity) rather than about "voting" (a verb, an act) raised turnout
         by roughly <strong>11 points</strong> across two pre-registered experiments.
-        Bryan, Walton, Rogers and Dweck (2011, <em>PNAS</em>).<a href="#fn-13-6" class="fnref" id="fnref-13-6"><sup>35</sup></a>
+        Bryan, Walton, Rogers and Dweck (2011, <em>PNAS</em>).<a href="#fn-13-6" class="fnref" id="fnref-13-6"><sup>38</sup></a>
       </li>
       <li>
         <strong>Plan-to-vote prompts.</strong> Asking voters to specify when they will
         vote, where they will go, and how they will get there added about
         <strong>4 points</strong> in their own randomized field experiment.
-        Nickerson and Rogers (2010, <em>Psychological Science</em>).<a href="#fn-13-7" class="fnref" id="fnref-13-7"><sup>36</sup></a>
+        Nickerson and Rogers (2010, <em>Psychological Science</em>).<a href="#fn-13-7" class="fnref" id="fnref-13-7"><sup>39</sup></a>
       </li>
     </ul>
 
@@ -1369,8 +1460,8 @@
 
     <details class="howweknow">
       <summary>How we know</summary>
-      <ol class="footnotes" start="32">
-        <li id="fn-13-1" value="32">
+      <ol class="footnotes" start="35">
+        <li id="fn-13-1" value="35">
           ANES 2016, <code>V161005</code> ("how much do you care who wins the presidential
           election"; 1 = "a good deal," 2 = "don’t care very much"), cross-tabbed with
           <code>V162034a</code> presence (turnout proxy: voted if candidate choice
@@ -1381,7 +1472,7 @@
           proxy, consistent with the gap-weighted average.
           <a href="#fnref-13-1" class="fnret">↩</a>
         </li>
-        <li id="fn-13-2" value="33">
+        <li id="fn-13-2" value="36">
           Same <code>V161005</code> split restricted to low-engagement voters
           (<code>V161004</code> = 3, "not too / not at all interested"). Turnout drops in
           absolute terms (the gettable voters are lower-turnout overall): <strong>52.2%
@@ -1390,7 +1481,7 @@
           for being engaged in the first place.
           <a href="#fnref-13-2" class="fnret">↩</a>
         </li>
-        <li id="fn-13-3" value="34">
+        <li id="fn-13-3" value="37">
           Standardized turnout-model coefficients (ANES 2016 weighted logistic): "care
           who wins" <strong>+0.42</strong>, age <strong>+0.35</strong>, education
           <strong>+0.27</strong>, campaign contact <strong>+0.23</strong>, affect spread
@@ -1402,7 +1493,7 @@
           contradicts.
           <a href="#fnref-13-3" class="fnret">↩</a>
         </li>
-        <li id="fn-13-4" value="35">
+        <li id="fn-13-4" value="38">
           Earlier drafts of <a href="#sec-13" class="secref">§13</a> claimed that the half of stakes driving turnout was
           fear-of-the-other-side specifically ("liking is shallow, fear is steep"),
           based on the 2016-only warmth/affect-spread quintile pattern. Pooling the
@@ -1414,7 +1505,7 @@
           <code>scripts/build_warmth_fear_spread_pooled.py</code>.
           <a href="#fnref-13-4" class="fnret">↩</a>
         </li>
-        <li id="fn-13-5" value="36">
+        <li id="fn-13-5" value="39">
           Alan S. Gerber, Donald P. Green and Christopher W. Larimer (2008), "Social
           Pressure and Voter Turnout: Evidence from a Large-Scale Field Experiment,"
           <em>American Political Science Review</em> 102(1): 33–48. Randomized mailers
@@ -1424,7 +1515,7 @@
           finding anchored <a href="#sec-12" class="secref">§12</a>’s GOTV chart.
           <a href="#fnref-13-5" class="fnret">↩</a>
         </li>
-        <li id="fn-13-6" value="37">
+        <li id="fn-13-6" value="40">
           Christopher J. Bryan, Gregory M. Walton, Todd Rogers and Carol S. Dweck
           (2011), "Motivating voter turnout by invoking the self," <em>Proceedings of
           the National Academy of Sciences</em> 108(31): 12653–12656. Two
@@ -1438,7 +1529,7 @@
           feel more obligatory.
           <a href="#fnref-13-6" class="fnret">↩</a>
         </li>
-        <li id="fn-13-7" value="38">
+        <li id="fn-13-7" value="41">
           David W. Nickerson and Todd Rogers (2010), "Do You Have a Voting Plan?
           Implementation Intentions, Voter Turnout, and Organic Plan Making,"
           <em>Psychological Science</em> 21(2): 194–199. Field experiment using
@@ -1463,7 +1554,7 @@
       Stakes is one half of the turnout problem. The other half is the no-shows: people
       who stay home no matter what message you put in front of them. Trust matters here
       too, but not the way you would expect. The no-shows actually divide into two
-      opposite types, and the share is shifting fast.<a href="#fn-14-1" class="fnref" id="fnref-14-1"><sup>37</sup></a>
+      opposite types, and the share is shifting fast.<a href="#fn-14-1" class="fnref" id="fnref-14-1"><sup>40</sup></a>
     </p>
 
     <p class="lede">
@@ -1490,8 +1581,8 @@
 
     <details class="howweknow">
       <summary>How we know</summary>
-      <ol class="footnotes" start="39">
-        <li id="fn-14-1" value="39">
+      <ol class="footnotes" start="42">
+        <li id="fn-14-1" value="42">
           Cross-cycle no-show typology: ANES Cumulative File 1972–2024
           (<code>data/clean/noshow_typology_by_cycle.csv</code>, built by
           <code>scripts/build_noshow_typology_by_cycle.py</code>). For each
@@ -1529,12 +1620,12 @@
 
     <p class="lede">
       The easy dismissal of the theories above is "that was a Trump thing, a 2016
-      thing." So we checked every presidential election back to 1972.<a href="#fn-15-1" class="fnref" id="fnref-15-1"><sup>38</sup></a>
+      thing." So we checked every presidential election back to 1972.<a href="#fn-15-1" class="fnref" id="fnref-15-1"><sup>41</sup></a>
       The pattern is rock-solid. Distrustful voters reliably vote
       <em>against whoever currently holds power</em>. The trust signal flips with the
       White House in <strong>10 of the last 14 elections</strong>, every cycle where the
       signal wasn’t flat. Low trust isn’t pro-Republican or pro-Democrat. It’s
-      <strong>anti-whoever-is-in-charge</strong>.<a href="#fn-15-2" class="fnref" id="fnref-15-2"><sup>39</sup></a>
+      <strong>anti-whoever-is-in-charge</strong>.<a href="#fn-15-2" class="fnref" id="fnref-15-2"><sup>42</sup></a>
       Trump didn’t break the rule. The era did.
     </p>
 
@@ -1553,8 +1644,8 @@
 
     <details class="howweknow">
       <summary>How we know</summary>
-      <ol class="footnotes" start="40">
-        <li id="fn-15-1" value="40">
+      <ol class="footnotes" start="43">
+        <li id="fn-15-1" value="43">
           ANES Time Series Cumulative Data File (CDF), 1948–2024 release. Trust index
           built from <code>VCF0604</code> (do-right, reversed), <code>VCF0605</code>
           (run for benefit of all vs. few big interests), <code>VCF0609</code> (waste
@@ -1565,7 +1656,7 @@
           <code>data/clean/trust_vote_by_cycle.csv</code>.
           <a href="#fnref-15-1" class="fnret">↩</a>
         </li>
-        <li id="fn-15-2" value="41">
+        <li id="fn-15-2" value="44">
           Per-cycle weighted standardized logistic of P(Republican presidential vote)
           on ideology + trust. Trust coefficient (HIGH=MORE trust), with the
           anti-incumbent-rule check: 1972 R +0.32 ✓ · 1976 R +0.49 ✓ · 1980 D −0.01 ✗
@@ -1598,7 +1689,7 @@
       <strong>unemployment at 7.8%</strong>, the worst of the seven cycles below. Gore
       lost 2000 with <strong>unemployment at 3.9%</strong>, the best. Clinton (2016, 4.6%)
       and Harris (2024, 4.2%) also lost on healthy economies. If the economy decided
-      alone, Gore should have won and Obama should have lost.<a href="#fn-16-1" class="fnref" id="fnref-16-1"><sup>40</sup></a>
+      alone, Gore should have won and Obama should have lost.<a href="#fn-16-1" class="fnref" id="fnref-16-1"><sup>43</sup></a>
     </p>
 
     <p class="lede">
@@ -1609,7 +1700,7 @@
       rewarded <em>change</em> — and challengers and outsider-positioned
       candidates won. The rule isn’t "the change candidate always wins."
       It’s "the regime-favored frame wins" — and the regime determines
-      which frame is favored.<a href="#fn-16-2" class="fnref" id="fnref-16-2"><sup>41</sup></a>
+      which frame is favored.<a href="#fn-16-2" class="fnref" id="fnref-16-2"><sup>44</sup></a>
     </p>
 
     <figure class="fig" id="fig-16a">
@@ -1680,8 +1771,8 @@
 
     <details class="howweknow">
       <summary>How we know</summary>
-      <ol class="footnotes" start="42">
-        <li id="fn-16-1" value="42">
+      <ol class="footnotes" start="45">
+        <li id="fn-16-1" value="45">
           BLS Current Population Survey, U-3 national unemployment rate, November of
           each cycle: 2000 3.9% · 2004 5.4% · 2008 6.8% · 2012 7.8% · 2016 4.6% · 2020
           6.7% · 2024 4.2%. The relative ordering matters: 2012 had the worst
@@ -1691,7 +1782,7 @@
           2024 Democrats lost while the 2012 Democrat won.
           <a href="#fnref-16-1" class="fnret">↩</a>
         </li>
-        <li id="fn-16-2" value="43">
+        <li id="fn-16-2" value="46">
           12-cycle frame-match evidence, 1980–2024. Each cycle is classified by
           (a) mean trust composite (the trust era — high ≥ 0.42, mid 0.36–0.41,
           low &lt; 0.36); (b) which frame the regime favored — continuity in
