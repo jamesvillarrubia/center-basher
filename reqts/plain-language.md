@@ -85,7 +85,7 @@ And we haven't even asked yet how any of these groups vote. That's section 3, an
 
 ### 3 · So who actually swings? (almost nobody)
 
-§2 walked the funnel by *policy position* and showed the coherent centrist is a sliver. Now ask the second question: how do these voters actually *behave* in elections, not just once, but across cycles?
+§2 walked the funnel by *policy position* and showed the coherent centrist is a sliver. Now ask the follow-up question: how do these voters actually *behave* in elections, not just once, but across cycles? Does policy impact their vote?
 
 Because here's the hidden bias the electability pitch never accounts for: **the moderate *label* doesn't predict a moderate *voting pattern*.** Even voters with centrist views mostly vote like consistent partisans. Single-cycle vote share makes the middle look up for grabs; multi-cycle behavior shows it isn't.
 
