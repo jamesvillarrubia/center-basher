@@ -52,11 +52,89 @@ const SCENARIOS = [
   { id: 'biden_pv',    label: 'Biden primary',       group: 'Primary',    color: COLOR_CLINTON_PV, filter: v => v.pv === 'biden',   dash: '3,2', has_capture: true, years: [2020] },
 ]
 
+// ---- Narrative presets ----
+// Each preset is a one-click configuration that tells a specific story.
+// Loading a preset sets the year, scope, enabled scenarios, and surfaces
+// a caption below the chart.
+const PRESETS = [
+  {
+    id: 'p_2016_swing',
+    label: '2016 · Swing (national)',
+    year: 2016, scope: 'national',
+    enabled: ['swing'],
+    caption: 'Sanders sits closer to the swing-voter centroid than Clinton — both on ideology AND on trust. Trump sits closer still. If Clinton is the institutionalist and swing voters are not, this is the spatial picture you would expect.',
+  },
+  {
+    id: 'p_2016_activated',
+    label: '2016 · Activated (national)',
+    year: 2016, scope: 'national',
+    enabled: ['activated'],
+    caption: 'New voters who skipped 2012 but voted 2016. Sanders is closer to their centroid than Clinton. Trump is closer still. The 2016 capture story: Trump pulled the activation lever the hardest.',
+  },
+  {
+    id: 'p_2016_primary',
+    label: '2016 · Clinton vs Sanders primary',
+    year: 2016, scope: 'national',
+    enabled: ['clinton_pv', 'sanders_pv'],
+    caption: "Sanders primary voters spread ACROSS the ideology spectrum (even into the conservative side) but cluster LOW on institutional trust. Clinton primary voters cluster on the left ideologically but reach HIGHER on trust. Sanders had broader ideological appeal; Clinton had higher-trust depth.",
+  },
+  {
+    id: 'p_2020_swing',
+    label: '2020 · Swing (national)',
+    year: 2020, scope: 'national',
+    enabled: ['swing'],
+    caption: 'Biden and Trump are roughly equidistant from the swing centroid in 2020 — Biden a hair closer. The "gravity field" shape suggests both candidates were competitive for this cohort.',
+  },
+  {
+    id: 'p_2020_activated',
+    label: '2020 · Activated (national)',
+    year: 2020, scope: 'national',
+    enabled: ['activated'],
+    caption: 'New 2020 voters who skipped 2016. Biden sits clearly closer to their centroid than Trump. The activation lever favored Biden — consistent with the turnout edge that put him over.',
+  },
+  {
+    id: 'p_2024_swing',
+    label: '2024 · Swing (national)',
+    year: 2024, scope: 'national',
+    enabled: ['swing'],
+    caption: 'Swing voters span the full institutional-trust range but concentrate LOW. Trump sits inside that swing-voter field; Harris is far outside it. Identity proximity ran sharply against Harris.',
+  },
+  {
+    id: 'p_2024_activated',
+    label: '2024 · Activated (national)',
+    year: 2024, scope: 'national',
+    enabled: ['activated'],
+    caption: '2024 activated voters split into TWO masses: one near ideology=0, one further right. Trump splits the difference; Harris is far from both. The activation cohort itself is bimodal in 2024 — different from 2016 / 2020.',
+  },
+  {
+    id: 'p_2024_independents',
+    label: '2024 · Independents (national)',
+    year: 2024, scope: 'national',
+    enabled: ['ind'],
+    caption: 'Pure independents in 2024. Trump nearly equidistant from their centroid; Harris noticeably farther. Independents are closer to where Trump\'s base sits than where Harris\'s does.',
+  },
+  {
+    id: 'p_2024_swing_ss',
+    label: '2024 · Swing (swing states only)',
+    year: 2024, scope: 'swing',
+    enabled: ['swing'],
+    caption: 'Swing voters within the seven swing states only. Even narrower sample (n≈48) but same pattern: Trump inside the field, Harris outside. The capture lever ran the same direction even in the cycles that mattered for the EC.',
+  },
+  {
+    id: 'p_2024_activated_ss',
+    label: '2024 · Activated (swing states only)',
+    year: 2024, scope: 'swing',
+    enabled: ['activated'],
+    caption: 'Activated voters in the seven swing states. Trump\'s distance to their centroid is the SHORTEST in the entire dataset (d≈0.27). His swing-state activation edge is the cleanest spatial-voting confirmation across all cycles.',
+  },
+]
+
 const __state = {
   year: 2016,
   scope: 'national',
   dataByYear: {},
   enabled: { swing: true },   // scenario id → true
+  activePresetId: null,
 }
 
 export function mountVoterMapTabbed(selector, dataByYear) {
@@ -73,6 +151,7 @@ export function mountVoterMapTabbed(selector, dataByYear) {
     btn.style.cssText = 'padding:5px 14px;border-radius:4px;border:1px solid #888;background:#fff;color:#333;cursor:pointer;font-weight:600;'
     btn.addEventListener('click', () => {
       __state.year = yr
+      clearPreset(container)
       rebuildScenarioPanel(container)
       renderAll(container)
     })
@@ -84,9 +163,14 @@ export function mountVoterMapTabbed(selector, dataByYear) {
     const btn = document.createElement('button')
     btn.textContent = s.label; btn.dataset.scope = s.key; btn.className = 'vm-tab vm-scope-tab'
     btn.style.cssText = 'padding:5px 14px;border-radius:4px;border:1px solid #888;background:#fff;color:#333;cursor:pointer;font-weight:600;'
-    btn.addEventListener('click', () => { __state.scope = s.key; rebuildScenarioPanel(container); renderAll(container) })
+    btn.addEventListener('click', () => { __state.scope = s.key; clearPreset(container); rebuildScenarioPanel(container); renderAll(container) })
     tabBar.appendChild(btn)
   })
+
+  // Preset row (narrative-driven configurations)
+  const presetBar = document.createElement('div')
+  presetBar.className = 'vm-preset-bar'
+  presetBar.style.cssText = 'display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;margin-bottom:0.5rem;padding:8px 10px;border:1px solid #ddd;border-radius:6px;background:#fffceb;font-size:11px;'
 
   const scenarioPanel = document.createElement('div')
   scenarioPanel.className = 'vm-scenario-panel'
@@ -95,11 +179,70 @@ export function mountVoterMapTabbed(selector, dataByYear) {
   const chartWrap = document.createElement('div')
   chartWrap.className = 'vm-chart-wrap'
 
+  // Caption (appears under chart when a preset is active)
+  const captionEl = document.createElement('div')
+  captionEl.className = 'vm-preset-caption'
+  captionEl.style.cssText = 'margin-top:0.5rem;padding:10px 12px;border-left:3px solid #b39d3f;background:#fffceb;font-size:13px;line-height:1.55;color:#444;display:none;'
+
   container.appendChild(tabBar)
+  container.appendChild(presetBar)
   container.appendChild(scenarioPanel)
   container.appendChild(chartWrap)
+  container.appendChild(captionEl)
+  rebuildPresetBar(container)
   rebuildScenarioPanel(container)
   renderAll(container)
+}
+
+function rebuildPresetBar(container) {
+  const bar = container.querySelector('.vm-preset-bar')
+  if (!bar) return
+  bar.innerHTML = ''
+  const title = document.createElement('span')
+  title.textContent = 'Narratives:'
+  title.style.cssText = 'font-weight:700;color:#7a5d00;font-size:11px;margin-right:6px;'
+  bar.appendChild(title)
+  for (const p of PRESETS) {
+    const btn = document.createElement('button')
+    btn.textContent = p.label
+    btn.title = p.caption
+    const isActive = __state.activePresetId === p.id
+    btn.style.cssText = `padding:3px 9px;border-radius:3px;border:1px solid ${isActive ? '#7a5d00' : '#c8b870'};background:${isActive ? '#7a5d00' : '#fff'};color:${isActive ? '#fff' : '#5a4400'};cursor:pointer;font-size:11px;font-weight:${isActive ? '700' : '500'};`
+    btn.addEventListener('click', () => loadPreset(container, p))
+    bar.appendChild(btn)
+  }
+  // Clear button
+  if (__state.activePresetId) {
+    const clearBtn = document.createElement('button')
+    clearBtn.textContent = '× clear'
+    clearBtn.style.cssText = 'padding:3px 7px;border-radius:3px;border:1px solid #aaa;background:#fff;color:#666;cursor:pointer;font-size:11px;margin-left:6px;'
+    clearBtn.addEventListener('click', () => clearPreset(container))
+    bar.appendChild(clearBtn)
+  }
+}
+
+function loadPreset(container, preset) {
+  __state.year = preset.year
+  __state.scope = preset.scope
+  __state.enabled = {}
+  for (const id of preset.enabled) __state.enabled[id] = true
+  __state.activePresetId = preset.id
+  rebuildPresetBar(container)
+  rebuildScenarioPanel(container)
+  renderAll(container)
+  // Show caption
+  const cap = container.querySelector('.vm-preset-caption')
+  if (cap) {
+    cap.innerHTML = `<strong style="color:#7a5d00;">${preset.label}</strong><br>${preset.caption}`
+    cap.style.display = 'block'
+  }
+}
+
+function clearPreset(container) {
+  __state.activePresetId = null
+  rebuildPresetBar(container)
+  const cap = container.querySelector('.vm-preset-caption')
+  if (cap) cap.style.display = 'none'
 }
 
 function scenariosForYear(year) {
@@ -135,7 +278,8 @@ function rebuildScenarioPanel(container) {
       cb.type = 'checkbox'; cb.checked = !!__state.enabled[s.id]
       cb.addEventListener('change', () => {
         __state.enabled[s.id] = cb.checked
-        rebuildScenarioPanel(container)   // refresh n suffixes
+        clearPreset(container)              // user is editing → not a preset state anymore
+        rebuildScenarioPanel(container)     // refresh n suffixes
         renderAll(container)
       })
       const swatch = document.createElement('span')
