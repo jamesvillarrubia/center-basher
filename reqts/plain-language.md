@@ -255,7 +255,7 @@ We've shown what *doesn't* flip a swing voter: not your policy platform, not a c
 
 The voters who went from Obama in 2012 to Trump in 2016 didn't switch over policy, and they didn't switch over distrust in government. What moved them was a **sense of lost status with a racial edge**: the feeling that *"the system now puts other groups ahead of people like me."* Obama's election stirred it up; Trump put it to work.[2]
 
-We hold this **loosely**, on purpose. It does not mean half the country is simply racist. It means that's the line that *grew*. And distrust, the thing we kept circling, has collapsed so far for *everyone* that it can no longer tell one voter from another.[3]
+We hold this hypothesis of racial status loss **loosely**, on purpose. It does not mean half the country is simply racist. It means that's the line that *grew*. And distrust, the thing we kept circling, has collapsed so far for *everyone* that it can no longer tell one voter from another.[3]
 
 So how does lost status become a vote? **Lost status drives distrust in the system; distrust then needs an explanation; racial animus is the easiest lens to reach for.** The "meme" of *"they took our jobs"* and *"lazy immigrants on the dole"* is at odds with itself *and* at odds with reality. The vast majority of Americans who lose their jobs are not replaced by immigrants, and immigrants are not net-detractors from the economy. But none of that matters for the lens: blaming a visible out-group is a far easier story than blaming automation, offshoring, and forty years of de-unionization.
 
