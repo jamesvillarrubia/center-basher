@@ -382,7 +382,7 @@ The details here actually confirm the thesis, not weaken it. Obama won 2012 with
 
 <!-- < CLAUDE: regime-conditional reframe per user critique. Voice not yet edited. > -->
 
-What sorts the cases cleanly is **which frame the regime favored that cycle**. In high-trust eras (Reagan-Bush peak), the electorate rewarded *continuity* — incumbents and chosen successors won. In low-trust eras (2008–present), the electorate rewarded *change* — challengers and outsider-positioned candidates won. The rule isn't "the change candidate always wins." It's "the regime-favored frame wins," and the regime determines which frame is favored.[2] We measure regime preference using CNN/Edison's *"which one candidate quality matters most?"* exit-poll question (the strongest cross-cycle proxy for which trait drove the vote), classified against the trust era that cycle sat in.
+What sorts the cases cleanly is **which trust-frame the regime favored that cycle**. In high-trust eras (Reagan-Bush peak), the electorate rewarded *continuity*, and incumbents and chosen successors won. In low-trust eras (2008–present), the electorate rewarded *change*, and challengers and outsider-positioned candidates won. The rule isn't "the change candidate always wins." It's "the regime-favored frame wins," and the regime determines which frame is favored.[2] We measure regime preference using CNN/Edison's *"which one candidate quality matters most?"* exit-poll question (the strongest cross-cycle proxy for which trait drove the vote), classified against the trust era that cycle sat in.
 
 | Cycle | In-power party's candidate | Cast as | Change lane claimed by | Exit-poll backing | Rule holds? |
 |---|---|---|---|---|---|
