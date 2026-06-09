@@ -176,6 +176,15 @@ export function drawChangeLaneScoreboard(selector) {
     const trustColor = c.trust.era === 'high' ? '#a06400'
       : c.trust.era.startsWith('mid') ? '#888' : '#2a6a3a'
     const ranAs = c.winner.split ? 'split' : c.winner.ran
+    // Winner cell: for the split (2000) case render two stacked chips
+    // ('Gore (PV)' / 'Bush (EC)') so the long string doesn't collide with
+    // the match column. Otherwise a single chip.
+    const winnerChips = c.winner.split
+      ? c.winner.name.split(' / ').map(part => {
+          const isPV = /\(PV\)/.test(part)
+          return chip(isPV ? D : R, part.trim())
+        }).join('')
+      : chip(c.winner.color, c.winner.name + (c.winner.note ? ' (' + c.winner.note + ')' : ''))
     rows += `
       <tr>
         <td class="cls-cycle">${c.year}</td>
@@ -189,7 +198,7 @@ export function drawChangeLaneScoreboard(selector) {
           ${chip(c.change.color, c.change.name)}
         </td>
         <td class="cls-winner">
-          ${chip(c.winner.color, c.winner.name + (c.winner.note ? ' (' + c.winner.note + ')' : ''))}
+          ${winnerChips}
           <span class="cls-ranas">ran ${ranAs}</span>
         </td>
         <td class="cls-match">${matchCell}</td>

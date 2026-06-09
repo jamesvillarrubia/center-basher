@@ -2102,9 +2102,16 @@ blockquote.correction strong {
 .cls-table .cls-pair .cls-chip:last-child {
   margin-bottom: 0;
 }
-/* Winner cell: chip on first line, 'ran X' label small below */
+/* Winner cell: chip(s) on their own line, 'ran X' label small below.
+   Chips are block so the split (2000) case stacks 'Gore (PV)' over
+   'Bush (EC)' instead of overflowing into the match column. */
 .cls-table .cls-winner {
-  line-height: 1.4;
+  line-height: 1.5;
+}
+.cls-table .cls-winner .cls-chip {
+  display: block;
+  width: max-content;
+  margin-bottom: 2px;
 }
 .cls-table .cls-winner .cls-ranas {
   display: block;
