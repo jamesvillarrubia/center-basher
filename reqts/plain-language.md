@@ -378,7 +378,7 @@ Given how few swing voters there are and how few levers a campaign can pull, we 
 ### 16 · The puzzle this solves
 In this low-trust era, however, there's still a puzzle our thesis hasn't yet explained. Obama won twice. George W. Bush won twice. But Clinton lost, and Harris lost, both on decent economies. Why?
 
-The fundamentals make the puzzle sharper, not softer. Obama won 2012 with **unemployment at 7.8%**, the worst of the seven cycles in the table below. Gore lost 2000 with **unemployment at 3.9%**, the best. Clinton (2016, 4.6%) and Harris (2024, 4.2%) also lost on healthy economies.[1] If the economy decided alone, Gore should have won and Obama should have lost.
+The details here actually confirm the thesis, not weaken it. Obama won 2012 with **unemployment at 7.8%**, the worst of the seven cycles in the table below. Gore lost 2000 with **unemployment at 3.9%**, the best. Clinton (2016, 4.6%) and Harris (2024, 4.2%) also lost on healthy economies.[1] If the economy decided alone, Gore should have won and Obama should have lost.
 
 <!-- < CLAUDE: regime-conditional reframe per user critique. Voice not yet edited. > -->
 
