@@ -376,7 +376,7 @@ Given how few swing voters there are and how few levers a campaign can pull, we 
 [4] Harris was nominated July 21, 2024 (Biden withdrew; DNC delegate process confirmed her without contested primary). Coverage of the "anointment" framing is in NYT, WaPo, Atlantic post-election analyses (Nov 2024–Feb 2025). The "rigged primary" perception is documented in Pew + AP-NORC post-election surveys as a substantial reason cited by 2020 Biden voters who stayed home in 2024.
 
 ### 16 · The puzzle this solves
-But there remains a puzzle our thesis up to here can't explain: Obama won twice, and George W. Bush won twice. But Clinton lost and Harris lost, both on decent economies. Why?
+In this low-trust era, however, there's still a puzzle our thesis hasn't yet explained. Obama won twice. George W. Bush won twice. But Clinton lost, and Harris lost, both on decent economies. Why?
 
 The fundamentals make the puzzle sharper, not softer. Obama won 2012 with **unemployment at 7.8%**, the worst of the seven cycles in the table below. Gore lost 2000 with **unemployment at 3.9%**, the best. Clinton (2016, 4.6%) and Harris (2024, 4.2%) also lost on healthy economies.[1] If the economy decided alone, Gore should have won and Obama should have lost.
 
