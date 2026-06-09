@@ -20,3 +20,6 @@ Thumbs.db
 # Editor
 .vscode/
 .idea/
+
+# Debug screenshots from chrome-devtools captures (kept on disk, not tracked)
+data/derived/*.png
