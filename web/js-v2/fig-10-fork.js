@@ -56,7 +56,7 @@ export function drawTrustFork(selector) {
         <p class="fork-verdict">"Telling it like it is"</p>
         <p class="fork-judgment">authentic · rewarded</p>
         <p class="fork-example">
-          Trump reversed on NATO, entitlements, tariffs, abortion, immigration —
+          Trump reversed on NATO, entitlements, tariffs, abortion, and immigration,
           sometimes within the same speech. Coverage and base reaction held:
           a rule-breaker too honest to keep his story straight.
         </p>
