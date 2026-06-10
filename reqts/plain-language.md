@@ -464,7 +464,7 @@ The crossover **appears when Trump is the challenger**: low-trust voters rate hi
 
 ### 17 · The regime under the rule
 
-§16 showed the pattern. The candidate who matches the regime-favored frame wins — continuity in high-trust eras, change in low-trust eras. That phrasing already contains the §17 answer: *the trust regime decides which frame the electorate rewards*. So the real question isn't why the rule fires — it's why trust collapsed in the first place, why that collapse stuck, and what it does to the structural environment a candidate has to operate in.
+The frame-match scoreboard showed the pattern: the candidate who matches the regime-favored frame wins, continuity in high-trust eras and change in low-trust eras. That phrasing already contains the answer: *the trust regime decides which frame the electorate rewards*. So the real question isn't why the change-lane rule fires. It's why trust collapsed in the first place, why that collapse stuck, and what it does to the structural environment a candidate has to operate in.
 
 Start with the baseline. In every high-trust cycle, the in-power party started above 50% comfortably — 51 to 55%. The continuity candidate had a cushion to absorb a small change shove and still win. In every low-trust cycle since 2008, the in-power party's baseline collapsed to 47–51% — every cycle within three points of the threshold. Now the cushion is gone. The cliff hasn't moved; the era moved next to it.
 
