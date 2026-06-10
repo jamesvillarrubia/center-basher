@@ -231,18 +231,6 @@ export function drawChangeLaneScoreboard(selector) {
         </thead>
         <tbody>${rows}</tbody>
       </table>
-      <p class="cls-foot">
-        "Trust era" buckets the mean trust composite that cycle: <strong>high</strong> ≥ 0.42,
-        <strong>mid</strong> 0.36–0.41, <strong>mid-low / low</strong> &lt; 0.36. "Regime favors"
-        is the frame the electorate rewarded in cycles of that era. "Continuity vs Change" lists
-        the candidate occupying each frame strictly: incumbents and successors who ran on continuity-
-        of-administration occupy the continuity row; challengers and outsider-positioned candidates
-        occupy the change row. The match column compares the winner's frame to the regime's
-        favored frame. 2020 is no longer treated as "mixed" — Biden ran as restoration/change against
-        Trump-as-incumbent, and won the change-favored low-trust electorate. The 2024 Biden→Harris
-        swap was a doomed attempt to switch frame mid-cycle: even with Biden out, Harris-as-VP
-        could not escape the continuity tag in a change-favored regime.
-      </p>
     </div>
   `
 }
