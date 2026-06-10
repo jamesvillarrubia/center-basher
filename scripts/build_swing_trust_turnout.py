@@ -1,7 +1,6 @@
 """
-build_swing_trust_turnout.py — §16 swing-state TRUST vs swing-state TURNOUT
-scatter across 11 presidential cycles (1980-2020; 2024 turnout variable
-needs verification, omitted for now).
+build_swing_trust_turnout.py — §17 swing-state TRUST vs swing-state TURNOUT
+scatter across 12 presidential cycles (1980-2024).
 
 For each cycle:
   - swing_trust = weighted mean of the trust composite, restricted to ANES
@@ -13,7 +12,7 @@ For each cycle:
 
 Headline pattern: the trust↔turnout relationship FLIPS at the
 Authenticity-Floor boundary (~0.41). High-trust era (1980-2004): positive
-correlation r=+0.86. Low-trust era (2008-2020): negative r=-0.99.
+correlation r=+0.86. Low-trust era (2008-2024): negative r=-0.81.
 
 Output: data/clean/swing_trust_turnout.json
 """
@@ -36,6 +35,7 @@ BG = {
     2012: [39, 12, 51, 37, 8, 32, 33, 19, 55],
     2016: [26, 55, 42, 12, 39, 37, 4, 19],
     2020: [42, 26, 55, 4, 13, 37, 12, 32],
+    2024: [42, 26, 55, 4, 13, 37, 32],       # PA MI WI AZ GA NC NV (FL dropped)
 }
 
 def norm(s, lo, hi, rev=False):
@@ -81,9 +81,10 @@ def main():
          'postvote_presvtwho', 'weight_full', 'sample_stfips'),
         (2016, None, 'V162031x', 'V160102', 'V161010d'),
         (2020, None, 'V202109x', 'V200010a', 'V201014b'),
+        (2024, None, None, 'V240107b', 'V243002'),
     ]
-    from _lib import load_anes_2016, load_anes_2020
-    loaders = {2016: load_anes_2016, 2020: load_anes_2020}
+    from _lib import load_anes_2016, load_anes_2020, load_anes_2024
+    loaders = {2016: load_anes_2016, 2020: load_anes_2020, 2024: load_anes_2024}
     for entry in standalone:
         y = entry[0]
         loader = entry[1] or loaders[y]
@@ -103,15 +104,26 @@ def main():
             # postvote_presvtwho coded: 1=Obama, 2=Romney, 5=other => voted
             voted_y = df[vote_var].isin([1, 2, 5])
         else:
-            cols = {2016: ('V161215','V161216','V161217'), 2020: ('V201233','V201234','V201235')}
+            cols = {2016: ('V161215','V161216','V161217'),
+                    2020: ('V201233','V201234','V201235'),
+                    2024: ('V241229','V241231','V241232')}
             do_v, ra_v, wa_v = cols[y]
             do = df[do_v].where(df[do_v].between(1,5))
             ra = df[ra_v].where(df[ra_v].between(1,2))
             wa = df[wa_v].where(df[wa_v].between(1,3))
             trust_c = pd.concat([(5-do)/4, (ra-1)/1, (wa-1)/2], axis=1).mean(axis=1)
-            # voter-validated: 1=voted
-            vt = pd.to_numeric(df[vote_var], errors='coerce')
-            voted_y = vt == 1
+            if y == 2024:
+                # 2024 turnout = early-voted (PRE V241035==1) OR post "I am sure
+                # I voted" (V242065==4). V242065's universe EXCLUDES PRE early
+                # voters, so the union is required — this is the documented 2024
+                # turnout fix (see CLAUDE.md: V242066/V242065 universe bug).
+                early = pd.to_numeric(df['V241035'], errors='coerce') == 1
+                postv = pd.to_numeric(df['V242065'], errors='coerce') == 4
+                voted_y = early | postv
+            else:
+                # voter-validated: 1=voted
+                vt = pd.to_numeric(df[vote_var], errors='coerce')
+                voted_y = vt == 1
         w_y = pd.to_numeric(df[wt_var], errors='coerce').fillna(0).clip(lower=0)
         state_y = pd.to_numeric(df[st_var], errors='coerce')
         m = state_y.isin(fips) & trust_c.notna() & (w_y > 0)
@@ -140,19 +152,20 @@ def main():
                                [r['swing_turnout'] for r in post])[0,1]) if len(post) >= 3 else None
 
     payload = {
-        'source': 'ANES CDF (1980-2008) + ANES standalone files (2012-2020). 2024 omitted (vote-validated coding shift).',
+        'source': 'ANES CDF (1980-2008) + ANES standalone files (2012-2024).',
         'method': (
             'For each cycle, restrict to ANES respondents living in that cycle\'s '
             'battleground states (cycle-specific set, see BG_BY_CYCLE in '
             'build_candidate_honesty_by_trust.py). Compute weighted mean of the '
             'trust composite (CDF: VCF0604rev/0605/0609; 2012: trustgov + trust_social; '
-            '2016-2020: do-right/run-for-all/waste). Compute weighted self-reported '
+            '2016-2024: do-right/run-for-all/waste). Compute weighted self-reported '
             'turnout (CDF: VCF0702==2; 2012: voted for any candidate; 2016/2020: '
-            'voter-validated vote==1).'
+            'voter-validated vote==1; 2024: early-voted V241035==1 OR post '
+            'V242065==4).'
         ),
         'caveats': [
             'ANES self-reported turnout over-reports by ~25pp; absolute levels not comparable to VEP. Relative patterns across cycles are meaningful.',
-            '2024 omitted: V242065 coding (4=majority of respondents) needs verification.',
+            '2024 turnout combines early-vote (V241035==1) with post self-report (V242065==4); V242065 universe excludes PRE early voters, so the union is required. Weighted by post weight V240107b; trust battery V241229/V241231/V241232.',
             'Trust composite definition shifts between CDF and standalone files; 2012 mean (0.519) sits high because trust_social inflates the composite.',
         ],
         'overall_r': round(overall_r, 3),

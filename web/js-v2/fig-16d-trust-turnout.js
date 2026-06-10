@@ -1,11 +1,11 @@
-// Fig 16d — Swing-state TRUST vs swing-state TURNOUT scatter (11 cycles).
+// Fig 16d — Swing-state TRUST vs swing-state TURNOUT scatter (12 cycles).
 //
 // The relationship FLIPS across the Authenticity Floor:
 //   - Pre-2008 (high-trust regime, trust >= 0.41 mostly): r = +0.86.
 //     Civic-engagement model — when trust is high, turnout is high.
-//   - Post-2004 (low-trust regime): r = -0.78.
+//   - Post-2004 (low-trust regime): r = -0.81.
 //     Anti-system mobilization model — collapsing trust drives turnout up.
-// Overall r = -0.17 because the regime flip dominates.
+// Overall r = -0.33 because the regime flip dominates.
 //
 // Data: scripts/build_swing_trust_turnout.py → swing_trust_turnout.json
 import * as d3 from 'https://esm.sh/d3@7'

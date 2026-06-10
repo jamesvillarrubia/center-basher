@@ -474,7 +474,7 @@ Let's start with a baseline. In every high-trust cycle, the in-power party opene
 **Trust is not a variable. It's a regime.** The baseline shift of the mean trust composite, down into the below-0.3 range shown in Figure A, is significant in multiple ways. It isn't simply that the trust regime changes the starting margin of a campaign; it also shapes *how voters show up*. The civic-engagement model political science has taught for fifty years says trust drives turnout: engaged voters who believe institutions work are the ones who vote. That model held pretty well for thirty years, but it has now stopped holding. We are in a low-trust regime, one where rising trust seems to decrease turnout, an inversion of the prior pattern.
 
 > **`[Figure B — Swing-state trust × turnout: the relationship flips at the Floor]`**
-> *Scatter of mean swing-state trust × swing-state turnout, per cycle. Pre-2008 cluster: trust and turnout move together (r = +0.86, civic-engagement model). Post-2004 cluster: trust and turnout move opposite (r = −0.78, anti-system mobilization model). The Authenticity Floor isn't just a vote-choice threshold — it's the regime divider where the entire turnout mechanism flips sign.*
+> *Scatter of mean swing-state trust × swing-state turnout, per cycle. Pre-2008 cluster: trust and turnout move together (r = +0.86, civic-engagement model). Post-2004 cluster: trust and turnout move opposite (r = −0.81, anti-system mobilization model). The Authenticity Floor isn't just a vote-choice threshold — it's the regime divider where the entire turnout mechanism flips sign.*
 
 #### The hierarchy of effects
 
