@@ -486,7 +486,7 @@ Putting these together, three things compound to produce a presidential outcome.
 
 **Third, the campaign itself** — events, debates, asymmetric news cycles — moves the aggregate margin by roughly the size of the polling noise floor (about ±2 percentage points of standard deviation across a cycle). That is electorally meaningful in close races, but it does *not* reverse the sign of the gap — and the sign of the gap is what the candidate-fit baseline sets at the moment of nomination. The campaign decides whether a 1-point race ends 1-up or 1-down. It does not decide whether the race is close in the first place; the regime baseline (§17 Figure A) does that.
 
-The numbers compound in order. A regime that favors D by 7 + a well-fit D candidate at +2 − 1 bad cycle of campaign events = D wins by 8. A regime that favors D by 1 + a *misfit* D candidate at −2 + neutral campaign events = D loses by 1, the Republican wins narrowly. That's 2020 versus 2024 in a single line of arithmetic.
+The numbers compound in order, and 2020 against 2024 is the whole argument in two lines of arithmetic. Start 2020 with a regime that favored the Democrat by 7, add 2 for a well-fit Biden, give 1 back to a bad run of campaign news, and the Democrat wins by 8. Start 2024 with a regime favoring the Democrat by just 1, subtract 2 for a *misfit* Harris, call the campaign a wash, and the Democrat loses by 1, handing the Republican the win.
 
 <!-- < CLAUDE: §17 was too long per user direction (2026-06-08); split this section out at the 'electability' subsection so the metrics + selection-mechanism material lives in its own §18. Renumbered §18→§19 in cross-refs. > -->
 
