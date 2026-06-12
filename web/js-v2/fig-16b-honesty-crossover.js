@@ -37,7 +37,7 @@ export function drawHonestyCrossover(selector, data) {
   }))
 
   const W = container.clientWidth || 680
-  const margin = { top: 34, right: 20, bottom: 105, left: 60 }
+  const margin = { top: 34, right: 20, bottom: 112, left: 70 }
   const innerW = W - margin.left - margin.right
   const innerH = 280
   const H = margin.top + innerH + margin.bottom
@@ -61,7 +61,7 @@ export function drawHonestyCrossover(selector, data) {
     .attr('y1', legY).attr('y2', legY)
     .attr('stroke', COLOR_WASH).attr('stroke-width', 2).attr('stroke-dasharray', '3,3')
   svg.append('text').attr('class', 'hc-leg').attr('x', margin.left + 402).attr('y', legY + 4)
-    .attr('fill', '#777').text('grey/dashed = wash (no clear pick)')
+    .attr('fill', '#777').text('wash (no clear pick)')
 
   // Era band shading
   const x = d3.scaleBand().domain(cycles.map(c => c.cycle)).range([0, innerW]).padding(0.18)
@@ -145,10 +145,11 @@ export function drawHonestyCrossover(selector, data) {
       .attr('opacity', isWash ? 0.30 : 1)
       .text('✓')
 
-    // Explicit "wash" label below the year axis (back, per user feedback)
+    // Explicit "wash" label below the year axis (back, per user feedback).
+    // Sits on its own line, clear of the year-axis ticks above it.
     if (isWash) {
       g.append('text').attr('class', 'hc-wash-tag')
-        .attr('x', cx).attr('y', innerH + 16).attr('text-anchor', 'middle')
+        .attr('x', cx).attr('y', innerH + 28).attr('text-anchor', 'middle')
         .attr('font-size', '10px').attr('font-weight', '700').attr('font-style', 'italic')
         .attr('fill', COLOR_WASH)
         .text('wash')
@@ -156,7 +157,7 @@ export function drawHonestyCrossover(selector, data) {
 
     // WH-held row
     g.append('text').attr('class', 'hc-inpower-tag')
-      .attr('x', cx).attr('y', innerH + 30).attr('text-anchor', 'middle')
+      .attr('x', cx).attr('y', innerH + 44).attr('text-anchor', 'middle')
       .attr('font-size', '10px').attr('fill', '#555')
       .text(c.inpower === 'D' ? 'D' : 'R')
 
@@ -164,22 +165,22 @@ export function drawHonestyCrossover(selector, data) {
     if (c.trust_mean != null) {
       const aboveFloor = c.trust_mean >= 0.41
       g.append('text')
-        .attr('x', cx).attr('y', innerH + 50).attr('text-anchor', 'middle')
+        .attr('x', cx).attr('y', innerH + 60).attr('text-anchor', 'middle')
         .attr('font-size', '10.5px').attr('font-weight', '700')
         .attr('fill', aboveFloor ? '#a06400' : '#2a6a3a')
         .text(c.trust_mean.toFixed(2))
     }
   }
 
-  // Row labels
+  // Row labels (left gutter)
   g.append('text')
-    .attr('x', -8).attr('y', innerH + 30).attr('text-anchor', 'end')
+    .attr('x', -8).attr('y', innerH + 44).attr('text-anchor', 'end')
     .attr('font-size', '10px').attr('fill', '#555').attr('font-style', 'italic')
     .text('held WH')
   g.append('text')
-    .attr('x', -8).attr('y', innerH + 50).attr('text-anchor', 'end')
+    .attr('x', -8).attr('y', innerH + 60).attr('text-anchor', 'end')
     .attr('font-size', '10px').attr('fill', '#555').attr('font-style', 'italic')
-    .text('trust (floor=0.41)')
+    .text('trust')
 
   // Era divider (vertical between 2004 and 2008)
   g.append('line')
