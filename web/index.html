@@ -61,7 +61,7 @@
         </li>
         <li id="fn-0-2" value="2">
           Pew, same series, 2024 reading: <strong>22%</strong>. Range 16–24% across 2007–2024.
-          Below 30% in every major poll since July 2007 — the longest such stretch in the 65-year
+          Below 30% in every major poll since July 2007, the longest such stretch in the 65-year
           series. ANES standalone 2024 (<code>V241229</code>) gives <strong>14.8%</strong>
           ("most of the time" + "always"); the slight gap from Pew is normal sample / wording
           variation. Either way the floor is in roughly the same place.
@@ -73,7 +73,7 @@
           Same question wording across waves. Cohorts use standard Pew generational birth-year
           ranges. Greatest-generation respondents drop out of recent waves as the cohort dies off;
           Gen Z appears starting 2016. The chart shows every cohort collapsed in the same
-          direction over the same period — distrust isn't a generational quirk, it's universal.
+          direction over the same period: distrust isn't a generational quirk, it's universal.
           (The party-of-president confound is netted out in <a href="#sec-15" class="secref">§15</a>.)
           Pipeline: <code>scripts/build_trust_by_cohort.py</code>.
           <a href="#fnref-0-3" class="fnret">↩</a>
@@ -85,7 +85,7 @@
   <!-- §1 -->
   <section class="sec" id="sec-1">
     <p class="seclabel">§1 · The conventional wisdom</p>
-    <h2>"Win the middle" — but which middle?</h2>
+    <h2>"Win the middle", but which middle?</h2>
 
     <p class="lede">
       Despite this ocean of distrust, almost every campaign consultant believes the same thing about policy positions:
@@ -219,7 +219,7 @@
           <strong>Grab-Baggers</strong>: self-ID moderate (V161126 ∈ {3, 4, 5}) AND issue-mean
           off-center (>±0.75 from 4); 27.94% → <strong>28</strong>.
           <strong>MidMiddlers</strong>: self-ID moderate AND issue-mean within ±0.75 of 4;
-          12.42% → <strong>12</strong> dots — of which <strong>1</strong> is also a
+          12.42% → <strong>12</strong> dots, of which <strong>1</strong> is also a
           <strong>True Middler</strong> (within ±0.5 of center AND ≥70% of issue items
           within ±1 of center; 1.07%, n=49 unweighted). The chart shows the True Middler
           carved out of the 12 MidMiddlers (so MidMiddler row holds 11 dots + the 1 circled
@@ -322,7 +322,7 @@
           recalled votes drift toward the respondent’s current partisan position.
           Variables: <code>presvote_2012</code> (1=Obama, 2=Romney),
           <code>presvote_2016</code> (1=Clinton, 2=Trump),
-          <code>presvote_2020Nov</code> (1=Trump, 2=Biden — flipped from 2016).
+          <code>presvote_2020Nov</code> (1=Trump, 2=Biden, flipped from 2016).
           Self-ID via <code>ideo5_2016</code> (5-pt; liberals = 1–2, moderate = 3,
           conservatives = 4–5). Weighted by <code>weight_genpop_2016</code>.
           Restricted to respondents who reported voting in all three cycles
@@ -445,7 +445,7 @@
           (|<code>V161126</code>-4|) and 3-item trust index
           (<code>V161215/216/217</code>). <strong>Choice model</strong>
           (P(Trump | voted)): standardized |β·SD| ideology <strong>2.30</strong>, trust
-          <strong>0.62</strong>. <strong>Turnout model</strong> (P(voted) — self-report
+          <strong>0.62</strong>. <strong>Turnout model</strong> (P(voted), self-report
           <code>V162034a</code> non-missing): ideology <strong>0.03</strong>, trust
           <strong>0.02</strong>. Ideology decides <em>who</em>; it’s a zero for
           <em>whether</em>.
@@ -464,8 +464,8 @@
       Campaigns already split voters by the two problems we just named. For every name on the
       voter file they ask two questions: <em>which side does this person lean?</em>
       (Democrat, persuadable, Republican) and <em>how reliably do they show up to vote?</em>
-      (high, mid, low propensity). Cross those two questions and you get nine groups — the
-      <strong>9-box grid</strong> — and each box gets a mechanical strategy.<a href="#fn-5-1" class="fnref" id="fnref-5-1"><sup>12</sup></a>
+      (high, mid, low propensity). Cross those two questions and you get nine groups, the
+      <strong>9-box grid</strong>, and each box gets a mechanical strategy.<a href="#fn-5-1" class="fnref" id="fnref-5-1"><sup>12</sup></a>
     </p>
 
 
@@ -480,7 +480,7 @@
         <div class="ninebox-rowhead">High propensity</div>
         <div class="ninebox-cell" data-strat="bank">
           <p class="cell-strat">Bank</p>
-          <p class="cell-note">skip — they’re with you</p>
+          <p class="cell-note">skip, they’re with you</p>
         </div>
         <div class="ninebox-cell" data-strat="persuade">
           <p class="cell-strat">Persuasion</p>
@@ -675,15 +675,15 @@
           <code>V160101</code>): Dem-leaners with above-median grievance on the 3-item
           institutional-trust index (<code>V161215 / V161216 / V161217</code>) defect to the
           opposing candidate at <strong>~3× the rate</strong> of low-grievance Dem-leaners.
-          The directional finding — the file’s “lean Dem” label substantially misses the
-          trust/disaffection dimension — is robust across both voter-file scoring (Catalist,
+          The directional finding, the file’s “lean Dem” label substantially misses the
+          trust/disaffection dimension, is robust across both voter-file scoring (Catalist,
           NGP-VAN) and ANES self-ID PID. The precise magnitude depends on which model.
           <a href="#fnref-5-2" class="fnret">↩</a>
         </li>
         <li id="fn-5-3" value="14">
-          The strategy-interaction critique — that persuasion and turnout moves don’t live in
+          The strategy-interaction critique, that persuasion and turnout moves don’t live in
           separate columns and that a “safe / electable” persuasion pitch can simultaneously
-          dampen turnout among disaffected supporters — comes out of the post-2024 Working
+          dampen turnout among disaffected supporters, comes out of the post-2024 Working
           Families Party and Catalist <em>“What Happened”</em> post-mortems, and is the
           load-bearing finding of <a href="#sec-18" class="secref">§18</a>. Empirical backbone
           for the trade-off in <code>reqts/the-center-is-a-lie.md</code> §11–§12.
@@ -700,7 +700,7 @@
           The “1 in 13 / 1 in 9” framing approximates the rate at which a GOTV intervention on
           a Dem-scored low-propensity target produces a vote for the opponent instead.
           <em>Caveat:</em> voter-file partisanship scoring (Catalist, NGP-VAN, etc.) combines
-          voter history, demographics, and survey-modeled signals — it isn’t identical to
+          voter history, demographics, and survey-modeled signals, it isn’t identical to
           ANES self-ID PID. The directional finding is robust across both measures.
           <a href="#fnref-5-4" class="fnret">↩</a>
         </li>
@@ -727,7 +727,7 @@
     </p>
 
     <p class="lede">
-      This has been tested and tested again — across <strong>49 field experiments</strong>.
+      This has been tested and tested again, across <strong>49 field experiments</strong>.
       Between two well-known candidates, all the ads and door-knocks combined move vote
       choice by <strong>roughly zero</strong>.<a href="#fn-6-1" class="fnref" id="fnref-6-1"><sup>16</sup></a>
       Once you’ve got two famous nominees, the election runs on
@@ -769,7 +769,7 @@
           <strong>Two narrow exceptions K&amp;B name:</strong> small effects do appear when a
           candidate takes <em>unusually unpopular positions</em> and the campaign invests
           heavily in identifying persuadable voters, or when contact happens
-          <em>long before Election Day</em> — and those early effects decay by November.
+          <em>long before Election Day</em>, and those early effects decay by November.
           Neither exception describes the "move to the center in the home stretch" advice.
         </p>
       </div>
@@ -873,7 +873,7 @@
           government to do what is right," inverted), <code>V161216</code> ("government run
           for benefit of all vs. few big interests"), and <code>V161217</code> ("not waste
           much tax money"). Index range 0–1. On the full sample, mean trust for defectors
-          (0.23) and loyalists (0.22) is essentially identical — the first-cut "null" that
+          (0.23) and loyalists (0.22) is essentially identical, the first-cut "null" that
           the party-of-president confound hides.
           <a href="#fnref-7-1" class="fnret">↩</a>
         </li>
@@ -907,7 +907,7 @@
 
     <p class="lede">
       In 2016, low-trust voters saw Trump as the honest one and Clinton as the phony.
-      High-trust voters saw the exact opposite. Same two candidates — judgment completely
+      High-trust voters saw the exact opposite. Same two candidates, judgment completely
       flipped.<a href="#fn-8-2" class="fnref" id="fnref-8-2"><sup>22</sup></a> You don’t get
       "authentic" by being authentic in the abstract. You get it by being <em>close to where
       the voter already stands</em> on trust. <strong>Alignment</strong> between voter and
@@ -929,8 +929,8 @@
       <summary>How we know</summary>
       <ol class="footnotes" start="21">
         <li id="fn-8-1" value="21">
-          Candidate trait items (ANES 2016): <code>V161162</code> ("honest" — Clinton),
-          <code>V161167</code> ("honest" — Trump); paired "cares about people like you"
+          Candidate trait items (ANES 2016): <code>V161162</code> ("honest", Clinton),
+          <code>V161167</code> ("honest", Trump); paired "cares about people like you"
           items <code>V161160</code> (Clinton) / <code>V161165</code> (Trump). Each rated
           1 ("extremely well") to 5 ("not well at all") on the raw ANES scale; rescaled to
           0–4 with HIGH = trait fits better via <code>(5 − raw)</code>. Trust composite:
@@ -941,7 +941,7 @@
         <li id="fn-8-2" value="22">
           Weighted by <code>V160101</code>, n≈3,300. Low-trust voters rated Trump honest at
           <strong>1.58</strong> and Clinton at <strong>0.54</strong>. High-trust voters
-          rated Clinton at <strong>1.77</strong> and Trump at <strong>0.93</strong> — the
+          rated Clinton at <strong>1.77</strong> and Trump at <strong>0.93</strong>, the
           exact opposite ordering. The body uses an asymmetric trust cut (low-trust = below
           median; high-trust = top quartile); a symmetric tercile cut moves the numbers but
           not the direction (low-trust 0.30 / 1.92 vs high-trust 1.49 / 1.04). The
@@ -963,7 +963,7 @@
       The <a href="#sec-8" class="secref">previous section</a> showed that an "authentic
       outsider" reads as honest to low-trust voters. So watch what happens to that effect
       once the outsider takes power. In <strong>2016</strong>, low-trust voters rated Trump honest at
-      <strong>1.58</strong> and Clinton at <strong>0.54</strong> — the classic crossover. In
+      <strong>1.58</strong> and Clinton at <strong>0.54</strong>: the classic crossover. In
       <strong>2020</strong>, with Trump as the incumbent president, the magic
       <strong>vanished</strong>: Biden was rated more honest than Trump at every trust
       level. Then in <strong>2024</strong>, with Trump out of power again, the crossover
@@ -1003,8 +1003,8 @@
       <ol class="footnotes" start="23">
         <li id="fn-9-1" value="23">
           Cross-cycle authenticity crossover. Three-cycle test using comparable ANES trait
-          items in 2020 and 2024. Variables: 2020 — <code>V201211</code> (Biden honest),
-          <code>V201215</code> (Trump honest); 2024 — <code>V241203</code> (Harris honest),
+          items in 2020 and 2024. Variables: 2020: <code>V201211</code> (Biden honest),
+          <code>V201215</code> (Trump honest); 2024: <code>V241203</code> (Harris honest),
           <code>V241208</code> (Trump honest). 3-item trust index built from
           <code>V201233/234/235</code> (2020) and <code>V241229/231/232</code> (2024).
           Honesty ratings rescaled to a 0–4 scale (higher = trait fits better).
@@ -1036,7 +1036,7 @@
 
   <!-- §10 -->
   <section class="sec" id="sec-10">
-    <p class="seclabel">§10 · Why a candidate can flip-flop for free — or get punished for it</p>
+    <p class="seclabel">§10 · Why a candidate can flip-flop for free, or get punished for it</p>
     <h2>Same act, opposite reaction</h2>
 
     <p class="lede">
@@ -1089,11 +1089,11 @@
           <code>V160101</code>: Trump <strong>3.72</strong>, Clinton <strong>3.95</strong>.
           Voters rated Trump more honest than Clinton in 2016 despite the documented
           fact-check record. The honesty gap is the structural reason the same "flip"
-          produces opposite reactions — Trump’s plank-steals redefine the party; Clinton’s
+          produces opposite reactions: Trump’s plank-steals redefine the party; Clinton’s
           plank-steals read disingenuous. The voter judgment is <em>relational</em> (where
           the candidate sits in the voter’s institutional-trust frame), not factual.
           Adjacent theory frame: Gabriel S. Lenz, <em>Follow the Leader?</em> (2012,
-          University of Chicago Press) — voters adopt their preferred leader’s positions,
+          University of Chicago Press), voters adopt their preferred leader’s positions,
           not vice versa.
           <a href="#fnref-10-2" class="fnret">↩</a>
         </li>
@@ -1391,10 +1391,10 @@
       <ol class="footnotes" start="33">
         <li id="fn-12-1" value="33">
           Alan S. Gerber and Donald P. Green, <em>Get Out the Vote: How to Increase Voter
-          Turnout</em> (3rd ed., 2019, Brookings) — meta-synthesis of two decades of
+          Turnout</em> (3rd ed., 2019, Brookings), meta-synthesis of two decades of
           randomized GOTV field experiments. Earlier benchmark: Gerber, Green &amp; Larimer
           (2008), "Social Pressure and Voter Turnout: Evidence from a Large-Scale Field
-          Experiment," <em>American Political Science Review</em> 102(1) — the famous
+          Experiment," <em>American Political Science Review</em> 102(1), the famous
           "your neighbors are watching" effect.
           <a href="#fnref-12-1" class="fnret">↩</a>
         </li>
@@ -1735,7 +1735,7 @@
 
   <!-- §15 -->
   <section class="sec" id="sec-15">
-    <p class="seclabel">§15 · "That was just 2016" — no, it’s every election</p>
+    <p class="seclabel">§15 · "That was just 2016"? No, it’s every election</p>
     <h2>Trust flips with the White House, 10 of 14 cycles back to 1972</h2>
 
     <p class="lede">
@@ -1928,8 +1928,8 @@
         </li>
         <li id="fn-16-2" value="47">
           12-cycle frame-match evidence, 1980–2024. Each cycle is classified by
-          (a) mean trust composite (the trust era — high ≥ 0.42, mid 0.36–0.41,
-          low &lt; 0.36); (b) which frame the regime favored — continuity in
+          (a) mean trust composite (the trust era: high ≥ 0.42, mid 0.36–0.41,
+          low &lt; 0.36); (b) which frame the regime favored, continuity in
           high-trust eras, change in low-trust eras; (c) the strict
           continuity-candidate vs change-candidate split (incumbents and successors
           run on continuity, challengers and outsider-positioned candidates run on
@@ -1951,7 +1951,7 @@
           The pattern: 12 of 12 cycles by popular vote, 11 of 12 by Electoral
           College. <strong>Honest correction from the prior draft:</strong> an
           earlier version of this footnote said "the change-lane owner wins,
-          7-for-7," which was circular — Reagan ’84 and Bush ’88 ran on continuity,
+          7-for-7," which was circular: Reagan ’84 and Bush ’88 ran on continuity,
           not change, and they won precisely because high-trust voters reward
           continuity. The corrected framing is regime-conditional: voters reward
           continuity in high-trust eras and change in low-trust eras; the
@@ -2225,8 +2225,8 @@
     </p>
 
 <p>
-      The state-by-state arithmetic — vote-validated by TargetSmart-merged
-      CES 2016 — quantifies what that structural mismatch looked like at the
+      The state-by-state arithmetic, vote-validated by TargetSmart-merged
+      CES 2016, quantifies what that structural mismatch looked like at the
       level of actual votes:
     </p>
 
@@ -2254,7 +2254,7 @@
       The switchers weren’t conservatives who got talked rightward. They were
       anti-establishment voters who were never going to rally behind the
       ultimate establishment candidate. The VSG panel data confirms this at
-      the cohort level — and it lines up exactly with the <a href="#sec-16" class="secref">§16</a> thesis at the
+      the cohort level, and it lines up exactly with the <a href="#sec-16" class="secref">§16</a> thesis at the
       level of the people whose votes decided WI / MI / PA:
     </p>
 
@@ -2279,7 +2279,7 @@
 
     <p>
       The cohort gap survives a sharper test. Sanders’ 2016 primary
-      coalition was disproportionately <em>moveable</em> voters — voters
+      coalition was disproportionately <em>moveable</em> voters, voters
       who hadn’t made up their minds yet, or who had unreliable turnout
       histories. The same cohort campaigns actually fight for.
     </p>
@@ -2307,13 +2307,13 @@
       defection so much as demobilization. <strong>30 million 2020 voters did
       not return in 2024</strong>, the largest single-cycle drop-off since 2012.
       The demobilization concentrated among non-white, young, and irregular
-      voters — voters whose 2020 turnout was mobilized in part on
+      voters, voters whose 2020 turnout was mobilized in part on
       anti-Trump grounds and who in 2024 saw no compelling reason to come back
       when “anti-Trump” was still the Democratic brand’s central frame.
     </p>
 
     <p>
-      The 2016 and 2024 mechanisms differ — defection versus no-show — but
+      The 2016 and 2024 mechanisms differ, defection versus no-show, but
       the cohort losing in each case is the same: the <strong>anti-establishment
       voter the Democratic establishment had nothing to say to</strong>. In
       2016 they defected. In 2024 they stayed home. Either way, the
@@ -2389,7 +2389,7 @@
 
   <!-- §20 -->
   <section class="sec" id="sec-20">
-    <p class="seclabel">§20 · The centrist’s bad trade — robbing your own camp</p>
+    <p class="seclabel">§20 · The centrist’s bad trade: robbing your own camp</p>
     <h2>Chasing the middle pushes away your own distrustful base</h2>
 
     <p class="lede">
@@ -2508,7 +2508,7 @@
 
   <!-- §21 -->
   <section class="sec" id="sec-21">
-    <p class="seclabel">§21 · So what — and why this matters for progressives</p>
+    <p class="seclabel">§21 · So what, and why this matters for progressives</p>
     <h2>In a low-trust era, the “safe” establishment candidate is the risky one</h2>
 
     <p class="lede">
