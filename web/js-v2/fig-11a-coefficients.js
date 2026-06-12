@@ -16,7 +16,7 @@ const ROWS = [
   { name: 'Republican party ID (2012)',       coef: 0.37, color: '#2c5b9c' },
   { name: 'Negative economic outlook (2016)', coef: 0.22, color: '#e9a52e' },
   { name: 'Distrust in government (2016)',    coef: 0.15, color: '#6b6b70',
-    note: '↳ near-universal in 2016 (71% of voters in bottom quartile) — can’t discriminate' },
+    note: '↳ near-universal in 2016 (71% of voters in bottom quartile), can’t discriminate' },
 ]
 
 export function drawSwitchCoefficients(selector) {
@@ -87,7 +87,7 @@ export function drawSwitchCoefficients(selector) {
   }
 
   // X-axis at the bottom
-  const axisY = innerH + 8
+  const axisY = innerH + 26
   g.append('g').attr('transform', `translate(0, ${axisY})`)
     .attr('class', 'sc-axis')
     .call(d3.axisBottom(x).ticks(5).tickFormat(d => d.toFixed(1)).tickSizeOuter(0))

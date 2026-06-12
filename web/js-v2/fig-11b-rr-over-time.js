@@ -19,7 +19,7 @@ const CYCLES = [
 
 const ANNOTATIONS = [
   { year: 2008, text: 'Obama elected', dy: -40 },
-  { year: 2016, text: 'Trump campaign', dy: 12 },
+  { year: 2016, text: 'Trump campaign', dy: -28 },
 ]
 
 export function drawRRTimeline(selector) {
