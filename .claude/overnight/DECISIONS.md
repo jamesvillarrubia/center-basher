@@ -35,3 +35,9 @@ Gate-3 VIOLATIONS found (post-election analysis weighted by PRE) — NOT fixed b
 - MED   build_turnout_hump.py (PRE V160101 on self-report turnout) and build_within_tent_bolt.py (PRE V160101 on vote bolt) — same PRE-on-post pattern.
 - NEEDS-CHECK build_trust_by_cohort.py, build_within_cycle_multi.py (mixed PRE/POST across cycles).
 Root pattern: the 2020/2024 PRE→POST fix that was applied to the voter map was NOT propagated to these older single-cycle scripts.
+
+## 2026-06-12 17:31 — Footnote-provenance spot-check, Gate 5 (queue item 7, audit-only)
+Well-documented (dataset+variables/desc+filter+n+weight+method present): Fig V (trust→vote), Fig AC (VSG switcher), Fig Z (trust×turnout, even names V241035/V242065/V240107b). Provenance GAPS (recommend caption/footnote additions — NOT edited, prose-sacred):
+- Fig X (honesty crossover): caption is narrative-only. Names neither dataset, variable codes, weight, method, nor per-cycle n. Recommend a provenance line: ANES 2016/2020/2024; honesty trait items (2016 V161162/V161167; 2020 V201211/V201215; 2024 V241203/+); trust composite (V161215/216/217 etc.); low-trust tercile within each cycle's battleground states; weighted means; n per cycle. NB: also carries the item-6 weight inconsistency.
+- Fig P (RR weight): names ANES CDF + 4-item Kinder-Sanders scale + 'standardized coef net of ideology/party ID', but omits per-cycle n, the weight (VCF0009z), and the VCF variable codes. Recommend adding.
+- Fig AA (voter map): visible caption names dataset/n/cohorts/method but NOT the weight (V160102) or V-codes (V161126, V161215/216/217) — those live in the JSON 'source' field, not reader-facing. Recommend surfacing weight + key V-codes. (Also the n=339-vs-data-300 item already in BLOCKERS.)
