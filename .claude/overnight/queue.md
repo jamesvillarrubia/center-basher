@@ -6,7 +6,7 @@
 
 - [x] Vote-choice + primary-vote forensic pass (V161021a, V162031x, V201231x, V241049/V241106x, V242067, per-cycle pres-vote vars). Cross-check each against codebook; confirm Gate-3 POST weight on vote-choice scripts. Accept: each such variable used has a codebook-cited annotation (none ❓); any PRE-weight-on-vote-choice is fixed in the script or logged to BLOCKERS.
 
-- [ ] Party-ID + ideology forensic pass (V161158x/V201231x/V241158x 7-pt party; lib-con self + candidate placements). Verify the 1..7 → dem/ind/rep mapping has no off-by-one and ideology direction is correct. Accept: party-ID mapping verified against codebook for each cycle (no code silently dropped); none ❓; audit regenerates.
+- [x] Party-ID + ideology forensic pass (V161158x/V201231x/V241158x 7-pt party; lib-con self + candidate placements). Verify the 1..7 → dem/ind/rep mapping has no off-by-one and ideology direction is correct. Accept: party-ID mapping verified against codebook for each cycle (no code silently dropped); none ❓; audit regenerates.
 
 - [ ] Trust-composite forensic pass (institutional-trust items per cycle + CDF trust). Verify each item's code direction matches the (5−x)/4-style transforms in the build scripts. Accept: each trust item used has a codebook-cited annotation with verified direction; none ❓.
 

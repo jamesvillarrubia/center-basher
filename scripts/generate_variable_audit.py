@@ -98,6 +98,7 @@ KNOWN_ANNOTATIONS = {
     "V161005": "✅ CODEBOOK-VERIFIED: 2016 PRE 'Did R vote for President in 2012' (item CAMPINT_PRESVTLAST). 1=voted 2012, 2=did not, -9/-8 missing. Universe = all PRE respondents (all 4270 coded, no restriction). Used as V161005==1 (voted 2012) for the drop-off cohort (voted 2012, not 2016).",
     "V241106x": "✅ CODEBOOK-VERIFIED: 2024 prior-vote recall. 1=did not vote 2020, 2=Biden, 3=Trump, 4=other.",
     "V241227x": "✅ CODEBOOK-VERIFIED: 2024 7-pt party summary. Same scale as V161158x/V201231x. Already mapped correctly (1,2,3→dem; 4→ind; 5,6,7→rep).",
+    "V241228": "✅ NOT IN LIVE USE (comment only): 2024 PRE 'PARTY IDENTITY IMPORTANCE' — a split/reversed-scale identity-strength item (large -1 Inapplicable bucket), NOT a party-direction variable. Party assignment uses V241227x; V241228 appears only in a code comment in build_voter_maps_all.py documenting that replacement.",
     "V162034a": "✅ CODEBOOK-VERIFIED: 2016 general-election vote. 1=Clinton, 2=Trump, 3=Johnson, 4=Stein, 5=other.",
     "V202073": "✅ CODEBOOK-VERIFIED: 2020 general-election vote. 1=Biden, 2=Trump, 3=Jorgensen, 4=Hawkins, 5=other.",
 
