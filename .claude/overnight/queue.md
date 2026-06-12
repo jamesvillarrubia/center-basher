@@ -8,7 +8,7 @@
 
 - [x] Party-ID + ideology forensic pass (V161158x/V201231x/V241158x 7-pt party; lib-con self + candidate placements). Verify the 1..7 → dem/ind/rep mapping has no off-by-one and ideology direction is correct. Accept: party-ID mapping verified against codebook for each cycle (no code silently dropped); none ❓; audit regenerates.
 
-- [ ] Trust-composite forensic pass (institutional-trust items per cycle + CDF trust). Verify each item's code direction matches the (5−x)/4-style transforms in the build scripts. Accept: each trust item used has a codebook-cited annotation with verified direction; none ❓.
+- [x] Trust-composite forensic pass (institutional-trust items per cycle + CDF trust). Verify each item's code direction matches the (5−x)/4-style transforms in the build scripts. Accept: each trust item used has a codebook-cited annotation with verified direction; none ❓.
 
 - [ ] Weight-alignment audit (Gate 3) across ALL build_*.py. Produce a script→weight→PRE/POST→is-vote-choice table in DECISIONS.md. Accept: every vote-choice/post-election build script uses a POST weight (V160102/V200010b/V240107b); any violation fixed-in-script or logged to BLOCKERS.
 
