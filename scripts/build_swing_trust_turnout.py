@@ -12,7 +12,7 @@ For each cycle:
 
 Headline pattern: the trust↔turnout relationship FLIPS at the
 Authenticity-Floor boundary (~0.41). High-trust era (1980-2004): positive
-correlation r=+0.86. Low-trust era (2008-2024): negative r=-0.81.
+correlation r=+0.86. Low-trust era (2008-2024): negative r=-0.80.
 
 Output: data/clean/swing_trust_turnout.json
 """
