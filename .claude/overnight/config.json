@@ -1,0 +1,57 @@
+{
+  "enabled": true,
+  "flavor": "objective",
+  "model": "sonnet",
+  "model_policy": "cheapest-viable: run routine queue work + search on the cheapest model that can do it (Sonnet floor for dev, Haiku for trivial). Reserve Opus only for items explicitly flagged hard, and respect the weekly Opus cap. This stretches the shared subscription pool.",
+  "max_iters": 60,
+  "max_runtime_hours": 9,
+  "allow_production_actions": false,
+  "dev": {
+    "merge_policy": "detect",
+    "merge_policy_resolved": null,
+    "max_items": 5,
+    "item_timeout_minutes": 30,
+    "note": "merge_policy: detect|auto|escalate. detect resolves at queue-gen from gh repo (personal/solo -> auto may merge into the integration branch; org/multi-collaborator -> escalate). Pushes/merges into main/staging/production always escalate unless allow_production_actions."
+  },
+  "capacity": {
+    "stop_pct": 90,
+    "slow_pct": 75,
+    "staleness_seconds": 1800,
+    "note": "Account-wide and SHARED. capacity-check is the source of truth; these mirror its defaults."
+  },
+  "test": {
+    "command": "auto-detect",
+    "green_definition": "all tests pass locally; command exits 0; no deploy required",
+    "readiness": "project-specific \u2014 detect from package.json / Makefile / pyproject / CI before assuming",
+    "note": "Each project may set its own standard for testability and readiness. Work is committed to local git; remote tests are run locally to confirm green without deployment."
+  },
+  "production_guard": {
+    "escalate_not_execute": true,
+    "patterns": [
+      "terraform apply",
+      "pulumi up",
+      "kubectl apply",
+      "vercel --prod",
+      "serverless deploy",
+      "git push",
+      "git push --force",
+      "git push -f",
+      "git merge .* (main|master|develop|staging|production|prod)",
+      "rm -rf",
+      "aws ",
+      "gcloud ",
+      "npm publish",
+      "pnpm publish"
+    ],
+    "note": "By default these are appended to BLOCKERS.md and SKIPPED, never run, unless allow_production_actions is true AND the user authorized it for this specific run. No terraform/merge/deploy into any deployed (prod/staging) environment without explicit per-run instruction."
+  },
+  "preferences": {
+    "package_manager": "pnpm (never npm/yarn)",
+    "language": "TypeScript strict; Python only for data/ML",
+    "tests": "integration-first at the HTTP boundary; selective unit tests",
+    "commits": "Conventional Commits; commit before each queue item",
+    "branching": "never commit directly to main/develop; use feature branches + PRs",
+    "di": "no NestJS-style DI; prefer direct imports",
+    "style": "functional by default; clarity over cleverness"
+  }
+}
