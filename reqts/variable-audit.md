@@ -10,10 +10,10 @@ Regenerate with: `python scripts/generate_variable_audit.py`
 **Status legend:**
 - 🔥 KNOWN-BUG-FIXED — previously catastrophic misuse; fix recorded inline (don't break it again)
 - ⚠️ SUSPECT / COVERAGE LIMIT — usable but has a known caveat that must be respected
-- ❓ UNVERIFIED — usage looks correct against the observed distribution, but no codebook PDF on disk for independent confirmation
+- ❓ UNVERIFIED — used in a build script but not yet cross-checked against its codebook entry; confirm Label + Value Labels + Universe before relying on it
 
-**No codebook PDFs for ANES 2016 / 2020 / 2024 are checked in.** 
-Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variable-naming conventions and the consistency of the data distribution with the documented usage. For any NEW figure depending on an UNVERIFIED variable: download the codebook PDF, cross-check, and upgrade the annotation here.
+**Codebooks ARE on disk:** `data/raw/anes_codebooks/anes_2016|2020|2024_codebook.txt`, with a per-variable slice in `data/derived/codebook_entries.txt` (regenerate via `python scripts/extract_codebook_entries.py`). 
+To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`, confirm the Label + Value Labels + Universe match the build-script usage, then add a codebook-cited annotation to `KNOWN_ANNOTATIONS` here.
 
 ---
 
@@ -21,7 +21,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 ## Cycle: ANES 2016  (n_respondents = 4270)
 
 
-### `V160001` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V160001` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -148,7 +148,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_maps_all.py:79` — `w = safe_num(df, "V160102").fillna(0).clip(lower=0)`
 - `build_swing_trust_turnout.py:82` — `(2016, None, 'V162031x', 'V160102', 'V161010d'),`
 
-### `V161004` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161004` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -169,7 +169,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_turnout_hump.py:134` — `"V160101 (weight)", "V161004 (interest)", "V161005 (care who wins)",`
 - `build_turnout_hump.py:138` — `"filter": "Low-engagement subset = V161004 == 3 ('not too / not at all interested').",`
 
-### `V161005` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161005` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -229,7 +229,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_maps_all.py:80` — `state = safe_num(df, "V161010d")`
 - `build_swing_trust_turnout.py:82` — `(2016, None, 'V162031x', 'V160102', 'V161010d'),`
 
-### `V161021` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161021` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -294,7 +294,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_maps_all.py:53` — `# PRIMARY VOTE — 2016 ANES uses V161021a (NOT V161022 / V161023).`
 - `build_voter_maps_all.py:59` — `# KNOWN-BUG-FIXED 2026-06-05: earlier code used V161022 ("Already voted`
 
-### `V161022x` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161022x` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **NOT FOUND IN LOADED DATA FRAME** — usage site may be broken or guarded by a `.get(...)` fallback.
 
@@ -348,7 +348,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_map_2016.py:178` — `"source": "ANES 2016 Time Series Study, weighted (V160102). x=V161126 ideology (1-7 → -1..+1). y=V161215/V161216/V161217 trust ...`
 - `generate_variable_audit.py:75` — `"V161031": "🔥 RETIRED: codebook label is 'For whom does R intend to vote' — measured intention not undecidedness. Previously mi...`
 
-### `V161086` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161086` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -386,7 +386,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_within_cycle_multi.py:11` — `2016: V161086 (Clinton PRE FT), V161087 (Trump PRE),`
 - `build_within_cycle_multi.py:42` — `"dem_pre": "V161086", "rep_pre": "V161087",`
 
-### `V161087` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161087` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -672,7 +672,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_candidate_honesty_by_trust.py:243` — `hr = 5 - df['V161167'].where(df['V161167'].between(1,5))`
 - `build_candidate_honesty_by_trust.py:243` — `hr = 5 - df['V161167'].where(df['V161167'].between(1,5))`
 
-### `V161178` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161178` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -694,7 +694,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_center_overlap_matrix.py:24` — `"V161178", "V161181", "V161184", "V161189", "V161193",`
 - `build_center_breakdown.py:27` — `"V161178", "V161181", "V161184", "V161189", "V161193",`
 
-### `V161181` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161181` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -716,7 +716,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_center_overlap_matrix.py:24` — `"V161178", "V161181", "V161184", "V161189", "V161193",`
 - `build_center_breakdown.py:27` — `"V161178", "V161181", "V161184", "V161189", "V161193",`
 
-### `V161184` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161184` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -738,7 +738,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_center_overlap_matrix.py:24` — `"V161178", "V161181", "V161184", "V161189", "V161193",`
 - `build_center_breakdown.py:27` — `"V161178", "V161181", "V161184", "V161189", "V161193",`
 
-### `V161189` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161189` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -760,7 +760,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_center_overlap_matrix.py:24` — `"V161178", "V161181", "V161184", "V161189", "V161193",`
 - `build_center_breakdown.py:27` — `"V161178", "V161181", "V161184", "V161189", "V161193",`
 
-### `V161193` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161193` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -777,7 +777,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_center_overlap_matrix.py:24` — `"V161178", "V161181", "V161184", "V161189", "V161193",`
 - `build_center_breakdown.py:27` — `"V161178", "V161181", "V161184", "V161189", "V161193",`
 
-### `V161196` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161196` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -794,7 +794,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_center_overlap_matrix.py:25` — `"V161196", "V161198", "V161204", "V161208", "V161213",`
 - `build_center_breakdown.py:28` — `"V161196", "V161198", "V161204", "V161208", "V161213",`
 
-### `V161198` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161198` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -816,7 +816,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_center_overlap_matrix.py:25` — `"V161196", "V161198", "V161204", "V161208", "V161213",`
 - `build_center_breakdown.py:28` — `"V161196", "V161198", "V161204", "V161208", "V161213",`
 
-### `V161204` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161204` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -833,7 +833,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_center_overlap_matrix.py:25` — `"V161196", "V161198", "V161204", "V161208", "V161213",`
 - `build_center_breakdown.py:28` — `"V161196", "V161198", "V161204", "V161208", "V161213",`
 
-### `V161208` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161208` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -850,7 +850,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_center_overlap_matrix.py:25` — `"V161196", "V161198", "V161204", "V161208", "V161213",`
 - `build_center_breakdown.py:28` — `"V161196", "V161198", "V161204", "V161208", "V161213",`
 
-### `V161213` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161213` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -901,7 +901,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_trust_by_cohort.py:13` — `- ANES standalone 2016 V161215, 2020 V201233, 2024 V241229: 5-pt scale`
 - `build_trust_by_cohort.py:90` — `t = clean_var(d, "V161215", 1, 5)`
 - `build_trust_by_cohort.py:135` — `"source": "ANES CDF 1958-2012 (VCF0604) + ANES standalone 2016/2020/2024 (V161215/V201233/V241229). Headline metric: % saying '...`
-- `build_swing_trust_turnout.py:106` — `cols = {2016: ('V161215','V161216','V161217'), 2020: ('V201233','V201234','V201235')}`
+- `build_swing_trust_turnout.py:107` — `cols = {2016: ('V161215','V161216','V161217'),`
 
 ### `V161216` [2016]  —  ✅ CODEBOOK-VERIFIED: 'gov run by few big interests vs benefit of all', 1=few/2=all. Code transforms (x-1) so 1=more trust (i.e. 2 → 1).
 
@@ -930,7 +930,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_candidate_honesty_by_trust.py:238` — `run_all  = df['V161216'].where(df['V161216'].between(1,2))`
 - `build_candidate_honesty_by_trust.py:238` — `run_all  = df['V161216'].where(df['V161216'].between(1,2))`
 - `build_voter_maps_all.py:43` — `run_all  = safe_num(df, "V161216").where(lambda v: v.between(1, 2))`
-- `build_swing_trust_turnout.py:106` — `cols = {2016: ('V161215','V161216','V161217'), 2020: ('V201233','V201234','V201235')}`
+- `build_swing_trust_turnout.py:107` — `cols = {2016: ('V161215','V161216','V161217'),`
 
 ### `V161217` [2016]  —  ✅ CODEBOOK-VERIFIED: 'how much tax money wasted' 1=a lot, 3=not much. Code transforms (x-1)/2 so higher=more trust.
 
@@ -960,9 +960,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_candidate_honesty_by_trust.py:239` — `waste    = df['V161217'].where(df['V161217'].between(1,3))`
 - `build_candidate_honesty_by_trust.py:239` — `waste    = df['V161217'].where(df['V161217'].between(1,3))`
 - `build_voter_maps_all.py:44` — `waste    = safe_num(df, "V161217").where(lambda v: v.between(1, 3))`
-- `build_swing_trust_turnout.py:106` — `cols = {2016: ('V161215','V161216','V161217'), 2020: ('V201233','V201234','V201235')}`
+- `build_swing_trust_turnout.py:107` — `cols = {2016: ('V161215','V161216','V161217'),`
 
-### `V161267` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V161267` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -1069,7 +1069,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_swing_spectrum.py:91` — `"Rep→Clinton": "V161158x ∈ {5,6,7} (Rep leaners+) AND V162034a = 1",`
 - _...and 1 more usage sites_
 
-### `V162078` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V162078` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -1101,7 +1101,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_within_cycle_multi.py:12` — `V162078 (Clinton POST), V162079 (Trump POST), V160102 (weight)`
 - `build_within_cycle_multi.py:43` — `"dem_post": "V162078", "rep_post": "V162079",`
 
-### `V162079` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V162079` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -1133,7 +1133,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_within_cycle_multi.py:12` — `V162078 (Clinton POST), V162079 (Trump POST), V160102 (weight)`
 - `build_within_cycle_multi.py:43` — `"dem_post": "V162078", "rep_post": "V162079",`
 
-### `V162215` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V162215` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -1156,7 +1156,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_turnout_hump.py:39` — `e1 = clean_var(df, "V162215", 1, 5)`
 - `build_turnout_hump.py:136` — `"V162215 / V162216 (efficacy items)", "V162031x (self-report turnout)",`
 
-### `V162216` [2016]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V162216` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -1373,7 +1373,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_maps_all.py:136` — `# V201101 (version 1A) and V201102 (version 1B). EACH respondent got`
 - `build_voter_maps_all.py:141` — `v2 = safe_num(df, "V201102")`
 
-### `V201151` [2020]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V201151` [2020]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -1405,7 +1405,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_within_cycle_multi.py:13` — `2020: V201151 (Biden PRE), V201152 (Trump PRE),`
 - `build_within_cycle_multi.py:51` — `"dem_pre": "V201151", "rep_pre": "V201152",`
 
-### `V201152` [2020]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V201152` [2020]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -1670,7 +1670,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_trust_by_cohort.py:13` — `- ANES standalone 2016 V161215, 2020 V201233, 2024 V241229: 5-pt scale`
 - `build_trust_by_cohort.py:100` — `t = clean_var(d, "V201233", 1, 5)`
 - `build_trust_by_cohort.py:135` — `"source": "ANES CDF 1958-2012 (VCF0604) + ANES standalone 2016/2020/2024 (V161215/V201233/V241229). Headline metric: % saying '...`
-- `build_swing_trust_turnout.py:106` — `cols = {2016: ('V161215','V161216','V161217'), 2020: ('V201233','V201234','V201235')}`
+- `build_swing_trust_turnout.py:108` — `2020: ('V201233','V201234','V201235'),`
 
 ### `V201234` [2020]  —  ✅ CODEBOOK-VERIFIED: 2020 analog of V161216. Same scale.
 
@@ -1689,7 +1689,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_candidate_honesty_by_trust.py:250` — `run_all  = df['V201234'].where(df['V201234'].between(1,2))`
 - `build_candidate_honesty_by_trust.py:250` — `run_all  = df['V201234'].where(df['V201234'].between(1,2))`
 - `build_voter_maps_all.py:114` — `run_all  = safe_num(df, "V201234").where(lambda v: v.between(1, 2))`
-- `build_swing_trust_turnout.py:106` — `cols = {2016: ('V161215','V161216','V161217'), 2020: ('V201233','V201234','V201235')}`
+- `build_swing_trust_turnout.py:108` — `2020: ('V201233','V201234','V201235'),`
 
 ### `V201235` [2020]  —  ✅ CODEBOOK-VERIFIED: 2020 analog of V161217. Same scale.
 
@@ -1709,9 +1709,9 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_candidate_honesty_by_trust.py:251` — `waste    = df['V201235'].where(df['V201235'].between(1,3))`
 - `build_candidate_honesty_by_trust.py:251` — `waste    = df['V201235'].where(df['V201235'].between(1,3))`
 - `build_voter_maps_all.py:115` — `waste    = safe_num(df, "V201235").where(lambda v: v.between(1, 3))`
-- `build_swing_trust_turnout.py:106` — `cols = {2016: ('V161215','V161216','V161217'), 2020: ('V201233','V201234','V201235')}`
+- `build_swing_trust_turnout.py:108` — `2020: ('V201233','V201234','V201235'),`
 
-### `V201507x` [2020]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V201507x` [2020]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -1783,7 +1783,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_maps_all.py:145` — `voted_2020 = safe_num(df, "V202109x")`
 - `build_swing_trust_turnout.py:83` — `(2020, None, 'V202109x', 'V200010a', 'V201014b'),`
 
-### `V202143` [2020]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V202143` [2020]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -1815,7 +1815,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_within_cycle_multi.py:14` — `V202143 (Biden POST), V202144 (Trump POST), V200010a (weight)`
 - `build_within_cycle_multi.py:52` — `"dem_post": "V202143", "rep_post": "V202144",`
 
-### `V202144` [2020]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V202144` [2020]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -1850,7 +1850,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 ## Cycle: ANES 2024  (n_respondents = 5521)
 
 
-### `V240107` [2024]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V240107` [2024]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **NOT FOUND IN LOADED DATA FRAME** — usage site may be broken or guarded by a `.get(...)` fallback.
 
@@ -1921,15 +1921,17 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
   0.0858634898572089: 1
 ```
 
-**Usage sites (5)**:
+**Usage sites (7)**:
 
 - `generate_variable_audit.py:106` — `"V240107a": "🔥 KNOWN-BUG-FIXED: ANES 2024 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
 - `generate_variable_audit.py:107` — `"V240107b": "✅ CODEBOOK-VERIFIED: ANES 2024 POST weight. Now used for the voter map.",`
 - `build_voter_maps_all.py:220` — `# Weight: V240107b is POST weight (correct for vote-choice analysis).`
 - `build_voter_maps_all.py:222` — `w = safe_num(df, "V240107b").fillna(0).clip(lower=0)`
 - `build_trust_by_cohort.py:107` — `for w_col in ["V240107a", "V240107b", "V240108a"]:`
+- `build_swing_trust_turnout.py:84` — `(2024, None, None, 'V240107b', 'V243002'),`
+- `build_swing_trust_turnout.py:168` — `'2024 turnout combines early-vote (V241035==1) with post self-report (V242065==4); V242065 universe excludes PRE early voters, ...`
 
-### `V240108a` [2024]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V240108a` [2024]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -1972,7 +1974,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
            2: 4986
 ```
 
-**Usage sites (8)**:
+**Usage sites (12)**:
 
 - `generate_variable_audit.py:66` — `"V242065": "✅ CODEBOOK-VERIFIED with CAVEAT: 2024 POST: 'Did R vote in 2024?'. Codes 1=did not vote, 2=thought about but didn't...`
 - `generate_variable_audit.py:66` — `"V242065": "✅ CODEBOOK-VERIFIED with CAVEAT: 2024 POST: 'Did R vote in 2024?'. Codes 1=did not vote, 2=thought about but didn't...`
@@ -1982,6 +1984,10 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_maps_all.py:212` — `#   voted = (V241035 == 1)  OR  (V242065 == 4)`
 - `build_voter_maps_all.py:213` — `#   not_voted = (V242065 in {1,2,3}) AND NOT (V241035 == 1)`
 - `build_voter_maps_all.py:214` — `early_voted = (safe_num(df, "V241035") == 1)`
+- `build_swing_trust_turnout.py:116` — `# 2024 turnout = early-voted (PRE V241035==1) OR post "I am sure`
+- `build_swing_trust_turnout.py:120` — `early = pd.to_numeric(df['V241035'], errors='coerce') == 1`
+- `build_swing_trust_turnout.py:163` — `'voter-validated vote==1; 2024: early-voted V241035==1 OR post '`
+- `build_swing_trust_turnout.py:168` — `'2024 turnout combines early-vote (V241035==1) with post self-report (V242065==4); V242065 universe excludes PRE early voters, ...`
 
 ### `V241049` [2024]  —  🔥 KNOWN-BUG-FIXED: codebook label is a HYPOTHETICAL Harris-vs-Trump question, NOT '2020 turnout'. We no longer use it for prior-vote. Replaced by V241106x.
 
@@ -2021,7 +2027,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_maps_all.py:193` — `#   V241106x is the actual prior-vote recall (1=did not vote 2020,`
 - `build_voter_maps_all.py:195` — `p20 = safe_num(df, "V241106x")`
 
-### `V241156` [2024]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V241156` [2024]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -2053,7 +2059,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_within_cycle_multi.py:15` — `2024: V241156 (Harris PRE), V241157 (Trump PRE),`
 - `build_within_cycle_multi.py:60` — `"dem_pre": "V241156", "rep_pre": "V241157",`
 
-### `V241157` [2024]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V241157` [2024]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -2303,7 +2309,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_maps_all.py:179` — `# V241227x is the canonical 7-pt party ID summary (1=strong D, 7=strong R, 4=ind).`
 - `build_voter_maps_all.py:180` — `pty = safe_num(df, "V241227x")`
 
-### `V241228` [2024]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V241228` [2024]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -2335,7 +2341,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
            5: 840
 ```
 
-**Usage sites (7)**:
+**Usage sites (9)**:
 
 - `generate_variable_audit.py:92` — `"V241229": "✅ CODEBOOK-VERIFIED: 2024 analog of V161215 (gov-officials do right).",`
 - `build_candidate_honesty_by_trust.py:261` — `do_right = df['V241229'].where(df['V241229'].between(1,5))`
@@ -2344,6 +2350,8 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_trust_by_cohort.py:13` — `- ANES standalone 2016 V161215, 2020 V201233, 2024 V241229: 5-pt scale`
 - `build_trust_by_cohort.py:115` — `t = clean_var(d, "V241229", 1, 5)`
 - `build_trust_by_cohort.py:135` — `"source": "ANES CDF 1958-2012 (VCF0604) + ANES standalone 2016/2020/2024 (V161215/V201233/V241229). Headline metric: % saying '...`
+- `build_swing_trust_turnout.py:109` — `2024: ('V241229','V241231','V241232')}`
+- `build_swing_trust_turnout.py:168` — `'2024 turnout combines early-vote (V241035==1) with post self-report (V242065==4); V242065 universe excludes PRE early voters, ...`
 
 ### `V241231` [2024]  —  ✅ CODEBOOK-VERIFIED: 2024 analog of V161216 (few interests vs all).
 
@@ -2357,12 +2365,14 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
            2: 886
 ```
 
-**Usage sites (4)**:
+**Usage sites (6)**:
 
 - `generate_variable_audit.py:93` — `"V241231": "✅ CODEBOOK-VERIFIED: 2024 analog of V161216 (few interests vs all).",`
 - `build_candidate_honesty_by_trust.py:262` — `run_all  = df['V241231'].where(df['V241231'].between(1,2))`
 - `build_candidate_honesty_by_trust.py:262` — `run_all  = df['V241231'].where(df['V241231'].between(1,2))`
 - `build_voter_maps_all.py:175` — `run_all  = safe_num(df, "V241231").where(lambda v: v.between(1, 2))`
+- `build_swing_trust_turnout.py:109` — `2024: ('V241229','V241231','V241232')}`
+- `build_swing_trust_turnout.py:168` — `'2024 turnout combines early-vote (V241035==1) with post self-report (V242065==4); V242065 universe excludes PRE early voters, ...`
 
 ### `V241232` [2024]  —  ✅ CODEBOOK-VERIFIED: 2024 analog of V161217 (tax money wasted).
 
@@ -2377,14 +2387,16 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
            3: 148
 ```
 
-**Usage sites (4)**:
+**Usage sites (6)**:
 
 - `generate_variable_audit.py:94` — `"V241232": "✅ CODEBOOK-VERIFIED: 2024 analog of V161217 (tax money wasted).",`
 - `build_candidate_honesty_by_trust.py:263` — `waste    = df['V241232'].where(df['V241232'].between(1,3))`
 - `build_candidate_honesty_by_trust.py:263` — `waste    = df['V241232'].where(df['V241232'].between(1,3))`
 - `build_voter_maps_all.py:176` — `waste    = safe_num(df, "V241232").where(lambda v: v.between(1, 3))`
+- `build_swing_trust_turnout.py:109` — `2024: ('V241229','V241231','V241232')}`
+- `build_swing_trust_turnout.py:168` — `'2024 turnout combines early-vote (V241035==1) with post self-report (V242065==4); V242065 universe excludes PRE early voters, ...`
 
-### `V241458x` [2024]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V241458x` [2024]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -2431,7 +2443,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
            4: 3933
 ```
 
-**Usage sites (9)**:
+**Usage sites (15)**:
 
 - `generate_variable_audit.py:66` — `"V242065": "✅ CODEBOOK-VERIFIED with CAVEAT: 2024 POST: 'Did R vote in 2024?'. Codes 1=did not vote, 2=thought about but didn't...`
 - `generate_variable_audit.py:66` — `"V242065": "✅ CODEBOOK-VERIFIED with CAVEAT: 2024 POST: 'Did R vote in 2024?'. Codes 1=did not vote, 2=thought about but didn't...`
@@ -2441,7 +2453,13 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_maps_all.py:212` — `#   voted = (V241035 == 1)  OR  (V242065 == 4)`
 - `build_voter_maps_all.py:213` — `#   not_voted = (V242065 in {1,2,3}) AND NOT (V241035 == 1)`
 - `build_voter_maps_all.py:215` — `v242065 = safe_num(df, "V242065")`
-- `build_swing_trust_turnout.py:155` — `'2024 omitted: V242065 coding (4=majority of respondents) needs verification.',`
+- `build_swing_trust_turnout.py:117` — `# I voted" (V242065==4). V242065's universe EXCLUDES PRE early`
+- `build_swing_trust_turnout.py:117` — `# I voted" (V242065==4). V242065's universe EXCLUDES PRE early`
+- `build_swing_trust_turnout.py:119` — `# turnout fix (see CLAUDE.md: V242066/V242065 universe bug).`
+- `build_swing_trust_turnout.py:121` — `postv = pd.to_numeric(df['V242065'], errors='coerce') == 4`
+- `build_swing_trust_turnout.py:164` — `'V242065==4).'`
+- `build_swing_trust_turnout.py:168` — `'2024 turnout combines early-vote (V241035==1) with post self-report (V242065==4); V242065 universe excludes PRE early voters, ...`
+- `build_swing_trust_turnout.py:168` — `'2024 turnout combines early-vote (V241035==1) with post self-report (V242065==4); V242065 universe excludes PRE early voters, ...`
 
 ### `V242066` [2024]  —  🔥 KNOWN-BUG-FIXED: Universe 'IF R REPORTED IN THE POST SURVEY THAT R VOTED'. V242066 is conditional on already-voted; it asks 'did you vote for president specifically'. NOT a turnout question. Using it alone undercounts non-voters by ~95% (only 39 of 5521 code as 2). REPLACED in voter-map by combined V241035 (early voted in pre) ∨ V242065 (post-survey turnout, code 4=voted).
 
@@ -2455,7 +2473,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
            2: 39
 ```
 
-**Usage sites (6)**:
+**Usage sites (7)**:
 
 - `generate_variable_audit.py:73` — `"V242066": "🔥 KNOWN-BUG-FIXED: Universe 'IF R REPORTED IN THE POST SURVEY THAT R VOTED'. V242066 is conditional on already-vote...`
 - `generate_variable_audit.py:73` — `"V242066": "🔥 KNOWN-BUG-FIXED: Universe 'IF R REPORTED IN THE POST SURVEY THAT R VOTED'. V242066 is conditional on already-vote...`
@@ -2463,6 +2481,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_voter_maps_all.py:200` — `# V242066 Universe: "IF R REPORTED IN THE POST SURVEY THAT R VOTED".`
 - `build_voter_maps_all.py:201` — `# That means V242066 is asking "of voters, did you vote for PRESIDENT".`
 - `build_voter_maps_all.py:203` — `# by ~95% (only 39 of 5521 respondents have V242066==2).`
+- `build_swing_trust_turnout.py:119` — `# turnout fix (see CLAUDE.md: V242066/V242065 universe bug).`
 
 ### `V242067` [2024]  —  🔥 KNOWN-BUG-FIXED: codebook lists ONLY codes 1=Harris, 2=Trump, 4=West, 5=Stein, 6=other. Code 3 does NOT exist (Kennedy withdrew). Earlier code had {3:'kennedy'} — dead code, removed.
 
@@ -2486,7 +2505,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `generate_variable_audit.py:70` — `"V242067": "🔥 KNOWN-BUG-FIXED: codebook lists ONLY codes 1=Harris, 2=Trump, 4=West, 5=Stein, 6=other. Code 3 does NOT exist (Ke...`
 - `build_voter_maps_all.py:182` — `gen = safe_num(df, "V242067")`
 
-### `V242125` [2024]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V242125` [2024]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -2518,7 +2537,7 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 - `build_within_cycle_multi.py:16` — `V242125 (Dem POST), V242126 (Rep POST), V240107a (weight)`
 - `build_within_cycle_multi.py:61` — `"dem_post": "V242125", "rep_post": "V242126",`
 
-### `V242126` [2024]  —  ❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.
+### `V242126` [2024]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
 
 **Observed distribution** (top values, numeric):
 
@@ -2577,12 +2596,13 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
         23.0: 15
 ```
 
-**Usage sites (4)**:
+**Usage sites (5)**:
 
 - `generate_variable_audit.py:112` — `"V243002": "✅ CODEBOOK-VERIFIED: 2024 state code (stored as string in the .csv).",`
 - `build_candidate_honesty_by_trust.py:269` — `state_str = df['V243002'].astype(str).str.strip()`
 - `build_voter_maps_all.py:223` — `state_str = df["V243002"].astype(str).str.strip() if "V243002" in df.columns else pd.Series([""] * len(df))`
 - `build_voter_maps_all.py:223` — `state_str = df["V243002"].astype(str).str.strip() if "V243002" in df.columns else pd.Series([""] * len(df))`
+- `build_swing_trust_turnout.py:84` — `(2024, None, None, 'V240107b', 'V243002'),`
 
 ---
 
@@ -2595,8 +2615,8 @@ Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variab
 ## Process for new variables
 
 Before introducing a NEW ANES variable into any build script:
-1. Look it up in the ANES codebook PDF for that cycle (download from ANES website)
+1. Read its codebook entry on disk: `data/raw/anes_codebooks/anes_<cycle>_codebook.txt` (or its slice in `data/derived/codebook_entries.txt`) — check the Label, Value Labels, AND Universe
 2. Verify the value-count distribution matches the codebook
-3. Add a one-line annotation to `KNOWN_ANNOTATIONS` in this script
+3. Add a codebook-cited annotation to `KNOWN_ANNOTATIONS` in this script
 4. Re-run `python scripts/generate_variable_audit.py`
 5. Commit the regenerated `reqts/variable-audit.md` with the code change

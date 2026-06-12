@@ -97,6 +97,11 @@ Question:   Not applicable
 
 
 
+=== V161021a [2016] ===
+50  V161021a  PRE: For which candidate did R vote in Presidential prim
+
+
+
 === V161022 [2016] ===
 51  V161022   PRE: Already voted in General Election
 
@@ -209,14 +214,44 @@ Question:   (Looking at page [PRELOAD: page] of the booklet) (How would you rate
 172 V161127   PRE: If R had to choose liberal or conservative self-placemt
 
 
+=== V161128 [2016] ===
+173 V161128   PRE: 7pt scale liberal conservative - Dem Pres cand
+174 V161129   PRE: 7pt scale liberal conservative - Rep Pres cand
+
+
+=== V161129 [2016] ===
+174 V161129   PRE: 7pt scale liberal conservative - Rep Pres cand
+175 V161130   PRE: 7pt scale liberal conservative Dem party
+
+
 === V161158x [2016] ===
 217 V161158x  PRE: SUMMARY - Party ID
 218 V161159   PRE: Pres Dem cand trait strong leadership
 
 
+=== V161159 [2016] ===
+218 V161159   PRE: Pres Dem cand trait strong leadership
+219 V161160   PRE: Pres Dem cand trait really cares
+
+
+=== V161160 [2016] ===
+219 V161160   PRE: Pres Dem cand trait really cares
+220 V161161   PRE: Pres Dem cand trait knowledgeable
+
+
 === V161162 [2016] ===
 221 V161162   PRE: Pres Dem cand trait honest
 222 V161163   PRE: Pres Dem cand trait speaks mind
+
+
+=== V161164 [2016] ===
+223 V161164   PRE: Pres Rep cand trait strong leadership
+224 V161165   PRE: Pres Rep cand trait really cares
+
+
+=== V161165 [2016] ===
+224 V161165   PRE: Pres Rep cand trait really cares
+225 V161166   PRE: Pres Rep cand trait knowledgeable
 
 
 === V161167 [2016] ===
@@ -370,6 +405,45 @@ Value Labels	-1. Inapplicable
 
 
 
+=== V201020 [2020] ===
+V201020	PRE: DID R VOTE IN A PRESIDENTIAL PRIMARY OR CAUCUS
+Question	Did you vote in a Presidential primary election or caucus this year?
+Value Labels	-9. Refused
+-8. Don’t know
+1. Yes, voted in primary or caucus
+2. No, didn’t vote in primary or caucus
+Survey Question(s)	PREVOTE_PRIMV
+
+
+
+
+
+
+=== V201021 [2020] ===
+V201021	PRE: FOR WHICH CANDIDATE DID R VOTE IN PRESIDENTIAL PRIMARY
+Question	In the Presidential primary or caucus, who did you vote for?
+Value Labels	-9. Refused
+-8. Don’t know
+-1. Inapplicable
+1. Joe Biden
+2. Michael Bloomberg
+3. Pete Buttigieg
+4. Amy Klobuchar
+5. Bernie Sanders
+6. Elizabeth Warren
+7. Another Democrat
+8. Donald Trump
+9. Another Republican
+10. Someone else who is not a Republican or a Democrat
+Universe	IF R VOTED IN A PRESIDENTIAL PRIMARY OR CAUCUS:
+Survey Question(s)	PREVOTE_PRIMVWHO
+Interviewer Instruction	{PROBE IF NECESSARY: Is that a Democrat, a Republican or neither?}
+
+
+
+
+
+
 === V201101 [2020] ===
 V201101	PRE: DID R VOTE FOR PRESIDENT IN 2016 [REVISED]
 Question	Four years ago, in 2016, Hillary Clinton ran on the Democratic ticket against Donald Trump for the Republicans. We talk to many people who tell us they did not vote. And we talk to a few people who tell us they did vote, who really did not. We can tell they did not vote by checking with official government records. What about you? If we check the official government voter records, will they show that you voted in the 2016 presidential election, or that you did not vote in that election?
@@ -462,6 +536,95 @@ Interviewer Instruction	{DO NOT PROBE}
 
 
 
+=== V201202 [2020] ===
+V201202	PRE: 7PT SCALE LIBERAL-CONSERVATIVE: DEMOCRATIC PRESIDENTIAL CANDIDATE
+Question	Where would you place Joe Biden on this scale?
+Value Labels	-9. Refused
+-8. Don’t know
+1. Extremely liberal
+2. Liberal
+3. Slightly liberal
+4. Moderate; middle of the road
+5. Slightly conservative
+6. Conservative
+7. Extremely conservative
+Survey Question(s)	LIBCPRE_LCDPC
+Randomization	Order of Presidential cand liberal-conservative scale placements
+Interviewer Instruction	{DO NOT PROBE DON’T KNOW}
+
+
+
+
+
+
+=== V201203 [2020] ===
+V201203	PRE: 7PT SCALE LIBERAL-CONSERVATIVE: REPUBLICAN PRESIDENTIAL CANDIDATE
+Question	Where would you place Donald Trump on this scale?
+Value Labels	-9. Refused
+-8. Don’t know
+-4. Technical error
+1. Extremely liberal
+2. Liberal
+3. Slightly liberal
+4. Moderate; middle of the road
+5. Slightly conservative
+6. Conservative
+7. Extremely conservative
+Survey Question(s)	LIBCPRE_LCRPC
+Randomization	Order of Presidential cand liberal-conservative scale placements
+Interviewer Instruction	{DO NOT PROBE DON’T KNOW}
+
+
+
+
+
+
+=== V201208 [2020] ===
+V201208	PRE: DEMOCRATIC PRESIDENTIAL CANDIDATE TRAIT: STRONG LEADERSHIP
+Question	Think about Joe Biden.
+In your opinion, does the phrase ‘he provides strong leadership’ describe Joe Biden extremely well, very well, moderately well, slightly well, or not well at all?
+Value Labels	-9. Refused
+-8. Don’t know
+1. Extremely well
+2. Very well
+3. Moderately well
+4. Slightly well
+5. Not well at all
+Universe	IF TRAIT IS 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE /
+IF TRAIT IS NOT 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE:
+Survey Question(s)	CTRAIT_DPCLEAD
+Randomization	Order of Presidential cands for sets of traits; order of traits administered for each candidate. Traits should be randomized in the same order for each candidate.
+Response Order	Forward/Reverse order
+Interviewer Instruction	{DO NOT PROBE DON’T KNOW}
+
+
+
+
+
+
+=== V201209 [2020] ===
+V201209	PRE: DEMOCRATIC PRESIDENTIAL CANDIDATE TRAIT: REALLY CARES
+Question	What about ‘really cares about people like you’?
+Does this phrase describe Joe Biden extremely well, very well, moderately well, slightly well, or not well at all?
+Value Labels	-9. Refused
+-8. Don’t know
+1. Extremely well
+2. Very well
+3. Moderately well
+4. Slightly well
+5. Not well at all
+Universe	IF TRAIT IS 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE /
+IF TRAIT IS NOT 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE:
+Survey Question(s)	CTRAIT_DPCCARE
+Randomization	Order of Presidential cands for sets of traits; order of traits administered for each candidate. Traits should be randomized in the same order for each candidate.
+Response Order	Forward/Reverse order
+Interviewer Instruction	{DO NOT PROBE DON’T KNOW}
+
+
+
+
+
+
 === V201211 [2020] ===
 V201211	PRE: DEMOCRATIC PRESIDENTIAL CANDIDATE TRAIT: HONEST
 Question	What about ‘is honest’?
@@ -476,6 +639,50 @@ Value Labels	-9. Refused
 Universe	IF TRAIT IS 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE /
 IF TRAIT IS NOT 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE:
 Survey Question(s)	CTRAIT_DPCHONST
+Randomization	Order of Presidential cands for sets of traits; order of traits administered for each candidate. Traits should be randomized in the same order for each candidate.
+Response Order	Forward/Reverse order
+Interviewer Instruction	{DO NOT PROBE DON’T KNOW}
+
+
+
+
+
+
+=== V201212 [2020] ===
+V201212	PRE: REPUBLICAN PRESIDENTIAL CANDIDATE TRAIT: STRONG LEADERSHIP
+Question	Think about Donald Trump.
+In your opinion, does the phrase ‘he provides strong leadership’ describe Donald Trump extremely well, very well, moderately well, slightly well, or not well at all?
+Value Labels	-9. Refused
+1. Extremely well
+2. Very well
+3. Moderately well
+4. Slightly well
+5. Not well at all
+Universe	IF TRAIT IS 1ST TRAIT FOR REPUBLICAN PRESIDENTIAL CANDIDATE /
+IF TRAIT IS NOT 1ST TRAIT FOR REPUBLICAN PRESIDENTIAL CANDIDATE:
+Survey Question(s)	CTRAIT_RPCLEAD
+Randomization	Order of Presidential cands for sets of traits; order of traits administered for each candidate. Traits should be randomized in the same order for each candidate.
+Response Order	Forward/Reverse order
+Interviewer Instruction	{DO NOT PROBE DON’T KNOW}
+
+
+
+
+
+
+=== V201213 [2020] ===
+V201213	PRE: REPUBLICAN PRESIDENTIAL CANDIDATE TRAIT: REALLY CARES
+Question	What about ‘really cares about people like you’?
+Does this phrase describe Donald Trump extremelywell, very well, moderately well, slightly well, or not well at all?
+Value Labels	-9. Refused
+1. Extremely well
+2. Very well
+3. Moderately well
+4. Slightly well
+5. Not well at all
+Universe	IF TRAIT IS 1ST TRAIT FOR REPUBLICAN PRESIDENTIAL CANDIDATE /
+IF TRAIT IS NOT 1ST TRAIT FOR REPUBLICAN PRESIDENTIAL CANDIDATE:
+Survey Question(s)	CTRAIT_RPCCARE
 Randomization	Order of Presidential cands for sets of traits; order of traits administered for each candidate. Traits should be randomized in the same order for each candidate.
 Response Order	Forward/Reverse order
 Interviewer Instruction	{DO NOT PROBE DON’T KNOW}
@@ -819,6 +1026,120 @@ Note: The following specifications were implemented exclusively in the computeri
 
 
 
+=== V241179 [2024] ===
+V241179
+PRE: 7PT SCALE LIBERAL-CONSERVATIVE: DEMOCRATIC PRESIDENTIAL CANDIDATE
+Question
+Where would you place Kamala Harris on this scale?
+Value Labels
+-9. Refused
+-8. Don’t know
+-4. Error
+-1. Inapplicable
+1. Extremely liberal
+2. Liberal
+3. Slightly liberal
+4. Moderate; middle of the road
+5. Slightly conservative
+6. Conservative
+7. Extremely conservative
+99. Haven’t thought much about this
+Survey Question(s)
+LIBCPRE_LCDPC, PAPI PRE Q44
+Note: The following specifications were implemented exclusively in the computerized survey instrument and are not applicable to the paper questionnaire.
+Randomization
+Order of Presidential cand liberal-conservative scale placements
+
+
+
+
+
+=== V241180 [2024] ===
+V241180
+PRE: 7PT SCALE LIBERAL-CONSERVATIVE: REPUBLICAN PRESIDENTIAL CANDIDATE
+Question
+Where would you place Donald Trump on this scale?
+Value Labels
+-9. Refused
+-8. Don’t know
+-4. Error
+-1. Inapplicable
+1. Extremely liberal
+2. Liberal
+3. Slightly liberal
+4. Moderate; middle of the road
+5. Slightly conservative
+6. Conservative
+7. Extremely conservative
+99. Haven’t thought much about this
+Survey Question(s)
+LIBCPRE_LCRPC, PAPI PRE Q44
+Note: The following specifications were implemented exclusively in the computerized survey instrument and are not applicable to the paper questionnaire.
+Randomization
+Order of Presidential cand liberal-conservative scale placements
+
+
+
+
+
+=== V241200 [2024] ===
+V241200
+PRE: DEMOCRATIC PRESIDENTIAL CANDIDATE TRAIT: STRONG LEADERSHIP
+Question
+[Think about Kamala Harris. In your opinion, does the phrase ‘she provides strong leadership’ describe Kamala Harris [extremely well, very well, moderately well, slightly well, or not well at all/ not well at all, slightly well, moderately well, very well, or extremely well]? / (What about) ‘provides strong leadership’? Does this phrase describe Kamala Harris [extremely well, very well, moderately well, slightly well, or not well at all/ not well at all, slightly well, moderately well, very well, or extremely well]?]
+Value Labels
+-9. Refused
+-8. Don’t know
+-1. Inapplicable
+1. Extremely well
+2. Very well
+3. Moderately well
+4. Slightly well
+5. Not well at all
+Survey Question(s)
+CTRAIT_DPCLEAD
+Universe
+IF TRAIT IS 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE /
+IF TRAIT IS NOT 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE:
+Randomization
+Order of Presidential cands for sets of traits;
+order of traits administered for each candidate. Traits should be randomized in the same order for each candidate.
+Response Order
+Forward/Reverse order
+
+
+
+
+
+=== V241201 [2024] ===
+V241201
+PRE: DEMOCRATIC PRESIDENTIAL CANDIDATE TRAIT: REALLY CARES
+Question
+[Think about Kamala Harris. In your opinion, does the phrase ‘she really cares about people like you’ describe Kamala Harris [extremely well, very well, moderately well, slightly well, or not well at all/ not well at all, slightly well, moderately well, very well, or extremely well]? / (What about) ‘really cares about people like you’? Does this phrase describe Kamala Harris [extremely well, very well, moderately well, slightly well, or not well at all/ not well at all, slightly well, moderately well, very well, or extremely well]?]
+Value Labels
+-9. Refused
+-8. Don’t know
+-1. Inapplicable
+1. Extremely well
+2. Very well
+3. Moderately well
+4. Slightly well
+5. Not well at all
+Survey Question(s)
+CTRAIT_DPCCARE
+Universe
+IF TRAIT IS 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE /
+IF TRAIT IS NOT 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE:
+Randomization
+Order of Presidential cands for sets of traits;
+order of traits administered for each candidate. Traits should be randomized in the same order for each candidate.
+Response Order
+Forward/Reverse order
+
+
+
+
+
 === V241203 [2024] ===
 V241203
 PRE: DEMOCRATIC PRESIDENTIAL CANDIDATE TRAIT: HONEST
@@ -838,6 +1159,64 @@ CTRAIT_DPCHONST
 Universe
 IF TRAIT IS 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE /
 IF TRAIT IS NOT 1ST TRAIT FOR DEMOCRATIC PRESIDENTIAL CANDIDATE:
+Randomization
+Order of Presidential cands for sets of traits;
+order of traits administered for each candidate. Traits should be randomized in the same order for each candidate.
+Response Order
+Forward/Reverse order
+
+
+
+
+
+=== V241205 [2024] ===
+V241205
+PRE: REPUBLICAN PRESIDENTIAL CANDIDATE TRAIT: STRONG LEADERSHIP
+Question
+[Think about Donald Trump. In your opinion, does the phrase ‘he provides strong leadership’ describe Donald Trump [extremely well, very well, moderately well, slightly well, or not well at all/ not well at all, slightly well, moderately well, very well, or extremely well]? / (What about) ‘provides strong leadership’? Does this phrase describe Donald Trump [extremely well, very well, moderately well, slightly well, or not well at all/ not well at all, slightly well, moderately well, very well, or extremely well]?]
+Value Labels
+-9. Refused
+-8. Don’t know
+-1. Inapplicable
+1. Extremely well
+2. Very well
+3. Moderately well
+4. Slightly well
+5. Not well at all
+Survey Question(s)
+CTRAIT_RPCLEAD
+Universe
+IF TRAIT IS 1ST TRAIT FOR REPUBLICAN PRESIDENTIAL CANDIDATE /
+IF TRAIT IS NOT 1ST TRAIT FOR REPUBLICAN PRESIDENTIAL CANDIDATE:
+Randomization
+Order of Presidential cands for sets of traits;
+order of traits administered for each candidate. Traits should be randomized in the same order for each candidate.
+Response Order
+Forward/Reverse order
+
+
+
+
+
+=== V241206 [2024] ===
+V241206
+PRE: REPUBLICAN PRESIDENTIAL CANDIDATE TRAIT: REALLY CARES
+Question
+[Think about Donald Trump. In your opinion, does the phrase ‘he really cares about people like you’ describe Donald Trump [extremely well, very well, moderately well, slightly well, or not well at all/ not well at all, slightly well, moderately well, very well, or extremely well]? / (What about) ‘really cares about people like you’? Does this phrase describe Donald Trump [extremely well, very well, moderately well, slightly well, or not well at all/ not well at all, slightly well, moderately well, very well, or extremely well]?]
+Value Labels
+-9. Refused
+-8. Don’t know
+-1. Inapplicable
+1. Extremely well
+2. Very well
+3. Moderately well
+4. Slightly well
+5. Not well at all
+Survey Question(s)
+CTRAIT_RPCCARE
+Universe
+IF TRAIT IS 1ST TRAIT FOR REPUBLICAN PRESIDENTIAL CANDIDATE /
+IF TRAIT IS NOT 1ST TRAIT FOR REPUBLICAN PRESIDENTIAL CANDIDATE:
 Randomization
 Order of Presidential cands for sets of traits;
 order of traits administered for each candidate. Traits should be randomized in the same order for each candidate.

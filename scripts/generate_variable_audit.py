@@ -157,9 +157,9 @@ def main():
     out.append("**Status legend:**")
     out.append("- 🔥 KNOWN-BUG-FIXED — previously catastrophic misuse; fix recorded inline (don't break it again)")
     out.append("- ⚠️ SUSPECT / COVERAGE LIMIT — usable but has a known caveat that must be respected")
-    out.append("- ❓ UNVERIFIED — usage looks correct against the observed distribution, but no codebook PDF on disk for independent confirmation\n")
-    out.append("**No codebook PDFs for ANES 2016 / 2020 / 2024 are checked in.** ")
-    out.append("Annotations marked 'UNVERIFIED but high-confidence' draw on standard ANES variable-naming conventions and the consistency of the data distribution with the documented usage. For any NEW figure depending on an UNVERIFIED variable: download the codebook PDF, cross-check, and upgrade the annotation here.\n")
+    out.append("- ❓ UNVERIFIED — used in a build script but not yet cross-checked against its codebook entry; confirm Label + Value Labels + Universe before relying on it\n")
+    out.append("**Codebooks ARE on disk:** `data/raw/anes_codebooks/anes_2016|2020|2024_codebook.txt`, with a per-variable slice in `data/derived/codebook_entries.txt` (regenerate via `python scripts/extract_codebook_entries.py`). ")
+    out.append("To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`, confirm the Label + Value Labels + Universe match the build-script usage, then add a codebook-cited annotation to `KNOWN_ANNOTATIONS` here.\n")
     out.append("---\n")
 
     by_cycle = {2016: [], 2020: [], 2024: []}
@@ -174,7 +174,7 @@ def main():
         for var in by_cycle[cyc]:
             sites = usage[var]
             vc, kind = short_dist(df, var)
-            status = KNOWN_ANNOTATIONS.get(var, "❓ UNVERIFIED — usage observed, no audit annotation yet. Cross-check before relying on it for a new figure.")
+            status = KNOWN_ANNOTATIONS.get(var, "❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.")
             out.append(f"\n### `{var}` [{cyc}]  —  {status}\n")
             if kind == "NOT IN DATA":
                 out.append("**NOT FOUND IN LOADED DATA FRAME** — usage site may be broken or guarded by a `.get(...)` fallback.\n")
@@ -201,9 +201,9 @@ def main():
     out.append(f"- Marked UNVERIFIED (default): **{total - annotated}**")
     out.append("\n## Process for new variables\n")
     out.append("Before introducing a NEW ANES variable into any build script:")
-    out.append("1. Look it up in the ANES codebook PDF for that cycle (download from ANES website)")
+    out.append("1. Read its codebook entry on disk: `data/raw/anes_codebooks/anes_<cycle>_codebook.txt` (or its slice in `data/derived/codebook_entries.txt`) — check the Label, Value Labels, AND Universe")
     out.append("2. Verify the value-count distribution matches the codebook")
-    out.append("3. Add a one-line annotation to `KNOWN_ANNOTATIONS` in this script")
+    out.append("3. Add a codebook-cited annotation to `KNOWN_ANNOTATIONS` in this script")
     out.append("4. Re-run `python scripts/generate_variable_audit.py`")
     out.append("5. Commit the regenerated `reqts/variable-audit.md` with the code change")
 
