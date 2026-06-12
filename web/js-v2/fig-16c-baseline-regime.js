@@ -30,7 +30,7 @@ export function drawBaselineRegime(selector, data) {
   const cycles = data.cycles.filter(c => c.in_power_2p_share != null && c.trust_mean != null)
 
   const W = container.clientWidth || 680
-  const margin = { top: 90, right: 30, bottom: 70, left: 70 }
+  const margin = { top: 24, right: 30, bottom: 70, left: 70 }
   const innerW = W - margin.left - margin.right
   const innerH = 360
   const H = margin.top + innerH + margin.bottom
@@ -40,16 +40,8 @@ export function drawBaselineRegime(selector, data) {
     .attr('class', 'br-chart')
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
-  // Title block
-  svg.append('text').attr('class', 'br-title')
-    .attr('x', 0).attr('y', 22)
-    .text('The baseline shift: trust resets where 50% lives')
-  svg.append('text').attr('class', 'br-subtitle')
-    .attr('x', 0).attr('y', 42)
-    .text('Each dot = one cycle. X = mean trust that cycle. Y = in-power party 2-party national PV share.')
-  svg.append('text').attr('class', 'br-subtitle')
-    .attr('x', 0).attr('y', 58)
-    .text('Filled = in-power won EC. Hollow = in-power lost EC. Blue = D held; red = R held.')
+  // Title, axis encoding, and the filled/hollow legend now live in the HTML
+  // figure label + figcaption — no in-SVG title block.
 
   // Scales
   const x = d3.scaleLinear().domain([0.20, 0.55]).range([0, innerW])
@@ -133,8 +125,4 @@ export function drawBaselineRegime(selector, data) {
       .text(`'${String(c.cycle).slice(2)}`)
   }
 
-  // Footer
-  svg.append('text').attr('class', 'br-foot')
-    .attr('x', 0).attr('y', H - 4)
-    .text('Trust composite: CDF VCF0604rev/0605/0609 (1980–2008); ANES standalone trustgov+social (2012); standalone do-right/run-for-all/waste (2016+). In-power 2-party share from CofE results.')
 }

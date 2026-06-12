@@ -20,7 +20,7 @@ export function drawTrustTurnout(selector, data) {
 
   const cycles = data.cycles
   const W = container.clientWidth || 680
-  const margin = { top: 90, right: 40, bottom: 70, left: 70 }
+  const margin = { top: 32, right: 40, bottom: 70, left: 70 }
   const innerW = W - margin.left - margin.right
   const innerH = 340
   const H = margin.top + innerH + margin.bottom
@@ -30,16 +30,7 @@ export function drawTrustTurnout(selector, data) {
     .attr('class', 'br-chart')
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
-  // Title
-  svg.append('text').attr('class', 'br-title')
-    .attr('x', 0).attr('y', 22)
-    .text('Trust ↔ turnout: the relationship flips at the Authenticity Floor')
-  svg.append('text').attr('class', 'br-subtitle')
-    .attr('x', 0).attr('y', 42)
-    .text('Each dot = one cycle. Both axes restricted to that cycle\'s actual battleground states.')
-  svg.append('text').attr('class', 'br-subtitle')
-    .attr('x', 0).attr('y', 58)
-    .text(`Pre-2008 r = ${data.pre_2008_r.toFixed(2)} (high-trust era, civic engagement). Post-2004 r = ${data.post_2004_r.toFixed(2)} (low-trust era, anti-system mobilization).`)
+  // Title/subtitle now live in the HTML figure label + figcaption.
 
   // Scales
   const x = d3.scaleLinear().domain([0.18, 0.55]).range([0, innerW])
@@ -129,7 +120,7 @@ export function drawTrustTurnout(selector, data) {
   }
 
   // Legend
-  const legY = 74
+  const legY = 14
   svg.append('circle').attr('cx', margin.left + 6).attr('cy', legY).attr('r', 5).attr('fill', COLOR_PRE)
   svg.append('text').attr('x', margin.left + 16).attr('y', legY + 4)
     .attr('font-size', '11px').text(`Pre-2008 (r=${data.pre_2008_r.toFixed(2)})`)
@@ -137,8 +128,4 @@ export function drawTrustTurnout(selector, data) {
   svg.append('text').attr('x', margin.left + 160).attr('y', legY + 4)
     .attr('font-size', '11px').text(`Post-2004 (r=${data.post_2004_r.toFixed(2)})`)
 
-  // Footer
-  svg.append('text').attr('class', 'br-foot')
-    .attr('x', 0).attr('y', H - 4)
-    .text('Trust: cycle-specific bg, ANES composite (CDF VCF0604rev/0605/0609; standalone do-right/run-for-all/waste; 2012 + trust_social). Turnout: ANES self-report (over-reports by ~25pp).')
 }
