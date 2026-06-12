@@ -90,7 +90,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 - `build_center_overlap_matrix.py:14` — `Weighted with V160101 (post-election weight).`
 - `build_center_overlap_matrix.py:33` — `w = pd.to_numeric(d["V160101"], errors="coerce").fillna(0).clip(lower=0)`
 - `build_center_overlap_matrix.py:130` — `"V160101 (weight)",`
-- `generate_variable_audit.py:102` — `"V160101": "✅ CODEBOOK-VERIFIED: ANES 2016 PRE survey weight. Use for pre-election analyses.",`
+- `generate_variable_audit.py:103` — `"V160101": "✅ CODEBOOK-VERIFIED: ANES 2016 PRE survey weight. Use for pre-election analyses.",`
 - `build_partisan_loyalty.py:14` — `w = clean_var(df, "V160101", 0, 1e9).fillna(0).clip(lower=0)`
 - `build_partisan_loyalty.py:112` — `"variables": ["V160101 (weight)", "V161158x (7-pt PID, branched)",`
 - `build_partisan_loyalty.py:115` — `"weight": "V160101 (post-election)",`
@@ -141,7 +141,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 - `build_voter_map_2016.py:25` — `w:           V160102 weight`
 - `build_voter_map_2016.py:119` — `w = pd.to_numeric(df.get("V160102", df.get("V160101")), errors="coerce").fillna(0).clip(lower=0)`
 - `build_voter_map_2016.py:178` — `"source": "ANES 2016 Time Series Study, weighted (V160102). x=V161126 ideology (1-7 → -1..+1). y=V161215/V161216/V161217 trust ...`
-- `generate_variable_audit.py:103` — `"V160102": "✅ CODEBOOK-VERIFIED: ANES 2016 POST survey weight. Use for vote-choice / post-election analyses. (Currently used in...`
+- `generate_variable_audit.py:104` — `"V160102": "✅ CODEBOOK-VERIFIED: ANES 2016 POST survey weight. Use for vote-choice / post-election analyses. (Currently used in...`
 - `build_within_cycle_multi.py:12` — `V162078 (Clinton POST), V162079 (Trump POST), V160102 (weight)`
 - `build_within_cycle_multi.py:44` — `"weight": "V160102",`
 - `build_candidate_honesty_by_trust.py:244` — `w = pd.to_numeric(df.get('V160102', df.get('V160101')), errors='coerce').fillna(0).clip(lower=0)`
@@ -169,7 +169,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 - `build_turnout_hump.py:134` — `"V160101 (weight)", "V161004 (interest)", "V161005 (care who wins)",`
 - `build_turnout_hump.py:138` — `"filter": "Low-engagement subset = V161004 == 3 ('not too / not at all interested').",`
 
-### `V161005` [2016]  —  ❓ UNVERIFIED — usage observed, no codebook cross-check yet. Read this variable's slice in data/derived/codebook_entries.txt and confirm Label + Value Labels + Universe before relying on it.
+### `V161005` [2016]  —  ✅ CODEBOOK-VERIFIED: 2016 PRE 'Did R vote for President in 2012' (item CAMPINT_PRESVTLAST). 1=voted 2012, 2=did not, -9/-8 missing. Universe = all PRE respondents (all 4270 coded, no restriction). Used as V161005==1 (voted 2012) for the drop-off cohort (voted 2012, not 2016).
 
 **Observed distribution** (top values, numeric):
 
@@ -180,13 +180,15 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
          2.0: 1137
 ```
 
-**Usage sites (9)**:
+**Usage sites (11)**:
 
 - `build_voter_map_2016.py:23` — `new_2016:    1 if voted 2016 but NOT in 2012 (V161005 == 2)`
 - `build_voter_map_2016.py:24` — `dropoff:     1 if voted 2012 but NOT in 2016 (V161005 == 1 AND V162031x != 1)`
 - `build_voter_map_2016.py:102` — `# 2012 turnout (V161005: 1=yes, 2=no)`
 - `build_voter_map_2016.py:103` — `voted_2012 = pd.to_numeric(df["V161005"], errors="coerce")`
 - `build_voter_map_2016.py:178` — `"source": "ANES 2016 Time Series Study, weighted (V160102). x=V161126 ideology (1-7 → -1..+1). y=V161215/V161216/V161217 trust ...`
+- `generate_variable_audit.py:96` — `"V161005": "✅ CODEBOOK-VERIFIED: 2016 PRE 'Did R vote for President in 2012' (item CAMPINT_PRESVTLAST). 1=voted 2012, 2=did not...`
+- `generate_variable_audit.py:96` — `"V161005": "✅ CODEBOOK-VERIFIED: 2016 PRE 'Did R vote for President in 2012' (item CAMPINT_PRESVTLAST). 1=voted 2012, 2=did not...`
 - `build_turnout_hump.py:5` — `- stakes pct (V161005 "care a good deal")`
 - `build_turnout_hump.py:44` — `care = clean_var(df, "V161005", 1, 2)`
 - `build_turnout_hump.py:134` — `"V160101 (weight)", "V161004 (interest)", "V161005 (care who wins)",`
@@ -224,7 +226,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 - `build_voter_map_2016.py:121` — `# STATE FIPS — V161010d`
 - `build_voter_map_2016.py:122` — `state = pd.to_numeric(df["V161010d"], errors="coerce") if "V161010d" in df.columns else pd.Series([None]*len(df))`
 - `build_voter_map_2016.py:122` — `state = pd.to_numeric(df["V161010d"], errors="coerce") if "V161010d" in df.columns else pd.Series([None]*len(df))`
-- `generate_variable_audit.py:110` — `"V161010d": "✅ CODEBOOK-VERIFIED: 2016 state FIPS code (numeric).",`
+- `generate_variable_audit.py:111` — `"V161010d": "✅ CODEBOOK-VERIFIED: 2016 state FIPS code (numeric).",`
 - `build_candidate_honesty_by_trust.py:245` — `state = pd.to_numeric(df['V161010d'], errors='coerce')`
 - `build_voter_maps_all.py:80` — `state = safe_num(df, "V161010d")`
 - `build_swing_trust_turnout.py:82` — `(2016, None, 'V162031x', 'V160102', 'V161010d'),`
@@ -481,7 +483,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:123` — `"V161128": "✅ CODEBOOK-VERIFIED: 2016 R places Dem cand on 7-pt lib-con scale. Used in voter map for non-tautological perceived...`
+- `generate_variable_audit.py:124` — `"V161128": "✅ CODEBOOK-VERIFIED: 2016 R places Dem cand on 7-pt lib-con scale. Used in voter map for non-tautological perceived...`
 - `build_voter_maps_all.py:86` — `#   V161128/V161129 = R places Dem/Rep cand on 1-7 lib-cons scale`
 - `build_voter_maps_all.py:95` — `dem_perc_x = (safe_num(df, "V161128").where(lambda v: v.between(1, 7)) - 4) / 3.0`
 
@@ -503,7 +505,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:124` — `"V161129": "✅ CODEBOOK-VERIFIED: 2016 R places Rep cand on 7-pt lib-con scale.",`
+- `generate_variable_audit.py:125` — `"V161129": "✅ CODEBOOK-VERIFIED: 2016 R places Rep cand on 7-pt lib-con scale.",`
 - `build_voter_maps_all.py:86` — `#   V161128/V161129 = R places Dem/Rep cand on 1-7 lib-cons scale`
 - `build_voter_maps_all.py:96` — `rep_perc_x = (safe_num(df, "V161129").where(lambda v: v.between(1, 7)) - 4) / 3.0`
 
@@ -534,7 +536,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 - `build_center_overlap_matrix.py:51` — `pid = pd.to_numeric(d["V161158x"], errors="coerce")  # 1=SD .. 7=SR`
 - `build_center_overlap_matrix.py:132` — `"V161158x (PID, 7-pt, leaners)",`
 - `generate_variable_audit.py:67` — `"V161158x": "🔥 KNOWN-BUG-FIXED: codebook-verified ANES 7-pt party summary 1=strong D … 7=strong R. Earlier off-by-one mapping d...`
-- `generate_variable_audit.py:97` — `"V241227x": "✅ CODEBOOK-VERIFIED: 2024 7-pt party summary. Same scale as V161158x/V201231x. Already mapped correctly (1,2,3→dem...`
+- `generate_variable_audit.py:98` — `"V241227x": "✅ CODEBOOK-VERIFIED: 2024 7-pt party summary. Same scale as V161158x/V201231x. Already mapped correctly (1,2,3→dem...`
 - `build_partisan_loyalty.py:16` — `pid = clean_var(df, "V161158x", 1, 7)`
 - `build_partisan_loyalty.py:63` — `"metric": "Pure independents (V161158x=4)",`
 - `build_partisan_loyalty.py:112` — `"variables": ["V160101 (weight)", "V161158x (7-pt PID, branched)",`
@@ -565,7 +567,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:131` — `"V161159": "✅ CODEBOOK-VERIFIED: 2016 Dem cand trait 'strong leadership' 1-5. Voter-map perceived-Dem y composite.",`
+- `generate_variable_audit.py:132` — `"V161159": "✅ CODEBOOK-VERIFIED: 2016 Dem cand trait 'strong leadership' 1-5. Voter-map perceived-Dem y composite.",`
 - `build_voter_maps_all.py:87` — `#   V161159/V161160 = Dem cand "strong leadership"/"really cares" 1-5`
 - `build_voter_maps_all.py:97` — `d_lead  = (5 - safe_num(df, "V161159").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -585,7 +587,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:132` — `"V161160": "✅ CODEBOOK-VERIFIED: 2016 Dem cand trait 'really cares about people like me' 1-5. Voter-map perceived-Dem y composi...`
+- `generate_variable_audit.py:133` — `"V161160": "✅ CODEBOOK-VERIFIED: 2016 Dem cand trait 'really cares about people like me' 1-5. Voter-map perceived-Dem y composi...`
 - `build_voter_maps_all.py:87` — `#   V161159/V161160 = Dem cand "strong leadership"/"really cares" 1-5`
 - `build_voter_maps_all.py:98` — `d_cares = (5 - safe_num(df, "V161160").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -605,8 +607,8 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (5)**:
 
-- `generate_variable_audit.py:115` — `"V161162": "✅ CODEBOOK-VERIFIED: 2016 Dem cand 'honest' Likert 1=extremely well..5=not well at all. Used in build_candidate_hon...`
-- `generate_variable_audit.py:116` — `"V161167": "✅ CODEBOOK-VERIFIED: 2016 Rep cand 'honest', same scale as V161162.",`
+- `generate_variable_audit.py:116` — `"V161162": "✅ CODEBOOK-VERIFIED: 2016 Dem cand 'honest' Likert 1=extremely well..5=not well at all. Used in build_candidate_hon...`
+- `generate_variable_audit.py:117` — `"V161167": "✅ CODEBOOK-VERIFIED: 2016 Rep cand 'honest', same scale as V161162.",`
 - `build_candidate_honesty_by_trust.py:241` — `# V161162 = Dem (Clinton) "is honest" trait; V161167 = Rep (Trump). 1=very well..5=not well.`
 - `build_candidate_honesty_by_trust.py:242` — `hd = 5 - df['V161162'].where(df['V161162'].between(1,5))`
 - `build_candidate_honesty_by_trust.py:242` — `hd = 5 - df['V161162'].where(df['V161162'].between(1,5))`
@@ -627,7 +629,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:133` — `"V161164": "✅ CODEBOOK-VERIFIED: 2016 Rep cand trait 'strong leadership' 1-5. Voter-map perceived-Rep y composite.",`
+- `generate_variable_audit.py:134` — `"V161164": "✅ CODEBOOK-VERIFIED: 2016 Rep cand trait 'strong leadership' 1-5. Voter-map perceived-Rep y composite.",`
 - `build_voter_maps_all.py:88` — `#   V161164/V161165 = Rep cand same two traits`
 - `build_voter_maps_all.py:99` — `r_lead  = (5 - safe_num(df, "V161164").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -647,7 +649,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:134` — `"V161165": "✅ CODEBOOK-VERIFIED: 2016 Rep cand trait 'really cares about people like me' 1-5.",`
+- `generate_variable_audit.py:135` — `"V161165": "✅ CODEBOOK-VERIFIED: 2016 Rep cand trait 'really cares about people like me' 1-5.",`
 - `build_voter_maps_all.py:88` — `#   V161164/V161165 = Rep cand same two traits`
 - `build_voter_maps_all.py:100` — `r_cares = (5 - safe_num(df, "V161165").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -667,7 +669,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (4)**:
 
-- `generate_variable_audit.py:116` — `"V161167": "✅ CODEBOOK-VERIFIED: 2016 Rep cand 'honest', same scale as V161162.",`
+- `generate_variable_audit.py:117` — `"V161167": "✅ CODEBOOK-VERIFIED: 2016 Rep cand 'honest', same scale as V161162.",`
 - `build_candidate_honesty_by_trust.py:241` — `# V161162 = Dem (Clinton) "is honest" trait; V161167 = Rep (Trump). 1=very well..5=not well.`
 - `build_candidate_honesty_by_trust.py:243` — `hr = 5 - df['V161167'].where(df['V161167'].between(1,5))`
 - `build_candidate_honesty_by_trust.py:243` — `hr = 5 - df['V161167'].where(df['V161167'].between(1,5))`
@@ -1053,7 +1055,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 - `build_center_overlap_matrix.py:8` — `voted for the other party's nominee. From V161158x (PID) × V162034a (vote).`
 - `build_center_overlap_matrix.py:52` — `vote = pd.to_numeric(d["V162034a"], errors="coerce")  # 1=Clinton, 2=Trump`
 - `build_center_overlap_matrix.py:133` — `"V162034a (presidential vote)",`
-- `generate_variable_audit.py:98` — `"V162034a": "✅ CODEBOOK-VERIFIED: 2016 general-election vote. 1=Clinton, 2=Trump, 3=Johnson, 4=Stein, 5=other.",`
+- `generate_variable_audit.py:99` — `"V162034a": "✅ CODEBOOK-VERIFIED: 2016 general-election vote. 1=Clinton, 2=Trump, 3=Johnson, 4=Stein, 5=other.",`
 - `build_partisan_loyalty.py:18` — `vch = clean_var(df, "V162034a", 1, 7)`
 - `build_partisan_loyalty.py:113` — `"V161126 (lib-con)", "V162034a (presidential vote)"],`
 - `build_within_tent_bolt.py:37` — `vch = clean_var(df, "V162034a", 1, 7)`
@@ -1211,7 +1213,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (7)**:
 
-- `generate_variable_audit.py:104` — `"V200010a": "🔥 KNOWN-BUG-FIXED: ANES 2020 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
+- `generate_variable_audit.py:105` — `"V200010a": "🔥 KNOWN-BUG-FIXED: ANES 2020 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
 - `build_within_cycle_multi.py:14` — `V202143 (Biden POST), V202144 (Trump POST), V200010a (weight)`
 - `build_within_cycle_multi.py:53` — `"weight": "V200010a",`
 - `build_candidate_honesty_by_trust.py:256` — `w = pd.to_numeric(df.get('V200010a', df.get('V200010b')), errors='coerce').fillna(0).clip(lower=0)`
@@ -1248,8 +1250,8 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (5)**:
 
-- `generate_variable_audit.py:104` — `"V200010a": "🔥 KNOWN-BUG-FIXED: ANES 2020 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
-- `generate_variable_audit.py:105` — `"V200010b": "✅ CODEBOOK-VERIFIED: ANES 2020 POST weight. Now used for the voter map (vote choice is post-election data).",`
+- `generate_variable_audit.py:105` — `"V200010a": "🔥 KNOWN-BUG-FIXED: ANES 2020 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
+- `generate_variable_audit.py:106` — `"V200010b": "✅ CODEBOOK-VERIFIED: ANES 2020 POST weight. Now used for the voter map (vote choice is post-election data).",`
 - `build_candidate_honesty_by_trust.py:256` — `w = pd.to_numeric(df.get('V200010a', df.get('V200010b')), errors='coerce').fillna(0).clip(lower=0)`
 - `build_voter_maps_all.py:148` — `# Weight: V200010b is POST weight (correct for vote-choice analysis since`
 - `build_voter_maps_all.py:151` — `w = safe_num(df, "V200010b").fillna(0).clip(lower=0)`
@@ -1283,7 +1285,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (4)**:
 
-- `generate_variable_audit.py:111` — `"V201014b": "✅ CODEBOOK-VERIFIED: 2020 state FIPS code.",`
+- `generate_variable_audit.py:112` — `"V201014b": "✅ CODEBOOK-VERIFIED: 2020 state FIPS code.",`
 - `build_candidate_honesty_by_trust.py:257` — `state = pd.to_numeric(df['V201014b'], errors='coerce')`
 - `build_voter_maps_all.py:152` — `state = safe_num(df, "V201014b")`
 - `build_swing_trust_turnout.py:83` — `(2020, None, 'V202109x', 'V200010a', 'V201014b'),`
@@ -1477,7 +1479,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:125` — `"V201202": "✅ CODEBOOK-VERIFIED: 2020 R places Dem cand on 7-pt lib-con scale.",`
+- `generate_variable_audit.py:126` — `"V201202": "✅ CODEBOOK-VERIFIED: 2020 R places Dem cand on 7-pt lib-con scale.",`
 - `build_voter_maps_all.py:154` — `# Perceived candidate positions: V201202/03 (ideology),`
 - `build_voter_maps_all.py:156` — `dem_perc_x = (safe_num(df, "V201202").where(lambda v: v.between(1, 7)) - 4) / 3.0`
 
@@ -1500,7 +1502,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (2)**:
 
-- `generate_variable_audit.py:126` — `"V201203": "✅ CODEBOOK-VERIFIED: 2020 R places Rep cand on 7-pt lib-con scale.",`
+- `generate_variable_audit.py:127` — `"V201203": "✅ CODEBOOK-VERIFIED: 2020 R places Rep cand on 7-pt lib-con scale.",`
 - `build_voter_maps_all.py:157` — `rep_perc_x = (safe_num(df, "V201203").where(lambda v: v.between(1, 7)) - 4) / 3.0`
 
 ### `V201208` [2020]  —  ✅ CODEBOOK-VERIFIED: 2020 Dem cand 'strong leadership' Likert 1-5.
@@ -1519,7 +1521,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:135` — `"V201208": "✅ CODEBOOK-VERIFIED: 2020 Dem cand 'strong leadership' Likert 1-5.",`
+- `generate_variable_audit.py:136` — `"V201208": "✅ CODEBOOK-VERIFIED: 2020 Dem cand 'strong leadership' Likert 1-5.",`
 - `build_voter_maps_all.py:155` — `# V201208+V201209 (Biden lead+cares) / V201212+V201213 (Trump lead+cares)`
 - `build_voter_maps_all.py:158` — `d_lead  = (5 - safe_num(df, "V201208").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -1539,7 +1541,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:136` — `"V201209": "✅ CODEBOOK-VERIFIED: 2020 Dem cand 'really cares' Likert 1-5.",`
+- `generate_variable_audit.py:137` — `"V201209": "✅ CODEBOOK-VERIFIED: 2020 Dem cand 'really cares' Likert 1-5.",`
 - `build_voter_maps_all.py:155` — `# V201208+V201209 (Biden lead+cares) / V201212+V201213 (Trump lead+cares)`
 - `build_voter_maps_all.py:159` — `d_cares = (5 - safe_num(df, "V201209").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -1559,7 +1561,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (4)**:
 
-- `generate_variable_audit.py:117` — `"V201211": "✅ CODEBOOK-VERIFIED: 2020 Dem cand 'honest'.",`
+- `generate_variable_audit.py:118` — `"V201211": "✅ CODEBOOK-VERIFIED: 2020 Dem cand 'honest'.",`
 - `build_candidate_honesty_by_trust.py:253` — `# V201211 = Biden honest; V201215 = Trump honest. Verified to reproduce hardcoded RECENT.`
 - `build_candidate_honesty_by_trust.py:254` — `hd = 5 - df['V201211'].where(df['V201211'].between(1,5))`
 - `build_candidate_honesty_by_trust.py:254` — `hd = 5 - df['V201211'].where(df['V201211'].between(1,5))`
@@ -1579,7 +1581,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:137` — `"V201212": "✅ CODEBOOK-VERIFIED: 2020 Rep cand 'strong leadership' Likert 1-5.",`
+- `generate_variable_audit.py:138` — `"V201212": "✅ CODEBOOK-VERIFIED: 2020 Rep cand 'strong leadership' Likert 1-5.",`
 - `build_voter_maps_all.py:155` — `# V201208+V201209 (Biden lead+cares) / V201212+V201213 (Trump lead+cares)`
 - `build_voter_maps_all.py:160` — `r_lead  = (5 - safe_num(df, "V201212").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -1598,7 +1600,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:138` — `"V201213": "✅ CODEBOOK-VERIFIED: 2020 Rep cand 'really cares' Likert 1-5.",`
+- `generate_variable_audit.py:139` — `"V201213": "✅ CODEBOOK-VERIFIED: 2020 Rep cand 'really cares' Likert 1-5.",`
 - `build_voter_maps_all.py:155` — `# V201208+V201209 (Biden lead+cares) / V201212+V201213 (Trump lead+cares)`
 - `build_voter_maps_all.py:161` — `r_cares = (5 - safe_num(df, "V201213").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -1618,7 +1620,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (4)**:
 
-- `generate_variable_audit.py:118` — `"V201215": "✅ CODEBOOK-VERIFIED: 2020 Rep cand 'honest'.",`
+- `generate_variable_audit.py:119` — `"V201215": "✅ CODEBOOK-VERIFIED: 2020 Rep cand 'honest'.",`
 - `build_candidate_honesty_by_trust.py:253` — `# V201211 = Biden honest; V201215 = Trump honest. Verified to reproduce hardcoded RECENT.`
 - `build_candidate_honesty_by_trust.py:255` — `hr = 5 - df['V201215'].where(df['V201215'].between(1,5))`
 - `build_candidate_honesty_by_trust.py:255` — `hr = 5 - df['V201215'].where(df['V201215'].between(1,5))`
@@ -1643,7 +1645,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 - `extract_codebook_entries.py:50` — `'V201231x\tPRE: SUMMARY: PARTY ID' (2020/2024 tab-delimited format)`
 - `generate_variable_audit.py:68` — `"V201231x": "🔥 KNOWN-BUG-FIXED: codebook-verified — 'PRE: SUMMARY: PARTY ID', 1=Strong Democrat … 7=Strong Republican. Off-by-o...`
-- `generate_variable_audit.py:97` — `"V241227x": "✅ CODEBOOK-VERIFIED: 2024 7-pt party summary. Same scale as V161158x/V201231x. Already mapped correctly (1,2,3→dem...`
+- `generate_variable_audit.py:98` — `"V241227x": "✅ CODEBOOK-VERIFIED: 2024 7-pt party summary. Same scale as V161158x/V201231x. Already mapped correctly (1,2,3→dem...`
 - `build_voter_maps_all.py:117` — `# V201231x is the standard ANES 7-pt party summary (same scale as 2016/2024):`
 - `build_voter_maps_all.py:120` — `pty = safe_num(df, "V201231x")`
 
@@ -1764,7 +1766,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (2)**:
 
-- `generate_variable_audit.py:99` — `"V202073": "✅ CODEBOOK-VERIFIED: 2020 general-election vote. 1=Biden, 2=Trump, 3=Jorgensen, 4=Hawkins, 5=other.",`
+- `generate_variable_audit.py:100` — `"V202073": "✅ CODEBOOK-VERIFIED: 2020 general-election vote. 1=Biden, 2=Trump, 3=Jorgensen, 4=Hawkins, 5=other.",`
 - `build_voter_maps_all.py:122` — `gen = safe_num(df, "V202073")`
 
 ### `V202109x` [2020]  —  ✅ CODEBOOK-VERIFIED: 2020 turnout summary (validated). 0=did not vote, 1=voted, -2=not reported.
@@ -1887,7 +1889,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (6)**:
 
-- `generate_variable_audit.py:106` — `"V240107a": "🔥 KNOWN-BUG-FIXED: ANES 2024 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
+- `generate_variable_audit.py:107` — `"V240107a": "🔥 KNOWN-BUG-FIXED: ANES 2024 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
 - `build_within_cycle_multi.py:16` — `V242125 (Dem POST), V242126 (Rep POST), V240107a (weight)`
 - `build_within_cycle_multi.py:62` — `"weight": "V240107a",`
 - `build_candidate_honesty_by_trust.py:268` — `w = pd.to_numeric(df.get('V240107a', df.get('V240107')), errors='coerce').fillna(0).clip(lower=0)`
@@ -1923,8 +1925,8 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (7)**:
 
-- `generate_variable_audit.py:106` — `"V240107a": "🔥 KNOWN-BUG-FIXED: ANES 2024 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
-- `generate_variable_audit.py:107` — `"V240107b": "✅ CODEBOOK-VERIFIED: ANES 2024 POST weight. Now used for the voter map.",`
+- `generate_variable_audit.py:107` — `"V240107a": "🔥 KNOWN-BUG-FIXED: ANES 2024 PRE weight. Was incorrectly used for vote-choice analysis in build_voter_maps_all.py;...`
+- `generate_variable_audit.py:108` — `"V240107b": "✅ CODEBOOK-VERIFIED: ANES 2024 POST weight. Now used for the voter map.",`
 - `build_voter_maps_all.py:220` — `# Weight: V240107b is POST weight (correct for vote-choice analysis).`
 - `build_voter_maps_all.py:222` — `w = safe_num(df, "V240107b").fillna(0).clip(lower=0)`
 - `build_trust_by_cohort.py:107` — `for w_col in ["V240107a", "V240107b", "V240108a"]:`
@@ -2023,7 +2025,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 **Usage sites (4)**:
 
 - `generate_variable_audit.py:65` — `"V241049": "🔥 KNOWN-BUG-FIXED: codebook label is a HYPOTHETICAL Harris-vs-Trump question, NOT '2020 turnout'. We no longer use ...`
-- `generate_variable_audit.py:96` — `"V241106x": "✅ CODEBOOK-VERIFIED: 2024 prior-vote recall. 1=did not vote 2020, 2=Biden, 3=Trump, 4=other.",`
+- `generate_variable_audit.py:97` — `"V241106x": "✅ CODEBOOK-VERIFIED: 2024 prior-vote recall. 1=did not vote 2020, 2=Biden, 3=Trump, 4=other.",`
 - `build_voter_maps_all.py:193` — `#   V241106x is the actual prior-vote recall (1=did not vote 2020,`
 - `build_voter_maps_all.py:195` — `p20 = safe_num(df, "V241106x")`
 
@@ -2132,7 +2134,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:127` — `"V241179": "✅ CODEBOOK-VERIFIED: 2024 R places Harris on 7-pt lib-con scale (codebook quote: 'Where would you place Kamala Harr...`
+- `generate_variable_audit.py:128` — `"V241179": "✅ CODEBOOK-VERIFIED: 2024 R places Harris on 7-pt lib-con scale (codebook quote: 'Where would you place Kamala Harr...`
 - `build_voter_maps_all.py:226` — `# Perceived candidate positions: V241179/80 (ideology),`
 - `build_voter_maps_all.py:228` — `dem_perc_x = (safe_num(df, "V241179").where(lambda v: v.between(1, 7)) - 4) / 3.0`
 
@@ -2155,7 +2157,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (2)**:
 
-- `generate_variable_audit.py:128` — `"V241180": "✅ CODEBOOK-VERIFIED: 2024 R places Trump on 7-pt lib-con scale.",`
+- `generate_variable_audit.py:129` — `"V241180": "✅ CODEBOOK-VERIFIED: 2024 R places Trump on 7-pt lib-con scale.",`
 - `build_voter_maps_all.py:229` — `rep_perc_x = (safe_num(df, "V241180").where(lambda v: v.between(1, 7)) - 4) / 3.0`
 
 ### `V241200` [2024]  —  ✅ CODEBOOK-VERIFIED: 2024 Dem (Harris) 'strong leadership' Likert 1-5.
@@ -2175,7 +2177,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:139` — `"V241200": "✅ CODEBOOK-VERIFIED: 2024 Dem (Harris) 'strong leadership' Likert 1-5.",`
+- `generate_variable_audit.py:140` — `"V241200": "✅ CODEBOOK-VERIFIED: 2024 Dem (Harris) 'strong leadership' Likert 1-5.",`
 - `build_voter_maps_all.py:227` — `# V241200+V241201 (Harris lead+cares) / V241205+V241206 (Trump lead+cares)`
 - `build_voter_maps_all.py:230` — `d_lead  = (5 - safe_num(df, "V241200").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -2196,7 +2198,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:140` — `"V241201": "✅ CODEBOOK-VERIFIED: 2024 Dem (Harris) 'really cares' Likert 1-5.",`
+- `generate_variable_audit.py:141` — `"V241201": "✅ CODEBOOK-VERIFIED: 2024 Dem (Harris) 'really cares' Likert 1-5.",`
 - `build_voter_maps_all.py:227` — `# V241200+V241201 (Harris lead+cares) / V241205+V241206 (Trump lead+cares)`
 - `build_voter_maps_all.py:231` — `d_cares = (5 - safe_num(df, "V241201").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -2217,7 +2219,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (4)**:
 
-- `generate_variable_audit.py:119` — `"V241203": "✅ CODEBOOK-VERIFIED: 2024 Dem cand 'honest'.",`
+- `generate_variable_audit.py:120` — `"V241203": "✅ CODEBOOK-VERIFIED: 2024 Dem cand 'honest'.",`
 - `build_candidate_honesty_by_trust.py:265` — `# V241203 = Harris honest; V241208 = Trump honest. Verified.`
 - `build_candidate_honesty_by_trust.py:266` — `hd = 5 - df['V241203'].where(df['V241203'].between(1,5))`
 - `build_candidate_honesty_by_trust.py:266` — `hd = 5 - df['V241203'].where(df['V241203'].between(1,5))`
@@ -2239,7 +2241,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:141` — `"V241205": "✅ CODEBOOK-VERIFIED: 2024 Rep (Trump) 'strong leadership' Likert 1-5.",`
+- `generate_variable_audit.py:142` — `"V241205": "✅ CODEBOOK-VERIFIED: 2024 Rep (Trump) 'strong leadership' Likert 1-5.",`
 - `build_voter_maps_all.py:227` — `# V241200+V241201 (Harris lead+cares) / V241205+V241206 (Trump lead+cares)`
 - `build_voter_maps_all.py:232` — `r_lead  = (5 - safe_num(df, "V241205").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -2260,7 +2262,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:142` — `"V241206": "✅ CODEBOOK-VERIFIED: 2024 Rep (Trump) 'really cares' Likert 1-5.",`
+- `generate_variable_audit.py:143` — `"V241206": "✅ CODEBOOK-VERIFIED: 2024 Rep (Trump) 'really cares' Likert 1-5.",`
 - `build_voter_maps_all.py:227` — `# V241200+V241201 (Harris lead+cares) / V241205+V241206 (Trump lead+cares)`
 - `build_voter_maps_all.py:233` — `r_cares = (5 - safe_num(df, "V241206").where(lambda v: v.between(1, 5))) / 4.0`
 
@@ -2281,7 +2283,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (4)**:
 
-- `generate_variable_audit.py:120` — `"V241208": "✅ CODEBOOK-VERIFIED: 2024 Rep cand 'honest'.",`
+- `generate_variable_audit.py:121` — `"V241208": "✅ CODEBOOK-VERIFIED: 2024 Rep cand 'honest'.",`
 - `build_candidate_honesty_by_trust.py:265` — `# V241203 = Harris honest; V241208 = Trump honest. Verified.`
 - `build_candidate_honesty_by_trust.py:267` — `hr = 5 - df['V241208'].where(df['V241208'].between(1,5))`
 - `build_candidate_honesty_by_trust.py:267` — `hr = 5 - df['V241208'].where(df['V241208'].between(1,5))`
@@ -2305,7 +2307,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (3)**:
 
-- `generate_variable_audit.py:97` — `"V241227x": "✅ CODEBOOK-VERIFIED: 2024 7-pt party summary. Same scale as V161158x/V201231x. Already mapped correctly (1,2,3→dem...`
+- `generate_variable_audit.py:98` — `"V241227x": "✅ CODEBOOK-VERIFIED: 2024 7-pt party summary. Same scale as V161158x/V201231x. Already mapped correctly (1,2,3→dem...`
 - `build_voter_maps_all.py:179` — `# V241227x is the canonical 7-pt party ID summary (1=strong D, 7=strong R, 4=ind).`
 - `build_voter_maps_all.py:180` — `pty = safe_num(df, "V241227x")`
 
@@ -2598,7 +2600,7 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 
 **Usage sites (5)**:
 
-- `generate_variable_audit.py:112` — `"V243002": "✅ CODEBOOK-VERIFIED: 2024 state code (stored as string in the .csv).",`
+- `generate_variable_audit.py:113` — `"V243002": "✅ CODEBOOK-VERIFIED: 2024 state code (stored as string in the .csv).",`
 - `build_candidate_honesty_by_trust.py:269` — `state_str = df['V243002'].astype(str).str.strip()`
 - `build_voter_maps_all.py:223` — `state_str = df["V243002"].astype(str).str.strip() if "V243002" in df.columns else pd.Series([""] * len(df))`
 - `build_voter_maps_all.py:223` — `state_str = df["V243002"].astype(str).str.strip() if "V243002" in df.columns else pd.Series([""] * len(df))`
@@ -2609,8 +2611,8 @@ To upgrade an ❓ UNVERIFIED variable: read its slice in `codebook_entries.txt`,
 ## Summary
 
 - Total ANES variables in use: **101**
-- With explicit audit annotation: **66**
-- Marked UNVERIFIED (default): **35**
+- With explicit audit annotation: **67**
+- Marked UNVERIFIED (default): **34**
 
 ## Process for new variables
 

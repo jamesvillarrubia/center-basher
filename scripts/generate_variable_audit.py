@@ -93,6 +93,7 @@ KNOWN_ANNOTATIONS = {
     "V241231": "✅ CODEBOOK-VERIFIED: 2024 analog of V161216 (few interests vs all).",
     "V241232": "✅ CODEBOOK-VERIFIED: 2024 analog of V161217 (tax money wasted).",
     "V202109x": "✅ CODEBOOK-VERIFIED: 2020 turnout summary (validated). 0=did not vote, 1=voted, -2=not reported.",
+    "V161005": "✅ CODEBOOK-VERIFIED: 2016 PRE 'Did R vote for President in 2012' (item CAMPINT_PRESVTLAST). 1=voted 2012, 2=did not, -9/-8 missing. Universe = all PRE respondents (all 4270 coded, no restriction). Used as V161005==1 (voted 2012) for the drop-off cohort (voted 2012, not 2016).",
     "V241106x": "✅ CODEBOOK-VERIFIED: 2024 prior-vote recall. 1=did not vote 2020, 2=Biden, 3=Trump, 4=other.",
     "V241227x": "✅ CODEBOOK-VERIFIED: 2024 7-pt party summary. Same scale as V161158x/V201231x. Already mapped correctly (1,2,3→dem; 4→ind; 5,6,7→rep).",
     "V162034a": "✅ CODEBOOK-VERIFIED: 2016 general-election vote. 1=Clinton, 2=Trump, 3=Johnson, 4=Stein, 5=other.",
