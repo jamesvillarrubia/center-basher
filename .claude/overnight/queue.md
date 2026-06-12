@@ -10,7 +10,7 @@
 
 - [x] Trust-composite forensic pass (institutional-trust items per cycle + CDF trust). Verify each item's code direction matches the (5−x)/4-style transforms in the build scripts. Accept: each trust item used has a codebook-cited annotation with verified direction; none ❓.
 
-- [ ] Weight-alignment audit (Gate 3) across ALL build_*.py. Produce a script→weight→PRE/POST→is-vote-choice table in DECISIONS.md. Accept: every vote-choice/post-election build script uses a POST weight (V160102/V200010b/V240107b); any violation fixed-in-script or logged to BLOCKERS.
+- [x] Weight-alignment audit (Gate 3) across ALL build_*.py. Produce a script→weight→PRE/POST→is-vote-choice table in DECISIONS.md. Accept: every vote-choice/post-election build script uses a POST weight (V160102/V200010b/V240107b); any violation fixed-in-script or logged to BLOCKERS.
 
 - [ ] Footnote-provenance spot-check (Gate 5) for load-bearing figures (voter map AA, honesty X, trust→vote V, RR weight P, VSG switcher AC, trust×turnout Z). AUDIT ONLY — do not add prose. Accept: for each, confirm the footnote names dataset+variables+filter+n+weight+method; every gap logged to DECISIONS.md with a recommended footnote for morning review.
 

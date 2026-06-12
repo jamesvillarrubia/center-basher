@@ -25,3 +25,13 @@ Carried to item 6 (weights): build_swing_trust_turnout.py 2020 row uses PRE V200
 
 ## 2026-06-12 17:27 — Trust-composite forensic pass (queue item 5)
 ANES trust items all ✅ with IDENTICAL, correct direction transforms across build_swing_trust_turnout.py / build_candidate_honesty_by_trust.py / build_voter_maps_all.py: do_right (V161215/V201233/V241229) = (5-x)/4; run_all (V161216/V201234/V241231) = (x-1); waste (V161217/V201235/V241232) = (x-1)/2 → composite 0..1, high=more trust. Direction matches codebook (1=always trust..5=never for do_right; benefit-all=more trust; not-much-waste=more trust). CDF trust (VCF0604/0605/0609) feeds the cross-cycle figures (V/P/K) and is documented inline in build_trust_vote_by_cycle.py with correct directions: VCF0604 REVERSED (1 always..5 never), VCF0605/0609 not reversed, with a documented coverage caveat (VCF0604 absent in the 2016-2024 CDF release → index runs on VCF0605/0609 those years). CDF codebook is PDF-only on disk (not grep-able .txt) — direction relies on inline docs + the user's prior trust→vote sign-flip sense-check. No code changes needed; trust family clean.
+
+## 2026-06-12 17:30 — Weight-alignment audit, Gate 3 (queue item 6)
+Full script→weight→type table. CORRECT (PRE weight on PRE measures): center_breakdown, center_overlap_matrix, swing_spectrum(?), warmth_fear_spread (ideology/trust/thermometers, all PRE). CORRECT (POST on vote-choice): build_voter_maps_all.py (V160102/V200010b/V240107b ✓). CDF scripts use VCF0009z (the CDF's single weight; no PRE/POST split) — OK.
+Gate-3 VIOLATIONS found (post-election analysis weighted by PRE) — NOT fixed because each cascades to figure r-values/percentages printed in prose; logged to BLOCKERS:
+- HIGH  Fig Z build_swing_trust_turnout.py line 83: 2020 uses PRE V200010a while 2016/2024 use POST; turnout (V202109x) is post-election → should be V200010b. Lone outlier = likely a→b typo.
+- HIGH  Fig D build_partisan_loyalty.py line 14: PRE V160101, but analysis conditions on voted + vote choice (92/92 loyalty, defectors) → should be POST V160102.
+- MED-HI Fig X build_candidate_honesty_by_trust.py: 2016 POST V160102 vs 2020 PRE V200010a vs 2024 PRE V240107a — cross-cycle inconsistent; pick one basis (PRE if perception-of-all-respondents, POST if voters-only) and recompute.
+- MED   build_turnout_hump.py (PRE V160101 on self-report turnout) and build_within_tent_bolt.py (PRE V160101 on vote bolt) — same PRE-on-post pattern.
+- NEEDS-CHECK build_trust_by_cohort.py, build_within_cycle_multi.py (mixed PRE/POST across cycles).
+Root pattern: the 2020/2024 PRE→POST fix that was applied to the voter map was NOT propagated to these older single-cycle scripts.
