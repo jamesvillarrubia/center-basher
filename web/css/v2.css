@@ -214,7 +214,10 @@ html, body {
 .fig {
   margin: 2rem 0;
 }
-.fig-svg svg {
+/* All chart SVGs inside a figure scale to their container so their viewBox
+   text never overflows and clips. Covers .fig-svg wrappers AND the interactive
+   voter map, which mounts into a plain #fig-19b-mount div (no .fig-svg class). */
+.fig svg {
   display: block;
   width: 100%;
   height: auto;
@@ -1784,7 +1787,7 @@ blockquote.correction strong {
   .fig-svg {
     padding: 0;
   }
-  .fig-svg svg {
+  .fig svg {
     width: 100%;
     max-width: 100%;
     height: auto;
