@@ -25,7 +25,7 @@ export function drawGravityOverlap(selector) {
   container.innerHTML = ''
 
   const W = container.clientWidth || 680
-  const margin = { top: 90, right: 40, bottom: 60, left: 150 }
+  const margin = { top: 24, right: 40, bottom: 60, left: 150 }
   const rowH = 38, gap = 18
   const innerW = W - margin.left - margin.right
   const innerH = COHORTS.length * (rowH + gap) - gap
@@ -35,15 +35,7 @@ export function drawGravityOverlap(selector) {
     .attr('viewBox', `0 0 ${W} ${H}`)
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
-  svg.append('text').attr('class', 'gw-title')
-    .attr('x', 0).attr('y', 22)
-    .text('Sanders\' coalition was 3× as moveable as Clinton\'s')
-  svg.append('text').attr('class', 'gw-subtitle')
-    .attr('x', 0).attr('y', 42)
-    .text('Each row = one candidate\'s 2016 primary voter coalition (ANES 2016, n shown). Stacked: locked-in vs moveable.')
-  svg.append('text').attr('class', 'gw-subtitle')
-    .attr('x', 0).attr('y', 58)
-    .text('"Moveable" = undecided OR low-turnout-history voter. They\'re the cohort campaigns actually fight for.')
+  // Title/subtitle live in the HTML figure label + figcaption.
 
   const x = d3.scaleLinear().domain([0, 50]).range([0, innerW])
 
@@ -90,7 +82,4 @@ export function drawGravityOverlap(selector) {
   g.append('g').attr('transform', `translate(0, ${innerH + 6})`)
     .call(d3.axisBottom(x).ticks(6).tickFormat(d => `${d}%`).tickSizeOuter(0))
 
-  svg.append('text').attr('class', 'gw-foot')
-    .attr('x', 0).attr('y', H - 4).attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
-    .text('Source: ANES 2016 (V161032 vote intention × V161004 prior turnout). "Moveable" = undecided OR low-turnout-history. Sanders coalition: 40.1% (3.0× Clinton).')
 }

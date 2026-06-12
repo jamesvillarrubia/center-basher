@@ -29,7 +29,7 @@ export function drawDefectionBars(selector) {
   container.innerHTML = ''
 
   const W = container.clientWidth || 680
-  const margin = { top: 100, right: 30, bottom: 70, left: 130 }
+  const margin = { top: 34, right: 30, bottom: 70, left: 130 }
   const rowH = 22, pairGap = 10, groupGap = 36
   const innerW = W - margin.left - margin.right
   const innerH = STATES.length * (2 * rowH + pairGap + groupGap) - groupGap
@@ -40,21 +40,11 @@ export function drawDefectionBars(selector) {
     .attr('class', 'db-chart')
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
-  // Title
-  svg.append('text').attr('class', 'db-title')
-    .attr('x', 0).attr('y', 22)
-    .text('Sanders→Trump defections vs Trump’s margin, by state')
-  svg.append('text').attr('class', 'db-subtitle')
-    .attr('x', 0).attr('y', 42)
-    .text('Wisconsin, Michigan, Pennsylvania: the three states that decided 2016.')
-  svg.append('text').attr('class', 'db-subtitle')
-    .attr('x', 0).attr('y', 58)
-    .attr('font-weight', '700').attr('fill', '#1b1b1d')
-    .text(`In every decisive state, the defector bucket alone exceeded Trump's certified margin, 2.7× to 5.3×.`)
+  // Title/subtitle live in the HTML figure label + figcaption.
 
   // Legend
-  const legY = 78
-  svg.append('rect').attr('x', margin.left).attr('y', legY)
+  const legY = 14
+  svg.append('rect').attr('x', 0).attr('y', legY)
     .attr('width', 12).attr('height', 12).attr('fill', COLOR_MARGIN)
   svg.append('text').attr('x', 18).attr('y', legY + 10)
     .attr('font-size', '11.5px').attr('fill', '#444')
@@ -114,8 +104,4 @@ export function drawDefectionBars(selector) {
     .call(d3.axisBottom(x).ticks(7).tickFormat(d => d / 1000 + 'k').tickSizeOuter(0))
 
   // Footer
-  svg.append('text').attr('class', 'db-foot')
-    .attr('x', 0).attr('y', H - 4)
-    .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
-    .text('Source: CES 2016 (vote-validated) per-state Sanders→Trump rate × certified Sanders primary vote × certified general margin.')
 }

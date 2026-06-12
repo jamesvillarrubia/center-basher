@@ -28,7 +28,7 @@ export function drawSwitcherCohort(selector, data) {
 
   const cohorts = data.cohorts
   const W = container.clientWidth || 680
-  const margin = { top: 110, right: 30, bottom: 70, left: 220 }
+  const margin = { top: 46, right: 30, bottom: 70, left: 220 }
   const innerW = W - margin.left - margin.right
   const innerH = 220
   const H = margin.top + innerH + margin.bottom
@@ -38,17 +38,7 @@ export function drawSwitcherCohort(selector, data) {
     .attr('class', 'sc-chart')
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
-  // Title
-  svg.append('text').attr('class', 'sc-title')
-    .attr('x', 0).attr('y', 22)
-    .text('The switcher gap (VSG panel, n=6,499)')
-  svg.append('text').attr('class', 'sc-subtitle')
-    .attr('x', 0).attr('y', 42)
-    .text('"Trust ordinary people over experts," 2017 wave, 1–4 scale. LOWER = more anti-elite.')
-  svg.append('text').attr('class', 'sc-subtitle')
-    .attr('x', 0).attr('y', 58)
-    .attr('font-weight', '700').attr('fill', '#1b1b1d')
-    .text(`Obama→Trump switchers sit 0.77 points more anti-elite than Obama→Clinton loyalists.`)
+  // Title/subtitle live in the HTML figure label + figcaption.
 
   // X scale (1-4 inverted so anti-elite is on the LEFT but values increase rightward feels natural)
   // We use 1 on left, 4 on right; lower values are visually left = "more anti-elite" with explicit label
@@ -143,17 +133,13 @@ export function drawSwitcherCohort(selector, data) {
   // right-edge n-labels it used to overlap; the diagonal arrow below ties
   // it to the two cohorts being compared.
   g.append('text')
-    .attr('x', annoX - 20).attr('y', -34)
+    .attr('x', annoX - 20).attr('y', -28)
     .attr('font-size', '11.5px').attr('font-weight', '700').attr('fill', '#1b1b1d')
     .text(`0.77-point gap`)
   g.append('text')
-    .attr('x', annoX - 20).attr('y', -20)
+    .attr('x', annoX - 20).attr('y', -14)
     .attr('font-size', '10px').attr('fill', '#444')
     .text('on a 4-point scale (19% of range)')
 
   // Footer
-  svg.append('text').attr('class', 'sc-foot')
-    .attr('x', 0).attr('y', H - 6)
-    .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
-    .text('Source: Democracy Fund VSG panel, 2011-2020. Subset: 2012 + 2016 major-party voters. Lower score = more anti-establishment.')
 }
