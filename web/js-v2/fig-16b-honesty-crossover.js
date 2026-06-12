@@ -37,7 +37,7 @@ export function drawHonestyCrossover(selector, data) {
   }))
 
   const W = container.clientWidth || 680
-  const margin = { top: 100, right: 20, bottom: 105, left: 60 }
+  const margin = { top: 34, right: 20, bottom: 105, left: 60 }
   const innerW = W - margin.left - margin.right
   const innerH = 280
   const H = margin.top + innerH + margin.bottom
@@ -47,16 +47,10 @@ export function drawHonestyCrossover(selector, data) {
     .attr('class', 'hc-chart')
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
-  // Title
-  svg.append('text').attr('class', 'hc-title')
-    .attr('x', 0).attr('y', 22)
-    .text('Swing-state Critics’ honesty rating per cycle')
-  svg.append('text').attr('class', 'hc-subtitle')
-    .attr('x', 0).attr('y', 42)
-    .text('Low-trust voters in each cycle’s actual battleground states. ✓ on the swing-state winner.')
+  // Title/subtitle live in the HTML figure label + figcaption.
 
   // Legend
-  const legY = 64
+  const legY = 16
   svg.append('circle').attr('cx', margin.left + 6).attr('cy', legY).attr('r', 5).attr('fill', COLOR_DEM)
   svg.append('text').attr('class', 'hc-leg').attr('x', margin.left + 16).attr('y', legY + 4).text('Dem candidate')
   svg.append('circle').attr('cx', margin.left + 130).attr('cy', legY).attr('r', 5).attr('fill', COLOR_REP)
@@ -195,7 +189,4 @@ export function drawHonestyCrossover(selector, data) {
     .attr('stroke-dasharray', '4,3').attr('opacity', 0.6)
 
   // Footer
-  svg.append('text').attr('class', 'hc-foot')
-    .attr('x', 0).attr('y', H - 6)
-    .text('Cycle-specific battlegrounds (5–11 states; pre-election toss-up consensus). Trust composite normalized 0–1. Notable swing-vs-EC/PV splits: 2000, 2016.')
 }
