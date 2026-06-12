@@ -80,7 +80,7 @@ def main():
                                                'weight_full','sample_stfips']),
          'postvote_presvtwho', 'weight_full', 'sample_stfips'),
         (2016, None, 'V162031x', 'V160102', 'V161010d'),
-        (2020, None, 'V202109x', 'V200010a', 'V201014b'),
+        (2020, None, 'V202109x', 'V200010b', 'V201014b'),
         (2024, None, None, 'V240107b', 'V243002'),
     ]
     from _lib import load_anes_2016, load_anes_2020, load_anes_2024

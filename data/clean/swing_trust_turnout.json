@@ -6,9 +6,9 @@
     "2024 turnout combines early-vote (V241035==1) with post self-report (V242065==4); V242065 universe excludes PRE early voters, so the union is required. Weighted by post weight V240107b; trust battery V241229/V241231/V241232.",
     "Trust composite definition shifts between CDF and standalone files; 2012 mean (0.519) sits high because trust_social inflates the composite."
   ],
-  "overall_r": -0.326,
+  "overall_r": -0.37,
   "pre_2008_r": 0.858,
-  "post_2004_r": -0.81,
+  "post_2004_r": -0.802,
   "cycles": [
     {
       "cycle": 1980,
@@ -82,9 +82,9 @@
     },
     {
       "cycle": 2020,
-      "swing_trust": 0.241,
-      "swing_turnout": 81.8,
-      "n": 1938,
+      "swing_trust": 0.244,
+      "swing_turnout": 85.8,
+      "n": 1761,
       "source": "standalone"
     },
     {
