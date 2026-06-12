@@ -40,13 +40,13 @@ export function drawSwitcherCohort(selector, data) {
 
   // Title
   svg.append('text').attr('class', 'sc-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('The switcher gap (VSG panel, n=6,499)')
   svg.append('text').attr('class', 'sc-subtitle')
-    .attr('x', margin.left).attr('y', 42)
-    .text('"Trust ordinary people over experts" — 2017 wave, 1-4 scale. LOWER = more anti-elite.')
+    .attr('x', 0).attr('y', 42)
+    .text('"Trust ordinary people over experts," 2017 wave, 1–4 scale. LOWER = more anti-elite.')
   svg.append('text').attr('class', 'sc-subtitle')
-    .attr('x', margin.left).attr('y', 58)
+    .attr('x', 0).attr('y', 58)
     .attr('font-weight', '700').attr('fill', '#1b1b1d')
     .text(`Obama→Trump switchers sit 0.77 points more anti-elite than Obama→Clinton loyalists.`)
 
@@ -139,18 +139,21 @@ export function drawSwitcherCohort(selector, data) {
     .attr('orient', 'auto')
     .append('path').attr('d', 'M0,-4L8,0L0,4').attr('fill', '#1b1b1d')
 
+  // Gap label sits in the open band just above the plot, clear of the
+  // right-edge n-labels it used to overlap; the diagonal arrow below ties
+  // it to the two cohorts being compared.
   g.append('text')
-    .attr('x', annoX + 14).attr('y', annoY + 5)
+    .attr('x', annoX - 20).attr('y', -34)
     .attr('font-size', '11.5px').attr('font-weight', '700').attr('fill', '#1b1b1d')
     .text(`0.77-point gap`)
   g.append('text')
-    .attr('x', annoX + 14).attr('y', annoY + 19)
+    .attr('x', annoX - 20).attr('y', -20)
     .attr('font-size', '10px').attr('fill', '#444')
     .text('on a 4-point scale (19% of range)')
 
   // Footer
   svg.append('text').attr('class', 'sc-foot')
-    .attr('x', margin.left).attr('y', H - 6)
+    .attr('x', 0).attr('y', H - 6)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
     .text('Source: Democracy Fund VSG panel, 2011-2020. Subset: 2012 + 2016 major-party voters. Lower score = more anti-establishment.')
 }

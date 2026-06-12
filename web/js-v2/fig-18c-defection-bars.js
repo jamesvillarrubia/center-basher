@@ -42,31 +42,31 @@ export function drawDefectionBars(selector) {
 
   // Title
   svg.append('text').attr('class', 'db-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('Sanders→Trump defections vs Trump’s margin, by state')
   svg.append('text').attr('class', 'db-subtitle')
-    .attr('x', margin.left).attr('y', 42)
-    .text('Wisconsin, Michigan, Pennsylvania — the three states that decided 2016.')
+    .attr('x', 0).attr('y', 42)
+    .text('Wisconsin, Michigan, Pennsylvania: the three states that decided 2016.')
   svg.append('text').attr('class', 'db-subtitle')
-    .attr('x', margin.left).attr('y', 58)
+    .attr('x', 0).attr('y', 58)
     .attr('font-weight', '700').attr('fill', '#1b1b1d')
-    .text(`In every decisive state, the defector bucket alone exceeded Trump's certified margin — 2.7× to 5.3×.`)
+    .text(`In every decisive state, the defector bucket alone exceeded Trump's certified margin, 2.7× to 5.3×.`)
 
   // Legend
   const legY = 78
   svg.append('rect').attr('x', margin.left).attr('y', legY)
     .attr('width', 12).attr('height', 12).attr('fill', COLOR_MARGIN)
-  svg.append('text').attr('x', margin.left + 18).attr('y', legY + 10)
+  svg.append('text').attr('x', 18).attr('y', legY + 10)
     .attr('font-size', '11.5px').attr('fill', '#444')
     .text('Trump’s certified margin')
-  svg.append('rect').attr('x', margin.left + 180).attr('y', legY)
+  svg.append('rect').attr('x', 180).attr('y', legY)
     .attr('width', 12).attr('height', 12).attr('fill', COLOR_DEFECT)
-  svg.append('text').attr('x', margin.left + 198).attr('y', legY + 10)
+  svg.append('text').attr('x', 198).attr('y', legY + 10)
     .attr('font-size', '11.5px').attr('fill', '#444')
     .text('Sanders→Trump defectors (CES vote-validated)')
 
   // Scales
-  const maxVal = d3.max(STATES, s => s.defect) * 1.08
+  const maxVal = d3.max(STATES, s => s.defect) * 1.45
   const x = d3.scaleLinear().domain([0, maxVal]).range([0, innerW])
   const fmt = n => n.toLocaleString()
 
@@ -115,7 +115,7 @@ export function drawDefectionBars(selector) {
 
   // Footer
   svg.append('text').attr('class', 'db-foot')
-    .attr('x', margin.left).attr('y', H - 4)
+    .attr('x', 0).attr('y', H - 4)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
-    .text('Source: CES 2016 (vote-validated) per-state Sanders→Trump rate × certified Sanders primary vote × certified general margin. National rate 12% reproduces Schaffner. Bounded claim: not "Bernie would have won" — the arithmetic shows the consolidation problem was decisive, regardless of the counterfactual.')
+    .text('Source: CES 2016 (vote-validated) per-state Sanders→Trump rate × certified Sanders primary vote × certified general margin.')
 }
