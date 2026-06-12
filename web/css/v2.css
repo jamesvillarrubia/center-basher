@@ -224,7 +224,7 @@ html, body {
   max-width: 100%;
 }
 figcaption {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   line-height: 1.5;
   color: var(--ink-soft);
   margin-top: 0.5rem;
@@ -583,12 +583,16 @@ figcaption {
 .picker-note strong {
   color: var(--accent);
 }
+/* The single figure title: "Figure X: headline". Readable title weight,
+   mixed-case (not a tiny uppercase tag), and clearly larger than the caption
+   below it. This is the ONE title per figure; chart SVGs no longer carry their
+   own internal title. */
 .picker-label {
-  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font: 700 1rem/1.35 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: normal;
+  text-transform: none;
   color: var(--accent);
-  margin: 0 0 0.6rem;
+  margin: 0 0 0.5rem;
 }
 
 /* §4 — comparison cards */
