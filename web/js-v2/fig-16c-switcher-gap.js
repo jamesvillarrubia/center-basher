@@ -53,10 +53,10 @@ export function drawSwitcherGap(selector) {
     .attr('class', 'sg-chart')
 
   svg.append('text').attr('class', 'sg-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('Obama→Trump switchers were more populist before they switched')
   svg.append('text').attr('class', 'sg-subtitle')
-    .attr('x', margin.left).attr('y', 40)
+    .attr('x', 0).attr('y', 40)
     .text('VSG panel: Obama-2012 voters in 2016/2017. Lower = closer to populist/anti-elite.')
 
   // Legend

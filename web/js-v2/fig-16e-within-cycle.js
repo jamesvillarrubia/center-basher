@@ -44,17 +44,17 @@ export function drawWithinCycle(selector, data) {
 
   // Title block
   svg.append('text').attr('class', 'wc-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('Within-cycle FT-gap movement, Sep → Nov 2020')
   svg.append('text').attr('class', 'wc-subtitle')
-    .attr('x', margin.left).attr('y', 42)
+    .attr('x', 0).attr('y', 42)
     .text(`Most people MOVED. D-shifts and R-shifts cancel — so the centroid stays on the diagonal.`)
   svg.append('text').attr('class', 'wc-subtitle')
-    .attr('x', margin.left).attr('y', 58)
+    .attr('x', 0).attr('y', 58)
     .text(`n = ${all.length.toLocaleString()}. Net shift ${stats.mean_shift > 0 ? '+' : ''}${stats.mean_shift}pt on 200-pt scale. Skewness ${stats.skewness}.`)
   // Tally row
   svg.append('text')
-    .attr('x', margin.left).attr('y', 78)
+    .attr('x', 0).attr('y', 78)
     .attr('font-size', '11px').attr('font-weight', '700').attr('fill', C_D)
     .text(`${stats.pct_dlean_shift}% moved toward Biden`)
   svg.append('text')
@@ -154,11 +154,11 @@ export function drawWithinCycle(selector, data) {
     .text('Nov 2020 FT gap (Dem − Rep)')
 
   // Predictive-lift footer note (no separate legend — colors documented in subtitle/figcaption)
-  svg.append('text').attr('x', margin.left).attr('y', 98).attr('font-size', '10.5px').attr('fill', '#444')
+  svg.append('text').attr('x', 0).attr('y', 98).attr('font-size', '10.5px').attr('fill', '#444')
     .text(`Sep gap predicts vote ${lift.sep_predicts_vote_pct}% · Nov gap ${lift.nov_predicts_vote_pct}% · lift +${(lift.nov_predicts_vote_pct - lift.sep_predicts_vote_pct).toFixed(1)}pp`)
 
   // Footer
   svg.append('text').attr('class', 'wc-foot')
-    .attr('x', margin.left).attr('y', H - 4)
+    .attr('x', 0).attr('y', H - 4)
     .text(`Source: VSG panel, Sep & Nov 2020 waves (same respondents). Symmetric distribution off the y=x diagonal → ${stats.pct_dlean_shift}% shifted toward D, ${stats.pct_rlean_shift}% toward R.`)
 }

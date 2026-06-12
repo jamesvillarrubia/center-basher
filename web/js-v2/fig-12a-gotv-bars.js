@@ -49,10 +49,10 @@ export function drawGOTV(selector) {
 
   // Headline
   svg.append('text').attr('class', 'gotv-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('What actually raises turnout')
   svg.append('text').attr('class', 'gotv-subtitle')
-    .attr('x', margin.left).attr('y', 40)
+    .attr('x', 0).attr('y', 40)
     .text('Per-treatment percentage-point lift; Gerber-Green meta of randomized GOTV field experiments.')
 
   // Bars

@@ -32,13 +32,13 @@ export function drawWeeklyTrajectory(selector, data) {
 
   // Title
   svg.append('text').attr('class', 'wt-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('The aggregate margin barely moves — across THREE cycles')
   svg.append('text').attr('class', 'wt-subtitle')
-    .attr('x', margin.left).attr('y', 42)
+    .attr('x', 0).attr('y', 42)
     .text('538 weekly national poll averages. Different events, different candidates, different outcomes — same flat trajectory.')
   svg.append('text').attr('class', 'wt-subtitle')
-    .attr('x', margin.left).attr('y', 58)
+    .attr('x', 0).attr('y', 58)
     .text(`In every cycle, the within-cycle std dev sits between 1.7 and 2.3 percentage points.`)
 
   // Render each cycle as its own small panel
@@ -139,6 +139,6 @@ export function drawWeeklyTrajectory(selector, data) {
 
   // Footer
   svg.append('text').attr('class', 'wt-foot')
-    .attr('x', margin.left).attr('y', H - 6)
+    .attr('x', 0).attr('y', H - 6)
     .text(`Source: 538 national polling averages (weekly resampled). Shaded band = ±1σ around the 16-month cycle mean. 2024 panel ends Sep 12 (538 wound down).`)
 }

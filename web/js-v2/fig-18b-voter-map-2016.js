@@ -311,7 +311,7 @@ function drawChart(container, data, opts) {
   const cands = data.candidates
 
   const W = container.clientWidth || 680
-  const margin = { top: 110, right: 30, bottom: 92, left: 70 }
+  const margin = { top: 78, right: 30, bottom: 92, left: 70 }
   const innerW = W - margin.left - margin.right
   const innerH = Math.min(innerW, 460)
   const H = margin.top + innerH + margin.bottom
@@ -319,13 +319,12 @@ function drawChart(container, data, opts) {
   const svg = d3.select(container).append('svg').attr('viewBox', `0 0 ${W} ${H}`)
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
-  // Title + subtitle
-  svg.append('text').attr('class', 'vm-title').attr('x', margin.left).attr('y', 22)
-    .text(`${year} trust × ideology voter map${swingOnly ? ' — swing states only' : ''}`)
-  svg.append('text').attr('class', 'vm-subtitle').attr('x', margin.left).attr('y', 42)
-    .text(`n = ${voters.length.toLocaleString()} ANES respondents. X = self-reported ideology (1-7 → -1..+1). Y = institutional trust composite (0–0.8 shown).`)
-  svg.append('text').attr('class', 'vm-subtitle').attr('x', margin.left).attr('y', 58)
-    .text('Each scenario toggles a cohort blob + trust-by-ideology line + open ring (cohort centroid) + capture % pills next to candidate dots.')
+  // Title + subtitle (kept short and left-aligned so they never clip; the
+  // axis encoding and scenario mechanics live in the figcaption, not here)
+  svg.append('text').attr('class', 'vm-title').attr('x', 0).attr('y', 22)
+    .text(`${year} trust × ideology voter map${swingOnly ? ' · swing states only' : ''}`)
+  svg.append('text').attr('class', 'vm-subtitle').attr('x', 0).attr('y', 42)
+    .text(`n = ${voters.length.toLocaleString()} ANES respondents. Horizontal: self-reported ideology. Vertical: institutional trust.`)
 
   const x = d3.scaleLinear().domain([-1, 1]).range([0, innerW])
   const y = d3.scaleLinear().domain([0, 0.8]).range([innerH, 0])
@@ -557,10 +556,10 @@ function drawChart(container, data, opts) {
     .text('Institutional trust (low ← → high)')
 
   // Footer
-  svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 22)
+  svg.append('text').attr('class', 'vm-foot').attr('x', 0).attr('y', H - 22)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
     .text('Swing = independents + cross-party defectors. Activated = voted this cycle, not the prior. Stayed-home = voted prior, not this. Primary = 2016 only.')
-  svg.append('text').attr('class', 'vm-foot').attr('x', margin.left).attr('y', H - 8)
+  svg.append('text').attr('class', 'vm-foot').attr('x', 0).attr('y', H - 8)
     .attr('font-size', '11px').attr('fill', '#666').attr('font-style', 'italic')
     .text('Line markers: ● n ≥ 40 (reliable) · ○ n ≥ 15 (moderate) · ✕ n < 15 (uncertain).')
 }

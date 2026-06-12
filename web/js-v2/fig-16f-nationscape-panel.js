@@ -55,17 +55,17 @@ export function drawNationscapePanel(selector, data) {
 
   // Title — make the headline match the actual finding
   svg.append('text').attr('class', 'wc-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('Cross-check: Nationscape Apr→Jul 2020')
   svg.append('text').attr('class', 'wc-subtitle')
-    .attr('x', margin.left).attr('y', 42)
+    .attr('x', 0).attr('y', 42)
     .text(`85% of people MOVED. But D-shifts and R-shifts cancel — so the centroid sits on the diagonal.`)
   svg.append('text').attr('class', 'wc-subtitle')
-    .attr('x', margin.left).attr('y', 58)
+    .attr('x', 0).attr('y', 58)
     .text(`n = ${records.length.toLocaleString()}. Each circle = a cell; size = # of respondents. Net shift +${stats.mean_shift} on 8-pt scale.`)
   // Tally line
   svg.append('text')
-    .attr('x', margin.left).attr('y', 80)
+    .attr('x', 0).attr('y', 80)
     .attr('font-size', '11px').attr('font-weight', '700')
     .append('tspan').attr('fill', COLOR_D)
     .text(`${(nDir/total*100).toFixed(1)}% moved toward Biden`)
@@ -176,6 +176,6 @@ export function drawNationscapePanel(selector, data) {
 
   // Footer
   svg.append('text').attr('class', 'wc-foot')
-    .attr('x', margin.left).attr('y', H - 4)
+    .attr('x', 0).attr('y', H - 4)
     .text(`Source: Nationscape parallel panel waves. Skewness ${stats.skewness} ≈ 0 confirms statistical symmetry around the diagonal.`)
 }

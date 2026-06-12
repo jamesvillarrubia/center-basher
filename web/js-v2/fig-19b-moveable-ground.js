@@ -38,13 +38,13 @@ export function drawMoveableGround(selector) {
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
   svg.append('text').attr('class', 'mg-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('The contestable ground sits in low-trust territory')
   svg.append('text').attr('class', 'mg-subtitle')
-    .attr('x', margin.left).attr('y', 42)
+    .attr('x', 0).attr('y', 42)
     .text('Same ideology × trust field as Figure A — but the blobs here are the two MOVEABLE cohorts (not parties).')
   svg.append('text').attr('class', 'mg-subtitle')
-    .attr('x', margin.left).attr('y', 58)
+    .attr('x', 0).attr('y', 58)
     .text('Both sit at trust ≈ 0.19. Far below Clinton\'s primary base (0.32). In the same band as Sanders (0.22) and Trump (0.12).')
 
   const x = d3.scaleLinear().domain([-1, 1]).range([0, innerW])
@@ -84,6 +84,6 @@ export function drawMoveableGround(selector) {
     .attr('font-size', '11px').attr('fill', '#444').text('← liberal       Ideology       conservative →')
   svg.append('text').attr('transform', `translate(20, ${margin.top + innerH / 2}) rotate(-90)`).attr('text-anchor', 'middle')
     .attr('font-size', '11px').attr('fill', '#444').text('Institutional trust  (low ← → high)')
-  svg.append('text').attr('x', margin.left).attr('y', H - 8).attr('font-size', '10.5px').attr('fill', '#666').attr('font-style', 'italic')
+  svg.append('text').attr('x', 0).attr('y', H - 8).attr('font-size', '10.5px').attr('fill', '#666').attr('font-style', 'italic')
     .text('Source: ANES 2016, weighted. Moveable cohorts via V161032 (vote intention) × V161004 (prior turnout). Centroids are weighted means.')
 }

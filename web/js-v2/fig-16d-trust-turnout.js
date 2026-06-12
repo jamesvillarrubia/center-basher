@@ -32,13 +32,13 @@ export function drawTrustTurnout(selector, data) {
 
   // Title
   svg.append('text').attr('class', 'br-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('Trust ↔ turnout: the relationship flips at the Authenticity Floor')
   svg.append('text').attr('class', 'br-subtitle')
-    .attr('x', margin.left).attr('y', 42)
+    .attr('x', 0).attr('y', 42)
     .text('Each dot = one cycle. Both axes restricted to that cycle\'s actual battleground states.')
   svg.append('text').attr('class', 'br-subtitle')
-    .attr('x', margin.left).attr('y', 58)
+    .attr('x', 0).attr('y', 58)
     .text(`Pre-2008 r = ${data.pre_2008_r.toFixed(2)} (high-trust era, civic engagement). Post-2004 r = ${data.post_2004_r.toFixed(2)} (low-trust era, anti-system mobilization).`)
 
   // Scales
@@ -139,6 +139,6 @@ export function drawTrustTurnout(selector, data) {
 
   // Footer
   svg.append('text').attr('class', 'br-foot')
-    .attr('x', margin.left).attr('y', H - 4)
+    .attr('x', 0).attr('y', H - 4)
     .text('Trust: cycle-specific bg, ANES composite (CDF VCF0604rev/0605/0609; standalone do-right/run-for-all/waste; 2012 + trust_social). Turnout: ANES self-report (over-reports by ~25pp).')
 }

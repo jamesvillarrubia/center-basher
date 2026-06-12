@@ -65,13 +65,13 @@ export function drawTrustBandsByCycle(selector, data) {
 
   // Title block
   svg.append('text').attr('class', 'tb-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('The trust gap: Believers’ vs Critics’ loyalty to the in-power party')
   svg.append('text').attr('class', 'tb-subtitle')
-    .attr('x', margin.left).attr('y', 42)
+    .attr('x', 0).attr('y', 42)
     .text('Each bar is the gap that cycle. Bars above the line = Believers more loyal (the §7 pattern, every cycle except 2000).')
   svg.append('text').attr('class', 'tb-subtitle')
-    .attr('x', margin.left).attr('y', 58)
+    .attr('x', 0).attr('y', 58)
     .text('Yellow bars = in-power candidate kept the change lane and won. Red = anomalous inversion (Critics more loyal than Believers).')
 
   // Legend

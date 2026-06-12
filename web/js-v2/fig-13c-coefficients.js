@@ -40,10 +40,10 @@ export function drawTurnoutCoef(selector) {
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
   svg.append('text').attr('class', 'tc-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('What actually predicts turnout')
   svg.append('text').attr('class', 'tc-subtitle')
-    .attr('x', margin.left).attr('y', 40)
+    .attr('x', 0).attr('y', 40)
     .text('Standardized weighted-logistic coefficients on the turnout outcome, ANES 2016.')
 
   g.append('line').attr('class', 'tc-zero')

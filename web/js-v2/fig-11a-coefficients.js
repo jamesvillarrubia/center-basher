@@ -44,10 +44,10 @@ export function drawSwitchCoefficients(selector) {
 
   // Title
   svg.append('text').attr('class', 'sc-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('What flipped Obama→Trump switchers?')
   svg.append('text').attr('class', 'sc-subtitle')
-    .attr('x', margin.left).attr('y', 40)
+    .attr('x', 0).attr('y', 40)
     .text('Standardized coefficients from a weighted logistic on the VSG panel (n≈3,430).')
 
   // Zero baseline ("no effect")

@@ -82,10 +82,10 @@ export function drawRRTimeline(selector) {
 
   // Title
   svg.append('text').attr('class', 'rr-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('Racial resentment’s electoral weight, 1988–2024')
   svg.append('text').attr('class', 'rr-subtitle')
-    .attr('x', margin.left).attr('y', 42)
+    .attr('x', 0).attr('y', 42)
     .text('Standardized coefficient on presidential vote, net of ideology + party ID.')
 
   // Y-axis title

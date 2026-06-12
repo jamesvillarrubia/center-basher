@@ -26,10 +26,10 @@ export function drawDisaffected(selector) {
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
   svg.append('text').attr('class', 'da-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('Swing voters aren\'t centrists — they\'re disaffected')
   svg.append('text').attr('class', 'da-subtitle')
-    .attr('x', margin.left).attr('y', 42)
+    .attr('x', 0).attr('y', 42)
     .text('Pew 2021 Political Typology, "Stressed Sideliners" — the only group with no partisan lean, lowest engagement.')
 
   // Stat 1: party lean (torn bar)
@@ -61,8 +61,8 @@ export function drawDisaffected(selector) {
   g.append('rect').attr('x', innerW * 0.83).attr('y', beat3Y + 8).attr('width', innerW * 0.17).attr('height', barH).attr('fill', '#eee')
   g.append('text').attr('x', innerW * 0.41).attr('y', beat3Y + 24).attr('text-anchor', 'middle').attr('fill', '#fff').attr('font-size', '12px').attr('font-weight', '700').text('83%')
 
-  svg.append('text').attr('x', margin.left).attr('y', H - 22).attr('font-size', '11.5px').attr('fill', '#444').attr('font-style', 'italic')
+  svg.append('text').attr('x', 0).attr('y', H - 22).attr('font-size', '11.5px').attr('fill', '#444').attr('font-style', 'italic')
     .text('Same group has the lowest turnout in the Pew typology: 15% of the public but only 10% of 2020 voters.')
-  svg.append('text').attr('x', margin.left).attr('y', H - 8).attr('font-size', '10.5px').attr('fill', '#666')
+  svg.append('text').attr('x', 0).attr('y', H - 8).attr('font-size', '10.5px').attr('fill', '#666')
     .text('Source: Pew Research Center 2021 Political Typology. Converges with our ANES moveable bloc (trust ≈ 0.19).')
 }

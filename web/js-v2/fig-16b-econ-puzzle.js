@@ -64,13 +64,13 @@ export function drawEconPuzzle(selector) {
 
   // Title block (no overlap with chart area)
   svg.append('text').attr('class', 'ep-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('Trust era sorts the cycles. Economy is secondary.')
   svg.append('text').attr('class', 'ep-subtitle')
-    .attr('x', margin.left).attr('y', 42)
+    .attr('x', 0).attr('y', 42)
     .text('National trust composite vs. Democratic popular-vote margin, 2000–2024.')
   svg.append('text').attr('class', 'ep-subtitle')
-    .attr('x', margin.left).attr('y', 58)
+    .attr('x', 0).attr('y', 58)
     .text('Dot size = unemployment rate at election. Color = who won the Electoral College.')
 
   // Legend block underneath title
@@ -85,7 +85,7 @@ export function drawEconPuzzle(selector) {
     .text('Rep won Electoral College')
 
   // Unemployment-size key
-  svg.append('text').attr('class', 'ep-leg').attr('x', margin.left).attr('y', 100)
+  svg.append('text').attr('class', 'ep-leg').attr('x', 0).attr('y', 100)
     .text('Unemployment (size):')
   for (let i = 0; i < 3; i++) {
     const uVal = [4.0, 5.8, 7.8][i]

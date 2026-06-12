@@ -49,10 +49,10 @@ export function drawHonestyCrossover(selector, data) {
 
   // Title
   svg.append('text').attr('class', 'hc-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('Swing-state Critics’ honesty rating per cycle')
   svg.append('text').attr('class', 'hc-subtitle')
-    .attr('x', margin.left).attr('y', 42)
+    .attr('x', 0).attr('y', 42)
     .text('Low-trust voters in each cycle’s actual battleground states. ✓ on the swing-state winner.')
 
   // Legend
@@ -196,6 +196,6 @@ export function drawHonestyCrossover(selector, data) {
 
   // Footer
   svg.append('text').attr('class', 'hc-foot')
-    .attr('x', margin.left).attr('y', H - 6)
+    .attr('x', 0).attr('y', H - 6)
     .text('Cycle-specific battlegrounds (5–11 states; pre-election toss-up consensus). Trust composite normalized 0–1. Notable swing-vs-EC/PV splits: 2000, 2016.')
 }

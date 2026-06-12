@@ -42,13 +42,13 @@ export function drawBaselineRegime(selector, data) {
 
   // Title block
   svg.append('text').attr('class', 'br-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('The baseline shift: trust resets where 50% lives')
   svg.append('text').attr('class', 'br-subtitle')
-    .attr('x', margin.left).attr('y', 42)
+    .attr('x', 0).attr('y', 42)
     .text('Each dot = one cycle. X = mean trust that cycle. Y = in-power party 2-party national PV share.')
   svg.append('text').attr('class', 'br-subtitle')
-    .attr('x', margin.left).attr('y', 58)
+    .attr('x', 0).attr('y', 58)
     .text('Filled = in-power won EC. Hollow = in-power lost EC. Blue = D held; red = R held.')
 
   // Scales
@@ -135,6 +135,6 @@ export function drawBaselineRegime(selector, data) {
 
   // Footer
   svg.append('text').attr('class', 'br-foot')
-    .attr('x', margin.left).attr('y', H - 4)
+    .attr('x', 0).attr('y', H - 4)
     .text('Trust composite: CDF VCF0604rev/0605/0609 (1980–2008); ANES standalone trustgov+social (2012); standalone do-right/run-for-all/waste (2016+). In-power 2-party share from CofE results.')
 }

@@ -43,10 +43,10 @@ export function drawCareGap(selector) {
     .attr('class', 'caregap-chart')
 
   svg.append('text').attr('class', 'cg-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('Stakes is the single biggest turnout lever')
   svg.append('text').attr('class', 'cg-subtitle')
-    .attr('x', margin.left).attr('y', 42)
+    .attr('x', 0).attr('y', 42)
     .text('Self-reported turnout (ANES 2016) by whether the voter cares who wins. Weighted.')
 
   function drawPanel(panel, x0) {

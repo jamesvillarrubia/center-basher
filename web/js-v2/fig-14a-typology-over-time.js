@@ -49,10 +49,10 @@ export function drawTypologyOverTime(selector) {
 
   // Title and subtitle
   svg.append('text').attr('class', 'ty-title')
-    .attr('x', margin.left).attr('y', 22)
+    .attr('x', 0).attr('y', 22)
     .text('The no-show story is changing')
   svg.append('text').attr('class', 'ty-subtitle')
-    .attr('x', margin.left).attr('y', 42)
+    .attr('x', 0).attr('y', 42)
     .text('Share of low-engagement non-voters by type, ANES Cumulative File 1972–2024.')
 
   // Grid
