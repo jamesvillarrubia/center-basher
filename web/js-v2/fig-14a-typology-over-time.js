@@ -34,7 +34,7 @@ export function drawTypologyOverTime(selector) {
   container.innerHTML = ''
 
   const W = container.clientWidth || 680
-  const margin = { top: 80, right: 180, bottom: 60, left: 60 }
+  const margin = { top: 24, right: 180, bottom: 60, left: 60 }
   const innerW = W - margin.left - margin.right
   const innerH = 280
   const H = margin.top + innerH + margin.bottom
@@ -48,12 +48,6 @@ export function drawTypologyOverTime(selector) {
   const y = d3.scaleLinear().domain([0, 60]).range([innerH, 0]).nice()
 
   // Title and subtitle
-  svg.append('text').attr('class', 'ty-title')
-    .attr('x', 0).attr('y', 22)
-    .text('The no-show story is changing')
-  svg.append('text').attr('class', 'ty-subtitle')
-    .attr('x', 0).attr('y', 42)
-    .text('Share of low-engagement non-voters by type, ANES Cumulative File 1972–2024.')
 
   // Grid
   g.append('g').attr('class', 'ty-grid')

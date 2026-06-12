@@ -34,7 +34,7 @@ export function drawCareGap(selector) {
   const W = container.clientWidth || 680
   const panelGap = 24
   const panelW = (W - panelGap) / 2
-  const margin = { top: 100, right: 16, bottom: 56, left: 16 }
+  const margin = { top: 40, right: 16, bottom: 56, left: 16 }
   const innerH = 240
   const H = margin.top + innerH + margin.bottom
 
@@ -42,12 +42,6 @@ export function drawCareGap(selector) {
     .attr('viewBox', `0 0 ${W} ${H}`)
     .attr('class', 'caregap-chart')
 
-  svg.append('text').attr('class', 'cg-title')
-    .attr('x', 0).attr('y', 22)
-    .text('Stakes is the single biggest turnout lever')
-  svg.append('text').attr('class', 'cg-subtitle')
-    .attr('x', 0).attr('y', 42)
-    .text('Self-reported turnout (ANES 2016) by whether the voter cares who wins. Weighted.')
 
   function drawPanel(panel, x0) {
     const g = svg.append('g').attr('transform', `translate(${x0}, ${margin.top})`)

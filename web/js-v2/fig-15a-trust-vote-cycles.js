@@ -39,7 +39,7 @@ export function drawTrustVoteCycles(selector) {
   container.innerHTML = ''
 
   const W = container.clientWidth || 680
-  const margin = { top: 80, right: 16, bottom: 80, left: 130 }
+  const margin = { top: 24, right: 16, bottom: 80, left: 130 }
   const innerW = W - margin.left - margin.right
   const innerH = 280
   const H = margin.top + innerH + margin.bottom
@@ -50,15 +50,6 @@ export function drawTrustVoteCycles(selector) {
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
   // Title
-  svg.append('text').attr('class', 'tvc-title')
-    .attr('x', 0).attr('y', 22)
-    .text('Trust signal flips with the White House')
-  svg.append('text').attr('class', 'tvc-subtitle')
-    .attr('x', 0).attr('y', 40)
-    .text('Standardized β of voter trust on P(Republican vote), per presidential cycle.')
-  svg.append('text').attr('class', 'tvc-subtitle')
-    .attr('x', 0).attr('y', 56)
-    .text('Bar color = incumbent party. Rule holds in 10 of 14 cycles.')
 
   // Scales
   const x = d3.scaleBand().domain(CYCLES.map(c => c.year))

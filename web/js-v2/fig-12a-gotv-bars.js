@@ -33,7 +33,7 @@ export function drawGOTV(selector) {
   container.innerHTML = ''
 
   const W = container.clientWidth || 680
-  const margin = { top: 56, right: 60, bottom: 56, left: 220 }
+  const margin = { top: 24, right: 60, bottom: 56, left: 220 }
   const innerW = W - margin.left - margin.right
   const rowH = 38
   const rowGap = 14
@@ -48,12 +48,6 @@ export function drawGOTV(selector) {
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
   // Headline
-  svg.append('text').attr('class', 'gotv-title')
-    .attr('x', 0).attr('y', 22)
-    .text('What actually raises turnout')
-  svg.append('text').attr('class', 'gotv-subtitle')
-    .attr('x', 0).attr('y', 40)
-    .text('Per-treatment percentage-point lift; Gerber-Green meta of randomized GOTV field experiments.')
 
   // Bars
   for (let i = 0; i < ROWS.length; i++) {

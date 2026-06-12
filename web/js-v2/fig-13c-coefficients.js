@@ -24,7 +24,7 @@ export function drawTurnoutCoef(selector) {
   container.innerHTML = ''
 
   const W = container.clientWidth || 680
-  const margin = { top: 60, right: 70, bottom: 90, left: 200 }
+  const margin = { top: 24, right: 70, bottom: 90, left: 200 }
   const innerW = W - margin.left - margin.right
   const rowH = 28
   const rowGap = 12
@@ -39,12 +39,6 @@ export function drawTurnoutCoef(selector) {
   const x0 = x(0)
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
-  svg.append('text').attr('class', 'tc-title')
-    .attr('x', 0).attr('y', 22)
-    .text('What actually predicts turnout')
-  svg.append('text').attr('class', 'tc-subtitle')
-    .attr('x', 0).attr('y', 40)
-    .text('Standardized weighted-logistic coefficients on the turnout outcome, ANES 2016.')
 
   g.append('line').attr('class', 'tc-zero')
     .attr('x1', x0).attr('x2', x0).attr('y1', -4).attr('y2', innerH + 4)

@@ -25,7 +25,7 @@ export function drawSwitchCoefficients(selector) {
   container.innerHTML = ''
 
   const W = container.clientWidth || 680
-  const margin = { top: 60, right: 80, bottom: 80, left: 200 }
+  const margin = { top: 24, right: 80, bottom: 80, left: 200 }
   const innerW = W - margin.left - margin.right
   const rowH = 28
   const rowGap = 14
@@ -43,12 +43,6 @@ export function drawSwitchCoefficients(selector) {
   const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
 
   // Title
-  svg.append('text').attr('class', 'sc-title')
-    .attr('x', 0).attr('y', 22)
-    .text('What flipped Obama→Trump switchers?')
-  svg.append('text').attr('class', 'sc-subtitle')
-    .attr('x', 0).attr('y', 40)
-    .text('Standardized coefficients from a weighted logistic on the VSG panel (n≈3,430).')
 
   // Zero baseline ("no effect")
   g.append('line').attr('class', 'sc-zero')
