@@ -11,7 +11,7 @@ from _lib import clean_var, load_anes_2016, weighted_share, write_clean
 
 def main():
     df = load_anes_2016()
-    w = clean_var(df, "V160101", 0, 1e9).fillna(0).clip(lower=0)
+    w = clean_var(df, "V160102", 0, 1e9).fillna(0).clip(lower=0)
 
     pid = clean_var(df, "V161158x", 1, 7)
     ideo = clean_var(df, "V161126", 1, 7, also_missing=(99,))
@@ -109,10 +109,10 @@ def main():
         rows=rows,
         manifest={
             "source": "ANES 2016 Time Series — data/raw/anes_timeseries_2016.dta",
-            "variables": ["V160101 (weight)", "V161158x (7-pt PID, branched)",
+            "variables": ["V160102 (weight)", "V161158x (7-pt PID, branched)",
                           "V161126 (lib-con)", "V162034a (presidential vote)"],
             "filter": "All respondents with valid weight; subsets per metric.",
-            "weight": "V160101 (post-election)",
+            "weight": "V160102 (post-election)",
             "method": "Weighted shares and conditional means.",
             "n": int((w > 0).sum()),
             "supports": ["plain-language.md §3 [1]", "§3 [2]", "§3 [3]", "§3 [4]", "§3 [5]", "§3 [6]"],

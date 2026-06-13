@@ -1,15 +1,15 @@
 {
   "source": "ANES 2016 Time Series \u2014 data/raw/anes_timeseries_2016.dta",
   "variables": [
-    "V160101 (weight)",
+    "V160102 (weight)",
     "V161158x (7-pt PID, branched)",
     "V161126 (lib-con)",
     "V162034a (presidential vote)"
   ],
   "filter": "All respondents with valid weight; subsets per metric.",
-  "weight": "V160101 (post-election)",
+  "weight": "V160102 (post-election)",
   "method": "Weighted shares and conditional means.",
-  "n": 4270,
+  "n": 3648,
   "supports": [
     "plain-language.md \u00a73 [1]",
     "\u00a73 [2]",

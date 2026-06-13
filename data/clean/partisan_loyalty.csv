@@ -1,13 +1,13 @@
 metric,value_pct,share_of_electorate_pct,n_unweighted
-Dem leaners/strong → Clinton,87.2,29.3,1282
-Rep leaners/strong → Trump,85.9,25.3,1144
-Dem leaner voted Trump (defector),2.28,2.28,92
-Rep leaner voted Clinton (defector),1.98,1.98,86
-All defectors (1 in 25),4.26,4.26,178
-Pure independents (V161158x=4),14.6,14.6,579
-Pure independents voting Trump (of those who voted),44.4,,224
-Self-ID moderate AND Dem-lean/strong,46.1,,803
-Self-ID moderate AND Rep-lean/strong,37.3,,686
-Self-ID moderate AND pure indep,16.6,,291
-Dem→Trump defectors: mean lib-con (1-7),3.64,,55
+Dem leaners/strong → Clinton,87.3,34.3,1282
+Rep leaners/strong → Trump,86.0,29.7,1144
+Dem leaner voted Trump (defector),2.68,2.68,92
+Rep leaner voted Clinton (defector),2.31,2.31,86
+All defectors (1 in 25),4.99,4.99,178
+Pure independents (V161158x=4),13.7,13.7,579
+Pure independents voting Trump (of those who voted),44.5,,224
+Self-ID moderate AND Dem-lean/strong,46.4,,700
+Self-ID moderate AND Rep-lean/strong,37.5,,606
+Self-ID moderate AND pure indep,16.1,,242
+Dem→Trump defectors: mean lib-con (1-7),3.65,,55
 Rep→Clinton defectors: mean lib-con (1-7),4.7,,72
