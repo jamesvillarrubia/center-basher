@@ -22,10 +22,20 @@ def main():
     havent = ideo_raw.isin([99, -1])
     ideo = clean_var(df, "V161126", 1, 7, also_missing=(99,))
 
-    # ten 7-pt issue scales — policy composite
+    # Policy composite over the SIX genuine 7-pt liberal-conservative SELF-PLACEMENT
+    # scales (each 1-7 with 4 = exactly moderate, so "distance from 4" is meaningful).
+    # FIXED 2026-06-13: the earlier set mixed in five 3-category favor/oppose items
+    # (V161193 birthright, V161196 wall, V161204 affirmative action, V161208 crime
+    # spending, V161213 ISIS troops) coded 1-3 — their center is ~2, not 4 — which
+    # biased the composite low and undercounted centrists. Those are dropped; the
+    # 6th self-placement scale (V161201 environment-jobs) the old set omitted is added.
     issue_vars = [
-        "V161178", "V161181", "V161184", "V161189", "V161193",
-        "V161196", "V161198", "V161204", "V161208", "V161213",
+        "V161178",  # spending & services
+        "V161181",  # defense spending
+        "V161184",  # govt vs private medical insurance
+        "V161189",  # guaranteed jobs & income
+        "V161198",  # govt assistance to blacks
+        "V161201",  # environment vs jobs tradeoff
     ]
     present = [c for c in issue_vars if c in df.columns]
     ip = pd.concat([clean_var(df, c, 1, 7, also_missing=(99,)) for c in present], axis=1)
