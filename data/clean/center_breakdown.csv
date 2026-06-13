@@ -1,6 +1,6 @@
 bucket,share_of_electorate_pct,turnout_pct_selfrep,vote_clinton_pct,vote_trump_pct,vote_third_pct,n_unweighted
 "MidMiddlers (self-ID mod, issue-mean ≈ centrist)",23.57,61.4,55.7,33.8,10.6,1063
-"True Middlers (self-ID mod, centrist on each issue)",8.35,62.0,59.4,30.5,10.1,376
+"True Middlers (self-ID mod, centrist on each issue)",0.81,53.8,81.6,14.5,4.0,33
 "Grab-Baggers (self-ID mod, issue-mean OFF-center)",16.79,61.7,47.7,41.9,10.4,719
 Whatevers (haven't thought about ideology),25.84,43.5,52.9,41.0,6.1,944
 [ref] self-ID moderate (lib-con 3-5),40.36,,,,,1782

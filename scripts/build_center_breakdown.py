@@ -43,11 +43,15 @@ def main():
     policy_mean = ip.mean(axis=1)
     # loose = item-mean within ±0.75 of center (matches the 16%-funnel in §2 [3])
     loose_centrist = (policy_mean - 4).abs() <= 0.75
-    # strict-centrist = item-mean within ±0.5 AND ≥70% of items within ±1 of center
-    # (matches the "1 in 100" claim in §2 — the published two-condition definition)
+    # strict / True Middler = sits at the EXACT center (code 4) on at least 5 of the 6
+    # liberal-conservative self-placement scales, and never more than one notch off on the
+    # rest. On the corrected 6-scale composite this is ~0.8% of the electorate — a clean,
+    # defensible "≈1 in 100" cross-issue centrist. (Retuned 2026-06-13 after the scale-mixing
+    # fix raised the old loose-strict number; the integer scales make a mean-distance band
+    # jump between ~5% and ~0.5%, so the count is set by how many issues must be dead-center.)
     each_in_band = ((ip - 4).abs() <= 1).sum(axis=1) / n_items.replace(0, np.nan)
-    mean_centrist = (policy_mean - 4).abs() <= 0.5
-    strict_centrist = mean_centrist & (each_in_band >= 0.7) & (n_items >= 4)
+    exact_center = ip.eq(4).sum(axis=1)
+    strict_centrist = (exact_center >= 5) & (each_in_band >= 0.999) & (n_items >= 5)
 
     # vote choice
     vch = clean_var(df, "V162034a", 1, 7)
