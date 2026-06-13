@@ -1186,8 +1186,13 @@
         Standardized racial-resentment coefficient on Republican presidential vote across
         cycles, net of ideology and party ID. The series rises sharply after Obama’s 2008
         election, peaks in 2016 and 2020 with Trump on the ballot, and stays elevated in
-        2024. Racial resentment didn’t spike post-Obama; its electoral weight did. ANES
-        Cumulative Data File, 4-item Kinder-Sanders scale.
+        2024. Racial resentment didn’t spike post-Obama; its electoral weight did.
+        <strong>Source:</strong> ANES Cumulative Data File, 1988–2024. Racial resentment =
+        4-item Kinder-Sanders scale (<code>VCF9039–VCF9042</code>, each oriented so high =
+        more resentment). Per cycle: standardized weighted logistic of P(Republican
+        two-party vote, <code>VCF0704</code>) on the scale, net of ideology
+        (<code>VCF0803</code>) and party ID (<code>VCF0301</code>); two-party voters only;
+        weight <code>VCF0009z</code>.
       </figcaption>
     </figure>
 
@@ -1900,6 +1905,13 @@
         edge for Kerry wasn’t enough to dislodge him. The misses are not
         failures of the rule; they’re cases where the rule had nothing to
         act on.
+        <strong>Source:</strong> ANES CDF (1980–2008) + ANES standalone studies
+        (2012/2016/2020/2024). "Is honest" candidate-trait items per cycle (2016
+        <code>V161162</code>/<code>V161167</code>; 2020 <code>V201211</code>/<code>V201215</code>;
+        2024 <code>V241203</code>/<code>V241208</code>; CDF equivalents earlier),
+        rescaled 0–4. Trust composite per cycle (2016 <code>V161215/216/217</code> and
+        analogs; CDF <code>VCF0604/0605/0609</code>). Weighted means among the low-trust
+        tercile within each cycle’s battleground states; PRE weights.
       </figcaption>
     </figure>
 
@@ -2208,7 +2220,13 @@
         (the 30% who skipped the general entirely). Same model,
         same prediction, played out at the precinct level in
         WI / MI / PA. Cohort markers: filled ● n ≥ 40 (reliable), open ○ n ≥ 15,
-        ✕ n &lt; 15 (uncertain). Source: ANES 2016 Time Series.
+        ✕ n &lt; 15 (uncertain). <strong>Source:</strong> ANES 2016 Time Series, weighted
+        <code>V160102</code> (POST). x = ideology <code>V161126</code> (1–7 → −1..+1);
+        y = trust composite <code>V161215/V161216/V161217</code> (0–1, higher = more trust).
+        Party <code>V161158x</code>; general vote <code>V162034a</code>; primary
+        <code>V161021a</code>. Cohorts: swing = undecided <code>V161031</code>; new-2016 =
+        voted 2016 (<code>V162031x</code>) not 2012 (<code>V161005</code>); drop-off =
+        voted 2012 not 2016.
       </figcaption>
     </figure>
 
