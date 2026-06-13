@@ -32,8 +32,8 @@ const STAGE1 = [
 ]
 
 const STAGE2 = [
-  { key: 'grabbag', n: 28, label: 'Grab-Baggers',  blurb: 'self-ID mod, policy off-center',     color: C.GRABBAG },
-  { key: 'midmid',  n: 11, label: 'MidMiddlers',   blurb: 'policy mean within ±0.75 of center', color: C.MIDMID },
+  { key: 'grabbag', n: 17, label: 'Grab-Baggers',  blurb: 'self-ID mod, policy off-center',     color: C.GRABBAG },
+  { key: 'midmid',  n: 22, label: 'MidMiddlers',   blurb: 'policy mean within ±0.75 of center', color: C.MIDMID },
   { key: 'true',    n:  1, label: 'True Middler',  blurb: 'centrist on every issue',            color: C.TRUE },
 ]
 
@@ -166,7 +166,7 @@ export function drawHundredVoters(selector) {
   svg.append('text').attr('class', 'waffle-funnel')
     .attr('x', s2.margin.left + s2box.gridW + 24)
     .attr('y', s2Y + s2.margin.top + STAGE2.length * 34 + 8)
-    .text('100 → 74 → 40 → 12 → 1')
+    .text('100 → 74 → 40 → 23 → 1')
   svg.append('text').attr('class', 'waffle-funnel-sub')
     .attr('x', s2.margin.left + s2box.gridW + 24)
     .attr('y', s2Y + s2.margin.top + STAGE2.length * 34 + 22)
