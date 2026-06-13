@@ -241,7 +241,11 @@ def _compute_swing_recent(year):
         # V161162 = Dem (Clinton) "is honest" trait; V161167 = Rep (Trump). 1=very well..5=not well.
         hd = 5 - df['V161162'].where(df['V161162'].between(1,5))
         hr = 5 - df['V161167'].where(df['V161167'].between(1,5))
-        w = pd.to_numeric(df.get('V160102', df.get('V160101')), errors='coerce').fillna(0).clip(lower=0)
+        # PRE weight (consistent with 2020/2024 below): the honesty + trust items are
+        # all pre-election perceptions and the sample is NOT restricted to voters,
+        # so PRE is the correct basis. 2016 previously used POST (V160102), the lone
+        # cross-cycle outlier; switched to PRE V160101 for consistency.
+        w = pd.to_numeric(df.get('V160101', df.get('V160102')), errors='coerce').fillna(0).clip(lower=0)
         state = pd.to_numeric(df['V161010d'], errors='coerce')
     elif year == 2020:
         from _lib import load_anes_2020

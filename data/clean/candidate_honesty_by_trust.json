@@ -322,10 +322,10 @@
       "rep_name": "Trump",
       "ec_winner": "Trump",
       "pv_winner": "Clinton",
-      "dem_low_trust_swing": 0.55,
-      "rep_low_trust_swing": 1.59,
-      "n_swing": 418,
-      "gap_swing": -1.03,
+      "dem_low_trust_swing": 0.53,
+      "rep_low_trust_swing": 1.64,
+      "n_swing": 487,
+      "gap_swing": -1.1,
       "is_wash_swing": false
     },
     {
