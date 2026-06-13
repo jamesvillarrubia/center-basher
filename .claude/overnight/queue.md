@@ -17,7 +17,7 @@ AUTONOMOUS POSTURE (user approved this fix-class via Fig Z + Fig D before sleepi
 
 - [x] Finding 4 — sweep turnout_hump + within_tent_bolt (+ check trust_by_cohort, within_cycle_multi). For each: if the analysis conditions on vote/turnout (post-election), switch to POST weight; regenerate; sync any figure-caption numbers; log body/footnote number changes to BLOCKERS. Accept: each script either uses POST (vote/turnout) or is documented as correctly PRE; changes synced or logged.
 
-- [ ] Finding 5 — Fig AA Sanders n. Determine whether the §18 caption "n = 339" or the live data n=300 is correct (check build_voter_maps_all.py: is 339 a different population — all Sanders primary voters — vs 300 plotted?). If the caption number is simply stale, sync it (figure's own n); if the data is wrong, fix the build. Accept: caption n and live voter_map_2016.json agree, with the basis noted in DECISIONS.
+- [x] Finding 5 — Fig AA Sanders n. Determine whether the §18 caption "n = 339" or the live data n=300 is correct (check build_voter_maps_all.py: is 339 a different population — all Sanders primary voters — vs 300 plotted?). If the caption number is simply stale, sync it (figure's own n); if the data is wrong, fix the build. Accept: caption n and live voter_map_2016.json agree, with the basis noted in DECISIONS.
 
 - [ ] Finding 6 — Gate-5 provenance (Fig X, P, AA). AUDIT ONLY: write concrete recommended provenance lines (dataset+variables+filter+n+weight+method) for each into BLOCKERS.md for morning review. Do NOT insert caption prose. Accept: BLOCKERS has ready-to-paste provenance text for all three figures.
 

@@ -49,3 +49,6 @@ Chose: 3 — user explicitly approved this exact fix-class twice (Fig Z incl cap
 
 ## 2026-06-12 22:21 — Finding 4 sweep
 turnout_hump + within_tent_bolt are genuine PRE-on-post violations; trust_by_cohort + within_cycle_multi are not (PRE measures). within_tent_bolt is live (§7) with quoted defection rates → logged not edited (desync risk). turnout_hump is not rendered → logged low-priority. No scripts modified this finding (conservative: avoid desyncing §7 prose / touching unused output).
+
+## 2026-06-12 22:23 — Finding 5: Sanders n 339→300 (caption synced)
+The §18 Fig AA caption quoted n=339 — the STALE hardcoded default in CANDIDATES_BY_YEAR[2016] (build_voter_maps_all.py:290), which computation overrides. The live figure plots the computed Sanders centroid n=300 (matches the documented post-V161021a-fix value; bug doc says 300). Synced caption 339→300 (figure's own n). Minor cleanup (NOT done, low priority): the hardcoded 2016 defaults (Clinton 1064, Sanders 339, Trump 1002) are all overridden by computed (399/300/335) and could be updated to match for clarity, but they don't affect output.
