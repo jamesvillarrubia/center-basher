@@ -1,24 +1,20 @@
-# Queue (phase 2) for: Apply the data-rigor audit findings (Gate-3 weight fixes + provenance)
+# Queue (phase 3) for: Finish the audit — codebook-verify the remaining ❓ variables
 
-Phase 1 (the 8-item variable audit) is complete — see git history + SUMMARY.
-This phase APPLIES the findings the user began reviewing interactively.
+Phases 1 (8-item audit) + 2 (apply findings) complete — see SUMMARY + git history.
+Phase 3 is PURELY gate-safe: cross-check each remaining ❓ variable against its
+codebook_entries.txt slice and add a codebook-cited annotation to KNOWN_ANNOTATIONS.
+Touches ONLY scripts/generate_variable_audit.py + reqts/variable-audit.md. No prose,
+no figures, no data/build scripts. The prose-cascading weight fixes stay in BLOCKERS
+for the user. Workflow per variable: read its slice in data/derived/codebook_entries.txt,
+confirm Label + Value Labels + Universe, annotate ✅/⚠️ (or 🔥 if a real bug surfaces),
+then `python scripts/generate_variable_audit.py`.
 
-AUTONOMOUS POSTURE (user approved this fix-class via Fig Z + Fig D before sleeping):
-- APPLY: data/script weight fixes; regenerate; copy data/clean → web/data; and
-  sync a FIGURE'S OWN computed number in its own caption to match corrected data
-  (e.g. an r-value, a figure n). That is a factual sync, not a voice edit.
-- LOG to BLOCKERS, do NOT edit: any number change that lands in BODY prose or a
-  numbered FOOTNOTE; any new provenance/caption prose to author; anything that
-  would change a stated CONCLUSION; any restructure. Record old→new for review.
+- [ ] §2 issue-position scale: V161178 V161181 V161184 V161189 V161193 V161196 V161198 V161204 V161208 V161213 (the 10 7-pt issue items behind the "centrist within ±0.5" definition in build_center_breakdown.py). Verify each is a 1–7 issue scale with -9/-8 missing; annotate. Accept: all 10 ✅ in variable-audit.md; none ❓; generate exits 0.
 
-- [x] Finding 2 — Fig D / §3 partisan loyalty. Commit the already-applied weight fix (build_partisan_loyalty.py V160101→V160102). Find where its numbers (loyalty ~87%, all-defectors 4.26→4.99%) appear: if in a figure caption, sync; if in §3 body/footnote prose, log old→new to BLOCKERS. Accept: script committed with V160102 + corrected metadata label; each changed number either synced (caption) or logged (prose); no live figure loads this data so no web/data copy needed.
+- [ ] Feeling thermometers: V161086 V161087 V162078 V162079 V201151 V201152 V241156 V241157. Confirm each is a 0–100 candidate/group thermometer (missing 998/999/-9 etc.); verify the build usage; annotate. Accept: each ✅/⚠️ with the 0–100 range + missing codes noted; none ❓.
 
-- [x] Finding 3 — Fig X honesty cross-cycle weight. Determine the sample (voters-only ⇒ POST, or all-respondents perception ⇒ PRE) from build_candidate_honesty_by_trust.py; make the weight basis CONSISTENT across 2016/2020/2024 with a one-line documented rationale; regenerate; copy to web/data; sync the §16 Fig X caption r-values; commit. Accept: one consistent weight basis across cycles; data regenerated + web/data updated; caption r-values match; build runs exit 0.
+- [ ] Efficacy + remaining POST items: V162215 V162216 V202143 V202144 V242125 V242126. Confirm scale + direction (used in turnout_hump / efficacy); annotate. Accept: each annotated with scale+direction; none ❓.
 
-- [x] Finding 4 — sweep turnout_hump + within_tent_bolt (+ check trust_by_cohort, within_cycle_multi). For each: if the analysis conditions on vote/turnout (post-election), switch to POST weight; regenerate; sync any figure-caption numbers; log body/footnote number changes to BLOCKERS. Accept: each script either uses POST (vote/turnout) or is documented as correctly PRE; changes synced or logged.
+- [ ] Demographics / IDs / weight-fallbacks: V160001 (respondent id) V161004 (campaign interest) V161267 V201507x V241458x V240107 (bare 2024 weight fallback) V240108a. Annotate (IDs/weights get a short note; demographics get Label+Values). Accept: none ❓.
 
-- [x] Finding 5 — Fig AA Sanders n. Determine whether the §18 caption "n = 339" or the live data n=300 is correct (check build_voter_maps_all.py: is 339 a different population — all Sanders primary voters — vs 300 plotted?). If the caption number is simply stale, sync it (figure's own n); if the data is wrong, fix the build. Accept: caption n and live voter_map_2016.json agree, with the basis noted in DECISIONS.
-
-- [x] Finding 6 — Gate-5 provenance (Fig X, P, AA). AUDIT ONLY: write concrete recommended provenance lines (dataset+variables+filter+n+weight+method) for each into BLOCKERS.md for morning review. Do NOT insert caption prose. Accept: BLOCKERS has ready-to-paste provenance text for all three figures.
-
-- [x] Final — regenerate variable audit if any script changed; write phase-2 SUMMARY; verify build_all-affected scripts still run. Accept: generate_variable_audit.py exits 0; SUMMARY.md updated with phase-2 outcomes + remaining BLOCKERS.
+- [ ] Final — regenerate; confirm the ❓ count is 0 (or list any genuinely un-verifiable, e.g. comment-only/phantom, with a ⚠️ reason); append phase-3 result to SUMMARY. Accept: generate_variable_audit.py exits 0; `grep -c '❓' reqts/variable-audit.md` reported; SUMMARY updated.
