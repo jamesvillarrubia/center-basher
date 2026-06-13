@@ -1,7 +1,7 @@
 {
   "source": "ANES 2016 Time Series \u2014 data/raw/anes_timeseries_2016.dta",
   "variables": [
-    "V160101 (weight)",
+    "V160102 (weight, POST)",
     "V161126 (self-place lib-con)",
     "V161158x (PID, 7-pt, leaners)",
     "V162034a (presidential vote)",
@@ -9,56 +9,52 @@
     "V161181 (7-pt issue)",
     "V161184 (7-pt issue)",
     "V161189 (7-pt issue)",
-    "V161193 (7-pt issue)",
-    "V161196 (7-pt issue)",
     "V161198 (7-pt issue)",
-    "V161204 (7-pt issue)",
-    "V161208 (7-pt issue)",
-    "V161213 (7-pt issue)"
+    "V161201 (7-pt issue)"
   ],
   "definitions": {
     "M (Moderate)": "self-place 7-pt lib-con = 4 (strict pure moderate)",
-    "C (Centrist)": "10-item policy mean within \u00b10.5 of 4 (center)",
+    "C (Centrist)": "6-scale self-placement policy mean within \u00b10.5 of 4 (center)",
     "S (Swing)": "PID-line crosser: Dem-leaner\u2192Trump or Rep-leaner\u2192Clinton"
   },
   "method": "Weighted shares; cell (row, col) = % of row-group who are also col-group.",
   "pop_share_pct": {
-    "M": 27.1,
-    "C": 18.2,
-    "S": 3.9
+    "M": 26.6,
+    "C": 36.7,
+    "S": 4.4
   },
   "matrix_pct": {
     "M": {
       "M": 100.0,
-      "C": 16.8,
-      "S": 5.1
+      "C": 52.1,
+      "S": 6.0
     },
     "C": {
-      "M": 25.1,
+      "M": 37.7,
       "C": 100.0,
-      "S": 3.5
+      "S": 6.2
     },
     "S": {
-      "M": 35.5,
-      "C": 16.3,
+      "M": 36.1,
+      "C": 51.4,
       "S": 100.0
     }
   },
   "n_cells": {
     "M": {
-      "M": 894,
-      "C": 894,
-      "S": 894
+      "M": 758,
+      "C": 758,
+      "S": 758
     },
     "C": {
-      "M": 606,
-      "C": 606,
-      "S": 606
+      "M": 1067,
+      "C": 1067,
+      "S": 1067
     },
     "S": {
-      "M": 127,
-      "C": 127,
-      "S": 127
+      "M": 126,
+      "C": 126,
+      "S": 126
     }
   },
   "partition_pct": {
@@ -67,36 +63,36 @@
         "C",
         "S"
       ],
-      "only_row": 79.3,
-      "also_C_only": 15.6,
-      "also_S_only": 3.9,
-      "all_three": 1.2
+      "only_row": 45.0,
+      "also_C_only": 49.0,
+      "also_S_only": 2.9,
+      "all_three": 3.1
     },
     "C": {
       "others": [
         "M",
         "S"
       ],
-      "only_row": 73.2,
-      "also_M_only": 23.3,
-      "also_S_only": 1.8,
-      "all_three": 1.7
+      "only_row": 58.4,
+      "also_M_only": 35.4,
+      "also_S_only": 3.9,
+      "all_three": 2.3
     },
     "S": {
       "others": [
         "M",
         "C"
       ],
-      "only_row": 56.3,
-      "also_M_only": 27.4,
-      "also_C_only": 8.3,
-      "all_three": 8.1
+      "only_row": 31.3,
+      "also_M_only": 17.3,
+      "also_C_only": 32.5,
+      "all_three": 18.8
     }
   },
   "n_row": {
-    "M": 894,
-    "C": 606,
-    "S": 127
+    "M": 758,
+    "C": 1067,
+    "S": 126
   },
   "supports": [
     "plain-language.md \u00a71 [2]"

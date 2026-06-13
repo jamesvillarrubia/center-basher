@@ -109,7 +109,7 @@
         Three blocks, three rows each. Each block starts with one group (top row), then
         narrows by adding a second group as a filter (middle), then narrows again to the
         triple intersection (bottom). All bars share the same 0–100% voter-share axis, so the
-        narrowing is visible as nested bars. The third row of every block is the same ~0.3%
+        narrowing is visible as nested bars. The third row of every block is the same ~0.8%
         of voters, the people who clear all three filters at once. ANES 2016.
       </figcaption>
     </figure>
@@ -126,15 +126,18 @@
           <a href="#fnref-1-1" class="fnret">↩</a>
         </li>
         <li id="fn-1-2" value="5">
-          ANES 2016 Time Series, weighted with <code>V160101</code>.
+          ANES 2016 Time Series, weighted with <code>V160102</code> (POST; the swing
+          dimension restricts the base to voters).
           <strong>Moderate</strong> = self-place 7-pt lib-con (<code>V161126</code>) = 4
-          (strict pure moderate; 27% of electorate, n=894).
-          <strong>Centrist</strong> = mean of 10 7-pt issue items within ±0.5 of center
-          (<code>V161178, V161181, V161184, V161189, V161193, V161196, V161198, V161204,
-          V161208, V161213</code>; 16% of electorate, n=730).
+          (strict pure moderate; 27% of voters, n=758).
+          <strong>Centrist</strong> = mean within ±0.5 of center on the six genuine 7-pt
+          liberal-conservative self-placement scales (<code>V161178, V161181, V161184,
+          V161189, V161198, V161201</code>; 37% of voters, n=1067). The earlier version mixed
+          in five 3-category favor/oppose items as if they were 1-7 scales, which understated
+          this share; see the §2 correction note.
           <strong>Swing</strong> = party-line crosser within 2016: Dem-leaner who voted Trump
           OR Rep-leaner who voted Clinton, using <code>V161158x</code> (PID, 7-pt) ×
-          <code>V162034a</code> (vote; 4% of electorate, n=178).
+          <code>V162034a</code> (vote; 4% of voters, n=126).
           Each bar: weighted % of the row group's respondents who are <em>also</em> in the
           named group. Bars don't sum to 100 because some voters fall into more than one of
           the other two groups. Pipeline:

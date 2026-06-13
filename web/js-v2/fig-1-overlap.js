@@ -6,8 +6,8 @@
 // successive bar visibly nests inside the one above it.
 //
 // Block A · Self-labeled moderates
-//   row 1:  all self-labeled moderates                        27.1% of voters
-//   row 2:  ... who are also policy-centrist                   4.6% of voters
+//   row 1:  all self-labeled moderates                        26.6% of voters
+//   row 2:  ... who are also policy-centrist                  13.9% of voters
 //   row 3:  ... who are also swing voters (all three)          0.3% of voters
 //
 // Block B · Policy centrists  (parallel structure)

@@ -11,7 +11,7 @@ For each (row, col) cell: "% of row-group who are also col-group."
 Diagonal = 100. Off-diagonal = the small numbers that prove the three
 groups aren't the same people.
 
-Weighted with V160101 (post-election weight).
+Weighted with V160102 (POST).
 """
 import json
 import numpy as np
@@ -20,17 +20,22 @@ import pandas as pd
 from _lib import load_anes_2016, DATA_CLEAN
 
 
+# FIXED 2026-06-13: use only the six genuine 7-pt liberal-conservative SELF-PLACEMENT
+# scales (each 1-7 with 4 = exact center). The earlier set mixed in five 3-category
+# favor/oppose items (V161193/196/204/208/213, coded 1-3, true center ~2) treated as
+# 1-7, which biased the composite low and understated the centrist share. Same fix as
+# build_center_breakdown.py.
 ISSUE_VARS = [
-    "V161178", "V161181", "V161184", "V161189", "V161193",
-    "V161196", "V161198", "V161204", "V161208", "V161213",
+    "V161178", "V161181", "V161184", "V161189", "V161198", "V161201",
 ]
 
 
 def main():
     d = load_anes_2016()
 
-    # Weight (post-election)
-    w = pd.to_numeric(d["V160101"], errors="coerce").fillna(0).clip(lower=0)
+    # Weight: POST (V160102). The common base is restricted to voters (V162034a
+    # non-null for the swing dimension), so the post-election weight is correct.
+    w = pd.to_numeric(d.get("V160102", d.get("V160101")), errors="coerce").fillna(0).clip(lower=0)
 
     # M: self-ID moderate — STRICT (lib-con = 4, the dead center).
     # The broader 3-5 band sweeps in ~55% of the electorate, making the
@@ -127,14 +132,14 @@ def main():
     out = {
         "source": "ANES 2016 Time Series — data/raw/anes_timeseries_2016.dta",
         "variables": [
-            "V160101 (weight)",
+            "V160102 (weight, POST)",
             "V161126 (self-place lib-con)",
             "V161158x (PID, 7-pt, leaners)",
             "V162034a (presidential vote)",
         ] + [f"{v} (7-pt issue)" for v in ISSUE_VARS],
         "definitions": {
             "M (Moderate)": "self-place 7-pt lib-con = 4 (strict pure moderate)",
-            "C (Centrist)": "10-item policy mean within ±0.5 of 4 (center)",
+            "C (Centrist)": "6-scale self-placement policy mean within ±0.5 of 4 (center)",
             "S (Swing)": "PID-line crosser: Dem-leaner→Trump or Rep-leaner→Clinton",
         },
         "method": "Weighted shares; cell (row, col) = % of row-group who are also col-group.",
