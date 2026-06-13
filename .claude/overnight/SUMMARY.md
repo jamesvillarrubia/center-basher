@@ -89,3 +89,36 @@ changed build scripts run green; weight vars all annotated. All work on branch
 claude/dazzling-maxwell-sSHUR, none pushed.
 
 [2026-06-12 22:25:08] Queue empty (6 items complete). Allowing stop.
+
+---
+
+# Phase 3 Summary — Finished the audit (0 ❓)
+
+Verified the 31 remaining lower-risk ❓ variables against the codebooks (annotation-only,
+no prose/figures/data touched). Result: **variable-audit.md now has 0 ❓ — 103/103 ANES
+variables carry an explicit codebook-cited annotation.**
+
+## Annotated
+- §2 policy-composite issue items (10): V161178/181/184/189/198 are true 1-7 scales ✅;
+  V161193/196/204/208/213 are 3-category direction items ⚠️ (see finding below).
+- Feeling thermometers (12): 2016 PRE V161086/087 + POST V162078/079; 2020 PRE V201151/152
+  + POST V202143/144; 2024 PRE V241156/157 + POST V242125/126 — all 0–100, range-restricted. ✅
+- External efficacy (2): V162215/216 (2016 POST, 1–5). ✅
+- Demographics/IDs/weights: V160001 (Case ID), V161004 (campaign interest 1–3),
+  V161267/V201507x/V241458x (age), V240107/V240108a (2024 weight variants). ✅
+- Branching strength companions V161193a/V161196a (surfaced only via the annotations). ✅
+
+## NEW HIGH-PRIORITY FINDING (logged to BLOCKERS, NOT fixed) — touches the §2 thesis
+**The §2 "moderate middle" composite mixes scales.** build_center_breakdown.py builds the
+policy composite over 10 items with clean_var(.,1,7) and classifies "centrist" by distance
+from 4. But only 5 are 1-7 self-placement scales; the other 5 (birthright, wall, affirmative
+action, crime spending, ISIS troops) are 3-category direction items (codes 1-3, true center
+= 2). Averaging them in and centering at 4 biases the composite low, so genuine moderates are
+misclassified as non-centrist — **UNDERCOUNTING centrists and artificially strengthening the
+"1 in 100 True Middler" claim** (the opening punch of §2 "The center is a lie"). A hostile
+reviewer would catch this. Fix would change the §2 funnel numbers (26/40/28/12/1) + Figure C +
+the §2 footnote — needs your eyes; expect centrist counts to RISE. Full recommendation in BLOCKERS.
+
+## State
+generate_variable_audit.py exits 0 (2186 lines); 0 ❓; no prose/figures/data/build scripts
+changed in phase 3. All commits on claude/dazzling-maxwell-sSHUR, none pushed.

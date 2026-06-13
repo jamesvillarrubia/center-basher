@@ -17,4 +17,4 @@ then `python scripts/generate_variable_audit.py`.
 
 - [x] Demographics / IDs / weight-fallbacks: V160001 (respondent id) V161004 (campaign interest) V161267 V201507x V241458x V240107 (bare 2024 weight fallback) V240108a. Annotate (IDs/weights get a short note; demographics get Label+Values). Accept: none ❓.
 
-- [ ] Final — regenerate; confirm the ❓ count is 0 (or list any genuinely un-verifiable, e.g. comment-only/phantom, with a ⚠️ reason); append phase-3 result to SUMMARY. Accept: generate_variable_audit.py exits 0; `grep -c '❓' reqts/variable-audit.md` reported; SUMMARY updated.
+- [x] Final — regenerate; confirm the ❓ count is 0 (or list any genuinely un-verifiable, e.g. comment-only/phantom, with a ⚠️ reason); append phase-3 result to SUMMARY. Accept: generate_variable_audit.py exits 0; `grep -c '❓' reqts/variable-audit.md` reported; SUMMARY updated.

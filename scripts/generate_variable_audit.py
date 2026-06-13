@@ -144,6 +144,11 @@ KNOWN_ANNOTATIONS = {
     "V240107": "✅ WEIGHT (fallback only): bare 2024 weight referenced solely as a df.get fallback after V240107a/b in build_candidate_honesty_by_trust.py. Canonical 2024 weights are V240107a (PRE) / V240107b (POST).",
     "V240108a": "✅ WEIGHT (variant): a 2024 weight column tried in build_within_cycle_multi.py's fallback list [V240107a, V240107b, V240108a]. Secondary; canonical analysis weights are V240107a/b.",
 
+    # Branching strength companions (surface in the audit only because they are named in
+    # the V161193/V161196 annotations above; not used in any build script).
+    "V161193a": "✅ CODEBOOK-VERIFIED: 2016 PRE 'Strength R favors/opposes ending birthright citizenship' — strength follow-up to V161193; combined they form the standard ANES 1-7 issue scale. Not used in any build (the proper input for fixing the §2 scale-mixing bug).",
+    "V161196a": "✅ CODEBOOK-VERIFIED: 2016 PRE 'Build a wall with Mexico strength follow-up' — strength companion to V161196; combined → 1-7. Not used in any build.",
+
     # Weights — verified by codebook + cross-checked by 2026-06-05 audit
     "V160101": "✅ CODEBOOK-VERIFIED: ANES 2016 PRE survey weight. Use for pre-election analyses.",
     "V160102": "✅ CODEBOOK-VERIFIED: ANES 2016 POST survey weight. Use for vote-choice / post-election analyses. (Currently used in voter map.)",
