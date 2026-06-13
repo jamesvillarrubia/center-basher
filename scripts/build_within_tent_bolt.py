@@ -16,7 +16,7 @@ from _lib import clean_var, load_anes_2016, weighted_share, write_clean
 
 def main():
     df = load_anes_2016()
-    w = clean_var(df, "V160101", 0, 1e9).fillna(0).clip(lower=0)
+    w = clean_var(df, "V160102", 0, 1e9).fillna(0).clip(lower=0)
 
     # 3-item institutional trust index, PRE-election wave
     t1 = clean_var(df, "V161215", 1, 5)
