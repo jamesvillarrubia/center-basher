@@ -102,20 +102,21 @@ KNOWN_ANNOTATIONS = {
     "V162034a": "✅ CODEBOOK-VERIFIED: 2016 general-election vote. 1=Clinton, 2=Trump, 3=Johnson, 4=Stein, 5=other.",
     "V202073": "✅ CODEBOOK-VERIFIED: 2020 general-election vote. 1=Biden, 2=Trump, 3=Jorgensen, 4=Hawkins, 5=other.",
 
-    # §2 policy composite (build_center_breakdown.py). FIVE are true 1-7 self-placement
-    # scales (center=4); FIVE are 3-category direction items (codes 1-3) that the build
-    # treats as 1-7 and centers at 4 — a scale-mixing bug that biases the composite low
-    # and undercounts centrists (the §2 "1 in 100" funnel). Logged to BLOCKERS, NOT fixed.
+    # §2 policy composite (build_center_breakdown.py). FIXED 2026-06-13: the composite
+    # now uses ONLY the six genuine 1-7 self-placement scales (V161178/181/184/189/198/201,
+    # center=4). The five 3-category favor/oppose items below (coded 1-3) were dropped —
+    # they had biased the composite low and undercounted centrists (True Middlers 1.07%→8.35%).
     "V161178": "✅ CODEBOOK-VERIFIED: 2016 PRE '7pt scale spending and Services self-placement', codes 1-7 (4=center), -9/-8/99 missing. True 7-pt item in the §2 policy composite.",
     "V161181": "✅ CODEBOOK-VERIFIED: 2016 PRE '7pt scale defense spending self-placement', 1-7 (4=center). True 7-pt §2 composite item.",
     "V161184": "✅ CODEBOOK-VERIFIED: 2016 PRE '7pt scale govt vs private medical insurance self-placement', 1-7 (4=center). True 7-pt §2 composite item.",
     "V161189": "✅ CODEBOOK-VERIFIED: 2016 PRE '7pt scale guaranteed job-income self-placement', 1-7 (4=center). True 7-pt §2 composite item.",
     "V161198": "✅ CODEBOOK-VERIFIED: 2016 PRE '7pt scale govt assistance to blacks self-placement', 1-7 (4=center). True 7-pt §2 composite item.",
-    "V161193": "⚠️ SCALE-MISMATCH BUG (logged, not fixed): 2016 PRE 'Favor or oppose ending birthright citizenship' is a 3-CATEGORY direction item (observed codes 1-3; strength in companion V161193a), NOT a 1-7 scale. build_center_breakdown.py runs clean_var(.,1,7) and averages it into a policy composite centered at 4, biasing the mean low and undercounting §2 centrists. See BLOCKERS.",
-    "V161196": "⚠️ SCALE-MISMATCH BUG (logged): 2016 PRE 'Build a wall with Mexico' — 3-category direction item (1-3; strength in V161196a), used as a 1-7 item in the §2 composite. See BLOCKERS.",
-    "V161204": "⚠️ SCALE-MISMATCH BUG (logged): 2016 PRE 'Favor/oppose affirmative action in universities' — 3-category item (1-3), used as 1-7 in the §2 composite. See BLOCKERS.",
-    "V161208": "⚠️ SCALE-MISMATCH BUG (logged): 2016 PRE 'Federal spending: dealing with crime' — 3-category (1=increase/2=same/3=decrease), used as 1-7 in the §2 composite (its center is 2, not 4). See BLOCKERS.",
-    "V161213": "⚠️ SCALE-MISMATCH BUG (logged): 2016 PRE 'Sending troops to fight ISIS' — 3-category direction item (1-3), used as 1-7 in the §2 composite. See BLOCKERS.",
+    "V161201": "✅ CODEBOOK-VERIFIED: 2016 PRE '7pt scale environment-jobs tradeoff self-placement', 1-7 (4=center). Added to the §2 self-placement composite in the 2026-06-13 fix (the old set omitted it).",
+    "V161193": "🔥 KNOWN-BUG-FIXED (2026-06-13): 2016 PRE 'Favor/oppose ending birthright citizenship' is a 3-category item (1-3; strength in V161193a), NOT 1-7. Was wrongly averaged into the §2 composite as 1-7; now DROPPED. Composite uses only true 7-pt self-placement scales.",
+    "V161196": "🔥 KNOWN-BUG-FIXED (2026-06-13): 2016 PRE 'Build a wall' — 3-category direction item (1-3; strength V161196a). Dropped from the §2 composite (was mis-used as 1-7).",
+    "V161204": "🔥 KNOWN-BUG-FIXED (2026-06-13): 2016 PRE 'Favor/oppose affirmative action' — 3-category (1-3). Dropped from the §2 composite.",
+    "V161208": "🔥 KNOWN-BUG-FIXED (2026-06-13): 2016 PRE 'Federal spending: crime' — 3-category (1=incr/2=same/3=decr, center 2). Dropped from the §2 composite (was mis-centered at 4).",
+    "V161213": "🔥 KNOWN-BUG-FIXED (2026-06-13): 2016 PRE 'Send troops to fight ISIS' — 3-category direction item (1-3). Dropped from the §2 composite.",
 
     # Feeling thermometers (0-100 warmth; 998/999/-9 = DK/RF, excluded by clean_var/between).
     "V161086": "✅ CODEBOOK-VERIFIED: 2016 PRE feeling thermometer, Clinton (0-100). build_warmth_fear_spread.py uses clean_var(0,100); 998/999 excluded.",
