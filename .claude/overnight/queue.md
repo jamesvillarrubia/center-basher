@@ -21,4 +21,4 @@ AUTONOMOUS POSTURE (user approved this fix-class via Fig Z + Fig D before sleepi
 
 - [x] Finding 6 — Gate-5 provenance (Fig X, P, AA). AUDIT ONLY: write concrete recommended provenance lines (dataset+variables+filter+n+weight+method) for each into BLOCKERS.md for morning review. Do NOT insert caption prose. Accept: BLOCKERS has ready-to-paste provenance text for all three figures.
 
-- [ ] Final — regenerate variable audit if any script changed; write phase-2 SUMMARY; verify build_all-affected scripts still run. Accept: generate_variable_audit.py exits 0; SUMMARY.md updated with phase-2 outcomes + remaining BLOCKERS.
+- [x] Final — regenerate variable audit if any script changed; write phase-2 SUMMARY; verify build_all-affected scripts still run. Accept: generate_variable_audit.py exits 0; SUMMARY.md updated with phase-2 outcomes + remaining BLOCKERS.

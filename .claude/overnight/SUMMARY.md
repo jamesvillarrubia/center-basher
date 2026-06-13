@@ -49,3 +49,41 @@ run could codebook-verify these the same way.
 8 commits (one per queue item), all on branch claude/dazzling-maxwell-sSHUR, none pushed.
 
 [2026-06-12 17:33:50] QUEUE-COMPLETE emitted by agent. Run finished cleanly.
+
+---
+
+# Phase 2 Summary — Applying the audit findings (interactive → autonomous)
+
+Phase 2 began during an interactive findings review (user approved Fig Z + Fig D),
+then continued autonomously via /overnight. Posture: apply data/script weight fixes
++ sync a figure's OWN computed numbers in its caption; log anything that lands in
+body/footnote prose or changes a conclusion.
+
+## Applied + committed (3 figure fixes + 2 caption syncs)
+1. **Fig Z (trust×turnout, §17)** — 2020 weight PRE V200010a → POST V200010b (Gate 3).
+   r-values: overall −0.33→−0.37, low-trust era −0.81→−0.80 (+0.86 unchanged; sign-flip
+   intact). Regenerated, copied data/clean→web/data, synced caption + JS comment + docstring.
+2. **Fig D / partisan loyalty** — PRE V160101 → POST V160102. Not a live figure; loyalty
+   ~unchanged (87%), all-defectors 4.26%→4.99%. Committed (not quoted in prose).
+3. **Fig X (honesty crossover, §16)** — 2016 weight POST V160102 → PRE V160101 for
+   cross-cycle consistency (sample is pre-election perception, not voter-restricted).
+   2016 dot moved imperceptibly (gap −1.03→−1.10); "9 of 12" + 12/12 swing pattern intact;
+   no prose value quoted. Regenerated + copied to web/data.
+4. **Fig AA (voter map, §18)** — caption Sanders centroid n 339→300 (339 was a stale
+   hardcoded default; the figure plots the computed n=300).
+
+## Logged for your review (would desync prose / change conclusions) — see BLOCKERS.md
+- §2/§3 defector-stat cluster (build_center_overlap_matrix / center_breakdown / swing_spectrum):
+  PRE weight on vote-conditioned stats; feeds quoted footnotes ("4% defectors, n=178" → ~5%).
+- §7 within_tent_bolt (LIVE Figure K): PRE on voter-restricted vote analysis; quoted "53% / 10%"
+  in §7 → switch to POST + update prose together.
+- turnout_hump: same pattern but NOT rendered (low priority).
+- Gate-5 provenance: ready-to-paste caption text drafted for Fig X, Fig P, Fig AA.
+
+## Not violations (documented)
+trust_by_cohort, within_cycle_multi — PRE measures, no vote/turnout condition.
+
+## State
+Audit regenerates clean (2116 lines); high-risk variable families still 0 ❓; the three
+changed build scripts run green; weight vars all annotated. All work on branch
+claude/dazzling-maxwell-sSHUR, none pushed.
