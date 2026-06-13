@@ -33,8 +33,8 @@ export function drawCareGap(selector) {
 
   const W = container.clientWidth || 680
   const panelGap = 24
-  const panelW = (W - panelGap) / 2
-  const margin = { top: 40, right: 16, bottom: 56, left: 16 }
+  const margin = { top: 40, right: 16, bottom: 56, left: 24 }
+  const panelW = (W - margin.left - margin.right - panelGap) / 2
   const innerH = 240
   const H = margin.top + innerH + margin.bottom
 
@@ -87,6 +87,6 @@ export function drawCareGap(selector) {
       .text(`${panel.gap.toFixed(1)}-point gap`)
   }
 
-  drawPanel(PANELS[0], 0)
-  drawPanel(PANELS[1], panelW + panelGap)
+  drawPanel(PANELS[0], margin.left)
+  drawPanel(PANELS[1], margin.left + panelW + panelGap)
 }
