@@ -135,6 +135,15 @@ KNOWN_ANNOTATIONS = {
     "V162215": "✅ CODEBOOK-VERIFIED: 2016 POST '[STD] Public officials don't care what people think' (external efficacy), 1-5. build_turnout_hump.py clean_var(1,5); efficacy = mean(V162215,V162216)/5.",
     "V162216": "✅ CODEBOOK-VERIFIED: 2016 POST '[STD] Have no say about what govt does' (external efficacy), 1-5. clean_var(1,5).",
 
+    # Demographics / IDs / weight variants.
+    "V160001": "✅ ADMINISTRATIVE: 2016 Case ID (unique respondent identifier). Not an analysis variable.",
+    "V161004": "✅ CODEBOOK-VERIFIED: 2016 PRE 'How interested in following campaigns', 1-3 (1=very/3=not much). build_turnout_hump.py clean_var(1,3) as engagement proxy.",
+    "V161267": "✅ CODEBOOK-VERIFIED: 2016 PRE 'Respondent age' (years). clean_var(18,100).",
+    "V201507x": "✅ CODEBOOK-VERIFIED: 2020 respondent age summary. Used as age clean_var(18,100).",
+    "V241458x": "✅ CODEBOOK-VERIFIED: 2024 respondent age summary. Used as age clean_var(18,100).",
+    "V240107": "✅ WEIGHT (fallback only): bare 2024 weight referenced solely as a df.get fallback after V240107a/b in build_candidate_honesty_by_trust.py. Canonical 2024 weights are V240107a (PRE) / V240107b (POST).",
+    "V240108a": "✅ WEIGHT (variant): a 2024 weight column tried in build_within_cycle_multi.py's fallback list [V240107a, V240107b, V240108a]. Secondary; canonical analysis weights are V240107a/b.",
+
     # Weights — verified by codebook + cross-checked by 2026-06-05 audit
     "V160101": "✅ CODEBOOK-VERIFIED: ANES 2016 PRE survey weight. Use for pre-election analyses.",
     "V160102": "✅ CODEBOOK-VERIFIED: ANES 2016 POST survey weight. Use for vote-choice / post-election analyses. (Currently used in voter map.)",
