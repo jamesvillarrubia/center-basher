@@ -11,7 +11,7 @@ AUTONOMOUS POSTURE (user approved this fix-class via Fig Z + Fig D before sleepi
   numbered FOOTNOTE; any new provenance/caption prose to author; anything that
   would change a stated CONCLUSION; any restructure. Record old→new for review.
 
-- [ ] Finding 2 — Fig D / §3 partisan loyalty. Commit the already-applied weight fix (build_partisan_loyalty.py V160101→V160102). Find where its numbers (loyalty ~87%, all-defectors 4.26→4.99%) appear: if in a figure caption, sync; if in §3 body/footnote prose, log old→new to BLOCKERS. Accept: script committed with V160102 + corrected metadata label; each changed number either synced (caption) or logged (prose); no live figure loads this data so no web/data copy needed.
+- [x] Finding 2 — Fig D / §3 partisan loyalty. Commit the already-applied weight fix (build_partisan_loyalty.py V160101→V160102). Find where its numbers (loyalty ~87%, all-defectors 4.26→4.99%) appear: if in a figure caption, sync; if in §3 body/footnote prose, log old→new to BLOCKERS. Accept: script committed with V160102 + corrected metadata label; each changed number either synced (caption) or logged (prose); no live figure loads this data so no web/data copy needed.
 
 - [ ] Finding 3 — Fig X honesty cross-cycle weight. Determine the sample (voters-only ⇒ POST, or all-respondents perception ⇒ PRE) from build_candidate_honesty_by_trust.py; make the weight basis CONSISTENT across 2016/2020/2024 with a one-line documented rationale; regenerate; copy to web/data; sync the §16 Fig X caption r-values; commit. Accept: one consistent weight basis across cycles; data regenerated + web/data updated; caption r-values match; build runs exit 0.
 
