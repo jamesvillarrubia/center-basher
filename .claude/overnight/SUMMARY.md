@@ -87,3 +87,5 @@ trust_by_cohort, within_cycle_multi — PRE measures, no vote/turnout condition.
 Audit regenerates clean (2116 lines); high-risk variable families still 0 ❓; the three
 changed build scripts run green; weight vars all annotated. All work on branch
 claude/dazzling-maxwell-sSHUR, none pushed.
+
+[2026-06-12 22:25:08] Queue empty (6 items complete). Allowing stop.

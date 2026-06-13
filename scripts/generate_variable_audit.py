@@ -102,6 +102,21 @@ KNOWN_ANNOTATIONS = {
     "V162034a": "✅ CODEBOOK-VERIFIED: 2016 general-election vote. 1=Clinton, 2=Trump, 3=Johnson, 4=Stein, 5=other.",
     "V202073": "✅ CODEBOOK-VERIFIED: 2020 general-election vote. 1=Biden, 2=Trump, 3=Jorgensen, 4=Hawkins, 5=other.",
 
+    # §2 policy composite (build_center_breakdown.py). FIVE are true 1-7 self-placement
+    # scales (center=4); FIVE are 3-category direction items (codes 1-3) that the build
+    # treats as 1-7 and centers at 4 — a scale-mixing bug that biases the composite low
+    # and undercounts centrists (the §2 "1 in 100" funnel). Logged to BLOCKERS, NOT fixed.
+    "V161178": "✅ CODEBOOK-VERIFIED: 2016 PRE '7pt scale spending and Services self-placement', codes 1-7 (4=center), -9/-8/99 missing. True 7-pt item in the §2 policy composite.",
+    "V161181": "✅ CODEBOOK-VERIFIED: 2016 PRE '7pt scale defense spending self-placement', 1-7 (4=center). True 7-pt §2 composite item.",
+    "V161184": "✅ CODEBOOK-VERIFIED: 2016 PRE '7pt scale govt vs private medical insurance self-placement', 1-7 (4=center). True 7-pt §2 composite item.",
+    "V161189": "✅ CODEBOOK-VERIFIED: 2016 PRE '7pt scale guaranteed job-income self-placement', 1-7 (4=center). True 7-pt §2 composite item.",
+    "V161198": "✅ CODEBOOK-VERIFIED: 2016 PRE '7pt scale govt assistance to blacks self-placement', 1-7 (4=center). True 7-pt §2 composite item.",
+    "V161193": "⚠️ SCALE-MISMATCH BUG (logged, not fixed): 2016 PRE 'Favor or oppose ending birthright citizenship' is a 3-CATEGORY direction item (observed codes 1-3; strength in companion V161193a), NOT a 1-7 scale. build_center_breakdown.py runs clean_var(.,1,7) and averages it into a policy composite centered at 4, biasing the mean low and undercounting §2 centrists. See BLOCKERS.",
+    "V161196": "⚠️ SCALE-MISMATCH BUG (logged): 2016 PRE 'Build a wall with Mexico' — 3-category direction item (1-3; strength in V161196a), used as a 1-7 item in the §2 composite. See BLOCKERS.",
+    "V161204": "⚠️ SCALE-MISMATCH BUG (logged): 2016 PRE 'Favor/oppose affirmative action in universities' — 3-category item (1-3), used as 1-7 in the §2 composite. See BLOCKERS.",
+    "V161208": "⚠️ SCALE-MISMATCH BUG (logged): 2016 PRE 'Federal spending: dealing with crime' — 3-category (1=increase/2=same/3=decrease), used as 1-7 in the §2 composite (its center is 2, not 4). See BLOCKERS.",
+    "V161213": "⚠️ SCALE-MISMATCH BUG (logged): 2016 PRE 'Sending troops to fight ISIS' — 3-category direction item (1-3), used as 1-7 in the §2 composite. See BLOCKERS.",
+
     # Weights — verified by codebook + cross-checked by 2026-06-05 audit
     "V160101": "✅ CODEBOOK-VERIFIED: ANES 2016 PRE survey weight. Use for pre-election analyses.",
     "V160102": "✅ CODEBOOK-VERIFIED: ANES 2016 POST survey weight. Use for vote-choice / post-election analyses. (Currently used in voter map.)",

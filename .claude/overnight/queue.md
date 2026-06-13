@@ -9,7 +9,7 @@ for the user. Workflow per variable: read its slice in data/derived/codebook_ent
 confirm Label + Value Labels + Universe, annotate ✅/⚠️ (or 🔥 if a real bug surfaces),
 then `python scripts/generate_variable_audit.py`.
 
-- [ ] §2 issue-position scale: V161178 V161181 V161184 V161189 V161193 V161196 V161198 V161204 V161208 V161213 (the 10 7-pt issue items behind the "centrist within ±0.5" definition in build_center_breakdown.py). Verify each is a 1–7 issue scale with -9/-8 missing; annotate. Accept: all 10 ✅ in variable-audit.md; none ❓; generate exits 0.
+- [x] §2 issue-position scale: V161178 V161181 V161184 V161189 V161193 V161196 V161198 V161204 V161208 V161213 (the 10 7-pt issue items behind the "centrist within ±0.5" definition in build_center_breakdown.py). Verify each is a 1–7 issue scale with -9/-8 missing; annotate. Accept: all 10 ✅ in variable-audit.md; none ❓; generate exits 0.
 
 - [ ] Feeling thermometers: V161086 V161087 V162078 V162079 V201151 V201152 V241156 V241157. Confirm each is a 0–100 candidate/group thermometer (missing 998/999/-9 etc.); verify the build usage; annotate. Accept: each ✅/⚠️ with the 0–100 range + missing codes noted; none ❓.
 
