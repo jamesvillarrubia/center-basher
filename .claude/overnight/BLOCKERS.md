@@ -56,3 +56,11 @@ Why blocked: changes Figure B's displayed numbers + the §1 body prose around it
 
 ## 2026-06-13 15:48 — Visual QA sweep results (item 2 of the 1-3 run)
 Programmatic: all 30 figures render, no SVG overflow, ZERO console errors/warnings. Two real clipping bugs found + FIXED: Fig O (long y-label 'Negative economic outlook (2016)' clipped -> widened margin) and Fig S (left panel drawn at x0=0, y-axis labels clipped -> gave panels a left margin). Spot-verified clean: Fig B, C, I, T, U, AA, AB, AC, AD, Z.
+
+## 2026-06-13 15:53 — Style pass (item 3): bare §N body links to reword (voice-level)
+Em-dashes: 0. Figure labels: all 30 defined, no refs to undefined labels. Remaining: ~15 visible bare "§N" links in body prose. Most are fine parenthetical pointers (topic named + "(§N)"). The more standalone ones worth rewording to name the topic per your no-bare-marker rule:
+  - "we get to that in §12"  -> name what 'that' is
+  - "which is why §13 treats stakes as the dominant turnout lever" -> "the turnout section" or similar
+  - "Now to the other half of the two-jobs split. §6"
+  - "the mechanism named in §8 and §9"
+Each is a voice choice (left for you). The clearly-parenthetical ones (e.g. "coherent middle bloc (§3)", "candidate-fit model from §16") read fine as-is.
