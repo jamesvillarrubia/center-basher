@@ -31,7 +31,7 @@ LABELS = {
 
 def main():
     d = load_anes_2016()
-    w = pd.to_numeric(d["V160101"], errors="coerce").fillna(0).clip(lower=0)
+    w = pd.to_numeric(d["V160102"], errors="coerce").fillna(0).clip(lower=0)
     pid = pd.to_numeric(d["V161158x"], errors="coerce")
     vote = pd.to_numeric(d["V162034a"], errors="coerce")
     sp = pd.to_numeric(d["V161126"], errors="coerce")
