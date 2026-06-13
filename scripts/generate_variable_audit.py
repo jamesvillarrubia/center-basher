@@ -126,6 +126,14 @@ KNOWN_ANNOTATIONS = {
     "V201152": "✅ CODEBOOK-VERIFIED: 2020 PRE feeling thermometer, Trump (0-100). .between(0,100).",
     "V241156": "✅ CODEBOOK-VERIFIED: 2024 PRE feeling thermometer, Harris (0-100). .between(0,100).",
     "V241157": "✅ CODEBOOK-VERIFIED: 2024 PRE feeling thermometer, Trump (0-100). .between(0,100).",
+    "V202143": "✅ CODEBOOK-VERIFIED: 2020 POST feeling thermometer, Biden (0-100). build_within_cycle_multi.py .between(0,100).",
+    "V202144": "✅ CODEBOOK-VERIFIED: 2020 POST feeling thermometer, Republican pres candidate Trump (0-100).",
+    "V242125": "✅ CODEBOOK-VERIFIED: 2024 POST feeling thermometer, Democratic pres candidate (0-100).",
+    "V242126": "✅ CODEBOOK-VERIFIED: 2024 POST feeling thermometer, Republican pres candidate (0-100).",
+
+    # External-efficacy battery (1-5 Likert; STD agree/disagree form).
+    "V162215": "✅ CODEBOOK-VERIFIED: 2016 POST '[STD] Public officials don't care what people think' (external efficacy), 1-5. build_turnout_hump.py clean_var(1,5); efficacy = mean(V162215,V162216)/5.",
+    "V162216": "✅ CODEBOOK-VERIFIED: 2016 POST '[STD] Have no say about what govt does' (external efficacy), 1-5. clean_var(1,5).",
 
     # Weights — verified by codebook + cross-checked by 2026-06-05 audit
     "V160101": "✅ CODEBOOK-VERIFIED: ANES 2016 PRE survey weight. Use for pre-election analyses.",

@@ -13,7 +13,7 @@ then `python scripts/generate_variable_audit.py`.
 
 - [x] Feeling thermometers: V161086 V161087 V162078 V162079 V201151 V201152 V241156 V241157. Confirm each is a 0–100 candidate/group thermometer (missing 998/999/-9 etc.); verify the build usage; annotate. Accept: each ✅/⚠️ with the 0–100 range + missing codes noted; none ❓.
 
-- [ ] Efficacy + remaining POST items: V162215 V162216 V202143 V202144 V242125 V242126. Confirm scale + direction (used in turnout_hump / efficacy); annotate. Accept: each annotated with scale+direction; none ❓.
+- [x] Efficacy + remaining POST items: V162215 V162216 V202143 V202144 V242125 V242126. Confirm scale + direction (used in turnout_hump / efficacy); annotate. Accept: each annotated with scale+direction; none ❓.
 
 - [ ] Demographics / IDs / weight-fallbacks: V160001 (respondent id) V161004 (campaign interest) V161267 V201507x V241458x V240107 (bare 2024 weight fallback) V240108a. Annotate (IDs/weights get a short note; demographics get Label+Values). Accept: none ❓.
 
