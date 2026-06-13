@@ -19,6 +19,6 @@ AUTONOMOUS POSTURE (user approved this fix-class via Fig Z + Fig D before sleepi
 
 - [x] Finding 5 — Fig AA Sanders n. Determine whether the §18 caption "n = 339" or the live data n=300 is correct (check build_voter_maps_all.py: is 339 a different population — all Sanders primary voters — vs 300 plotted?). If the caption number is simply stale, sync it (figure's own n); if the data is wrong, fix the build. Accept: caption n and live voter_map_2016.json agree, with the basis noted in DECISIONS.
 
-- [ ] Finding 6 — Gate-5 provenance (Fig X, P, AA). AUDIT ONLY: write concrete recommended provenance lines (dataset+variables+filter+n+weight+method) for each into BLOCKERS.md for morning review. Do NOT insert caption prose. Accept: BLOCKERS has ready-to-paste provenance text for all three figures.
+- [x] Finding 6 — Gate-5 provenance (Fig X, P, AA). AUDIT ONLY: write concrete recommended provenance lines (dataset+variables+filter+n+weight+method) for each into BLOCKERS.md for morning review. Do NOT insert caption prose. Accept: BLOCKERS has ready-to-paste provenance text for all three figures.
 
 - [ ] Final — regenerate variable audit if any script changed; write phase-2 SUMMARY; verify build_all-affected scripts still run. Accept: generate_variable_audit.py exits 0; SUMMARY.md updated with phase-2 outcomes + remaining BLOCKERS.
