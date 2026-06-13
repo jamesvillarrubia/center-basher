@@ -46,3 +46,6 @@ Well-documented (dataset+variables/desc+filter+n+weight+method present): Fig V (
 Fork: user invoked /overnight mid-way through interactive findings review (Fig Z done+approved, Fig D weight-fix applied uncommitted). How to proceed unattended on prose-touching fixes?
 Options: 1. log everything, change nothing  2. apply data fixes only, log all prose  3. apply data fixes + sync figure-own caption numbers, log body/footnote prose + new provenance  4. apply everything incl body prose  5. wait/ask
 Chose: 3 — user explicitly approved this exact fix-class twice (Fig Z incl caption r-value sync, Fig D weight). Caption number-syncs are factual, not voice edits, and don't trip the prose-sacred lede gate. Body/footnote number changes, new provenance prose, and any conclusion change still get logged for morning review.
+
+## 2026-06-12 22:21 — Finding 4 sweep
+turnout_hump + within_tent_bolt are genuine PRE-on-post violations; trust_by_cohort + within_cycle_multi are not (PRE measures). within_tent_bolt is live (§7) with quoted defection rates → logged not edited (desync risk). turnout_hump is not rendered → logged low-priority. No scripts modified this finding (conservative: avoid desyncing §7 prose / touching unused output).

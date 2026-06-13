@@ -25,3 +25,8 @@ Cluster (all weight PRE V160101 but condition on V162034a vote; metadata even mi
 Impact if switched to V160102 (POST): the all-defector rate ~4.26% → ~4.99% (footnote "4%" → "5%"); n=178 unweighted unchanged; qualitative "swing voters are rare" point unchanged. Loyalty ~unchanged.
 Recommended (do scripts + footnotes together): switch each to V160102, regenerate, and update the §2 "4% of electorate" → "5%" (and re-check fn-3-3). Already done for build_partisan_loyalty.py (not quoted in prose, so committed safely).
 Why blocked: cascades to numbered-footnote prose.
+
+## 2026-06-12 22:21 — More PRE-on-post-election scripts (finding 4)
+- build_within_tent_bolt.py (LIVE: §7 Figure K, fig-7-loyalty.js, web/data/within_tent_bolt.json): weights PRE V160101 (metadata mislabels it "post-election") on a VOTER-restricted, vote-conditioned analysis → Gate 3 says POST V160102. Switching changes the §7 quoted numbers ("System Critics defected at 53% and System Believers at just 10%", web/index.html ~L849). NOT executed (would desync §7 body prose). Recommended: switch to V160102, regenerate, copy data/clean→web/data, update the 53%/10% in §7 to match.
+- build_turnout_hump.py (NOT live — chartTurnoutHump.js is not referenced in index.html): same PRE-on-turnout pattern (V160101 on V162031x post turnout). Low priority since nothing renders it; fix to V160102 if the turnout-hump figure is ever reactivated.
+Not violations (documented, no action): build_trust_by_cohort.py (trust cohorts, no vote/turnout condition → PRE correct); build_within_cycle_multi.py (position-movement, no vote condition; 2016 uses POST while 2020/2024 use PRE — minor inconsistency, not rendered).
