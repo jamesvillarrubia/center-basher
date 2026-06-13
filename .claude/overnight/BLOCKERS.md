@@ -48,3 +48,11 @@ Wanted: fix the §2 "moderate middle" funnel composite. build_center_breakdown.p
 Effect: the §2 funnel (40 self-ID moderate → ~12 MidMiddlers → 1 True Middler) UNDERCOUNTS centrists, making the "1 in 100 true centrist" claim artificially strong. A hostile reviewer would flag this.
 Recommended (do NOT do autonomously — changes the §2 thesis numbers + Figure C + §2 prose): either (a) use ANES's combined 7-pt summary vars for the branching items, (b) rescale each 1-3 item to the 1-7 range (or z-score all items) before averaging, or (c) drop the 5 non-7-pt items and recompute on the 5 clean scales. Then update the §2 funnel numbers (26/40/28/12/1) + Figure C + the §2 [3] footnote. EXPECT the centrist counts to rise.
 Why blocked: changes a core thesis number in §2 ("The center is a lie") — needs your eyes.
+
+## 2026-06-13 15:48 — Figure B (§1) has the SAME scale-mixing bug just fixed in §2
+Wanted: apply the §2 centrist-composite fix to its §1 sibling. build_center_overlap_matrix.py (feeds Figure B "Stack the swing-voter filters") uses the identical 10-item composite (lines 24-25: V161178/181/184/189/193/196/198/204/208/213), including the five 3-category favor/oppose items (V161193/196/204/208/213) treated as 1-7. So Figure B's "policy centrists 18.2%" and the overlap rows are understated, exactly like the old §2 numbers were.
+Recommended (same fix as §2, NOT done because it changes Figure B + §1 prose): switch issue_vars to the six 7-pt self-placement scales (V161178/181/184/189/198/201); regenerate center_overlap_matrix.json; copy to web/data; update the §1 prose numbers (currently 27.1% moderates / 18.2% policy-centrists / 3.9% swing / ~0.3% all-three). Expect the policy-centrist share to rise (like MidMiddler 12->23 did). The triple-intersection ~0.3% "almost no one clears all three" headline likely survives.
+Why blocked: changes Figure B's displayed numbers + the §1 body prose around it.
+
+## 2026-06-13 15:48 — Visual QA sweep results (item 2 of the 1-3 run)
+Programmatic: all 30 figures render, no SVG overflow, ZERO console errors/warnings. Two real clipping bugs found + FIXED: Fig O (long y-label 'Negative economic outlook (2016)' clipped -> widened margin) and Fig S (left panel drawn at x0=0, y-axis labels clipped -> gave panels a left margin). Spot-verified clean: Fig B, C, I, T, U, AA, AB, AC, AD, Z.
