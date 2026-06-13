@@ -117,6 +117,16 @@ KNOWN_ANNOTATIONS = {
     "V161208": "⚠️ SCALE-MISMATCH BUG (logged): 2016 PRE 'Federal spending: dealing with crime' — 3-category (1=increase/2=same/3=decrease), used as 1-7 in the §2 composite (its center is 2, not 4). See BLOCKERS.",
     "V161213": "⚠️ SCALE-MISMATCH BUG (logged): 2016 PRE 'Sending troops to fight ISIS' — 3-category direction item (1-3), used as 1-7 in the §2 composite. See BLOCKERS.",
 
+    # Feeling thermometers (0-100 warmth; 998/999/-9 = DK/RF, excluded by clean_var/between).
+    "V161086": "✅ CODEBOOK-VERIFIED: 2016 PRE feeling thermometer, Clinton (0-100). build_warmth_fear_spread.py uses clean_var(0,100); 998/999 excluded.",
+    "V161087": "✅ CODEBOOK-VERIFIED: 2016 PRE feeling thermometer, Trump (0-100). clean_var(0,100).",
+    "V162078": "✅ CODEBOOK-VERIFIED: 2016 POST feeling thermometer, Democratic presidential candidate (0-100).",
+    "V162079": "✅ CODEBOOK-VERIFIED: 2016 POST feeling thermometer, Republican presidential candidate (0-100).",
+    "V201151": "✅ CODEBOOK-VERIFIED: 2020 PRE feeling thermometer, Biden (0-100). build_within_cycle_multi.py restricts .between(0,100).",
+    "V201152": "✅ CODEBOOK-VERIFIED: 2020 PRE feeling thermometer, Trump (0-100). .between(0,100).",
+    "V241156": "✅ CODEBOOK-VERIFIED: 2024 PRE feeling thermometer, Harris (0-100). .between(0,100).",
+    "V241157": "✅ CODEBOOK-VERIFIED: 2024 PRE feeling thermometer, Trump (0-100). .between(0,100).",
+
     # Weights — verified by codebook + cross-checked by 2026-06-05 audit
     "V160101": "✅ CODEBOOK-VERIFIED: ANES 2016 PRE survey weight. Use for pre-election analyses.",
     "V160102": "✅ CODEBOOK-VERIFIED: ANES 2016 POST survey weight. Use for vote-choice / post-election analyses. (Currently used in voter map.)",
