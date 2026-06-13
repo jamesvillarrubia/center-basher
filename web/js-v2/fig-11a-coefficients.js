@@ -25,7 +25,7 @@ export function drawSwitchCoefficients(selector) {
   container.innerHTML = ''
 
   const W = container.clientWidth || 680
-  const margin = { top: 24, right: 80, bottom: 80, left: 200 }
+  const margin = { top: 24, right: 80, bottom: 80, left: 226 }
   const innerW = W - margin.left - margin.right
   const rowH = 28
   const rowGap = 14
