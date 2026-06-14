@@ -110,6 +110,23 @@ def main():
         "vote_clinton_pct": np.nan, "vote_trump_pct": np.nan, "vote_third_pct": np.nan,
         "n_unweighted": int((ideo == 4).sum()),
     })
+    # Unconditional "averages to the center" set: issue-mean within the SAME loose
+    # ±0.75 band the MidMiddlers use, but with NO self-ID-moderate precondition. This is
+    # the generous "look centrist on average" pool referenced from §1 ("about a third of
+    # voters") — the broad set the funnel collapses out of. The MidMiddlers are just its
+    # self-described-moderate slice; the rest are self-labeled liberals and conservatives
+    # whose opposite extremes cancel to a middling mean (the averaging illusion, §2 body).
+    # Require ≥5 of 6 issues answered: you cannot honestly say a voter "averages across
+    # the issues" off one or two answers, so the loose_centrist ≥1-item rule is too weak
+    # for the unconditional pool. Same ±0.75 band as the MidMiddlers, full electorate base.
+    avg_to_center = ((policy_mean - 4).abs() <= 0.75) & (n_items >= 5)  # any self-ID
+    rows.append({
+        "bucket": "[ref] averages to center (issue-mean within ±0.75, ≥5 of 6, any self-ID)",
+        "share_of_electorate_pct": round(weighted_share(avg_to_center, w) * 100, 2),
+        "turnout_pct_selfrep": np.nan,
+        "vote_clinton_pct": np.nan, "vote_trump_pct": np.nan, "vote_third_pct": np.nan,
+        "n_unweighted": int(avg_to_center.sum()),
+    })
 
     write_clean(
         name="center_breakdown",

@@ -5,3 +5,4 @@ bucket,share_of_electorate_pct,turnout_pct_selfrep,vote_clinton_pct,vote_trump_p
 Whatevers (haven't thought about ideology),25.84,43.5,52.9,41.0,6.1,944
 [ref] self-ID moderate (lib-con 3-5),40.36,,,,,1782
 [ref] strict pure moderate (lib-con = 4),19.95,,,,,894
+"[ref] averages to center (issue-mean within ±0.75, ≥5 of 6, any self-ID)",37.59,,,,,1675
