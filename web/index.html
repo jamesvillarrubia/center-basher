@@ -109,7 +109,7 @@
         Three blocks, three rows each. Each block starts with one group (top row), then
         narrows by adding a second group as a filter (middle), then narrows again to the
         triple intersection (bottom). All bars share the same 0–100% voter-share axis, so the
-        narrowing is visible as nested bars. The third row of every block is the same ~0.8%
+        narrowing is visible as nested bars. The third row of every block is the same ~0.1%
         of voters, the people who clear all three filters at once. ANES 2016.
       </figcaption>
     </figure>
@@ -130,11 +130,14 @@
           dimension restricts the base to voters).
           <strong>Moderate</strong> = self-place 7-pt lib-con (<code>V161126</code>) = 4
           (strict pure moderate; 27% of voters, n=758).
-          <strong>Centrist</strong> = mean within ±0.5 of center on the six genuine 7-pt
-          liberal-conservative self-placement scales (<code>V161178, V161181, V161184,
-          V161189, V161198, V161201</code>; 37% of voters, n=1067). The earlier version mixed
-          in five 3-category favor/oppose items as if they were 1-7 scales, which understated
-          this share; see the §2 correction note.
+          <strong>Centrist</strong> = holds no extreme position: every answered 7-pt
+          liberal-conservative self-placement scale within ±1 of center, i.e. in {3,4,5}
+          (<code>V161178, V161181, V161184, V161189, V161198, V161201</code>; ≥5 of 6
+          answered; 7% of voters, n=201). This is the honest "actually moderate on the
+          issues" count, not the generous "averages to the center" set (about a third of
+          voters), which is dissected in <a href="#sec-2" class="secref">§2</a>: most of them
+          hold extreme positions in canceling directions, so their centrism is an averaging
+          artifact.
           <strong>Swing</strong> = party-line crosser within 2016: Dem-leaner who voted Trump
           OR Rep-leaner who voted Clinton, using <code>V161158x</code> (PID, 7-pt) ×
           <code>V162034a</code> (vote; 4% of voters, n=126).

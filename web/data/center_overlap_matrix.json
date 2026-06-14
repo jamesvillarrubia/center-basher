@@ -14,29 +14,29 @@
   ],
   "definitions": {
     "M (Moderate)": "self-place 7-pt lib-con = 4 (strict pure moderate)",
-    "C (Centrist)": "6-scale self-placement policy mean within \u00b10.5 of 4 (center)",
+    "C (Centrist)": "no extreme position: every answered 7-pt self-placement scale within \u00b11 of center (3-5), >=5 of 6",
     "S (Swing)": "PID-line crosser: Dem-leaner\u2192Trump or Rep-leaner\u2192Clinton"
   },
   "method": "Weighted shares; cell (row, col) = % of row-group who are also col-group.",
   "pop_share_pct": {
     "M": 26.6,
-    "C": 36.7,
+    "C": 7.1,
     "S": 4.4
   },
   "matrix_pct": {
     "M": {
       "M": 100.0,
-      "C": 52.1,
+      "C": 11.7,
       "S": 6.0
     },
     "C": {
-      "M": 37.7,
+      "M": 43.7,
       "C": 100.0,
-      "S": 6.2
+      "S": 5.1
     },
     "S": {
       "M": 36.1,
-      "C": 51.4,
+      "C": 8.3,
       "S": 100.0
     }
   },
@@ -47,9 +47,9 @@
       "S": 758
     },
     "C": {
-      "M": 1067,
-      "C": 1067,
-      "S": 1067
+      "M": 201,
+      "C": 201,
+      "S": 201
     },
     "S": {
       "M": 126,
@@ -63,35 +63,35 @@
         "C",
         "S"
       ],
-      "only_row": 45.0,
-      "also_C_only": 49.0,
-      "also_S_only": 2.9,
-      "all_three": 3.1
+      "only_row": 82.8,
+      "also_C_only": 11.2,
+      "also_S_only": 5.4,
+      "all_three": 0.5
     },
     "C": {
       "others": [
         "M",
         "S"
       ],
-      "only_row": 58.4,
-      "also_M_only": 35.4,
-      "also_S_only": 3.9,
-      "all_three": 2.3
+      "only_row": 53.2,
+      "also_M_only": 41.7,
+      "also_S_only": 3.1,
+      "all_three": 2.0
     },
     "S": {
       "others": [
         "M",
         "C"
       ],
-      "only_row": 31.3,
-      "also_M_only": 17.3,
-      "also_C_only": 32.5,
-      "all_three": 18.8
+      "only_row": 58.9,
+      "also_M_only": 32.8,
+      "also_C_only": 5.0,
+      "all_three": 3.3
     }
   },
   "n_row": {
     "M": 758,
-    "C": 1067,
+    "C": 201,
     "S": 126
   },
   "supports": [

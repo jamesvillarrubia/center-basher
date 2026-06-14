@@ -3,7 +3,7 @@ build_center_overlap_matrix.py — §1 three-group overlap matrix.
 
 The three groups everyone calls "the middle":
 - M (Moderate): self-place 7-pt lib-con (V161126) in {3,4,5}
-- C (Centrist): policy issue-mean within ±0.5 of center (4) on 10-item composite
+- C (Centrist): no extreme position — every 7-pt self-placement scale within ±1 of center (3-5)
 - S (Swing): party-line crosser within 2016 — partisan (incl. leaners) who
   voted for the other party's nominee. From V161158x (PID) × V162034a (vote).
 
@@ -46,11 +46,18 @@ def main():
     selfplace = selfplace.where((selfplace >= 1) & (selfplace <= 7))
     is_moderate = (selfplace == 4)
 
-    # C: policy-centrist (issue-mean within ±0.5 of 4)
+    # C: policy-centrist = holds NO extreme position on the issues. Every answered
+    # 7-pt self-placement scale within ±1 of dead center (i.e. in {3,4,5}), >=5 of 6
+    # answered. This is the honest "actually moderate on the issues" group, NOT the
+    # generous "averages to center" set (which includes voters who are hard-left on
+    # some issues and hard-right on others, canceling to a middling mean — that
+    # averaging illusion is dissected in §2).
     issues = d[ISSUE_VARS].apply(pd.to_numeric, errors="coerce")
     issues = issues.where((issues >= 1) & (issues <= 7))
     policy_mean = issues.mean(axis=1)
-    is_centrist = (policy_mean - 4).abs() <= 0.5
+    n_issue = issues.notna().sum(axis=1)
+    n_within = ((issues - 4).abs() <= 1).sum(axis=1)
+    is_centrist = (n_within == n_issue) & (n_issue >= 5)
 
     # S: swing voter (PID-line crosser within 2016)
     pid = pd.to_numeric(d["V161158x"], errors="coerce")  # 1=SD .. 7=SR
@@ -139,7 +146,7 @@ def main():
         ] + [f"{v} (7-pt issue)" for v in ISSUE_VARS],
         "definitions": {
             "M (Moderate)": "self-place 7-pt lib-con = 4 (strict pure moderate)",
-            "C (Centrist)": "6-scale self-placement policy mean within ±0.5 of 4 (center)",
+            "C (Centrist)": "no extreme position: every answered 7-pt self-placement scale within ±1 of center (3-5), >=5 of 6",
             "S (Swing)": "PID-line crosser: Dem-leaner→Trump or Rep-leaner→Clinton",
         },
         "method": "Weighted shares; cell (row, col) = % of row-group who are also col-group.",
