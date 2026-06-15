@@ -64,3 +64,16 @@ Em-dashes: 0. Figure labels: all 30 defined, no refs to undefined labels. Remain
   - "Now to the other half of the two-jobs split. §6"
   - "the mechanism named in §8 and §9"
 Each is a voice choice (left for you). The clearly-parenthetical ones (e.g. "coherent middle bloc (§3)", "candidate-fit model from §16") read fine as-is.
+
+## 2026-06-15 12:25 — Integrity harness: 3 unreferenced JS modules (dead code / staged WIP)
+Wanted: resolve three module files that are imported/referenced NOWHERE (not in main.js, not by another module, not in index.html), surfaced by check_integrity.py check 4:
+  - web/js-v2/fig-17c-campaign-ceiling.js  (likely a draft for the pending "C1 ceiling figure", task #4)
+  - web/js-v2/fig-19a-disaffected.js       (likely superseded by fig-18* after a renumber)
+  - web/js-v2/fig-19b-moveable-ground.js   (likely superseded by fig-18*)
+Recommended: confirm each is dead, then either delete it or wire it in. fig-17c is probably WIP to KEEP (it maps to an open task). The two fig-19* look like post-renumber leftovers safe to delete.
+Why blocked: deleting user content / source files is an ask-first action (CLAUDE.md §9). Not executed.
+
+## 2026-06-15 12:25 — Integrity harness: Fig S (care gap) has no reproducible pipeline
+Wanted: make the §13 care-gap figure (Figure S, web/js-v2/fig-13a-care-gap.js) reproducible. Its numbers (70.5 / 35.9 / 52.2 / 25.6, gaps 34.6 / 26.6) are HARDCODED JS constants, and its footnote n's (n=3,117 and n=214/301) trace to NO committed data/clean file — so check 2 (reproducibility) cannot verify them. build_turnout_hump.py contains related values but is not rendered.
+Recommended: add a build_care_gap.py that computes the four shares + n's onto data/clean/care_gap.json, point fig-13a at it (data-driven, like the other live figures), and confirm the rebuilt numbers match the current hardcoded ones (EXPECT them to match; if they don't, that is a real stale-number finding to surface). This would also let check 3 trace the n's.
+Why blocked: adding a build script that recomputes a figure's displayed numbers could change a published number; needs your eyes before the figure is rewired. Not executed.
