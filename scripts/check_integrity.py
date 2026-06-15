@@ -141,12 +141,168 @@ def check_reproducibility(timeout: int = 900) -> list[Finding]:
     return findings
 
 
+INDEX_HTML = ROOT / "web" / "index.html"
+JS_DIR = ROOT / "web" / "js-v2"
+
+
+# ── Check 3: number-tracing (heuristic) ─────────────────────────────────────
+def _data_value_forms() -> set[str]:
+    """Every ACTUAL numeric value across data/clean (JSON values + CSV numeric cells),
+    normalized to a few string forms so a quoted '38%' or 'n=1675' can be matched against
+    stored proportions (0.376), percentages (37.59), or counts. Numbers embedded in
+    strings (variable codes, years in labels) are deliberately NOT collected — that would
+    make tracing meaninglessly permissive."""
+    import csv
+    forms: set[str] = set()
+
+    def add(x) -> None:
+        try:
+            f = float(x)
+        except (TypeError, ValueError):
+            return
+        for s in (f"{f:g}", f"{f:.0f}", f"{f:.1f}", f"{f:.2f}"):
+            forms.add(s)
+        if 0 < abs(f) < 1:                       # proportion stored, percent quoted
+            for s in (f"{f*100:.0f}", f"{f*100:.1f}", f"{f*100:.2f}"):
+                forms.add(s)
+
+    def walk(o) -> None:
+        if isinstance(o, dict):
+            for v in o.values():
+                walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v)
+        elif isinstance(o, bool):
+            return
+        elif isinstance(o, (int, float)):
+            add(o)
+
+    import json as _json
+    for p in DATA_CLEAN.glob("*.json"):
+        try:
+            walk(_json.loads(p.read_text()))
+        except Exception:
+            pass
+    for p in DATA_CLEAN.glob("*.csv"):
+        try:
+            with p.open() as fh:
+                for row in csv.reader(fh):
+                    for cell in row:
+                        add(cell.strip())
+        except Exception:
+            pass
+    return forms
+
+
+def check_number_tracing() -> list[Finding]:
+    """Heuristic: every sample size (n=NNN) and percentage quoted in the How-we-know
+    footnotes should correspond to a real numeric value somewhere in data/clean. Untraced
+    tokens are REVIEW CANDIDATES (a number may be legitimately derived/recomputed/rounded),
+    not auto-fixed. n= mismatches are the highest-signal (the Sanders n=339-vs-300 class)."""
+    import re
+    findings: list[Finding] = []
+    html = INDEX_HTML.read_text()
+    forms = _data_value_forms()
+
+    # restrict to the footnote blocks (provenance), where hard numbers live
+    foot = "\n".join(re.findall(r'<ol class="footnotes".*?</ol>', html, re.S))
+
+    def traced(tok: str) -> bool:
+        t = tok.replace(",", "")
+        if t in forms:
+            return True
+        try:
+            f = float(t)
+        except ValueError:
+            return False
+        return any(f"{f:.{d}f}" in forms for d in (0, 1, 2))
+
+    ns = sorted(set(re.findall(r"\bn\s*=\s*([\d,]+)", foot)), key=lambda s: int(s.replace(",", "")))
+    untraced_n = [n for n in ns if not traced(n)]
+    # Advisory, not a hard guard: an untraced n is usually an EXTERNAL citation (poll/paper)
+    # or a build intermediate not persisted to the JSON — only sometimes a real stale/typo n.
+    # Checks 1/2/4 own the pass/fail verdict; this is a review list.
+    findings.append(Finding(
+        "number-trace", "footnote n= sample sizes", "info",
+        f"{len(ns)-len(untraced_n)}/{len(ns)} trace to a data value; "
+        f"untraced (REVIEW — may be external cites or unpersisted intermediates): "
+        f"{', '.join('n='+n for n in untraced_n) or 'none'}"))
+
+    pcts = sorted(set(re.findall(r"(\d+\.?\d*)\s*%", foot)), key=float)
+    untraced_p = [p for p in pcts if not traced(p)]
+    findings.append(Finding(
+        "number-trace", "footnote percentages",
+        "info",   # percentages are frequently derived/common-base — informational only
+        f"{len(pcts)-len(untraced_p)}/{len(pcts)} trace; untraced (heuristic, often "
+        f"recomputed): {', '.join(p+'%' for p in untraced_p) or 'none'}"))
+    return findings
+
+
+# ── Check 4: figure render set ──────────────────────────────────────────────
+def check_figure_render_set() -> list[Finding]:
+    """Every Figure <Letter> referenced in prose has a definition; figure letters are a
+    clean sequence with no duplicates; every JS module is referenced (no dead files)."""
+    import re
+    from itertools import count
+    findings: list[Finding] = []
+    html = INDEX_HTML.read_text()
+
+    defined = re.findall(r"Figure ([A-Z]{1,2}):", html)
+    dups = sorted({d for d in defined if defined.count(d) > 1})
+    defined_set = set(defined)
+
+    # expected sequence A..Z, AA, AB, ... for however many figures are defined
+    def seq(n):
+        out, i = [], 0
+        letters = [chr(c) for c in range(65, 91)]
+        for _ in range(n):
+            out.append(letters[i] if i < 26 else letters[(i//26)-1] + letters[i % 26])
+            i += 1
+        return out
+    expected = set(seq(len(defined)))
+    missing = sorted(expected - defined_set)
+
+    findings.append(Finding(
+        "render-set", "figure-letter sequence",
+        "drift" if (dups or missing) else "ok",
+        f"{len(defined)} defined; "
+        + (f"DUPLICATES: {dups}; " if dups else "")
+        + (f"gaps vs A..: {missing}" if missing else "contiguous A.. sequence, no dups")))
+
+    mentions = set(re.findall(r"\bFigure ([A-Z]{1,2})\b", html))
+    orphan_refs = sorted(mentions - defined_set)
+    findings.append(Finding(
+        "render-set", "inline 'Figure X' references",
+        "drift" if orphan_refs else "ok",
+        f"all {len(mentions)} referenced letters resolve to a definition"
+        if not orphan_refs else f"ORPHAN refs (no such figure): {orphan_refs}"))
+
+    # dead JS modules: a *.js (not main.js) referenced nowhere in js-v2 or index.html
+    js_text = "\n".join(p.read_text() for p in JS_DIR.glob("*.js"))
+    dead = []
+    for m in sorted(JS_DIR.glob("*.js")):
+        if m.name == "main.js":
+            continue
+        others = js_text.replace(m.read_text(), "")  # exclude its own contents
+        if m.name not in others and m.stem not in html:
+            dead.append(m.name)
+    findings.append(Finding(
+        "render-set", "JS module references",
+        "info" if dead else "ok",   # dead modules may be intentional WIP — info, not drift
+        f"{len(dead)} unreferenced module(s) (possible dead code / staged WIP): "
+        f"{', '.join(dead)}" if dead else "every module is imported/referenced"))
+    return findings
+
+
 # ── Reporting ───────────────────────────────────────────────────────────────
 # Mutating checks (re-run builds) are opt-in via --repro so the default invocation
 # stays read-only and safe to run anytime.
 CHECKS = {
     1: ("web/data mirror", check_web_data_mirror),
     2: ("build reproducibility", check_reproducibility),
+    3: ("number-tracing (heuristic)", check_number_tracing),
+    4: ("figure render set", check_figure_render_set),
 }
 MUTATING = {2}
 

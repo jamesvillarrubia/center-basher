@@ -61,3 +61,13 @@ Options:
 3. Figure build-out (Fig 12 toggle, signals chart) — design-heavy, needs user calls
 4. Short safe cleanup (turnout_hump, within_cycle_multi, bare-§N diffs)
 Chose: 1 — user ran /overnight right after I recommended it and declined to pick otherwise; it is also the lowest-regret (cannot touch prose/figures/conclusions). Announced in chat with an explicit offer to switch.
+
+## 2026-06-15 12:20 — Check 3 (number-tracing) scope: document-level + advisory
+Fork: strict per-figure number-tracing requires mapping each caption to the one data file its figure loads — fragile given main.js centralizes fetches and most figures hardcode JS constants.
+Options:
+1. Per-figure trace via a hand-maintained figure→datafile map (brittle, must update on rewire)
+2. Document-level trace: match footnote n=/% tokens against ALL real data/clean numeric values (robust, more permissive)
+3. Footnote provenance-completeness grep instead of value-tracing
+4. Skip check 3
+5. Per-figure where main.js fetch makes it cheap, document-level fallback elsewhere
+Chose: 2, and made check 3 ADVISORY (info, never fails the build) — checks 1/2/4 own pass/fail. Untraced n's are a review list, not a verdict, because many footnote n's are external citations (polls/papers) or build intermediates not persisted to JSON. Strict per-figure tracing was rejected as brittle for an 80%-value guard.
