@@ -1,20 +1,6 @@
-# Queue (phase 3) for: Finish the audit — codebook-verify the remaining ❓ variables
+# Queue for: Data↔prose↔web integrity drift-guard
 
-Phases 1 (8-item audit) + 2 (apply findings) complete — see SUMMARY + git history.
-Phase 3 is PURELY gate-safe: cross-check each remaining ❓ variable against its
-codebook_entries.txt slice and add a codebook-cited annotation to KNOWN_ANNOTATIONS.
-Touches ONLY scripts/generate_variable_audit.py + reqts/variable-audit.md. No prose,
-no figures, no data/build scripts. The prose-cascading weight fixes stay in BLOCKERS
-for the user. Workflow per variable: read its slice in data/derived/codebook_entries.txt,
-confirm Label + Value Labels + Universe, annotate ✅/⚠️ (or 🔥 if a real bug surfaces),
-then `python scripts/generate_variable_audit.py`.
-
-- [x] §2 issue-position scale: V161178 V161181 V161184 V161189 V161193 V161196 V161198 V161204 V161208 V161213 (the 10 7-pt issue items behind the "centrist within ±0.5" definition in build_center_breakdown.py). Verify each is a 1–7 issue scale with -9/-8 missing; annotate. Accept: all 10 ✅ in variable-audit.md; none ❓; generate exits 0.
-
-- [x] Feeling thermometers: V161086 V161087 V162078 V162079 V201151 V201152 V241156 V241157. Confirm each is a 0–100 candidate/group thermometer (missing 998/999/-9 etc.); verify the build usage; annotate. Accept: each ✅/⚠️ with the 0–100 range + missing codes noted; none ❓.
-
-- [x] Efficacy + remaining POST items: V162215 V162216 V202143 V202144 V242125 V242126. Confirm scale + direction (used in turnout_hump / efficacy); annotate. Accept: each annotated with scale+direction; none ❓.
-
-- [x] Demographics / IDs / weight-fallbacks: V160001 (respondent id) V161004 (campaign interest) V161267 V201507x V241458x V240107 (bare 2024 weight fallback) V240108a. Annotate (IDs/weights get a short note; demographics get Label+Values). Accept: none ❓.
-
-- [x] Final — regenerate; confirm the ❓ count is 0 (or list any genuinely un-verifiable, e.g. comment-only/phantom, with a ⚠️ reason); append phase-3 result to SUMMARY. Accept: generate_variable_audit.py exits 0; `grep -c '❓' reqts/variable-audit.md` reported; SUMMARY updated.
+- [ ] Build harness skeleton + check 1 (web/data mirror). Create `scripts/check_integrity.py` that diffs every `web/data/*` against its `data/clean/` source. Accept: script runs and exits 0; prints a per-file IN-SYNC/DRIFT/web-only table; `voters.json` listed as web-only, all shared files IN-SYNC on current repo
+- [ ] Add check 2 (reproducibility) with safe run→git-diff→restore per build script. Accept: harness reruns every `scripts/build_*.py`, reports STALE vs REPRODUCIBLE per output file, restores `data/clean` to committed state after (git status of data/clean unchanged when harness finishes); build failures captured as a row, not a crash
+- [ ] Add check 3 (number-tracing) + check 4 (figure render set). Accept: report lists, per figure, the n's/percentages quoted in its index.html caption+footnote and whether each traces to its data file (or matching hardcoded JS constant); plus a no-orphan-refs / no-dead-modules table for every `Figure <Letter>`
+- [ ] Run full harness, write `.claude/overnight/integrity-report.md`, triage findings. Accept: report exists covering all 4 checks for every figure; each real discrepancy is either mechanically fixed+committed (drift only, no prose) or logged to BLOCKERS.md with a recommended fix; harness exit code matches (0 clean / non-0 drift)

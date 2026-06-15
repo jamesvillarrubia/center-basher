@@ -52,3 +52,12 @@ turnout_hump + within_tent_bolt are genuine PRE-on-post violations; trust_by_coh
 
 ## 2026-06-12 22:23 — Finding 5: Sanders n 339→300 (caption synced)
 The §18 Fig AA caption quoted n=339 — the STALE hardcoded default in CANDIDATES_BY_YEAR[2016] (build_voter_maps_all.py:290), which computation overrides. The live figure plots the computed Sanders centroid n=300 (matches the documented post-V161021a-fix value; bug doc says 300). Synced caption 339→300 (figure's own n). Minor cleanup (NOT done, low priority): the hardcoded 2016 defaults (Clinton 1064, Sanders 339, Trump 1002) are all overridden by computed (399/300/335) and could be updated to match for clarity, but they don't affect output.
+
+## 2026-06-15 12:05 — New run objective (prior audit objective complete)
+Fork: user ran /overnight with no flavor; existing OBJECTIVE.md (data-rigor audit) is COMPLETE (queue 5/5, 0 ❓), so proceeding on it is a no-op. User had just been shown a 4-option menu for the next objective and ran /overnight without picking.
+Options:
+1. Drift-guard integrity harness (my explicit recommendation; safest — pure verification, never edits prose)
+2. New analyses (Fig 11 counterfactual / C1 ceiling / cross-year trust) — produces findings that feed prose
+3. Figure build-out (Fig 12 toggle, signals chart) — design-heavy, needs user calls
+4. Short safe cleanup (turnout_hump, within_cycle_multi, bare-§N diffs)
+Chose: 1 — user ran /overnight right after I recommended it and declined to pick otherwise; it is also the lowest-regret (cannot touch prose/figures/conclusions). Announced in chat with an explicit offer to switch.
