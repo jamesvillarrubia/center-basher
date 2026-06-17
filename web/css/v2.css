@@ -1514,9 +1514,9 @@ figcaption {
 }
 .mech-foot {
   grid-column: 1 / -1;
-  /* color matches figcaption (--ink-soft) so the two adjacent italic
-     explanatory paragraphs read as one voice, not two grays. */
-  font: italic 0.85rem/1.55 "Iowan Old Style", Georgia, serif;
+  /* size + color match figcaption (0.8rem, --ink-soft) so the two adjacent
+     italic explanatory paragraphs read as one voice, not two sizes. */
+  font: italic 0.8rem/1.5 "Iowan Old Style", Georgia, serif;
   color: var(--ink-soft);
   margin: 0.6rem 0 0;
 }
