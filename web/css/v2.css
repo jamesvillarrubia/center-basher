@@ -1456,6 +1456,16 @@ figcaption {
   font: italic 11px/1 "Iowan Old Style", Georgia, serif;
   fill: var(--ink-faint);
 }
+.rr-time-chart .rr-trend {
+  stroke: var(--ink-soft);
+  stroke-width: 2;
+  stroke-dasharray: 7 5;
+  opacity: 0.7;
+}
+.rr-time-chart .rr-trend-label {
+  font: italic 11px/1 "Iowan Old Style", Georgia, serif;
+  fill: var(--ink-soft);
+}
 
 /* §11c — mechanism diagram */
 .mech-chart {

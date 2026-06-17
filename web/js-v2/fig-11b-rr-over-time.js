@@ -51,6 +51,26 @@ export function drawRRTimeline(selector) {
     .attr('transform', `translate(0,${innerH})`)
     .call(d3.axisBottom(x).tickFormat(d3.format('d')).tickValues([1988, 1992, 1996, 2000, 2004, 2008, 2012, 2016, 2020, 2024]).tickSizeOuter(0))
 
+  // Linear best-fit (OLS) trend line over the cycle coefficients — the overall
+  // upward drift the eye should catch behind the cycle-to-cycle zigzag.
+  const n = CYCLES.length
+  const sumX = d3.sum(CYCLES, d => d.year)
+  const sumY = d3.sum(CYCLES, d => d.coef)
+  const sumXY = d3.sum(CYCLES, d => d.year * d.coef)
+  const sumXX = d3.sum(CYCLES, d => d.year * d.year)
+  const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX)
+  const intercept = (sumY - slope * sumX) / n
+  const fit = yr => slope * yr + intercept
+  const xA = CYCLES[0].year
+  const xB = CYCLES[CYCLES.length - 1].year
+  g.append('line').attr('class', 'rr-trend')
+    .attr('x1', x(xA)).attr('y1', y(fit(xA)))
+    .attr('x2', x(xB)).attr('y2', y(fit(xB)))
+  g.append('text').attr('class', 'rr-trend-label')
+    .attr('x', x(xB)).attr('y', y(fit(xB)) - 8)
+    .attr('text-anchor', 'end')
+    .text('linear trend')
+
   // Line + dots
   const line = d3.line().x(d => x(d.year)).y(d => y(d.coef))
   g.append('path').attr('class', 'rr-line')
