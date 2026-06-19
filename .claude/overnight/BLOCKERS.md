@@ -77,3 +77,9 @@ Why blocked: deleting user content / source files is an ask-first action (CLAUDE
 Wanted: make the §13 care-gap figure (Figure S, web/js-v2/fig-13a-care-gap.js) reproducible. Its numbers (70.5 / 35.9 / 52.2 / 25.6, gaps 34.6 / 26.6) are HARDCODED JS constants, and its footnote n's (n=3,117 and n=214/301) trace to NO committed data/clean file — so check 2 (reproducibility) cannot verify them. build_turnout_hump.py contains related values but is not rendered.
 Recommended: add a build_care_gap.py that computes the four shares + n's onto data/clean/care_gap.json, point fig-13a at it (data-driven, like the other live figures), and confirm the rebuilt numbers match the current hardcoded ones (EXPECT them to match; if they don't, that is a real stale-number finding to surface). This would also let check 3 trace the n's.
 Why blocked: adding a build script that recomputes a figure's displayed numbers could change a published number; needs your eyes before the figure is rewired. Not executed.
+
+## 2026-06-19 — §20 FACTUAL ERROR: "Clinton lost all three of those states" (she won Illinois)
+Wanted: fix the §20 sentence after the Schumer quote. The quote names FOUR states (PA, OH, IL, WI). Clinton lost PA/OH/WI but WON Illinois (+17pts). "Clinton then lost all three of those states" is wrong AND contradicts its own footnote [54] ("Pennsylvania, Ohio, and Wisconsin").
+Recommended: body → "Clinton then lost Pennsylvania, Ohio, and Wisconsin, carrying only Illinois." (accurate; matches the footnote).
+Why blocked: prose/claim edit to index.html — user edits it live in Cursor; logging instead of auto-editing (concurrent-edit clobber risk).
+Sources: FEC 2016 official results; Ballotpedia; Wikipedia 2016 IL/PA/OH/WI.

@@ -1,6 +1,6 @@
 # Queue for: Adversarial claim fact-check + granular-citation audit (§20–23 priority)
 
-- [ ] §20 Schumer quote. Verify exact wording, July-2016 date, venue, and that Clinton lost PA/OH/WI. Accept: verdict (SOLID/SHAKY/WRONG) + ≥2 sources logged in claim-review.md; the fuzzy-venue caveat resolved or flagged
+- [x] §20 Schumer quote. Verify exact wording, July-2016 date, venue, and that Clinton lost PA/OH/WI. Accept: verdict (SOLID/SHAKY/WRONG) + ≥2 sources logged in claim-review.md; the fuzzy-venue caveat resolved or flagged
 - [ ] §21 2008 superdelegates. Verify the ~169–63 lead, the "year before a vote" timing, and Obama's override. Accept: verdict + ≥2 sources logged; any imprecision flagged with a fix
 - [ ] §21 2016 emails + Wilding v. DNC. Verify the WikiLeaks release, DWS resignation, the "neutrality unenforceable / back room / cigars" courtroom argument, and the private-corporation dismissal. Accept: verdict + court-record/≥2 sources logged; quote characterization checked verbatim
 - [ ] §21 2024 calendar + South Carolina. Verify the Feb-2023 DNC reorder at Biden's request, SC-first, the diversity rationale, SC not-most-diverse (Census DI) and not-competitive, last-Dem-1976. Accept: verdict + ≥2 sources logged; the "our analysis" diversity claim sourced or flagged
