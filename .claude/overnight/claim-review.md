@@ -175,3 +175,26 @@ By April 2024, just 22% said the same"; "since 2008… fewer than 30%"; Sept 202
 "Three in four" ≈ 77% ✓; "one in five" ≈ 22% ✓. Citation present and accurate.
 - Sources: Pew Research Center, "Public Trust in Government: 1958–2024" (June 2024); same series 2025.
 - Citation check: ✓ granular (three Pew/ANES footnotes). No fix.
+
+## §6 — late-campaign persuasion null (Kalla & Broockman)
+
+**"tested … across 49 field experiments … move vote choice by roughly zero."** fn-6-1.
+Cite: Kalla & Broockman (2018), "The Minimal Persuasive Effects of Campaign Contact in General
+Elections: Evidence from 49 Field Experiments," *APSR* 112(1): 148–166.
+→ **SOLID.** Every coordinate verified: *APSR* **112(1): 148–166** ✓; **49 = 40 meta-analyzed +
+9 original** ✓ (body line ~824 correctly decomposes it that way); **best estimate of the effect
+on candidate choice in general elections = zero** ✓ (the paper's headline). The essay's framing
+("two famous nominees → runs on who they already are") matches K&B's own interpretation (voters
+bring choice into line with predispositions near election day).
+- fn-6-2 nuance ("persuasion bites for unknown candidates / early low-info / outside general
+  elections"): **SOLID-with-minor-caveat.** K&B's stated exceptions are (1) unusually unpopular
+  positions + heavy persuadable-voter targeting, (2) contact long before election day (which then
+  decays). The essay's (a)/(b)/(c) is a defensible generalization of that plus their companion
+  work on primaries/ballot measures. The specific "**95% CI excludes effects larger than ~0.6pp**"
+  was not independently pinned in this search, but is consistent with the paper's tightly-estimated
+  zero; flagged as the one number to double-check against the PDF if challenged.
+- fn-6-3 Gelman & King (1993), "Why Are American Presidential Election Campaign Polls So Variable…"
+  *BJPS* 23(4): 409–451 → **SOLID** (canonical citation; title/venue/year match). Used correctly
+  for the "discovery, not persuasion / enlightened preferences" framing.
+- Sources: SSRN 3042867; Cambridge Core APSR 112(1); EconPapers RePEc cup:apsrev:v:112:y:2018.
+- Citation check: ✓ granular. No fix; one soft flag (the 0.6pp CI bound).
