@@ -290,3 +290,28 @@ incumbent**, negative under a Democratic one):
     exit cross-tabs / Gallup if challenged.
 - Sources: AEI/ABC 2016 exit-poll rundown; CBS 2008 exit analysis; ANES CDF pipeline (self-sourced).
 - Citation check: ✓ granular + self-sourced provenance present. No factual fix.
+
+## §22 — outsider lane (KFF / McCombs-Shaw / Bannon / Gallup)
+
+**Exemplary sourcing — every checkable number verified exact.**
+- **KFF M4A: 2020 ~56%, 61% among independents** (fn-22-2). → **SOLID — exact.** KFF Health
+  Tracking Poll, **Jan 16–22 2020** (n=1,212): "majorities favor a national Medicare-for-all plan
+  (**56%**)… majorities of independents (**61%** Medicare-for-all)." The essay's framing-sensitivity
+  **caveat** ("support splits evenly once trade-offs are introduced") is exactly KFF's documented
+  finding. Overton-shift list (Sanders/Warren/Harris/Buttigieg/Biden positions) is accurate.
+- **Gallup honesty: Trump 2020 = 36% honest / 49% decisive leader** (fn-22-4). → **SOLID — exact.**
+  Gallup, "Americans' Views of Trump's Character Firmly Established" (June 2020): **49%** strong/
+  decisive, 42% manage, 42% cares, **36%** honest. Obama comparable **60%** (essay "~61%" ✓);
+  Bill Clinton June 1996 honesty **+10 over Trump = ~46%** (essay "~46%" ✓ exact). Both cited Gallup
+  titles are real articles.
+  - 🟡 Soft note: the 2016-campaign figures ("Trump 33–36%, Clinton 32%") weren't pinned to a single
+    2016 Gallup release in this search, but are consistent with the well-documented record-low 2016
+    honesty ratings for both. Low risk.
+- **McCombs & Shaw (1972), "The Agenda-Setting Function of Mass Media," POQ 36(2): 176–187**
+  (fn-22-5). → **SOLID** (the canonical agenda-setting paper; coordinates correct). Applied correctly
+  (salience, not opinion-change; the "engaging a wedge issue amplifies it" corollary is legitimate).
+- **Bannon "flood the zone with shit" (Michael Lewis interview, 2018)** (fn-22-3). → **SOLID-as-
+  hedged.** The footnote itself flags "repeated across journalism without a single canonical primary
+  citation" — the honest move. Attribution to the 2018 Lewis interview is the standard provenance.
+- Sources: KFF Jan-2020 tracking poll; Gallup (June 2020; 2019); POQ 36(2); Media Matters/CNN/Wiki.
+- Citation check: ✓ granular and unusually careful. No fix.
