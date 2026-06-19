@@ -103,3 +103,14 @@ as framed (NBC News reporting; inference, not proof — the essay says exactly t
 **"left no paper trail … the lesson the party took from 2016."** → interpretive insinuation,
 hedged ("may be"); acceptable as the stated argument, not a factual claim.
 No hard error; the paragraph is accurate and honestly hedged.
+
+---
+
+## §21 — Innovator's Dilemma framing
+
+**Christensen's mechanism + the party application.** → **SOLID.** Body attributes Christensen's
+actual thesis accurately (well-managed incumbents cede the disruptive lane *because* of
+disciplined focus on existing customers/margins); fn [55] explicitly marks it "an interpretive
+lens on party institutions, not a statistical claim," pre-empting the loose-analogy objection.
+The "when winning / when losing" logic is correctly framed as the author's political
+extension, not Christensen's words. No fix needed.
