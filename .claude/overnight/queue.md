@@ -1,10 +1,15 @@
-# Queue for: Adversarial claim fact-check + granular-citation audit (§20–23 priority)
+# Queue for: Adversarial claim fact-check — ENTIRE essay (§0–§25)
 
-- [x] §20 Schumer quote. Verify exact wording, July-2016 date, venue, and that Clinton lost PA/OH/WI. Accept: verdict (SOLID/SHAKY/WRONG) + ≥2 sources logged in claim-review.md; the fuzzy-venue caveat resolved or flagged
-- [x] §21 2008 superdelegates. Verify the ~169–63 lead, the "year before a vote" timing, and Obama's override. Accept: verdict + ≥2 sources logged; any imprecision flagged with a fix
-- [x] §21 2016 emails + Wilding v. DNC. Verify the WikiLeaks release, DWS resignation, the "neutrality unenforceable / back room / cigars" courtroom argument, and the private-corporation dismissal. Accept: verdict + court-record/≥2 sources logged; quote characterization checked verbatim
-- [x] §21 2024 calendar + South Carolina. Verify the Feb-2023 DNC reorder at Biden's request, SC-first, the diversity rationale, SC not-most-diverse (Census DI) and not-competitive, last-Dem-1976. Accept: verdict + ≥2 sources logged; the "our analysis" diversity claim sourced or flagged
-- [x] §21 2020 consolidation. Verify Biden 4th/5th/2nd then 1st SC, Buttigieg leading the moderate lane, the dropout+endorsement timing, Warren staying in, and the Obama "hidden hand" reported-but-denied framing. Accept: verdict + ≥2 sources logged; any overreach (e.g. Warren-poll claim) flagged
-- [x] §21 Innovators Dilemma framing. Verify Christensen's actual mechanism vs how the essay characterizes it. Accept: verdict + source logged; interpretive-vs-stat boundary confirmed
-- [x] Granular-citation audit §20-23. List every factual claim in §20–23 and whether it carries its own footnote. Accept: a table in claim-review.md of claim → has-own-footnote (yes/no) → footnote#; gaps named
-- [x] Final report. Write claim-review.md summary + push every SHAKY/WRONG to BLOCKERS.md with a recommended fix. Accept: claim-review.md covers all priority claims; BLOCKERS has an entry per actionable finding; emit QUEUE-COMPLETE
+§20–21 already reviewed (claim-review.md). Remaining clusters:
+
+- [x] §20 Schumer quote — DONE (factual error: Clinton won Illinois)
+- [x] §21 2008/2016/2024/2020/Christensen — DONE (timing error; rest solid)
+- [ ] §0 trust collapse. Pew "3 in 4" (1964 ~77%), "1 in 5" (today ~22%), generational convergence, ANES CDF splice. Accept: verdict + ≥2 sources logged
+- [ ] §6 late-persuasion null. The "49 field experiments / persuasion ≈ zero" (Kalla & Broockman) + the "two famous nominees" framing. Accept: verify the study count/finding; verdict + source
+- [ ] §11 academic citations. Mutz 2018 PNAS (status threat), Sides/Tesler/Vavreck Identity Crisis, Tesler, Tetlock integrative complexity, Sherif Robbers Cave / LeVine-Campbell, Kinder-Sanders RR scale, Sowell. Accept: each cite verified (author/year/venue/claim); verdict
+- [ ] §12–13 turnout. Gerber-Green GOTV meta (contact up to ~8pts, content ~0); care-gap stats; "stakes" predictor. Accept: verify the meta-analysis claim + numbers; verdict
+- [ ] §15–17–19 cross-cycle + Gallup/CNN. Trust-flips-with-WH-party (10 of 14 cycles 1972+), Gallup honesty cites, any historical claims. Accept: verdict + sources
+- [ ] §22 outsider lane. KFF M4A polling (56%/61%), Bannon "flood the zone" quote, Gallup honesty (Trump 33–36% / Clinton 32%), McCombs-Shaw 1972 agenda-setting. Accept: each verified verbatim/numerically; verdict
+- [ ] §23–24 press + culture. Donor-metric framing, NYT/YouGov/Pew poll cites, cultural-progressive trap (Pew/Politico), deficit/fiscal-conservatism data, "oligarchy" sentiment. Accept: verify poll numbers + the deficit claims; verdict
+- [ ] §2–§5 data claims spot-check. The center-funnel (1 in 8 / 1 in 100), swing definitions, defector stats — confirm footnote provenance + internal consistency (not full re-derivation). Accept: provenance present + sane; any mismatch flagged
+- [ ] Final full-essay report. Consolidate all verdicts in claim-review.md; every WRONG/SHAKY in BLOCKERS.md. Accept: report covers §0–§25; emit QUEUE-COMPLETE

@@ -1,11 +1,16 @@
-# Overnight Objective — Adversarial claim fact-check + granular-citation audit
+# Overnight Objective — Adversarial claim fact-check (ENTIRE essay)
 
-Fact-check every empirical and factual claim in `web/index.html` the way a hostile expert
-reviewer would, and audit citation coverage against the granular per-claim standard
-(each claim should carry its own footnote with a usable source).
+Fact-check every empirical and factual claim in the WHOLE of `web/index.html` (§0–§25) the
+way a hostile expert reviewer would, and audit citation coverage against the granular
+per-claim standard. Prioritize EXTERNAL/verifiable claims (polls, academic papers, named
+quotes, historical facts) — those are where errors like the §20 "Clinton lost Illinois"
+mistake hide. Spot-check the ANES/data claims for footnote provenance + sanity (they are
+self-sourced via the project's data-rigor process; do not re-derive every number).
 
-**PRIORITY: the newly-added institutional/political claims in §20–23 (Part V, "The
-payoff").** These are the riskiest because they are political/historical assertions drawn
+**§20–21 are DONE** (see claim-review.md: 2 factual errors + 1 citation gap found). This
+expansion covers the rest of the essay.
+
+**Original priority (kept for reference): the institutional/political claims in §20–23.** These are the riskiest because they are political/historical assertions drawn
 from web research rather than the ANES data spine:
 - §20 — the Chuck Schumer July-2016 "blue-collar / two moderate Republicans" quote (wording,
   date, venue) and "Clinton then lost all three states."
