@@ -1,49 +1,41 @@
-# Overnight Objective — Data↔prose↔web integrity drift-guard
+# Overnight Objective — Adversarial claim fact-check + granular-citation audit
 
-Build a reusable integrity harness that catches the data-journalism failure mode
-that has repeatedly bitten this project: a number drifting between the data that
-backs it, the script that computes it, the `web/data` copy a figure loads, and the
-prose/footnote that quotes it. Then run it and report every discrepancy.
+Fact-check every empirical and factual claim in `web/index.html` the way a hostile expert
+reviewer would, and audit citation coverage against the granular per-claim standard
+(each claim should carry its own footnote with a usable source).
 
-The deliverable is `scripts/check_integrity.py` plus a findings report at
-`.claude/overnight/integrity-report.md`. The harness must be safe to re-run any time
-(a regression guard), exit non-zero when it finds drift, and NEVER edit prose or data.
+**PRIORITY: the newly-added institutional/political claims in §20–23 (Part V, "The
+payoff").** These are the riskiest because they are political/historical assertions drawn
+from web research rather than the ANES data spine:
+- §20 — the Chuck Schumer July-2016 "blue-collar / two moderate Republicans" quote (wording,
+  date, venue) and "Clinton then lost all three states."
+- §21 — the 2008 superdelegate lead (169–63, "a year before a vote"); the 2016 DNC leaked
+  emails + *Wilding v. DNC Services Corp.* (charter neutrality "unenforceable," "back room /
+  cigars," dismissed as a private corporation); the 2024 calendar reorder (Biden's request,
+  Feb 2023, SC first); South Carolina "not the most diverse state nor competitive," last
+  Democratic in a presidential general in 1976; the 2020 consolidation (Biden 4th/5th/2nd
+  then 1st in SC; Buttigieg led the moderate lane; Buttigieg/Klobuchar dropped + endorsed
+  before Super Tuesday; Obama "hidden hand" reported but denied; Warren stayed in).
+- §21 — the Innovator's Dilemma framing (is Christensen's mechanism characterized correctly?).
 
-## The four integrity checks the harness performs
-1. **web/data mirror check** — every `web/data/*.json` (and `.csv`) that has a
-   `data/clean/<same-name>` source is byte-identical to it. Report drift; the known
-   web-only `voters.json` (no clean source) is expected and listed, not flagged.
-2. **Reproducibility check** — re-running each `scripts/build_*.py` leaves its committed
-   `data/clean/` output unchanged per git. Procedure per script: run it, `git diff
-   --exit-code data/clean/`, then `git checkout -- data/clean/` to restore. A non-empty
-   diff means the committed output is stale vs the script (a finding). Build failures are
-   captured and reported, never crash the harness.
-3. **Number-tracing** — for each figure, extract the n's and percentages quoted in its
-   `web/index.html` caption + footnote, and check whether a matching value exists in the
-   data file that figure loads (or, for figures with hardcoded JS constants like the
-   waffle, confirm the JS constant matches the data file's value). Mismatches are
-   FINDINGS, not auto-fixes.
-4. **Figure render set** — confirm every `Figure <Letter>` label referenced in prose has
-   a defined figure block and a JS module, and vice-versa (no orphan refs, no dead modules).
+Then, if time permits, sweep the §20 swing-voter stats and any other data claims.
+
+For each claim: (1) state it + location; (2) verify against ≥2 independent credible sources;
+(3) verdict — SOLID / SHAKY (overstated, needs hedge) / WRONG (contradicted) / UNVERIFIABLE;
+(4) citation check — does it carry its own granular footnote with a real source?; (5) for
+SHAKY/WRONG, the precise problem + a recommended fix.
 
 ## What I MAY do autonomously
-- Write/iterate `scripts/check_integrity.py` and supporting helpers.
-- Run all build scripts in the safe run→diff→restore pattern above.
-- Write the findings report and log discrepancies.
-- Fix a demonstrable MECHANICAL drift bug where the fix is unambiguous and does NOT
-  change a stated conclusion: e.g. re-copy a stale `web/data` file from its in-sync
-  `data/clean` source, or regenerate a derived table. Commit with the drift it fixed.
+- Web research to verify or refute claims.
+- Write findings to `.claude/overnight/claim-review.md`; log actionable problems to BLOCKERS.md.
 
-## What I must NOT do autonomously (log instead)
-- Edit or rewrite any user-authored prose. Prose is sacred.
-- Change any figure's displayed numbers, or any number quoted in body/footnote prose,
-  even to "fix" a mismatch — log it to `BLOCKERS.md` with the exact discrepancy and a
-  recommended reconciliation for morning review.
-- Anything that changes a stated conclusion.
-- Restructure or renumber sections.
+## What I must NOT do autonomously
+- Edit ANY prose, claim, number, or footnote in `web/index.html`, or any data/script. The
+  user edits `index.html` live in Cursor; an autonomous write risks clobbering their work
+  (already happened once this session). LOG everything for review instead.
+- No `git push`, no branch operations.
 
 ## Done definition
-`scripts/check_integrity.py` exists, runs end-to-end, exits 0 when clean and non-zero on
-drift, and `.claude/overnight/integrity-report.md` lists the status of all four checks for
-every figure. Every discrepancy is either fixed (mechanical, committed) or logged to
-BLOCKERS.md (anything touching prose/figures/conclusions). Commit after each queue item.
+Every priority §20–23 claim has a verdict + citation-check in `claim-review.md`; each
+SHAKY/WRONG item is in BLOCKERS.md with a recommended fix and the sources checked. Commit
+the report after each cluster.
