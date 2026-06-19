@@ -49,3 +49,19 @@ so body↔footnote disagree again.
 **"Obama overtook her … and the party's insiders fell in behind the voters."**
 → **SOLID.** Obama surpassed Clinton in superdelegates by May 2008 as he led pledged
 delegates; superdelegates followed the pledged-delegate winner (AP; Wikipedia 2008 primary).
+
+---
+
+## §21 — 2016 emails + Wilding v. DNC
+
+**WikiLeaks DNC email release (July 2016) + DWS resignation.** → **SOLID.**
+**Spiva "neutrality unenforceable / back room / cigars" courtroom argument.** → **SOLID**;
+the footnote quote is characterized accurately (verbatim with ellipses).
+**"the judge agreed it was a private corporation with no such obligation" / dismissed.**
+→ **SOLID.** District court dismissed (2017); the dismissal rested on the DNC being a
+private corporation whose candidate-selection process is not justiciable / redress is at
+the ballot box.
+**"affirmed, 11th Cir."** → **SOLID.** *Wilding v. DNC Servs. Corp.*, 941 F.3d 1116
+(11th Cir., Oct 28, 2019): unanimous panel **affirmed dismissal on all counts** (fraud-type
+claims failed on the merits / Rule 9(b); negligence + fiduciary-duty for lack of standing);
+SCOTUS denied cert (2020). No fix needed.
