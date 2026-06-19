@@ -96,6 +96,12 @@ Recommended: body footnote → "(**4th ed., 2019**, Brookings)" (keeps the 2019 
 Why blocked: prose edit to index.html (user edits live in Cursor) — logging instead.
 Sources: Brookings Institution Press catalog; GGL 2008 APSR 102(1).
 
+## 2026-06-19 — §24 MINOR data fix: NYT/Siena free-speech poll n is wrong
+Wanted: correct fn-23-1 (value 65). It cites the NYT/Siena March-2022 free-speech poll as "n=1,000 U.S. adults." The actual poll surveyed **~1,507 respondents**, fielded **Feb 9–22, 2022** (released March 2022). The headline **84%** ("serious problem that some Americans don't speak freely") is exact and unaffected.
+Recommended: change "n=1,000" → "**n≈1,507**" (and, if precise, note fieldwork was February, released March). Low priority — does not touch the argument.
+Why blocked: prose edit to index.html (user edits live in Cursor) — logging instead.
+Sources: Siena College Research Institute release (Mar 21 2022); NYT "America Has a Free Speech Problem" (Mar 2022).
+
 ## 2026-06-19 — §20 UNCITED+UNVERIFIED stat: "national mean was 0.24 in 2016"
 Wanted: source and verify the §20 claim "the national mean was 0.24 in 2016" (trust composite). Footnote [51] lists by-ideology band means but never states the national mean; 0.24 happens to be the strong-left band mean, so the body may be conflating. Needs (a) a re-derivation from ANES 2016 (weighted mean of V161215/216/217, 0–1) and (b) the number added to fn [51].
 Recommended: re-run the national mean; if ~0.24 confirmed, add "national mean ≈ 0.24" to fn [51]; if different, correct the body. (Data re-derivation, not a prose-only fix — needs the user or a data pass.)

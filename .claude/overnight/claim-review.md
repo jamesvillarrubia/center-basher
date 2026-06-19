@@ -315,3 +315,34 @@ incumbent**, negative under a Democratic one):
   citation" — the honest move. Attribution to the 2018 Lewis interview is the standard provenance.
 - Sources: KFF Jan-2020 tracking poll; Gallup (June 2020; 2019); POQ 36(2); Media Matters/CNN/Wiki.
 - Citation check: ✓ granular and unusually careful. No fix.
+
+## §23–24 — press metrics + cultural-progressive trap
+
+**§23 donor-metric framing** (donor count as engaged-base proxy; hypothetical $250k×1000 vs $25×… ).
+→ Interpretive/illustrative argument, **not an empirical claim** — no external fact to verify; the
+hypotheticals are explicitly hypothetical. No verdict needed beyond "internally coherent."
+
+**§24 cultural-trap poll stack** (fn-23-1…23-5). Two non-partisan anchors verified **exact**; the
+two partisan sources are **bias-disclosed in-footnote** (the honest move):
+- **NYT/Siena "84% serious problem speaking freely"** (fn-23-1) → **SOLID on the number, one data
+  fix.** Siena release headline literally "84% Say Americans being Afraid to Exercise Freedom of
+  Speech is a Serious Problem" (very/somewhat serious). 84% ✓ exact.
+  - 🟡 **Soft correction:** footnote says **"n=1,000"**; the actual poll was **~1,507 respondents**,
+    conducted **Feb 9–22, 2022** (released March). Fix n=1,000 → **n≈1,507** (and "March 2022" is the
+    release; fieldwork was February). Logged to BLOCKERS as low-priority. The 84% is unaffected.
+- **Pew Sept 22–28 2025, n=3,445: 53% left-wing / 52% right-wing extremism "major problem"**
+  (fn-23-3) → **SOLID — exact.** Confirmed verbatim, including the **partisan splits** (77% R
+  left-wing/27% right; 76% D right-wing/32% left) and **85% say political violence rising**. n=3,445
+  and the Sept 22–28 2025 field dates ✓.
+- **YouGov Nov 13–15 2024, 57% "PC/woke played a role"** (fn-23-2): not independently re-searched
+  this pass; cited via Newsweek (Nov 21 2024) with corroborating detail. Plausible, uncontested;
+  low priority.
+- **Navigator (March 2025, 69% "too PC")** + **American Bridge/Democracy Matters 21-state (2025,
+  "woke weak out-of-touch")** (fn-23-4/5): partisan-source findings, and the footnotes **explicitly
+  disclose the Democratic-aligned source bias** and note independent corroboration by NYT/Siena +
+  YouGov. Exactly the transparency a hostile reviewer would demand. No fix.
+- **Trump 2024 "they/them" ad "reportedly Trump's largest single TV spend"** (fn-23-6): hedged
+  "reportedly"; widely reported but not independently pinned here. Acceptable as hedged.
+- Sources: Siena SCRI (March 21 2022 release); Pew "Political violence is up…" (Oct 2025, field
+  Sept 22–28); The Hill; Newsweek (Nov 2024).
+- Citation check: ✓ granular + admirably bias-transparent. One minor n correction (NYT/Siena).
