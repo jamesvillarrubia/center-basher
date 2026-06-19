@@ -83,3 +83,9 @@ Wanted: fix the §20 sentence after the Schumer quote. The quote names FOUR stat
 Recommended: body → "Clinton then lost Pennsylvania, Ohio, and Wisconsin, carrying only Illinois." (accurate; matches the footnote).
 Why blocked: prose/claim edit to index.html — user edits it live in Cursor; logging instead of auto-editing (concurrent-edit clobber risk).
 Sources: FEC 2016 official results; Ballotpedia; Wikipedia 2016 IL/PA/OH/WI.
+
+## 2026-06-19 — §21 TIMING ERROR: "a year before a vote was cast" (it was ~1 month)
+Wanted: fix §21 2008 sentence. The 169–63 superdelegate lead is the AP's December 2007 count; Iowa caucus was Jan 3, 2008 — about one month later, not "a year before a vote was cast." Footnote correctly says "December 2007," so body contradicts footnote.
+Recommended: body → "before a single vote was cast" (drop "a year"); optionally tighten "roughly three-to-one" (169:63 ≈ 2.7:1) to "nearly three-to-one."
+Why blocked: prose edit to index.html (user edits live in Cursor) — logging instead.
+Sources: AP Dec 2007 superdelegate count; 2008 Iowa caucus Jan 3, 2008.
