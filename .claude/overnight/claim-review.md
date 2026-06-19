@@ -236,3 +236,29 @@ The densest external-citation block in the essay. Verdict by cite:
   not fresh searches; the two with specific page ranges (Mutz, Sowell) were independently confirmed.
 - Citation check: ✓ granular throughout (fn 28/29/30/31/32/33). No factual fix needed; one optional
   hedge on Mutz's contested status.
+
+## §12–13 — turnout / GOTV (Gerber-Green)
+
+**Load-bearing claim: "contact + social pressure raise turnout; policy content does not";
+social-pressure mail ≈ +8 points.** fn-12-1, fn-12-2.
+→ **SOLID on substance + the headline number, ONE citation error.**
+- **+8.1pp social-pressure mail** → **EXACT.** Gerber, Green & Larimer (2008), "Social Pressure
+  and Voter Turnout," *APSR* **102(1): 33–48** (Feb 2008): the "Neighbors" mailing raised turnout
+  **8.1 percentage points** (baseline 29.7%; Self +4.9, Hawthorne +2.5, Civic Duty +1.8). The
+  essay's "+8.1pp" and body "about 8 points in randomized trials" match the most-cited number in
+  the field. APSR 102(1) citation ✓.
+- **Other per-treatment lifts** (mail +0.8 / volunteer phone +2.0 / canvassing +4.3 / content ≈0):
+  these are *Get Out the Vote* meta-average rule-of-thumb figures (the book's appendix
+  meta-analyses). All sit in the literature's defensible ranges; canvassing's true meta-average is
+  variously cited ~+4 to +7pp, volunteer phone ~+2.8pp, mail <+1pp. Presented as "Gerber-Green
+  meta" averages, which is fair. Not flagged as errors. The "policy content ≈ 0pp" load-bearing
+  point is correct and is the most-replicated finding.
+- 🔴 **CITATION ERROR (edition/year):** fn-12-1 cites *Get Out the Vote* as "**(3rd ed., 2019,
+  Brookings)**." The **2019** edition is the **4th**; the **3rd** edition was **2015** (5th ed.
+  2024). So "3rd ed., 2019" conflates edition with year. → Fix: "**(4th ed., 2019, Brookings)**"
+  (keeps the date, corrects the edition). Logged to BLOCKERS.
+- **Stakes "care a good deal who wins" 30+ point turnout gap** (ANES 2016, body ~L1511): self-sourced
+  project data; provenance present (ANES 2016 stakes item), sanity OK. Per data-rigor process, not
+  re-derived here. ✓
+- Sources: GGL 2008 (Yale ISPS; APSR 102(1):33–48); Brookings catalog (3rd ed. 2015 / 4th ed. 2019).
+- Citation check: granular ✓; one bibliographic fix (edition number).

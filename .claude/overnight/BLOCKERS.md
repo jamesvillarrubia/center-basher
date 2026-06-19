@@ -90,6 +90,12 @@ Recommended: body → "before a single vote was cast" (drop "a year"); optionall
 Why blocked: prose edit to index.html (user edits live in Cursor) — logging instead.
 Sources: AP Dec 2007 superdelegate count; 2008 Iowa caucus Jan 3, 2008.
 
+## 2026-06-19 — §12 CITATION ERROR: "Get Out the Vote (3rd ed., 2019)" — 2019 is the 4th edition
+Wanted: fix fn-12-1 (value 34). It cites Gerber & Green, *Get Out the Vote: How to Increase Voter Turnout* as "(3rd ed., 2019, Brookings)." Verified against Brookings: 3rd ed. = **2015**, 4th ed. = **2019**, 5th ed. = 2024. So the edition/year are mismatched.
+Recommended: body footnote → "(**4th ed., 2019**, Brookings)" (keeps the 2019 date, corrects the edition). Everything else in fn-12-1/fn-12-2 is accurate — the GGL 2008 "Neighbors" social-pressure mailing = +8.1pp is exact (APSR 102(1):33–48).
+Why blocked: prose edit to index.html (user edits live in Cursor) — logging instead.
+Sources: Brookings Institution Press catalog; GGL 2008 APSR 102(1).
+
 ## 2026-06-19 — §20 UNCITED+UNVERIFIED stat: "national mean was 0.24 in 2016"
 Wanted: source and verify the §20 claim "the national mean was 0.24 in 2016" (trust composite). Footnote [51] lists by-ideology band means but never states the national mean; 0.24 happens to be the strong-left band mean, so the body may be conflating. Needs (a) a re-derivation from ANES 2016 (weighted mean of V161215/216/217, 0–1) and (b) the number added to fn [51].
 Recommended: re-run the national mean; if ~0.24 confirmed, add "national mean ≈ 0.24" to fn [51]; if different, correct the body. (Data re-derivation, not a prose-only fix — needs the user or a data pass.)
