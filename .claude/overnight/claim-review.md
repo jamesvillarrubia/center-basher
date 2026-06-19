@@ -65,3 +65,22 @@ the ballot box.
 (11th Cir., Oct 28, 2019): unanimous panel **affirmed dismissal on all counts** (fraud-type
 claims failed on the merits / Rule 9(b); negligence + fiduciary-duty for lack of standing);
 SCOTUS denied cert (2020). No fix needed.
+
+---
+
+## §21 — 2024 calendar + South Carolina
+
+**DNC reordered calendar at Biden's request (Feb 4, 2023), SC first; stated reason
+diversity.** → **SOLID** (CNN; NPR; Ballotpedia).
+**"the state that resurrected his 2020 campaign."** → **SOLID.**
+**"not a competitive one … not voted Democratic in a presidential general since 1976."**
+→ **SOLID.** SC last Dem 1976 (Carter); Trump +12 (2020), +18 (2024). (270toWin.)
+**"neither the most diverse state."** → **SOLID but framing caveat.** By the Census 2020
+Diversity Index SC is not among the most diverse (HI/CA/NV/MD/TX lead) — literally true. But
+the DNC's diversity argument was specifically about giving **Black voters** (SC's ~60% Black
+primary electorate) an early say, not overall state diversity; "not the most diverse state"
+risks rebutting a claim the DNC didn't quite make. Mitigated by the essay's stronger line,
+"a diverse battleground would have served that goal better."
+- **Optional sharpening (not a blocker):** name Georgia (≈33% Black AND a battleground) as
+  the diverse-and-competitive counterexample, so the rebuttal targets the DNC's real
+  rationale. Logged as a soft suggestion, not a blocker.
