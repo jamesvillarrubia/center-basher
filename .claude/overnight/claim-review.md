@@ -84,3 +84,22 @@ risks rebutting a claim the DNC didn't quite make. Mitigated by the essay's stro
 - **Optional sharpening (not a blocker):** name Georgia (≈33% Black AND a battleground) as
   the diverse-and-competitive counterexample, so the rebuttal targets the DNC's real
   rationale. Logged as a soft suggestion, not a blocker.
+
+---
+
+## §21 — 2020 consolidation
+
+**Biden 4th Iowa / 5th NH / 2nd Nevada, then 1st in SC (first win).** → **SOLID.**
+**"Buttigieg led the moderate lane after effectively winning Iowa."** → **SOLID, minor
+caveat.** Buttigieg won the most Iowa state-delegate equivalents (14 delegates to Sanders'
+12), but Sanders won the Iowa popular vote; "effectively" carries that nuance honestly.
+**Buttigieg (Mar 1) + Klobuchar (Mar 2) dropped out and endorsed Biden the night before
+Super Tuesday, to stop Sanders.** → **SOLID** (well-documented; "within forty-eight hours"
+of the Feb 29 SC win checks out).
+**Warren stayed in through Super Tuesday, splitting the progressive lane.** → **SOLID**
+(dropped Mar 5). The "cost Sanders" counterfactual is correctly disclaimed in fn [59].
+**Obama "hidden hand" reported, Biden denied, Klobuchar said no Obama contact.** → **SOLID**
+as framed (NBC News reporting; inference, not proof — the essay says exactly this).
+**"left no paper trail … the lesson the party took from 2016."** → interpretive insinuation,
+hedged ("may be"); acceptable as the stated argument, not a factual claim.
+No hard error; the paragraph is accurate and honestly hedged.
