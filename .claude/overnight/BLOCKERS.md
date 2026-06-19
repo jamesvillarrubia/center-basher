@@ -89,3 +89,8 @@ Wanted: fix §21 2008 sentence. The 169–63 superdelegate lead is the AP's Dece
 Recommended: body → "before a single vote was cast" (drop "a year"); optionally tighten "roughly three-to-one" (169:63 ≈ 2.7:1) to "nearly three-to-one."
 Why blocked: prose edit to index.html (user edits live in Cursor) — logging instead.
 Sources: AP Dec 2007 superdelegate count; 2008 Iowa caucus Jan 3, 2008.
+
+## 2026-06-19 — §20 UNCITED+UNVERIFIED stat: "national mean was 0.24 in 2016"
+Wanted: source and verify the §20 claim "the national mean was 0.24 in 2016" (trust composite). Footnote [51] lists by-ideology band means but never states the national mean; 0.24 happens to be the strong-left band mean, so the body may be conflating. Needs (a) a re-derivation from ANES 2016 (weighted mean of V161215/216/217, 0–1) and (b) the number added to fn [51].
+Recommended: re-run the national mean; if ~0.24 confirmed, add "national mean ≈ 0.24" to fn [51]; if different, correct the body. (Data re-derivation, not a prose-only fix — needs the user or a data pass.)
+Why blocked: requires editing index.html and/or running a data script; user edits index.html live in Cursor. Logging instead.

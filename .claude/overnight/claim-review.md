@@ -114,3 +114,46 @@ disciplined focus on existing customers/margins); fn [55] explicitly marks it "a
 lens on party institutions, not a statistical claim," pre-empting the loose-analogy objection.
 The "when winning / when losing" logic is correctly framed as the author's political
 extension, not Christensen's words. No fix needed.
+
+---
+
+## Granular-citation audit (§20–23)
+
+| Claim | Has own footnote? | Note |
+|---|---|---|
+| §20 20% self-ID moderate / 26% swung / 5% bucket | yes — [51] | ✓ |
+| §20 Schumer quote | yes — [54] | ✓ |
+| §20 "Clinton lost all three states" | **no** | WRONG (item 1); fix supersedes |
+| §20 moderate-swing 0.22 trust | yes — [51]/[52] | ✓ |
+| §20 "national mean was 0.24 in 2016" | **NO** | [51] lists band means, not the national mean; uncited AND unverified |
+| §20 lean-left 0.17 / strong-left 0.27 | yes — [52] | ✓ |
+| §20 "VSG populism … more populist than loyalists" | cross-ref to §16 | acceptable; a footnote with VSG specifics would be tighter |
+| §20 "~30% of Sanders voters stayed home" | cross-ref to §18 | acceptable |
+| §21 2008 / 2016 / 2024 / 2020 | yes — [56]/[57]/[58]/[59] | ✓ (granular split done) |
+| §21 Innovator's Dilemma | yes — [55] | ✓ |
+| §22–§23 | pre-existing footnotes | not deep-audited (priority was §20–21's new claims) |
+
+**Gaps:** "Clinton lost all three states" (no fn + wrong); **"national mean was 0.24"
+(uncited, and not verified against the data — needs a footnote and a re-derivation).**
+
+---
+
+## Summary
+
+**8/8 reviewed.** Two real factual errors, one framing caveat, one citation gap; the rest
+solid and honestly hedged.
+
+🔴 **Fix before publish (BLOCKERS):**
+1. §20 "Clinton lost all three of those states" → she **won Illinois**; should read
+   "lost Pennsylvania, Ohio, and Wisconsin, carrying only Illinois."
+2. §21 "a year before a vote was cast" → the 169–63 lead is the **Dec 2007** count, ~1 month
+   before Iowa; drop "a year."
+3. §20 "national mean was 0.24" → **uncited and unverified**; re-derive from ANES and add to fn 51.
+
+🟡 **Optional (not blockers):** tighten "roughly three-to-one" (169:63 ≈ 2.7:1); sharpen the
+SC-diversity rebuttal by naming Georgia (diverse + battleground); "effectively won Iowa"
+carries the Sanders-popular-vote nuance honestly.
+
+✅ **Verified solid:** Schumer quote wording/date; Wilding v. DNC + 11th Cir. affirmance;
+2024 calendar/SC facts; 2020 consolidation (Biden's record, dropouts, Obama "hidden hand"
+honestly framed as inference); Christensen's mechanism.
