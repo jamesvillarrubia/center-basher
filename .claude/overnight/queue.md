@@ -12,4 +12,4 @@
 - [x] §22 outsider lane — DONE (exemplary; all exact: KFF 56%/61% indies Jan-2020, Gallup Trump 36%/49% 2020 + BClinton ~46%, McCombs-Shaw POQ 36(2):176-187, Bannon honestly hedged)
 - [x] §23–24 press + culture — DONE (anchors exact: NYT/Siena 84%, Pew 53/52 + partisan splits; partisan polls bias-disclosed; MINOR: NYT/Siena n=1,000→~1,507)
 - [x] §2–§5 data spot-check — DONE (provenance complete; funnel sums to 100, True Middler 0.81%=1-in-100, avg-to-center 37.59%→38%; §2 scale-mixing blocker RESOLVED; NEW soft: fn-3-3 n=55 vs fn-5-4 n=92; PRE-weight family still open)
-- [ ] Final full-essay report. Consolidate all verdicts in claim-review.md; every WRONG/SHAKY in BLOCKERS.md. Accept: report covers §0–§25; emit QUEUE-COMPLETE
+- [x] Final full-essay report — DONE (consolidated verdicts in claim-review.md §0–§25; all WRONG/SHAKY in BLOCKERS.md; SUMMARY.md written)

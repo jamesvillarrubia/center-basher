@@ -380,3 +380,67 @@ provenance and that the arithmetic is internally consistent, and flagged mismatc
   self-placement"). Logged to BLOCKERS as low-priority. (Not re-derived; flagged for reconciliation.)
 - Citation check: provenance present throughout; two open data-discipline items (the documented PRE-
   weight sweep; the new n=55/92 clarity gap). No thesis number is wrong.
+
+---
+---
+
+# FINAL FULL-ESSAY REPORT (§0–§25)
+
+**Scope:** every external/empirical claim in `web/index.html` fact-checked as a hostile expert
+reviewer, plus a provenance + internal-consistency spot-check of the self-sourced ANES/VSG numbers.
+**Read-only run** — no prose, claim, number, or footnote edited; all fixes recommended in BLOCKERS.
+
+## Headline
+The essay's sourcing is **strong**. Of ~30 independently verifiable external claims, the checkable
+numbers were **overwhelmingly exact**: Pew trust 77%→22%; Kalla-Broockman *APSR* 112(1):148–166 /
+49=40+9 / effect≈0; Mutz *PNAS* 115(19):E4330–E4339; Sowell *AER* 50(1):111–120; Gerber-Green-Larimer
+**+8.1pp**; exit polls **83-14 / 89% / 81-18**; KFF M4A **56% / 61% indies**; Gallup Trump **36%/49%**
++ B.Clinton **~46%**; McCombs-Shaw *POQ* 36(2):176–187; NYT/Siena **84%**; Pew **53%/52%** + partisan
+splits. The internal arithmetic checks (the §2 funnel sums to 100; the 10/14 trust-flip ✓/✗ logic is
+airtight; the §3 decomposition and §5 rates reconcile).
+
+## Errors found (all in BLOCKERS.md)
+🔴 **Fix before publish — genuine errors:**
+1. **§20** "Clinton then lost all three of those states" → she **won Illinois** (+17). Contradicts its
+   own fn [54]. (factual)
+2. **§21** "a year before a vote was cast" → the 169–63 lead is the **Dec 2007** count, **~1 month**
+   before Iowa. Contradicts its own footnote. (timing)
+3. **§12** *Get Out the Vote* cited "**3rd ed., 2019**" → 2019 is the **4th** edition (3rd=2015).
+   (citation — NEW this run)
+4. **§20** "national mean was 0.24 in 2016" → **uncited and unverified**; re-derive + footnote.
+
+🟡 **Minor / clarity:**
+5. **§24** NYT/Siena free-speech poll **n=1,000 → ~1,507** (the 84% is unaffected). (NEW)
+6. **§3↔§5** same defector filter reported as **n=55 (fn-3-3) vs n=92 (fn-5-4)** — needs a one-line
+   "valid self-placement" clarification. (NEW)
+7. **§21** "roughly three-to-one" (169:63 = 2.68:1) → "nearly three-to-one" is tighter. (optional)
+
+## Open data-discipline item (pre-existing, documented)
+- **PRE-weight-on-vote-conditioned analyses** (Gate 3): fn-3-3 (§3) and fn-5-4 (§5) still weight
+  **V160101 (PRE)** on V162034a vote-conditioned defection — should be **V160102 (POST)**. Part of
+  the documented weight sweep (BLOCKERS 2026-06-12). Qualitative conclusions survive; printed
+  percentages shift slightly.
+
+## Soft flags (not blockers — armor only if challenged)
+- §6: the "95% CI excludes >0.6pp" bound — confirm against the K&B PDF.
+- §11: Mutz (2018) drew a published rebuttal (Morgan 2018, *Socius*); essay leans on it as
+  "supporting theory" while its own ANES RR-weight series carries the load — a one-line hedge fully
+  armors it.
+- §15–19: 2024 "ability to lead 30% → Trump 66-33" and 2004 Bush +20pp (Gallup) not independently
+  pinned this run.
+- §22: the 2016-campaign Gallup honesty figures (Trump 33–36% / Clinton 32%) consistent with the
+  record but not pinned to one 2016 release.
+- §23: YouGov Nov-2024 57% not independently re-searched (cited via Newsweek).
+
+## Confirmed RESOLVED
+- The big **§2/§1 centrist-composite scale-mixing** items (BLOCKERS 2026-06-13) are **fixed in live
+  prose** — both footnotes now use only the six true 7-pt self-placement scales; fn-2-1 carries the
+  explicit correction note. Those two entries can be checked off.
+
+## Bottom line
+**No thesis-level claim collapsed under adversarial review.** The two real factual/timing errors
+(§20 Illinois, §21 "a year") were already caught in the §20–21 pass; this full-essay expansion added
+one citation error (§12 edition) and two minor data clarifications (§24 n, §3↔§5 n), plus a set of
+soft flags. The spine — center-isn't-a-bloc, persuasion≈0, turnout runs on stakes/contact, trust is
+context not engine, the realignment is status/race — is **well-evidenced and honestly hedged
+throughout** (multiple footnotes pre-empt their own strongest objections).
