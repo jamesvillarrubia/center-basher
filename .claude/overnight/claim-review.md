@@ -262,3 +262,31 @@ social-pressure mail ≈ +8 points.** fn-12-1, fn-12-2.
   re-derived here. ✓
 - Sources: GGL 2008 (Yale ISPS; APSR 102(1):33–48); Brookings catalog (3rd ed. 2015 / 4th ed. 2019).
 - Citation check: granular ✓; one bibliographic fix (edition number).
+
+## §15–17–19 — cross-cycle trust-flip + frame-match scoreboard
+
+**Trust→vote "flips with the White House party, 10 of 14 cycles back to 1972."** fn-15-1/15-2.
+→ **SOLID (internally airtight).** Self-sourced (ANES CDF 1972–2024 → `build_trust_vote_by_cycle.py`
+→ `trust_vote_by_cycle.csv`). I re-counted the per-cycle ✓/✗ list and **every mark is logically
+correct** for the incumbent-reactive rule (β on P(Rep) should be **positive under a Republican
+incumbent**, negative under a Democratic one):
+  - ✓ (10): 1972 R+.32, 1976 R+.49, 1984 R+.34, 1988 R+.32, 1992 R+.21, 1996 D−.07, 2004 R+.77,
+    2012 D−.31, 2016 D−.28, 2024 D−.17.
+  - ✗ (4, all "flat"): 1980 D−.01, 2000 D+.03, 2008 R−.04, 2020 R+.05.
+  - 10 ✓ + 4 ✗ = **14**, "10 of 14" ✓. The misses are all near-zero (the honest call: flat ≠ flip).
+  - Footnote carries its own caveat (VCF0604 absent 2016–2024; index falls back to VCF0605/0609).
+  - NB: memory `project_cross_cycle_trust_vote` says "11/13" — that's an earlier 1948-anchored cut;
+    the live essay number is 10/14 (1972-anchored) and is the authoritative one. Not a discrepancy.
+- **Frame-match scoreboard "12 of 12 by popular vote, 11 of 12 by EC" (1980–2024).** fn-16-2.
+  → **SOLID-as-hedged.** External exit-poll anchors **verified exact**: 2016 "bring needed change"
+  39% → **Trump 83-14** ✓; 2008 change → **Obama 89%** ✓ (34% ≈ "more than a third" ✓); 2012
+  "cares about people like me" 21% → Obama 81-18 ✓ (famous Romney-empathy number). The "12/12" is
+  the essay's own continuity-vs-change classification — explicitly framed "**not a tested causal
+  law; a descriptive pattern**," and it **corrects a prior circular "7-for-7" version** in-footnote
+  (exactly the honest-correction culture the project wants). The lone EC exception is 2000 (Gore PV
+  / Bush EC) — consistent. Not a blocker.
+  - 🟡 Soft flags (unverified here, low risk): 2024 "ability to lead" 30% → Trump 66-33, and 2004
+    Bush +20pp "strong/decisive leader" (Gallup pre-election) — confirm against the official 2024
+    exit cross-tabs / Gallup if challenged.
+- Sources: AEI/ABC 2016 exit-poll rundown; CBS 2008 exit analysis; ANES CDF pipeline (self-sourced).
+- Citation check: ✓ granular + self-sourced provenance present. No factual fix.
