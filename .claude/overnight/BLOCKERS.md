@@ -96,6 +96,15 @@ Recommended: body footnote → "(**4th ed., 2019**, Brookings)" (keeps the 2019 
 Why blocked: prose edit to index.html (user edits live in Cursor) — logging instead.
 Sources: Brookings Institution Press catalog; GGL 2008 APSR 102(1).
 
+## 2026-06-19 — §3↔§5 MINOR: same defector filter, two different n's (55 vs 92), unexplained
+Wanted: reconcile fn-3-3 (value 9) and fn-5-4 (value 15). Both define Dem→Trump defectors identically (V161158x ∈ {1,2,3} AND V162034a=2), but fn-3-3 says **n=55** and fn-5-4 says **n=92**. A careful/hostile reader sees a contradiction.
+Likely benign cause: fn-3-3 reports a *7-pt self-placement mean* (V161126), so it drops the ~37 defectors missing V161126; fn-5-4 (trust/defection-rate analysis) keeps all 92. But neither footnote states the extra V161126-valid restriction.
+Recommended: add to fn-3-3 a clause like "(n=55 of 92 total Dem→Trump defectors who also have a valid 7-pt self-placement)". Verify the 55-vs-92 split is exactly the V161126-missing count when convenient (data check). Low priority; no thesis number changes.
+Why blocked: prose edit to index.html (user edits live in Cursor) + a confirming data check — logging instead.
+
+## 2026-06-19 — §12 — NOTE: §2 scale-mixing BLOCKER (2026-06-13) is now RESOLVED in live prose
+Status update (not a new blocker): the big §2/§1 centrist-composite scale-mixing items (2026-06-13 14:02 and 15:48 above) are FIXED in the live index.html — fn-2-1 and fn-1-2 both now use only the six true 7-pt self-placement scales and fn-2-1 carries an explicit "Correction (2026-06-13)" note. The funnel sums to 100 and avg-to-center = 37.59%→38% (n=1675). Those two 2026-06-13 entries can be checked off.
+
 ## 2026-06-19 — §24 MINOR data fix: NYT/Siena free-speech poll n is wrong
 Wanted: correct fn-23-1 (value 65). It cites the NYT/Siena March-2022 free-speech poll as "n=1,000 U.S. adults." The actual poll surveyed **~1,507 respondents**, fielded **Feb 9–22, 2022** (released March 2022). The headline **84%** ("serious problem that some Americans don't speak freely") is exact and unaffected.
 Recommended: change "n=1,000" → "**n≈1,507**" (and, if precise, note fieldwork was February, released March). Low priority — does not touch the argument.

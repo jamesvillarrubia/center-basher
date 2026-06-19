@@ -346,3 +346,37 @@ two partisan sources are **bias-disclosed in-footnote** (the honest move):
 - Sources: Siena SCRI (March 21 2022 release); Pew "Political violence is up…" (Oct 2025, field
   Sept 22–28); The Hill; Newsweek (Nov 2024).
 - Citation check: ✓ granular + admirably bias-transparent. One minor n correction (NYT/Siena).
+
+## §2–§5 — data-claim spot-check (provenance + internal consistency, NOT re-derivation)
+
+Per the data-rigor process, these are self-sourced ANES/VSG numbers; I checked that each carries
+provenance and that the arithmetic is internally consistent, and flagged mismatches.
+- **§1 (fn-1-2)** → **exemplary.** Full provenance (ANES 2016, **V160102 POST** on the
+  vote-conditioned swing dimension = Gate-3 compliant; variables, n's, pipeline all named). The
+  scale-mixing fix landed (Centrist now the 6 clean 7-pt self-placement scales). Internally sane:
+  Moderate 27% (n=758) / Centrist 7% (n=201) / Swing 4% (n=126).
+- **§2 funnel (fn-2-1)** → **SOLID; the big scale-mixing BLOCKER is RESOLVED in live prose.** The
+  footnote now carries the "Correction (2026-06-13)" note — the five 3-category items were dropped;
+  composite = six true 7-pt scales (V161178/181/184/189/198/201). Funnel sums to exactly 100
+  (Whatevers 26 + Partisans 34 + Grab-Baggers 17 + MidMiddlers 23). True Middler **0.81%, n=33** =
+  the "1 in 100" claim ✓. Averages-to-center **37.59% → 38%** in body, **n=1675** — matches
+  `build_center_breakdown.py` and memory `project_averages_to_center_38pct`. The funnel is a
+  position-classification of the electorate (not vote-conditioned), so its PRE weight (V160101) is
+  appropriate here. ⇒ BLOCKERS item "§2 scale-mixing" (2026-06-13) can be marked DONE.
+- **§3 (fn-3-1/3-2/3-3)** → provenance complete; VSG panel n=2,628 = 772+967+889 ✓; the
+  decomposition (33%×15%≈5% / 30%×5%≈1.5% / 33%×8%≈2.6% ⇒ ~9%) is internally consistent. **fn-3-3
+  confirms the known-open Gate-3 item** (ANES 2016 **PRE V160101** on a V162034a vote-conditioned
+  defector analysis → should be POST V160102). Already in BLOCKERS (2026-06-12); qualitative point
+  ("defectors are off-center, 65%") survives the weight.
+- **§5 (fn-5-4)** → provenance present; internally consistent (2.28% ≈ 7.8% of Dem-leaning voters;
+  high-grievance 10.8% vs low 3.7% ≈ ~3×; "1 in 13 / 1 in 9" match). Same **PRE-on-vote-conditioned**
+  Gate-3 family as §3/§7 — folds into the documented weight sweep.
+- 🟡 **NEW soft finding — cross-footnote n mismatch:** the **same nominal filter** (Dem-leaner
+  V161158x∈{1,2,3} who voted Trump V162034a=2) is reported as **n=55 in fn-3-3** but **n=92 in
+  fn-5-4**. Most likely benign: fn-3-3 computes a *self-placement mean* (V161126), so it silently
+  drops defectors missing V161126 (≈55 of the 92), while fn-5-4 keeps all 92. But **neither footnote
+  states the extra restriction**, so it reads as a contradiction to a careful reader. Recommend a
+  one-line clarification in fn-3-3 ("n=55 of 92 total Dem→Trump defectors have a valid 7-pt
+  self-placement"). Logged to BLOCKERS as low-priority. (Not re-derived; flagged for reconciliation.)
+- Citation check: provenance present throughout; two open data-discipline items (the documented PRE-
+  weight sweep; the new n=55/92 clarity gap). No thesis number is wrong.
