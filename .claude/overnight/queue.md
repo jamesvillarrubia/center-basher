@@ -4,7 +4,7 @@
 
 - [x] §20 Schumer quote — DONE (factual error: Clinton won Illinois)
 - [x] §21 2008/2016/2024/2020/Christensen — DONE (timing error; rest solid)
-- [ ] §0 trust collapse. Pew "3 in 4" (1964 ~77%), "1 in 5" (today ~22%), generational convergence, ANES CDF splice. Accept: verdict + ≥2 sources logged
+- [x] §0 trust collapse — DONE (SOLID: Pew 1964=77% / 2024=22% confirmed via search)
 - [ ] §6 late-persuasion null. The "49 field experiments / persuasion ≈ zero" (Kalla & Broockman) + the "two famous nominees" framing. Accept: verify the study count/finding; verdict + source
 - [ ] §11 academic citations. Mutz 2018 PNAS (status threat), Sides/Tesler/Vavreck Identity Crisis, Tesler, Tetlock integrative complexity, Sherif Robbers Cave / LeVine-Campbell, Kinder-Sanders RR scale, Sowell. Accept: each cite verified (author/year/venue/claim); verdict
 - [ ] §12–13 turnout. Gerber-Green GOTV meta (contact up to ~8pts, content ~0); care-gap stats; "stakes" predictor. Accept: verify the meta-analysis claim + numbers; verdict

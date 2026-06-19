@@ -157,3 +157,21 @@ carries the Sanders-popular-vote nuance honestly.
 ✅ **Verified solid:** Schumer quote wording/date; Wilding v. DNC + 11th Cir. affirmance;
 2024 calendar/SC facts; 2020 consolidation (Biden's record, dropouts, Obama "hidden hand"
 honestly framed as inference); Christensen's mechanism.
+
+---
+---
+
+# FULL-ESSAY EXPANSION (§0–§25)
+
+Run continued 2026-06-19. Same verdict scheme. **Read-only — findings logged, no prose edited.**
+
+## §0 — trust collapse (Pew)
+
+**"about three in four Americans trusted the government in 1964; about one in five do now."**
+Footnotes fn-0-1/2/3: Pew "Public Trust in Government 1958–2024," 1964 peak 77%, 2024 reading 22%,
+ANES CDF splice for generational cohorts.
+→ **SOLID.** WebSearch confirms Pew verbatim: trust "reached an all-time high of 77% in 1964…
+By April 2024, just 22% said the same"; "since 2008… fewer than 30%"; Sept 2025 reading 17%.
+"Three in four" ≈ 77% ✓; "one in five" ≈ 22% ✓. Citation present and accurate.
+- Sources: Pew Research Center, "Public Trust in Government: 1958–2024" (June 2024); same series 2025.
+- Citation check: ✓ granular (three Pew/ANES footnotes). No fix.
