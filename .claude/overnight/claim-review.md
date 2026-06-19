@@ -198,3 +198,41 @@ bring choice into line with predispositions near election day).
   for the "discovery, not persuasion / enlightened preferences" framing.
 - Sources: SSRN 3042867; Cambridge Core APSR 112(1); EconPapers RePEc cup:apsrev:v:112:y:2018.
 - Citation check: ✓ granular. No fix; one soft flag (the 0.6pp CI bound).
+
+## §11 — academic-citations cluster (status/race realignment)
+
+The densest external-citation block in the essay. Verdict by cite:
+
+- **Mutz (2018), "Status Threat, Not Economic Hardship, Explains the 2016 Presidential Vote,"
+  PNAS 115(19): E4330–E4339.** → **SOLID — exact.** Verified: PNAS **vol 115, issue 19, pp.
+  E4330–E4339, May 8 2018, DOI 10.1073/pnas.1718155115** (PubMed 29686081; pnas.org). Every
+  coordinate matches both fn-11-2 and fn-11-4.
+  - 🟡 **Soft flag (not a blocker):** Mutz's finding drew a prominent published rebuttal — Stephen
+    L. Morgan, "Status Threat, Material Interests, and the 2016 Presidential Vote," *Socius* (2018),
+    re-analyzing her released data and arguing economic interests are at least as important; Mutz
+    published a reply. The essay leans on Mutz as "supporting theory" while its OWN ANES RR-weight
+    trajectory carries the empirical load, so this is defensible — but a hostile reviewer who knows
+    the Morgan exchange could say the cite is presented as more settled than it is. One-line hedge
+    ("contested by Morgan 2018; corroborated here by the independent ANES RR-weight series") would
+    fully armor it. Logged as optional, not a blocker.
+- **Sowell, "Marx's 'Increasing Misery' Doctrine," AER 50, no. 1 (1960): 111–120.** (the
+  immiseration/*Verelendung* footnote, fn-11-7) → **SOLID — exact.** Verified: *American Economic
+  Review* **vol 50 (March 1960 = no. 1), pp. 111–120**; Sowell's first scholarly publication.
+  Used correctly (the "relative not absolute" reading of immiseration is precisely Sowell's thesis).
+- **Sides, Tesler, Vavreck, *Identity Crisis* (Princeton UP, 2018)** → **SOLID** (canonical;
+  title/subtitle/publisher correct).
+- **Tesler, *Post-Racial or Most-Racial?* (Univ. of Chicago Press, 2016)** → **SOLID** (canonical).
+- **Tetlock (1983), "Cognitive style and political ideology," JPSP 45(1); Suedfeld & Tetlock
+  (1977)** → **SOLID** (canonical integrative-complexity citations; correctly applied).
+- **Sherif et al. (1961), *Robbers Cave*; LeVine & Campbell (1972), *Ethnocentrism*; Fiske,
+  *Envy Up, Scorn Down* (2011)** → **SOLID** (canonical realistic-group-conflict lineage).
+- **RR electoral-weight series (1988 +0.48 … 2016 +1.55 … 2024 +1.18, net of ideo+party).**
+  Self-sourced to `data/clean/rr_weight_by_cycle.csv`, 4-item Kinder-Sanders scale. Per data-rigor
+  process: **provenance present, trajectory sane** (monotone-ish rise to a 2016–2020 peak, slight
+  2024 easing). Not re-derived. ✓
+- **Vance, *Hillbilly Elegy* (2016)** → **SOLID** (used as qualitative illustration, correctly
+  hedged "read sympathetically").
+- Note: the canonical book/older-journal cites above were verified against established knowledge,
+  not fresh searches; the two with specific page ranges (Mutz, Sowell) were independently confirmed.
+- Citation check: ✓ granular throughout (fn 28/29/30/31/32/33). No factual fix needed; one optional
+  hedge on Mutz's contested status.
