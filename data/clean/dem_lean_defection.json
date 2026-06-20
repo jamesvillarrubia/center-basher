@@ -1,0 +1,36 @@
+{
+  "rows": [
+    {
+      "key": "lowgriev",
+      "label": "Low-grievance (high-trust)",
+      "pct": 2.6,
+      "inline": "\u2248 1 in 39",
+      "n": 587
+    },
+    {
+      "key": "all",
+      "label": "All Dem-leaners",
+      "pct": 7.9,
+      "inline": "\u2248 1 in 13",
+      "n": 1258
+    },
+    {
+      "key": "highgriev",
+      "label": "High-grievance (low-trust)",
+      "pct": 12.6,
+      "inline": "\u2248 1 in 8",
+      "n": 671
+    }
+  ],
+  "multiplier": 4.9,
+  "median_trust": 0.167,
+  "meta": {
+    "source": "ANES 2016 Time Series \u2014 data/raw/anes_timeseries_2016.dta",
+    "population": "Dem-leaners (V161158x in {1,2,3}) who cast a valid presidential vote (V162034a 1-7)",
+    "defection": "voted Trump (V162034a == 2)",
+    "trust_index": "mean of [1-(V161215-1)/4, (V161216-1)/1, (V161217-1)/2], 0-1 high=more trust",
+    "grievance_split": "weighted median of the Dem-lean voter base; high-grievance = trust <= median",
+    "weight": "V160102 (POST)",
+    "pipeline": "scripts/build_dem_lean_defection.py"
+  }
+}
