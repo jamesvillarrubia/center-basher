@@ -21,16 +21,17 @@ def main():
     # 3-item institutional trust index, PRE-election wave
     t1 = clean_var(df, "V161215", 1, 5)
     t2 = clean_var(df, "V161216", 1, 2)
-    t3 = clean_var(df, "V161217", 1, 5)
+    t3 = clean_var(df, "V161217", 1, 3)
     # Build index 0..1 where HIGH = MORE trust (consistent with the body language)
     # Direction notes:
     #   V161215: 1 always..5 never → higher = LESS trust → normalize to 1-(s-1)/4
     #   V161216: 1 few big int..2 benefit all → higher = MORE trust → normalize to (s-1)/1
-    #   V161217: 1 a lot waste..5 not at all → higher = MORE trust → normalize (s-1)/4
+    #   V161217: 1 a lot waste..3 not much → higher = MORE trust → normalize (s-1)/2
+    #     (codebook-verified 1-3 item; see generate_variable_audit.py:V161217)
     trust = pd.concat([
         1 - (t1 - 1) / 4,
         (t2 - 1) / 1,
-        (t3 - 1) / 4,
+        (t3 - 1) / 2,
     ], axis=1).mean(axis=1)
 
     pid = clean_var(df, "V161158x", 1, 7)

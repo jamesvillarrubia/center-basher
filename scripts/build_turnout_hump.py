@@ -28,12 +28,12 @@ def main():
 
     t1 = clean_var(df, "V161215", 1, 5)
     t2 = clean_var(df, "V161216", 1, 2)
-    t3 = clean_var(df, "V161217", 1, 5)
+    t3 = clean_var(df, "V161217", 1, 3)
     # grievance index (high = MORE grievance = LESS trust)
     griev = pd.concat([
         (t1 - 1) / 4,         # V161215: 1 always..5 never → grievance high at 5
         (2 - t2),             # V161216: 1 few big int (high griev), 2 benefit all
-        (t3 - 1) / 4,         # V161217: 1 lot waste (high griev)..3 not at all
+        (3 - t3) / 2,         # V161217: 1 lot waste (high griev)..3 not much (codebook 1-3 item)
     ], axis=1).mean(axis=1)
 
     e1 = clean_var(df, "V162215", 1, 5)
