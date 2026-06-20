@@ -29,6 +29,27 @@ Archived: <https://archive.ph/T0HWG>.
 - Sanders compared the energy around Platner to Zohran Mamdani's
   campaign in NYC.
 
+**2026-06 UPDATE — Platner wins the primary.**
+**Source:** Politico, "Bernie Sanders, Platner, progressives, primary wins"
+(June 10, 2026), <https://www.politico.com/news/2026/06/10/bernie-sanders-platner-progressives-primary-wins-00955571>.
+*(Direct fetch blocked; substance corroborated via CBS/Yahoo/AOL primary-night
+coverage, 2026-06-09 — reconcile the exact Mills timeline against the article.)*
+- Platner **won** the Maine Democratic Senate primary on **June 9, 2026**, and will
+  face GOP incumbent Susan Collins. Self-styled working-class, anti-establishment,
+  anti-"billionaire class" (41, military veteran, oyster farmer). Upgrades the
+  earlier entry from "presumptive nominee" to **confirmed winner** — the outcome,
+  not just the contest.
+- **Schumer made a rare public endorsement of the establishment pick (Gov. Janet
+  Mills, 77, "tested"), having stayed neutral in every other Senate primary.** This
+  is the sharpest detail for the essay: the same Schumer whose "pick up two moderate
+  Republicans" logic anchors §20 personally intervened *for* the establishment
+  candidate — who lost the lane to the outsider. (Timeline nuance to verify: some
+  coverage says Mills dropped out earlier, other coverage has Schumer endorsing her
+  through the primary — pin this before quoting.)
+- Progressive coalition beyond Sanders + Warren: **Brian Schatz (Senate leadership),
+  Ruben Gallego, Martin Heinrich** also backed Platner. Down-ballot, progressives
+  showed strength in the governor's ranked-choice race.
+
 **Where it lands.**
 
 - **§19 — "the centrist's bad trade" (primary home).** Centrists openly
