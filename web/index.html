@@ -675,8 +675,8 @@
       <figcaption>
         The grid sees the voter file’s “lean-Dem” label but not the disaffection underneath.
         Among Dem-leaners who actually voted in 2016, the overall defection rate to Trump
-        was 7.8% (about 1 in 13). For low-grievance (high-trust) Dem-leaners it was 3.7%,
-        and for high-grievance (low-trust) Dem-leaners it was 10.8%, about 1 in 9. A GOTV
+        was 7.9% (about 1 in 13). For low-grievance (high-trust) Dem-leaners it was 2.6%,
+        and for high-grievance (low-trust) Dem-leaners it was 12.6%, about 1 in 8. A GOTV
         program built on the file’s label alone is paying to mobilize a meaningful share of
         opponent voters.<a href="#fn-5-4" class="fnref" id="fnref-5-4"><sup>15</sup></a>
       </figcaption>
@@ -684,7 +684,7 @@
 
     <p>
       Pause and really consider what Figure I is showing. Misjudging the trust or grievance level of your
-      low-propensity lean-Dem voters can <strong>roughly triple</strong> the rate at which
+      low-propensity lean-Dem voters can <strong>roughly quintuple</strong> the rate at which
       a GOTV door-knock or text returns a vote for the opponent. The voter file’s label says
       the cell is yours. The trust composite says a meaningful fraction of it isn’t. That is
       a <em>massive</em> blind spot, and it sits in the cell campaigns spend the most money
@@ -719,9 +719,9 @@
           Critique sources for the “disaffection invisible to the file label” reading: Sean
           McElwee / Data for Progress memos (2019–2024) made variants of this point publicly.
           The empirical backbone is reproduced in Figure I from ANES 2016 (weighted by
-          <code>V160101</code>): Dem-leaners with above-median grievance on the 3-item
+          <code>V160102</code>, POST): Dem-leaners with above-median grievance on the 3-item
           institutional-trust index (<code>V161215 / V161216 / V161217</code>) defect to the
-          opposing candidate at <strong>~3× the rate</strong> of low-grievance Dem-leaners.
+          opposing candidate at <strong>~5× the rate</strong> of low-grievance Dem-leaners.
           The directional finding, the file’s “lean Dem” label substantially misses the
           trust/disaffection dimension, is robust across both voter-file scoring (Catalist,
           NGP-VAN) and ANES self-ID PID. The precise magnitude depends on which model.
@@ -739,12 +739,12 @@
         <li id="fn-5-4" value="15">
           ANES 2016, weighted by <code>V160102</code> (POST). Dem-leaners and stronger
           (<code>V161158x ∈ {1,2,3}</code>) who voted Trump (<code>V162034a = 2</code>):
-          <strong>2.68% of the electorate, n = 92</strong> ≈ <strong>7.8% of Dem-leaning
+          <strong>2.68% of the electorate, n = 92</strong> ≈ <strong>7.9% of Dem-leaning
           voters</strong> (1 in 13). Among Dem-leaners with above-median grievance on the
           3-item institutional-trust index (<code>V161215 / V161216 / V161217</code>):
-          defection rate to Trump = <strong>10.8% (1 in 9)</strong> vs <strong>3.7%</strong>
-          for low-grievance Dem-leaners. Trust is a ~3× multiplier on within-tent defection.
-          The “1 in 13 / 1 in 9” framing approximates the rate at which a GOTV intervention on
+          defection rate to Trump = <strong>12.6% (1 in 8)</strong> vs <strong>2.6%</strong>
+          for low-grievance Dem-leaners. Trust is a ~5× multiplier on within-tent defection.
+          The “1 in 13 / 1 in 8” framing approximates the rate at which a GOTV intervention on
           a Dem-scored low-propensity target produces a vote for the opponent instead.
           <em>Caveat:</em> voter-file partisanship scoring (Catalist, NGP-VAN, etc.) combines
           voter history, demographics, and survey-modeled signals, it isn’t identical to
@@ -920,17 +920,17 @@
           government to do what is right," inverted), <code>V161216</code> ("government run
           for benefit of all vs. few big interests"), and <code>V161217</code> ("not waste
           much tax money"). Index range 0–1. On the full sample, mean trust for defectors
-          (0.23) and loyalists (0.22) is essentially identical, the first-cut "null" that
+          (0.19) and loyalists (0.22) is similar, the first-cut near-"null" that
           the party-of-president confound hides.
           <a href="#fnref-7-1" class="fnret">↩</a>
         </li>
         <li id="fn-7-2" value="20">
           Restrict to non-Republicans (<code>V161158x</code> ≤ 4: Dem leaners + stronger
           plus pure independents; n=1,505 voters). By trust tercile:
-          <strong>broad swing rate (any non-Clinton vote)</strong> = 53.0% / 23.2% / 9.7%
-          for low / mid / high trust (n=104 / 842 / 558). Among Republicans
+          <strong>broad swing rate (any non-Clinton vote)</strong> = 53.3% / 22.4% / 10.2%
+          for low / mid / high trust (n=104 / 884 / 516). Among Republicans
           (<code>V161158x</code> ≥ 5) the pattern flips: low-trust Republicans voted Clinton
-          at 5.0% vs 12.1% (mid) and 20.3% (high), the opposite slope, because Trump owned
+          at 5.8% vs 12.0% (mid) and 20.0% (high), the opposite slope, because Trump owned
           the anti-establishment lane on the GOP side. Both partitions are in
           <code>data/clean/within_tent_bolt.csv</code>. The cross-cycle replication note
           (1972–2024) lives in
