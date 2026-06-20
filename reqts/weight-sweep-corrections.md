@@ -85,7 +85,50 @@ Dem→Trump rate split at median trust, POST + corrected:
 3. §6 body (L687) — "**roughly triple**" → **~5× / roughly quintuple** (or keep "more than triple").
 4. §5 fn-5-4 (L743–746) — "10.8% (1 in 9) vs 3.7% … ~3× multiplier".
 
-### Open issues I could NOT cleanly resolve (need a decision)
+### ⬛ C RECOMPUTE RESULT (2026-06-20) — the V161217 fix barely moves the figures
+
+Faithful replica (`scripts/verify_figK_faithful.py`) reproduces the **live Fig K exactly**
+under buggy-POST, so we now have authoritative before→after numbers.
+
+**Fig K (`fig-7-loyalty.js`) — essentially unchanged by the fix.** Loyalty (vote-own %), POST:
+
+| panel | live (buggy) | corrected | Δ |
+|---|---|---|---|
+| Dem don't-trust / somewhat / a-lot | 47 / 77 / 90 | 47 / **78** / 90 | mid +1 only |
+| Rep don't-trust / somewhat / a-lot | 94 / 88 / 80 | 94 / 88 / 80 | none |
+
+→ Fig K headline ("Critics defect 53%, Believers ~10%") is rock-solid; the only figure pixel
+that moves is Dem mid-trust loyalty 77→78. **Recommend: fix the script bug, leave the figure
+(or bump the one number).**
+
+**fn-7-2 broad-swing terciles — currently PRE; corrected POST:**
+
+| | live footnote (PRE+buggy) | corrected (POST+fix) |
+|---|---|---|
+| Dem broad-swing low/mid/high | 53.0 / 23.2 / 9.7 | **53.3 / 22.4 / 10.2** |
+| Rep→Clinton low/mid/high | 5.0 / 12.1 / 20.3 | **5.8 / 12.0 / 20.0** |
+
+(n's also refresh: Dem 104/884/516, Rep 193/521/429.)
+
+**fn-7-1 "0.23 / 0.22 essentially identical" means — DO NOT REPRODUCE.** Buggy gives 0.175/0.196,
+corrected gives **0.193 / 0.222** (two-party defectors vs loyalists). The corrected gap (0.19 vs
+0.22) is wider than "essentially identical," so this footnote's framing may need softening — but
+the original 0.23/0.22 came from a method I can't pin. ⚠️ Needs a decision on the canonical
+defector definition before restating.
+
+**Figure I (`fig-5c`) grievance — no reproducible backing; corrected canonical ≈:**
+
+| | legacy (hardcoded) | corrected canonical (POST+fix, median split, two-party denom) |
+|---|---|---|
+| all Dem-leaners | 7.8% (1 in 13) | **~8.2% (≈1 in 12)** |
+| low-grievance | 3.7% | **~2.7% (≈1 in 37)** |
+| high-grievance | 10.8% (1 in 9) | **~13.3% (≈1 in 8)** |
+| multiplier | ~3× | **~5×** |
+
+(Exact values shift with the denominator choice — "voted two-party" vs "voted at all." Pin this
+when building the backing script.)
+
+### Open issues that still need a decision
 - **Provenance gap:** Figure I's numbers are **hardcoded in JS with no backing data file**, and
   fn-5-4's grievance split isn't in `within_tent_bolt.json`. Recommend adding a
   `build_dem_lean_defection.py` → `data/clean/dem_lean_defection.json` so Figure I is data-driven
