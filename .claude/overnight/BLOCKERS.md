@@ -2,6 +2,28 @@
 
 Irreversible / externally-visible actions that were SKIPPED and need your call. Nothing here was executed.
 
+---
+## ✅ RESOLVED 2026-06-19 (user confirmed Cursor saved/closed; applied + committed)
+All six review fixes are now in `web/index.html` (commit "fix(claims): apply all 7 adversarial-review
+fixes"), verified rendering at desktop 1280×900 on :5193, footnotes contiguous 1–73:
+- §20 "lost all three states" → "lost PA, OH, WI, carrying only Illinois" ✅
+- §20 "national mean 0.24" → **0.23** (re-derived V160101 full-sample 0.234/n=4,257; 0.22 voters),
+  now sourced in fn 51 + `scripts/verify_review_findings.py` ✅
+- §21 "roughly three-to-one … a year before a vote" → "nearly three-to-one … before a single vote
+  was cast" ✅
+- §12 *Get Out the Vote* "3rd ed., 2019" → "4th ed., 2019" ✅
+- §24 NYT/Siena "March 2022, n=1,000" → "fielded Feb 9–22 2022 (released March), n≈1,507" ✅
+- §3 fn-3-3 n=55 clarified ("of 92 total Dem→Trump defectors; 37 lack valid self-placement") ✅
+- Confirmed already-fixed: §2/§1 scale-mixing (2026-06-13 entries below).
+
+**Still OPEN (data-discipline, not yet applied):** the PRE→POST weight sweep on the vote-conditioned
+§3 (fn-3-3) / §5 (fn-5-4) defector footnotes — they still weight V160101 (PRE) where Gate 3 wants
+V160102 (POST). Qualitative conclusions survive; printed percentages shift slightly. See the
+2026-06-12 entries below.
+
+---
+### Original log (pre-fix) follows
+
 ## 2026-06-12 17:23 — Prose-vs-data: Sanders primary centroid n
 Wanted: reconcile §18 (evidence) figcaption "Sanders' primary voter centroid (n = 339)" with live web/data/voter_map_2016.json Sanders candidate n=300.
 Recommended: confirm whether 339 vs 300 is two different populations (all Sanders primary voters vs those plotted with valid coords) or a stale number; if stale, update the figcaption number to match the rebuilt data. PROSE change — left for review, not edited autonomously.
