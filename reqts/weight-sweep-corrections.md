@@ -11,9 +11,12 @@ how invasive each change is.
 
 ---
 
-## BUCKET A — Weight-label fixes (SAFE, no rendered number changes)
+## BUCKET A — Weight-label fixes (SAFE, no rendered number changes) — ✅ DONE 2026-06-19
 
-The scripts already use POST; these just make the prose/metadata honest. Ready to apply.
+The scripts already use POST; these just make the prose/metadata honest.
+**Applied & committed** (script metadata + data/clean + web/data/swing_spectrum label sync,
+then fn-3-3 / fn-7-1 footnote labels). Verified number-safe: regeneration moved only label
+strings; footnotes still contiguous 1–73. fn-3-3 center share 35%→36% (per commit 755879e).
 
 ### A1 · §3 fn-3-3 (`value="9"`)
 - **Current:** `ANES 2016, weighted with <code>V160101</code>.`
