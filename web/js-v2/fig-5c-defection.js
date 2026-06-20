@@ -1,19 +1,16 @@
 // Fig 5c (Option C) — Trump defection rate among Dem-leaners by trust level.
 //
-// Numbers from §5 footnote [4]: ANES 2016 weighted by V160101.
-// "Dem-leaners" = V161158x ∈ {1,2,3}. Trust = 3-item index
-// (V161215/216/217). High-grievance = above-median grievance score.
+// Data-driven from data/dem_lean_defection.json (scripts/build_dem_lean_defection.py):
+// ANES 2016 weighted by V160102 (POST). "Dem-leaners" = V161158x ∈ {1,2,3} who voted.
+// Trust = 3-item index (V161215/216/217, V161217 the codebook 1-3 item). High-grievance
+// = below-median trust. Pass the fetched JSON object as the second argument.
 import * as d3 from 'https://esm.sh/d3@7'
 
-const ROWS = [
-  { key: 'lowgriev',  label: 'Low-grievance (high-trust)', pct: 3.7,  inline: '≈ 1 in 27' },
-  { key: 'all',       label: 'All Dem-leaners',            pct: 7.8,  inline: '≈ 1 in 13' },
-  { key: 'highgriev', label: 'High-grievance (low-trust)', pct: 10.8, inline: '≈ 1 in 9' },
-]
-
-export function drawDefection(selector) {
+export function drawDefection(selector, data) {
   const container = document.querySelector(selector)
   if (!container) throw new Error(`No container at ${selector}`)
+  if (!data || !data.rows) throw new Error('drawDefection requires dem_lean_defection.json data')
+  const ROWS = data.rows
   container.innerHTML = ''
 
   const W = container.clientWidth || 680

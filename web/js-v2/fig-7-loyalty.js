@@ -7,7 +7,8 @@
 // "Trump = anti-establishment"). The asymmetry shows as opposite
 // slopes on the same shape.
 //
-// Numbers from data/clean/within_tent_bolt.csv (vote_own_pct).
+// Numbers from data/clean/within_tent_bolt.csv (vote_own_pct), V160102 (POST),
+// corrected V161217 1-3 trust item.
 import * as d3 from 'https://esm.sh/d3@7'
 
 const PANELS = [
@@ -19,8 +20,8 @@ const PANELS = [
     headline: 'For Democrats, distrust pushed voters AWAY from Clinton.',
     cause: 'Clinton was the establishment candidate, so distrust meant leaving her.',
     rows: [
-      { label: 'Trust government a lot',  pct: 90, n: 558 },
-      { label: 'Trust government somewhat', pct: 77, n: 842 },
+      { label: 'Trust government a lot',  pct: 90, n: 516 },
+      { label: 'Trust government somewhat', pct: 78, n: 884 },
       { label: 'Don’t trust government',  pct: 47, n: 104 },
     ],
   },
@@ -32,8 +33,8 @@ const PANELS = [
     headline: 'For Republicans, distrust kept voters WITH Trump.',
     cause: 'Trump was the anti-establishment candidate, so distrust meant staying with him.',
     rows: [
-      { label: 'Trust government a lot',  pct: 80, n: 426 },
-      { label: 'Trust government somewhat', pct: 88, n: 524 },
+      { label: 'Trust government a lot',  pct: 80, n: 429 },
+      { label: 'Trust government somewhat', pct: 88, n: 521 },
       { label: 'Don’t trust government',  pct: 94, n: 193 },
     ],
   },

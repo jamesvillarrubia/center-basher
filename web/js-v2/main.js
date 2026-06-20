@@ -55,7 +55,8 @@ async function init() {
   // §4 — pure typographic comparison cards (Option B); no JS chart needed.
 
   // §5 — three options to choose from
-  drawDefection('#fig-5c-svg')
+  const demLeanDefection = await (await fetch('data/dem_lean_defection.json')).json()
+  drawDefection('#fig-5c-svg', demLeanDefection)
 
   // §6 — pure typographic K&B card; no JS chart needed.
 
