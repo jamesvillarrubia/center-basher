@@ -1,7 +1,7 @@
 {
   "source": "ANES 2016 Time Series \u2014 data/raw/anes_timeseries_2016.dta",
   "variables": [
-    "V160101 (weight)",
+    "V160102 (POST weight)",
     "V161126 (self-place 7-pt lib-con; 1=Extremely lib, 7=Extremely con)",
     "V161158x (PID, 7-pt, leaners)",
     "V162034a (presidential vote; 1=Clinton, 2=Trump)"

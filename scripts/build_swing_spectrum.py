@@ -10,7 +10,7 @@ voted for the OTHER party's nominee in 2016.
 For each scale position (V161126, 1-7), report the weighted % of all
 defectors who self-placed there, split by direction.
 
-Use ANES 2016 (weighted, V160101).
+Use ANES 2016 (weighted, V160102 POST — defector analysis is vote-conditioned, Gate 3).
 """
 import json
 import numpy as np
@@ -81,7 +81,7 @@ def main():
     out = {
         "source": "ANES 2016 Time Series — data/raw/anes_timeseries_2016.dta",
         "variables": [
-            "V160101 (weight)",
+            "V160102 (POST weight)",
             "V161126 (self-place 7-pt lib-con; 1=Extremely lib, 7=Extremely con)",
             "V161158x (PID, 7-pt, leaners)",
             "V162034a (presidential vote; 1=Clinton, 2=Trump)",

@@ -95,11 +95,11 @@ def main():
         manifest={
             "source": "ANES 2016 Time Series — data/raw/anes_timeseries_2016.dta",
             "variables": [
-                "V160101 (weight)", "V161158x (PID)", "V162034a (vote)",
+                "V160102 (POST weight)", "V161158x (PID)", "V162034a (vote)",
                 "V161215/V161216/V161217 (3-item trust index, PRE-election)",
             ],
             "filter": "Voters within each tent (Dems+indeps vs Republicans) with valid trust + vote.",
-            "weight": "V160101 (post-election)",
+            "weight": "V160102 (POST-election weight)",
             "method": (
                 "3-item trust index 0..1 (HIGH=MORE trust); terciles taken WITHIN each tent. "
                 "Within-tent vote splits by trust band. Broad-swing = 100% - voted-own."
