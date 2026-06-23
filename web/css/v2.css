@@ -2572,3 +2572,12 @@ a.secref:hover {
   color: var(--ink-soft);
   margin: 0;
 }
+
+/* Coda section break before the founding-quote close */
+hr.coda-break {
+  border: 0;
+  width: 4rem;
+  height: 1px;
+  background: var(--rule);
+  margin: 2.75rem auto;
+}
