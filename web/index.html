@@ -59,7 +59,7 @@
     </p>
 
     <p class="lede">
-      A quick note on the data before the argument begins. Almost everything that follows
+      A quick note on the data before we begin our argument in earnest. Almost everything that follows
       draws on polling and survey data from presidential elections, and that is a deliberate
       choice for three reasons. First, the presidential-year data is simply more complete,
       with larger samples and deeper question batteries, which is what lets us surface the
@@ -100,7 +100,6 @@
           Gen Z appears starting 2016. The chart shows every cohort collapsed in the same
           direction over the same period: distrust isn't a generational quirk, it's universal.
           (The party-of-president confound is netted out in <a href="#sec-15" class="secref">§15</a>.)
-          Pipeline: <code>scripts/build_trust_by_cohort.py</code>.
           <a href="#fnref-0-3" class="fnret">↩</a>
         </li>
       </ol>
@@ -113,7 +112,7 @@
     <h2>"Win the middle", but which middle?</h2>
 
     <p class="lede">
-      Despite this ocean of distrust, almost every campaign consultant believes the same thing:
+      Despite the ocean of distrust in government, almost every campaign consultant believes the same thing:
       there's a big bloc of gettable, <strong>moderate</strong> voters sitting in the middle,
       and if you soften your positions to win them over, you win.
       <em>"Don't scare the moderates."</em> <em>"Move to the center."</em>
@@ -168,8 +167,7 @@
           <code>V162034a</code> (vote; 4% of voters, n=126).
           Each bar: weighted % of the row group's respondents who are <em>also</em> in the
           named group. Bars don't sum to 100 because some voters fall into more than one of
-          the other two groups. Pipeline:
-          <code>scripts/build_center_overlap_matrix.py</code>.
+          the other two groups.
           <a href="#fnref-1-2" class="fnret">↩</a>
         </li>
       </ol>
@@ -281,8 +279,6 @@
           the opening overlap figure's note sets aside: the 23 MidMiddlers are its
           self-described-moderate slice, and the rest are self-labeled liberals and
           conservatives whose opposite extremes cancel to a middling mean.
-          Pipeline: <code>scripts/build_center_breakdown.py</code> →
-          <code>data/clean/center_breakdown.csv</code>.
           <a href="#fnref-2-1" class="fnret">↩</a>
         </li>
       </ol>
@@ -384,7 +380,6 @@
           conservatives = 4–5). Weighted by <code>weight_genpop_2016</code>.
           Restricted to respondents who reported voting in all three cycles
           (n=2,628 total: liberal 772, moderate 967, conservative 889).
-          Pipeline: <code>scripts/build_cross_cycle_consistency.py</code>.
           <a href="#fnref-3-1" class="fnret">↩</a>
         </li>
         <li id="fn-3-2" value="8">
@@ -405,7 +400,7 @@
           scale: <code>V161126</code>. Weighted means: Dem→Trump 3.6; Rep→Clinton 4.7;
           combined 4.2. Only 36% of all defectors self-place at the exact center (position
           4); 64% are off-center, with the two directions clustered on opposite sides of the
-          middle. Pipeline: <code>scripts/build_swing_spectrum.py</code>.
+          middle.
           <a href="#fnref-3-3" class="fnret">↩</a>
         </li>
       </ol>
@@ -942,10 +937,8 @@
           for low / mid / high trust (n=104 / 884 / 516). Among Republicans
           (<code>V161158x</code> ≥ 5) the pattern flips: low-trust Republicans voted Clinton
           at 5.8% vs 12.0% (mid) and 20.0% (high), the opposite slope, because Trump owned
-          the anti-establishment lane on the GOP side. Both partitions are in
-          <code>data/clean/within_tent_bolt.csv</code>. The cross-cycle replication note
-          (1972–2024) lives in
-          <code>data/clean/within_tent_bolt_by_cycle.csv</code>.
+          the anti-establishment lane on the GOP side. The pattern replicates
+          cross-cycle (1972–2024).
           <a href="#fnref-7-2" class="fnret">↩</a>
         </li>
       </ol>
@@ -1078,8 +1071,8 @@
           <a href="#fnref-9-1" class="fnret">↩</a>
         </li>
         <li id="fn-9-2" value="24">
-          Trust → presidential vote, standardized weighted logistic coefficient per cycle,
-          from <code>data/clean/trust_vote_by_cycle.csv</code>: 2016 <strong>−0.275</strong>
+          Trust → presidential vote, standardized weighted logistic coefficient per cycle:
+          2016 <strong>−0.275</strong>
           (Clinton vs. Trump); 2020 <strong>+0.049</strong> (Biden vs. Trump, effectively
           flat); 2024 <strong>−0.174</strong> (Harris vs. Trump). The 2020 collapse to
           near-zero is the key falsifier: motivated reasoning alone predicts a stable
@@ -1383,8 +1376,7 @@
           Meaning of America</em> (Princeton University Press). Michael Tesler (2016),
           <em>Post-Racial or Most-Racial? Race and Politics in the Age of Obama</em>
           (University of Chicago Press). Cross-cycle racial-resentment electoral weight in
-          the ANES CDF, net of ideology and party ID, by cycle (from
-          <code>data/clean/rr_weight_by_cycle.csv</code>, properly oriented 4-item
+          the ANES CDF, net of ideology and party ID, by cycle (properly oriented 4-item
           Kinder-Sanders scale): 1988 +0.48 / 2000 +0.33 / 2004 +0.69 / 2008 +0.98 / 2012
           +0.88 / 2016 <strong>+1.55</strong> / 2020 <strong>+1.48</strong> / 2024 +1.18.
           Net RR weight rose roughly 5× from 2000 to 2016–2020 and remained elevated
@@ -1647,15 +1639,13 @@
           <a href="#fnref-13-3" class="fnret">↩</a>
         </li>
         <li id="fn-13-4" value="39">
-          Earlier drafts of <a href="#sec-13" class="secref">§13</a> claimed that the half of stakes driving turnout was
-          fear-of-the-other-side specifically ("liking is shallow, fear is steep"),
-          based on the 2016-only warmth/affect-spread quintile pattern. Pooling the
-          same metrics across 2008–2024 (n≈18,000 from the ANES Cumulative File using
-          validated turnout <code>VCF0702</code>) does not reproduce a clean monotonic
-          version of that pattern. The "fear" mechanism remains plausible and the 2016
-          single-cycle data is suggestive, but the broader claim doesn’t replicate
-          cleanly enough to publish as a finding. Pipeline:
-          <code>scripts/build_warmth_fear_spread_pooled.py</code>.
+          The 2016 warmth/affect-spread quintile pattern suggested the half of stakes
+          driving turnout was fear-of-the-other-side specifically (“liking is shallow,
+          fear is steep”). But pooling the same metrics across 2008–2024 (n≈18,000 from
+          the ANES Cumulative File using validated turnout <code>VCF0702</code>) does not
+          reproduce a clean monotonic version of that pattern, so we don’t claim it: the
+          fear mechanism remains plausible and the single-cycle data suggestive, but it
+          doesn’t replicate cleanly enough to publish as a finding.
           <a href="#fnref-13-4" class="fnret">↩</a>
         </li>
         <li id="fn-13-5" value="40">
@@ -1765,9 +1755,8 @@
       <summary>How we know</summary>
       <ol class="footnotes" start="43">
         <li id="fn-14-1" value="43">
-          Cross-cycle no-show typology: ANES Cumulative File 1972–2024
-          (<code>data/clean/noshow_typology_by_cycle.csv</code>, built by
-          <code>scripts/build_noshow_typology_by_cycle.py</code>). For each
+          Cross-cycle no-show typology: ANES Cumulative File 1972–2024.
+          For each
           presidential cycle, low-engagement no-shows
           (<code>VCF0310</code>=3 ∧ <code>VCF0702</code>=1) classified by grievance
           terciles on the full electorate × <code>VCF0613</code> efficacy item
@@ -1857,8 +1846,7 @@
           tax money), normalized 0..1 with HIGH = MORE trust. Ideology = <code>VCF0803</code>
           (1=lib..7=cons). Presidential vote = <code>VCF0704</code> (1=Dem, 2=Rep).
           Weight = <code>VCF0009z</code>. Cycles included 1972–2024. Cross-cycle sample
-          n≈24,000. Pipeline: <code>scripts/build_trust_vote_by_cycle.py</code> →
-          <code>data/clean/trust_vote_by_cycle.csv</code>.
+          n≈24,000.
           <a href="#fnref-15-1" class="fnret">↩</a>
         </li>
         <li id="fn-15-2" value="46">
@@ -2029,13 +2017,12 @@
           2000 Bush dominated character traits but Gore won the PV (continuity
           rewarded by high-trust electorate, EC inverted via FL recount).
           The pattern: 12 of 12 cycles by popular vote, 11 of 12 by Electoral
-          College. <strong>Honest correction from the prior draft:</strong> an
-          earlier version of this footnote said "the change-lane owner wins,
-          7-for-7," which was circular: Reagan ’84 and Bush ’88 ran on continuity,
-          not change, and they won precisely because high-trust voters reward
-          continuity. The corrected framing is regime-conditional: voters reward
-          continuity in high-trust eras and change in low-trust eras; the
-          regime determines which frame is favored. Convergent evidence supporting
+          College. The framing is regime-conditional, not a simple
+          “change-lane owner always wins”: Reagan ’84 and Bush ’88 ran on
+          continuity, not change, and won precisely because high-trust voters
+          reward continuity. Voters reward continuity in high-trust eras and
+          change in low-trust eras; the regime determines which frame is favored.
+          Convergent evidence supporting
           the regime-conditional pattern: trust→vote sign-flip (<a href="#sec-15" class="secref">§15</a>), RR
           electoral-weight peaks (<a href="#sec-11" class="secref">§11</a>), the frame-match scoreboard, the
           authenticity-crossover (<a href="#sec-9" class="secref">§9</a>), the VSG switcher gap (<a href="#sec-18" class="secref">§18</a>), and the
@@ -2615,7 +2602,7 @@
           0–1, higher = more trust. National weighted mean of the composite =
           <strong>0.23</strong> (<code>V160101</code>, full sample, n=4,257; 0.22 among voters,
           median 0.17, ~45% at the floor), so the moderate-swing 0.22 sits essentially at the
-          national mean. Re-derivation: <code>scripts/verify_review_findings.py</code>.
+          national mean.
           <a href="#fnref-20-1" class="fnret">↩</a>
         </li>
         <li id="fn-20-2" value="52">
@@ -3451,8 +3438,9 @@
     </p>
 
     <p class="lede">
-      This essay asked who wins close elections, and why the institutionally safe candidate is
-      actually the risky one. We hope, in our next essay, to ask the harder questions. Who is even
+      All of this runs deeper than any single race. This essay simply asked who wins close
+      elections, and why the institutionally safe candidate is actually the risky one. But we
+      hope, in our next essay, to ask the harder questions. Who is even
       allowed to run? Or, put more bluntly, who will the media and the donors permit to run a
       credible campaign at all? That answer lies upstream, in the money and media at the very top,
       in the concentrated wealth and fragmented press that decide which names ever reach a ballot,
@@ -3468,7 +3456,8 @@
       Decades later, Jefferson would put it plainly: “laws and institutions must go hand in hand
       with the progress of the human mind.” The founders understood this. Whatever the textualists
       and originalists on today’s Supreme Court prefer to believe, the Constitution was built to be
-      rewritten, and we have rewritten it twenty-seven times. The danger was never that the system
+      rewritten, built to be a living document. And we have rewritten it twenty-seven times. The
+      danger was never that the system
       would change. The danger is that it stops changing fast enough to keep faith with the people
       living inside it.
     </p>
@@ -3489,7 +3478,9 @@
     <p>
       <strong>James Villarrubia</strong> is a public-policy expert, software engineer, and AI
       technologist. Across the White House, DOJ, and DOD his work spanned technology, procurement,
-      and policy, and he was most recently a Presidential Innovation Fellow for AI at NASA. He now
+      and policy, and he was most recently a Presidential Innovation Fellow at NASA, where he
+      investigated the utopian and dystopian socioeconomic futures of humankind, and how human
+      ingenuity might nudge us toward the better ones. He now
       advises startup boards and consults while pursuing his own AI research. Years ago he wrote
       software for the DNC, an institution this essay does not spare. The analysis and views here
       are his own. <a href="https://jamesvillarrubia.com/">jamesvillarrubia.com</a>
