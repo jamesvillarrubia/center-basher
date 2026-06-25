@@ -15,7 +15,7 @@ import * as d3 from 'https://esm.sh/d3@7'
 
 const BARS = [
   { lab: 'WHO you nominate', sub: 'the candidate\'s trust position', pp: 22.0, kind: 'prior',    color: '#1b4f8a' },
-  { lab: 'What the CAMPAIGN does after', sub: 'persuasion + ads + policy (general)', pp: 0.4, kind: 'campaign', color: '#888' },
+  { lab: 'What the CAMPAIGN does after', sub: 'persuasion + ads + policy (general)', pp: 0.4, kind: 'campaign', color: '#c77f2a' },
 ]
 
 export function drawCampaignCeiling(selector) {
