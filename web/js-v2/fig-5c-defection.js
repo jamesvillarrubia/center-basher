@@ -13,7 +13,7 @@ export function drawDefection(selector, data) {
   const ROWS = data.rows
   container.innerHTML = ''
 
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 14, right: 130, bottom: 50, left: 220 }
   const innerW = W - margin.left - margin.right
   const rowH = 36

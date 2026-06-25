@@ -23,7 +23,7 @@ export function drawCampaignCeiling(selector) {
   if (!container) throw new Error(`No container at ${selector}`)
   container.innerHTML = ''
 
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 90, right: 50, bottom: 80, left: 250 }
   const rowH = 50, gap = 28
   const innerW = W - margin.left - margin.right

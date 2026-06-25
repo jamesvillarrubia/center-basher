@@ -28,7 +28,7 @@ export function drawDefectionBars(selector) {
   if (!container) throw new Error(`No container at ${selector}`)
   container.innerHTML = ''
 
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 34, right: 30, bottom: 70, left: 130 }
   const rowH = 22, pairGap = 10, groupGap = 36
   const innerW = W - margin.left - margin.right

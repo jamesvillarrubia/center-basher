@@ -52,7 +52,7 @@ export function drawTrustBandsByCycle(selector, data) {
       popVote: POP_VOTE[r.cycle] ?? null,
     }))
 
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 110, right: 70, bottom: 70, left: 70 }
   const innerW = W - margin.left - margin.right
   const innerH = 260

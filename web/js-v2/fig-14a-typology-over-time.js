@@ -33,7 +33,7 @@ export function drawTypologyOverTime(selector) {
   if (!container) throw new Error(`No container at ${selector}`)
   container.innerHTML = ''
 
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 24, right: 180, bottom: 60, left: 60 }
   const innerW = W - margin.left - margin.right
   const innerH = 280

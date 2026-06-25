@@ -65,7 +65,7 @@ export function drawOverlapMatrix(selector, data) {
   const blocks = ['M', 'C', 'S'].map(blockData)
 
   // Geometry
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 14, right: 120, bottom: 50, left: 14 }
   const innerW = W - margin.left - margin.right
   const rowH = 16

@@ -17,7 +17,7 @@ export function drawTrustByCohort(selector, data) {
   if (!container) throw new Error(`No container at ${selector}`)
   container.innerHTML = ''
 
-  const W = container.clientWidth || 680
+  const W = 680
   const H = Math.min(W * 0.62, 460)
   const margin = { top: 24, right: 80, bottom: 36, left: 36 }
   const innerW = W - margin.left - margin.right

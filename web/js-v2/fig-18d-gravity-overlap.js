@@ -24,7 +24,7 @@ export function drawGravityOverlap(selector) {
   if (!container) throw new Error(`No container at ${selector}`)
   container.innerHTML = ''
 
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 24, right: 40, bottom: 60, left: 150 }
   const rowH = 38, gap = 18
   const innerW = W - margin.left - margin.right

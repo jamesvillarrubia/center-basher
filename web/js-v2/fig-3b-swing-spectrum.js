@@ -27,7 +27,7 @@ export function drawSwingSpectrum(selector, data) {
   const n = data.n_unweighted
 
   // Geometry
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 56, right: 24, bottom: 90, left: 60 }
   const innerW = W - margin.left - margin.right
   const halfH = 130           // each "wing" of the butterfly

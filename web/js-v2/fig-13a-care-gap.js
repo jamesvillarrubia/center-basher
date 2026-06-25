@@ -31,7 +31,7 @@ export function drawCareGap(selector) {
   if (!container) throw new Error(`No container at ${selector}`)
   container.innerHTML = ''
 
-  const W = container.clientWidth || 680
+  const W = 680
   const panelGap = 24
   const margin = { top: 40, right: 16, bottom: 56, left: 24 }
   const panelW = (W - margin.left - margin.right - panelGap) / 2

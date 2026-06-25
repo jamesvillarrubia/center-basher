@@ -111,7 +111,7 @@ html, body {
 }
 
 .seclabel {
-  font: 600 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  font: 600 12px/1.35 -apple-system, "Helvetica Neue", sans-serif;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
@@ -754,7 +754,7 @@ figcaption {
   fill: var(--ink-soft);
 }
 .defection-chart .defection-rowlabel {
-  font: 600 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  font: 600 12px/1.35 -apple-system, "Helvetica Neue", sans-serif;
   fill: var(--ink);
 }
 .defection-chart .defection-axis path,
@@ -1374,7 +1374,7 @@ figcaption {
   fill: var(--ink-soft);
 }
 .switch-coef-chart .sc-rowlabel {
-  font: 600 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  font: 600 12px/1.35 -apple-system, "Helvetica Neue", sans-serif;
   fill: var(--ink);
 }
 .switch-coef-chart .sc-bar {
@@ -1657,7 +1657,7 @@ figcaption {
 }
 .ws-chart .ws-leg-line { }
 .ws-chart .ws-leg-label {
-  font: 600 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  font: 600 12px/1.35 -apple-system, "Helvetica Neue", sans-serif;
   fill: var(--ink-soft);
 }
 
@@ -1671,7 +1671,7 @@ figcaption {
   fill: var(--ink-soft);
 }
 .turnout-coef-chart .tc-rowlabel {
-  font: 600 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  font: 600 12px/1.35 -apple-system, "Helvetica Neue", sans-serif;
   fill: var(--ink);
 }
 .turnout-coef-chart .tc-bar { stroke: #fbfbf8; stroke-width: 1; }
@@ -1786,7 +1786,7 @@ blockquote.correction strong {
   /* Title wraps onto multiple lines and uses a smaller min size. */
   .masthead h1 {
     white-space: normal;
-    font-size: clamp(1.9rem, 9vw, 2.6rem);
+    font-size: clamp(2.4rem, 11vw, 3.2rem);
   }
   .masthead {
     padding: 3rem 0 2.5rem;
@@ -2415,7 +2415,7 @@ blockquote.correction strong {
   fill: var(--ink-faint);
 }
 .hc-chart .hc-cand-name {
-  font: 600 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  font: 600 12px/1.35 -apple-system, "Helvetica Neue", sans-serif;
   fill: var(--ink);
 }
 .hc-chart .hc-cand-role {
@@ -2542,7 +2542,7 @@ a.secref:hover {
 
 /* Byline (masthead) + end-of-essay author bio */
 .byline {
-  font: 13px/1.4 -apple-system, "Helvetica Neue", sans-serif;
+  font: 15px/1.4 -apple-system, "Helvetica Neue", sans-serif;
   letter-spacing: 0.02em;
   color: var(--ink-faint);
   margin: 1.25rem 0 0;
@@ -2580,4 +2580,12 @@ hr.coda-break {
   height: 1px;
   background: var(--rule);
   margin: 2.75rem auto;
+}
+
+/* Mobile: clear masthead > parthead hierarchy, and keep the full-bleed asides
+   from overflowing the viewport (they hang -1.5rem against 1rem page padding,
+   which caused ~8px of horizontal scroll). */
+@media (max-width: 640px) {
+  .parthead-title { font-size: 1.55rem; }
+  .parthead, .bigquote { margin-left: -1rem; margin-right: -1rem; }
 }

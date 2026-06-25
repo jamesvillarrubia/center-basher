@@ -29,7 +29,7 @@ export function drawBaselineRegime(selector, data) {
 
   const cycles = data.cycles.filter(c => c.in_power_2p_share != null && c.trust_mean != null)
 
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 24, right: 30, bottom: 70, left: 70 }
   const innerW = W - margin.left - margin.right
   const innerH = 360

@@ -27,7 +27,7 @@ export function drawRRTimeline(selector) {
   if (!container) throw new Error(`No container at ${selector}`)
   container.innerHTML = ''
 
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 24, right: 24, bottom: 56, left: 50 }
   const innerW = W - margin.left - margin.right
   const innerH = 260

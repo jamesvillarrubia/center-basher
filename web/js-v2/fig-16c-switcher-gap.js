@@ -41,7 +41,7 @@ export function drawSwitcherGap(selector) {
   if (!container) throw new Error(`No container at ${selector}`)
   container.innerHTML = ''
 
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 76, right: 180, bottom: 50, left: 30 }
   const innerW = W - margin.left - margin.right
   const itemH = 90

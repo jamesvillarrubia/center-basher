@@ -33,7 +33,7 @@ export function drawCrossCycleConsistency(selector, data) {
   for (const r of data.rows) byBand[r.band] = r
 
   // Geometry
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 36, right: 24, bottom: 50, left: 160 }
   const innerW = W - margin.left - margin.right
   const rowH = 34

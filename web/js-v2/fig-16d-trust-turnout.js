@@ -19,7 +19,7 @@ export function drawTrustTurnout(selector, data) {
   container.innerHTML = ''
 
   const cycles = data.cycles
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 32, right: 40, bottom: 70, left: 70 }
   const innerW = W - margin.left - margin.right
   const innerH = 340

@@ -19,7 +19,7 @@ export function drawWeeklyTrajectory(selector, data) {
   container.innerHTML = ''
 
   const cycles = data.cycles
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 100, right: 30, bottom: 60, left: 60 }
   const panelH = 200
   const panelGap = 70

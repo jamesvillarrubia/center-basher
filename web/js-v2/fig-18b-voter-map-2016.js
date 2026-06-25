@@ -310,7 +310,7 @@ function drawChart(container, data, opts) {
   const voters = swingOnly ? data.voters.filter(v => v.s) : data.voters
   const cands = data.candidates
 
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 24, right: 30, bottom: 56, left: 70 }
   const innerW = W - margin.left - margin.right
   const innerH = Math.min(innerW, 460)

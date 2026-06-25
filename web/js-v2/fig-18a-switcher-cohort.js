@@ -27,7 +27,7 @@ export function drawSwitcherCohort(selector, data) {
   container.innerHTML = ''
 
   const cohorts = data.cohorts
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 46, right: 30, bottom: 70, left: 220 }
   const innerW = W - margin.left - margin.right
   const innerH = 220

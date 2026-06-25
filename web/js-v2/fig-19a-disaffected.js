@@ -17,7 +17,7 @@ export function drawDisaffected(selector) {
   if (!container) throw new Error(`No container at ${selector}`)
   container.innerHTML = ''
 
-  const W = container.clientWidth || 680
+  const W = 680
   const H = 280
   const margin = { top: 70, right: 20, bottom: 50, left: 20 }
   const innerW = W - margin.left - margin.right

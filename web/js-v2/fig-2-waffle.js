@@ -90,7 +90,7 @@ export function drawHundredVoters(selector) {
   if (!container) throw new Error(`No container at ${selector}`)
   container.innerHTML = ''
 
-  const W = container.clientWidth || 680
+  const W = 680
 
   // STAGE 1 — full electorate (10 × 10)
   const s1 = { cols: 10, rows: 10, margin: { top: 14, right: 220, bottom: 8, left: 14 } }

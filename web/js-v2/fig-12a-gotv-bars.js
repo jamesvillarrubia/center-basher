@@ -32,7 +32,7 @@ export function drawGOTV(selector) {
   if (!container) throw new Error(`No container at ${selector}`)
   container.innerHTML = ''
 
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 24, right: 60, bottom: 56, left: 220 }
   const innerW = W - margin.left - margin.right
   const rowH = 38

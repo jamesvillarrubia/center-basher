@@ -26,7 +26,7 @@ export function drawWithinCycle(selector, data) {
   if (!container) throw new Error(`No container at ${selector}`)
   container.innerHTML = ''
 
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 100, right: 30, bottom: 90, left: 70 }
   const innerW = W - margin.left - margin.right
   const innerH = Math.min(innerW, 480)

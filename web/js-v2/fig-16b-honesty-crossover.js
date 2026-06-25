@@ -36,7 +36,7 @@ export function drawHonestyCrossover(selector, data) {
     is_wash:       c.is_wash_swing,
   }))
 
-  const W = container.clientWidth || 680
+  const W = 680
   const margin = { top: 34, right: 20, bottom: 112, left: 70 }
   const innerW = W - margin.left - margin.right
   const innerH = 280
