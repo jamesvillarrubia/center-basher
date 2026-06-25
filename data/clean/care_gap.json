@@ -1,0 +1,39 @@
+{
+  "source": "ANES 2016 Time Series \u2014 data/raw/anes_timeseries_2016.dta; validated vote from data/derived/anes_timeseries_2016_voteval_csv/",
+  "variables": [
+    "V160102 (POST weight)",
+    "V161005 (care a good deal who wins; 1=yes, 2=no)",
+    "V161004 (political interest; 3=not much \u2192 low-engagement subset)",
+    "vote2016 (validated turnout from voteval merge; 0/1)"
+  ],
+  "filter": "Low-engagement subset = V161004 == 3 ('not much interested'), matching build_turnout_hump.py convention. All analysis excludes ANES standard missing codes (-9,-8,-7,-6,-5,-4,-3,-2,-1) via clean_var.",
+  "weight": "V160102 (POST weight). POST used because validated vote is a post-election measure. Respondents without post-wave interview (POST weight = 0) are excluded.",
+  "method": "Validated turnout (vote2016, record-check match) for each care category. Weighted mean within coalition. Gap = care% minus dontcare%.",
+  "n": 3648,
+  "supports": [
+    "plain-language.md \u00a713"
+  ],
+  "caveats": [
+    "NON-REPRODUCTION FINDING: The hardcoded targets in fig-13a-care-gap.js (ALL: 70.5/35.9, LOW-ENG: 52.2/25.6) DO NOT match ANES 2016 validated turnout under any combination of standard weights/filters tried. Our computed values are systematically 10-19pp HIGHER (ALL care: 80.8 vs 70.5; ALL dontcare: 50.2 vs 35.9; LOW-ENG care: 68.2 vs 52.2; LOW-ENG dontcare: 44.3 vs 25.6). The targets may derive from CCES/CES, a different year, or a now-lost calculation.",
+    "GRADIENT CONFIRMED: direction (care >> dontcare) and the qualitative pattern (low-eng gap \u2248 ALL gap \u00d7 0.8) are consistent across all weight/turnout combinations tried.",
+    "The low-engagement footnote n targets (214 care, 301 dontcare) match exactly: these are raw unweighted counts of (V161004==3 & V161005==1/2), confirming the ANES 2016 file and low-eng filter definition are correct.",
+    "Validated turnout overall: 3,077 of 4,270 respondents (72%). The ANES validated match rate is high vs national VEP turnout (60%); ANES over-samples voters.",
+    "Self-report turnout (V162031x) is even more inflated: 91%/68% for care/dontcare (ALL), 79%/61% (LOW-ENG); validated is preferred but still shows ANES selection bias."
+  ],
+  "name": "care_gap",
+  "schema": [
+    "subset",
+    "label",
+    "care_pct",
+    "dontcare_pct",
+    "gap_pp",
+    "n_care",
+    "n_dontcare",
+    "target_care",
+    "target_dontcare",
+    "target_gap",
+    "turnout_variable",
+    "weight"
+  ],
+  "row_count": 2
+}

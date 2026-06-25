@@ -1,0 +1,3 @@
+subset,label,care_pct,dontcare_pct,gap_pp,n_care,n_dontcare,target_care,target_dontcare,target_gap,turnout_variable,weight
+all,All voters,80.8,50.2,30.6,2680,952,70.5,35.9,34.6,"vote2016 (validated, voteval merge)",V160102 (POST)
+low_engagement,Low-engagement voters (V161004==3),68.2,44.3,23.9,175,245,52.2,25.6,26.6,"vote2016 (validated, voteval merge)",V160102 (POST)
