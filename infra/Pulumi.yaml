@@ -1,0 +1,6 @@
+name: center-basher-infra
+runtime:
+  name: nodejs
+  options:
+    packagemanager: pnpm
+description: Cloudflare DNS + Pages (GitHub auto-deploy) for thecenterisalie.org, managed as code.
