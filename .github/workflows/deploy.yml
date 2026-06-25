@@ -1,0 +1,55 @@
+name: Deploy to Cloudflare Pages
+
+# Real auto-deploy-on-push. The Pages project is Pulumi-managed (infra/) but its
+# GitHub push webhook never wired up (API-created projects only get the source
+# *config*, not the webhook). So CI owns deployment: build the Vite app and push
+# dist/ straight to Cloudflare Pages with wrangler (direct upload, no webhook).
+#
+# Requires two repo Actions secrets (set once via `gh secret set`):
+#   CLOUDFLARE_API_TOKEN  - token with Account · Cloudflare Pages · Edit
+#   CLOUDFLARE_ACCOUNT_ID
+
+on:
+  push:
+    branches:
+      - claude/dazzling-maxwell-sSHUR
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+# Never run two deploys at once; newer push supersedes an in-flight one.
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+
+      - name: Install & build
+        working-directory: web
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+
+      # web/vite.config.js copies data/ into web/dist so the figures load in prod.
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # --branch == the project's production branch makes this a PRODUCTION deploy.
+          command: pages deploy web/dist --project-name=thecenterisalie --branch=claude/dazzling-maxwell-sSHUR

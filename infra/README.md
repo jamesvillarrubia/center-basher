@@ -4,12 +4,20 @@ Infrastructure as code for hosting the essay. Pulumi (`@pulumi/cloudflare`,
 TypeScript) provisions:
 
 - the **DNS zone** for `thecenterisalie.org` + the routing records,
-- a **Cloudflare Pages** project wired to this GitHub repo (auto-build on push),
+- a **Cloudflare Pages** project (the deploy target),
 - the **custom-domain** bindings (apex + `www`).
 
 The site itself is the Vite app in `../web` (build: `pnpm install && pnpm build`,
 output `dist/`; `web/vite.config.js` copies `data/` into `dist/` so the figures
 load in production).
+
+> **Deploys run from CI, not Cloudflare's git webhook.** Pages projects created
+> via the API/Pulumi get the GitHub *source config* but never the push **webhook**
+> (that's wired only by the dashboard "Connect to Git" wizard), so pushes here do
+> **not** trigger a Cloudflare-side build. Instead, `.github/workflows/deploy.yml`
+> builds the app and uploads `web/dist` to Pages with `wrangler pages deploy` on
+> every push to the production branch. It needs two repo Actions secrets:
+> `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` (set once via `gh secret set`).
 
 ---
 
@@ -66,7 +74,8 @@ takes minutes to a few hours. Cloudflare also emails when the zone goes active.
 
 After that:
 - `https://thecenterisalie.org` and `https://www.thecenterisalie.org` serve the site.
-- Every push to **`claude/dazzling-maxwell-sSHUR`** auto-builds and deploys.
+- Every push to **`claude/dazzling-maxwell-sSHUR`** triggers `.github/workflows/deploy.yml`,
+  which builds and uploads `web/dist` to Pages (see note above — CI owns deploys).
 - Cloudflare provisions the TLS cert automatically (a few minutes after the zone
   is active).
 
