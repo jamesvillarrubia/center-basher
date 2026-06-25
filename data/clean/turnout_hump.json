@@ -1,7 +1,7 @@
 {
   "source": "ANES 2016 Time Series \u2014 data/raw/anes_timeseries_2016.dta",
   "variables": [
-    "V160101 (weight)",
+    "V160102 (POST weight)",
     "V161004 (interest)",
     "V161005 (care who wins)",
     "V161215/216/217 (3-item trust \u2192 grievance index)",
@@ -9,9 +9,9 @@
     "V162031x (self-report turnout)"
   ],
   "filter": "Low-engagement subset = V161004 == 3 ('not too / not at all interested').",
-  "weight": "V160101 (post-election)",
+  "weight": "V160102 (post-election POST weight; V160101 is the PRE weight, wrong for post-election turnout)",
   "method": "Grievance tercile cuts taken WITHIN the low-engagement subset. Composition counts use median splits on the FULL electorate's grievance and efficacy.",
-  "n": 521,
+  "n": 426,
   "supports": [
     "plain-language.md \u00a714 [1]",
     "\u00a714 [2]"

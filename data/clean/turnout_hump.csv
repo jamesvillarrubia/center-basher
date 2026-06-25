@@ -1,9 +1,9 @@
 subset,grievance_band,stakes_pct,efficacy_5pt,turnout_pct_selfrep,n_unweighted,share_of_noshows_pct
-gettable (low-engagement),low,35.7,2.6,56.9,111,
-gettable (low-engagement),mid,36.3,2.45,63.9,92,
-gettable (low-engagement),high,40.3,2.21,76.6,313,
-low-engagement no-shows,alienated (high grievance + low efficacy),,,,35,35.5
-low-engagement no-shows,complacent (low grievance + high efficacy),,,,24,34.1
-low-engagement no-shows,mixed,,,,27,30.3
-low-engagement no-shows TOTAL,—,,,,86,2.4
+gettable (low-engagement),low,32.9,2.59,62.9,151,
+gettable (low-engagement),mid,37.1,2.45,68.2,125,
+gettable (low-engagement),high,44.2,2.11,76.1,240,
+low-engagement no-shows,alienated (high grievance + low efficacy),,,,33,35.4
+low-engagement no-shows,complacent (low grievance + high efficacy),,,,22,24.3
+low-engagement no-shows,mixed,,,,31,40.2
+low-engagement no-shows TOTAL,—,,,,86,2.8
 low-engagement no-shows: 'don't care a good deal',—,,,,55,63.7

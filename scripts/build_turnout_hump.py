@@ -21,7 +21,10 @@ from _lib import clean_var, load_anes_2016, weighted_share, write_clean
 
 def main():
     df = load_anes_2016()
-    w = clean_var(df, "V160101", 0, 1e9).fillna(0).clip(lower=0)
+    # POST weight (V160102): this is a post-election analysis (V162031x turnout,
+    # V162* efficacy), so the post-election weight is required, not the PRE weight
+    # V160101. Post-wave non-completers get weight 0 and drop out via the (w>0) masks.
+    w = clean_var(df, "V160102", 0, 1e9).fillna(0).clip(lower=0)
 
     interest = clean_var(df, "V161004", 1, 3)
     lo_eng = (interest == 3)
@@ -131,12 +134,12 @@ def main():
         manifest={
             "source": "ANES 2016 Time Series — data/raw/anes_timeseries_2016.dta",
             "variables": [
-                "V160101 (weight)", "V161004 (interest)", "V161005 (care who wins)",
+                "V160102 (POST weight)", "V161004 (interest)", "V161005 (care who wins)",
                 "V161215/216/217 (3-item trust → grievance index)",
                 "V162215 / V162216 (efficacy items)", "V162031x (self-report turnout)",
             ],
             "filter": "Low-engagement subset = V161004 == 3 ('not too / not at all interested').",
-            "weight": "V160101 (post-election)",
+            "weight": "V160102 (post-election POST weight; V160101 is the PRE weight, wrong for post-election turnout)",
             "method": (
                 "Grievance tercile cuts taken WITHIN the low-engagement subset. "
                 "Composition counts use median splits on the FULL electorate's grievance and efficacy."
