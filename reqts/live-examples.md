@@ -85,3 +85,30 @@ nominee is on the wrong wing for them, "party unity" stops mattering.
 Melissa DeRosa, on Fox News: *"There are a lot of moderate Democrats
 like myself who will not cry tears should we lose Maine."*
 That is the §19 argument in eleven words.
+
+---
+
+## AOC recoded as establishment — by the left (Krystal Ball)
+
+**Source:** Krystal Ball (@krystalball), X, June 24, 2026 (650K+ views).
+<https://x.com/krystalball/status/2069733303238758450>
+*(X direct-fetch blocked; transcribed from a screenshot the author provided 2026-06-25.)*
+
+**Verbatim.** "Last night also demonstrates the problems with AOC's don't rock the
+boat strategy. Since she has refused to endorse against sitting members, she is on
+the sidelines of a movement that she herself helped to kick off and logically should
+be leading. Missing the entire Dem Tea Party at the federal level because the once
+insurgent is now a de facto incumbent protector."
+
+**What it illustrates.** The coda's "deeper trap" — an insurgent who works inside the
+institution gets recoded as the institution — but sharper than the essay's original
+framing: the relabeling comes not from opponents but from an **ally** (Ball is a
+populist-left commentator), faulting AOC for refusing to endorse against sitting
+incumbents and so becoming a "de facto incumbent protector."
+
+**Where it lands.**
+- **Coda (primary home, woven in 2026-06-25).** Upgraded "may yet fall into" →
+  "may already be falling into," and "her opponents relabel her" → "even her own
+  allies relabel her," with Ball's "de facto incumbent protector" quote in-text.
+- **§19 / §21.** Live instance of the establishment-relabeling and the insider-
+  protection reflex the back half formalizes.
