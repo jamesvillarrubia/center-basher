@@ -1,0 +1,12 @@
+{
+  "name": "center-basher-infra",
+  "private": true,
+  "description": "Pulumi IaC: Cloudflare DNS + Pages (GitHub auto-deploy) for thecenterisalie.org",
+  "devDependencies": {
+    "@types/node": "^22"
+  },
+  "dependencies": {
+    "@pulumi/pulumi": "^3.130.0",
+    "@pulumi/cloudflare": "^5.49.1"
+  }
+}

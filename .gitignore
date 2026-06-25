@@ -8,7 +8,6 @@ __pycache__/
 # Node
 node_modules/
 package-lock.json
-package.json
 
 # Raw data (too large / licensing restrictions)
 data/raw/
