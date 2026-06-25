@@ -1,14 +1,16 @@
 // Fig 17c — The campaign ceiling (port of v1 chartCampaignCeiling).
 //
 // Two bars in points of general-election vote share:
-//   - WHO you nominate (candidate's trust position): ~23 pts.
-//     DERIVED, ANES 2016: within the reachable (non-Republican) coalition
-//     — Democrats, Dem-leaners, and pure independents — Clinton vote share
-//     swings 90.5% (high trust) → 67.6% (low trust) across trust terciles,
-//     a 22.9pp swing. Trust = 3-item composite V161215/V161216/V161217;
-//     vote = V162034a; weight = V160102 (POST); n = 535 hi / 355 lo.
-//     (See scripts/build_care_gap.py-style derivation; NOTE: this is NOT the
-//     §16 Figure B CDF series — that 2016 cell is degenerate, VCF0604 absent.)
+//   - WHO you nominate (candidate's trust position): ~22 pts.
+//     DERIVED + REPRODUCIBLE (scripts/build_campaign_ceiling.py), ANES 2016:
+//     within the reachable (non-Republican) coalition — Democrats, Dem-leaners,
+//     and pure independents — Clinton vote share swings 89.7% (high trust) →
+//     67.2% (low trust) across equal-thirds trust terciles = 22.4pp; n = 482
+//     hi / 500 lo. Trust = 3-item composite V161215/216/217; vote = V162034a;
+//     weight = V160102 (POST). NOTE: terciles MUST be equal-thirds (rank-based);
+//     a naive `< quantile` split on this coarse composite inflates it to ~43pp
+//     (which is likely the source of §7's unverified "90→47"). NOT the §16
+//     Figure B CDF series — that 2016 cell is degenerate (VCF0604 absent).
 //   - What the CAMPAIGN does after: ≈0.
 //     Kalla & Broockman 2018, "The Minimal Persuasive Effects of Campaign
 //     Contact in General Elections," APSR 112(1):148–166: the best estimate
@@ -22,7 +24,7 @@
 import * as d3 from 'https://esm.sh/d3@7'
 
 const BARS = [
-  { lab: 'WHO you nominate', sub: 'the candidate\'s trust position', pp: 22.9, disp: '~23pp', kind: 'prior',    color: '#1b4f8a' },
+  { lab: 'WHO you nominate', sub: 'the candidate\'s trust position', pp: 22.4, disp: '~22pp', kind: 'prior',    color: '#1b4f8a' },
   { lab: 'What the CAMPAIGN does after', sub: 'persuasion + ads (general election)', pp: 0.3, disp: '≈0', kind: 'campaign', color: '#c77f2a' },
 ]
 
@@ -44,13 +46,13 @@ export function drawCampaignCeiling(selector) {
 
   svg.append('text').attr('class', 'cc-title')
     .attr('x', 20).attr('y', 22)
-    .text('The campaign ceiling: nomination moves ~23 points, the campaign ≈0.')
+    .text('The campaign ceiling: nomination moves ~22 points, the campaign ≈0.')
   svg.append('text').attr('class', 'cc-subtitle')
     .attr('x', 20).attr('y', 42)
     .text('The nomination locks in the candidate\'s trust position; the general-election campaign can barely move it after.')
   svg.append('text').attr('class', 'cc-subtitle')
     .attr('x', 20).attr('y', 58)
-    .text('~23pp (positional: trust-band vote swing in the reachable coalition)  vs  ≈0pp (campaign, causal field-experiment estimate).')
+    .text('~22pp (positional: trust-band vote swing in the reachable coalition)  vs  ≈0pp (campaign, causal field-experiment estimate).')
 
   const x = d3.scaleLinear().domain([0, 24]).range([0, innerW])
 
@@ -89,7 +91,7 @@ export function drawCampaignCeiling(selector) {
   // Two-line caption so it doesn't overflow the 680-wide frame.
   svg.append('text').attr('class', 'cc-foot')
     .attr('x', 20).attr('y', H - 22).attr('font-size', '10.5px').attr('fill', '#666').attr('font-style', 'italic')
-    .text('~23pp = trust-band vote swing in the reachable (non-Republican) coalition, ANES 2016 — a positional association.')
+    .text('~22pp = trust-band vote swing in the reachable (non-Republican) coalition, ANES 2016 — a positional association.')
   svg.append('text').attr('class', 'cc-foot')
     .attr('x', 20).attr('y', H - 8).attr('font-size', '10.5px').attr('fill', '#666').attr('font-style', 'italic')
     .text('≈0 = campaign persuasion effect (Kalla & Broockman 2018, APSR 112:148–166). Different kinds of estimate on one scale — not a clean ratio.')

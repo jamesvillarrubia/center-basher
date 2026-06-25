@@ -1,0 +1,32 @@
+{
+  "source": "ANES 2016 Time Series \u2014 data/raw/anes_timeseries_2016.dta",
+  "variables": [
+    "V160102 (POST weight)",
+    "V162034a (pres vote; 1=Clinton)",
+    "V161158x (7pt party ID)",
+    "V161126 (7pt ideology)",
+    "V161215/V161216/V161217 (3-item trust composite -> grievance, inverted)"
+  ],
+  "filter": "Trust terciles taken WITHIN each coalition. ANES missing codes excluded via clean_var.",
+  "weight": "V160102 (POST) \u2014 post-election vote choice analysis.",
+  "method": "Per coalition, tercile-split the inverse-grievance trust composite; compute weighted % voting Clinton in the low-trust vs high-trust tercile; swing = high-trust% minus low-trust%. The figure uses the non-Republican coalition.",
+  "n": 3648,
+  "supports": [
+    "fig-17c-campaign-ceiling.js (nomination bar ~23pp)"
+  ],
+  "caveats": [
+    "Vote is self-report (V162034a), not validated; pattern is the signal.",
+    "Campaign bar (\u22480) is NOT computed here \u2014 it is Kalla & Broockman 2018 (APSR 112:148\u2013166).",
+    "The \u00a716 Figure B CDF series gives only ~11.3pp for 2016 because VCF0604 is absent from the CDF post-2012, degrading that composite to 2 coarse items. The timeseries items used here are more discriminating; the ~23pp is the better-grounded figure."
+  ],
+  "name": "campaign_ceiling",
+  "schema": [
+    "coalition",
+    "hi_trust_clinton_pct",
+    "lo_trust_clinton_pct",
+    "swing_pp",
+    "n_lo",
+    "n_hi"
+  ],
+  "row_count": 4
+}
