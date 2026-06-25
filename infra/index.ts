@@ -80,14 +80,14 @@ new cloudflare.Record("apex-cname", {
     zoneId: zoneId,
     name: "@",
     type: "CNAME",
-    value: target, // provider v6 renames this field to `content`
+    content: target,
     proxied: true,
 }, { dependsOn: [apexDomain] });
 new cloudflare.Record("www-cname", {
     zoneId: zoneId,
     name: "www",
     type: "CNAME",
-    value: target,
+    content: target,
     proxied: true,
 }, { dependsOn: [wwwDomain] });
 
