@@ -6,7 +6,11 @@ import * as cloudflare from "@pulumi/cloudflare";
 // token is read from the `cloudflare:apiToken` secret or CLOUDFLARE_API_TOKEN.
 // ---------------------------------------------------------------------------
 const cfg = new pulumi.Config();
-const accountId = cfg.require("accountId");
+// IDs come from `pulumi config` OR the git-ignored infra/.env (CLOUDFLARE_*).
+const accountId = cfg.get("accountId") ?? process.env.CLOUDFLARE_ACCOUNT_ID;
+const zoneId = cfg.get("zoneId") ?? process.env.CLOUDFLARE_ZONE_ID;
+if (!accountId) throw new Error("Set `pulumi config set accountId <id>` or CLOUDFLARE_ACCOUNT_ID");
+if (!zoneId) throw new Error("Set `pulumi config set zoneId <id>` or CLOUDFLARE_ZONE_ID");
 const domain = cfg.get("domain") ?? "thecenterisalie.org";
 const githubOwner = cfg.get("githubOwner") ?? "jamesvillarrubia";
 const githubRepo = cfg.get("githubRepo") ?? "center-basher";
@@ -14,17 +18,13 @@ const productionBranch = cfg.get("productionBranch") ?? "claude/dazzling-maxwell
 const projectName = cfg.get("projectName") ?? "thecenterisalie";
 
 // ---------------------------------------------------------------------------
-// 1. DNS zone. After `pulumi up`, point GoDaddy's nameservers at the
-//    `nameservers` output below so Cloudflare becomes authoritative.
-//    NOTE: this makes Cloudflare authoritative for ALL DNS on the domain. If
-//    there are existing records (email/MX, etc.) at GoDaddy, replicate them as
-//    additional `cloudflare.Record` resources here BEFORE switching nameservers.
+// 1. DNS zone — already exists in Cloudflare, so we reference it by ID (we do
+//    NOT create it). The `nameservers` output below is what GoDaddy must point
+//    at (if you haven't already). NOTE: once GoDaddy points here, Cloudflare is
+//    authoritative for ALL DNS on the domain — replicate any existing email/MX
+//    records as `cloudflare.Record` resources before switching, or they break.
 // ---------------------------------------------------------------------------
-const zone = new cloudflare.Zone("zone", {
-    accountId: accountId,
-    zone: domain,
-    type: "full",
-});
+const zone = cloudflare.getZoneOutput({ zoneId: zoneId });
 
 // ---------------------------------------------------------------------------
 // 2. Cloudflare Pages project, wired to the GitHub repo for auto-build on push.
@@ -77,14 +77,14 @@ const wwwDomain = new cloudflare.PagesDomain("www", {
 // ---------------------------------------------------------------------------
 const target = `${projectName}.pages.dev`;
 new cloudflare.Record("apex-cname", {
-    zoneId: zone.id,
+    zoneId: zoneId,
     name: "@",
     type: "CNAME",
     value: target, // provider v6 renames this field to `content`
     proxied: true,
 }, { dependsOn: [apexDomain] });
 new cloudflare.Record("www-cname", {
-    zoneId: zone.id,
+    zoneId: zoneId,
     name: "www",
     type: "CNAME",
     value: target,

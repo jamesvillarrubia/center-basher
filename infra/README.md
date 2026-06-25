@@ -16,13 +16,15 @@ load in production).
 ## One-time manual prerequisites (Pulumi can't do these)
 
 1. **Cloudflare API token.** dash.cloudflare.com → *My Profile → API Tokens →
-   Create Token → Create Custom Token*. Permissions:
+   Create Custom Token* (do NOT use the "Edit Workers" template — it's missing
+   Pages and DNS). Give it exactly:
    - Account · **Cloudflare Pages** · Edit
    - Account · **Account Settings** · Read
-   - Zone · **Zone** · Edit
    - Zone · **DNS** · Edit
-   - Zone Resources: *All zones* (or add the zone after it exists).
-   Also copy your **Account ID** (dashboard right sidebar / Workers & Pages overview).
+   - Zone · **Zone** · Read
+   - Zone Resources: *thecenterisalie.org* (or All zones).
+   Paste it into `infra/.env` as `CLOUDFLARE_API_TOKEN`. (Account ID + Zone ID
+   are already filled into `infra/.env`.)
 
 2. **Link GitHub to Cloudflare (once).** Workers & Pages → *Create* → *Pages* →
    *Connect to Git* → authorize the Cloudflare GitHub app on
@@ -44,12 +46,10 @@ load in production).
 cd infra
 pnpm install
 
+set -a; source .env; set +a        # CLOUDFLARE_ACCOUNT_ID / ZONE_ID / API_TOKEN
+
 pulumi login                       # Pulumi Cloud
 pulumi stack select prod || pulumi stack init prod
-
-# config
-pulumi config set accountId <CLOUDFLARE_ACCOUNT_ID>
-pulumi config set --secret cloudflare:apiToken <CLOUDFLARE_API_TOKEN>
 
 pulumi preview                     # review — fix any schema diffs (see Gotchas)
 pulumi up

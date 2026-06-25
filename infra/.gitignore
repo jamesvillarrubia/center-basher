@@ -2,3 +2,5 @@ node_modules/
 bin/
 *.tsbuildinfo
 .pulumi/
+.env
+.env.*
