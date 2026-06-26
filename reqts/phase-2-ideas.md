@@ -230,6 +230,62 @@ that resolves the contradiction in favor of the wealthy.
 
 ---
 
+## NEW THREAD (2026-06-26) — Disintermediation of trust (feeds Essay 3)
+
+*Prompted by James reading a Substack post on the "death" of Spotify. Find + cite that post.*
+
+### The unifying frame
+An institution's value splits into two things: **distribution** (reach — the audience it can
+put in front of you) and **trust** (the credibility/curation the audience grants it). In a
+low-trust era these come apart. When a platform keeps the distribution but bleeds the trust,
+the trusted individuals **disintermediate** — they route around the platform to own the direct
+relationship with their audience: the list, the subscription price, the relationship itself.
+**Distribution without trust is a commodity, and a commodity erodes.**
+
+### Spotify (the case from the Substack post)
+- Linear-margin streaming model → Spotify pushes algorithmic playlists and "growth" features at
+  the expense of users' trust in it as a curator of taste.
+- Artists hate it: payout model is poor and biased toward big names (top-of-catalog royalty
+  concentration); Spotify guards listener data, so an artist can't reach their own fans
+  on-platform and must go OUTSIDE it (e.g., **Laylo**) to own the fan relationship.
+- Net: Spotify becomes a pure distribution utility neither users nor artists trust.
+
+### News / NYT (the parallel)
+- Increasingly capital-friendly owners push narratives; named pundits/journalists leave or are
+  laid off.
+- Journalists, fearing their credibility is waning, migrate to **Substack**.
+- Legacy institutions (NYT) still bring DISTRIBUTION but no longer bring TRUST — and over time,
+  distribution-without-trust erodes reach and value.
+- Substack (more hands-off than Medium) lets the journalist OWN the relationship + the
+  subscription price + the audience list. That ownership IS the trust, monetized directly,
+  disintermediated from the masthead. Same structural challenge as Spotify.
+
+### Why it matters for Essay 3
+The current Essay-3 draft is about media FRAMING (how outlets describe outsiders). This adds the
+BUSINESS-MODEL mechanism underneath: as trust drains from institutions, the framing apparatus
+loses its grip, because the trusted voices walk out. Media-as-enforcement has a time bomb in it —
+enforcement needs the institution to still hold the trust, and it's running out.
+
+### Connection to Essay 1 (the current essay)
+This is the media-economics version of the current spine: the establishment keeps the machinery
+(distribution) but loses the change lane (trust); the figure who owns the direct relationship with
+the distrustful wins. **Spotify : artists :: the party : outsider candidates :: the NYT : Substack
+journalists.** Same engine.
+
+### Open questions / honest flags
+- ⚠️ **"Substack journalists will be more liberal" is contestable.** The loudest migrations
+  (Taibbi, Greenwald, Weiss, Sullivan, Yglesias) skew heterodox / contrarian / anti-establishment,
+  often pushed out *by* the institutional-left consensus. The robust common thread is
+  **anti-institutional**, not "more liberal" — and anti-institutional is the more on-thesis framing
+  anyway (it ties straight to the trust-collapse spine). Test it empirically (ideology/topic of top
+  Substack politics writers vs their former outlets) rather than asserting the direction.
+- Researchable data: Spotify royalty concentration (top-1%-of-artists' share over time) + the
+  long-tail squeeze; Laylo / direct-to-fan tooling adoption; a timeline of named journalists who
+  left major outlets for Substack, 2020–2026; Substack subscriber-revenue concentration;
+  Medium-vs-Substack creator-ownership terms.
+
+---
+
 ## Cross-essay infrastructure
 
 ### Datasets to acquire
