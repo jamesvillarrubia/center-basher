@@ -2573,6 +2573,47 @@ a.secref:hover {
   margin: 0;
 }
 
+/* SUBSCRIBE · Substack signup block, placed before the bio. Mirrors .bio's
+   top-rule + spacing idiom; title in the essay serif, label in the meta sans. */
+.subscribe {
+  margin: 4rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+.subscribe-label {
+  font: 700 12px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.6rem;
+}
+.subscribe-title {
+  font-family: "Iowan Old Style", Charter, Georgia, serif;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 0 0 0.6rem;
+}
+.subscribe-pitch {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0 0 1.2rem;
+  max-width: 40rem;
+}
+.subscribe-embed iframe {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  /* transparent embed (?transparent=1) — no border/bg so it sits on the paper */
+}
+.subscribe-fallback {
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+  margin: 0.75rem 0 0;
+}
+.subscribe-fallback a { color: var(--accent); }
+
 /* Coda section break before the founding-quote close */
 hr.coda-break {
   border: 0;
