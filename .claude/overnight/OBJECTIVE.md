@@ -1,46 +1,27 @@
-# Overnight Objective — Adversarial claim fact-check (ENTIRE essay)
+# Overnight Objective — statistical audit + style/gravitas pass (2026-06-25)
 
-Fact-check every empirical and factual claim in the WHOLE of `web/index.html` (§0–§25) the
-way a hostile expert reviewer would, and audit citation coverage against the granular
-per-claim standard. Prioritize EXTERNAL/verifiable claims (polls, academic papers, named
-quotes, historical facts) — those are where errors like the §20 "Clinton lost Illinois"
-mistake hide. Spot-check the ANES/data claims for footnote provenance + sanity (they are
-self-sourced via the project's data-rigor process; do not re-derive every number).
+Audit "The Center Is a Lie" (web/index.html) for (1) statistical MISTAKES, (2) statistical
+OVERCLAIMS (causal language on correlational findings, false precision, "proves/all/most"
+without support), (3) a thorough STYLE/writing check, and (4) lift the OPENING to the
+flow/gravitas/register of the final paragraphs (the coda). James emphasized the beginning.
 
-**§20–21 are DONE** (see claim-review.md: 2 factual errors + 1 citation gap found). This
-expansion covers the rest of the essay.
+## Deliverables (analysis docs in docs/analysis/, committed locally; index.html NOT edited)
+- **Gravitas/opening** (James's priority, do FIRST): characterize the coda's register, diagnose
+  why the opening (§0–§2) feels lighter, and DRAFT 2–3 opening rewrites in James's voice that
+  carry the coda's gravitas. He reviews/places them.
+- **Statistical audit**: every body statistical claim cross-checked vs the data + footnotes +
+  reqts/data-rigor-process.md gates; extend the prior `claim-review.md` (2026-06-19 fact-check),
+  don't redo it. Flag mistakes AND overclaims with a specific rewrite per item.
+- **Style audit**: AI-cadence, em-dash overuse, and James's known voice prefs (no staccato
+  fragments / negation-correction / if-then antithesis; mirror long momentum sentences; granular
+  per-claim citations; no bare §N markers; lede = body size). Line-level flags + suggested fixes.
+- **Synthesis**: a prioritized summary + pointer in OPEN-QUESTIONS.md.
 
-**Original priority (kept for reference): the institutional/political claims in §20–23.** These are the riskiest because they are political/historical assertions drawn
-from web research rather than the ANES data spine:
-- §20 — the Chuck Schumer July-2016 "blue-collar / two moderate Republicans" quote (wording,
-  date, venue) and "Clinton then lost all three states."
-- §21 — the 2008 superdelegate lead (169–63, "a year before a vote"); the 2016 DNC leaked
-  emails + *Wilding v. DNC Services Corp.* (charter neutrality "unenforceable," "back room /
-  cigars," dismissed as a private corporation); the 2024 calendar reorder (Biden's request,
-  Feb 2023, SC first); South Carolina "not the most diverse state nor competitive," last
-  Democratic in a presidential general in 1976; the 2020 consolidation (Biden 4th/5th/2nd
-  then 1st in SC; Buttigieg led the moderate lane; Buttigieg/Klobuchar dropped + endorsed
-  before Super Tuesday; Obama "hidden hand" reported but denied; Warren stayed in).
-- §21 — the Innovator's Dilemma framing (is Christensen's mechanism characterized correctly?).
-
-Then, if time permits, sweep the §20 swing-voter stats and any other data claims.
-
-For each claim: (1) state it + location; (2) verify against ≥2 independent credible sources;
-(3) verdict — SOLID / SHAKY (overstated, needs hedge) / WRONG (contradicted) / UNVERIFIABLE;
-(4) citation check — does it carry its own granular footnote with a real source?; (5) for
-SHAKY/WRONG, the precise problem + a recommended fix.
-
-## What I MAY do autonomously
-- Web research to verify or refute claims.
-- Write findings to `.claude/overnight/claim-review.md`; log actionable problems to BLOCKERS.md.
-
-## What I must NOT do autonomously
-- Edit ANY prose, claim, number, or footnote in `web/index.html`, or any data/script. The
-  user edits `index.html` live in Cursor; an autonomous write risks clobbering their work
-  (already happened once this session). LOG everything for review instead.
-- No `git push`, no branch operations.
-
-## Done definition
-Every priority §20–23 claim has a verdict + citation-check in `claim-review.md`; each
-SHAKY/WRONG item is in BLOCKERS.md with a recommended fix and the sources checked. Commit
-the report after each cluster.
+## HARD CONSTRAINTS
+- **NEVER edit web/index.html** — prose-sacred HARD GATE + James edits it in Cursor. Reads only.
+  All rewrites are DRAFTS in docs/analysis/ for James to apply.
+- **Commit analysis docs LOCALLY only. Do NOT push or deploy.**
+- Believe the user's intuitions; flag overclaims honestly with numbers (CLAUDE.md §3/§4).
+- Capacity SLOW (87%) — cheapest viable model, single Sonnet subagents (never parallel), reserve
+  Opus for the gravitas drafting (voice judgment). If capacity hits STOP, committed progress
+  survives; resume after reset.

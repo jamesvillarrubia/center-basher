@@ -71,3 +71,29 @@ Options:
 4. Skip check 3
 5. Per-figure where main.js fetch makes it cheap, document-level fallback elsewhere
 Chose: 2, and made check 3 ADVISORY (info, never fails the build) — checks 1/2/4 own pass/fail. Untraced n's are a review list, not a verdict, because many footnote n's are external citations (polls/papers) or build intermediates not persisted to JSON. Strict per-figure tracing was rejected as brittle for an 80%-value guard.
+
+## 2026-06-25 21:5x — How to ground C1's 22pp "nomination" bar
+Fork: fig-17c claims 22pp ("90→68, same data as §16 Figure B"), but Figure B's committed
+2016 trust-tercile swing is 11.3pp, and §7 cites 90→47 (43pp). The 22pp has no committed
+derivation. Which number grounds the C1 nomination bar?
+Options:
+1. Use §16 Figure B's 11.3pp (full-electorate tercile, committed) — but that's not "reachable coalition".
+2. Use §7's 90→47 / 43pp (partisan subgroup) — bigger, but different framing.
+3. Compute trust→Clinton-vote swing within several "reachable coalition" defs from ANES 2016, pick the defensible one, ground 22pp (or correct it) in a NEW committed script.
+4. Ship recolor with 22pp as-is — REJECTED (unsourced; the whole task was to make it balk-proof).
+5. Hold the figure, log finding, get James's call on population/method.
+Chose: 3 (compute it properly) + 5 (log finding, don't ship an unverified number). A Sonnet
+subagent computes the swing under 4 coalition defs + reproduces the care-gap; I judge + log.
+
+## 2026-06-25 — C1 campaign bar: Kalla & Broockman is ZERO, not 0.4pp
+Citation (exact): Joshua L. Kalla & David E. Broockman. 2018. "The Minimal Persuasive
+Effects of Campaign Contact in General Elections: Evidence from 49 Field Experiments."
+American Political Science Review 112(1): 148–166. DOI 10.1017/S0003055417000363.
+Headline: best estimate of persuasive effect on general-election candidate choice = ZERO
+(40 meta-analyzed + 9 new field experiments). Exceptions: unusually unpopular positions +
+heavy persuadable-ID; and very early contact, which decays.
+Implication for fig-17c: "0.4pp" overstates (paper says ~0); honest label is "≈0". The
+"~55×" headline is derived from the 0.4 placeholder (22/0.4) and compares a positional
+association to a causal null — the single most balk-able claim. RECOMMEND: label campaign
+bar "≈0", and replace "~55×" with a qualitative line (nomination decides it; the campaign
+barely moves it). Flag the apples-vs-oranges caveat (already partly in the figcaption).
