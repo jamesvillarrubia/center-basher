@@ -345,6 +345,31 @@ function drawChart(container, data, opts) {
     for (const it of items) { const w = it.w || 1; tw += w; s += it[key] * w }
     return tw > 0 ? s / tw : 0
   }
+  // Weighted geometric median (Weiszfeld). Used for cohort centroid rings so
+  // the marker sits inside the dense part of the (right-skewed) trust blob,
+  // rather than floating above it the way a mean does. Continuous-valued, so
+  // cohorts stay distinct (unlike the per-axis median, which quantizes onto
+  // the ~5 discrete trust levels and collapses cohorts onto identical points).
+  function geometricMedian(items) {
+    if (items.length === 0) return { x: 0, y: 0 }
+    let tw = 0, sx = 0, sy = 0
+    for (const it of items) { const w = it.w || 1; tw += w; sx += it.x * w; sy += it.y * w }
+    let cx = sx / tw, cy = sy / tw
+    for (let iter = 0; iter < 200; iter++) {
+      let nx = 0, ny = 0, den = 0
+      for (const it of items) {
+        const w = it.w || 1
+        let d = Math.hypot(it.x - cx, it.y - cy)
+        if (d < 1e-9) d = 1e-9
+        const wd = w / d
+        nx += wd * it.x; ny += wd * it.y; den += wd
+      }
+      const px = nx / den, py = ny / den
+      if (Math.hypot(px - cx, py - cy) < 1e-7) { cx = px; cy = py; break }
+      cx = px; cy = py
+    }
+    return { x: cx, y: cy }
+  }
 
   // ---- 1. Blobs (one per active scenario) ----
   function drawDensity(pts, color, opts = {}) {
@@ -449,8 +474,9 @@ function drawChart(container, data, opts) {
   for (const s of activeScenarios) {
     const inCohort = voters.filter(s.filter)
     if (inCohort.length === 0) continue
-    const ccx = x(weightedMean(inCohort, 'x'))
-    const ccy = y(weightedMean(inCohort, 'y'))
+    const gm = geometricMedian(inCohort)
+    const ccx = x(gm.x)
+    const ccy = y(gm.y)
     cohortMarkers.push({ s, ccx, ccy, n: inCohort.length, inCohort })
   }
 
