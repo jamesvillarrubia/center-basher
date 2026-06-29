@@ -63,7 +63,7 @@ const PRESETS = [
     label: '2016 · Swing (national)',
     year: 2016, scope: 'national',
     enabled: ['swing'],
-    caption: 'Sanders sits closer to the swing-voter centroid than Clinton — both on ideology AND on trust. Trump sits closer still. If Clinton is the institutionalist and swing voters are not, this is the spatial picture you would expect.',
+    caption: 'On trust, Sanders sits almost exactly on the swing-voter centroid, while Clinton sits well above it. Trust is the axis that separates them, not ideology, where the swing bloc sits near center and, if anything, nearer Clinton. Trump sits lower still, inside the same low-trust field. If Clinton is the institutionalist and swing voters are not, this is the spatial picture you would expect.',
   },
   {
     id: 'p_2016_activated',
@@ -276,10 +276,7 @@ function rebuildScenarioPanel(container) {
       const swatch = document.createElement('span')
       swatch.style.cssText = `display:inline-block;width:14px;height:10px;background:${s.color};opacity:0.45;border:1.5px solid ${s.color};border-radius:2px;`
       const txt = document.createElement('span')
-      const n = cohortN(s)
-      txt.innerHTML = __state.enabled[s.id]
-        ? `${s.label} <span style="color:${s.color};font-weight:700">· n=${n}</span>`
-        : s.label
+      txt.textContent = s.label
       txt.style.color = '#333'
       wrap.appendChild(cb); wrap.appendChild(swatch); wrap.appendChild(txt)
       row.appendChild(wrap)
@@ -546,7 +543,7 @@ function drawChart(container, data, opts) {
   g.append('g').attr('class', 'vm-axis').attr('transform', `translate(0, ${innerH})`)
     .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format('.1f')).tickSizeOuter(0))
   g.append('g').attr('class', 'vm-axis').call(d3.axisLeft(y).ticks(5).tickFormat(d3.format('.1f')).tickSizeOuter(0))
-  svg.append('text').attr('class', 'vm-axis-title').attr('x', margin.left + innerW / 2).attr('y', H - 48).attr('text-anchor', 'middle')
+  svg.append('text').attr('class', 'vm-axis-title').attr('x', margin.left + innerW / 2).attr('y', H - 18).attr('text-anchor', 'middle')
     .text('← liberal       Ideology       conservative →')
   svg.append('text').attr('class', 'vm-axis-title').attr('transform', `translate(20, ${margin.top + innerH / 2}) rotate(-90)`).attr('text-anchor', 'middle')
     .text('Institutional trust (low ← → high)')
