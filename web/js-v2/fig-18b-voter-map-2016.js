@@ -305,7 +305,7 @@ function drawChart(container, data, opts) {
   const swingOnly = !!opts.swingStatesOnly
   const year = opts.year
   const voters = swingOnly ? data.voters.filter(v => v.s) : data.voters
-  const cands = data.candidates
+  let cands = data.candidates
 
   const W = 680
   const margin = { top: 24, right: 30, bottom: 56, left: 70 }
@@ -371,6 +371,26 @@ function drawChart(container, data, opts) {
     return { x: cx, y: cy }
   }
 
+  // Candidate dots: geometric median of each candidate's voter base (2016 =
+  // primary voters, matching the build script; 2020/2024 = general voters) —
+  // the same estimator as the cohort rings, so a filled dot and an open ring
+  // never differ merely by mean-vs-median. Suppress a candidate's dot when its
+  // own primary cohort is toggled on: the cohort ring already marks that exact
+  // group, so drawing both is a confusing duplicate.
+  const suppressedCands = new Set(
+    activeScenarios.filter(s => /_pv$/.test(s.id)).map(s => s.id.replace(/_pv$/, ''))
+  )
+  cands = data.candidates
+    .filter(c => !suppressedCands.has(c.id))
+    .map(c => {
+      const base = year === 2016
+        ? data.voters.filter(v => v.pv === c.id)
+        : data.voters.filter(v => v.v === c.id)
+      if (base.length === 0) return c
+      const gm = geometricMedian(base)
+      return { ...c, x: gm.x, y: gm.y }
+    })
+
   // ---- 1. Blobs (one per active scenario) ----
   function drawDensity(pts, color, opts = {}) {
     const minN = opts.minN ?? 25
@@ -387,45 +407,10 @@ function drawChart(container, data, opts) {
     drawDensity(voters.filter(s.filter), s.color)
   }
 
-  // ---- 2. Lines (median trust per ideology bin, one per active scenario) ----
-  function trendFor(filter) {
-    const bins = new Map()
-    for (const v of voters) {
-      if (!filter(v)) continue
-      const key = Math.round(v.x * 6) / 6
-      const b = bins.get(key) || { items: [], n: 0 }
-      b.items.push({ y: v.y, w: v.w || 1 }); b.n += 1
-      bins.set(key, b)
-    }
-    return [...bins.entries()]
-      .filter(([_, b]) => b.n >= 3)
-      .map(([xv, b]) => ({ x: xv, y: weightedMedian(b.items, 'y'), n: b.n }))
-      .sort((a, b) => a.x - b.x)
-  }
-  const trendLine = d3.line().x(d => x(d.x)).y(d => y(d.y)).curve(d3.curveMonotoneX)
-  const N_HI = 40, N_LO = 15
-  for (const s of activeScenarios) {
-    const pts = trendFor(s.filter)
-    if (pts.length < 2) continue
-    const reliable = pts.filter(p => p.n >= N_LO)
-    if (reliable.length >= 2) {
-      g.append('path').datum(reliable).attr('d', trendLine)
-        .attr('fill', 'none').attr('stroke', s.color).attr('stroke-width', 1.8)
-        .attr('stroke-dasharray', s.dash).attr('opacity', 0.7)
-    }
-    for (const p of pts) {
-      const cx_ = x(p.x), cy_ = y(p.y)
-      if (p.n >= N_HI) {
-        g.append('circle').attr('cx', cx_).attr('cy', cy_).attr('r', 3.2).attr('fill', s.color).attr('stroke', '#fff').attr('stroke-width', 1)
-      } else if (p.n >= N_LO) {
-        g.append('circle').attr('cx', cx_).attr('cy', cy_).attr('r', 2.8).attr('fill', '#fff').attr('stroke', s.color).attr('stroke-width', 1.3)
-      } else {
-        const sz = 3.5
-        g.append('line').attr('x1', cx_ - sz).attr('x2', cx_ + sz).attr('y1', cy_ - sz).attr('y2', cy_ + sz).attr('stroke', s.color).attr('stroke-width', 1.4).attr('opacity', 0.55)
-        g.append('line').attr('x1', cx_ - sz).attr('x2', cx_ + sz).attr('y1', cy_ + sz).attr('y2', cy_ - sz).attr('stroke', s.color).attr('stroke-width', 1.4).attr('opacity', 0.55)
-      }
-    }
-  }
+  // (Trend-line layer removed: the median-trust-per-ideology-bin line, its
+  // ●/○ bin dots, and the ✕ sparse-bin marks added clutter and a second,
+  // confusing kind of open marker without supporting the figure's claim. The
+  // blob already shows the distribution; the ring shows its center.)
 
   // ---- 3 + 4. Markers with collision-avoidance label placement ----
   //
