@@ -63,7 +63,7 @@ const PRESETS = [
     label: '2016 · Swing (national)',
     year: 2016, scope: 'national',
     enabled: ['swing'],
-    caption: 'On trust, Sanders sits almost exactly on the swing-voter centroid, while Clinton sits well above it. Trust is the axis that separates them, not ideology, where the swing bloc sits near center and, if anything, nearer Clinton. Trump sits lower still, inside the same low-trust field. If Clinton is the institutionalist and swing voters are not, this is the spatial picture you would expect.',
+    caption: 'On the trust axis (vertical), Sanders sits level with the swing-voter centroid, Clinton floats well above it, and Trump drops below. Clinton is the only candidate on the high-trust side of the swing voters, the institutionalist sitting apart from a low-trust bloc. If Clinton is the establishment candidate and swing voters are not, this is the spatial picture you would expect.',
   },
   {
     id: 'p_2016_activated',
