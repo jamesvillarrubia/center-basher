@@ -84,7 +84,7 @@ const PRESETS = [
     label: '2024 · Swing (national)',
     year: 2024, scope: 'national',
     enabled: ['swing'],
-    caption: '2024 swing voters concentrate low on trust, near ideological center. Nationally they leaned Harris, 38% to 25%, with a third staying home, and she sits closer to their center than Trump does. Trump\'s swing-voter advantage was a swing-state phenomenon (next preset), and that is where the Electoral College was decided.',
+    caption: '2024 swing voters concentrate low on trust, near ideological center. Nationally they leaned Harris, 38% to 25%, with a third staying home. Trump\'s swing-voter advantage was a swing-state phenomenon (next preset), and that is where the Electoral College was decided.',
   },
   {
     id: 'p_2024_activated_ss',
