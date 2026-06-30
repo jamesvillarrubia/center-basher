@@ -112,6 +112,20 @@ const PRESETS = [
     enabled: ['swing', 'activated'],
     caption: 'Repeat the flatten for 2024: Harris sits high on trust, away from the swing and activated voters, who cluster low with Trump. The left-right gap that dominates the cable-news map disappears, and the only axis that still separates the nominee from the voters she needed is trust.',
   },
+  {
+    id: 'p_2020_swing',
+    label: '2020 · Swing (national)',
+    year: 2020, scope: 'national',
+    enabled: ['swing', 'activated'],
+    caption: '2020 swing and activated voters sit low on trust near the ideological center, the same contested zone as the other cycles. What changes in 2020 is the candidates: an incumbent Trump can no longer run as the outsider, and Biden runs on restoration. Flatten to trust (next) and the two nominees nearly merge.',
+  },
+  {
+    id: 'p_2020_trust_flip',
+    label: '2020 · On trust alone',
+    year: 2020, scope: 'national', flat: true,
+    enabled: ['swing', 'activated'],
+    caption: 'Ideology stripped out, 2020. Biden and Trump sit almost on top of each other on the trust axis, about 0.01 apart, the closest the two nominees come in any of these three cycles: neither could claim the outsider lane. Biden\'s point falls just between Trump and the activated-voter cluster, a shade closer to the activated voters, who broke his way in a record-turnout election.',
+  },
 ]
 
 const __state = {
