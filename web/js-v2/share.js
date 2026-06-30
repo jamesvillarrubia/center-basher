@@ -37,78 +37,9 @@ export async function loadManifest() {
   }
 }
 
-// End-of-essay inline widget. Kept working (manifest-aware) alongside /share.
-export async function initShareWidget(rootSelector = '#share-root') {
+// End-of-essay entry point: a single button linking to the standalone /share page.
+export function initShareWidget(rootSelector = '#share-root') {
   const root = document.querySelector(rootSelector)
   if (!root) return
-  const manifest = await loadManifest()
-  let selected = DEFAULT_SLUG
-
-  const thumbs = CARDS.map(
-    (c) =>
-      `<button class="share-thumb" data-slug="${c.slug}" aria-pressed="${c.slug === selected}" title="${c.label}">
-         <img src="${imageUrlFor(c.slug, manifest)}" alt="${c.label}" loading="lazy"><span>${c.label}</span>
-       </button>`
-  ).join('')
-
-  root.innerHTML = `
-    <a class="share-open" href="/share/">Open the share page &rarr;</a>
-    <div class="share-panel" hidden>
-      <p class="share-step">1 &middot; Pick a card</p>
-      <div class="share-thumbs">${thumbs}</div>
-      <p class="share-step">2 &middot; Pick where</p>
-      <div class="share-dests">
-        <a class="share-dest" data-dest="x" target="_blank" rel="noopener">X</a>
-        <a class="share-dest" data-dest="bluesky" target="_blank" rel="noopener">Bluesky</a>
-        <a class="share-dest" data-dest="linkedin" target="_blank" rel="noopener">LinkedIn</a>
-        <button class="share-dest" data-dest="instagram" type="button">Instagram</button>
-        <button class="share-dest" data-dest="copy" type="button">Copy link</button>
-      </div>
-      <p class="share-note" hidden></p>
-    </div>`
-
-  const panel = root.querySelector('.share-panel')
-  const note = root.querySelector('.share-note')
-
-  root.querySelectorAll('.share-thumb').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      selected = btn.dataset.slug
-      root.querySelectorAll('.share-thumb').forEach((b) =>
-        b.setAttribute('aria-pressed', String(b.dataset.slug === selected))
-      )
-      syncLinks()
-    })
-  })
-
-  function syncLinks() {
-    const t = buildShareTargets(selected, manifest)
-    root.querySelector('[data-dest="x"]').href = t.x
-    root.querySelector('[data-dest="bluesky"]').href = t.bluesky
-    root.querySelector('[data-dest="linkedin"]').href = t.linkedin
-  }
-
-  function flash(msg) {
-    note.textContent = msg
-    note.hidden = false
-  }
-
-  root.querySelector('[data-dest="instagram"]').addEventListener('click', () => {
-    const t = buildShareTargets(selected, manifest)
-    const a = document.createElement('a')
-    a.href = t.image
-    a.download = `${selected}.png`
-    document.body.appendChild(a)
-    a.click()
-    a.remove()
-    navigator.clipboard?.writeText(t.instagramCaption)
-    flash('Image downloaded and caption copied. Post it to Instagram and add the link.')
-  })
-
-  root.querySelector('[data-dest="copy"]').addEventListener('click', () => {
-    const t = buildShareTargets(selected, manifest)
-    navigator.clipboard?.writeText(t.url)
-    flash('Link copied.')
-  })
-
-  syncLinks()
+  root.innerHTML = '<a class="share-open" href="/share/">Share this essay &rarr;</a>'
 }
