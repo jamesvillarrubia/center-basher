@@ -395,7 +395,11 @@ function drawChart(container, data, opts) {
 
   // ---- 1. Blobs (one per active scenario) ----
   function drawDensity(pts, color, opts = {}) {
-    const minN = opts.minN ?? 25
+    // Floor of 10: the smallest real cohort is 2024 swing-states stayed-home
+    // (n=14), and a small blob reads better than no blob (user call,
+    // 2026-06-29). Below ~10 points a density contour is too degenerate to
+    // mean anything, so we still suppress those and let the ring stand alone.
+    const minN = opts.minN ?? 10
     if (pts.length < minN) return
     const density = contourDensity()
       .x(d => x(d.x)).y(d => y(d.y))
