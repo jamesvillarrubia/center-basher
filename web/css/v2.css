@@ -2715,7 +2715,7 @@ hr.coda-break {
   color: var(--accent);
   transition: transform 180ms ease;
   align-self: baseline;
-  margin-top: 7px;
+  margin-top: 0px;
 }
 .gist[open] .gist-chev { transform: rotate(90deg); }
 
@@ -2723,7 +2723,7 @@ hr.coda-break {
 /* TL;DR is the dominant headline of the card. */
 .gist-kicker {
   display: block;
-  font: 800 clamp(1.2rem, 4vw, 1.6rem)/1 -apple-system, "Helvetica Neue", sans-serif;
+  font: 800 clamp(1.2rem, 4vw, 1.4rem)/1 -apple-system, "Helvetica Neue", sans-serif;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
