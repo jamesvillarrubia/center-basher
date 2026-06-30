@@ -2437,7 +2437,7 @@
       nationally and across the swing states. The primary and party-ID votes
       are in there, but the part we worked hardest to pull out is the
       behavioral layer: the swing voters
-      (people who switched parties from the previous election), activated voterss (people who turned
+      (people who switched parties from the previous election), activated voters (people who turned
       out new after sitting the previous one out), and stay home voters (the people who stayed
       home this time after voting last time). Most importantly, the map doesn’t just stretch
       everyone along the usual left-right spectrum, the one pundits lean on
@@ -2455,35 +2455,37 @@
       <p class="picker-label">Figure AA: Trust × ideology voter map</p>
       <div id="fig-19b-mount"></div>
       <figcaption>
-        2,681 ANES 2016 respondents, plotted by self-reported ideology
-        (horizontal, liberal to conservative) and institutional trust
-        (vertical, low to high). Each dot is colored by who they voted for
-        in November. Filled dots are the three 2016 candidates, placed at the
-        geometric median of their voter base; open rings are the toggled
-        cohorts, placed the same way. (A candidate's filled dot is hidden when
-        its own primary cohort is shown, since the ring already marks it.)
-        <strong>The visual answer to "were the Sanders voters who flipped
-        the swing states Clinton's?": no.</strong> Clinton’s voter base sits
-        in the upper-left (high-trust establishment left). Trump’s base sits
-        in the lower-right (low-trust right). Sanders’ primary voter centroid
-        (n = 300) sits well below Clinton’s on the trust axis, and on that
-        axis nearer the typical voter than Clinton’s base is, squarely in the
-        low-trust band. Most of these voters did back Clinton in November
-        (69%), but a structurally distrustful minority did not: 8% crossed to
-        Trump and 13% stayed home by self-report, a share validated turnout
-        pushes higher. In the swing states that minority was enough. Same
-        model, same prediction, played out at the precinct level in
-        WI / MI / PA. Trend-line points (median trust per ideology bin):
-        filled ● n ≥ 40, open ○ n ≥ 15, ✕ n &lt; 15 (sparse bin); each
-        cohort’s center is the larger open ring (geometric median). <strong>Source:</strong> ANES 2016 Time Series, weighted
-        <code>V160102</code> (POST). x = ideology <code>V161126</code> (1–7 → −1..+1);
-        y = trust composite <code>V161215/V161216/V161217</code> (0–1, higher = more trust).
-        Party <code>V161158x</code>; general vote <code>V162034a</code>; primary
-        <code>V161021a</code>. Cohorts: swing = undecided <code>V161031</code>; new-2016 =
-        voted 2016 (<code>V162031x</code>) not 2012 (<code>V161005</code>); drop-off =
-        voted 2012 not 2016.
+        2,681 ANES 2016 respondents by ideology (left–right) and institutional
+        trust (low–high), each colored by their November vote. Large filled dots
+        are the candidates; open rings are the cohorts you toggle on, both placed
+        at the geometric median of their voters. <strong>Were the Sanders voters
+        who flipped the swing states Clinton’s? No</strong> — Sanders’ primary
+        voters (n = 300) sit down in the low-trust band with the swing voters, far
+        below Clinton. Most still backed her in November (69%); the distrustful
+        minority who didn’t, 8% to Trump and 13% staying home, was enough in
+        WI / MI / PA.
       </figcaption>
     </figure>
+
+    <details class="howweknow">
+      <summary>Sources &amp; method — Figure AA</summary>
+      <ul class="methods">
+        <li><strong>Source.</strong> ANES 2016 Time Series, weighted
+          <code>V160102</code> (POST).</li>
+        <li><strong>Axes.</strong> x = ideology <code>V161126</code>
+          (1–7 → −1..+1); y = trust composite
+          <code>V161215</code>/<code>V161216</code>/<code>V161217</code>
+          (0–1, higher = more trust).</li>
+        <li><strong>Vote &amp; party.</strong> party <code>V161158x</code>;
+          general vote <code>V162034a</code>; primary <code>V161021a</code>.</li>
+        <li><strong>Cohorts.</strong> swing = undecided <code>V161031</code>;
+          new-2016 = voted 2016 (<code>V162031x</code>) not 2012
+          (<code>V161005</code>); drop-off = voted 2012 not 2016.</li>
+        <li><strong>Markers.</strong> candidate dots and cohort rings are
+          geometric medians (Weiszfeld); a candidate’s filled dot hides when its
+          own primary cohort ring is shown, since the ring already marks it.</li>
+      </ul>
+    </details>
 
     <p>
       Let's start with 2016. The 2016 election wasn’t a story of Clinton failing 
