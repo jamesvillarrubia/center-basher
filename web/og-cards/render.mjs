@@ -7,7 +7,7 @@ const here = dirname(fileURLToPath(import.meta.url))
 const outDir = resolve(here, '../public/og')
 mkdirSync(outDir, { recursive: true })
 
-const slugs = ['brand', 'zero', 'trust', 'window']
+const slugs = ['brand', 'zero', 'trust', 'window', 'risky', 'incumbency']
 const browser = await chromium.launch()
 const page = await browser.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 })
 

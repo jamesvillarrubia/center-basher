@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>OG Card Preview</title>
+  <style>
+    body { margin: 0; padding: 40px; background: #e9e9e4; font-family: Georgia, serif; color: #1b1b1d; }
+    h1 { font-size: 28px; margin: 0 0 6px; }
+    .sub { color: #6b6b70; margin: 0 0 36px; font-size: 15px; }
+    .card-row { margin: 0 0 56px; }
+    .card-row h2 { font-size: 18px; margin: 0 0 4px; }
+    .card-row .meta { color: #6b6b70; font-size: 13px; margin: 0 0 14px; }
+    .pair { display: flex; gap: 28px; flex-wrap: wrap; align-items: flex-start; }
+    .panel { background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 12px; }
+    .panel .tag { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #6b6b70; margin: 0 0 8px; }
+    /* The PNG is the actual 1200x630 share image, shown at 600x315 */
+    .png img { width: 600px; height: 315px; display: block; border: 1px solid #eee; }
+    /* The live HTML card scaled to the same 600x315 box so you can compare */
+    .live { width: 600px; height: 315px; overflow: hidden; position: relative; }
+    .live iframe { width: 1200px; height: 630px; border: 0; transform: scale(0.5); transform-origin: top left; }
+  </style>
+</head>
+<body>
+  <h1>Open Graph cards — preview</h1>
+  <p class="sub">Left = the rendered PNG (exactly what unfurls on X / Bluesky / LinkedIn, shown at half size). Right = the live editable HTML. Edit <code>og-cards/&lt;slug&gt;.html</code> then run <code>pnpm render:og</code> to regenerate the PNG.</p>
+
+  <div class="card-row">
+    <h2>1 · brand</h2>
+    <p class="meta">Default card. Unfurls for the bare link and the main URL.</p>
+    <div class="pair">
+      <div class="panel png"><p class="tag">PNG · /og/brand.png</p><img src="/og/brand.png" alt="brand card"></div>
+      <div class="panel"><p class="tag">Live HTML</p><div class="live"><iframe src="./brand.html"></iframe></div></div>
+    </div>
+  </div>
+
+  <div class="card-row">
+    <h2>2 · zero</h2>
+    <p class="meta">"All the ads and door-knocks combined move vote choice by roughly zero."</p>
+    <div class="pair">
+      <div class="panel png"><p class="tag">PNG · /og/zero.png</p><img src="/og/zero.png" alt="zero card"></div>
+      <div class="panel"><p class="tag">Live HTML</p><div class="live"><iframe src="./zero.html"></iframe></div></div>
+    </div>
+  </div>
+
+  <div class="card-row">
+    <h2>3 · trust</h2>
+    <p class="meta">"In 1964, three in four Americans trusted their government; today, one in five do."</p>
+    <div class="pair">
+      <div class="panel png"><p class="tag">PNG · /og/trust.png</p><img src="/og/trust.png" alt="trust card"></div>
+      <div class="panel"><p class="tag">Live HTML</p><div class="live"><iframe src="./trust.html"></iframe></div></div>
+    </div>
+  </div>
+
+  <div class="card-row">
+    <h2>4 · window</h2>
+    <p class="meta">"By the time candidates are nominated, the window to swing voters is closed."</p>
+    <div class="pair">
+      <div class="panel png"><p class="tag">PNG · /og/window.png</p><img src="/og/window.png" alt="window card"></div>
+      <div class="panel"><p class="tag">Live HTML</p><div class="live"><iframe src="./window.html"></iframe></div></div>
+    </div>
+  </div>
+
+  <div class="card-row">
+    <h2>5 · risky</h2>
+    <p class="meta">"The safe, establishment candidate has become the risky one."</p>
+    <div class="pair">
+      <div class="panel png"><p class="tag">PNG · /og/risky.png</p><img src="/og/risky.png" alt="risky card"></div>
+      <div class="panel"><p class="tag">Live HTML</p><div class="live"><iframe src="./risky.html"></iframe></div></div>
+    </div>
+  </div>
+
+  <div class="card-row">
+    <h2>6 · incumbency</h2>
+    <p class="meta">"The party is built to protect its own incumbency."</p>
+    <div class="pair">
+      <div class="panel png"><p class="tag">PNG · /og/incumbency.png</p><img src="/og/incumbency.png" alt="incumbency card"></div>
+      <div class="panel"><p class="tag">Live HTML</p><div class="live"><iframe src="./incumbency.html"></iframe></div></div>
+    </div>
+  </div>
+</body>
+</html>

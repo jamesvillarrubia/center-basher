@@ -27,6 +27,18 @@ export const CARDS = [
     img: '/og/window.png',
     blurb: 'By the time candidates are nominated, the window to swing voters is already closed. Why "electability" is decided before the general even starts:',
   },
+  {
+    slug: 'risky',
+    label: 'The safe one is risky',
+    img: '/og/risky.png',
+    blurb: 'The safe, establishment candidate has become the risky one. Why "electable" is the riskiest bet a party can make:',
+  },
+  {
+    slug: 'incumbency',
+    label: 'Built to protect incumbency',
+    img: '/og/incumbency.png',
+    blurb: 'The party is built to protect its own incumbency, which is exactly why it keeps nominating losers. A data essay on who actually wins:',
+  },
 ]
 
 export function shareUrlFor(slug) {

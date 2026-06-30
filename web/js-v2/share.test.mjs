@@ -2,9 +2,16 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { CARDS, shareUrlFor, buildShareTargets } from './share.js'
 
-test('there are four cards, brand first', () => {
-  assert.equal(CARDS.length, 4)
+test('there are six cards, brand first', () => {
+  assert.equal(CARDS.length, 6)
   assert.equal(CARDS[0].slug, 'brand')
+})
+
+test('every card has a rendered PNG and a blurb', () => {
+  for (const c of CARDS) {
+    assert.match(c.img, /^\/og\/[a-z]+\.png$/)
+    assert.ok(c.blurb.length > 0)
+  }
 })
 
 test('brand shares the root URL', () => {

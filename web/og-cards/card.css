@@ -8,16 +8,31 @@ html, body { width: 1200px; height: 630px; }
   padding: 96px 100px; position: relative; overflow: hidden;
 }
 .card--center { align-items: center; text-align: center; }
-.kicker {
-  font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase;
-  color: #6b6b70; margin-bottom: 28px;
-}
-.quote { font-size: 46px; line-height: 1.2; }
-.em { color: #b8240f; }
-.big { color: #b8240f; font-weight: 700; line-height: 0.98; }
-.title { font-size: 132px; line-height: 1.02; font-weight: 700; letter-spacing: -0.01em; }
+.quote { font-size: 46px; line-height: 1.1; }
+.quote.quote--soft { color: #4a4a4f; line-height: 1.5; }
+.big { color: #b8240f; font-weight: 700; line-height: 0.5; font-size: 300px; margin-bottom: 70px; }
 .footer {
   position: absolute; left: 100px; bottom: 56px;
   font-size: 26px; letter-spacing: 0.12em; text-transform: uppercase; color: #6b6b70;
 }
 .card--center .footer { left: 0; right: 0; text-align: center; }
+
+/* brand: "The / Center / is a" right-justified, giant LIE left-justified */
+.card--brand { align-items: center; }
+.brand-grid { display: flex; align-items: center; gap: 44px; }
+.brand-lead {
+  display: flex; flex-direction: column; text-align: right;
+  font-size: 84px; line-height: 1.1; font-weight: 600;
+}
+.brand-lie {
+  font-size: 350px; line-height: 0.78; font-weight: 800;
+  letter-spacing: 5px; color: #b8240f;
+}
+
+/* trust: emphasize only "one" and "five" */
+.big-line { line-height: 1.02; margin-top: -12px; }
+.big-line span.xl { font-size: 152px; color: #b8240f; font-weight: 700; letter-spacing: 3px; }
+.big-line span.sm { font-size: 67px; color: #555555; font-weight: 100; padding: 18px; }
+
+/* window / risky / incumbency: enlarged inline words inside a flowing sentence */
+.big-inline { font-size: 98px; color: #b8240f; font-weight: 700; }
