@@ -56,10 +56,11 @@ Pulled from `web/css/v2.css`:
 - Background: `--paper` `#fbfbf8`
 - Ink: `--ink` `#1b1b1d`; soft `#3a3a3d`; faint `#6b6b70`
 - Accent: `--accent` `#b8240f` (used for the emphasis number/word)
-- Serif stack: `"Iowan Old Style", Charter, Georgia, serif`. Because Iowan/Charter
-  are not guaranteed in a headless renderer, the card templates pin a deterministic
-  fallback (`Georgia, serif`, or an embedded `Charter`/`Iowan` `@font-face` if we
-  want exact match) so CI and local render identically.
+- Serif stack: card templates pin `Georgia, serif` (DECIDED). Iowan Old Style is
+  Apple-only and Charter is not universal, so most readers already see the essay
+  rendered in Georgia; pinning Georgia makes the cards match what they see and
+  renders identically in local + CI headless. Revisit with an embedded
+  `Charter`/`Iowan` `@font-face` only if we want an exact-match upgrade later.
 - Card size: 1200×630 (standard OG). Safe text margin ~80px; nothing critical in
   the outer 60px (some platforms crop to ~1.91:1 then pad).
 - A small footer lockup on every card: `thecenterisalie.org`.
@@ -105,28 +106,27 @@ the chosen card unfurls while any human who clicks bounces straight to the essay
 <meta property="og:type" content="article" />
 <meta property="og:site_name" content="The Center Is a Lie" />
 <meta property="og:title" content="The Center Is a Lie" />
-<meta property="og:description" content="<one-line essay hook, ~150 chars>" />
+<meta property="og:description" content="Why the candidate the party calls 'electable' is the one who loses. A data essay: the center isn't a bloc, positions barely move voters, and the establishment loses." />
 <meta property="og:url" content="https://thecenterisalie.org/" />
 <meta property="og:image" content="https://thecenterisalie.org/og/brand.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="The Center Is a Lie" />
-<meta name="twitter:description" content="<same hook>" />
+<meta name="twitter:description" content="Why the candidate the party calls 'electable' is the one who loses. A data essay: the center isn't a bloc, positions barely move voters, and the establishment loses." />
 <meta name="twitter:image" content="https://thecenterisalie.org/og/brand.png" />
 <meta name="twitter:creator" content="@james_mtc" />
 <link rel="canonical" href="https://thecenterisalie.org/" />
 ```
 
-Description hook copy is TBD in implementation (draft, user approves the one line).
 Bluesky reads standard `og:*`; no Bluesky-specific tags needed.
 
 ## Share widget
 
 Vanilla JS + CSS inlined into `index.html` (the site uses no framework).
 
-**Placement:** end-of-essay, after the coda, as a labeled "Share this" block. (Open
-item: user may want it also pinned/floating; default is end-of-essay only.)
+**Placement:** end-of-essay only (DECIDED), after the coda, as a labeled "Share
+this" block. No floating/pinned control in this version.
 
 **Flow:**
 1. "Share this" button opens a small panel.
@@ -145,7 +145,15 @@ item: user may want it also pinned/floating; default is end-of-essay only.)
 
 - `<shareUrl>` = `https://thecenterisalie.org/` for `brand`, else
   `https://thecenterisalie.org/s/<slug>/`.
-- `<blurb>` = short per-card share text (drafted in implementation, user approves).
+- `<blurb>` = short per-card share text (DECIDED below; user may edit any line in
+  the compose box before posting):
+
+| slug | blurb |
+|---|---|
+| `brand` | The "move to the center to win" playbook is a lie. A data essay on who actually decides elections, and why the safe candidate is the one who loses: |
+| `zero` | All the ads and door-knocks combined move vote choice by roughly zero. Why late-campaign persuasion is a measured zero: |
+| `trust` | In 1964, three in four Americans trusted their government. Today, one in five do. Almost everything about how we vote falls out of that collapse: |
+| `window` | By the time candidates are nominated, the window to swing voters is already closed. Why "electability" is decided before the general even starts: |
 - All external opens use `target="_blank" rel="noopener"`.
 - LinkedIn ignores custom text by design; it unfurls the URL's OG only. Acceptable
   per "wired but lighter."
@@ -194,9 +202,10 @@ web/
   against the deployed URLs before announcing.
 - Confirm `pnpm -C web build` emits `dist/og/*.png` and `dist/s/*/index.html`.
 
-## Open questions
+## Resolved decisions (were open questions)
 
-- [ ] Exact one-line `og:description` hook (draft → user approves)
-- [ ] Per-card share blurbs (draft → user approves)
-- [ ] Share control placement: end-of-essay only, or also floating/pinned?
-- [ ] Exact-font match (embed Charter/Iowan `@font-face`) vs Georgia fallback for cards
+- `og:description` hook: decided (see metadata block). User may revise the wording.
+- Per-card share blurbs: decided (see widget table). Editable in the compose box.
+- Share control placement: end-of-essay only, no floating control this version.
+- Card font: `Georgia, serif` for deterministic, on-brand rendering; embedded
+  Charter/Iowan is a possible later upgrade, not in scope now.
