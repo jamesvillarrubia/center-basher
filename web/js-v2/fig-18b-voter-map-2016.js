@@ -103,7 +103,17 @@ const __state = {
   dataByYear: {},
   enabled: { swing: true },   // scenario id → true
   activePresetId: null,
+  flat: false,                // trust-line ("flatten") view toggle
+  __prevFlat: false,          // last mode rendered, so only the flip animates
 }
+
+// In flat mode the left-right ideology axis collapses and every marker slides
+// onto a single horizontal trust line. The cluster lives in ~0.1–0.35, so the
+// axis is truncated at TRUST_MAX to spread it out; a small note flags the
+// sparse tail above. DEM_NOMINEE_IDS anchors the headline "cohort → nominee"
+// gap that carries the §16/§18 thesis.
+const TRUST_MAX = 0.6
+const DEM_NOMINEE_IDS = ['clinton', 'biden', 'harris']
 
 export function mountVoterMapTabbed(selector, dataByYear) {
   const container = document.querySelector(selector)
@@ -134,6 +144,16 @@ export function mountVoterMapTabbed(selector, dataByYear) {
     btn.addEventListener('click', () => { __state.scope = s.key; clearPreset(container); rebuildScenarioPanel(container); renderAll(container) })
     tabBar.appendChild(btn)
   })
+
+  // Flatten-to-trust toggle: collapses ideology, slides every marker onto a
+  // single trust line. Animated (markers tween between the two views).
+  const sep2 = document.createElement('span'); sep2.textContent = '|'; sep2.style.cssText = 'color:#bbb;margin:0 4px;'
+  tabBar.appendChild(sep2)
+  const flatBtn = document.createElement('button')
+  flatBtn.className = 'vm-flat-toggle'
+  flatBtn.style.cssText = 'padding:5px 14px;border-radius:4px;border:2px solid #7a5d00;background:#7a5d00;color:#fff;cursor:pointer;font-weight:700;'
+  flatBtn.addEventListener('click', () => { __state.flat = !__state.flat; renderAll(container) })
+  tabBar.appendChild(flatBtn)
 
   // Preset row (narrative-driven configurations)
   const presetBar = document.createElement('div')
@@ -298,16 +318,68 @@ function renderAll(container) {
     b.style.background = active ? '#1b1b1d' : '#fff'
     b.style.color = active ? '#fff' : '#333'
   })
+  const flatBtn = container.querySelector('.vm-flat-toggle')
+  if (flatBtn) flatBtn.textContent = __state.flat ? '◀ Back to 2D map' : 'Flatten to trust axis ▶'
+  // NB: do NOT wipe the chart wrapper — drawChart reuses a persistent SVG so
+  // the 2D↔flat flip can animate marker positions.
   const wrap = container.querySelector('.vm-chart-wrap')
-  wrap.innerHTML = ''
   drawChart(wrap, __state.dataByYear[__state.year], { swingStatesOnly: __state.scope === 'swing', year: __state.year })
+}
+
+// Weighted geometric median (Weiszfeld). Used for cohort centroid rings + the
+// candidate dots so the marker sits inside the dense part of the (right-skewed)
+// trust blob rather than floating above it the way a mean does. Continuous, so
+// cohorts stay distinct (unlike a per-axis median, which quantizes onto the ~5
+// discrete trust levels and collapses cohorts onto identical points).
+function geometricMedian(items) {
+  if (items.length === 0) return { x: 0, y: 0 }
+  let tw = 0, sx = 0, sy = 0
+  for (const it of items) { const w = it.w || 1; tw += w; sx += it.x * w; sy += it.y * w }
+  let cx = sx / tw, cy = sy / tw
+  for (let iter = 0; iter < 200; iter++) {
+    let nx = 0, ny = 0, den = 0
+    for (const it of items) {
+      const w = it.w || 1
+      let d = Math.hypot(it.x - cx, it.y - cy)
+      if (d < 1e-9) d = 1e-9
+      const wd = w / d
+      nx += wd * it.x; ny += wd * it.y; den += wd
+    }
+    const px = nx / den, py = ny / den
+    if (Math.hypot(px - cx, py - cy) < 1e-7) { cx = px; cy = py; break }
+    cx = px; cy = py
+  }
+  return { x: cx, y: cy }
+}
+
+// Tiny weighted Gaussian KDE on the trust axis, sampled across the line. Used
+// only for the flat-mode distribution ridges.
+function kde1d(values, weights, scale, bandwidth) {
+  const [lo, hi] = scale.domain()
+  const totalW = weights.reduce((s, w) => s + w, 0) || 1
+  const out = []
+  const STEPS = 80
+  for (let i = 0; i <= STEPS; i++) {
+    const t = lo + (hi - lo) * (i / STEPS)
+    let d = 0
+    for (let j = 0; j < values.length; j++) {
+      const u = (t - values[j]) / bandwidth
+      d += weights[j] * Math.exp(-0.5 * u * u)
+    }
+    d = d / (totalW * bandwidth * Math.sqrt(2 * Math.PI))
+    out.push([scale(t), d])
+  }
+  return out
 }
 
 function drawChart(container, data, opts) {
   const swingOnly = !!opts.swingStatesOnly
   const year = opts.year
+  const flat = __state.flat
+  const animate = __state.__prevFlat !== flat   // only the 2D↔flat flip animates
+  __state.__prevFlat = flat
+  const dur = animate ? 750 : 0
   const voters = swingOnly ? data.voters.filter(v => v.s) : data.voters
-  let cands = data.candidates
 
   const W = 680
   const margin = { top: 24, right: 30, bottom: 56, left: 70 }
@@ -315,223 +387,287 @@ function drawChart(container, data, opts) {
   const innerH = Math.min(innerW, 460)
   const H = margin.top + innerH + margin.bottom
 
-  const svg = d3.select(container).append('svg').attr('viewBox', `0 0 ${W} ${H}`)
-  const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`)
+  // Persistent SVG + layer groups, so a mode flip tweens marker positions
+  // instead of redrawing from scratch.
+  let svg = d3.select(container).select('svg.vm-svg')
+  if (svg.empty()) {
+    svg = d3.select(container).append('svg').attr('class', 'vm-svg').attr('viewBox', `0 0 ${W} ${H}`)
+    svg.append('g').attr('class', 'plot').attr('transform', `translate(${margin.left},${margin.top})`)
+  }
+  const g = svg.select('g.plot')
+  const fade = (sel, op) => { dur === 0 ? sel.style('opacity', op) : sel.transition().duration(dur).style('opacity', op) }
 
-  // Title/subtitle live in the HTML figure label + figcaption (the active
-  // year/scope is shown by the tab buttons above the chart).
+  // ---- Scales ----
+  // 2D: x = ideology (-1..1), y = trust (0..0.8, up = high trust).
+  // Flat: trust maps to the HORIZONTAL axis (truncated at TRUST_MAX), ideology
+  // collapses onto a single baseline.
+  const x2d = d3.scaleLinear().domain([-1, 1]).range([0, innerW])
+  const y2d = d3.scaleLinear().domain([0, 0.8]).range([innerH, 0])
+  const trustX = d3.scaleLinear().domain([0, TRUST_MAX]).range([40, innerW - 40])
+  const baseY = innerH * 0.46
+  const px = pt => flat ? trustX(pt.y) : x2d(pt.x)
+  const py = pt => flat ? baseY : y2d(pt.y)
 
-  const x = d3.scaleLinear().domain([-1, 1]).range([0, innerW])
-  const y = d3.scaleLinear().domain([0, 0.8]).range([innerH, 0])
-
-  // Center crosshairs
-  g.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', 0).attr('y2', innerH).attr('stroke', '#ccc')
-  g.append('line').attr('x1', 0).attr('x2', innerW).attr('y1', y(0.4)).attr('y2', y(0.4)).attr('stroke', '#ccc')
-
-  // Active scenarios for this year
   const activeScenarios = scenariosForYear(year).filter(s => __state.enabled[s.id])
 
-  // Helper: weighted median
-  function weightedMedian(items, key) {
-    const sorted = items.slice().sort((a, b) => a[key] - b[key])
-    const total = sorted.reduce((s, it) => s + (it.w || 1), 0)
-    let cum = 0
-    for (const it of sorted) {
-      cum += (it.w || 1)
-      if (cum >= total / 2) return it[key]
-    }
-    return sorted[sorted.length - 1][key]
-  }
-  function weightedMean(items, key) {
-    let tw = 0, s = 0
-    for (const it of items) { const w = it.w || 1; tw += w; s += it[key] * w }
-    return tw > 0 ? s / tw : 0
-  }
-  // Weighted geometric median (Weiszfeld). Used for cohort centroid rings so
-  // the marker sits inside the dense part of the (right-skewed) trust blob,
-  // rather than floating above it the way a mean does. Continuous-valued, so
-  // cohorts stay distinct (unlike the per-axis median, which quantizes onto
-  // the ~5 discrete trust levels and collapses cohorts onto identical points).
-  function geometricMedian(items) {
-    if (items.length === 0) return { x: 0, y: 0 }
-    let tw = 0, sx = 0, sy = 0
-    for (const it of items) { const w = it.w || 1; tw += w; sx += it.x * w; sy += it.y * w }
-    let cx = sx / tw, cy = sy / tw
-    for (let iter = 0; iter < 200; iter++) {
-      let nx = 0, ny = 0, den = 0
-      for (const it of items) {
-        const w = it.w || 1
-        let d = Math.hypot(it.x - cx, it.y - cy)
-        if (d < 1e-9) d = 1e-9
-        const wd = w / d
-        nx += wd * it.x; ny += wd * it.y; den += wd
-      }
-      const px = nx / den, py = ny / den
-      if (Math.hypot(px - cx, py - cy) < 1e-7) { cx = px; cy = py; break }
-      cx = px; cy = py
-    }
-    return { x: cx, y: cy }
-  }
-
-  // Candidate dots: geometric median of each candidate's voter base (2016 =
-  // primary voters, matching the build script; 2020/2024 = general voters) —
-  // the same estimator as the cohort rings, so a filled dot and an open ring
-  // never differ merely by mean-vs-median. Candidate dots (and their names) are
-  // ALWAYS drawn. When a primary cohort is toggled on, its open ring would land
-  // exactly on the matching candidate's filled dot (same people, same geomed),
-  // so we drop the redundant ring instead — see the ring-draw loop below.
-  cands = data.candidates.map(c => {
+  // Candidate centroids (geometric median of each candidate's voter base:
+  // 2016 = primary voters, matching the build script; 2020/2024 = general
+  // voters). Always drawn as the filled circle.
+  //
+  // `.gen` = the "up-for-grabs" square: the persuadable voters (swing OR
+  // activated) this candidate actually WON, placed at their geometric median.
+  // Scope-aware (uses the scope-filtered `voters`), so the National/Swing-state
+  // toggle splits it. Stayed-home can't be "won" (they didn't vote) and are
+  // excluded; Sanders has no general/up-for-grabs marker (not on the Nov ballot).
+  // A small-n floor keeps it from drawing off a handful of points.
+  const UP_FOR_GRABS = v => v.sw || v.n2
+  const cands = data.candidates.map(c => {
     const base = year === 2016
       ? data.voters.filter(v => v.pv === c.id)
       : data.voters.filter(v => v.v === c.id)
-    if (base.length === 0) return c
-    const gm = geometricMedian(base)
-    return { ...c, x: gm.x, y: gm.y }
+    const out = base.length ? { ...c, ...geometricMedian(base) } : { ...c }
+    const won = voters.filter(v => UP_FOR_GRABS(v) && v.v === c.id)
+    if (won.length >= 8) {
+      const g = geometricMedian(won)
+      out.gen = { x: g.x, y: g.y, n: won.length }
+    }
+    return out
   })
 
-  // ---- 1. Blobs (one per active scenario) ----
-  function drawDensity(pts, color, opts = {}) {
-    // Floor of 10: the smallest real cohort is 2024 swing-states stayed-home
-    // (n=14), and a small blob reads better than no blob (user call,
-    // 2026-06-29). Below ~10 points a density contour is too degenerate to
-    // mean anything, so we still suppress those and let the ring stand alone.
-    const minN = opts.minN ?? 10
-    if (pts.length < minN) return
-    const density = contourDensity()
-      .x(d => x(d.x)).y(d => y(d.y))
-      .size([innerW, innerH]).bandwidth(opts.bandwidth ?? 30).thresholds(opts.thresholds ?? 6)(pts)
-    g.append('g').selectAll('path').data(density).join('path')
-      .attr('d', d3.geoPath())
-      .attr('fill', color).attr('fill-opacity', (d, i) => 0.06 + (i / Math.max(1, density.length)) * 0.14)
-      .attr('stroke', color).attr('stroke-opacity', 0.4).attr('stroke-width', 0.8)
-  }
-  for (const s of activeScenarios) {
-    drawDensity(voters.filter(s.filter), s.color)
-  }
-
-  // (Trend-line layer removed: the median-trust-per-ideology-bin line, its
-  // ●/○ bin dots, and the ✕ sparse-bin marks added clutter and a second,
-  // confusing kind of open marker without supporting the figure's claim. The
-  // blob already shows the distribution; the ring shows its center.)
-
-  // ---- 3 + 4. Markers with collision-avoidance label placement ----
-  //
-  // First pass: compute marker positions (candidate dots + cohort rings).
-  // Second pass: draw markers + connector lines.
-  // Third pass: place labels using collision avoidance against ALL markers
-  // and previously-placed labels.
-
-  // Estimate label box around a center point given text length + font size
-  function labelBox(cx, cy, text, fontSize) {
-    const w = text.length * fontSize * 0.55 + 6
-    const h = fontSize + 4
-    return { cx, cy, x1: cx - w/2, y1: cy - h/2, x2: cx + w/2, y2: cy + h/2, w, h }
-  }
-  function rectOverlap(a, b, pad = 2) {
-    return !(a.x2 + pad < b.x1 || a.x1 - pad > b.x2 || a.y2 + pad < b.y1 || a.y1 - pad > b.y2)
-  }
-  // Find a label position around an anchor that doesn't collide with any
-  // existing obstacle. Tries 16 angles × increasing radius.
-  function placeLabel(anchorX, anchorY, text, fontSize, obstacles) {
-    const w = text.length * fontSize * 0.55 + 6
-    const h = fontSize + 4
-    const N_ANGLES = 16
-    for (let dist = 14; dist <= 110; dist += 8) {
-      for (let i = 0; i < N_ANGLES; i++) {
-        // Bias toward NE / above first by starting near -π/2 and alternating
-        const a = -Math.PI/2 + (i % 2 === 0 ? 1 : -1) * Math.ceil(i/2) * (Math.PI * 2 / N_ANGLES)
-        const cx = anchorX + Math.cos(a) * dist
-        const cy = anchorY + Math.sin(a) * dist
-        const rect = { cx, cy, x1: cx - w/2, y1: cy - h/2, x2: cx + w/2, y2: cy + h/2, w, h }
-        if (rect.x1 < 4 || rect.x2 > innerW - 4) continue
-        if (rect.y1 < 4 || rect.y2 > innerH - 4) continue
-        let hit = false
-        for (const o of obstacles) {
-          if (rectOverlap(rect, o)) { hit = true; break }
-        }
-        if (!hit) return rect
-      }
-    }
-    // Fallback: directly above the anchor
-    return labelBox(anchorX, anchorY - 18, text, fontSize)
-  }
-
-  // Compute cohort centroid positions first
-  const cohortMarkers = []
+  // Cohort centroids.
+  const cohorts = []
   for (const s of activeScenarios) {
     const inCohort = voters.filter(s.filter)
     if (inCohort.length === 0) continue
     const gm = geometricMedian(inCohort)
-    const ccx = x(gm.x)
-    const ccy = y(gm.y)
-    cohortMarkers.push({ s, ccx, ccy, n: inCohort.length, inCohort })
+    cohorts.push({ s, id: s.id, x: gm.x, y: gm.y, n: inCohort.length, voters: inCohort })
   }
 
-  // Build initial obstacle list: candidate dots (circle bboxes)
-  const obstacles = []
-  for (const c of cands) {
-    const cx_ = x(c.x), cy_ = y(c.y)
-    obstacles.push({ x1: cx_ - 11, y1: cy_ - 11, x2: cx_ + 11, y2: cy_ + 11 })
-  }
-  for (const m of cohortMarkers) {
-    obstacles.push({ x1: m.ccx - 9, y1: m.ccy - 9, x2: m.ccx + 9, y2: m.ccy + 9 })
-  }
-
-  // Capture % pills removed 2026-06-29: a bare floating "42%" next to a dot
-  // had no on-chart legend explaining it was "share of this cohort who voted
-  // X," and the per-preset captions already state the same split in prose.
-
-  // ---- Draw cohort centroid rings + their lines/blobs already drawn ----
-  // Skip primary (_pv) cohorts: their centroid is the matching candidate's
-  // filled dot, which is always drawn, so an open ring here is a duplicate.
-  for (const m of cohortMarkers) {
-    if (/_pv$/.test(m.s.id)) continue
-    g.append('circle').attr('cx', m.ccx).attr('cy', m.ccy).attr('r', 7)
-      .attr('fill', '#fff').attr('stroke', m.s.color).attr('stroke-width', 2.4)
-  }
-
-  // ---- Draw candidate dots ----
-  for (const c of cands) {
-    const cx_ = x(c.x), cy_ = y(c.y)
-    g.append('circle').attr('cx', cx_).attr('cy', cy_).attr('r', 9)
-      .attr('fill', c.color).attr('stroke', '#fff').attr('stroke-width', 2)
-  }
-
-  // ---- Place candidate labels (with collision avoidance) ----
-  const placedLabelBoxes = []
-  for (const c of cands) {
-    const cx_ = x(c.x), cy_ = y(c.y)
-    const lbl = placeLabel(cx_, cy_, c.short, 13, [...obstacles, ...placedLabelBoxes])
-    // Thin connector if pushed beyond 18px from the dot
-    const dx = lbl.cx - cx_, dy = lbl.cy - cy_
-    const dist = Math.sqrt(dx*dx + dy*dy)
-    if (dist > 22) {
-      g.append('line').attr('x1', cx_).attr('y1', cy_).attr('x2', lbl.cx).attr('y2', lbl.cy)
-        .attr('stroke', c.color).attr('stroke-opacity', 0.4).attr('stroke-width', 0.7)
+  // ====================================================================
+  //  BG LAYER — 2D crosshairs + blobs. Present only in 2D mode.
+  // ====================================================================
+  let bg = g.select('g.bg'); if (bg.empty()) bg = g.append('g').attr('class', 'bg')
+  bg.selectAll('*').remove()
+  fade(bg, flat ? 0 : 1)
+  if (!flat) {
+    bg.append('line').attr('x1', x2d(0)).attr('x2', x2d(0)).attr('y1', 0).attr('y2', innerH).attr('stroke', '#ccc')
+    bg.append('line').attr('x1', 0).attr('x2', innerW).attr('y1', y2d(0.4)).attr('y2', y2d(0.4)).attr('stroke', '#ccc')
+    // Floor of 10: below ~10 points a density contour is too degenerate to mean
+    // anything; let the ring stand alone there.
+    function drawDensity(pts, color) {
+      if (pts.length < 10) return
+      const density = contourDensity()
+        .x(d => x2d(d.x)).y(d => y2d(d.y))
+        .size([innerW, innerH]).bandwidth(30).thresholds(6)(pts)
+      bg.append('g').selectAll('path').data(density).join('path')
+        .attr('d', d3.geoPath())
+        .attr('fill', color).attr('fill-opacity', (d, i) => 0.06 + (i / Math.max(1, density.length)) * 0.14)
+        .attr('stroke', color).attr('stroke-opacity', 0.4).attr('stroke-width', 0.8)
     }
-    g.append('text').attr('x', lbl.cx).attr('y', lbl.cy + 4).attr('text-anchor', 'middle')
-      .attr('font-size', '13px').attr('font-weight', '700').attr('fill', c.color).text(c.short)
-    placedLabelBoxes.push(lbl)
+    for (const c of cohorts) drawDensity(c.voters, c.s.color)
   }
 
-  // Cohort labels deliberately NOT rendered on the chart. The n count is
-  // surfaced in the layer panel next to each scenario's checkbox; the
-  // ring color matches the panel swatch so you identify the cohort there.
-  // This trades on-chart density for a clean visual, since cohort rings
-  // often cluster in the same region.
+  // ====================================================================
+  //  FLAT LAYER — trust number line + per-cohort 1D distribution ridges.
+  // ====================================================================
+  let fl = g.select('g.flatlayer'); if (fl.empty()) fl = g.append('g').attr('class', 'flatlayer')
+  fl.selectAll('*').remove()
+  fade(fl, flat ? 1 : 0)
+  if (flat) {
+    fl.append('line').attr('x1', trustX(0)).attr('x2', trustX(TRUST_MAX))
+      .attr('y1', baseY).attr('y2', baseY).attr('stroke', '#333').attr('stroke-width', 1.5)
+    for (const t of [0, 0.2, 0.4, 0.6]) {
+      fl.append('line').attr('x1', trustX(t)).attr('x2', trustX(t))
+        .attr('y1', baseY - 5).attr('y2', baseY + 5).attr('stroke', '#333')
+      fl.append('text').attr('x', trustX(t)).attr('y', baseY + 20)
+        .attr('text-anchor', 'middle').attr('font-size', '11px').attr('fill', '#777').text(t.toFixed(1))
+    }
+    // 1D density ridge per active cohort, just above the line.
+    const ridgeH = 70
+    for (const c of cohorts) {
+      const kde = kde1d(c.voters.map(v => v.y), c.voters.map(v => v.w || 1), trustX, 0.05)
+      const maxD = d3.max(kde, d => d[1]) || 1
+      const ry = d3.scaleLinear().domain([0, maxD]).range([baseY - 14, baseY - 14 - ridgeH])
+      const area = d3.area().x(d => d[0]).y0(baseY - 14).y1(d => ry(d[1])).curve(d3.curveBasis)
+      fl.append('path').datum(kde).attr('d', area)
+        .attr('fill', c.s.color).attr('fill-opacity', 0.16)
+        .attr('stroke', c.s.color).attr('stroke-opacity', 0.5).attr('stroke-width', 1)
+    }
+    // Tail note: how much weight sits above the truncation point.
+    const totW = d3.sum(voters, v => v.w || 1) || 1
+    const tailW = d3.sum(voters.filter(v => v.y > TRUST_MAX), v => v.w || 1)
+    const tailPct = Math.round((tailW / totW) * 100)
+    fl.append('text').attr('x', trustX(TRUST_MAX)).attr('y', baseY - ridgeH - 28).attr('text-anchor', 'end')
+      .attr('font-size', '10.5px').attr('font-style', 'italic').attr('fill', '#999')
+      .text(`axis truncated at ${TRUST_MAX} — ${tailPct}% of voters sit above, in a sparse tail →`)
+    fl.append('text').attr('x', innerW / 2).attr('y', innerH - 2)
+      .attr('text-anchor', 'middle').attr('font-size', '12px').attr('fill', '#555')
+      .text('Institutional trust  (low ← → high)  — ideology collapsed')
+  }
 
+  // ====================================================================
+  //  MARKERS — candidate dots + cohort rings. These tween between modes.
+  //  Primary (_pv) cohort rings are skipped: their centroid is the matching
+  //  candidate's filled dot (same people, same geomed) → redundant.
+  // ====================================================================
+  const rings = cohorts.filter(c => !/_pv$/.test(c.id))
 
-  // ---- Axes ----
-  g.append('g').attr('class', 'vm-axis').attr('transform', `translate(0, ${innerH})`)
-    .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format('.1f')).tickSizeOuter(0))
-  g.append('g').attr('class', 'vm-axis').call(d3.axisLeft(y).ticks(5).tickFormat(d3.format('.1f')).tickSizeOuter(0))
-  svg.append('text').attr('class', 'vm-axis-title').attr('x', margin.left + innerW / 2).attr('y', H - 18).attr('text-anchor', 'middle')
-    .text('← liberal       Ideology       conservative →')
-  svg.append('text').attr('class', 'vm-axis-title').attr('transform', `translate(20, ${margin.top + innerH / 2}) rotate(-90)`).attr('text-anchor', 'middle')
-    .text('Institutional trust (low ← → high)')
+  const candSel = g.selectAll('circle.cand').data(cands, d => d.id)
+  candSel.exit().remove()   // instant: a year/scope change must not leave stale dots
+  candSel.enter().append('circle').attr('class', 'cand')
+    .attr('cx', d => px(d)).attr('cy', d => py(d)).attr('r', 9)
+    .attr('fill', d => d.color).attr('stroke', '#fff').attr('stroke-width', 2)
+    .merge(candSel)
+    .transition().duration(dur)
+    .attr('cx', d => px(d)).attr('cy', d => py(d)).attr('r', 9).attr('fill', d => d.color)
 
-  // Footer
-  // Cohort definitions + marker legend live in the figcaption now.
+  const ringSel = g.selectAll('circle.ring').data(rings, d => d.id)
+  ringSel.exit().remove()   // instant: toggling a cohort off must not leave a stale ring
+  ringSel.enter().append('circle').attr('class', 'ring')
+    .attr('cx', d => px(d)).attr('cy', d => py(d)).attr('r', 7)
+    .attr('fill', '#fff').attr('stroke', d => d.s.color).attr('stroke-width', 2.4)
+    .merge(ringSel)
+    .transition().duration(dur)
+    .attr('cx', d => px(d)).attr('cy', d => py(d)).attr('r', 7).attr('stroke', d => d.s.color)
+
+  // ====================================================================
+  //  LABELS + (flat-only) Δ-gap annotations. Rebuilt each render, faded.
+  // ====================================================================
+  let labels = g.select('g.labels'); if (labels.empty()) labels = g.append('g').attr('class', 'labels')
+  labels.selectAll('*').remove()
+
+  if (!flat) {
+    // 2D: candidate names placed by collision avoidance (16 angles × radius).
+    // Cohort labels deliberately omitted — the n + color live in the panel.
+    function labelBox(cx, cy, text, fontSize) {
+      const w = text.length * fontSize * 0.55 + 6, h = fontSize + 4
+      return { cx, cy, x1: cx - w / 2, y1: cy - h / 2, x2: cx + w / 2, y2: cy + h / 2, w, h }
+    }
+    function rectOverlap(a, b, pad = 2) {
+      return !(a.x2 + pad < b.x1 || a.x1 - pad > b.x2 || a.y2 + pad < b.y1 || a.y1 - pad > b.y2)
+    }
+    function placeLabel(anchorX, anchorY, text, fontSize, obstacles) {
+      const w = text.length * fontSize * 0.55 + 6, h = fontSize + 4, N_ANGLES = 16
+      for (let dist = 14; dist <= 110; dist += 8) {
+        for (let i = 0; i < N_ANGLES; i++) {
+          const a = -Math.PI / 2 + (i % 2 === 0 ? 1 : -1) * Math.ceil(i / 2) * (Math.PI * 2 / N_ANGLES)
+          const cx = anchorX + Math.cos(a) * dist, cy = anchorY + Math.sin(a) * dist
+          const rect = { cx, cy, x1: cx - w / 2, y1: cy - h / 2, x2: cx + w / 2, y2: cy + h / 2, w, h }
+          if (rect.x1 < 4 || rect.x2 > innerW - 4 || rect.y1 < 4 || rect.y2 > innerH - 4) continue
+          if (!obstacles.some(o => rectOverlap(rect, o))) return rect
+        }
+      }
+      return labelBox(anchorX, anchorY - 18, text, fontSize)
+    }
+    const obstacles = []
+    for (const c of cands) { const cx_ = x2d(c.x), cy_ = y2d(c.y); obstacles.push({ x1: cx_ - 11, y1: cy_ - 11, x2: cx_ + 11, y2: cy_ + 11 }) }
+    for (const m of rings) { const mx = x2d(m.x), my = y2d(m.y); obstacles.push({ x1: mx - 9, y1: my - 9, x2: mx + 9, y2: my + 9 }) }
+    const placed = []
+    for (const c of cands) {
+      const cx_ = x2d(c.x), cy_ = y2d(c.y)
+      const lbl = placeLabel(cx_, cy_, c.short, 13, [...obstacles, ...placed])
+      if (Math.hypot(lbl.cx - cx_, lbl.cy - cy_) > 22) {
+        labels.append('line').attr('x1', cx_).attr('y1', cy_).attr('x2', lbl.cx).attr('y2', lbl.cy)
+          .attr('stroke', c.color).attr('stroke-opacity', 0.4).attr('stroke-width', 0.7)
+      }
+      labels.append('text').attr('x', lbl.cx).attr('y', lbl.cy + 4).attr('text-anchor', 'middle')
+        .attr('font-size', '13px').attr('font-weight', '700').attr('fill', c.color).text(c.short)
+      placed.push(lbl)
+    }
+  } else {
+    // FLAT: de-collided labels (each with a thin vertical leader to its dot)
+    // above the ridge, and a de-collided Δ-gap chain below the line.
+    const ridgeTop = baseY - 14 - 70
+    const approxW = t => t.length * 6.6 + 10
+    const items = [
+      ...cands.map(c => ({ trust: c.y, sx: trustX(c.y), text: c.short, color: c.color, weight: 700 })),
+      ...rings.map(c => ({ trust: c.y, sx: trustX(c.y), text: c.s.label, color: c.s.color, weight: 600 })),
+    ].sort((a, b) => a.sx - b.sx)
+
+    // Label tier assignment: push up when two labels would overlap horizontally.
+    const labTiers = []
+    for (const it of items) {
+      const w = approxW(it.text)
+      let tier = 0
+      while (true) {
+        const occ = labTiers[tier] || (labTiers[tier] = [])
+        if (!occ.some(o => !(it.sx + w / 2 < o.x1 - 6 || it.sx - w / 2 > o.x2 + 6))) {
+          occ.push({ x1: it.sx - w / 2, x2: it.sx + w / 2 }); break
+        }
+        tier++
+      }
+      it.tier = tier
+    }
+    const tierH = 17
+    for (const it of items) {
+      const ly = ridgeTop - 8 - it.tier * tierH
+      labels.append('line').attr('x1', it.sx).attr('x2', it.sx).attr('y1', ly + 4).attr('y2', baseY - 9)
+        .attr('stroke', it.color).attr('stroke-opacity', 0.35).attr('stroke-width', 0.8)
+      labels.append('text').attr('x', it.sx).attr('y', ly).attr('text-anchor', 'middle')
+        .attr('font-size', '12px').attr('font-weight', it.weight).attr('fill', it.color).text(it.text)
+    }
+
+    // Δ-gap chain below the line, de-collided into downward tiers so every
+    // neighbor gap gets its own readable bracket.
+    const gapTiers = []
+    const gapBaseY = baseY + 30, gapTierH = 16
+    for (let i = 0; i < items.length - 1; i++) {
+      const a = items[i], b = items[i + 1]
+      if (b.sx - a.sx < 2) continue
+      const txt = 'Δ ' + (b.trust - a.trust).toFixed(2)
+      const w = approxW(txt), mid = (a.sx + b.sx) / 2
+      let tier = 0
+      while (true) {
+        const occ = gapTiers[tier] || (gapTiers[tier] = [])
+        if (!occ.some(o => !(mid + w / 2 < o.x1 - 4 || mid - w / 2 > o.x2 + 4))) {
+          occ.push({ x1: mid - w / 2, x2: mid + w / 2 }); break
+        }
+        tier++
+      }
+      const gy = gapBaseY + tier * gapTierH
+      labels.append('path').attr('d', `M${a.sx},${baseY + 9} V${gy} H${b.sx} V${baseY + 9}`)
+        .attr('fill', 'none').attr('stroke', '#aaa').attr('stroke-width', 1)
+      labels.append('text').attr('x', mid).attr('y', gy + 12).attr('text-anchor', 'middle')
+        .attr('font-size', '11px').attr('font-weight', '600').attr('fill', '#555').text(txt)
+    }
+
+    // Headline gap: when a behavioral cohort is active, span its centroid →
+    // the Dem nominee as a bold colored bracket — the §16/§18 thesis, read off
+    // the line.
+    const beh = cohorts.find(c => ['swing', 'activated', 'stayed_home'].includes(c.id))
+    const nominee = cands.find(c => DEM_NOMINEE_IDS.includes(c.id))
+    if (beh && nominee) {
+      const lo = Math.min(trustX(beh.y), trustX(nominee.y))
+      const hi = Math.max(trustX(beh.y), trustX(nominee.y))
+      const hy = gapBaseY + (gapTiers.length + 0.5) * gapTierH
+      labels.append('path').attr('d', `M${lo},${baseY + 9} V${hy} H${hi} V${baseY + 9}`)
+        .attr('fill', 'none').attr('stroke', beh.s.color).attr('stroke-width', 1.8)
+      labels.append('text').attr('x', (lo + hi) / 2).attr('y', hy + 14).attr('text-anchor', 'middle')
+        .attr('font-size', '12px').attr('font-weight', '700').attr('fill', beh.s.color)
+        .text(`${beh.s.label} → ${nominee.short}:  Δ ${Math.abs(nominee.y - beh.y).toFixed(2)} trust`)
+    }
+  }
+  // Labels don't tween position (the placement math differs per mode); fade the
+  // whole group in on a mode flip, otherwise show immediately.
+  if (animate) labels.style('opacity', 0).transition().duration(dur).style('opacity', 1)
+  else labels.style('opacity', 1)
+
+  // ====================================================================
+  //  2D AXES — present only in 2D mode.
+  // ====================================================================
+  let axes = g.select('g.axes2d'); if (axes.empty()) axes = g.append('g').attr('class', 'axes2d')
+  axes.selectAll('*').remove()
+  fade(axes, flat ? 0 : 1)
+  if (!flat) {
+    axes.append('g').attr('class', 'vm-axis').attr('transform', `translate(0, ${innerH})`)
+      .call(d3.axisBottom(x2d).ticks(5).tickFormat(d3.format('.1f')).tickSizeOuter(0))
+    axes.append('g').attr('class', 'vm-axis')
+      .call(d3.axisLeft(y2d).ticks(5).tickFormat(d3.format('.1f')).tickSizeOuter(0))
+    axes.append('text').attr('class', 'vm-axis-title').attr('x', innerW / 2).attr('y', innerH + 40).attr('text-anchor', 'middle')
+      .text('← liberal       Ideology       conservative →')
+    axes.append('text').attr('class', 'vm-axis-title').attr('transform', `translate(${-50}, ${innerH / 2}) rotate(-90)`).attr('text-anchor', 'middle')
+      .text('Institutional trust (low ← → high)')
+  }
 }
 
 // Backwards-compat single-render API
