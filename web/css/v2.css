@@ -251,6 +251,12 @@ figcaption {
   color: var(--ink-soft);
   opacity: 0.85;
 }
+/* Portrait-orientation headshots: a full-width crop would tower over the
+   column, so constrain and center the image (caption stays full width). */
+.essay-photo.portrait img {
+  max-width: 360px;
+  margin-inline: auto;
+}
 
 .howweknow {
   margin: 1.5rem 0;
