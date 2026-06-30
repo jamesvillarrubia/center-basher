@@ -95,6 +95,23 @@ const PRESETS = [
     enabled: ['activated'],
     caption: "Activated voters in the seven swing states, the cohort that decided the 2024 Electoral College. They sit on the low-trust right, in Trump's territory, and he captured them 51% to 42%. Small cohort (n=43, 79 weighted), so read the position as indicative, not precise.",
   },
+  // Flattened (trust-only) reveals — open in flat mode so the same dots collapse
+  // onto a single trust axis. The point is the inversion: on ideology one story,
+  // on trust another.
+  {
+    id: 'p_2016_trust_flip',
+    label: '2016 · On trust alone',
+    year: 2016, scope: 'national', flat: true,
+    enabled: ['swing', 'activated'],
+    caption: 'The same 2016 race with ideology stripped out — only trust remains. Sorted on that one axis the picture inverts: Clinton, who looked like the centrist on policy, sits at the far high-trust end, while Sanders drops right in among the swing and activated voters, the bloc up for grabs. On ideology Clinton was the closest Democrat to the contested voters; on trust she is the farthest, and Sanders is the one who shares their distrust.',
+  },
+  {
+    id: 'p_2024_trust_flip',
+    label: '2024 · On trust alone',
+    year: 2024, scope: 'national', flat: true,
+    enabled: ['swing', 'activated'],
+    caption: 'Repeat the flatten for 2024: Harris sits high on trust, away from the swing and activated voters, who cluster low with Trump. The left-right gap that dominates the cable-news map disappears, and the only axis that still separates the nominee from the voters she needed is trust.',
+  },
 ]
 
 const __state = {
@@ -237,6 +254,7 @@ function rebuildPresetBar(container) {
 function loadPreset(container, preset) {
   __state.year = preset.year
   __state.scope = preset.scope
+  __state.flat = !!preset.flat   // presets may open in the flattened trust-only view
   __state.enabled = {}
   for (const id of preset.enabled) __state.enabled[id] = true
   __state.activePresetId = preset.id
