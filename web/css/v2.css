@@ -2838,3 +2838,46 @@ hr.coda-break {
 }
 .share-dest:hover { border-color: #b8240f; }
 .share-note { margin: 0.9rem 0 0; font-size: 0.85rem; color: #2e7d32; }
+
+/* ============================================================
+   References / Sources — consolidated bibliography (end matter)
+   Grouped by type, alphabetized within group, hanging indent.
+   Reuses the footnote size/color scale so it reads as apparatus.
+   ============================================================ */
+.references { border-top: 1px solid var(--rule); }
+.references > p.refs-intro {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0 0 2rem;
+}
+.references h3 {
+  font: 600 12px/1.35 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 2rem 0 0.75rem;
+}
+.ref-list {
+  list-style: none;
+  margin: 0 0 0.5rem;
+  padding: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.ref-list li {
+  margin: 0 0 0.7rem;
+  padding-left: 1.4rem;
+  text-indent: -1.4rem;   /* hanging indent */
+}
+.ref-list li:last-child { margin-bottom: 0; }
+.ref-list a {
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 2px;
+}
+.ref-list a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.ref-list cite { font-style: italic; }
+.references :target { background: #ffe7a8; border-radius: 2px; }
