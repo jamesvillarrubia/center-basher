@@ -231,6 +231,27 @@ figcaption {
   font-style: italic;
 }
 
+/* Photographic images, self-hosted from Wikimedia Commons. Grayscale is baked
+   into the file; full content-width with a caption + an inline source credit.
+   Each image's full attribution is also collected in the Image-credits block. */
+.essay-photo {
+  margin: 2.25rem 0;
+}
+.essay-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+}
+.essay-photo .photo-credit {
+  display: inline;
+  font-style: normal;
+  font-size: 0.7rem;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
+  opacity: 0.85;
+}
+
 .howweknow {
   margin: 1.5rem 0;
   border-top: 1px solid var(--rule);
