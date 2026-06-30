@@ -1,211 +1,180 @@
-# Feature: Shareable Open Graph cards + share widget
+# Feature: Shareable Open Graph cards + /share page
 
 **Branch:** claude/dazzling-maxwell-sSHUR
 **Created:** 2026-06-30
-**Status:** Approved design, pre-implementation
+**Status:** SHIPPED 2026-06-30 (deployed to thecenterisalie.org)
+
+> This spec documents the **as-shipped** design. It pivoted during the build from
+> an inline end-of-essay widget (4 cards, unhashed images) to a standalone
+> `/share` gallery (6 cards) with content-hashed, cache-busted images. History of
+> the original plan: `docs/plans/2026-06-30-share-og-cards.md`.
 
 ## Problem
 
-The essay is about to be shared publicly but has no Open Graph / Twitter Card
-metadata, so a pasted link unfurls as a bare URL with no image, title, or
-description. There is also no in-page affordance for a reader to share the piece.
-We want a small set of strong, on-brand "banger quote" cards and a share control
-that lets a reader pick a card and a destination, optimized for X and Bluesky
-first, Instagram fully supported, LinkedIn wired but lighter.
+The essay had no Open Graph / Twitter Card metadata, so a pasted link unfurled as
+a bare URL with no image, title, or description, and there was no in-page way for
+a reader to share it. We wanted a set of strong, on-brand "banger quote" cards and
+a share surface that lets a reader pick a card and a destination, optimized for X
+and Bluesky first, Instagram fully supported, LinkedIn wired but lighter.
 
-## Goals
+## Goals (all met)
 
-- [ ] Four fixed share cards, authored as editable HTML, rendered to 1200×630 PNG
-- [ ] A repeatable HTML→PNG conversion step (no hand-iterated pixels)
-- [ ] Correct OG/Twitter metadata on the essay, default = brand card
-- [ ] Per-card share pages so the chosen card is the thumbnail that unfurls on
-      link-unfurl platforms (X, Bluesky, LinkedIn)
-- [ ] A "Share this" widget: pick a card, pick a destination, go
-- [ ] Instagram path: download the image + copy a caption carrying the link
-- [ ] Everything ships as static files through the existing Vite → Cloudflare
-      Pages build, no Worker, no new runtime infra
+- [x] Editable HTML cards rendered to 1200×630 PNGs by a repeatable step (no hand-iterated pixels)
+- [x] Correct OG/Twitter metadata on the essay, default = brand card
+- [x] Per-card share pages so the chosen card is what unfurls on X / Bluesky / LinkedIn
+- [x] A share surface: pick a card, pick a destination, go
+- [x] Instagram / universal path: download the image + copy a caption carrying the link
+- [x] **Cache-busting**: change a card and no stale image is ever served
+- [x] Ships as static files through the existing Vite → Cloudflare Pages build; no Worker
 
 ## Non-Goals
 
 - No dynamic / per-visitor OG image generation, no Satori/Worker rendering
 - No share analytics or click tracking
-- No change to essay prose, figures, or layout beyond inserting the share control
-      and `<head>` metadata
-- No automated posting; the user posts to Instagram manually
+- No automated posting
 
-## The four cards (exact text)
+## The six cards
 
-All text is verbatim from the live essay except card 4, which is a user-authored
-pull-quote approved for card use (it is NOT a sentence from the body and must not
-be back-ported into the prose).
+Card text is verbatim from the essay except `window`, `risky`, and `incumbency`,
+which are user-authored pull-quotes approved for card use (NOT body sentences; do
+not back-port into prose). Visual markup lives in `web/og-cards/<slug>.html`; text
+metadata (label / blurb / desc) lives in `web/og-cards/cards.config.mjs`.
 
-| slug | Card text | Emphasis treatment |
+| slug | Card text | Emphasis |
 |---|---|---|
-| `brand` | **The Center Is a Lie** / `thecenterisalie.org` (small) | Title-forward; domain in small caps beneath |
-| `zero` | "All the ads and door-knocks combined move vote choice by roughly **zero**." | The word `zero` (or a literal `0`) is the dominant element, in accent red |
-| `trust` | "In 1964, three in four Americans trusted their government; today, **one in five** do." | `one in five` scaled up, in accent red |
-| `window` | "By the time candidates are nominated, the window to swing voters is closed." | Type-forward, no oversized number |
+| `brand` | "The Center / is a" (stacked, right-justified) + giant **LIE** | LIE huge, accent red, left-justified; footer `thecenterisalie.org` |
+| `zero` | "All the ads and door-knocks combined move vote-choice by roughly **zero.**" | quote in soft gray, two lines; `zero.` 300px accent red |
+| `trust` | "In 1964, three in four Americans trusted their government. Today, **one** in **five** do." | soft-gray lead; `one`/`five` huge red, `in`/`do` small light |
+| `window` | "By the time candidates are nominated, the window to swing voters is **closed**." | centered; `nominated` + `closed` enlarged accent red |
+| `risky` | "The safe, establishment candidate has become the **risky** one." | centered; `risky` enlarged accent red |
+| `incumbency` | "The party is built to protect its own **incumbency**." | centered; `incumbency` enlarged accent red |
 
-`brand` is the site default OG image. `zero`, `trust`, `window` each get a share
-page (below). `brand` needs no share page because it is the main URL's default.
+`brand` is the site default OG image (bare URL). The other five each get a `/s/<slug>/`
+stub. `brand` needs no stub.
 
-## Visual spec (match the v2 essay)
+## Visual spec (matches the v2 essay)
 
-Pulled from `web/css/v2.css`:
+From `web/css/v2.css`: paper `#fbfbf8`, ink `#1b1b1d`, soft `#3a3a3d`, faint
+`#6b6b70`, accent `#b8240f`. Card font `Georgia, serif` (deterministic in headless
+render; matches what most readers see since Iowan/Charter aren't universal). Card
+size exactly 1200×630, rendered at deviceScaleFactor 1. Footer lockup
+`thecenterisalie.org` on every card.
 
-- Background: `--paper` `#fbfbf8`
-- Ink: `--ink` `#1b1b1d`; soft `#3a3a3d`; faint `#6b6b70`
-- Accent: `--accent` `#b8240f` (used for the emphasis number/word)
-- Serif stack: card templates pin `Georgia, serif` (DECIDED). Iowan Old Style is
-  Apple-only and Charter is not universal, so most readers already see the essay
-  rendered in Georgia; pinning Georgia makes the cards match what they see and
-  renders identically in local + CI headless. Revisit with an embedded
-  `Charter`/`Iowan` `@font-face` only if we want an exact-match upgrade later.
-- Card size: 1200×630 (standard OG). Safe text margin ~80px; nothing critical in
-  the outer 60px (some platforms crop to ~1.91:1 then pad).
-- A small footer lockup on every card: `thecenterisalie.org`.
+## Single source of truth
 
-## Rendering pipeline (HTML is source of truth)
+`web/og-cards/cards.config.mjs` exports `CARDS` (`{slug, label, desc, blurb}`),
+`BASE`, `DEFAULT_SLUG`, and `shareUrlFor(slug)`. Imported by both the node render
+pipeline and the browser share code, so card text never diverges. `desc` is the
+plain quote used for stub `og:description`; `blurb` is the prefilled compose text.
 
-- Card source: `web/og-cards/<slug>.html` — one self-contained file per card,
-  inline CSS, the card's own text, sized to exactly 1200×630.
-- Render script: `web/og-cards/render.mjs` drives a headless browser (Playwright,
-  added as a `web` devDependency via `pnpm add -D playwright`), loads each
-  `web/og-cards/<slug>.html`, sets viewport 1200×630 / deviceScaleFactor 2, and
-  screenshots to `web/public/og/<slug>.png`.
-- Script wired as `pnpm -C web render:og`.
-- Editing a card = edit the HTML, re-run `render:og`. PNGs are derived artifacts;
-  they are committed (so deploy needs no browser) but never hand-edited.
+## Rendering pipeline (HTML is source; PNG/manifest/stubs are generated)
 
-`web/public/` does not exist yet; creating it is free because Vite copies
-`public/` verbatim into `dist/`. So `web/public/og/<slug>.png` → `dist/og/<slug>.png`,
-served at `/og/<slug>.png`.
+`pnpm -C web render:og` runs `web/og-cards/render.mjs` (Playwright devDependency):
 
-## Per-card share pages (unfurl mechanism)
+1. Screenshots each `web/og-cards/<slug>.html` at 1200×630 to a **content-hashed**
+   PNG `web/public/og/<slug>.<hash>.png` (clears stale PNGs first).
+2. Writes `web/public/og/manifest.json` = `{ slug: { file, label, desc, blurb } }`.
+3. Regenerates the per-card unfurl stubs `web/public/s/<slug>/index.html` with the
+   hashed image URL + `desc`.
 
-For each of `zero`, `trust`, `window`: a static stub at
-`web/public/s/<slug>/index.html` → `dist/s/<slug>/index.html`, served at
-`/s/<slug>/`.
+**Generated, never hand-edited:** `public/og/*.png`, `public/og/manifest.json`,
+`public/s/*/index.html`. Edit the card HTML/CSS or `cards.config.mjs` and re-run.
+Vite copies `public/` verbatim into `dist/`, so these serve at `/og/...`, `/s/...`.
 
-Each stub contains:
+## Cache-busting
 
-- `og:image` / `twitter:image` = `https://thecenterisalie.org/og/<slug>.png`
-- `og:title`, `og:description`, `og:url` = canonical essay URL (so the card links
-  to the essay, not to the stub)
-- `twitter:card=summary_large_image`
-- A redirect for humans: `<meta http-equiv="refresh" content="0;url=https://thecenterisalie.org/">`
-  plus a JS `location.replace(...)` and a visible "Read the essay" fallback link.
+Because OG/CDN/browser caches key on URL, every card image is content-hashed, so a
+changed card produces a new filename everywhere (manifest + stubs + brand meta)
+automatically. `web/public/_headers` (Cloudflare Pages) sets `/og/*.png` to
+`max-age=31536000, immutable` and HTML / `manifest.json` / `/s/*` / `/share/*` to
+`max-age=300`. Caveat: platforms (esp. X) keep their own per-URL card cache for a
+few days; hashing guarantees our edge never serves stale bytes and that
+freshly-shared links fetch the new card. For an already-posted link, re-scrape via
+the platform's card validator.
 
-Crawlers (Twitterbot, facebookexternalhit, Slackbot, LinkedInBot, Bluesky's
-fetcher) read the OG tags from the initial HTML and do not follow the refresh, so
-the chosen card unfurls while any human who clicks bounces straight to the essay.
+## Unfurl mechanism (per-card stub pages)
 
-## Main page metadata (`web/index.html` `<head>`)
+Each `/s/<slug>/index.html` carries that card's hashed `og:image`/`twitter:image`,
+`og:title`/`og:description`, `og:url` = canonical essay, `twitter:card=summary_large_image`,
+`twitter:creator=@james_mtc`, and a `<meta http-equiv="refresh">` + `location.replace()`
+to the essay with a visible fallback link. Crawlers read the card; humans bounce to
+the essay.
 
-```html
-<meta property="og:type" content="article" />
-<meta property="og:site_name" content="The Center Is a Lie" />
-<meta property="og:title" content="The Center Is a Lie" />
-<meta property="og:description" content="Why the candidate the party calls 'electable' is the one who loses. A data essay: the center isn't a bloc, positions barely move voters, and the establishment loses." />
-<meta property="og:url" content="https://thecenterisalie.org/" />
-<meta property="og:image" content="https://thecenterisalie.org/og/brand.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="The Center Is a Lie" />
-<meta name="twitter:description" content="Why the candidate the party calls 'electable' is the one who loses. A data essay: the center isn't a bloc, positions barely move voters, and the establishment loses." />
-<meta name="twitter:image" content="https://thecenterisalie.org/og/brand.png" />
-<meta name="twitter:creator" content="@james_mtc" />
-<link rel="canonical" href="https://thecenterisalie.org/" />
-```
+## Main page metadata
 
-Bluesky reads standard `og:*`; no Bluesky-specific tags needed.
+`web/index.html` `<head>` carries the OG/Twitter block (default = brand card),
+canonical, `twitter:creator=@james_mtc`. The brand `og:image` is the placeholder
+`og/brand.png` in source; the Vite plugin `injectBrandOgImage` in
+`web/vite.config.js` rewrites it to the hashed filename (from `manifest.json`) at
+dev + build time, so the **source `index.html` is never edited** (it carries
+hand-authored prose).
 
-## Share widget
+## /share page (standalone gallery)
 
-Vanilla JS + CSS inlined into `index.html` (the site uses no framework).
+Multipage Vite entry `web/share/index.html` + `web/js-v2/share-page.js`. A gallery
+of all six cards (2-col desktop, 1-col mobile), each with a red border + drop
+shadow and a uniform row of deep-blue controls: **X**, **Bluesky**, **LinkedIn**,
+**Save image**, **Copy link**. `noindex`. Reachable from the essay end via a
+"Share this essay →" button (`#share-root`, set by `initShareWidget` in
+`web/js-v2/share.js`).
 
-**Placement:** end-of-essay only (DECIDED), after the coda, as a labeled "Share
-this" block. No floating/pinned control in this version.
-
-**Flow:**
-1. "Share this" button opens a small panel.
-2. Panel shows four card thumbnails (the PNGs); reader selects one. Default
-   selection = `brand`.
-3. Panel shows destinations: X, Bluesky, LinkedIn, Instagram, Copy link.
-4. Destination behavior:
-
-| Destination | Action |
+| Control | Action |
 |---|---|
-| X | open `https://x.com/intent/post?text=<blurb>&url=<shareUrl>` |
-| Bluesky | open `https://bsky.app/intent/compose?text=<blurb + " " + shareUrl>` |
-| LinkedIn | open `https://www.linkedin.com/sharing/share-offsite/?url=<shareUrl>` |
-| Instagram | switch panel to: **Download image** (`/og/<slug>.png`) + **Copy caption** (blurb + canonical link) |
-| Copy link | copy `<shareUrl>` to clipboard |
+| X | `https://x.com/intent/post?text=<blurb>&url=<shareUrl>` |
+| Bluesky | `https://bsky.app/intent/compose?text=<blurb + " " + shareUrl>` |
+| LinkedIn | `https://www.linkedin.com/sharing/share-offsite/?url=<shareUrl>` |
+| Save image | download the hashed PNG + copy caption (`blurb + canonical`) — attach to any post |
+| Copy link | copy `<shareUrl>` |
 
-- `<shareUrl>` = `https://thecenterisalie.org/` for `brand`, else
-  `https://thecenterisalie.org/s/<slug>/`.
-- `<blurb>` = short per-card share text (DECIDED below; user may edit any line in
-  the compose box before posting):
+`<shareUrl>` = `https://thecenterisalie.org/` for `brand`, else `…/s/<slug>/`.
+Web intents can carry only text + a link; the card image appears via the link's
+OG unfurl (X/Bluesky/LinkedIn) — "Save image" is the reliable way to attach the
+actual picture anywhere. Pure logic + tests: `web/js-v2/share.js` /
+`share.test.mjs` (`pnpm -C web test:share`, 11 tests).
 
-| slug | blurb |
-|---|---|
-| `brand` | The "move to the center to win" playbook is a lie. A data essay on who actually decides elections, and why the safe candidate is the one who loses: |
-| `zero` | All the ads and door-knocks combined move vote choice by roughly zero. Why late-campaign persuasion is a measured zero: |
-| `trust` | In 1964, three in four Americans trusted their government. Today, one in five do. Almost everything about how we vote falls out of that collapse: |
-| `window` | By the time candidates are nominated, the window to swing voters is already closed. Why "electability" is decided before the general even starts: |
-- All external opens use `target="_blank" rel="noopener"`.
-- LinkedIn ignores custom text by design; it unfurls the URL's OG only. Acceptable
-  per "wired but lighter."
-
-## File layout (new/changed)
+## File layout
 
 ```
 web/
   og-cards/
-    brand.html  zero.html  trust.html  window.html   # editable source
-    render.mjs                                        # HTML -> PNG
-  public/
-    og/   brand.png zero.png trust.png window.png     # derived, committed
-    s/    zero/index.html  trust/index.html  window/index.html
-  index.html                                          # + <head> meta, + widget
-  package.json                                        # + render:og script, playwright devDep
+    cards.config.mjs          # single source of truth (text/metadata)
+    card.css                  # shared card styling
+    brand|zero|trust|window|risky|incumbency.html   # editable card markup
+    render.mjs                # render → hash → manifest → stubs
+    preview.html              # local side-by-side PNG/HTML preview (dev only)
+  public/                     # copied verbatim into dist/
+    og/<slug>.<hash>.png      # GENERATED, committed
+    og/manifest.json          # GENERATED
+    s/<slug>/index.html       # GENERATED unfurl stubs (5, no brand)
+    _headers                  # Cloudflare cache rules
+  share/index.html            # /share gallery page (Vite entry)
+  js-v2/share.js              # CARDS re-export, share-target builders, loadManifest, initShareWidget
+  js-v2/share-page.js         # gallery renderer
+  js-v2/share.test.mjs        # node:test for pure logic
+  index.html                  # + <head> OG meta (+ #share-root) — brand og:image injected at build
+  vite.config.js              # multipage (/share) + injectBrandOgImage plugin
+  package.json                # render:og, test:share scripts; playwright devDep
 ```
 
 ## Build / deploy fit
 
-- `vite build` copies `public/` → `dist/` automatically; no `vite.config.js` change.
-- CI (`.github/workflows/deploy.yml`) runs `pnpm build` then `wrangler pages deploy
-  web/dist`. PNGs and stubs are committed, so CI does not need a browser; only the
-  local `render:og` step does.
-- Cloudflare Pages serves `/s/<slug>/` from `dist/s/<slug>/index.html` and
-  `/og/<slug>.png` from `dist/og/<slug>.png` with no routing config.
+`vite build` emits both entries (`main`, `share`), copies `public/` → `dist/`, and
+the plugin injects the hashed brand og:image. CI (`.github/workflows/deploy.yml`)
+runs `pnpm install --frozen-lockfile && pnpm build` then `wrangler pages deploy
+web/dist`. The committed hashed PNGs + manifest + stubs mean CI needs no browser;
+only the local `render:og` step does.
 
-## Behavior / acceptance criteria
+## Verification (done, live)
 
-- Pasting `https://thecenterisalie.org/` into X, Bluesky, LinkedIn, and Slack
-  unfurls with the brand card, title, and description.
-- Pasting `https://thecenterisalie.org/s/zero/` (and `trust`, `window`) unfurls
-  with that card; a human opening it lands on the essay.
-- The widget opens, a card can be selected, and each destination opens the right
-  pre-filled target with the correct per-card share URL.
-- Instagram path downloads the selected PNG and copies a caption containing the
-  canonical link.
-- `pnpm -C web render:og` regenerates all four PNGs deterministically from the HTML.
-- Cards render legibly at full size and when cropped to 1.91:1; emphasis element
-  (`zero`, `one in five`) is dominant on cards 2 and 3.
+- `pnpm -C web test:share` → 11/11.
+- `pnpm -C web render:og` regenerates all six PNGs + manifest + stubs deterministically.
+- `pnpm -C web build` emits `dist/og/<slug>.<hash>.png`, `dist/og/manifest.json`,
+  `dist/s/<slug>/index.html`, `dist/share/index.html`, `dist/_headers`, and the
+  hashed brand og:image in `dist/index.html`.
+- Post-deploy (validated): main `/` serves the hashed brand og:image; each
+  `/s/<slug>/` serves its hashed card; `/share/` → 200; hashed PNGs return
+  `200 image/png` with `cache-control: …immutable`.
 
-## Verification
+## Handles / canonical
 
-- Render cards, screenshot at 1200×630, eyeball each (desktop-first per project rule).
-- Validate unfurls with a card debugger (e.g. opengraph.xyz / platform validators)
-  against the deployed URLs before announcing.
-- Confirm `pnpm -C web build` emits `dist/og/*.png` and `dist/s/*/index.html`.
-
-## Resolved decisions (were open questions)
-
-- `og:description` hook: decided (see metadata block). User may revise the wording.
-- Per-card share blurbs: decided (see widget table). Editable in the compose box.
-- Share control placement: end-of-essay only, no floating control this version.
-- Card font: `Georgia, serif` for deterministic, on-brand rendering; embedded
-  Charter/Iowan is a possible later upgrade, not in scope now.
+X `@james_mtc`; Bluesky `jamesv.bsky.social`; canonical `https://thecenterisalie.org/`.
