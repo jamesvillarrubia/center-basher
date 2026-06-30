@@ -1,0 +1,16 @@
+# Cloudflare Pages headers.
+# Card images are content-hashed (og/<slug>.<hash>.png), so they can be cached
+# forever — a changed card is a new filename. HTML and the manifest are kept on
+# a short cache so meta/stub/card-set changes propagate quickly.
+
+/og/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/og/manifest.json
+  Cache-Control: public, max-age=300
+
+/s/*
+  Cache-Control: public, max-age=300
+
+/share/*
+  Cache-Control: public, max-age=300

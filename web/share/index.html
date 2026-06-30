@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Share — The Center Is a Lie</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    :root {
+      --paper: #fbfbf8; --ink: #1b1b1d; --soft: #3a3a3d; --faint: #6b6b70;
+      --accent: #b8240f; --line: #e2e2dc;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink);
+      font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; }
+    .sharepage { max-width: 1000px; margin: 0 auto; padding: 48px 24px 96px; }
+    .eyebrow { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin: 0 0 6px; }
+    h1 { font-family: Georgia, serif; font-size: 2.4rem; margin: 0 0 10px; }
+    .lede { color: var(--soft); max-width: 60ch; margin: 0; line-height: 1.5; }
+    .lede em { color: var(--accent); font-style: normal; }
+    .backlink { display: inline-block; margin-top: 14px; color: var(--accent); text-decoration: none; font-size: .95rem; }
+    .layout { margin: 44px 0; }
+    .layout h2 { font-size: 1.05rem; color: var(--faint); font-weight: 600; margin: 0 0 18px;
+      border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+    hr { border: 0; border-top: 1px dashed var(--line); margin: 52px 0; }
+
+    /* Layout A — big preview + picker */
+    .lA { display: flex; gap: 28px; flex-wrap: wrap; align-items: flex-start; }
+    .lA-preview { flex: 1 1 520px; min-width: 300px; }
+    .lA-preview img { width: 100%; border: 1px solid var(--line); border-radius: 8px; display: block; }
+    .lA-side { flex: 1 1 300px; min-width: 260px; }
+    .lA-thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+    .lA-thumbs .thumb { padding: 0; border: 2px solid transparent; border-radius: 6px; background: none; cursor: pointer; }
+    .lA-thumbs .thumb img { width: 100%; border-radius: 4px; display: block; }
+    .lA-thumbs .thumb[aria-pressed="true"] { border-color: var(--accent); }
+
+    /* shared platform controls */
+    .dest-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .dest { font: inherit; font-size: .92rem; padding: .5em 1em; border: 1px solid #d4d4cd;
+      border-radius: 5px; background: #fff; color: var(--ink); text-decoration: none; cursor: pointer; }
+    .dest:hover { border-color: var(--accent); }
+    .note { color: #2e7d32; font-size: .85rem; margin: .7rem 0 0; min-height: 1em; }
+
+    /* Layout B — gallery */
+    .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+    .gcard img { width: 100%; border: 1px solid var(--line); border-radius: 8px; display: block; margin-bottom: 12px; }
+    .gcard .dest { font-size: .85rem; padding: .42em .8em; }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 2rem; }
+      .gallery { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="sharepage">
+    <header>
+      <p class="eyebrow">Share</p>
+      <h1>The Center Is a Lie</h1>
+      <p class="lede">Pick a card, then pick where to post it. <em>Two layouts below — tell me which you want to keep.</em></p>
+      <a class="backlink" href="/">&larr; Back to the essay</a>
+    </header>
+
+    <section class="layout" id="layout-a">
+      <h2>Layout A · Big preview + picker</h2>
+      <div class="lA">
+        <div class="lA-preview"><img id="lA-img" alt="selected card" /></div>
+        <div class="lA-side">
+          <div class="lA-thumbs" id="lA-thumbs"></div>
+          <div class="dests" id="lA-dests"></div>
+          <p class="note" id="lA-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <section class="layout" id="layout-b">
+      <h2>Layout B · Gallery (share any card directly)</h2>
+      <div class="gallery" id="gallery"></div>
+    </section>
+  </main>
+  <script type="module" src="../js-v2/share-page.js"></script>
+</body>
+</html>

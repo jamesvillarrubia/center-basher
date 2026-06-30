@@ -1,58 +1,25 @@
-// Pure, DOM-free share logic. initShareWidget() (below) is the only part that
-// touches the DOM, so importing this module under node is safe.
-const BASE = 'https://thecenterisalie.org'
+// Share logic shared by the end-of-essay widget and the standalone /share page.
+// Card text/metadata comes from og-cards/cards.config.mjs (single source of
+// truth). Image filenames are content-hashed and resolved at runtime from
+// /og/manifest.json, so a changed card gets a new URL and never serves stale.
 
-export const CARDS = [
-  {
-    slug: 'brand',
-    label: 'The Center Is a Lie',
-    img: '/og/brand.png',
-    blurb: 'The "move to the center to win" playbook is a lie. A data essay on who actually decides elections, and why the safe candidate is the one who loses:',
-  },
-  {
-    slug: 'zero',
-    label: 'A measured zero',
-    img: '/og/zero.png',
-    blurb: 'All the ads and door-knocks combined move vote choice by roughly zero. Why late-campaign persuasion is a measured zero:',
-  },
-  {
-    slug: 'trust',
-    label: 'One in five',
-    img: '/og/trust.png',
-    blurb: 'In 1964, three in four Americans trusted their government. Today, one in five do. Almost everything about how we vote falls out of that collapse:',
-  },
-  {
-    slug: 'window',
-    label: 'The window is closed',
-    img: '/og/window.png',
-    blurb: 'By the time candidates are nominated, the window to swing voters is already closed. Why "electability" is decided before the general even starts:',
-  },
-  {
-    slug: 'risky',
-    label: 'The safe one is risky',
-    img: '/og/risky.png',
-    blurb: 'The safe, establishment candidate has become the risky one. Why "electable" is the riskiest bet a party can make:',
-  },
-  {
-    slug: 'incumbency',
-    label: 'Built to protect incumbency',
-    img: '/og/incumbency.png',
-    blurb: 'The party is built to protect its own incumbency, which is exactly why it keeps nominating losers. A data essay on who actually wins:',
-  },
-]
+import { CARDS, BASE, DEFAULT_SLUG, shareUrlFor } from '../og-cards/cards.config.mjs'
 
-export function shareUrlFor(slug) {
-  return slug === 'brand' ? `${BASE}/` : `${BASE}/s/${slug}/`
+export { CARDS, BASE, DEFAULT_SLUG, shareUrlFor }
+
+export function imageUrlFor(slug, manifest) {
+  const file = manifest && manifest[slug] && manifest[slug].file
+  return file ? `/og/${file}` : `/og/${slug}.png`
 }
 
-export function buildShareTargets(slug) {
+export function buildShareTargets(slug, manifest) {
   const card = CARDS.find((c) => c.slug === slug)
   if (!card) throw new Error(`unknown card: ${slug}`)
   const url = shareUrlFor(slug)
   const text = card.blurb
   return {
     url,
-    image: card.img,
+    image: imageUrlFor(slug, manifest),
     x: `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
     bluesky: `https://bsky.app/intent/compose?text=${encodeURIComponent(`${text} ${url}`)}`,
     linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
@@ -60,20 +27,32 @@ export function buildShareTargets(slug) {
   }
 }
 
-export function initShareWidget(rootSelector = '#share-root') {
+export async function loadManifest() {
+  try {
+    const res = await fetch('/og/manifest.json', { cache: 'no-cache' })
+    if (!res.ok) return {}
+    return await res.json()
+  } catch {
+    return {}
+  }
+}
+
+// End-of-essay inline widget. Kept working (manifest-aware) alongside /share.
+export async function initShareWidget(rootSelector = '#share-root') {
   const root = document.querySelector(rootSelector)
   if (!root) return
-  let selected = 'brand'
+  const manifest = await loadManifest()
+  let selected = DEFAULT_SLUG
 
   const thumbs = CARDS.map(
     (c) =>
       `<button class="share-thumb" data-slug="${c.slug}" aria-pressed="${c.slug === selected}" title="${c.label}">
-         <img src="${c.img}" alt="${c.label}" loading="lazy"><span>${c.label}</span>
+         <img src="${imageUrlFor(c.slug, manifest)}" alt="${c.label}" loading="lazy"><span>${c.label}</span>
        </button>`
   ).join('')
 
   root.innerHTML = `
-    <button class="share-open" type="button">Share this</button>
+    <a class="share-open" href="/share/">Open the share page &rarr;</a>
     <div class="share-panel" hidden>
       <p class="share-step">1 &middot; Pick a card</p>
       <div class="share-thumbs">${thumbs}</div>
@@ -91,10 +70,6 @@ export function initShareWidget(rootSelector = '#share-root') {
   const panel = root.querySelector('.share-panel')
   const note = root.querySelector('.share-note')
 
-  root.querySelector('.share-open').addEventListener('click', () => {
-    panel.hidden = !panel.hidden
-  })
-
   root.querySelectorAll('.share-thumb').forEach((btn) => {
     btn.addEventListener('click', () => {
       selected = btn.dataset.slug
@@ -106,7 +81,7 @@ export function initShareWidget(rootSelector = '#share-root') {
   })
 
   function syncLinks() {
-    const t = buildShareTargets(selected)
+    const t = buildShareTargets(selected, manifest)
     root.querySelector('[data-dest="x"]').href = t.x
     root.querySelector('[data-dest="bluesky"]').href = t.bluesky
     root.querySelector('[data-dest="linkedin"]').href = t.linkedin
@@ -118,7 +93,7 @@ export function initShareWidget(rootSelector = '#share-root') {
   }
 
   root.querySelector('[data-dest="instagram"]').addEventListener('click', () => {
-    const t = buildShareTargets(selected)
+    const t = buildShareTargets(selected, manifest)
     const a = document.createElement('a')
     a.href = t.image
     a.download = `${selected}.png`
@@ -130,7 +105,7 @@ export function initShareWidget(rootSelector = '#share-root') {
   })
 
   root.querySelector('[data-dest="copy"]').addEventListener('click', () => {
-    const t = buildShareTargets(selected)
+    const t = buildShareTargets(selected, manifest)
     navigator.clipboard?.writeText(t.url)
     flash('Link copied.')
   })

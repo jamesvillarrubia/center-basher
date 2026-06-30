@@ -1,0 +1,38 @@
+{
+  "brand": {
+    "file": "brand.a23cf3cb.png",
+    "label": "The Center Is a Lie",
+    "desc": "Why the candidate the party calls 'electable' is the one who loses. A data essay: the center isn't a bloc, positions barely move voters, and the establishment loses.",
+    "blurb": "The \"move to the center to win\" playbook is a lie. A data essay on who actually decides elections, and why the safe candidate is the one who loses:"
+  },
+  "zero": {
+    "file": "zero.34adf1b4.png",
+    "label": "A measured zero",
+    "desc": "All the ads and door-knocks combined move vote choice by roughly zero.",
+    "blurb": "All the ads and door-knocks combined move vote choice by roughly zero. Why late-campaign persuasion is a measured zero:"
+  },
+  "trust": {
+    "file": "trust.69da4ecb.png",
+    "label": "One in five",
+    "desc": "In 1964, three in four Americans trusted their government; today, one in five do.",
+    "blurb": "In 1964, three in four Americans trusted their government. Today, one in five do. Almost everything about how we vote falls out of that collapse:"
+  },
+  "window": {
+    "file": "window.5ad412c1.png",
+    "label": "The window is closed",
+    "desc": "By the time candidates are nominated, the window to swing voters is closed.",
+    "blurb": "By the time candidates are nominated, the window to swing voters is already closed. Why \"electability\" is decided before the general even starts:"
+  },
+  "risky": {
+    "file": "risky.bf82ba03.png",
+    "label": "The safe one is risky",
+    "desc": "The safe, establishment candidate has become the risky one.",
+    "blurb": "The safe, establishment candidate has become the risky one. Why \"electable\" is the riskiest bet a party can make:"
+  },
+  "incumbency": {
+    "file": "incumbency.e0c57cd1.png",
+    "label": "Built to protect incumbency",
+    "desc": "The party is built to protect its own incumbency.",
+    "blurb": "The party is built to protect its own incumbency, which is exactly why it keeps nominating losers. A data essay on who actually wins:"
+  }
+}
