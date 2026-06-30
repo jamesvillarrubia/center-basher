@@ -1,0 +1,23 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1200px; height: 630px; }
+.card {
+  width: 1200px; height: 630px;
+  background: #fbfbf8; color: #1b1b1d;
+  font-family: Georgia, serif;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 96px 100px; position: relative; overflow: hidden;
+}
+.card--center { align-items: center; text-align: center; }
+.kicker {
+  font-size: 26px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #6b6b70; margin-bottom: 28px;
+}
+.quote { font-size: 46px; line-height: 1.2; }
+.em { color: #b8240f; }
+.big { color: #b8240f; font-weight: 700; line-height: 0.98; }
+.title { font-size: 132px; line-height: 1.02; font-weight: 700; letter-spacing: -0.01em; }
+.footer {
+  position: absolute; left: 100px; bottom: 56px;
+  font-size: 26px; letter-spacing: 0.12em; text-transform: uppercase; color: #6b6b70;
+}
+.card--center .footer { left: 0; right: 0; text-align: center; }
