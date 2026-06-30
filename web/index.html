@@ -19,6 +19,171 @@
     <p class="byline">By <a href="https://jamesvillarrubia.com/">James Villarrubia</a></p>
   </header>
 
+  <!-- ===================================================================
+       THE 2-MINUTE GIST  (TL;DR)
+       Native <details> disclosure: keyboard- and screen-reader-accessible,
+       works with JS disabled. Collapsed by default.
+
+       NOTE: the five "beat" paragraphs are a CLAUDE DRAFT condensation of
+       the essay's argument, pending James's verbatim revision. No body
+       prose was altered to produce them.
+       =================================================================== -->
+  <details class="gist" id="gist">
+    <summary>
+      <svg class="gist-chev" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M9 6l6 6-6 6" fill="none" stroke="currentColor"
+              stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="gist-head">
+        <span class="gist-kicker">TL;DR</span>
+        <span class="gist-sub"><strong class="gist-title">The 2-minute gist.</strong> <span class="gist-hint">Too lazy for 6,000 words? Here’s the whole argument, in five beats and one diagram.</span></span>
+      </span>
+    </summary>
+
+    <div class="gist-body">
+      <p class="gist-lead">The argument, start to finish</p>
+
+      <p class="gist-beat">
+        <span class="beat-n">1</span>
+        <strong>The era.</strong> Almost no one trusts the government anymore. In 1964 roughly
+        three in four Americans said they trusted Washington to do what is right most of the time;
+        today barely one in five do, a sixty-year collapse that spared no party and no generation.
+        That quiet withdrawal of faith, more than any single policy fight, is the climate every
+        modern election is actually run in.
+      </p>
+
+      <p class="gist-beat">
+        <span class="beat-n">2</span>
+        <strong>Which middle?</strong> Into that climate the pundits offer one perennial cure,
+        move to the center, and it rests on a group that barely exists. “Persuadable,” “moderate,”
+        “centrist,” and “swing” get used as if they meant the same people, but they describe four
+        different sets, and the courtable moderate middle, the voter sitting patiently between the
+        parties waiting to be wooed by a more reasonable platform, is a sliver. The voters who
+        actually decide elections, the ones who switch and the ones who stay home, are not moderates.
+      </p>
+
+      <p class="gist-beat">
+        <span class="beat-n">3</span>
+        <strong>Who’s in play.</strong> Those decisive voters share something else: they skew
+        low-trust. Swing voters don’t reward the most centrist policy mix; they reward the candidate
+        who fits the moment, who reads as a break from a system they have stopped believing in.
+        Non-voters aren’t holding out for a gentler agenda or a more likeable face either; they show
+        up when the stakes feel real and the candidate fits the moment. In a low-trust era the
+        currency is regime-fit, not policy position.
+      </p>
+
+      <p class="gist-beat">
+        <span class="beat-n">4</span>
+        <strong>Why insiders lose.</strong> This is the test parties keep failing. They nominate
+        insiders, the reassuring, well-credentialed, establishment pick, and in an era defined by
+        distrust of the establishment that pick reads as the wrong answer to the only question
+        voters are asking. Tacking to the center doesn’t rescue it: it wins no new moderates, because
+        they are not there to win, while it signals more-of-the-same to the low-trust voters who
+        might have been moved, pushing the base away.
+      </p>
+
+      <p class="gist-beat">
+        <span class="beat-n">5</span>
+        <strong>The payoff.</strong> So the conclusion inverts the conventional wisdom. The “safe,”
+        electable centrist is the risky bet, and the candidate cast as the outsider, the regime-fit
+        for a change era, is the one positioned to win. Electability isn’t a fixed personal trait you
+        can audition for by sounding moderate; it’s a match between a candidate and a moment. Winning
+        doesn’t mean crowding the center. It means owning the outsider lane.
+      </p>
+
+      <!-- THE ARGUMENT MAP -->
+      <figure class="argmap" id="argmap">
+        <svg viewBox="0 0 640 772" role="img"
+             aria-label="Flowchart of the essay's argument: trust collapsed, so the pundits' cure of moving to the center fails, because the decisive low-trust voters reward regime-fit over policy, so the establishment insider loses and the safe centrist is the risky bet.">
+          <defs>
+            <marker id="am-ah" viewBox="0 0 10 10" refX="8.5" refY="5"
+                    markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path class="am-arrow" d="M0,0 L10,5 L0,10 z" />
+            </marker>
+          </defs>
+
+          <!-- connectors (drawn first, under the nodes) -->
+          <path class="am-link" marker-end="url(#am-ah)" d="M320,78 L320,114" />
+          <path class="am-link" marker-end="url(#am-ah)" d="M320,182 L320,218" />
+          <!-- split from THE FLAW to the two voter groups -->
+          <path class="am-link" marker-end="url(#am-ah)" d="M320,286 L320,308 L164,308 L164,328" />
+          <path class="am-link" marker-end="url(#am-ah)" d="M320,286 L320,308 L476,308 L476,328" />
+          <!-- merge from the two voter groups to WHO DECIDES -->
+          <path class="am-link" marker-end="url(#am-ah)" d="M164,410 L164,432 L320,432 L320,452" />
+          <path class="am-link" marker-end="url(#am-ah)" d="M476,410 L476,432 L320,432 L320,452" />
+          <path class="am-link" marker-end="url(#am-ah)" d="M320,534 L320,570" />
+          <path class="am-link" marker-end="url(#am-ah)" d="M320,644 L320,680" />
+
+          <!-- N1 · THE ERA -->
+          <g class="am-node">
+            <rect x="130" y="12" width="380" height="66" rx="8" />
+            <text class="am-kicker" x="320" y="38" text-anchor="middle">The era</text>
+            <text class="am-claim" x="320" y="60" text-anchor="middle">Trust collapsed.</text>
+          </g>
+
+          <!-- N2 · THE CURE -->
+          <g class="am-node">
+            <rect x="130" y="116" width="380" height="66" rx="8" />
+            <text class="am-kicker" x="320" y="142" text-anchor="middle">The cure on offer</text>
+            <text class="am-claim" x="320" y="164" text-anchor="middle">Pundits say: move to the center.</text>
+          </g>
+
+          <!-- N3 · THE FLAW -->
+          <g class="am-node">
+            <rect x="130" y="220" width="380" height="66" rx="8" />
+            <text class="am-kicker" x="320" y="246" text-anchor="middle">The flaw</text>
+            <text class="am-claim" x="320" y="268" text-anchor="middle">The courtable middle barely exists.</text>
+          </g>
+
+          <!-- N4a · SWING VOTERS -->
+          <g class="am-node">
+            <rect x="32" y="330" width="264" height="80" rx="8" />
+            <text class="am-kicker" x="164" y="362" text-anchor="middle">Swing voters</text>
+            <text class="am-claim" x="164" y="386" text-anchor="middle">aren’t moderates.</text>
+          </g>
+
+          <!-- N4b · NO-SHOWS -->
+          <g class="am-node">
+            <rect x="344" y="330" width="264" height="80" rx="8" />
+            <text class="am-kicker" x="476" y="362" text-anchor="middle">No-shows</text>
+            <text class="am-claim" x="476" y="386" text-anchor="middle">aren’t moderates.</text>
+          </g>
+
+          <!-- N5 · WHO DECIDES -->
+          <g class="am-node">
+            <rect x="110" y="452" width="420" height="82" rx="8" />
+            <text class="am-kicker" x="320" y="478" text-anchor="middle">Who actually decides</text>
+            <text class="am-claim" x="320" y="500" text-anchor="middle">Low-trust voters who pick</text>
+            <text class="am-claim" x="320" y="520" text-anchor="middle">regime-fit, not policy.</text>
+          </g>
+
+          <!-- N6 · THE MISFIT -->
+          <g class="am-node">
+            <rect x="110" y="572" width="420" height="72" rx="8" />
+            <text class="am-kicker" x="320" y="596" text-anchor="middle">The misfit</text>
+            <text class="am-claim" x="320" y="618" text-anchor="middle">Parties nominate insiders,</text>
+            <text class="am-claim" x="320" y="638" text-anchor="middle">who lose a change era.</text>
+          </g>
+
+          <!-- N7 · THE PAYOFF (accent) -->
+          <g class="am-node am-node--accent">
+            <rect x="110" y="680" width="420" height="80" rx="8" />
+            <text class="am-kicker" x="320" y="706" text-anchor="middle">The payoff</text>
+            <text class="am-claim" x="320" y="728" text-anchor="middle">The “safe” centrist</text>
+            <text class="am-claim" x="320" y="748" text-anchor="middle">is the risky one.</text>
+          </g>
+        </svg>
+        <figcaption class="am-caption">
+          The whole essay in one line of causation: a low-trust era turns “electability” upside down.
+        </figcaption>
+      </figure>
+
+      <p class="gist-foot">
+        <a href="#part-1">Read the full essay ↓</a>
+      </p>
+    </div>
+  </details>
+
   <aside class="parthead parthead--first" id="part-1">
     <p class="parthead-tag">Part I</p>
     <h2 class="parthead-title">The myth of the center</h2>
@@ -3873,6 +4038,8 @@
     </p>
   </section>
 
+  <section class="share" aria-label="Share this essay"><div id="share-root"></div></section>
+
   <footer class="bio" id="about-the-author">
     <p class="bio-label">About the author</p>
     <p>
@@ -3891,6 +4058,18 @@
 
 </main>
 
+<script>
+  // TL;DR gist: collapse the panel when the reader chooses the full essay.
+  // Progressive enhancement only — the #part-1 anchor jumps without JS.
+  document.querySelector('.gist-foot a')?.addEventListener('click', () => {
+    const gist = document.getElementById('gist');
+    if (gist) gist.open = false;
+  });
+</script>
 <script type="module" src="js-v2/main.js"></script>
+<script type="module">
+  import { initShareWidget } from './js-v2/share.js'
+  initShareWidget()
+</script>
 </body>
 </html>

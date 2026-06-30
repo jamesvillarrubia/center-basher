@@ -2681,3 +2681,160 @@ hr.coda-break {
   .parthead-title { font-size: 1.55rem; }
   .parthead, .bigquote { margin-left: -1rem; margin-right: -1rem; }
 }
+
+/* =====================================================================
+   "The 2-minute gist" — top-of-essay TL;DR disclosure + argument map.
+   A prominent, inviting cousin of .howweknow: same <details>/<summary>
+   idiom, larger and panelled so it reads as a deliberate "start here"
+   affordance under the masthead. Reuses essay tokens + font stacks.
+   ===================================================================== */
+.gist {
+  margin: 0 0 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 8px 24px -18px rgba(0,0,0,0.25);
+  overflow: hidden;
+}
+.gist > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1.15rem 1.4rem;
+  transition: background 140ms ease;
+}
+.gist > summary::-webkit-details-marker { display: none; }
+.gist > summary:hover { background: rgba(184,36,15,0.03); }
+
+.gist-chev {
+  flex: 0 0 auto;
+  width: 1.4rem;
+  height: 1.4rem;
+  color: var(--accent);
+  transition: transform 180ms ease;
+  align-self: baseline;
+  margin-top: 7px;
+}
+.gist[open] .gist-chev { transform: rotate(90deg); }
+
+.gist-head { flex: 1 1 auto; }
+/* TL;DR is the dominant headline of the card. */
+.gist-kicker {
+  display: block;
+  font: 800 clamp(1.2rem, 4vw, 1.6rem)/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.4rem;
+}
+/* "The 2-minute gist." rides as a bold lead-in on the sub line, roughly the
+   same size as the descriptive hint that follows it. */
+.gist-sub {
+  font: 1rem/1.45 "Iowan Old Style", "Charter", Georgia, serif;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.gist-title { font-weight: 700; color: var(--ink); }
+.gist-hint { font-style: italic; }
+
+.gist-body {
+  padding: 0.4rem 1.4rem 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+.gist-body > .gist-lead {
+  font: 600 12px/1.35 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 1.1rem 0 1.1rem;
+}
+.gist-beat {
+  font-size: 1rem;
+  line-height: 1.58;
+  margin: 0 0 1.15rem;
+}
+.gist-beat .beat-n {
+  font: 700 0.95rem/1 -apple-system, "Helvetica Neue", sans-serif;
+  color: var(--accent);
+  margin-right: 0.5rem;
+}
+.gist-beat strong {
+  background: linear-gradient(180deg, transparent 60%, #ffe7a8 60%);
+  padding: 0 2px;
+  font-weight: 600;
+}
+
+.gist-foot { margin: 0.4rem 0 0; text-align: center; }
+.gist-foot a {
+  font: 600 13px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color 140ms ease, border-color 140ms ease;
+}
+.gist-foot a:hover { color: var(--accent); border-color: var(--accent); }
+
+/* The argument map (hand-authored SVG; inherits essay tokens). */
+.argmap { margin: 1.5rem 0 0.5rem; }
+.argmap svg { display: block; width: 100%; height: auto; }
+.am-node rect { fill: #fff; stroke: var(--rule); stroke-width: 1.25; }
+.am-kicker {
+  font: 700 10.5px/1 -apple-system, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  fill: var(--ink-faint);
+}
+.am-claim {
+  font: 500 15px/1.2 "Iowan Old Style", "Charter", Georgia, serif;
+  fill: var(--ink);
+}
+.am-link { fill: none; stroke: var(--ink-faint); stroke-width: 1.4; }
+.am-arrow { fill: var(--ink-faint); }
+/* Terminal punchline node gets the one accent in the whole diagram. */
+.am-node--accent rect {
+  stroke: var(--accent);
+  stroke-width: 1.75;
+  fill: rgba(184,36,15,0.05);
+}
+.am-node--accent .am-kicker { fill: var(--accent); }
+.am-node--accent .am-claim { fill: #7a160a; font-weight: 600; }
+.am-caption {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+  font-style: italic;
+  text-align: center;
+}
+
+/* --- share widget --- */
+.share { margin: 4rem 0 2rem; text-align: center; }
+.share-open {
+  font: inherit; font-size: 1.05rem; padding: 0.7em 1.4em; cursor: pointer;
+  color: #fbfbf8; background: #b8240f; border: none; border-radius: 4px;
+}
+.share-panel {
+  max-width: 560px; margin: 1.25rem auto 0; padding: 1.25rem;
+  border: 1px solid #e2e2dc; border-radius: 8px; background: #fff; text-align: left;
+}
+.share-step { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6b70; margin: 0 0 0.6rem; }
+.share-thumbs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; margin-bottom: 1.1rem; }
+.share-thumb {
+  display: flex; flex-direction: column; gap: 0.35rem; padding: 0.3rem;
+  background: none; border: 2px solid transparent; border-radius: 6px; cursor: pointer; font: inherit;
+}
+.share-thumb img { width: 100%; border-radius: 3px; display: block; }
+.share-thumb span { font-size: 0.8rem; color: #3a3a3d; }
+.share-thumb[aria-pressed="true"] { border-color: #b8240f; }
+.share-dests { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.share-dest {
+  font: inherit; font-size: 0.95rem; padding: 0.5em 1em; cursor: pointer;
+  border: 1px solid #d4d4cd; border-radius: 4px; background: #fbfbf8; color: #1b1b1d; text-decoration: none;
+}
+.share-dest:hover { border-color: #b8240f; }
+.share-note { margin: 0.9rem 0 0; font-size: 0.85rem; color: #2e7d32; }
