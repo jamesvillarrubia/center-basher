@@ -2,7 +2,8 @@
 //
 // Scenario-based design (2026-06-05 redesign):
 //   Each "scenario" is a cohort that bundles its blob + line + centroid
-//   ring + capture pills as ONE toggle. User picks scenarios to overlay.
+//   ring as ONE toggle. User picks scenarios to overlay. (Capture-% pills
+//   removed 2026-06-29; the per-preset captions state the split in prose.)
 //
 //   Behavioral scenarios:   Swing / Activated / Stayed-home
 //   Party-ID scenarios:     Democrats / Republicans / Independents
@@ -29,9 +30,10 @@ const COLOR_TRUMP_PV   = '#d35a3d'
 
 // ---- Scenarios ----
 // Each scenario is one toggle that bundles:
-//   blob + line + cohort centroid + capture pills next to candidate dots
+//   blob + line + cohort centroid ring
 // `filter` selects voters in the cohort.
-// `has_capture` controls whether capture % pills render (stayed-home doesn't vote).
+// `has_capture` is retained on the data but no longer drives any rendering
+//   (capture-% pills were removed 2026-06-29).
 // `years` (optional) restricts the scenario to a subset of cycles.
 const SCENARIOS = [
   // Behavioral cohorts
