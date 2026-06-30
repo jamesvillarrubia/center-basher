@@ -376,22 +376,18 @@ function drawChart(container, data, opts) {
   // Candidate dots: geometric median of each candidate's voter base (2016 =
   // primary voters, matching the build script; 2020/2024 = general voters) —
   // the same estimator as the cohort rings, so a filled dot and an open ring
-  // never differ merely by mean-vs-median. Suppress a candidate's dot when its
-  // own primary cohort is toggled on: the cohort ring already marks that exact
-  // group, so drawing both is a confusing duplicate.
-  const suppressedCands = new Set(
-    activeScenarios.filter(s => /_pv$/.test(s.id)).map(s => s.id.replace(/_pv$/, ''))
-  )
-  cands = data.candidates
-    .filter(c => !suppressedCands.has(c.id))
-    .map(c => {
-      const base = year === 2016
-        ? data.voters.filter(v => v.pv === c.id)
-        : data.voters.filter(v => v.v === c.id)
-      if (base.length === 0) return c
-      const gm = geometricMedian(base)
-      return { ...c, x: gm.x, y: gm.y }
-    })
+  // never differ merely by mean-vs-median. Candidate dots (and their names) are
+  // ALWAYS drawn. When a primary cohort is toggled on, its open ring would land
+  // exactly on the matching candidate's filled dot (same people, same geomed),
+  // so we drop the redundant ring instead — see the ring-draw loop below.
+  cands = data.candidates.map(c => {
+    const base = year === 2016
+      ? data.voters.filter(v => v.pv === c.id)
+      : data.voters.filter(v => v.v === c.id)
+    if (base.length === 0) return c
+    const gm = geometricMedian(base)
+    return { ...c, x: gm.x, y: gm.y }
+  })
 
   // ---- 1. Blobs (one per active scenario) ----
   function drawDensity(pts, color, opts = {}) {
@@ -486,7 +482,10 @@ function drawChart(container, data, opts) {
   // X," and the per-preset captions already state the same split in prose.
 
   // ---- Draw cohort centroid rings + their lines/blobs already drawn ----
+  // Skip primary (_pv) cohorts: their centroid is the matching candidate's
+  // filled dot, which is always drawn, so an open ring here is a duplicate.
   for (const m of cohortMarkers) {
+    if (/_pv$/.test(m.s.id)) continue
     g.append('circle').attr('cx', m.ccx).attr('cy', m.ccy).attr('r', 7)
       .attr('fill', '#fff').attr('stroke', m.s.color).attr('stroke-width', 2.4)
   }
