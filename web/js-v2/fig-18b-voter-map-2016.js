@@ -557,8 +557,26 @@ function drawChart(container, data, opts) {
     .transition().duration(dur)
     .attr('x', d => px(d.gen) - SQ / 2).attr('y', d => py(d.gen) - SQ / 2).attr('fill', d => d.color)
 
+  // Tiny glyphs inside the markers: P = the candidate's base (the circle),
+  // G = the general / up-for-grabs voters they won (the square).
+  const glyph = (cls, sel, getPt, letter) => {
+    const s = g.selectAll(`text.${cls}`).data(sel, d => d.id)
+    s.exit().remove()
+    s.enter().append('text').attr('class', cls)
+      .attr('text-anchor', 'middle').attr('dominant-baseline', 'central')
+      .attr('font-size', '8px').attr('font-weight', '700').attr('fill', '#fff')
+      .attr('pointer-events', 'none').text(letter)
+      .attr('x', d => px(getPt(d))).attr('y', d => py(getPt(d)))
+      .merge(s).transition().duration(dur)
+      .attr('x', d => px(getPt(d))).attr('y', d => py(getPt(d)))
+  }
+  glyph('cand-p', cands, d => d, 'P')
+  glyph('cand-g', gens, d => d.gen, 'G')
+
   g.selectAll('circle.cand').raise()
   g.selectAll('rect.cand-gen').raise()
+  g.selectAll('text.cand-p').raise()
+  g.selectAll('text.cand-g').raise()
 
   // ====================================================================
   //  LABELS + (flat-only) Δ-gap annotations. Rebuilt each render, faded.
