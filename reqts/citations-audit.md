@@ -142,6 +142,54 @@ Verdict codes: ✅ verified · ⚠️ needs-fix (metadata or claim error) · ❌
 
 ---
 
+## CLEANUP SWEEP (2026-06-30 — third, whole-essay adversarial pass)
+
+A third agent re-read the FULL essay (body + footnotes) hunting for any remaining problem beyond
+R1–R97. **Result: 0 hallucinations, 0 flatly-wrong facts.** All 9 prior fixes re-verified correct.
+R54/R67 (oligarchy 43/52 split + Landrieu "not one person… mentioned 'oligarchy'") upgraded from
+soft hedge to **confirmed** (POLITICO Nov 2025 + the Working Class Project report). Net-new quotes
+spot-checked clean: Washington 1789 "experiment," Jefferson 1816 "laws and institutions," 27
+amendments, Bannon, Schumer, "$81M in 24 hours," Espaillat/Avila Chevalier NY-13. **4 fixes applied,
+1 flagged:**
+
+| Item | Issue | Action |
+|------|-------|--------|
+| §21 *Wilding v. DNC* (body + fn 61) | Body said "the judge agreed it was a private corporation with no such obligation" — overstated the holding. Court dismissed on **standing** and **rejected** the DNC's trivialization; "back rooms/cigars" was the DNC counsel's *argument*. | Body → "dismissed for lack of standing, never reaching whether the pledge bound the party"; fn rewritten to attribute the argument to counsel, not the court. |
+| §14 Biden quote | "nothing **will** fundamentally change" — misquote; actual is "would" (§18 already correct). | Fixed §14 → "would". |
+| §23 fn — Molly Murphy | Verbatim quote unconfirmable (the 69% data behind it is confirmed). | Replaced verbatim quote with a paraphrase; kept the confirmed numbers + POLITICO source. |
+| Coda — Krystal Ball "de facto incumbent protector" | Verbatim quote initially unsourceable. | **RESOLVED** — user supplied the source: Krystal Ball (@krystalball) X post, June 24, 2026 ("the once insurgent is now a de facto incumbent protector"). Quote is verbatim-accurate; kept as written and added to References → Reporting (`ref-rep-krystalball`). |
+| §21 CNN "validating [Biden's]…" | Sweep flagged, but the string is not present in the current file. | No action (already absent). |
+
+---
+
+## RESOLUTION LOG (2026-06-30 — after two-thread verification + tie-breakers)
+
+Both threads ran over R1–R97. Thread A (metadata/existence): 88 ✅ / 7 ⚠️ / 2 ❌.
+Thread B (claim-content): 90 ✅ / 3 ⚠️ / 2 ❌. Disagreements + unconfirmed items were
+resolved by a third (self) pass via live web search. **9 fixes applied to `web/index.html`:**
+
+| Ref | Resolution | Fix applied |
+|-----|-----------|-------------|
+| R35/R86 | ❌ Both threads: *Issenberg, The Lie of the Land (2017)* is fabricated. | Deleted from §22 fn; Time + WaPo trackers retained. |
+| R24 | ⚠️ Subtitle wrong. | "Age of Obama" → "Obama Era" (§11 fn + References). |
+| R15 | ⚠️ Venue. | Ellis & Ura → *Social Science Quarterly* (2025); Lockerbie stays *PS* (§17 fn). |
+| R51 | ⚠️ Poll conflation. | Split: 57% = Economist/YouGov Nov 9–12 (n=1,743); word-usage = Nov 13–15 (n=1,164) (§23 fn). |
+| R79 | ⚠️ Publisher (self-verified: WelcomePAC, Bazelon et al.). | "Third Way's … Deciding to Win" → "WelcomePAC's … (Bazelon et al., Oct 2025)" (§1 fn). |
+| R50 | ⚠️ 69% + 79/65/64 unconfirmable (both threads + self). | Replaced with verified Siena figures (46% less free vs decade ago; 34% all enjoy free speech; 55–13 R) (§23 fn). |
+| R60 | ⚠️ Year/framing (self-verified: May 2023). | "(2024–2025) … 55% depends" → "(May 2023, post-Dobbs highs) … 51% legal only under certain circumstances" (§25 fn). |
+| R42 | ⚠️ Date (self-verified: Oct 2015, not Feb 2016). | "February 2016 CBS" → "October 2015 CBS … (nearly six in ten)" (§19 fn). |
+| R43 | ⚠️ Wrong stat (self-verified: 76% wanted Harris). | Cut "42% wanted someone else"; kept MOE race "(Harris 46, Trump 49)" (§19 fn). |
+| R87 | ✅ Confirmed correct (self-verified). | No change. Mann & Ornstein, "Delegates of Steel," Brookings 2008 — uses "peer review" + electability. Citation strengthened with title/date. |
+
+**Remaining low-risk hedges (no fix needed, essay already hedges):** R54/R67 oligarchy 43/52
+split lives in a non-public report PDF; essay flags the establishment lean and calls it "not
+definitive." R36 *Trump v. Barbara* "pending" was correct at writing (decided June 30, 2026).
+
+New consolidated **References** section added at essay bottom (`#references`), grouped + anchored,
+incl. a Data sources subsection. All entries reflect the corrected metadata above.
+
+---
+
 ## Preliminary flags (mine, pre-verification)
 
 1. **R35 / R86 — Issenberg, *The Lie of the Land* (2017):** Strongest hallucination suspect. Verify
