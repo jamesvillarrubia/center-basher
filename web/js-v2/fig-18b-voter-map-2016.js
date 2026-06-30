@@ -475,34 +475,9 @@ function drawChart(container, data, opts) {
     obstacles.push({ x1: m.ccx - 9, y1: m.ccy - 9, x2: m.ccx + 9, y2: m.ccy + 9 })
   }
 
-  // ---- Capture pills (single-scenario only) ----
-  // Compute pill bboxes upfront so labels can avoid them.
-  const showCapturePills = activeScenarios.filter(s => s.has_capture).length === 1
-  const pillsToDraw = []
-  if (showCapturePills) {
-    const s = activeScenarios.find(s => s.has_capture)
-    if (s) {
-      const inCohort = voters.filter(s.filter)
-      let totalW = 0
-      for (const v of inCohort) totalW += (v.w || 1)
-      if (totalW > 0) {
-        for (const c of cands) {
-          if (c.id === 'sanders') continue
-          let candW = 0
-          for (const v of inCohort) { if (v.v === c.id) candW += (v.w || 1) }
-          const pct = Math.round((candW / totalW) * 100)
-          const cx_ = x(c.x), cy_ = y(c.y)
-          const isLeft = c.x < 0
-          const px = isLeft ? cx_ - 38 : cx_ + 38
-          const py = cy_ - 22
-          const pillW = 44, pillH = 16
-          const rect = { x1: px - pillW/2, y1: py - pillH/2, x2: px + pillW/2, y2: py + pillH/2 }
-          pillsToDraw.push({ rect, px, py, pct, color: s.color })
-          obstacles.push(rect)
-        }
-      }
-    }
-  }
+  // Capture % pills removed 2026-06-29: a bare floating "42%" next to a dot
+  // had no on-chart legend explaining it was "share of this cohort who voted
+  // X," and the per-preset captions already state the same split in prose.
 
   // ---- Draw cohort centroid rings + their lines/blobs already drawn ----
   for (const m of cohortMarkers) {
@@ -540,15 +515,6 @@ function drawChart(container, data, opts) {
   // This trades on-chart density for a clean visual, since cohort rings
   // often cluster in the same region.
 
-  // ---- Draw capture pills (now that labels are placed) ----
-  for (const p of pillsToDraw) {
-    g.append('rect').attr('x', p.rect.x1).attr('y', p.rect.y1)
-      .attr('width', p.rect.x2 - p.rect.x1).attr('height', p.rect.y2 - p.rect.y1)
-      .attr('rx', 3).attr('fill', '#fff').attr('stroke', p.color).attr('stroke-width', 1.4)
-    g.append('text').attr('x', p.px).attr('y', p.py + 4)
-      .attr('text-anchor', 'middle').attr('font-size', '11px')
-      .attr('font-weight', '800').attr('fill', p.color).text(`${p.pct}%`)
-  }
 
   // ---- Axes ----
   g.append('g').attr('class', 'vm-axis').attr('transform', `translate(0, ${innerH})`)
