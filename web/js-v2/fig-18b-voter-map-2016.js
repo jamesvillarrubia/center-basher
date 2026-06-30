@@ -530,6 +530,36 @@ function drawChart(container, data, opts) {
     .transition().duration(dur)
     .attr('cx', d => px(d)).attr('cy', d => py(d)).attr('r', 7).attr('stroke', d => d.s.color)
 
+  // Up-for-grabs squares (filled, same color) + dashed connector from the base
+  // circle. Connectors live in their own group; the solid markers are raised
+  // afterward so the dot and square always sit on top of the line.
+  const gens = cands.filter(c => c.gen)
+  const SQ = 14
+  let glinks = g.select('g.genlinks'); if (glinks.empty()) glinks = g.append('g').attr('class', 'genlinks')
+  const linkSel = glinks.selectAll('line.cand-link').data(gens, d => d.id)
+  linkSel.exit().remove()
+  linkSel.enter().append('line').attr('class', 'cand-link')
+    .attr('x1', d => px(d)).attr('y1', d => py(d)).attr('x2', d => px(d)).attr('y2', d => py(d))
+    .merge(linkSel)
+    .attr('stroke', d => d.color).attr('stroke-width', 1.4)
+    .attr('stroke-dasharray', '3,2').attr('stroke-opacity', 0.55)
+    .transition().duration(dur)
+    .attr('x1', d => px(d)).attr('y1', d => py(d))
+    .attr('x2', d => px(d.gen)).attr('y2', d => py(d.gen))
+
+  const genSel = g.selectAll('rect.cand-gen').data(gens, d => d.id)
+  genSel.exit().remove()
+  genSel.enter().append('rect').attr('class', 'cand-gen')
+    .attr('width', SQ).attr('height', SQ).attr('fill', d => d.color)
+    .attr('stroke', '#fff').attr('stroke-width', 2)
+    .attr('x', d => px(d.gen) - SQ / 2).attr('y', d => py(d.gen) - SQ / 2)
+    .merge(genSel)
+    .transition().duration(dur)
+    .attr('x', d => px(d.gen) - SQ / 2).attr('y', d => py(d.gen) - SQ / 2).attr('fill', d => d.color)
+
+  g.selectAll('circle.cand').raise()
+  g.selectAll('rect.cand-gen').raise()
+
   // ====================================================================
   //  LABELS + (flat-only) Δ-gap annotations. Rebuilt each render, faded.
   // ====================================================================
