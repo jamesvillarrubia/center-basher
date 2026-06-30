@@ -21,11 +21,14 @@ function destRow(slug, noteEl, manifest) {
   const x = mk('a', 'X'); x.href = t.x; x.target = '_blank'; x.rel = 'noopener'
   const bs = mk('a', 'Bluesky'); bs.href = t.bluesky; bs.target = '_blank'; bs.rel = 'noopener'
   const li = mk('a', 'LinkedIn'); li.href = t.linkedin; li.target = '_blank'; li.rel = 'noopener'
-  const ig = mk('button', 'Instagram'); ig.type = 'button'
+  const dl = mk('button', 'Save image'); dl.type = 'button'
   const cp = mk('button', 'Copy link'); cp.type = 'button'
-  row.append(x, bs, li, ig, cp)
+  row.append(x, bs, li, dl, cp)
 
-  ig.addEventListener('click', () => {
+  // Download the actual PNG (and copy a caption) so it can be attached to any
+  // post — Instagram, or X/Bluesky/LinkedIn where you'd rather attach the photo
+  // than rely on the link's preview card.
+  dl.addEventListener('click', () => {
     const a = document.createElement('a')
     a.href = t.image
     a.download = `${slug}.png`
@@ -33,7 +36,7 @@ function destRow(slug, noteEl, manifest) {
     a.click()
     a.remove()
     navigator.clipboard?.writeText(t.instagramCaption)
-    flash(noteEl, 'Image downloaded + caption copied. Post to Instagram and add the link.')
+    flash(noteEl, 'Image saved + caption copied — attach it to any post (Instagram, X, etc.).')
   })
 
   cp.addEventListener('click', () => {
