@@ -393,6 +393,18 @@ Each Phase 2 essay closes a loop the current essay leaves open:
 
 ---
 
+## Source inbox — unreviewed (feeds Essays 2 & 3)
+
+Raw links dropped in for later triage. Not yet watched/read, not yet
+attributed to a specific claim. Review, transcribe the load-bearing
+bits, and promote to the relevant essay's source list before citing.
+
+- **2026-07-01** — Facebook video: https://www.facebook.com/share/v/18SQysHSPj/
+  (relevant to media & money essays; content not yet captured — FB blocks
+  scraping, needs a manual watch + notes pass.)
+
+---
+
 ## Status
 
 This document is the scratch pad. Both Phase 2 essays are planned but
