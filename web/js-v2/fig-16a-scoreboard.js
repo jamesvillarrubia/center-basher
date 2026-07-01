@@ -217,20 +217,22 @@ export function drawChangeLaneScoreboard(selector) {
         <strong>${pvHits} of ${CYCLES.length} cycles by popular vote</strong>
         — 2000 is the EC inversion (PV went continuity, EC went change).
       </p>
-      <table class="cls-table">
-        <thead>
-          <tr>
-            <th>Cycle</th>
-            <th>Trust</th>
-            <th>Regime</th>
-            <th>Continuity vs Change</th>
-            <th>Winner</th>
-            <th>M</th>
-            <th>Backing</th>
-          </tr>
-        </thead>
-        <tbody>${rows}</tbody>
-      </table>
+      <div class="cls-scroll">
+        <table class="cls-table">
+          <thead>
+            <tr>
+              <th>Cycle</th>
+              <th>Trust</th>
+              <th>Regime</th>
+              <th>Continuity vs Change</th>
+              <th>Winner</th>
+              <th>M</th>
+              <th>Backing</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
     </div>
   `
 }

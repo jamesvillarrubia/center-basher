@@ -2148,6 +2148,14 @@ blockquote.correction strong {
   line-height: 1.35;
   table-layout: fixed;   /* respect explicit column widths so backing gets its share */
 }
+/* Mobile: the 7-column fixed layout can't compress below its ~600px design
+   width without cells colliding (Carter/Reagan overlap, header run-together).
+   Below that, hold the design width and scroll the table horizontally instead.
+   The .cls-headline sits OUTSIDE .cls-scroll, so it still wraps to the screen. */
+.cls-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+@media (max-width: 700px) {
+  .cls-table { min-width: 600px; }
+}
 /* Width hints — backing gets ~30% explicitly, pair/winner shrink to their
    nowrap content, the rest is tight. The earlier 'width: 1%; nowrap' trick
    accidentally squeezed backing because the browser couldn't allocate
