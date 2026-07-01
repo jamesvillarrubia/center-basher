@@ -18,11 +18,18 @@ function destRow(slug, noteEl, manifest) {
     return el
   }
   const t = buildShareTargets(slug, manifest)
+  const card = CARDS.find((c) => c.slug === slug)
+  const name = card ? card.label : slug
   const x = mk('a', 'X'); x.href = t.x; x.target = '_blank'; x.rel = 'noopener'
+  x.setAttribute('aria-label', `Share “${name}” on X`)
   const bs = mk('a', 'Bluesky'); bs.href = t.bluesky; bs.target = '_blank'; bs.rel = 'noopener'
+  bs.setAttribute('aria-label', `Share “${name}” on Bluesky`)
   const li = mk('a', 'LinkedIn'); li.href = t.linkedin; li.target = '_blank'; li.rel = 'noopener'
+  li.setAttribute('aria-label', `Share “${name}” on LinkedIn`)
   const dl = mk('button', 'Save image'); dl.type = 'button'
+  dl.setAttribute('aria-label', `Save the “${name}” image and copy its caption`)
   const cp = mk('button', 'Copy link'); cp.type = 'button'
+  cp.setAttribute('aria-label', `Copy the link to “${name}”`)
   row.append(x, bs, li, dl, cp)
 
   // Download the actual PNG (and copy a caption) so it can be attached to any
@@ -36,7 +43,7 @@ function destRow(slug, noteEl, manifest) {
     a.click()
     a.remove()
     navigator.clipboard?.writeText(t.instagramCaption)
-    flash(noteEl, 'Image saved + caption copied — attach it to any post (Instagram, X, etc.).')
+    flash(noteEl, 'Image saved, caption copied. Attach it to any post, on Instagram or elsewhere.')
   })
 
   cp.addEventListener('click', () => {
@@ -55,7 +62,7 @@ async function main() {
     card.className = 'gcard'
     const im = document.createElement('img')
     im.src = imageUrlFor(c.slug, manifest)
-    im.alt = c.label
+    im.alt = c.desc
     const note = document.createElement('p')
     note.className = 'note'
     card.append(im, destRow(c.slug, note, manifest), note)
