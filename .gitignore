@@ -22,3 +22,4 @@ Thumbs.db
 
 # Debug screenshots from chrome-devtools captures (kept on disk, not tracked)
 data/derived/*.png
+.preview/
