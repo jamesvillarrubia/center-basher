@@ -9,6 +9,18 @@
 > *seeded into arguments already happening*, and when the first impression is a fight-worthy claim
 > rather than a bare link.
 
+**Channel priority (updated 2026-07-02).** **Twitter/X is the #1 asset — ~25k followers.** The form
+that gets traction there is the **punchy, data-driven rebuttal**: a single chart image that kills a
+specific bad take, dropped as a quote-tweet or reply. Everything below is now ordered around feeding
+that engine. LinkedIn / Reddit / Facebook are secondary channels that recycle the same assets.
+
+**Two standing rules for every image we ship:**
+1. **Point-first title.** The chart's on-image headline states the *argument*, not a neutral
+   description. "Only 1 in 100 voters is a real centrist," never "Composition of the moderate middle."
+2. **The button is always `thecenterisalie.org`.** Every image carries a persistent domain
+   button/wordmark, bottom-corner, so every screenshot markets the site even when nobody clicks and
+   even when the tweet is stripped of its link.
+
 ---
 
 ## 0 · The one bug that's costing clicks (fix first)
@@ -70,8 +82,33 @@ establishment label loses. Every chart shows its data. Full essay:
 thecenterisalie.org/s/trust/
 ```
 
-**Highest-leverage move:** quote-tweet any pundit/blue-check saying *"Democrats need to moderate"*
-with tweet 5 + the link. Reply into the argument; don't broadcast.
+**The thread is the standing intro. The daily engine is the rebuttal** (see the rebuttal library
+below). Threads announce; rebuttals travel.
+
+#### The rebuttal play (your #1 traction pattern)
+
+Someone with reach posts a centrist-myth take. You quote-tweet it with **one chart image**
+(point-first title + `thecenterisalie.org` button) and **one sentence**. No thread, no preamble. The
+image *is* the argument; the tweet just aims it.
+
+- Keep the reply to a single line — the chart carries the load.
+- Lead with the number, not the hedge: "Persuasion moves vote choice by 0.0 points. Here's the data."
+- Post the image natively (never a bare link — links suppress reach and the card is the whole point).
+- If they engage, drop the essay `/s/` link in *your own reply to yourself*, not the top tweet.
+
+#### Rebuttal library — bad take → the chart that kills it
+
+| When they say… | Fire this chart | Point-first title on the image |
+|---|---|---|
+| "Dems must move to the center to win" | change-lane scoreboard | *The establishment-cast candidate has lost the change lane every low-trust cycle since 2000* |
+| "Most voters are moderates / the center is huge" | 100-voters funnel (Fig C) | *Only 1 in 100 voters is actually a centrist* |
+| "Campaigns win by persuading moderates" | Kalla-Broockman zero | *All the ads + door-knocks move vote choice by ~0.0 points* |
+| "Bernie could never have won" | WI/MI/PA margins + moveable-coalition | *In 2016 the Sanders→Trump defectors alone outnumbered Trump's margin in WI, MI, PA* |
+| "Harris lost because she was too far left" | turnout drop-off / change-lane | *The establishment lane, not the left lane, is where the votes leaked* |
+| "It's just the economy" | trust collapse + racial-resentment weight | *Racial resentment didn't spike after Obama — its vote-weight did (≈5×)* |
+| "Love your candidate → turnout" | stakes-vs-warmth turnout coefficients | *What turns people out is stakes and fear, not warmth to your favorite* |
+
+Build these as a **standing deck** so a rebuttal is a 30-second drag-and-drop, not a design task.
 
 ### LinkedIn — text post, NO link in body (link in first comment)
 
@@ -138,29 +175,55 @@ groups) rather than your own timeline.
 
 ---
 
-## 3 · Gaming engagement via the social images
+## 3 · Chart rebuttal cards — the core Twitter asset
 
-Mechanics that actually move shares/click-through, mapped to the `og-cards/` + `/s/` pipeline:
+The essay's charts are currently titled for a *reader inside the essay* (neutral, descriptive). For
+Twitter they need to be re-titled for a *stranger in a hostile timeline*: the title states the point,
+and the domain button is always on. Each chart becomes a standalone weapon in the rebuttal deck (§1).
 
-1. **Numbers are the most screenshot-able asset you have.** `1 in 100` · `$0.0 effect` ·
-   `3 in 4 → 1 in 5`. One idea, giant type, high contrast, legible at a 200px phone thumbnail.
-2. **Weld any borrowed quote to YOUR claim.** A live-example quote (see §4) taps a large, engaged
-   audience — but the card must carry your unique punchline or you're just a fan account:
-   > *"…making $30 an hour that their enemies are those earning $20 an hour."* — Mamdani
-   > **The "safe" establishment pick is the risky one. The data → thecenterisalie.org**
-3. **Multi-image posts.** X and LinkedIn allow **4 images** per post → drop three failure-mode cards +
-   one quote card as a carousel = 4× the surface area in one post.
-4. **Dunk bait converts.** A card pairing a real pundit's *"Democrats must moderate"* quote with your
-   one-line refutation gets quote-tweeted (people argue *with* it) far more than an assertion.
-5. **Render 3 aspect ratios**, not just OG:
-   - `1200×630` — link unfurl (OG/Twitter)
-   - `1080×1080` — square, for Threads / Mastodon / IG inline
-   - `1080×1350` — portrait, max IG feed real estate
-   Keep faces/text centered; X crops OG to ~16:9 in-timeline.
-6. **Every card is a billboard even with no click** — consistent wordmark + `thecenterisalie.org` on
-   each, so a screenshot still markets the domain.
-7. **Match card → channel** via the `/s/` links: `/s/zero/` into r/neoliberal, `/s/risky/` + a quote
-   card into left/DSA channels.
+### Hard spec for every chart card
+
+- **Point-first title, top of image.** State the argument, not the topic. Big, ≤10 words.
+- **Subhead (optional, one line):** the mechanism or the number that proves it.
+- **The chart** — clean, minimal axis clutter, one highlighted element carrying the point.
+- **Persistent `thecenterisalie.org` button**, bottom-right, on *every* image. This is the "button
+  always shows the domain" rule — non-negotiable, so a stripped/screenshotted image still markets it.
+- **Source stamp**, bottom-left, small: "ANES 2016 / weighted" etc. — this is what makes it a
+  *data-driven* rebuttal rather than a meme, and it's your credibility moat.
+- **Legible at 200px.** If the title isn't readable as a phone thumbnail, it's too long.
+
+### Re-title map (neutral → point-first)
+
+| Chart | Current / in-essay title | Point-first social title |
+|---|---|---|
+| Fig C — 100 voters | "what the 'moderate middle' is made of" | **Only 1 in 100 voters is actually a centrist** |
+| Persuasion | "Persuasion: a measured zero" | **All the ads + door-knocks move vote choice by ~0.0 points** |
+| Trust collapse | "The trust collapse" | **1964: 3 in 4 trusted government. Today: 1 in 5.** |
+| Loyalty × trust | "own-party vote by trust" | **Less trust → Dems lose their own voters; Republicans gain theirs** |
+| Racial-resentment weight | "RR coefficient across cycles" | **Racial resentment didn't spike after Obama — its vote-weight did (≈5×)** |
+| Sanders→Trump margins | "defectors vs certified margin" | **The Sanders→Trump defectors alone outnumbered Trump's margin in WI, MI, PA** |
+| Change-lane scoreboard | "frame-match by cycle" | **The establishment-cast candidate has lost the change lane every low-trust cycle since 2000** |
+| GOTV bars | "turnout lift by intervention" | **Policy messaging moves turnout by zero. Contact moves it 8 points.** |
+| Stakes vs warmth | "turnout coefficients" | **What turns people out is stakes and fear — not loving your candidate** |
+
+### Sizes to render (Twitter-first)
+
+- `1600×900` (16:9) — **primary**; fills the X timeline card without cropping.
+- `1080×1080` (1:1) — reply/inline, Threads, Mastodon, IG.
+- `1080×1350` (4:5) — IG/LinkedIn feed max height. (skip unless needed)
+
+### Supporting mechanics
+
+- **Multi-image posts:** X allows **4 images** — post 4 rebuttal cards as one "the whole case in four
+  charts" tweet for reach beyond a single dunk.
+- **Weld any borrowed quote (§4) to your claim** if you use a quote card — never just repost the quote:
+  > *"…making $30 an hour that their enemies are those earning $20 an hour."* — Mamdani
+  > **The "safe" establishment pick is the risky one → thecenterisalie.org**
+- **Match card → channel** via `/s/` links: `/s/zero/` into r/neoliberal, `/s/risky/` into left/DSA.
+
+> **Implementation:** these are new render targets in `web/og-cards/` (a chart-card template that
+> embeds the D3 SVG + a title bar + the domain button), built via `pnpm render:og`. Do NOT screenshot
+> the live site by hand — bake them into the pipeline so titles/buttons stay consistent and updatable.
 
 ---
 
@@ -226,12 +289,21 @@ left op-ed.** Quote cards of DSA firebrands re-code it as advocacy:
 
 ## 7 · Launch checklist
 
+**Build the Twitter engine first (priority):**
+- [ ] Build the **chart-card template** in `web/og-cards/` (D3 SVG + point-first title bar + persistent
+      `thecenterisalie.org` button + source stamp), `1600×900`.
+- [ ] Render the **rebuttal deck** — the 9 charts in the §3 re-title map — via `pnpm render:og`.
+- [ ] Add `1080×1080` variants for replies/inline.
+- [ ] Assemble the **rebuttal library** (§1) as a phone-accessible folder so a dunk is drag-and-drop.
+- [ ] Verify every card: title readable at 200px, domain button present, source stamp present.
+
+**Then run it:**
+- [ ] Daily: quote-tweet/reply to a centrist-myth take with one chart card + one sentence (native image, no bare link).
+- [ ] Post the standing thread once; pin it.
+- [ ] Recycle top-performing cards to LinkedIn (link in comment) and Reddit (argument native, link as source).
+
+**Housekeeping:**
 - [ ] Re-scrape all `/s/` links in FB Debugger + X Validator (clear cached brand-card unfurl).
 - [ ] Confirm `/og/*.png` return 200 in prod.
 - [ ] Verify Tier-2 quotes against primary transcripts before any quote card renders.
-- [ ] Build 1–2 quote cards (Tier-1 only to start) welded to a data punchline.
-- [ ] Render square + portrait variants for IG / Threads / Mastodon.
-- [ ] Post X thread; quote-tweet a "moderate to win" take with the link.
-- [ ] LinkedIn text post, link in first comment.
-- [ ] One Reddit self-text post/day, argument native, link as source; comment first.
-- [ ] Track which `/s/` card + channel drives the most click-through; double down.
+- [ ] Track which chart + take drives the most profile clicks / link clicks; double down on the winners.
