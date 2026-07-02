@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "render:og": "node og-cards/render.mjs",
-    "test:share": "node --test js-v2/share.test.mjs"
+    "test:share": "node --test js-v2/share.test.mjs",
+    "render:charts": "node og-cards/render-charts.mjs"
   },
   "devDependencies": {
     "playwright": "^1.61.1",

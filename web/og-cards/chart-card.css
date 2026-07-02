@@ -1,0 +1,43 @@
+/* Chart rebuttal card — 1600x900 (Twitter native-image size).
+   Reusable frame: point-first title, chart area, source stamp + domain button.
+   The chart itself is injected as inline SVG by each chart-*.html. */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1600px; height: 900px; }
+
+.chartcard {
+  width: 1600px; height: 900px;
+  background: #fbfbf8; color: #1b1b1d;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  display: flex; flex-direction: column;
+  padding: 60px 80px 44px;
+  position: relative; overflow: hidden;
+}
+
+/* Point-first title — states the argument, not the topic. */
+.cc-title {
+  font-size: 66px; font-weight: 800; line-height: 1.04; letter-spacing: -0.5px;
+  max-width: 1360px;
+}
+.cc-title .hl { color: #b8240f; }
+.cc-sub {
+  font-size: 29px; font-weight: 400; color: #4a4a4f; line-height: 1.32;
+  margin-top: 18px; max-width: 1320px;
+}
+
+/* Chart area fills the middle. */
+.cc-chart { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
+.cc-chart svg { max-width: 100%; max-height: 100%; }
+
+/* Legend (optional) sits just above the footer. */
+.cc-legend { display: flex; gap: 44px; justify-content: center; margin: 8px 0 14px; }
+.cc-legend .item { display: flex; align-items: center; gap: 12px; font-size: 25px; color: #3a3a3f; }
+.cc-legend .dot { width: 26px; height: 26px; border-radius: 50%; display: inline-block; }
+.cc-legend .dot--ring { box-shadow: 0 0 0 4px #b8240f33; }
+
+/* Footer: source stamp (left) + always-on domain button (right). */
+.cc-foot { display: flex; justify-content: space-between; align-items: flex-end; }
+.cc-source { font-size: 22px; color: #6b6b70; letter-spacing: 0.03em; max-width: 900px; }
+.cc-btn {
+  background: #b8240f; color: #fff; font-size: 27px; font-weight: 700;
+  padding: 12px 28px; border-radius: 999px; letter-spacing: 0.01em; white-space: nowrap;
+}

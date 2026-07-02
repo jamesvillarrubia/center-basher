@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-title">Only <span class="hl">1 in 100</span> voters is a real centrist.</div>
+    <div class="cc-sub">About 40 in 100 call themselves &ldquo;moderate.&rdquo; Push them on actual
+      issues and just one is centrist across the board.</div>
+
+    <div class="cc-chart"><svg id="waffle" viewBox="0 0 1240 360" role="img"
+      aria-label="Waffle of 100 dots: 60 non-moderate, 39 self-described moderate, 1 true centrist circled"></svg></div>
+
+    <div class="cc-legend">
+      <div class="item"><span class="dot" style="background:#c9c7bf"></span>Not moderate (60)</div>
+      <div class="item"><span class="dot" style="background:#8b97a3"></span>Says &ldquo;moderate&rdquo; (40)</div>
+      <div class="item"><span class="dot dot--ring" style="background:#b8240f"></span>Centrist on every issue (1)</div>
+    </div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES 2016 Time Series, weighted (V160101). &ldquo;True Middler&rdquo; = 0.81% of voters.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    // 100 dots, 20 columns x 5 rows, filled row-major.
+    //   0–59  not moderate (light)      rows 1–3
+    //   60–98 self-ID moderate (medium) rows 4–5
+    //   99    True Middler (red, ringed) last dot, bottom-right
+    const svg = document.getElementById('waffle');
+    const COLS = 20, ROWS = 5, r = 22, sx = 62, sy = 68;
+    const x0 = (1240 - (COLS - 1) * sx) / 2, y0 = (360 - (ROWS - 1) * sy) / 2;
+    const NS = 'http://www.w3.org/2000/svg';
+    for (let i = 0; i < 100; i++) {
+      const col = i % COLS, row = (i / COLS) | 0;
+      const cx = x0 + col * sx, cy = y0 + row * sy;
+      const c = document.createElementNS(NS, 'circle');
+      c.setAttribute('cx', cx); c.setAttribute('cy', cy);
+      let fill = '#c9c7bf';                 // not moderate
+      if (i >= 60) fill = '#8b97a3';        // self-ID moderate
+      if (i === 99) {                        // the one true centrist
+        fill = '#b8240f';
+        c.setAttribute('r', r);
+        const ring = document.createElementNS(NS, 'circle');
+        ring.setAttribute('cx', cx); ring.setAttribute('cy', cy);
+        ring.setAttribute('r', r + 12);
+        ring.setAttribute('fill', 'none');
+        ring.setAttribute('stroke', '#b8240f');
+        ring.setAttribute('stroke-width', '4');
+        svg.appendChild(ring);
+      } else {
+        c.setAttribute('r', r);
+      }
+      c.setAttribute('fill', fill);
+      svg.appendChild(c);
+    }
+  </script>
+</body></html>
