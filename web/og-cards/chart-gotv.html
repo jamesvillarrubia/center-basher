@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-title">Policy messaging moves turnout by <span class="hl">zero</span>. Contact moves it 8 points.</div>
+    <div class="cc-sub">Average turnout lift by campaign tactic — Gerber &amp; Green&rsquo;s meta-synthesis of
+      two decades of randomized get-out-the-vote experiments.</div>
+
+    <div class="cc-chart"><svg id="gotv" viewBox="0 0 1240 402" role="img"
+      aria-label="Turnout lift by tactic: policy content 0.0pp, GOTV mail 0.8, phone 2.0, canvassing 4.3, social-pressure mail 8.1"></svg></div>
+
+    <div class="cc-legend">
+      <div class="item"><span class="dot" style="background:#2c5b9c"></span>Contact tactics</div>
+      <div class="item"><span class="dot dot--ring" style="background:#b8240f"></span>Policy / persuasion content</div>
+    </div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: Gerber &amp; Green, <em>Get Out the Vote</em> (Brookings), meta-synthesis of randomized GOTV field experiments.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('gotv');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const rows = [
+      { name: 'Social-pressure mail',        lift: 8.1, kind: 'contact' },
+      { name: 'Door-to-door canvassing',     lift: 4.3, kind: 'contact' },
+      { name: 'Volunteer phone calls',       lift: 2.0, kind: 'contact' },
+      { name: 'Standard GOTV mail',          lift: 0.8, kind: 'contact' },
+      { name: 'Policy / persuasion content', lift: 0.0, kind: 'content' },
+    ];
+    const X0 = 348, X1 = 1200, XMAX = 9, sc = (X1 - X0) / XMAX;
+    const barH = 46, step = 68, y0 = 8, axisY = y0 + rows.length * step - 6;
+    // faint gridlines + axis ticks
+    for (let pp = 0; pp <= 8; pp += 2) {
+      const x = X0 + pp * sc;
+      svg.appendChild(el('line', { x1: x, y1: 0, x2: x, y2: axisY, stroke: '#e8e6e0', 'stroke-width': 2 }));
+      const t = el('text', { x, y: axisY + 30, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 22 });
+      t.textContent = '+' + pp + 'pp'; svg.appendChild(t);
+    }
+    rows.forEach((r, i) => {
+      const yTop = y0 + i * step, mid = yTop + barH / 2;
+      const lab = el('text', { x: X0 - 20, y: mid + 9, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 25 });
+      lab.textContent = r.name; svg.appendChild(lab);
+      const w = Math.max(r.lift * sc, r.lift === 0 ? 6 : 4);
+      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 8,
+        fill: r.kind === 'content' ? '#b8240f' : '#2c5b9c' }));
+      const val = el('text', { x: X0 + w + 14, y: mid + 9, fill: '#1b1b1d', 'font-size': 27, 'font-weight': 700 });
+      val.textContent = '+' + r.lift.toFixed(1) + 'pp'; svg.appendChild(val);
+    });
+  </script>
+</body></html>

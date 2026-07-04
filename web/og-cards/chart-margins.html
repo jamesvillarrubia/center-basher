@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-title">Sanders&rarr;Trump defectors alone <span class="hl">dwarfed Trump&rsquo;s margin</span> in WI, MI &amp; PA.</div>
+    <div class="cc-sub">Trump&rsquo;s certified 2016 victory margin vs. the Sanders-primary voters who defected to
+      Trump (CES, vote-validated), in the three tipping-point states.</div>
+
+    <div class="cc-chart"><svg id="margins" viewBox="0 0 1240 400" role="img"
+      aria-label="Per decisive state, Sanders-to-Trump defectors exceeded Trump's margin 2.7x-5.3x"></svg></div>
+
+    <div class="cc-legend">
+      <div class="item"><span class="dot" style="background:#767676"></span>Trump&rsquo;s certified margin</div>
+      <div class="item"><span class="dot dot--ring" style="background:#b8240f"></span>Sanders&rarr;Trump defectors</div>
+    </div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: CES 2016 (vote-validated defection rate) &times; state certified election results.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('margins');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const fmt = (n) => n.toLocaleString('en-US');
+    const states = [
+      { st: 'Wisconsin',    margin: 22748, defect: 60960,  mult: '2.7×' },
+      { st: 'Michigan',     margin: 10704, defect: 56208,  mult: '5.3×' },
+      { st: 'Pennsylvania', margin: 44292, defect: 131432, mult: '3.0×' },
+    ];
+    const X0 = 210, X1 = 980, XMAX = 223434, sc = (X1 - X0) / XMAX;
+    const barH = 40, innerGap = 12, groupGap = 40, y0 = 6;
+    const groupH = barH * 2 + innerGap;
+    const axisY = y0 + states.length * (groupH + groupGap) - groupGap + 8;
+    // gridlines + axis ticks (0, 50k, 100k, 150k, 200k)
+    for (let v = 0; v <= 200000; v += 50000) {
+      const x = X0 + v * sc;
+      svg.appendChild(el('line', { x1: x, y1: 0, x2: x, y2: axisY, stroke: '#e8e6e0', 'stroke-width': 2 }));
+      const t = el('text', { x, y: axisY + 30, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 22 });
+      t.textContent = v === 0 ? '0' : (v / 1000) + 'k'; svg.appendChild(t);
+    }
+    states.forEach((s, i) => {
+      const gy = y0 + i * (groupH + groupGap);
+      const nl = el('text', { x: X0 - 22, y: gy + groupH / 2 + 8, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 27, 'font-weight': 600 });
+      nl.textContent = s.st; svg.appendChild(nl);
+      // margin (grey, top)
+      const mw = Math.max(s.margin * sc, 3);
+      svg.appendChild(el('rect', { x: X0, y: gy, width: mw, height: barH, rx: 6, fill: '#767676' }));
+      const ml = el('text', { x: X0 + mw + 12, y: gy + barH - 11, fill: '#1b1b1d', 'font-size': 24 });
+      ml.textContent = fmt(s.margin); svg.appendChild(ml);
+      // defect (red, bottom)
+      const dy = gy + barH + innerGap, dw = Math.max(s.defect * sc, 3);
+      svg.appendChild(el('rect', { x: X0, y: dy, width: dw, height: barH, rx: 6, fill: '#b8240f' }));
+      const dl = el('text', { x: X0 + dw + 12, y: dy + barH - 11, fill: '#1b1b1d', 'font-size': 24, 'font-weight': 700 });
+      dl.textContent = fmt(s.defect) + '  ·  ' + s.mult + ' the margin'; svg.appendChild(dl);
+    });
+  </script>
+</body></html>
