@@ -4,15 +4,15 @@
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Independents and swing voters are the centrist middle.&rdquo;</div>
     <div class="cc-title">&ldquo;Independents&rdquo; aren&rsquo;t centrist &mdash; their opinions <span class="hl">cancel out</span>.</div>
-    <div class="cc-sub">Where independents actually stand on each issue, minus where their average puts them:
-      real strong views on the wings, a phantom center. <strong>48%</strong> hold both a strong-left <em>and</em> strong-right view.</div>
+    <div class="cc-sub">Each issue position, minus where their average puts them: it undercounts the wings and overcounts
+      the center. <strong>48%</strong> hold both a strong-left <em>and</em> strong-right view.</div>
 
     <div class="cc-chart"><svg id="ill" viewBox="0 0 1240 418" role="img"
       aria-label="Per-issue minus averaged position for independents, in percentage points: positive on the wings, negative in the middle"></svg></div>
 
     <div class="cc-legend">
-      <div class="item"><span class="dot" style="background:#b8240f"></span><b>More</b> than the average shows (real strong views)</div>
-      <div class="item"><span class="dot" style="background:#5f83ac"></span><b>Fewer</b> (the phantom center)</div>
+      <div class="item"><span class="dot" style="background:#b8240f"></span><b>Undercounted</b> &mdash; more hold this than the average shows</div>
+      <div class="item"><span class="dot" style="background:#5f83ac"></span><b>Overcounted</b> &mdash; fewer than the average implies</div>
     </div>
 
     <div class="cc-foot">
@@ -32,7 +32,8 @@
     const scale = (plotBot - plotTop) / (DMAX - DMIN), zeroY = plotTop + DMAX * scale;
     const x = (p) => X0 + (p + 3) / 6 * W;
     const y = (d) => zeroY - d * scale;
-    const xL = -1.583, xR = 1.663;
+    // Catmull-Rom smoothing through the 7 points
+    const cr = (xd) => { if (xd <= -3) return DIFF[0]; if (xd >= 3) return DIFF[6]; const i = Math.floor(xd + 3), tt = xd + 3 - i; const P0 = DIFF[Math.max(0, i - 1)], P1 = DIFF[i], P2 = DIFF[i + 1], P3 = DIFF[Math.min(6, i + 2)]; return 0.5 * (2 * P1 + (-P0 + P2) * tt + (2 * P0 - 5 * P1 + 4 * P2 - P3) * tt * tt + (-P0 + 3 * P1 - 3 * P2 + P3) * tt * tt * tt); };
 
     // y-axis: faint gridlines + numbered ticks (percentage points vs. their average)
     [10, 5, 0, -5, -10, -15].forEach((v) => {
@@ -41,15 +42,23 @@
     });
     t(46, (y(DMAX) + y(DMIN)) / 2, 'points vs. their average', '#6b6b70', 23, 'middle', 600, true);
 
-    // red wings (per-issue above the average) + blue phantom center (below)
-    svg.appendChild(el('path', { d: `M ${x(-3)} ${zeroY} L ${x(-3)} ${y(DIFF[0])} L ${x(-2)} ${y(DIFF[1])} L ${x(xL)} ${zeroY} Z`, fill: '#b8240f', 'fill-opacity': 0.9 }));
-    svg.appendChild(el('path', { d: `M ${x(xR)} ${zeroY} L ${x(2)} ${y(DIFF[5])} L ${x(3)} ${y(DIFF[6])} L ${x(3)} ${zeroY} Z`, fill: '#b8240f', 'fill-opacity': 0.9 }));
-    svg.appendChild(el('path', { d: `M ${x(xL)} ${zeroY} L ${x(-1)} ${y(DIFF[2])} L ${x(0)} ${y(DIFF[3])} L ${x(1)} ${y(DIFF[4])} L ${x(xR)} ${zeroY} Z`, fill: '#5f83ac', 'fill-opacity': 0.9 }));
+    // smooth sampled curve, split into red (above 0) / blue (below 0) fills
+    const S = []; for (let xd = -3; xd <= 3.0001; xd += 0.04) S.push({ xd, d: cr(xd) });
+    const flush = (seg, sgn) => { if (seg.length < 2) return; let dd = `M ${x(seg[0].xd)} ${zeroY}`; seg.forEach((s) => dd += ` L ${x(s.xd)} ${y(s.d)}`); dd += ` L ${x(seg[seg.length - 1].xd)} ${zeroY} Z`; svg.appendChild(el('path', { d: dd, fill: sgn > 0 ? '#b8240f' : '#5f83ac', 'fill-opacity': 0.9 })); };
+    let cur = [S[0]], sgn = S[0].d >= 0 ? 1 : -1;
+    for (let k = 1; k < S.length; k++) {
+      const pr = S[k - 1], p = S[k], s2 = p.d >= 0 ? 1 : -1;
+      if (s2 !== sgn) { const xc = pr.xd + (p.xd - pr.xd) * (pr.d / (pr.d - p.d)); cur.push({ xd: xc, d: 0 }); flush(cur, sgn); cur = [{ xd: xc, d: 0 }, p]; sgn = s2; }
+      else cur.push(p);
+    }
+    flush(cur, sgn);
     svg.appendChild(el('line', { x1: X0, y1: zeroY, x2: X1, y2: zeroY, stroke: '#1b1b1d', 'stroke-width': 3 }));
+    // dots at the 7 measured points
+    pos.forEach((p, i) => svg.appendChild(el('circle', { cx: x(p), cy: y(DIFF[i]), r: 9, fill: DIFF[i] >= 0 ? '#b8240f' : '#5f83ac', stroke: '#fbfbf8', 'stroke-width': 3 })));
 
     // labels
-    t(x(3), y(DIFF[6]) - 18, 'real strong views', '#b8240f', 25, 'end', 800);
-    t(x(0), zeroY + 72, 'the phantom center', '#ffffff', 25, 'middle', 800);
+    t(x(3), y(DIFF[6]) - 18, 'undercounted positions', '#b8240f', 25, 'end', 800);
+    t(x(0), zeroY + 72, 'overcounted positions', '#ffffff', 25, 'middle', 800);
     t(x(-3), 400, 'Extremely liberal', '#8a887f', 23, 'start');
     t(x(0), 400, 'Center', '#8a887f', 23, 'middle');
     t(x(3), 400, 'Extremely conservative', '#8a887f', 23, 'end');
