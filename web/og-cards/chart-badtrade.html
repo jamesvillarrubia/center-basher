@@ -42,7 +42,7 @@
       const nm = el('text', { x: X0 - 24, y: r.sub ? mid - 2 : mid + 9, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 27, 'font-weight': 700 }); nm.textContent = r.name; svg.appendChild(nm);
       if (r.sub) { const s = el('text', { x: X0 - 24, y: mid + 26, 'text-anchor': 'end', fill: '#7a7772', 'font-size': 22 }); s.textContent = r.sub; svg.appendChild(s); }
       const w = r.v * sc;
-      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 8, fill: r.hot ? '#b8240f' : '#767676' }));
+      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 8, fill: r.hot ? '#b8240f' : '#8b9aa8' }));
       const val = el('text', { x: X0 + w + 16, y: mid + 10, fill: '#1b1b1d', 'font-size': 30, 'font-weight': 800 }); val.textContent = r.v.toFixed(2); svg.appendChild(val);
     });
   </script>

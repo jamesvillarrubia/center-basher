@@ -6,12 +6,12 @@
     <div class="cc-title">The worst economy in 20 years <span class="hl">re-elected</span> the incumbent.</div>
     <div class="cc-sub">November unemployment vs. whether the party in power kept the White House.</div>
 
-    <div class="cc-chart"><svg id="fund" viewBox="0 0 1240 400" role="img"
-      aria-label="November unemployment by cycle with incumbent-party outcome; no relationship"></svg></div>
+    <div class="cc-chart"><svg id="fund" viewBox="0 0 1240 410" role="img"
+      aria-label="November unemployment by cycle; the party in power held the White House at the highest unemployment and lost at the lowest"></svg></div>
 
     <div class="cc-legend">
-      <div class="item"><span class="dot" style="background:#8b97a3"></span>Party in power HELD the White House</div>
-      <div class="item"><span class="dot dot--ring" style="background:#b8240f"></span>Party in power LOST it</div>
+      <div class="item"><span class="dot" style="background:#2c5b9c"></span>Party in power <b>HELD</b> the White House</div>
+      <div class="item"><span class="dot" style="background:#c2c0b6"></span>Party in power <b>lost</b> it</div>
     </div>
 
     <div class="cc-foot">
@@ -24,23 +24,31 @@
     const NS = 'http://www.w3.org/2000/svg';
     const svg = document.getElementById('fund');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
-    // year, Nov U-3, incumbent party held WH? (false = lost)
     const D = [
       { yr: 2000, u: 3.9, held: false }, { yr: 2004, u: 5.4, held: true },
       { yr: 2008, u: 6.8, held: false }, { yr: 2012, u: 7.8, held: true },
       { yr: 2016, u: 4.6, held: false }, { yr: 2020, u: 6.7, held: false },
       { yr: 2024, u: 4.2, held: false },
     ];
-    const X0 = 70, X1 = 1180, baseY = 300, topY = 20, UMAX = 9;
-    const bandW = (X1 - X0) / D.length, bw = 96;
-    const h = (u) => (u / UMAX) * (baseY - topY);
+    const AX = 150, X1 = 1195, baseY = 300, topY = 24, UMAX = 8.5;
+    const yU = (u) => baseY - u / UMAX * (baseY - topY);
+    // y-axis gridlines + unemployment labels
+    for (let u = 0; u <= 8; u += 2) {
+      svg.appendChild(el('line', { x1: AX, y1: yU(u), x2: X1, y2: yU(u), stroke: '#eae7e0', 'stroke-width': 2 }));
+      const t = el('text', { x: AX - 16, y: yU(u) + 8, 'text-anchor': 'end', fill: '#9a988f', 'font-size': 23 }); t.textContent = u + '%'; svg.appendChild(t);
+    }
+    // rotated y-axis title
+    const yt = el('text', { x: 34, y: (yU(0) + yU(8)) / 2, 'text-anchor': 'middle', fill: '#6b6b70', 'font-size': 24, 'font-weight': 600, transform: `rotate(-90 34 ${(yU(0) + yU(8)) / 2})` });
+    yt.textContent = 'November unemployment'; svg.appendChild(yt);
+    // bars
+    const bandW = (X1 - AX) / D.length, bw = 92;
     D.forEach((d, i) => {
-      const cx = X0 + bandW * (i + 0.5), bx = cx - bw / 2, bh = h(d.u), by = baseY - bh;
-      svg.appendChild(el('rect', { x: bx, y: by, width: bw, height: bh, rx: 8, fill: d.held ? '#8b97a3' : '#b8240f' }));
-      const uv = el('text', { x: cx, y: by - 14, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 27, 'font-weight': 700 }); uv.textContent = d.u.toFixed(1) + '%'; svg.appendChild(uv);
-      const yl = el('text', { x: cx, y: baseY + 36, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 25, 'font-weight': 600 }); yl.textContent = d.yr; svg.appendChild(yl);
-      const rl = el('text', { x: cx, y: baseY + 66, 'text-anchor': 'middle', fill: d.held ? '#6f7a86' : '#b8240f', 'font-size': 22, 'font-weight': 700 }); rl.textContent = d.held ? 'HELD' : 'LOST'; svg.appendChild(rl);
+      const cx = AX + bandW * (i + 0.5), by = yU(d.u), bh = baseY - by;
+      svg.appendChild(el('rect', { x: cx - bw / 2, y: by, width: bw, height: bh, rx: 8, fill: d.held ? '#2c5b9c' : '#c2c0b6' }));
+      const uv = el('text', { x: cx, y: by - 14, 'text-anchor': 'middle', fill: d.held ? '#1b1b1d' : '#9a988f', 'font-size': 27, 'font-weight': d.held ? 800 : 600 }); uv.textContent = d.u.toFixed(1) + '%'; svg.appendChild(uv);
+      const yl = el('text', { x: cx, y: baseY + 36, 'text-anchor': 'middle', fill: d.held ? '#1b1b1d' : '#a9a79e', 'font-size': 25, 'font-weight': 600 }); yl.textContent = d.yr; svg.appendChild(yl);
+      const rl = el('text', { x: cx, y: baseY + 66, 'text-anchor': 'middle', fill: d.held ? '#2c5b9c' : '#b3b1a8', 'font-size': 22, 'font-weight': 800 }); rl.textContent = d.held ? 'HELD' : 'lost'; svg.appendChild(rl);
     });
-    svg.appendChild(el('line', { x1: X0, y1: baseY, x2: X1, y2: baseY, stroke: '#c9c6bd', 'stroke-width': 2 }));
+    svg.appendChild(el('line', { x1: AX, y1: baseY, x2: X1, y2: baseY, stroke: '#c9c6bd', 'stroke-width': 2 }));
   </script>
 </body></html>

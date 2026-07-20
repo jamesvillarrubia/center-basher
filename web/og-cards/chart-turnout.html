@@ -30,7 +30,7 @@
       const l1 = el('text', { x: X0 - 26, y: mid - 4, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 30, 'font-weight': 700 }); l1.textContent = r.lab; svg.appendChild(l1);
       const l2 = el('text', { x: X0 - 26, y: mid + 30, 'text-anchor': 'end', fill: '#7a7772', 'font-size': 24 }); l2.textContent = r.sub; svg.appendChild(l2);
       const w = Math.max(r.v * sc, 5);
-      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 10, fill: '#b8240f' }));
+      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 10, fill: i === 0 ? '#2c5b9c' : '#b8240f' }));
       const val = el('text', { x: X0 + w + 20, y: mid + 13, fill: '#1b1b1d', 'font-size': 46, 'font-weight': 800 }); val.textContent = r.v.toFixed(2); svg.appendChild(val);
     });
     svg.appendChild(el('line', { x1: X0, y1: y0 - 8, x2: X0, y2: y0 + step + barH + 8, stroke: '#d9d6cd', 'stroke-width': 2 }));
