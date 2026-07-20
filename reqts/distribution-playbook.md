@@ -98,17 +98,24 @@ image *is* the argument; the tweet just aims it.
 
 #### Rebuttal library — bad take → the chart that kills it
 
-| When they say… | Fire this chart | Point-first title on the image |
-|---|---|---|
-| "Dems must move to the center to win" | change-lane scoreboard | *The establishment-cast candidate has lost the change lane every low-trust cycle since 2000* |
-| "Most voters are moderates / the center is huge" | 100-voters funnel (Fig C) | *Only 1 in 100 voters is actually a centrist* |
-| "Campaigns win by persuading moderates" | Kalla-Broockman zero | *All the ads + door-knocks move vote choice by ~0.0 points* |
-| "Bernie could never have won" | WI/MI/PA margins + moveable-coalition | *In 2016 the Sanders→Trump defectors alone outnumbered Trump's margin in WI, MI, PA* |
-| "Harris lost because she was too far left" | turnout drop-off / change-lane | *The establishment lane, not the left lane, is where the votes leaked* |
-| "It's just the economy" | trust collapse + racial-resentment weight | *Racial resentment didn't spike after Obama — its vote-weight did (≈5×)* |
-| "Love your candidate → turnout" | stakes-vs-warmth turnout coefficients | *What turns people out is stakes and fear, not warmth to your favorite* |
+Cards live at `web/public/og/charts/<slug>.png` (1600×900). Rebuild with `pnpm render:charts`.
 
-Build these as a **standing deck** so a rebuttal is a 30-second drag-and-drop, not a design task.
+| When they say… | Card (slug) | Point-first title on the image | Built |
+|---|---|---|---|
+| "Dems must move to the center to win" | `changelane` | *In every low-trust election, the 'electable' establishment pick lost* | ✅ |
+| "There's a big moderate middle to win" | `illusion` | *The 'moderate middle' is an averaging trick* (26% at the poles vs 0.4% on average) | ✅ |
+| "Most voters are moderates" | `1in100` | *Only 1 in 100 voters is actually a centrist* | ✅ |
+| "The persuadable center is where elections are won" | `mirage` | *The swingable 'moderate middle' is about 5 voters in 100* | ✅ |
+| "Move center to win over swing voters" | `badtrade` | *The voters who flipped 2016 were the most anti-establishment* | ✅ |
+| "Campaigns win by persuading moderates" | `persuasion` | *All the ads + door-knocks move vote choice by ~0.0 points* | ✅ |
+| "Bernie could never have won" | `margins` | *Sanders→Trump defectors alone dwarfed Trump's margin in WI/MI/PA* | ✅ |
+| "Centrism expands the electorate / boosts turnout" | `turnout` | *Ideology decides WHO you vote for — not WHETHER you show up* | ✅ |
+| "We just need better turnout messaging" | `gotv` | *Policy messaging moves turnout by zero; contact moves it 8 points* | ✅ |
+| "It's just the economy" | `fundamentals` | *The worst economy in 20 years re-elected the incumbent* | ✅ |
+| "It's just the economy" (mechanism) | racial-resentment weight | *Racial resentment didn't spike after Obama — its vote-weight did (≈5×)* | ☐ |
+| "Love your candidate → turnout" | stakes-vs-warmth | *What turns people out is stakes and fear, not warmth to your favorite* | ☐ |
+
+Ten cards built; two left. A rebuttal is now a 30-second drag-and-drop, not a design task.
 
 ### LinkedIn — text post, NO link in body (link in first comment)
 
