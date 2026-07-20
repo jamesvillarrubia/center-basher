@@ -2,22 +2,27 @@
 <html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
 <body>
   <div class="chartcard">
-    <div class="cc-claim"><span class="tag">The pitch</span> &ldquo;Court the self-described moderate &mdash; they&rsquo;re centrist.&rdquo;</div>
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Court the self-described moderate &mdash; they&rsquo;re centrist.&rdquo;</div>
     <div class="cc-title">&ldquo;Moderates&rdquo; aren&rsquo;t moderate &mdash; their opinions <span class="hl">cancel out</span>.</div>
-    <div class="cc-sub">Everyone who calls themselves &ldquo;moderate.&rdquo; <b>Averaged</b>, they look centrist &mdash; almost
-      no one on the ends (grey). But their <b>actual</b> issue positions reach the poles (red): 88% hold a
-      strong view, and 43% hold a strong-left <em>and</em> a strong-right one.</div>
+    <div class="cc-sub">Self-described moderates: average their positions (grey) and a center appears that isn&rsquo;t
+      really there (red) &mdash; <strong>43%</strong> hold both a strong-left <em>and</em> strong-right view.</div>
 
-    <div class="cc-chart"><svg id="ill" viewBox="0 0 1240 384" role="img"
-      aria-label="Self-described moderates: averaged positions spike at center with empty ends; actual positions reach the poles"></svg></div>
+    <div class="cc-chart"><svg id="ill" viewBox="0 0 1240 424" role="img"
+      aria-label="Averaged positions form a center bump; per-issue positions have fat tails; the gap at the poles and the canceling bump at center">
+      <defs>
+        <pattern id="xhatch" width="13" height="13" patternUnits="userSpaceOnUse">
+          <path d="M0,0 l13,13 M13,0 l-13,13" stroke="#a7b2bb" stroke-width="1.5" fill="none"/>
+        </pattern>
+      </defs>
+    </svg></div>
 
     <div class="cc-legend">
-      <div class="item"><span class="dot" style="background:#8b97a3"></span><b>Averaged</b> &mdash; looks moderate</div>
-      <div class="item"><span class="dot" style="background:#b8240f"></span><b>Actual</b> issue positions</div>
+      <div class="item"><span style="display:inline-block;width:36px;height:0;border-top:5px solid #8b97a3;vertical-align:middle;margin-right:11px"></span><b>Averaged</b> view</div>
+      <div class="item"><span style="display:inline-block;width:36px;height:0;border-top:5px dashed #b8240f;vertical-align:middle;margin-right:11px"></span><b>Per issue</b> &mdash; where they actually stand</div>
     </div>
 
     <div class="cc-foot">
-      <div class="cc-source">Source: ANES 2016 &mdash; the 34% who self-place &ldquo;moderate&rdquo; on lib-con; their six 7-pt issue positions; weighted (V160101).</div>
+      <div class="cc-source">Source: ANES 2016 &mdash; the 34% who self-place &ldquo;moderate&rdquo;; their six 7-pt issue positions; weighted (V160101).</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
@@ -27,26 +32,46 @@
     const svg = document.getElementById('ill');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
     const pos = [-3, -2, -1, 0, 1, 2, 3];
-    const AVG = [0.2, 3.1, 23.2, 42.3, 26.4, 4.7, 0.1];   // averaged position — spike, empty ends
-    const IND = [10.5, 10.7, 15.2, 26.0, 16.6, 11.7, 9.3]; // actual issue positions — reaches poles
-    const X0 = 120, X1 = 1120, W = X1 - X0, axisY = 320, topY = 30, YMAX = 45;
+    const AVG = [0.2, 3.1, 23.2, 42.3, 26.4, 4.7, 0.1];    // averaged — the fake center bump
+    const IND = [10.5, 10.7, 15.2, 26.0, 16.6, 11.7, 9.3];  // per issue — fat tails
+    const X0 = 120, X1 = 1120, W = X1 - X0, axisY = 360, topY = 26, YMAX = 45;
     const x = (p) => X0 + (p + 3) / 6 * W;
     const y = (v) => axisY - v / YMAX * (axisY - topY);
-    // highlight the poles (the "unexpected" ends)
-    [-3, 3].forEach((p) => svg.appendChild(el('rect', { x: x(p) - 66, y: topY, width: 132, height: axisY - topY, fill: '#b8240f', 'fill-opacity': 0.06 })));
+    const interp = (arr, xd) => { if (xd <= -3) return arr[0]; if (xd >= 3) return arr[6]; const i = Math.floor(xd + 3); return arr[i] + (arr[i + 1] - arr[i]) * (xd + 3 - i); };
+    const aPy = (xd) => y(interp(AVG, xd)), iPy = (xd) => y(interp(IND, xd));
+    const xL = -1.513, xR = 1.583; // where the two curves cross
+
     svg.appendChild(el('line', { x1: X0, y1: axisY, x2: X1, y2: axisY, stroke: '#d9d6cd', 'stroke-width': 2 }));
-    // AVG filled area (the moderate they appear to be)
-    let dA = `M ${x(-3)} ${axisY}`; pos.forEach((p, i) => dA += ` L ${x(p)} ${y(AVG[i])}`); dA += ` L ${x(3)} ${axisY} Z`;
-    svg.appendChild(el('path', { d: dA, fill: '#8b97a3', 'fill-opacity': 0.8 }));
-    // INDIV bold line + dots (where they actually stand)
+
+    // TAILS: gap where per-issue exceeds averaged — faint red fill + vertical gap lines
+    [[-3, -2, xL], [xR, 2, 3]].forEach((nodes) => {
+      let d = ''; nodes.forEach((xd, i) => d += (i ? ' L' : 'M') + ` ${x(xd)} ${iPy(xd)}`);
+      [...nodes].reverse().forEach((xd) => d += ` L ${x(xd)} ${aPy(xd)}`); d += ' Z';
+      svg.appendChild(el('path', { d, fill: '#b8240f', 'fill-opacity': 0.08 }));
+      for (let xd = nodes[0] + 0.02; xd < nodes[nodes.length - 1]; xd += 0.17) {
+        svg.appendChild(el('line', { x1: x(xd), y1: aPy(xd), x2: x(xd), y2: iPy(xd), stroke: '#b8240f', 'stroke-width': 2, 'stroke-opacity': 0.5 }));
+      }
+    });
+
+    // CENTER: the averaged bump that isn't real — crosshatch between the curves
+    const cn = [xL, -1, 0, 1, xR];
+    let dc = ''; cn.forEach((xd, i) => dc += (i ? ' L' : 'M') + ` ${x(xd)} ${aPy(xd)}`);
+    [...cn].reverse().forEach((xd) => dc += ` L ${x(xd)} ${iPy(xd)}`); dc += ' Z';
+    svg.appendChild(el('path', { d: dc, fill: 'url(#xhatch)' }));
+
+    // the two curves
+    let dA = ''; pos.forEach((p, i) => dA += (i ? ' L' : 'M') + ` ${x(p)} ${y(AVG[i])}`);
+    svg.appendChild(el('path', { d: dA, fill: 'none', stroke: '#8b97a3', 'stroke-width': 5, 'stroke-linejoin': 'round' }));
     let dI = ''; pos.forEach((p, i) => dI += (i ? ' L' : 'M') + ` ${x(p)} ${y(IND[i])}`);
-    svg.appendChild(el('path', { d: dI, fill: 'none', stroke: '#b8240f', 'stroke-width': 5, 'stroke-linejoin': 'round' }));
-    pos.forEach((p, i) => svg.appendChild(el('circle', { cx: x(p), cy: y(IND[i]), r: 8, fill: '#b8240f', stroke: '#fbfbf8', 'stroke-width': 3 })));
-    // pole callout: expected ~0 vs actual ~10%
-    const cap = el('text', { x: x(3), y: y(9.3) - 24, 'text-anchor': 'middle', fill: '#b8240f', 'font-size': 24, 'font-weight': 800 }); cap.textContent = '~10% here'; svg.appendChild(cap);
-    const cap2 = el('text', { x: x(3), y: axisY - 12, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 21 }); cap2.textContent = 'avg: ~0'; svg.appendChild(cap2);
+    svg.appendChild(el('path', { d: dI, fill: 'none', stroke: '#b8240f', 'stroke-width': 5, 'stroke-linejoin': 'round', 'stroke-dasharray': '3 11', 'stroke-linecap': 'round' }));
+
+    // annotations
+    const t = (tx, ty, txt, fill, size, anchor, weight) => { const n = el('text', { x: tx, y: ty, 'text-anchor': anchor || 'middle', fill, 'font-size': size, 'font-weight': weight || 400 }); n.textContent = txt; svg.appendChild(n); };
+    t(x(0), y(42.3) - 16, 'a bump that cancels out', '#6f7a86', 24, 'middle', 700);
+    t(x(2.4), y(11) - 18, 'real strong views', '#b8240f', 24, 'middle', 800);
     // x-axis category labels
-    const lab = (p, txt) => { const t = el('text', { x: x(p), y: axisY + 36, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 23 }); t.textContent = txt; svg.appendChild(t); };
-    lab(-3, 'Extremely liberal'); lab(0, 'Center'); lab(3, 'Extremely conservative');
+    t(x(-3), axisY + 36, 'Extremely liberal', '#8a887f', 23, 'middle');
+    t(x(0), axisY + 36, 'Center', '#8a887f', 23, 'middle');
+    t(x(3), axisY + 36, 'Extremely conservative', '#8a887f', 23, 'middle');
   </script>
 </body></html>
