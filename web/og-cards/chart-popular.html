@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Centrist policies are the most popular.&rdquo;</div>
+    <div class="cc-title">The most popular policies aren&rsquo;t centrist &mdash; they&rsquo;re <span class="hl">progressive</span>.</div>
+    <div class="cc-sub">The proposals with the widest support are redistributive, not split-the-difference compromises.</div>
+
+    <div class="cc-chart"><svg id="pop" viewBox="0 0 1240 396" role="img"
+      aria-label="Support for progressive proposals: negotiate drug prices 85%, $15 minimum wage 62%, tax income over $400k 58%"></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: KFF 2024 (Medicare drug-price negotiation); Pew Research 2021 ($15 minimum wage) &amp; 2025 (tax on income over $400k).</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('pop');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const rows = [
+      { name: 'Let Medicare negotiate drug prices', v: 85 },
+      { name: 'Raise the minimum wage to $15', v: 62 },
+      { name: 'Tax income over $400,000', v: 58 },
+    ];
+    const X0 = 610, X1 = 1130, VMAX = 100, sc = (X1 - X0) / VMAX;
+    const barH = 62, step = 104, y0 = 18, axisY = y0 + rows.length * step - 22;
+    for (let v = 0; v <= 100; v += 25) {
+      const gx = X0 + v * sc;
+      svg.appendChild(el('line', { x1: gx, y1: 0, x2: gx, y2: axisY, stroke: '#e8e6e0', 'stroke-width': 2 }));
+      const t = el('text', { x: gx, y: axisY + 30, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 22 }); t.textContent = v + '%'; svg.appendChild(t);
+    }
+    rows.forEach((r, i) => {
+      const yTop = y0 + i * step, mid = yTop + barH / 2;
+      const nm = el('text', { x: X0 - 24, y: mid + 9, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 27, 'font-weight': 700 }); nm.textContent = r.name; svg.appendChild(nm);
+      const w = r.v * sc;
+      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 8, fill: '#2c5b9c' }));
+      const val = el('text', { x: X0 + w + 16, y: mid + 10, fill: '#1b1b1d', 'font-size': 30, 'font-weight': 800 }); val.textContent = r.v + '%'; svg.appendChild(val);
+    });
+  </script>
+</body></html>
