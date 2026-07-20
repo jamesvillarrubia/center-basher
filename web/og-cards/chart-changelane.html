@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css">
+<style>
+  .sb { width: 100%; display: flex; flex-direction: column; gap: 15px; }
+  .sb-head { display: grid; grid-template-columns: 132px 1fr 1fr; gap: 20px; padding: 0 6px;
+    font-size: 23px; font-weight: 600; color: #6b6b70; letter-spacing: 0.01em; }
+  .sb-row { display: grid; grid-template-columns: 132px 1fr 1fr; gap: 20px; }
+  .sb-year { font-size: 44px; font-weight: 800; color: #1b1b1d; display: flex; align-items: center; }
+  .sb-cell { border-radius: 12px; padding: 15px 24px; }
+  .sb-cell--lost { background: #efece6; }
+  .sb-cell--won  { background: #fbeae7; border-left: 7px solid #b8240f; }
+  .sb-cand { font-size: 33px; font-weight: 700; line-height: 1.1; }
+  .sb-cell--lost .sb-cand { color: #6a6862; }
+  .sb-cell--won  .sb-cand { color: #b8240f; }
+  .sb-role { font-size: 21px; margin-top: 4px; color: #7a7772; }
+  .sb-tag { font-weight: 800; }
+  .sb-cell--lost .sb-tag { color: #9a9891; }
+  .sb-cell--won  .sb-tag { color: #b8240f; }
+</style></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-title">In every low-trust election, the &lsquo;electable&rsquo; establishment pick <span class="hl">lost</span>.</div>
+    <div class="cc-sub">2016&ndash;2024, with trust in government near record lows: the candidate cast as the
+      safe establishment continuation vs. the one who ran as change &mdash; and who actually won.</div>
+
+    <div class="cc-chart"><div class="sb">
+      <div class="sb-head"><div></div><div>Cast as the establishment / &ldquo;safe&rdquo; pick</div><div>Ran as change / outsider</div></div>
+      <div class="sb-row">
+        <div class="sb-year">2016</div>
+        <div class="sb-cell sb-cell--lost"><div class="sb-cand">Clinton</div><div class="sb-role"><span class="sb-tag">LOST</span> &middot; the party&rsquo;s &ldquo;most electable&rdquo; pick</div></div>
+        <div class="sb-cell sb-cell--won"><div class="sb-cand">Trump</div><div class="sb-role"><span class="sb-tag">WON</span> &middot; ran as the outsider</div></div>
+      </div>
+      <div class="sb-row">
+        <div class="sb-year">2020</div>
+        <div class="sb-cell sb-cell--lost"><div class="sb-cand">Trump <span style="font-size:21px;font-weight:600">(incumbent)</span></div><div class="sb-role"><span class="sb-tag">LOST</span> &middot; now the sitting &ldquo;system&rdquo;</div></div>
+        <div class="sb-cell sb-cell--won"><div class="sb-cand">Biden</div><div class="sb-role"><span class="sb-tag">WON</span> &middot; ran as change / restoration</div></div>
+      </div>
+      <div class="sb-row">
+        <div class="sb-year">2024</div>
+        <div class="sb-cell sb-cell--lost"><div class="sb-cand">Harris</div><div class="sb-role"><span class="sb-tag">LOST</span> &middot; the establishment consolidation</div></div>
+        <div class="sb-cell sb-cell--won"><div class="sb-cand">Trump</div><div class="sb-role"><span class="sb-tag">WON</span> &middot; ran as the outsider</div></div>
+      </div>
+    </div></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES trust composite (low-trust era, &asymp;0.23) &times; frame-match scoreboard, 12 cycles &mdash; regime-favored frame won 11 of 12 by Electoral College.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+</body></html>
