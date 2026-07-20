@@ -2,21 +2,21 @@
 <html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
 <body>
   <div class="chartcard">
-    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Court the self-described moderate &mdash; they&rsquo;re centrist.&rdquo;</div>
-    <div class="cc-title">&ldquo;Moderates&rdquo; aren&rsquo;t moderate &mdash; their opinions <span class="hl">cancel out</span>.</div>
-    <div class="cc-sub">Averaged, self-described moderates peak at the center (grey). Their actual per-issue positions
-      (red) stay full at the poles &mdash; <strong>43%</strong> hold both a strong-left <em>and</em> strong-right view.</div>
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Independents and swing voters are the centrist middle.&rdquo;</div>
+    <div class="cc-title">&ldquo;Independents&rdquo; aren&rsquo;t centrist &mdash; their opinions <span class="hl">cancel out</span>.</div>
+    <div class="cc-sub">Where independents actually stand on each issue, minus where their average puts them:
+      real strong views on the wings, a phantom center. <strong>48%</strong> hold both a strong-left <em>and</em> strong-right view.</div>
 
-    <div class="cc-chart"><svg id="ill" viewBox="0 0 1240 424" role="img"
-      aria-label="Both distributions scaled to their center; the averaged curve collapses at the poles while the per-issue curve stays elevated, opening a large gap on the sides"></svg></div>
+    <div class="cc-chart"><svg id="ill" viewBox="0 0 1240 430" role="img"
+      aria-label="Per-issue minus averaged positions for independents: positive on the wings, negative in the middle"></svg></div>
 
     <div class="cc-legend">
-      <div class="item"><span style="display:inline-block;width:36px;height:0;border-top:5px solid #5f83ac;vertical-align:middle;margin-right:11px"></span><b>Averaged</b> view</div>
-      <div class="item"><span style="display:inline-block;width:36px;height:0;border-top:5px dashed #b8240f;vertical-align:middle;margin-right:11px"></span><b>Per issue</b> &mdash; where they actually stand</div>
+      <div class="item"><span class="dot" style="background:#b8240f"></span><b>More</b> than the average shows (real strong views)</div>
+      <div class="item"><span class="dot" style="background:#5f83ac"></span><b>Fewer</b> (the phantom center)</div>
     </div>
 
     <div class="cc-foot">
-      <div class="cc-source">Source: ANES 2016 &mdash; the 34% who self-place &ldquo;moderate&rdquo;; six 7-pt issue positions, each curve scaled to its center; weighted.</div>
+      <div class="cc-source">Source: ANES 2016 &mdash; independents + leaners (36% of voters); six 7-pt issue positions vs. their mean; weighted.</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
@@ -26,41 +26,28 @@
     const svg = document.getElementById('ill');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
     const pos = [-3, -2, -1, 0, 1, 2, 3];
-    const AVG = [0.2, 3.1, 23.2, 42.3, 26.4, 4.7, 0.1];
-    const IND = [10.5, 10.7, 15.2, 26.0, 16.6, 11.7, 9.3];
-    // relative axis: scale each distribution to its own center (position 0) so both peak at 1
-    const AVGr = AVG.map((v) => v / AVG[3]);
-    const INDr = IND.map((v) => v / IND[3]);
-    const X0 = 120, X1 = 1120, W = X1 - X0, axisY = 356, topY = 30, YMAX = 1.08;
+    const DIFF = [12.1, 6.0, -8.4, -14.5, -12.4, 6.3, 10.9]; // per-issue minus averaged (pp)
+    const X0 = 120, X1 = 1120, W = X1 - X0, DMAX = 14, DMIN = -18, plotTop = 34;
+    const scale = (356 - plotTop) / (DMAX - DMIN), zeroY = plotTop + DMAX * scale;
     const x = (p) => X0 + (p + 3) / 6 * W;
-    const y = (v) => axisY - v / YMAX * (axisY - topY);
-    const interp = (arr, xd) => { if (xd <= -3) return arr[0]; if (xd >= 3) return arr[6]; const i = Math.floor(xd + 3); return arr[i] + (arr[i + 1] - arr[i]) * (xd + 3 - i); };
+    const y = (d) => zeroY - d * scale;
+    const xL = -1.583, xR = 1.663; // zero-crossings
 
-    svg.appendChild(el('line', { x1: X0, y1: axisY, x2: X1, y2: axisY, stroke: '#d9d6cd', 'stroke-width': 2 }));
+    // red wings (per-issue above the average) + blue middle (phantom center)
+    svg.appendChild(el('path', { d: `M ${x(-3)} ${zeroY} L ${x(-3)} ${y(DIFF[0])} L ${x(-2)} ${y(DIFF[1])} L ${x(xL)} ${zeroY} Z`, fill: '#b8240f', 'fill-opacity': 0.9 }));
+    svg.appendChild(el('path', { d: `M ${x(xR)} ${zeroY} L ${x(2)} ${y(DIFF[5])} L ${x(3)} ${y(DIFF[6])} L ${x(3)} ${zeroY} Z`, fill: '#b8240f', 'fill-opacity': 0.9 }));
+    svg.appendChild(el('path', { d: `M ${x(xL)} ${zeroY} L ${x(-1)} ${y(DIFF[2])} L ${x(0)} ${y(DIFF[3])} L ${x(1)} ${y(DIFF[4])} L ${x(xR)} ${zeroY} Z`, fill: '#5f83ac', 'fill-opacity': 0.9 }));
 
-    // the GAP between per-issue (upper) and averaged (lower): near-zero at center, large on the sides
-    let g = ''; pos.forEach((p, i) => g += (i ? ' L' : 'M') + ` ${x(p)} ${y(INDr[i])}`);
-    [...pos].reverse().forEach((p, k) => { const i = 6 - k; g += ` L ${x(p)} ${y(AVGr[i])}`; }); g += ' Z';
-    svg.appendChild(el('path', { d: g, fill: '#b8240f', 'fill-opacity': 0.12 }));
-    // vertical gap ticks — long on the sides, vanishing in the middle
-    for (let xd = -2.85; xd <= 2.85; xd += 0.16) {
-      const yA = y(interp(AVGr, xd)), yI = y(interp(INDr, xd));
-      if (yA - yI > 4) svg.appendChild(el('line', { x1: x(xd), y1: yA, x2: x(xd), y2: yI, stroke: '#b8240f', 'stroke-width': 2, 'stroke-opacity': 0.4 }));
-    }
-
-    // curves
-    let dA = ''; pos.forEach((p, i) => dA += (i ? ' L' : 'M') + ` ${x(p)} ${y(AVGr[i])}`);
-    svg.appendChild(el('path', { d: dA, fill: 'none', stroke: '#5f83ac', 'stroke-width': 5, 'stroke-linejoin': 'round' }));
-    let dI = ''; pos.forEach((p, i) => dI += (i ? ' L' : 'M') + ` ${x(p)} ${y(INDr[i])}`);
-    svg.appendChild(el('path', { d: dI, fill: 'none', stroke: '#b8240f', 'stroke-width': 5, 'stroke-linejoin': 'round', 'stroke-dasharray': '3 11', 'stroke-linecap': 'round' }));
+    // zero baseline
+    svg.appendChild(el('line', { x1: X0 - 6, y1: zeroY, x2: X1 + 6, y2: zeroY, stroke: '#1b1b1d', 'stroke-width': 3 }));
 
     const t = (tx, ty, txt, fill, size, anchor, weight) => { const n = el('text', { x: tx, y: ty, 'text-anchor': anchor || 'middle', fill, 'font-size': size, 'font-weight': weight || 400 }); n.textContent = txt; svg.appendChild(n); };
-    // grounded callouts above each side lobe (clear of the axis labels)
-    t(x(2.35), y(interp(INDr, 2.35)) - 22, '≈10% actually here', '#b8240f', 24, 'middle', 800);
-    t(x(-2.4), y(interp(INDr, -2.4)) - 22, 'the gap the label hides', '#b8240f', 24, 'middle', 700);
+    t(x(0), zeroY - 16, '0 = their averaged position', '#8a887f', 21, 'middle');
+    t(x(3), y(DIFF[6]) - 20, 'real strong views', '#b8240f', 25, 'end', 800);
+    t(x(0), zeroY + 52, 'the phantom center', '#ffffff', 25, 'middle', 800);
     // x-axis labels
-    t(x(-3), axisY + 36, 'Extremely liberal', '#8a887f', 23, 'middle');
-    t(x(0), axisY + 36, 'Center', '#8a887f', 23, 'middle');
-    t(x(3), axisY + 36, 'Extremely conservative', '#8a887f', 23, 'middle');
+    t(x(-3), 404, 'Extremely liberal', '#8a887f', 23, 'middle');
+    t(x(0), 404, 'Center', '#8a887f', 23, 'middle');
+    t(x(3), 404, 'Extremely conservative', '#8a887f', 23, 'middle');
   </script>
 </body></html>
