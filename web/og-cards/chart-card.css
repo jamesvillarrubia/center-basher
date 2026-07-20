@@ -13,6 +13,18 @@ html, body { width: 1600px; height: 900px; }
   position: relative; overflow: hidden;
 }
 
+/* Myth kicker — names the claim the card kills, so the rebuttal is explicit. */
+.cc-claim {
+  font-size: 27px; font-weight: 500; color: #8a8880; line-height: 1.25;
+  margin-bottom: 13px; font-style: italic;
+}
+.cc-claim .tag {
+  font-style: normal; display: inline-block; vertical-align: middle;
+  background: #ece9e2; color: #8a8880; font-weight: 800; font-size: 20px;
+  letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 13px;
+  border-radius: 6px; margin-right: 14px;
+}
+
 /* Point-first title — states the argument, not the topic. */
 .cc-title {
   font-size: 66px; font-weight: 800; line-height: 1.04; letter-spacing: -0.5px;
