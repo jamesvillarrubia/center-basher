@@ -2,17 +2,22 @@
 <html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
 <body>
   <div class="chartcard">
-    <div class="cc-claim"><span class="tag">The pitch</span> &ldquo;There&rsquo;s a big moderate middle &mdash; govern to the center.&rdquo;</div>
-    <div class="cc-title">The &ldquo;moderate middle&rdquo; is an <span class="hl">averaging trick</span>.</div>
-    <div class="cc-sub">On any single issue, only <strong>22%</strong> of voters pick the center &mdash;
-      <strong>78%</strong> pick a side. Average opposing sides together and a &ldquo;moderate&rdquo; appears
-      who mostly doesn&rsquo;t exist.</div>
+    <div class="cc-claim"><span class="tag">The pitch</span> &ldquo;Court the self-described moderate &mdash; they&rsquo;re centrist.&rdquo;</div>
+    <div class="cc-title">&ldquo;Moderates&rdquo; aren&rsquo;t moderate &mdash; their opinions <span class="hl">cancel out</span>.</div>
+    <div class="cc-sub">Everyone who calls themselves &ldquo;moderate.&rdquo; <b>Averaged</b>, they look centrist &mdash; almost
+      no one on the ends (grey). But their <b>actual</b> issue positions reach the poles (red): 88% hold a
+      strong view, and 43% hold a strong-left <em>and</em> a strong-right one.</div>
 
-    <div class="cc-chart"><svg id="ill" viewBox="0 0 1240 392" role="img"
-      aria-label="Distribution of individual issue positions: 22% at center, 78% off-center toward the poles"></svg></div>
+    <div class="cc-chart"><svg id="ill" viewBox="0 0 1240 384" role="img"
+      aria-label="Self-described moderates: averaged positions spike at center with empty ends; actual positions reach the poles"></svg></div>
+
+    <div class="cc-legend">
+      <div class="item"><span class="dot" style="background:#8b97a3"></span><b>Averaged</b> &mdash; looks moderate</div>
+      <div class="item"><span class="dot" style="background:#b8240f"></span><b>Actual</b> issue positions</div>
+    </div>
 
     <div class="cc-foot">
-      <div class="cc-source">Source: ANES 2016, all individual responses across six 7-pt issue scales, weighted (V160101); n = 3,418 voters.</div>
+      <div class="cc-source">Source: ANES 2016 &mdash; the 34% who self-place &ldquo;moderate&rdquo; on lib-con; their six 7-pt issue positions; weighted (V160101).</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
@@ -21,29 +26,27 @@
     const NS = 'http://www.w3.org/2000/svg';
     const svg = document.getElementById('ill');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
-    // individual issue positions, -3 (extremely lib) .. +3 (extremely con)
-    const V = [13.5, 10.5, 13.1, 22.2, 15.1, 13.2, 12.5];
-    const X0 = 150, X1 = 1110, baseY = 300, topY = 74, YMAX = 24;
-    const band = (X1 - X0) / V.length, bw = 108;
-    const h = (v) => v / YMAX * (baseY - topY);
-    V.forEach((v, j) => {
-      const cx = X0 + band * (j + 0.5), bh = h(v), by = baseY - bh, center = j === 3;
-      svg.appendChild(el('rect', { x: cx - bw / 2, y: by, width: bw, height: bh, rx: 8, fill: center ? '#8b97a3' : '#b8240f' }));
-      const pv = el('text', { x: cx, y: by - 14, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 26, 'font-weight': 700 }); pv.textContent = v.toFixed(0) + '%'; svg.appendChild(pv);
-    });
-    // baseline
-    svg.appendChild(el('line', { x1: X0 - 10, y1: baseY, x2: X1 + 10, y2: baseY, stroke: '#c9c6bd', 'stroke-width': 2 }));
+    const pos = [-3, -2, -1, 0, 1, 2, 3];
+    const AVG = [0.2, 3.1, 23.2, 42.3, 26.4, 4.7, 0.1];   // averaged position — spike, empty ends
+    const IND = [10.5, 10.7, 15.2, 26.0, 16.6, 11.7, 9.3]; // actual issue positions — reaches poles
+    const X0 = 120, X1 = 1120, W = X1 - X0, axisY = 320, topY = 30, YMAX = 45;
+    const x = (p) => X0 + (p + 3) / 6 * W;
+    const y = (v) => axisY - v / YMAX * (axisY - topY);
+    // highlight the poles (the "unexpected" ends)
+    [-3, 3].forEach((p) => svg.appendChild(el('rect', { x: x(p) - 66, y: topY, width: 132, height: axisY - topY, fill: '#b8240f', 'fill-opacity': 0.06 })));
+    svg.appendChild(el('line', { x1: X0, y1: axisY, x2: X1, y2: axisY, stroke: '#d9d6cd', 'stroke-width': 2 }));
+    // AVG filled area (the moderate they appear to be)
+    let dA = `M ${x(-3)} ${axisY}`; pos.forEach((p, i) => dA += ` L ${x(p)} ${y(AVG[i])}`); dA += ` L ${x(3)} ${axisY} Z`;
+    svg.appendChild(el('path', { d: dA, fill: '#8b97a3', 'fill-opacity': 0.8 }));
+    // INDIV bold line + dots (where they actually stand)
+    let dI = ''; pos.forEach((p, i) => dI += (i ? ' L' : 'M') + ` ${x(p)} ${y(IND[i])}`);
+    svg.appendChild(el('path', { d: dI, fill: 'none', stroke: '#b8240f', 'stroke-width': 5, 'stroke-linejoin': 'round' }));
+    pos.forEach((p, i) => svg.appendChild(el('circle', { cx: x(p), cy: y(IND[i]), r: 8, fill: '#b8240f', stroke: '#fbfbf8', 'stroke-width': 3 })));
+    // pole callout: expected ~0 vs actual ~10%
+    const cap = el('text', { x: x(3), y: y(9.3) - 24, 'text-anchor': 'middle', fill: '#b8240f', 'font-size': 24, 'font-weight': 800 }); cap.textContent = '~10% here'; svg.appendChild(cap);
+    const cap2 = el('text', { x: x(3), y: axisY - 12, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 21 }); cap2.textContent = 'avg: ~0'; svg.appendChild(cap2);
     // x-axis category labels
-    const lab = (j, txt, anchor) => { const t = el('text', { x: X0 + band * (j + 0.5), y: baseY + 34, 'text-anchor': anchor, fill: '#8a887f', 'font-size': 23 }); t.textContent = txt; svg.appendChild(t); };
-    lab(0, 'Extremely liberal', 'middle'); lab(3, 'Center', 'middle'); lab(6, 'Extremely conservative', 'middle');
-    // callouts: 78% (off-center) vs 22% (center)
-    const cCenter = X0 + band * 3.5;
-    const c22 = el('text', { x: cCenter, y: baseY + 66, 'text-anchor': 'middle', fill: '#6f7a86', 'font-size': 24, 'font-weight': 700 }); c22.textContent = 'only 22% pick the center'; svg.appendChild(c22);
-    // bracket over the six off-center bars (left + right groups), label ABOVE the line
-    const bktY = 52;
-    [[X0 + 6, X0 + band * 3 - 16], [X0 + band * 4 + 16, X1 - 6]].forEach(([a, b]) => {
-      svg.appendChild(el('path', { d: `M ${a} ${bktY + 12} L ${a} ${bktY} L ${b} ${bktY} L ${b} ${bktY + 12}`, fill: 'none', stroke: '#b8240f', 'stroke-width': 3 }));
-    });
-    const c78 = el('text', { x: cCenter, y: bktY - 12, 'text-anchor': 'middle', fill: '#b8240f', 'font-size': 27, 'font-weight': 800 }); c78.textContent = '78% pick a side'; svg.appendChild(c78);
+    const lab = (p, txt) => { const t = el('text', { x: x(p), y: axisY + 36, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 23 }); t.textContent = txt; svg.appendChild(t); };
+    lab(-3, 'Extremely liberal'); lab(0, 'Center'); lab(3, 'Extremely conservative');
   </script>
 </body></html>
