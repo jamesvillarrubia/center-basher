@@ -7,8 +7,8 @@
     <div class="cc-sub">Where independents actually stand on each issue, minus where their average puts them:
       real strong views on the wings, a phantom center. <strong>48%</strong> hold both a strong-left <em>and</em> strong-right view.</div>
 
-    <div class="cc-chart"><svg id="ill" viewBox="0 0 1240 430" role="img"
-      aria-label="Per-issue minus averaged positions for independents: positive on the wings, negative in the middle"></svg></div>
+    <div class="cc-chart"><svg id="ill" viewBox="0 0 1240 418" role="img"
+      aria-label="Per-issue minus averaged position for independents, in percentage points: positive on the wings, negative in the middle"></svg></div>
 
     <div class="cc-legend">
       <div class="item"><span class="dot" style="background:#b8240f"></span><b>More</b> than the average shows (real strong views)</div>
@@ -25,29 +25,33 @@
     const NS = 'http://www.w3.org/2000/svg';
     const svg = document.getElementById('ill');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const t = (tx, ty, txt, fill, size, anchor, weight, rot) => { const a = { x: tx, y: ty, 'text-anchor': anchor || 'middle', fill, 'font-size': size, 'font-weight': weight || 400 }; if (rot) a.transform = `rotate(-90 ${tx} ${ty})`; const n = el('text', a); n.textContent = txt; svg.appendChild(n); };
     const pos = [-3, -2, -1, 0, 1, 2, 3];
-    const DIFF = [12.1, 6.0, -8.4, -14.5, -12.4, 6.3, 10.9]; // per-issue minus averaged (pp)
-    const X0 = 120, X1 = 1120, W = X1 - X0, DMAX = 14, DMIN = -18, plotTop = 34;
-    const scale = (356 - plotTop) / (DMAX - DMIN), zeroY = plotTop + DMAX * scale;
+    const DIFF = [12.1, 6.0, -8.4, -14.5, -12.4, 6.3, 10.9]; // per-issue minus averaged, percentage points
+    const X0 = 180, X1 = 1130, W = X1 - X0, DMAX = 13, DMIN = -16, plotTop = 40, plotBot = 360;
+    const scale = (plotBot - plotTop) / (DMAX - DMIN), zeroY = plotTop + DMAX * scale;
     const x = (p) => X0 + (p + 3) / 6 * W;
     const y = (d) => zeroY - d * scale;
-    const xL = -1.583, xR = 1.663; // zero-crossings
+    const xL = -1.583, xR = 1.663;
 
-    // red wings (per-issue above the average) + blue middle (phantom center)
+    // y-axis: faint gridlines + numbered ticks (percentage points vs. their average)
+    [10, 5, 0, -5, -10, -15].forEach((v) => {
+      svg.appendChild(el('line', { x1: X0, y1: y(v), x2: X1, y2: y(v), stroke: v === 0 ? '#1b1b1d' : '#e7e4dd', 'stroke-width': v === 0 ? 3 : 2 }));
+      t(X0 - 16, y(v) + 8, (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v), '#9a988f', 22, 'end');
+    });
+    t(46, (y(DMAX) + y(DMIN)) / 2, 'points vs. their average', '#6b6b70', 23, 'middle', 600, true);
+
+    // red wings (per-issue above the average) + blue phantom center (below)
     svg.appendChild(el('path', { d: `M ${x(-3)} ${zeroY} L ${x(-3)} ${y(DIFF[0])} L ${x(-2)} ${y(DIFF[1])} L ${x(xL)} ${zeroY} Z`, fill: '#b8240f', 'fill-opacity': 0.9 }));
     svg.appendChild(el('path', { d: `M ${x(xR)} ${zeroY} L ${x(2)} ${y(DIFF[5])} L ${x(3)} ${y(DIFF[6])} L ${x(3)} ${zeroY} Z`, fill: '#b8240f', 'fill-opacity': 0.9 }));
     svg.appendChild(el('path', { d: `M ${x(xL)} ${zeroY} L ${x(-1)} ${y(DIFF[2])} L ${x(0)} ${y(DIFF[3])} L ${x(1)} ${y(DIFF[4])} L ${x(xR)} ${zeroY} Z`, fill: '#5f83ac', 'fill-opacity': 0.9 }));
+    svg.appendChild(el('line', { x1: X0, y1: zeroY, x2: X1, y2: zeroY, stroke: '#1b1b1d', 'stroke-width': 3 }));
 
-    // zero baseline
-    svg.appendChild(el('line', { x1: X0 - 6, y1: zeroY, x2: X1 + 6, y2: zeroY, stroke: '#1b1b1d', 'stroke-width': 3 }));
-
-    const t = (tx, ty, txt, fill, size, anchor, weight) => { const n = el('text', { x: tx, y: ty, 'text-anchor': anchor || 'middle', fill, 'font-size': size, 'font-weight': weight || 400 }); n.textContent = txt; svg.appendChild(n); };
-    t(x(0), zeroY - 16, '0 = their averaged position', '#8a887f', 21, 'middle');
-    t(x(3), y(DIFF[6]) - 20, 'real strong views', '#b8240f', 25, 'end', 800);
-    t(x(0), zeroY + 52, 'the phantom center', '#ffffff', 25, 'middle', 800);
-    // x-axis labels
-    t(x(-3), 404, 'Extremely liberal', '#8a887f', 23, 'middle');
-    t(x(0), 404, 'Center', '#8a887f', 23, 'middle');
-    t(x(3), 404, 'Extremely conservative', '#8a887f', 23, 'middle');
+    // labels
+    t(x(3), y(DIFF[6]) - 18, 'real strong views', '#b8240f', 25, 'end', 800);
+    t(x(0), zeroY + 72, 'the phantom center', '#ffffff', 25, 'middle', 800);
+    t(x(-3), 400, 'Extremely liberal', '#8a887f', 23, 'start');
+    t(x(0), 400, 'Center', '#8a887f', 23, 'middle');
+    t(x(3), 400, 'Extremely conservative', '#8a887f', 23, 'end');
   </script>
 </body></html>
