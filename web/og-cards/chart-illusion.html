@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-title">The &ldquo;moderate middle&rdquo; is an <span class="hl">averaging trick</span>.</div>
+    <div class="cc-sub">Same voters, same six issues. Average each person&rsquo;s positions and a tidy center appears
+      (blue). Plot their <em>actual</em> issue-by-issue positions (red) and the mass is at the poles &mdash;
+      <strong>26%</strong> sit at the extremes, vs. just <strong>0.4%</strong> &ldquo;on average.&rdquo;</div>
+
+    <div class="cc-chart"><svg id="ill" viewBox="0 0 1240 396" role="img"
+      aria-label="Averaged positions cluster at the center; actual issue positions pile up at the poles"></svg></div>
+
+    <div class="cc-legend">
+      <div class="item"><span class="dot" style="background:#7aa8d6"></span>By each voter&rsquo;s <b>average</b> position</div>
+      <div class="item"><span class="dot" style="background:#b8240f"></span>By their <b>actual</b> issue positions</div>
+    </div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES 2016, six 7-pt issue self-placements, weighted (V160101); n = 3,418 voters.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('ill');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const cen = [-3,-2.5,-2,-1.5,-1,-0.5,0,0.5,1,1.5,2,2.5,3];
+    const A = [0.36,0.47,3.4,7.07,12.39,14.8,18.99,15.04,15.3,8.0,3.73,0.36,0.09];
+    const Bx = [-3,-2,-1,0,1,2,3], By = [13.53,10.46,13.07,22.23,15.11,13.15,12.45];
+    const X0 = 96, X1 = 1176, W = X1 - X0, axisY = 336, topY = 20, YMAX = 24;
+    const x = (v) => X0 + (v + 3) / 6 * W;
+    const y = (p) => axisY - p / YMAX * (axisY - topY);
+    // baseline
+    svg.appendChild(el('line', { x1: X0, y1: axisY, x2: X1, y2: axisY, stroke: '#d9d6cd', 'stroke-width': 2 }));
+    // A: filled area (the illusion)
+    let dA = `M ${x(-3)} ${axisY}`; cen.forEach((c, i) => dA += ` L ${x(c)} ${y(A[i])}`); dA += ` L ${x(3)} ${axisY} Z`;
+    svg.appendChild(el('path', { d: dA, fill: '#7aa8d6', 'fill-opacity': 0.75 }));
+    // B: bold red line + dots (the reality)
+    let dB = ''; Bx.forEach((c, i) => dB += (i ? ' L' : 'M') + ` ${x(c)} ${y(By[i])}`);
+    svg.appendChild(el('path', { d: dB, fill: 'none', stroke: '#b8240f', 'stroke-width': 5, 'stroke-linejoin': 'round' }));
+    Bx.forEach((c, i) => svg.appendChild(el('circle', { cx: x(c), cy: y(By[i]), r: 8, fill: '#b8240f', stroke: '#fbfbf8', 'stroke-width': 3 })));
+    // x-axis category labels
+    const lab = (v, txt, anchor) => { const t = el('text', { x: x(v), y: axisY + 34, 'text-anchor': anchor, fill: '#8a887f', 'font-size': 23 }); t.textContent = txt; svg.appendChild(t); };
+    lab(-3, 'Extremely liberal', 'start'); lab(0, 'Center', 'middle'); lab(3, 'Extremely conservative', 'end');
+  </script>
+</body></html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-title">The voters who flipped 2016 were the <span class="hl">most anti-establishment</span>.</div>
+    <div class="cc-sub">Average institutional trust by group (higher = more trusting of the system). The lean-left swing
+      that cost Clinton WI/MI/PA is the lowest-trust group on the left &mdash; so a &ldquo;move to the
+      center,&rdquo; toward the establishment, runs away from exactly the voters who decide it.</div>
+
+    <div class="cc-chart"><svg id="bt" viewBox="0 0 1240 392" role="img"
+      aria-label="Average institutional trust: lean-left swing 0.17, moderate swing 0.22, strong-left loyalists 0.27"></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES 2016, 3-item institutional-trust index (0&ndash;1), weighted. Group means from §17.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('bt');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const rows = [
+      { name: 'Lean-left swing', sub: 'flipped WI / MI / PA', v: 0.17, hot: true },
+      { name: 'Moderate swing', sub: 'already gettable', v: 0.22, hot: false },
+      { name: 'Strong-left loyalists', sub: '', v: 0.27, hot: false },
+    ];
+    const X0 = 470, X1 = 1150, VMAX = 0.30, sc = (X1 - X0) / VMAX;
+    const barH = 62, step = 96, y0 = 14, axisY = y0 + rows.length * step - 22;
+    // gridlines + ticks
+    for (let v = 0; v <= 0.3001; v += 0.10) {
+      const gx = X0 + v * sc;
+      svg.appendChild(el('line', { x1: gx, y1: 0, x2: gx, y2: axisY, stroke: '#e8e6e0', 'stroke-width': 2 }));
+      const t = el('text', { x: gx, y: axisY + 30, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 22 }); t.textContent = v.toFixed(2); svg.appendChild(t);
+    }
+    // national-average reference
+    const nx = X0 + 0.23 * sc;
+    svg.appendChild(el('line', { x1: nx, y1: 0, x2: nx, y2: axisY, stroke: '#b0ada4', 'stroke-width': 2, 'stroke-dasharray': '6 7' }));
+    const nl = el('text', { x: nx, y: axisY + 58, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 21 }); nl.textContent = 'national avg 0.23'; svg.appendChild(nl);
+    // bars
+    rows.forEach((r, i) => {
+      const yTop = y0 + i * step, mid = yTop + barH / 2;
+      const nm = el('text', { x: X0 - 24, y: r.sub ? mid - 2 : mid + 9, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 27, 'font-weight': 700 }); nm.textContent = r.name; svg.appendChild(nm);
+      if (r.sub) { const s = el('text', { x: X0 - 24, y: mid + 26, 'text-anchor': 'end', fill: '#7a7772', 'font-size': 22 }); s.textContent = r.sub; svg.appendChild(s); }
+      const w = r.v * sc;
+      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 8, fill: r.hot ? '#b8240f' : '#767676' }));
+      const val = el('text', { x: X0 + w + 16, y: mid + 10, fill: '#1b1b1d', 'font-size': 30, 'font-weight': 800 }); val.textContent = r.v.toFixed(2); svg.appendChild(val);
+    });
+  </script>
+</body></html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-title">Ideology decides <span class="hl">who</span> you vote for &mdash; not <span class="hl">whether</span> you show up.</div>
+    <div class="cc-sub">Standardized weight of ideology in two 2016 models. It&rsquo;s the dominant force in vote choice
+      and essentially zero for turnout &mdash; so a &ldquo;move to the center&rdquo; can&rsquo;t mobilize
+      voters or expand the electorate.</div>
+
+    <div class="cc-chart"><svg id="to" viewBox="0 0 1240 380" role="img"
+      aria-label="Ideology's standardized effect: 2.30 on vote choice, 0.03 on turnout"></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES 2016, weighted logistic models (n&asymp;3,300); standardized effect |&beta;&middot;SD| of centered ideology.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('to');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const rows = [
+      { lab: 'Effect on WHO you pick', sub: '(vote choice)', v: 2.30 },
+      { lab: 'Effect on WHETHER you vote', sub: '(turnout)', v: 0.03 },
+    ];
+    const X0 = 560, X1 = 1160, VMAX = 2.6, sc = (X1 - X0) / VMAX;
+    const barH = 96, step = 168, y0 = 26;
+    rows.forEach((r, i) => {
+      const yTop = y0 + i * step, mid = yTop + barH / 2;
+      const l1 = el('text', { x: X0 - 26, y: mid - 4, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 30, 'font-weight': 700 }); l1.textContent = r.lab; svg.appendChild(l1);
+      const l2 = el('text', { x: X0 - 26, y: mid + 30, 'text-anchor': 'end', fill: '#7a7772', 'font-size': 24 }); l2.textContent = r.sub; svg.appendChild(l2);
+      const w = Math.max(r.v * sc, 5);
+      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 10, fill: '#b8240f' }));
+      const val = el('text', { x: X0 + w + 20, y: mid + 13, fill: '#1b1b1d', 'font-size': 46, 'font-weight': 800 }); val.textContent = r.v.toFixed(2); svg.appendChild(val);
+    });
+    svg.appendChild(el('line', { x1: X0, y1: y0 - 8, x2: X0, y2: y0 + step + barH + 8, stroke: '#d9d6cd', 'stroke-width': 2 }));
+  </script>
+</body></html>

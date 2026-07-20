@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-title">The swingable &ldquo;moderate middle&rdquo; is about <span class="hl">5 voters in 100</span>.</div>
+    <div class="cc-sub">Self-described moderates are ~20% of the electorate, and only about a quarter of them
+      actually swing &mdash; so the persuadable moderate bloc a &ldquo;move to the center&rdquo; chases is
+      roughly 5.3% of all voters.</div>
+
+    <div class="cc-chart"><svg id="mirage" viewBox="0 0 900 470" role="img"
+      aria-label="Waffle of 100 dots, about 5 highlighted as swingable moderates"></svg></div>
+
+    <div class="cc-legend">
+      <div class="item"><span class="dot" style="background:#c9c7bf"></span>Everyone else (≈95)</div>
+      <div class="item"><span class="dot dot--ring" style="background:#b8240f"></span>Swingable moderate (≈5)</div>
+    </div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES 2016 Time Series, weighted (V160101). Moderate-swing bucket = 5.3% of voters.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('mirage');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const COLS = 10, ROWS = 10, r = 18, s = 46;
+    const x0 = (900 - (COLS - 1) * s) / 2, y0 = (470 - (ROWS - 1) * s) / 2;
+    for (let i = 0; i < 100; i++) {
+      const cx = x0 + (i % COLS) * s, cy = y0 + ((i / COLS) | 0) * s;
+      const swing = i >= 95;            // last 5 = swingable moderates
+      svg.appendChild(el('circle', { cx, cy, r, fill: swing ? '#b8240f' : '#c9c7bf' }));
+      if (swing) svg.appendChild(el('circle', { cx, cy, r: r + 9, fill: 'none', stroke: '#b8240f', 'stroke-width': 3 }));
+    }
+  </script>
+</body></html>
