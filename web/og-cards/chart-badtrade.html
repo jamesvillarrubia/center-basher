@@ -6,7 +6,7 @@
     <div class="cc-title">The voters who flipped 2016 were the <span class="hl">most anti-establishment</span>.</div>
     <div class="cc-sub">Average institutional trust by group. The lean-left swing that flipped WI/MI/PA is the lowest on the left.</div>
 
-    <div class="cc-chart"><svg id="bt" viewBox="0 0 1240 392" role="img"
+    <div class="cc-chart"><svg id="bt" viewBox="0 0 1240 449" role="img"
       aria-label="Average institutional trust: lean-left swing 0.17, moderate swing 0.22, strong-left loyalists 0.27"></svg></div>
 
     <div class="cc-foot">
@@ -25,7 +25,7 @@
       { name: 'Strong-left loyalists', sub: '', v: 0.27, hot: false },
     ];
     const X0 = 470, X1 = 1150, VMAX = 0.30, sc = (X1 - X0) / VMAX;
-    const barH = 62, step = 96, y0 = 14, axisY = y0 + rows.length * step - 22;
+    const barH = 84, step = 122, y0 = 20, axisY = y0 + rows.length * step - 22;
     // gridlines + ticks
     for (let v = 0; v <= 0.3001; v += 0.10) {
       const gx = X0 + v * sc;

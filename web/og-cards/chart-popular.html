@@ -6,7 +6,7 @@
     <div class="cc-title">The most popular policies aren&rsquo;t centrist &mdash; they&rsquo;re <span class="hl">progressive</span>.</div>
     <div class="cc-sub">The proposals with the widest support are redistributive, not split-the-difference compromises.</div>
 
-    <div class="cc-chart"><svg id="pop" viewBox="0 0 1240 396" role="img"
+    <div class="cc-chart"><svg id="pop" viewBox="0 0 1240 449" role="img"
       aria-label="Support for progressive proposals: negotiate drug prices 85%, $15 minimum wage 62%, tax income over $400k 58%"></svg></div>
 
     <div class="cc-foot">
@@ -25,7 +25,7 @@
       { name: 'Tax income over $400,000', v: 58 },
     ];
     const X0 = 610, X1 = 1130, VMAX = 100, sc = (X1 - X0) / VMAX;
-    const barH = 62, step = 104, y0 = 18, axisY = y0 + rows.length * step - 22;
+    const barH = 88, step = 126, y0 = 24, axisY = y0 + rows.length * step - 22;
     for (let v = 0; v <= 100; v += 25) {
       const gx = X0 + v * sc;
       svg.appendChild(el('line', { x1: gx, y1: 0, x2: gx, y2: axisY, stroke: '#e8e6e0', 'stroke-width': 2 }));
