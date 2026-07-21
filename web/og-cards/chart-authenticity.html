@@ -3,14 +3,14 @@
 <body>
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Voters can tell who&rsquo;s honest &mdash; it&rsquo;s an objective read.&rdquo;</div>
-    <div class="cc-title">The &ldquo;honest&rdquo; candidate <span class="hl">flips</span> with the voter&rsquo;s own trust.</div>
-    <div class="cc-sub">2016 honesty ratings of the same two candidates &mdash; by whether the voter trusts the system.</div>
+    <div class="cc-title">Who looks &ldquo;honest&rdquo; <span class="hl">flips</span> with the voter&rsquo;s own trust in the system.</div>
+    <div class="cc-sub">2016 honesty ratings of the same two candidates, split by whether the voter trusts the system.</div>
 
-    <div class="cc-chart"><svg id="au" viewBox="0 0 1240 400" role="img"
-      aria-label="Low-trust voters rate Trump more honest (1.58 vs 0.54); high-trust voters rate Clinton more honest (1.77 vs 0.93). The lines cross."></svg></div>
+    <div class="cc-chart"><svg id="au" viewBox="0 0 1240 449" role="img"
+      aria-label="Low-trust voters rate Trump more honest than Clinton; high-trust voters rate Clinton more honest than Trump. The two lines cross."></svg></div>
 
     <div class="cc-foot">
-      <div class="cc-source">Source: ANES 2016; candidate &ldquo;is honest&rdquo; rating (0&ndash;4, higher = more), by trust tercile; weighted.</div>
+      <div class="cc-source">Source: ANES 2016; candidate &ldquo;is honest&rdquo; rating (0&ndash;4, higher = more honest), by trust tercile; weighted.</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
@@ -19,27 +19,36 @@
     const NS = 'http://www.w3.org/2000/svg';
     const svg = document.getElementById('au');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
-    const LX = 430, RX = 900, topY = 60, botY = 320, YMAX = 2.0;
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
+    const LX = 470, RX = 900, topY = 56, botY = 360, YMAX = 2.0;
     const y = (v) => botY - v / YMAX * (botY - topY);
-    // axis posts
-    [[LX, 'Low-trust voters'], [RX, 'High-trust voters']].forEach(([px, lab]) => {
-      svg.appendChild(el('line', { x1: px, y1: topY - 10, x2: px, y2: botY, stroke: '#d9d6cd', 'stroke-width': 2 }));
-      const t = el('text', { x: px, y: botY + 36, 'text-anchor': 'middle', fill: '#6b6b70', 'font-size': 25, 'font-weight': 600 }); t.textContent = lab; svg.appendChild(t);
+
+    // y-axis with 0-2 ticks (scale runs 0-4; data sits in the bottom half)
+    svg.appendChild(el('line', { x1: 300, y1: topY - 6, x2: 300, y2: botY, stroke: '#d9d6cd', 'stroke-width': 2 }));
+    [0, 0.5, 1.0, 1.5, 2.0].forEach((v) => {
+      svg.appendChild(el('line', { x1: 300, y1: y(v), x2: RX + 30, y2: y(v), stroke: '#eeece6', 'stroke-width': v === 0 ? 3 : 1.5 }));
+      txt({ x: 286, y: y(v) + 8, 'text-anchor': 'end', fill: '#9a988f', 'font-size': 22 }, v.toFixed(1));
     });
-    const draw = (name, lv, rv, col) => {
-      svg.appendChild(el('line', { x1: LX, y1: y(lv), x2: RX, y2: y(rv), stroke: col, 'stroke-width': 5 }));
-      [[LX, lv, 'end', -20], [RX, rv, 'start', 20]].forEach(([px, v, anc, dx]) => {
-        svg.appendChild(el('circle', { cx: px, cy: y(v), r: 10, fill: col, stroke: '#fbfbf8', 'stroke-width': 3 }));
-        const t = el('text', { x: px + dx, y: y(v) + 8, 'text-anchor': anc, fill: col, 'font-size': 28, 'font-weight': 800 }); t.textContent = v.toFixed(2); svg.appendChild(t);
+    txt({ x: 60, y: (topY + botY) / 2, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 22, 'font-style': 'italic', transform: `rotate(-90 60 ${(topY + botY) / 2})` }, 'rated “is honest” (0 = no … 4 = yes)');
+
+    // group posts
+    [[LX, 'Low-trust voters'], [RX, 'High-trust voters']].forEach(([px, lab]) => {
+      svg.appendChild(el('line', { x1: px, y1: topY - 6, x2: px, y2: botY, stroke: '#d9d6cd', 'stroke-width': 2 }));
+      txt({ x: px, y: botY + 38, 'text-anchor': 'middle', fill: '#6b6b70', 'font-size': 26, 'font-weight': 700 }, lab);
+    });
+
+    const draw = (lv, rv, col) => {
+      svg.appendChild(el('line', { x1: LX, y1: y(lv), x2: RX, y2: y(rv), stroke: col, 'stroke-width': 6 }));
+      [[LX, lv, 'end', -18], [RX, rv, 'start', 18]].forEach(([px, v, anc, dx]) => {
+        svg.appendChild(el('circle', { cx: px, cy: y(v), r: 11, fill: col, stroke: '#fbfbf8', 'stroke-width': 3 }));
+        txt({ x: px + dx, y: y(v) + 8, 'text-anchor': anc, fill: col, 'font-size': 30, 'font-weight': 800 }, v.toFixed(2));
       });
     };
-    draw('Trump', 1.58, 0.93, '#b8240f');
-    draw('Clinton', 0.54, 1.77, '#2c5b9c');
-    // candidate labels near their high-value end
-    const cl = (txt, px, v, anc, col, dx) => { const t = el('text', { x: px + dx, y: y(v) - 20, 'text-anchor': anc, fill: col, 'font-size': 27, 'font-weight': 800 }); t.textContent = txt; svg.appendChild(t); };
-    cl('Trump', LX, 1.58, 'end', '#b8240f', -20);
-    cl('Clinton', RX, 1.77, 'start', '#2c5b9c', 20);
-    // axis note
-    const t = el('text', { x: (LX + RX) / 2, y: 40, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 22 }); t.textContent = 'rated more honest ↑'; svg.appendChild(t);
+    draw(1.58, 0.93, '#b8240f'); // Trump
+    draw(0.54, 1.77, '#2c5b9c'); // Clinton
+
+    txt({ x: LX - 18, y: y(1.58) - 22, 'text-anchor': 'end', fill: '#b8240f', 'font-size': 29, 'font-weight': 800 }, 'Trump');
+    txt({ x: RX + 18, y: y(1.77) - 22, 'text-anchor': 'start', fill: '#2c5b9c', 'font-size': 29, 'font-weight': 800 }, 'Clinton');
   </script>
 </body></html>

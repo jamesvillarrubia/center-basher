@@ -4,10 +4,10 @@
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;South Carolina votes first because it&rsquo;s the most representative.&rdquo;</div>
     <div class="cc-title">The party&rsquo;s first primary is in a state it hasn&rsquo;t won since <span class="hl">1976</span>.</div>
-    <div class="cc-sub">The DNC made South Carolina first in 2023, citing diversity. It isn&rsquo;t among the most diverse states &mdash; and it isn&rsquo;t competitive.</div>
+    <div class="cc-sub">The DNC made South Carolina first in 2023, citing diversity. It isn&rsquo;t especially diverse &mdash; and it isn&rsquo;t close.</div>
 
-    <div class="cc-chart"><svg id="sc" viewBox="0 0 1240 372" role="img"
-      aria-label="South Carolina presidential margin: Republican by 12 points in 2020 and 18 in 2024"></svg></div>
+    <div class="cc-chart"><svg id="sc" viewBox="0 0 1240 449" role="img"
+      aria-label="South Carolina presidential margin: Republican by 12 points in 2020 and 18 points in 2024"></svg></div>
 
     <div class="cc-foot">
       <div class="cc-source">Source: 270toWin (SC presidential results); U.S. Census Bureau 2020 Diversity Index; DNC 2023 primary-calendar vote.</div>
@@ -19,20 +19,29 @@
     const NS = 'http://www.w3.org/2000/svg';
     const svg = document.getElementById('sc');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
     const rows = [
-      { name: '2020 presidential', v: 12 },
-      { name: '2024 presidential', v: 18 },
+      { name: '2020', v: 12 },
+      { name: '2024', v: 18 },
     ];
-    const X0 = 560, X1 = 1080, VMAX = 20, sc = (X1 - X0) / VMAX;
-    const barH = 82, step = 138, y0 = 20;
+    const X0 = 300, X1 = 980, VMAX = 22, sc = (X1 - X0) / VMAX;
+    const barH = 108, step = 168, y0 = 20;
+    const axisBot = y0 + step + barH + 14;
+
+    for (let v = 0; v <= 20; v += 10) {
+      const gx = X0 + v * sc;
+      svg.appendChild(el('line', { x1: gx, y1: y0 - 12, x2: gx, y2: axisBot, stroke: v === 0 ? '#c9c6bd' : '#e8e6e0', 'stroke-width': v === 0 ? 3 : 2 }));
+      txt({ x: gx, y: axisBot + 32, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 22 }, v === 0 ? '0' : 'R+' + v);
+    }
+    txt({ x: (X0 + X1) / 2, y: axisBot + 72, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 24, 'font-style': 'italic' }, 'Republican margin in the presidential race (points)');
+
     rows.forEach((r, i) => {
       const yTop = y0 + i * step, mid = yTop + barH / 2;
-      const nm = el('text', { x: X0 - 26, y: mid + 9, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 29, 'font-weight': 700 }); nm.textContent = r.name; svg.appendChild(nm);
+      txt({ x: X0 - 26, y: mid + 12, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 40, 'font-weight': 800 }, r.name);
       const w = r.v * sc;
-      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 9, fill: '#b8240f' }));
-      const val = el('text', { x: X0 + w + 20, y: mid + 14, fill: '#b8240f', 'font-size': 42, 'font-weight': 800 }); val.textContent = 'R +' + r.v; svg.appendChild(val);
+      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 8, fill: '#b8240f' }));
+      txt({ x: X0 + w + 22, y: mid + 16, fill: '#b8240f', 'font-size': 50, 'font-weight': 800 }, 'R +' + r.v);
     });
-    const cap = el('text', { x: X0 - 26, y: y0 + 2 * step + 8, 'text-anchor': 'end', fill: '#6b6b70', 'font-size': 24 }); cap.textContent = 'Republican margin of victory'; svg.appendChild(cap);
-    const cap2 = el('text', { x: X0, y: y0 + 2 * step + 8, 'text-anchor': 'start', fill: '#6b6b70', 'font-size': 24 }); cap2.textContent = 'Most diverse states (Census): HI, CA, NV, MD, TX — not SC.'; svg.appendChild(cap2);
   </script>
 </body></html>
