@@ -3,11 +3,11 @@
 <body>
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Moderates are swing voters, up for grabs.&rdquo;</div>
-    <div class="cc-title">&ldquo;Moderates&rdquo; barely swing &mdash; <span class="hl">85%</span> vote the same party every time.</div>
-    <div class="cc-sub">Self-described moderates tracked across 2012, 2016 &amp; 2020 &mdash; most never crossed party lines.</div>
+    <div class="cc-title">&ldquo;Moderates&rdquo; barely swing. <span class="hl">85%</span> vote the same party every time.</div>
+    <div class="cc-sub">Self-described moderates who voted in 2012, 2016 and 2020, by what they actually did.</div>
 
-    <div class="cc-chart"><svg id="con" viewBox="0 0 1240 300" role="img"
-      aria-label="Of moderates who voted all three cycles: 54% always Democrat, 15% switched, 31% always Republican"></svg></div>
+    <div class="cc-chart"><svg id="con" viewBox="0 0 1240 449" role="img"
+      aria-label="Of moderates who voted all three cycles, 85% voted the same party every time and only 15% ever switched"></svg></div>
 
     <div class="cc-foot">
       <div class="cc-source">Source: Democracy Fund VOTER Survey panel; self-described moderates who voted in 2012, 2016 &amp; 2020; weighted.</div>
@@ -19,19 +19,39 @@
     const NS = 'http://www.w3.org/2000/svg';
     const svg = document.getElementById('con');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
-    const segs = [
-      { v: 54, c: '#2c5b9c', label: 'Always Democrat', sub: '54%' },
-      { v: 15, c: '#b0ada4', label: 'Switched', sub: '15%' },
-      { v: 31, c: '#b8240f', label: 'Always Republican', sub: '31%' },
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
+    const X0 = 60, X1 = 1180, W = X1 - X0, barY = 168, barH = 150;
+    const pct = (v) => v / 100 * W;
+
+    // 85% loyal block, split internally by party
+    const loyal = [
+      { v: 54, c: '#2c5b9c', label: 'Always Democrat' },
+      { v: 31, c: '#5b7fa8', label: 'Always Republican' },
     ];
-    const X0 = 70, X1 = 1170, W = X1 - X0, barY = 96, barH = 96;
     let cx = X0;
-    segs.forEach((s) => {
-      const w = s.v / 100 * W;
-      svg.appendChild(el('rect', { x: cx + 2, y: barY, width: w - 4, height: barH, rx: 6, fill: s.c }));
-      const pv = el('text', { x: cx + w / 2, y: barY + 58, 'text-anchor': 'middle', fill: '#fff', 'font-size': 44, 'font-weight': 800 }); pv.textContent = s.sub; svg.appendChild(pv);
-      const nm = el('text', { x: cx + w / 2, y: barY + barH + 42, 'text-anchor': 'middle', fill: s.c, 'font-size': 27, 'font-weight': 700 }); nm.textContent = s.label; svg.appendChild(nm);
+    loyal.forEach((s) => {
+      const w = pct(s.v);
+      svg.appendChild(el('rect', { x: cx, y: barY, width: w, height: barH, fill: s.c }));
+      txt({ x: cx + w / 2, y: barY + 74, 'text-anchor': 'middle', fill: '#fff', 'font-size': 46, 'font-weight': 800 }, s.v + '%');
+      txt({ x: cx + w / 2, y: barY + 116, 'text-anchor': 'middle', fill: '#ffffffcc', 'font-size': 25, 'font-weight': 600 }, s.label);
       cx += w;
     });
+    // hairline between the two party sub-blocks
+    svg.appendChild(el('line', { x1: X0 + pct(54), y1: barY, x2: X0 + pct(54), y2: barY + barH, stroke: '#fbfbf8', 'stroke-width': 3 }));
+
+    // 15% switchers
+    const sw = pct(15);
+    svg.appendChild(el('rect', { x: cx, y: barY, width: sw, height: barH, fill: '#b8240f' }));
+    txt({ x: cx + sw / 2, y: barY + 74, 'text-anchor': 'middle', fill: '#fff', 'font-size': 46, 'font-weight': 800 }, '15%');
+
+    // bracket over the loyal block
+    const bx1 = X0, bx2 = X0 + pct(85), by = barY - 34;
+    svg.appendChild(el('path', { d: `M ${bx1} ${by} L ${bx1} ${by - 16} L ${bx2} ${by - 16} L ${bx2} ${by}`, fill: 'none', stroke: '#1b1b1d', 'stroke-width': 3 }));
+    txt({ x: (bx1 + bx2) / 2, y: by - 34, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 34, 'font-weight': 800 }, 'Voted the same party all three times');
+
+    // callout under the switchers
+    svg.appendChild(el('line', { x1: cx + sw / 2, y1: barY + barH + 12, x2: cx + sw / 2, y2: barY + barH + 48, stroke: '#b8240f', 'stroke-width': 3 }));
+    txt({ x: cx + sw / 2, y: barY + barH + 88, 'text-anchor': 'end', fill: '#b8240f', 'font-size': 34, 'font-weight': 800 }, 'Ever switched party');
   </script>
 </body></html>
