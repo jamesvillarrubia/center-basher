@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Voters have always been cynical &mdash; distrust is nothing new.&rdquo;</div>
+    <div class="cc-title">In 1964, <span class="hl">3 in 4</span> trusted government. Today, about 1 in 7.</div>
+    <div class="cc-sub">Share saying they trust the government in Washington to do what&rsquo;s right &ldquo;always or most of the time.&rdquo;</div>
+
+    <div class="cc-chart"><svg id="tr" viewBox="0 0 1240 388" role="img"
+      aria-label="Trust in government fell from 78% in 1964 to 15% in 2024"></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES Cumulative File 1958&ndash;2012 + ANES standalone 2016/2020/2024; weighted.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('tr');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const D = [[1958,76],[1964,78],[1966,68],[1968,63],[1970,55],[1972,54],[1974,37],[1976,34],[1978,30],[1980,26],[1982,34],[1984,45],[1986,39],[1988,41],[1990,28],[1992,29],[1994,22],[1996,33],[1998,40],[2000,44],[2002,55],[2004,46],[2008,31],[2012,22],[2016,12],[2020,15],[2024,15]];
+    const X0 = 110, X1 = 1160, axisY = 320, topY = 36, YMAX = 85, YR0 = 1958, YR1 = 2024;
+    const x = (yr) => X0 + (yr - YR0) / (YR1 - YR0) * (X1 - X0);
+    const y = (v) => axisY - v / YMAX * (axisY - topY);
+    [0, 25, 50, 75].forEach((v) => {
+      svg.appendChild(el('line', { x1: X0, y1: y(v), x2: X1, y2: y(v), stroke: '#eae7e0', 'stroke-width': 2 }));
+      const t = el('text', { x: X0 - 14, y: y(v) + 8, 'text-anchor': 'end', fill: '#9a988f', 'font-size': 22 }); t.textContent = v + '%'; svg.appendChild(t);
+    });
+    [1960, 1980, 2000, 2024].forEach((yr) => { const t = el('text', { x: x(yr), y: axisY + 34, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 22 }); t.textContent = yr; svg.appendChild(t); });
+    let d = ''; D.forEach((p, i) => d += (i ? ' L' : 'M') + ` ${x(p[0])} ${y(p[1])}`);
+    svg.appendChild(el('path', { d, fill: 'none', stroke: '#b8240f', 'stroke-width': 5, 'stroke-linejoin': 'round' }));
+    // emphasize endpoints
+    [[1964, 78, 'start'], [2024, 15, 'end']].forEach(([yr, v, anc]) => {
+      svg.appendChild(el('circle', { cx: x(yr), cy: y(v), r: 10, fill: '#b8240f', stroke: '#fbfbf8', 'stroke-width': 3 }));
+      const t = el('text', { x: x(yr) + (anc === 'start' ? 18 : -18), y: y(v) - 14, 'text-anchor': anc, fill: '#b8240f', 'font-size': 27, 'font-weight': 800 }); t.textContent = (anc === 'start' ? '1964: 78%' : '2024: 15%'); svg.appendChild(t);
+    });
+  </script>
+</body></html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Just turn out your base &mdash; those votes are safe.&rdquo;</div>
+    <div class="cc-title">Turning out disaffected &ldquo;base&rdquo; voters can <span class="hl">backfire</span>.</div>
+    <div class="cc-sub">2016 defection to Trump among Democratic-leaning voters, by how much they distrust the system.</div>
+
+    <div class="cc-chart"><svg id="wt" viewBox="0 0 1240 372" role="img"
+      aria-label="Low-grievance Dem-leaners defect to Trump 2.6%; high-grievance defect 12.6%"></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES 2016; Democratic-leaning voters&rsquo; defection to Trump by institutional-trust grievance; weighted.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('wt');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const rows = [
+      { name: 'Low-grievance (trusting)', v: 2.6 },
+      { name: 'High-grievance (distrustful)', v: 12.6, hot: true },
+    ];
+    const X0 = 640, X1 = 1090, VMAX = 14, sc = (X1 - X0) / VMAX;
+    const barH = 86, step = 150, y0 = 20;
+    rows.forEach((r, i) => {
+      const yTop = y0 + i * step, mid = yTop + barH / 2;
+      const l1 = el('text', { x: X0 - 26, y: mid - 2, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 29, 'font-weight': 700 }); l1.textContent = r.name; svg.appendChild(l1);
+      const l2 = el('text', { x: X0 - 26, y: mid + 30, 'text-anchor': 'end', fill: '#7a7772', 'font-size': 22 }); l2.textContent = 'Dem-leaners'; svg.appendChild(l2);
+      const w = r.v * sc;
+      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 9, fill: r.hot ? '#b8240f' : '#8b9aa8' }));
+      const val = el('text', { x: X0 + w + 20, y: mid + 15, fill: '#1b1b1d', 'font-size': 44, 'font-weight': 800 }); val.textContent = r.v.toFixed(1) + '%'; svg.appendChild(val);
+    });
+    const cap = el('text', { x: X0, y: y0 + 2 * step + 20, 'text-anchor': 'start', fill: '#b8240f', 'font-size': 25, 'font-weight': 700 }); cap.textContent = 'nearly 5× the defection rate — 1 in 8'; svg.appendChild(cap);
+  </script>
+</body></html>

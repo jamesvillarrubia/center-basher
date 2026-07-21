@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;The primary is a fair, open contest.&rdquo;</div>
+    <div class="cc-title">Before a single vote, party insiders backed Clinton <span class="hl">45 to 1</span>.</div>
+    <div class="cc-sub">Superdelegate endorsements, Clinton vs. Sanders, November 2015 &mdash; months before the first primary.</div>
+
+    <div class="cc-chart"><svg id="sd" viewBox="0 0 1240 360" role="img"
+      aria-label="Superdelegate endorsements: 45 for Clinton, 1 for Sanders"></svg></div>
+
+    <div class="cc-legend">
+      <div class="item"><span class="dot" style="background:#2c5b9c"></span>Backed Clinton (≈45)</div>
+      <div class="item"><span class="dot dot--ring" style="background:#b8240f"></span>Backed Sanders (1)</div>
+    </div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: NPR, &ldquo;Clinton Has 45-To-1 &lsquo;Superdelegate&rsquo; Advantage Over Sanders&rdquo; (Nov 13, 2015).</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('sd');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const COLS = 23, ROWS = 2, r = 22, sx = 50, sy = 74;
+    const x0 = (1240 - (COLS - 1) * sx) / 2, y0 = 90;
+    for (let i = 0; i < 46; i++) {
+      const cx = x0 + (i % COLS) * sx, cy = y0 + ((i / COLS) | 0) * sy;
+      const sanders = i === 45;
+      svg.appendChild(el('circle', { cx, cy, r, fill: sanders ? '#b8240f' : '#2c5b9c' }));
+      if (sanders) svg.appendChild(el('circle', { cx, cy, r: r + 9, fill: 'none', stroke: '#b8240f', 'stroke-width': 3 }));
+    }
+  </script>
+</body></html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Swing voters are the centrist prize to chase.&rdquo;</div>
+    <div class="cc-title">Swing voters aren&rsquo;t centrist &mdash; they&rsquo;re <span class="hl">no different</span> from anyone.</div>
+    <div class="cc-sub">How often voters actually hold centrist positions on the issues &mdash; the swing vote is no exception.</div>
+
+    <div class="cc-chart"><svg id="nc" viewBox="0 0 1240 380" role="img"
+      aria-label="Centrist on nearly every issue: all voters 3%, swing 2%. No strong position at all: all 9%, swing 9%."></svg></div>
+
+    <div class="cc-legend">
+      <div class="item"><span class="dot" style="background:#8b9aa8"></span>All voters</div>
+      <div class="item"><span class="dot" style="background:#b8240f"></span>Swing voters (party-line crossers)</div>
+    </div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES 2016; share holding centrist issue positions, all voters vs. party-line crossers; weighted.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('nc');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const groups = [
+      { name: 'Centrist on nearly every issue', all: 3, swing: 2 },
+      { name: 'Hold no strong position at all', all: 9, swing: 9 },
+    ];
+    const X0 = 620, X1 = 1130, VMAX = 15, sc = (X1 - X0) / VMAX;
+    const barH = 50, gap = 12, groupH = barH * 2 + gap, groupGap = 56, y0 = 14;
+    const axisY = y0 + groups.length * (groupH + groupGap) - groupGap + 6;
+    for (let v = 0; v <= 15; v += 5) {
+      const gx = X0 + v * sc;
+      svg.appendChild(el('line', { x1: gx, y1: 0, x2: gx, y2: axisY, stroke: '#e8e6e0', 'stroke-width': 2 }));
+      const t = el('text', { x: gx, y: axisY + 28, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 21 }); t.textContent = v + '%'; svg.appendChild(t);
+    }
+    groups.forEach((g, i) => {
+      const gy = y0 + i * (groupH + groupGap);
+      const nm = el('text', { x: X0 - 24, y: gy + groupH / 2 + 8, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 27, 'font-weight': 700 }); nm.textContent = g.name; svg.appendChild(nm);
+      [['all', '#8b9aa8', gy], ['swing', '#b8240f', gy + barH + gap]].forEach(([k, col, by]) => {
+        const w = Math.max(g[k] * sc, 4);
+        svg.appendChild(el('rect', { x: X0, y: by, width: w, height: barH, rx: 6, fill: col }));
+        const val = el('text', { x: X0 + w + 14, y: by + barH - 12, fill: '#1b1b1d', 'font-size': 26, 'font-weight': 800 }); val.textContent = g[k] + '%'; svg.appendChild(val);
+      });
+    });
+  </script>
+</body></html>
