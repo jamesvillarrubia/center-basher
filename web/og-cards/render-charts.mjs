@@ -25,13 +25,43 @@ const cards = readdirSync(here)
 const browser = await chromium.launch()
 const page = await browser.newPage({ viewport: { width: 1600, height: 900 }, deviceScaleFactor: 2 })
 
+const warnings = []
+page.on('pageerror', (e) => warnings.push(`  script error: ${e.message}`))
+
 for (const card of cards) {
+  warnings.length = 0
   await page.goto('file://' + resolve(here, card.file))
   await page.waitForLoadState('networkidle')
+
+  // Guard: chart content that overflows its own viewBox renders clipped, and
+  // slack inside the viewBox shows up as dead space above the footer. Both have
+  // shipped silently before, so fail loudly instead.
+  const geom = await page.evaluate(() => {
+    const box = document.querySelector('.cc-chart')
+    const svg = box && box.querySelector('svg')
+    if (!svg) return null
+    const vb = svg.viewBox.baseVal
+    const bb = svg.getBBox()
+    const r = box.getBoundingClientRect()
+    return {
+      overflowX: Math.round(bb.x + bb.width - (vb.x + vb.width)),
+      overflowY: Math.round(bb.y + bb.height - (vb.y + vb.height)),
+      slackY: Math.round(vb.y + vb.height - (bb.y + bb.height)),
+      letterboxY: Math.round(r.height - (r.width * vb.height) / vb.width),
+    }
+  })
+  if (geom) {
+    if (geom.overflowY > 2) warnings.push(`  CLIPPED: content runs ${geom.overflowY}u past the bottom of the viewBox`)
+    if (geom.overflowX > 2) warnings.push(`  CLIPPED: content runs ${geom.overflowX}u past the right of the viewBox`)
+    const dead = Math.max(0, geom.letterboxY) + Math.max(0, geom.slackY)
+    if (dead > 90) warnings.push(`  DEAD SPACE: ~${dead}px unused below the chart (letterbox ${geom.letterboxY}, viewBox slack ${geom.slackY})`)
+  }
+
   const buf = await page.screenshot({ clip: { x: 0, y: 0, width: 1600, height: 900 } })
   const out = resolve(outDir, `${card.slug}.png`)
   writeFileSync(out, buf)
   console.log('rendered og/charts/' + card.slug + '.png')
+  for (const w of warnings) console.log(w)
 }
 
 await browser.close()
