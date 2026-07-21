@@ -6,7 +6,7 @@
     <div class="cc-title">Sanders&rarr;Trump defectors alone <span class="hl">dwarfed Trump&rsquo;s margin</span> in WI, MI &amp; PA.</div>
     <div class="cc-sub">Trump&rsquo;s 2016 margin vs. the Sanders voters who defected to him, per tipping-point state.</div>
 
-    <div class="cc-chart"><svg id="margins" viewBox="0 0 1240 400" role="img"
+    <div class="cc-chart"><svg id="margins" viewBox="0 0 1240 416" role="img"
       aria-label="Per decisive state, Sanders-to-Trump defectors exceeded Trump's margin 2.7x-5.3x"></svg></div>
 
     <div class="cc-legend">
@@ -30,16 +30,16 @@
       { st: 'Michigan',     margin: 10704, defect: 56208,  mult: '5.3×' },
       { st: 'Pennsylvania', margin: 44292, defect: 131432, mult: '3.0×' },
     ];
-    const X0 = 210, X1 = 980, XMAX = 223434, sc = (X1 - X0) / XMAX;
+    const X0 = 210, X1 = 900, XMAX = 150000, sc = (X1 - X0) / XMAX;
     const barH = 40, innerGap = 12, groupGap = 40, y0 = 6;
     const groupH = barH * 2 + innerGap;
     const axisY = y0 + states.length * (groupH + groupGap) - groupGap + 8;
     // gridlines + axis ticks (0, 50k, 100k, 150k, 200k)
-    for (let v = 0; v <= 200000; v += 50000) {
+    for (let v = 0; v <= 150000; v += 50000) {
       const x = X0 + v * sc;
       svg.appendChild(el('line', { x1: x, y1: 0, x2: x, y2: axisY, stroke: '#e8e6e0', 'stroke-width': 2 }));
       const t = el('text', { x, y: axisY + 30, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 22 });
-      t.textContent = v === 0 ? '0' : (v / 1000) + 'k'; svg.appendChild(t);
+      t.textContent = v === 0 ? '0 votes' : (v / 1000) + 'k'; svg.appendChild(t);
     }
     states.forEach((s, i) => {
       const gy = y0 + i * (groupH + groupGap);

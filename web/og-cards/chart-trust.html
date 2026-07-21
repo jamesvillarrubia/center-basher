@@ -6,7 +6,7 @@
     <div class="cc-title">In 1964, <span class="hl">3 in 4</span> trusted government. Today, about 1 in 7.</div>
     <div class="cc-sub">Share saying they trust the government in Washington to do what&rsquo;s right &ldquo;always or most of the time.&rdquo;</div>
 
-    <div class="cc-chart"><svg id="tr" viewBox="0 0 1240 388" role="img"
+    <div class="cc-chart"><svg id="tr" viewBox="0 0 1240 449" role="img"
       aria-label="Trust in government fell from 78% in 1964 to 15% in 2024"></svg></div>
 
     <div class="cc-foot">
@@ -20,7 +20,7 @@
     const svg = document.getElementById('tr');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
     const D = [[1958,76],[1964,78],[1966,68],[1968,63],[1970,55],[1972,54],[1974,37],[1976,34],[1978,30],[1980,26],[1982,34],[1984,45],[1986,39],[1988,41],[1990,28],[1992,29],[1994,22],[1996,33],[1998,40],[2000,44],[2002,55],[2004,46],[2008,31],[2012,22],[2016,12],[2020,15],[2024,15]];
-    const X0 = 110, X1 = 1160, axisY = 320, topY = 36, YMAX = 85, YR0 = 1958, YR1 = 2024;
+    const X0 = 110, X1 = 1160, axisY = 380, topY = 40, YMAX = 85, YR0 = 1958, YR1 = 2024;
     const x = (yr) => X0 + (yr - YR0) / (YR1 - YR0) * (X1 - X0);
     const y = (v) => axisY - v / YMAX * (axisY - topY);
     [0, 25, 50, 75].forEach((v) => {
