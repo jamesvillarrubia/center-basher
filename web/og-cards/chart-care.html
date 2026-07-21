@@ -3,11 +3,11 @@
 <body>
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Low turnout is a mobilization-tactics problem.&rdquo;</div>
-    <div class="cc-title">Whether you vote comes down to <span class="hl">stakes</span> &mdash; a 35-point swing.</div>
-    <div class="cc-sub">2016 turnout, by whether the voter says they care a good deal who wins the presidency.</div>
+    <div class="cc-title">People vote when the result <span class="hl">matters to them</span>. Nothing else comes close.</div>
+    <div class="cc-sub">2016 turnout, by whether the voter said they cared a good deal who won.</div>
 
-    <div class="cc-chart"><svg id="care" viewBox="0 0 1240 380" role="img"
-      aria-label="Turnout: cares a good deal 70.5%, doesn't care much 35.9%"></svg></div>
+    <div class="cc-chart"><svg id="care" viewBox="0 0 1240 449" role="img"
+      aria-label="Turnout in 2016: 70.5% among voters who cared a good deal who won, 35.9% among those who did not"></svg></div>
 
     <div class="cc-foot">
       <div class="cc-source">Source: ANES 2016; self-reported turnout by &ldquo;how much do you care who wins&rdquo;; weighted.</div>
@@ -19,20 +19,36 @@
     const NS = 'http://www.w3.org/2000/svg';
     const svg = document.getElementById('care');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
     const rows = [
-      { name: 'Cares a good deal who wins', v: 70.5, hot: true },
-      { name: 'Doesn’t care much', v: 35.9 },
+      { name: 'Cared a good deal', v: 70.5, col: '#b8240f' },
+      { name: 'Didn’t care much', v: 35.9, col: '#b0ada4' },
     ];
-    const X0 = 620, X1 = 1120, VMAX = 100, sc = (X1 - X0) / VMAX;
-    const barH = 90, step = 150, y0 = 24;
+    const X0 = 540, X1 = 1090, VMAX = 100, sc = (X1 - X0) / VMAX;
+    const barH = 122, step = 196, y0 = 26;
+    const axisBot = y0 + step + barH + 16;
+
+    for (let v = 0; v <= 100; v += 25) {
+      const gx = X0 + v * sc;
+      svg.appendChild(el('line', { x1: gx, y1: y0 - 14, x2: gx, y2: axisBot, stroke: v === 0 ? '#c9c6bd' : '#e8e6e0', 'stroke-width': v === 0 ? 3 : 2 }));
+      txt({ x: gx, y: axisBot + 32, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 22 }, v + '%');
+    }
+    txt({ x: (X0 + X1) / 2, y: axisBot + 70, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 24, 'font-style': 'italic' }, 'share who turned out');
+
     rows.forEach((r, i) => {
       const yTop = y0 + i * step, mid = yTop + barH / 2;
-      const l1 = el('text', { x: X0 - 26, y: mid - 2, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 30, 'font-weight': 700 }); l1.textContent = r.name; svg.appendChild(l1);
-      const l2 = el('text', { x: X0 - 26, y: mid + 32, 'text-anchor': 'end', fill: '#7a7772', 'font-size': 23 }); l2.textContent = 'turned out'; svg.appendChild(l2);
+      txt({ x: X0 - 28, y: mid + 12, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 34, 'font-weight': 800 }, r.name);
       const w = r.v * sc;
-      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 9, fill: r.hot ? '#2c5b9c' : '#b0ada4' }));
-      const val = el('text', { x: X0 + w + 20, y: mid + 15, fill: '#1b1b1d', 'font-size': 46, 'font-weight': 800 }); val.textContent = r.v.toFixed(1) + '%'; svg.appendChild(val);
+      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 8, fill: r.col }));
+      txt({ x: X0 + w + 22, y: mid + 16, fill: r.col === '#b8240f' ? '#b8240f' : '#1b1b1d', 'font-size': 52, 'font-weight': 800 }, r.v.toFixed(1) + '%');
     });
-    const g = el('text', { x: X0 + 320, y: y0 + step - 24, 'text-anchor': 'middle', fill: '#b8240f', 'font-size': 28, 'font-weight': 800 }); g.textContent = '34.6-point gap'; svg.appendChild(g);
+
+    // gap bracket between the two bars
+    const gx = X0 + 35.9 * sc, gx2 = X0 + 70.5 * sc;
+    const gy = y0 + barH + 24;
+    svg.appendChild(el('line', { x1: gx, y1: gy, x2: gx2, y2: gy, stroke: '#b8240f', 'stroke-width': 3 }));
+    [gx, gx2].forEach((x) => svg.appendChild(el('line', { x1: x, y1: gy - 11, x2: x, y2: gy + 11, stroke: '#b8240f', 'stroke-width': 3 })));
+    txt({ x: (gx + gx2) / 2, y: gy + 36, 'text-anchor': 'middle', fill: '#b8240f', 'font-size': 30, 'font-weight': 800 }, '35 points');
   </script>
 </body></html>
