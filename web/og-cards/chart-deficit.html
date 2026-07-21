@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Republicans are the fiscally responsible party.&rdquo;</div>
+    <div class="cc-title">The deficit <span class="hl">explodes</span> under Republicans &mdash; and falls under Democrats.</div>
+    <div class="cc-sub">Change in the annual federal deficit across each administration&rsquo;s budgets.</div>
+
+    <div class="cc-chart"><svg id="def" viewBox="0 0 1240 400" role="img"
+      aria-label="Deficit change: Reagan +94%, GHW Bush +67%, Clinton -150%, GW Bush +1204%, Obama -53%, Trump +317%"></svg></div>
+
+    <div class="cc-legend">
+      <div class="item"><span class="dot" style="background:#b8240f"></span>Republican administration</div>
+      <div class="item"><span class="dot" style="background:#2c5b9c"></span>Democratic administration</div>
+    </div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: OMB Historical Tables (Table 1.1); deficit change start-to-end of each administration&rsquo;s budgets. GW Bush bar clipped at +400%.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('def');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const D = [
+      { who: 'Reagan', v: 94, r: true }, { who: 'GHW Bush', v: 67, r: true },
+      { who: 'Clinton', v: -150, r: false }, { who: 'GW Bush', v: 1204, r: true },
+      { who: 'Obama', v: -53, r: false }, { who: 'Trump', v: 317, r: true },
+    ];
+    const X0 = 80, X1 = 1180, zeroY = 196, UP = 400, DN = -200, topY = 44, botY = 320;
+    const yv = (v) => v >= 0 ? zeroY - Math.min(v, UP) / UP * (zeroY - topY) : zeroY - Math.max(v, DN) / DN * (botY - zeroY) * -1;
+    const yPos = (v) => zeroY - Math.min(v, UP) / UP * (zeroY - topY);
+    const yNeg = (v) => zeroY + Math.min(Math.abs(v), Math.abs(DN)) / Math.abs(DN) * (botY - zeroY);
+    const bandW = (X1 - X0) / D.length, bw = 118;
+    svg.appendChild(el('line', { x1: X0, y1: zeroY, x2: X1, y2: zeroY, stroke: '#1b1b1d', 'stroke-width': 3 }));
+    D.forEach((d, i) => {
+      const cx = X0 + bandW * (i + 0.5), col = d.r ? '#b8240f' : '#2c5b9c';
+      const yTip = d.v >= 0 ? yPos(d.v) : yNeg(d.v);
+      const yTop = Math.min(zeroY, yTip), h = Math.abs(zeroY - yTip);
+      svg.appendChild(el('rect', { x: cx - bw / 2, y: yTop, width: bw, height: h, rx: 6, fill: col }));
+      const vy = d.v >= 0 ? yTip - 16 : yTip + 32;
+      const vl = el('text', { x: cx, y: vy, 'text-anchor': 'middle', fill: col, 'font-size': 27, 'font-weight': 800 }); vl.textContent = (d.v > 0 ? '+' : '−') + Math.abs(d.v).toLocaleString() + '%'; svg.appendChild(vl);
+      const nm = el('text', { x: cx, y: 366, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 24, 'font-weight': 600 }); nm.textContent = d.who; svg.appendChild(nm);
+    });
+  </script>
+</body></html>

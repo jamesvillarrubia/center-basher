@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Low turnout is a mobilization-tactics problem.&rdquo;</div>
+    <div class="cc-title">Whether you vote comes down to <span class="hl">stakes</span> &mdash; a 35-point swing.</div>
+    <div class="cc-sub">2016 turnout, by whether the voter says they care a good deal who wins the presidency.</div>
+
+    <div class="cc-chart"><svg id="care" viewBox="0 0 1240 380" role="img"
+      aria-label="Turnout: cares a good deal 70.5%, doesn't care much 35.9%"></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES 2016; self-reported turnout by &ldquo;how much do you care who wins&rdquo;; weighted.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('care');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const rows = [
+      { name: 'Cares a good deal who wins', v: 70.5, hot: true },
+      { name: 'Doesn’t care much', v: 35.9 },
+    ];
+    const X0 = 620, X1 = 1120, VMAX = 100, sc = (X1 - X0) / VMAX;
+    const barH = 90, step = 150, y0 = 24;
+    rows.forEach((r, i) => {
+      const yTop = y0 + i * step, mid = yTop + barH / 2;
+      const l1 = el('text', { x: X0 - 26, y: mid - 2, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 30, 'font-weight': 700 }); l1.textContent = r.name; svg.appendChild(l1);
+      const l2 = el('text', { x: X0 - 26, y: mid + 32, 'text-anchor': 'end', fill: '#7a7772', 'font-size': 23 }); l2.textContent = 'turned out'; svg.appendChild(l2);
+      const w = r.v * sc;
+      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 9, fill: r.hot ? '#2c5b9c' : '#b0ada4' }));
+      const val = el('text', { x: X0 + w + 20, y: mid + 15, fill: '#1b1b1d', 'font-size': 46, 'font-weight': 800 }); val.textContent = r.v.toFixed(1) + '%'; svg.appendChild(val);
+    });
+    const g = el('text', { x: X0 + 320, y: y0 + step - 24, 'text-anchor': 'middle', fill: '#b8240f', 'font-size': 28, 'font-weight': 800 }); g.textContent = '34.6-point gap'; svg.appendChild(g);
+  </script>
+</body></html>

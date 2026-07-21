@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Non-voters are just content, or too lazy to show up.&rdquo;</div>
+    <div class="cc-title">Most no-shows aren&rsquo;t content &mdash; they&rsquo;re <span class="hl">alienated</span>.</div>
+    <div class="cc-sub">Low-engagement non-voters by outlook: &ldquo;the system doesn&rsquo;t respond to me&rdquo; vs. &ldquo;things are basically fine.&rdquo;</div>
+
+    <div class="cc-chart"><svg id="al" viewBox="0 0 1240 380" role="img"
+      aria-label="Of low-engagement non-voters in 2024: 53% alienated, 6% complacent"></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES Cumulative File; low-engagement non-voters by grievance and efficacy; weighted. Alienated share: 36% (2016) &rarr; 53% (2024).</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('al');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const rows = [
+      { name: 'Alienated', sub: '“my vote doesn’t fix anything”', v: 53, hot: true },
+      { name: 'Complacent', sub: '“things are basically fine”', v: 6 },
+    ];
+    const X0 = 590, X1 = 1120, VMAX = 60, sc = (X1 - X0) / VMAX;
+    const barH = 88, step = 148, y0 = 22;
+    rows.forEach((r, i) => {
+      const yTop = y0 + i * step, mid = yTop + barH / 2;
+      const l1 = el('text', { x: X0 - 26, y: mid - 2, 'text-anchor': 'end', fill: r.hot ? '#b8240f' : '#1b1b1d', 'font-size': 32, 'font-weight': 800 }); l1.textContent = r.name; svg.appendChild(l1);
+      const l2 = el('text', { x: X0 - 26, y: mid + 30, 'text-anchor': 'end', fill: '#7a7772', 'font-size': 22 }); l2.textContent = r.sub; svg.appendChild(l2);
+      const w = r.v * sc;
+      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 9, fill: r.hot ? '#b8240f' : '#b0ada4' }));
+      const val = el('text', { x: X0 + w + 20, y: mid + 15, fill: '#1b1b1d', 'font-size': 46, 'font-weight': 800 }); val.textContent = r.v + '%'; svg.appendChild(val);
+    });
+    const cap = el('text', { x: X0, y: y0 + 2 * step + 24, 'text-anchor': 'start', fill: '#6b6b70', 'font-size': 23 }); cap.textContent = 'of low-engagement non-voters, 2024'; svg.appendChild(cap);
+  </script>
+</body></html>

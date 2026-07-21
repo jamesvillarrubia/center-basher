@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Make voters love your candidate and they&rsquo;ll show up.&rdquo;</div>
+    <div class="cc-title">Loving your candidate <span class="hl">doesn&rsquo;t</span> get you to the polls.</div>
+    <div class="cc-sub">What actually predicts turnout (2016): stakes and contact drive it; warmth to your favorite is a slight negative.</div>
+
+    <div class="cc-chart"><svg id="w" viewBox="0 0 1240 400" role="img"
+      aria-label="Standardized turnout coefficients: care who wins 0.42, contact 0.23, strong feelings both sides 0.22, ideology 0.07, warmth to favorite -0.10"></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES 2016; standardized weighted-logistic coefficients on whether the voter turned out.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('w');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const rows = [
+      { name: 'Care who wins', v: 0.42 },
+      { name: 'Campaign contact', v: 0.23 },
+      { name: 'Strong feelings, both sides', v: 0.22 },
+      { name: 'Ideology extremity', v: 0.07 },
+      { name: 'Warmth to your favorite', v: -0.10, hot: true },
+    ];
+    const LBL = 380, X1 = 1150, zeroX = 650, sc = (X1 - zeroX) / 0.5;
+    const barH = 46, step = 66, y0 = 12, axisY = y0 + rows.length * step - 4;
+    // zero baseline
+    svg.appendChild(el('line', { x1: zeroX, y1: 0, x2: zeroX, y2: axisY, stroke: '#1b1b1d', 'stroke-width': 2 }));
+    const zt = el('text', { x: zeroX, y: axisY + 30, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 21 }); zt.textContent = '0'; svg.appendChild(zt);
+    rows.forEach((r, i) => {
+      const yTop = y0 + i * step, mid = yTop + barH / 2;
+      const nm = el('text', { x: LBL, y: mid + 9, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 26, 'font-weight': r.hot ? 800 : 600 }); nm.textContent = r.name; svg.appendChild(nm);
+      const w = Math.abs(r.v) * sc, bx = r.v >= 0 ? zeroX : zeroX - w;
+      svg.appendChild(el('rect', { x: bx, y: yTop, width: w, height: barH, rx: 7, fill: r.hot ? '#b8240f' : '#8b9aa8' }));
+      const vx = r.v >= 0 ? bx + w + 14 : bx - 14;
+      const val = el('text', { x: vx, y: mid + 9, 'text-anchor': r.v >= 0 ? 'start' : 'end', fill: r.hot ? '#b8240f' : '#1b1b1d', 'font-size': 27, 'font-weight': 800 }); val.textContent = (r.v > 0 ? '+' : '−') + Math.abs(r.v).toFixed(2); svg.appendChild(val);
+    });
+  </script>
+</body></html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Moderates are swing voters, up for grabs.&rdquo;</div>
+    <div class="cc-title">&ldquo;Moderates&rdquo; barely swing &mdash; <span class="hl">85%</span> vote the same party every time.</div>
+    <div class="cc-sub">Self-described moderates tracked across 2012, 2016 &amp; 2020 &mdash; most never crossed party lines.</div>
+
+    <div class="cc-chart"><svg id="con" viewBox="0 0 1240 300" role="img"
+      aria-label="Of moderates who voted all three cycles: 54% always Democrat, 15% switched, 31% always Republican"></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: Democracy Fund VOTER Survey panel; self-described moderates who voted in 2012, 2016 &amp; 2020; weighted.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('con');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const segs = [
+      { v: 54, c: '#2c5b9c', label: 'Always Democrat', sub: '54%' },
+      { v: 15, c: '#b0ada4', label: 'Switched', sub: '15%' },
+      { v: 31, c: '#b8240f', label: 'Always Republican', sub: '31%' },
+    ];
+    const X0 = 70, X1 = 1170, W = X1 - X0, barY = 96, barH = 96;
+    let cx = X0;
+    segs.forEach((s) => {
+      const w = s.v / 100 * W;
+      svg.appendChild(el('rect', { x: cx + 2, y: barY, width: w - 4, height: barH, rx: 6, fill: s.c }));
+      const pv = el('text', { x: cx + w / 2, y: barY + 58, 'text-anchor': 'middle', fill: '#fff', 'font-size': 44, 'font-weight': 800 }); pv.textContent = s.sub; svg.appendChild(pv);
+      const nm = el('text', { x: cx + w / 2, y: barY + barH + 42, 'text-anchor': 'middle', fill: s.c, 'font-size': 27, 'font-weight': 700 }); nm.textContent = s.label; svg.appendChild(nm);
+      cx += w;
+    });
+  </script>
+</body></html>
