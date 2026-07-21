@@ -3,11 +3,11 @@
 <body>
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Shift to the center and you&rsquo;ll win voters over.&rdquo;</div>
-    <div class="cc-title">Late-campaign persuasion moves vote choice by <span class="hl">0.0 points</span>.</div>
-    <div class="cc-sub">By the general, voters already have you pegged. Kalla &amp; Broockman: 49 field experiments.</div>
+    <div class="cc-title">49 experiments tried to change minds in a general election. <span class="hl">Nothing moved.</span></div>
+    <div class="cc-sub">Kalla &amp; Broockman pooled every credible field test of persuasion. The best estimate is zero.</div>
 
-    <div class="cc-chart"><svg id="persuasion" viewBox="0 0 1240 340" role="img"
-      aria-label="Effect on vote choice: point estimate 0.0 points, 95% confidence interval rules out effects beyond about 0.6 points"></svg></div>
+    <div class="cc-chart"><svg id="persuasion" viewBox="0 0 1240 449" role="img"
+      aria-label="Effect of general-election persuasion on vote choice: point estimate 0.0 points, with the data ruling out any effect beyond about 0.6 points either way"></svg></div>
 
     <div class="cc-foot">
       <div class="cc-source">Source: Kalla &amp; Broockman 2018, <em>American Political Science Review</em> 112(1): 148&ndash;166.</div>
@@ -19,28 +19,33 @@
     const NS = 'http://www.w3.org/2000/svg';
     const svg = document.getElementById('persuasion');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
-    // axis: -1 .. +2 pp
-    const X0 = 120, X1 = 1120, LO = -1, HI = 2, sc = (X1 - X0) / (HI - LO);
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
+    const X0 = 90, X1 = 1150, LO = -2, HI = 2, sc = (X1 - X0) / (HI - LO);
     const x = (v) => X0 + (v - LO) * sc;
-    const plotTop = 40, cy = 175, axisY = 282;
+    const bandTop = 76, bandBot = 316, cy = (bandTop + bandBot) / 2;
+    const CI = 0.6;
+
+    // regions the data rules out
+    [[LO, -CI], [CI, HI]].forEach(([a, b]) => {
+      svg.appendChild(el('rect', { x: x(a), y: bandTop, width: x(b) - x(a), height: bandBot - bandTop, fill: '#1b1b1d', 'fill-opacity': 0.045 }));
+    });
+    txt({ x: (x(LO) + x(-CI)) / 2, y: bandTop + 44, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 26, 'font-weight': 700 }, 'ruled out by the data');
+    txt({ x: (x(CI) + x(HI)) / 2, y: bandTop + 44, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 26, 'font-weight': 700 }, 'ruled out by the data');
+
     // gridlines + ticks
-    for (let v = -1; v <= 2; v++) {
-      svg.appendChild(el('line', { x1: x(v), y1: plotTop, x2: x(v), y2: axisY, stroke: '#ece9e2', 'stroke-width': 2 }));
-      const t = el('text', { x: x(v), y: axisY + 32, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 23 });
-      t.textContent = (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v) + ' pt'; svg.appendChild(t);
+    for (let v = LO; v <= HI; v++) {
+      svg.appendChild(el('line', { x1: x(v), y1: bandTop, x2: x(v), y2: bandBot, stroke: v === 0 ? '#cfccc4' : '#e2dfd8', 'stroke-width': 2, ...(v === 0 ? { 'stroke-dasharray': '6 7' } : {}) }));
+      txt({ x: x(v), y: bandBot + 40, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 24 }, (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v));
     }
-    // emphasized zero line
-    svg.appendChild(el('line', { x1: x(0), y1: plotTop - 6, x2: x(0), y2: axisY, stroke: '#cfccc4', 'stroke-width': 2, 'stroke-dasharray': '6 7' }));
-    // 95% CI whisker (point est 0.0, half-width ~0.6)
-    svg.appendChild(el('line', { x1: x(-0.6), y1: cy, x2: x(0.6), y2: cy, stroke: '#b8240f', 'stroke-width': 6, 'stroke-linecap': 'round' }));
-    [-0.6, 0.6].forEach((v) => svg.appendChild(el('line', { x1: x(v), y1: cy - 16, x2: x(v), y2: cy + 16, stroke: '#b8240f', 'stroke-width': 6, 'stroke-linecap': 'round' })));
-    // point estimate dot at 0.0
-    svg.appendChild(el('circle', { cx: x(0), cy, r: 20, fill: '#b8240f', stroke: '#fbfbf8', 'stroke-width': 5 }));
-    // big estimate label
-    const big = el('text', { x: x(0), y: cy - 58, 'text-anchor': 'middle', fill: '#b8240f', 'font-size': 56, 'font-weight': 800 });
-    big.textContent = '0.0 pt'; svg.appendChild(big);
-    // CI annotation
-    const ann = el('text', { x: x(0), y: cy + 56, 'text-anchor': 'middle', fill: '#4a4a4f', 'font-size': 24 });
-    ann.textContent = '95% confidence interval — rules out any effect beyond ≈ 0.6 pt'; svg.appendChild(ann);
+    txt({ x: (X0 + X1) / 2, y: bandBot + 84, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 25, 'font-style': 'italic' }, 'effect on vote choice (percentage points)');
+
+    // the whole plausible range, in red
+    svg.appendChild(el('line', { x1: x(-CI), y1: cy, x2: x(CI), y2: cy, stroke: '#b8240f', 'stroke-width': 8, 'stroke-linecap': 'round' }));
+    [-CI, CI].forEach((v) => svg.appendChild(el('line', { x1: x(v), y1: cy - 22, x2: x(v), y2: cy + 22, stroke: '#b8240f', 'stroke-width': 8, 'stroke-linecap': 'round' })));
+    svg.appendChild(el('circle', { cx: x(0), cy, r: 22, fill: '#b8240f', stroke: '#fbfbf8', 'stroke-width': 5 }));
+
+    txt({ x: x(0), y: cy - 62, 'text-anchor': 'middle', fill: '#b8240f', 'font-size': 62, 'font-weight': 800 }, '0.0');
+    txt({ x: x(0), y: cy + 74, 'text-anchor': 'middle', fill: '#4a4a4f', 'font-size': 25 }, 'everything the 49 experiments can support');
   </script>
 </body></html>
