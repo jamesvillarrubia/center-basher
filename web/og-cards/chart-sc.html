@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;South Carolina votes first because it&rsquo;s the most representative.&rdquo;</div>
+    <div class="cc-title">The party&rsquo;s first primary is in a state it hasn&rsquo;t won since <span class="hl">1976</span>.</div>
+    <div class="cc-sub">The DNC made South Carolina first in 2023, citing diversity. It isn&rsquo;t among the most diverse states &mdash; and it isn&rsquo;t competitive.</div>
+
+    <div class="cc-chart"><svg id="sc" viewBox="0 0 1240 372" role="img"
+      aria-label="South Carolina presidential margin: Republican by 12 points in 2020 and 18 in 2024"></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: 270toWin (SC presidential results); U.S. Census Bureau 2020 Diversity Index; DNC 2023 primary-calendar vote.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('sc');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const rows = [
+      { name: '2020 presidential', v: 12 },
+      { name: '2024 presidential', v: 18 },
+    ];
+    const X0 = 560, X1 = 1080, VMAX = 20, sc = (X1 - X0) / VMAX;
+    const barH = 82, step = 138, y0 = 20;
+    rows.forEach((r, i) => {
+      const yTop = y0 + i * step, mid = yTop + barH / 2;
+      const nm = el('text', { x: X0 - 26, y: mid + 9, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 29, 'font-weight': 700 }); nm.textContent = r.name; svg.appendChild(nm);
+      const w = r.v * sc;
+      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 9, fill: '#b8240f' }));
+      const val = el('text', { x: X0 + w + 20, y: mid + 14, fill: '#b8240f', 'font-size': 42, 'font-weight': 800 }); val.textContent = 'R +' + r.v; svg.appendChild(val);
+    });
+    const cap = el('text', { x: X0 - 26, y: y0 + 2 * step + 8, 'text-anchor': 'end', fill: '#6b6b70', 'font-size': 24 }); cap.textContent = 'Republican margin of victory'; svg.appendChild(cap);
+    const cap2 = el('text', { x: X0, y: y0 + 2 * step + 8, 'text-anchor': 'start', fill: '#6b6b70', 'font-size': 24 }); cap2.textContent = 'Most diverse states (Census): HI, CA, NV, MD, TX — not SC.'; svg.appendChild(cap2);
+  </script>
+</body></html>

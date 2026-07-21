@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Single-payer is a fringe idea with no real support.&rdquo;</div>
+    <div class="cc-title">Bernie&rsquo;s &ldquo;fringe&rdquo; idea became the question <span class="hl">every</span> 2020 Democrat had to answer.</div>
+    <div class="cc-sub">Where the 2020 candidates landed on Medicare for All &mdash; even Biden, whose campaign rested on opposing it.</div>
+
+    <div class="cc-chart"><svg id="m4a" viewBox="0 0 1240 360" role="img"
+      aria-label="2020 Democrats on Medicare for All, from Biden (opposed) to Sanders and Warren (full single-payer)"></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: 2020 Democratic primary healthcare platforms (KFF; Time; Washington Post).</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('m4a');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const X0 = 150, X1 = 1090, axisY = 190;
+    const px = (p) => X0 + p * (X1 - X0);
+    // axis
+    svg.appendChild(el('line', { x1: X0, y1: axisY, x2: X1, y2: axisY, stroke: '#c9c6bd', 'stroke-width': 4 }));
+    svg.appendChild(el('path', { d: `M ${X1} ${axisY} l -18 -10 l 0 20 z`, fill: '#c9c6bd' }));
+    const endL = el('text', { x: X0, y: axisY + 148, 'text-anchor': 'start', fill: '#6b6b70', 'font-size': 24, 'font-weight': 600 }); endL.textContent = '← Keep private insurance'; svg.appendChild(endL);
+    const endR = el('text', { x: X1, y: axisY + 148, 'text-anchor': 'end', fill: '#b8240f', 'font-size': 24, 'font-weight': 700 }); endR.textContent = 'Medicare for All →'; svg.appendChild(endR);
+    const cands = [
+      { p: 0.06, name: 'Biden', sub: 'Opposed M4A', up: true, hot: true },
+      { p: 0.28, name: 'Buttigieg', sub: 'Public option', up: false },
+      { p: 0.53, name: 'Harris', sub: 'M4A, some private', up: true },
+      { p: 0.83, name: 'Warren', sub: 'Full single-payer', up: false },
+      { p: 0.96, name: 'Sanders', sub: 'Full single-payer', up: true },
+    ];
+    cands.forEach((c) => {
+      const x = px(c.p), col = c.hot ? '#b8240f' : '#2c5b9c';
+      svg.appendChild(el('circle', { cx: x, cy: axisY, r: 15, fill: col, stroke: '#fbfbf8', 'stroke-width': 3 }));
+      const ny = c.up ? axisY - 62 : axisY + 52, sy = c.up ? axisY - 34 : axisY + 80;
+      const nm = el('text', { x, y: ny, 'text-anchor': 'middle', fill: c.hot ? '#b8240f' : '#1b1b1d', 'font-size': 30, 'font-weight': 800 }); nm.textContent = c.name; svg.appendChild(nm);
+      const st = el('text', { x, y: sy, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 21 }); st.textContent = c.sub; svg.appendChild(st);
+      svg.appendChild(el('line', { x1: x, y1: c.up ? axisY - 15 : axisY + 15, x2: x, y2: c.up ? ny + 12 : axisY + 24, stroke: '#d9d6cd', 'stroke-width': 2 }));
+    });
+  </script>
+</body></html>
