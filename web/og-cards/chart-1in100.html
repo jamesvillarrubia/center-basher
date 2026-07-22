@@ -6,7 +6,7 @@
     <div class="cc-title">Only <span class="hl">1 in 100</span> voters is a real centrist.</div>
     <div class="cc-sub">40 in 100 call themselves &ldquo;moderate.&rdquo; Just one is centrist on every issue.</div>
 
-    <div class="cc-chart"><svg id="waffle" viewBox="0 0 1290 360" role="img"
+    <div class="cc-chart"><svg id="waffle" viewBox="0 0 1290 450" role="img"
       aria-label="Waffle of 100 dots: 60 non-moderate, 39 self-described moderate, 1 true centrist circled"></svg></div>
 
     <div class="cc-legend">
@@ -27,8 +27,8 @@
     //   60–98 self-ID moderate (medium) rows 4–5
     //   99    True Middler (red, ringed) last dot, bottom-right
     const svg = document.getElementById('waffle');
-    const COLS = 20, ROWS = 5, r = 22, sx = 62, sy = 68;
-    const x0 = (1290 - (COLS - 1) * sx) / 2, y0 = (360 - (ROWS - 1) * sy) / 2;
+    const COLS = 20, ROWS = 5, r = 25, sx = 62, sy = 90;
+    const x0 = (1290 - (COLS - 1) * sx) / 2, y0 = (450 - (ROWS - 1) * sy) / 2;
     const NS = 'http://www.w3.org/2000/svg';
     for (let i = 0; i < 100; i++) {
       const col = i % COLS, row = (i / COLS) | 0;
