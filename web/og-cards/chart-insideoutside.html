@@ -3,8 +3,8 @@
 <body>
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;The winning move is to position yourself in the middle.&rdquo;</div>
-    <div class="cc-title">Voters sort on inside vs. outside <span class="hl">before</span> they sort on left vs. right.</div>
-    <div class="cc-sub">Romney and Buttigieg have almost nothing in common on policy. Neither do Sanders and Trump. The axis that separated them from each other is the one nobody campaigns on.</div>
+    <div class="cc-title">Nobody cares that Sanders is left of Buttigieg. They care that he&rsquo;s <span class="hl">outside</span>.</div>
+    <div class="cc-sub">Sanders and Trump agree on nothing and share the only trait a low-trust electorate rewards. Buttigieg and Romney agree on nothing either, and share the one it punishes. The horizontal axis is the argument every campaign has. The vertical one decides it.</div>
 
     <div class="cc-chart"><svg id="io" viewBox="0 0 1240 449" role="img"
       aria-label="Quadrant diagram: Sanders and Trump sit outside the system at opposite ends of the left-right axis; Buttigieg and Romney sit inside it, near the middle"></svg></div>
@@ -34,8 +34,10 @@
     txt({ x: X0, y: Y1 + 44, 'text-anchor': 'start', fill: '#6b6b70', 'font-size': 25, 'font-weight': 700 }, '← Left on policy');
     txt({ x: X1, y: Y1 + 44, 'text-anchor': 'end', fill: '#6b6b70', 'font-size': 25, 'font-weight': 700 }, 'Right on policy →');
     // band labels live inside their own half, so nothing rotates or collides
-    txt({ x: X0 + 18, y: Y0 + 36, 'text-anchor': 'start', fill: '#b8240f', 'font-size': 24, 'font-weight': 800, 'letter-spacing': 1.5, opacity: 0.75 }, 'OUTSIDE THE SYSTEM');
-    txt({ x: X0 + 18, y: Y1 - 14, 'text-anchor': 'start', fill: '#a8a59c', 'font-size': 24, 'font-weight': 800, 'letter-spacing': 1.5 }, 'INSIDE THE SYSTEM');
+    txt({ x: X0 + 18, y: Y0 + 34, 'text-anchor': 'start', fill: '#b8240f', 'font-size': 25, 'font-weight': 800, 'letter-spacing': 1.5 }, 'OUTSIDE THE SYSTEM');
+    txt({ x: X0 + 18, y: Y0 + 64, 'text-anchor': 'start', fill: '#b8240f', 'font-size': 23, opacity: 0.8 }, 'what a low-trust electorate rewards');
+    txt({ x: X0 + 18, y: Y1 - 40, 'text-anchor': 'start', fill: '#a8a59c', 'font-size': 25, 'font-weight': 800, 'letter-spacing': 1.5 }, 'INSIDE THE SYSTEM');
+    txt({ x: X0 + 18, y: Y1 - 12, 'text-anchor': 'start', fill: '#a8a59c', 'font-size': 23 }, 'what it punishes, however good the résumé');
 
     const pts = [
       { x: 0.10, y: 0.34, name: 'Sanders',   note: 'ran against the party',   out: true },

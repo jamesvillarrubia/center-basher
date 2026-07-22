@@ -2,9 +2,9 @@
 <html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
 <body>
   <div class="chartcard">
-    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Moderates are swing voters, up for grabs.&rdquo;</div>
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Swing voters are moderates, so run as a moderate to win them.&rdquo;</div>
     <div class="cc-title">&ldquo;Moderates&rdquo; barely swing. <span class="hl">85%</span> vote the same party every time.</div>
-    <div class="cc-sub">Self-described moderates who voted in 2012, 2016 and 2020, by what they actually did.</div>
+    <div class="cc-sub">Watch the inference run backwards. Even where swing voters look moderate, it does not follow that moderates swing. Of self-described moderates who voted in 2012, 2016 and 2020, 85% never once changed party.</div>
 
     <div class="cc-chart"><svg id="con" viewBox="0 0 1240 449" role="img"
       aria-label="Of moderates who voted all three cycles, 85% voted the same party every time and only 15% ever switched"></svg></div>
@@ -25,9 +25,11 @@
     const pct = (v) => v / 100 * W;
 
     // 85% loyal block, split internally by party
+    // Neutral slates, not party colors: the split that matters here is loyal vs.
+    // switcher, and party-coded blue/red would misread as the argument.
     const loyal = [
-      { v: 54, c: '#2c5b9c', label: 'Always Democrat' },
-      { v: 31, c: '#5b7fa8', label: 'Always Republican' },
+      { v: 54, c: '#5c6b7a', label: 'Always Democrat' },
+      { v: 31, c: '#8b98a5', label: 'Always Republican' },
     ];
     let cx = X0;
     loyal.forEach((s) => {

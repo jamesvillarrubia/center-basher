@@ -22,10 +22,10 @@
     const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
 
     const rows = [
-      { name: 'Holds BOTH a hard-left and a hard-right position', v: 48, col: '#b8240f', hot: true },
-      { name: 'Hard-left position(s) only', v: 23, col: '#5f83ac' },
-      { name: 'Hard-right position(s) only', v: 20, col: '#5f83ac' },
-      { name: 'No extreme position at all', v: 10, col: '#b0ada4', quiet: true },
+      { name: ['Holds BOTH a hard-left', 'and a hard-right position'], v: 48, col: '#b8240f', hot: true },
+      { name: ['Hard-left position(s) only'], v: 23, col: '#5f83ac' },
+      { name: ['Hard-right position(s) only'], v: 20, col: '#5f83ac' },
+      { name: ['No extreme position at all'], v: 10, col: '#b0ada4', quiet: true },
     ];
     const X0 = 600, X1 = 1090, VMAX = 55, sc = (X1 - X0) / VMAX;
     const barH = 58, step = 90, y0 = 20;
@@ -40,7 +40,8 @@
 
     rows.forEach((r, i) => {
       const yTop = y0 + i * step, mid = yTop + barH / 2;
-      txt({ x: X0 - 28, y: mid + 10, 'text-anchor': 'end', fill: r.quiet ? '#7a7772' : '#1b1b1d', 'font-size': 27, 'font-weight': r.hot ? 800 : 600 }, r.name);
+      const lines = r.name, ly = mid + 10 - (lines.length - 1) * 17;
+      lines.forEach((ln, k) => txt({ x: X0 - 28, y: ly + k * 34, 'text-anchor': 'end', fill: r.quiet ? '#7a7772' : '#1b1b1d', 'font-size': 27, 'font-weight': r.hot ? 800 : 600 }, ln));
       const w = r.v * sc;
       svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 8, fill: r.col }));
       txt({ x: X0 + w + 20, y: mid + 14, fill: r.hot ? '#b8240f' : '#6b6b70', 'font-size': 40, 'font-weight': 800 }, r.v + '%');

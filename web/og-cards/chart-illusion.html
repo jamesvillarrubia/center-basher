@@ -3,16 +3,15 @@
 <body>
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Independents and swing voters sit in the center.&rdquo;</div>
-    <div class="cc-title">Independents aren&rsquo;t centrist &mdash; they just <span class="hl">average to the center</span>.</div>
-    <div class="cc-sub">Independents hold diverse, opposing views &mdash; not centrist ones. Averaging systematically undercounts
-      both poles and manufactures a phantom center. <strong>48%</strong> hold both a strong-left <em>and</em> a strong-right position.</div>
+    <div class="cc-title">Independents and swing voters are <span class="hl">not centrists</span>.</div>
+    <div class="cc-sub">They hold diverse, opposing views that only average to a center because we forced them onto one left-right line. Nothing here tells you which issue they actually vote on, and when they vote on one, it is almost never the centrist position.</div>
 
     <div class="cc-chart"><svg id="ill" viewBox="0 0 1240 418" role="img"
       aria-label="Per-issue minus averaged position for independents, in percentage points: positive on the wings, negative in the middle"></svg></div>
 
     <div class="cc-legend">
       <div class="item"><span class="dot" style="background:#b8240f"></span><b>Undercounted</b> &mdash; more hold this than the average shows</div>
-      <div class="item"><span class="dot" style="background:#5f83ac"></span><b>Overcounted</b> &mdash; fewer than the average implies</div>
+      <div class="item"><span class="dot" style="background:#a9bdd2"></span><b>Overcounted</b> &mdash; fewer than the average implies</div>
     </div>
 
     <div class="cc-foot">
@@ -44,7 +43,7 @@
 
     // smooth sampled curve, split into red (above 0) / blue (below 0) fills
     const S = []; for (let xd = -3; xd <= 3.0001; xd += 0.04) S.push({ xd, d: cr(xd) });
-    const flush = (seg, sgn) => { if (seg.length < 2) return; let dd = `M ${x(seg[0].xd)} ${zeroY}`; seg.forEach((s) => dd += ` L ${x(s.xd)} ${y(s.d)}`); dd += ` L ${x(seg[seg.length - 1].xd)} ${zeroY} Z`; svg.appendChild(el('path', { d: dd, fill: sgn > 0 ? '#b8240f' : '#5f83ac', 'fill-opacity': 0.9 })); };
+    const flush = (seg, sgn) => { if (seg.length < 2) return; let dd = `M ${x(seg[0].xd)} ${zeroY}`; seg.forEach((s) => dd += ` L ${x(s.xd)} ${y(s.d)}`); dd += ` L ${x(seg[seg.length - 1].xd)} ${zeroY} Z`; svg.appendChild(el('path', { d: dd, fill: sgn > 0 ? '#b8240f' : '#a9bdd2', 'fill-opacity': 0.9 })); };
     let cur = [S[0]], sgn = S[0].d >= 0 ? 1 : -1;
     for (let k = 1; k < S.length; k++) {
       const pr = S[k - 1], p = S[k], s2 = p.d >= 0 ? 1 : -1;
@@ -54,11 +53,11 @@
     flush(cur, sgn);
     svg.appendChild(el('line', { x1: X0, y1: zeroY, x2: X1, y2: zeroY, stroke: '#1b1b1d', 'stroke-width': 3 }));
     // dots at the 7 measured points
-    pos.forEach((p, i) => svg.appendChild(el('circle', { cx: x(p), cy: y(DIFF[i]), r: 9, fill: DIFF[i] >= 0 ? '#b8240f' : '#5f83ac', stroke: '#fbfbf8', 'stroke-width': 3 })));
+    pos.forEach((p, i) => svg.appendChild(el('circle', { cx: x(p), cy: y(DIFF[i]), r: 9, fill: DIFF[i] >= 0 ? '#b8240f' : '#a9bdd2', stroke: '#fbfbf8', 'stroke-width': 3 })));
 
     // labels
     t(x(3), y(DIFF[6]) - 18, 'undercounted positions', '#b8240f', 25, 'end', 800);
-    t(x(0), zeroY + 72, 'overcounted positions', '#ffffff', 25, 'middle', 800);
+    t(x(0), zeroY + 72, 'overcounted positions', '#6b7f96', 25, 'middle', 800);
     t(x(-3), 400, 'Extremely liberal', '#8a887f', 23, 'start');
     t(x(0), 400, 'Center', '#8a887f', 23, 'middle');
     t(x(3), 400, 'Extremely conservative', '#8a887f', 23, 'end');

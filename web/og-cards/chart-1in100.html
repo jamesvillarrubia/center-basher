@@ -40,13 +40,17 @@
       if (i === 99) {                        // the one true centrist
         fill = '#b8240f';
         c.setAttribute('r', r);
-        const ring = document.createElementNS(NS, 'circle');
-        ring.setAttribute('cx', cx); ring.setAttribute('cy', cy);
-        ring.setAttribute('r', r + 12);
-        ring.setAttribute('fill', 'none');
-        ring.setAttribute('stroke', '#b8240f');
-        ring.setAttribute('stroke-width', '4');
-        svg.appendChild(ring);
+        // Soft glow rather than a hard ring: at this spacing a ring collides
+        // with the dot beside it and reads as a rendering bug.
+        const defs = document.createElementNS(NS, 'defs');
+        defs.innerHTML = '<radialGradient id="glow"><stop offset="45%" stop-color="#b8240f" stop-opacity="0.42"/>'
+          + '<stop offset="100%" stop-color="#b8240f" stop-opacity="0"/></radialGradient>';
+        svg.appendChild(defs);
+        const halo = document.createElementNS(NS, 'circle');
+        halo.setAttribute('cx', cx); halo.setAttribute('cy', cy);
+        halo.setAttribute('r', r * 1.7);
+        halo.setAttribute('fill', 'url(#glow)');
+        svg.appendChild(halo);
       } else {
         c.setAttribute('r', r);
       }
