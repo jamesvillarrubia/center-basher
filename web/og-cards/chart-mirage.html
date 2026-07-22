@@ -2,25 +2,26 @@
 <html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
 <body>
   <div class="chartcard">
-    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;There&rsquo;s a big moderate middle to win over.&rdquo;</div>
-    <div class="cc-title">The swingable &ldquo;moderate middle&rdquo; is about <span class="hl">5 voters in 100</span>.</div>
-    <div class="cc-sub">Only 20% of voters pick the exact middle, and just a quarter of those ever swing.</div>
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Swing voters are the moderate middle. Win them by moving there.&rdquo;</div>
+    <div class="cc-title">92% of the voters who actually switched sides are <span class="hl">not centrists</span>.</div>
+    <div class="cc-sub">These are the people who crossed party lines in 2016, the exact voters the strategy is aimed at. Nine in ten of them hold at least one hard-left or hard-right position. There is no middle to meet them in.</div>
 
     <div class="cc-chart"><svg id="mirage" viewBox="0 0 1290 436" role="img"
-      aria-label="Waffle of 100 dots in 20 by 5; the last 5 highlighted as swingable moderates"></svg></div>
+      aria-label="Of 100 voters who crossed party lines in 2016, 92 hold at least one extreme issue position and 8 are centrist across the board"></svg></div>
 
     <div class="cc-legend">
-      <div class="item"><span class="dot" style="background:#a3b4c1"></span>Everyone else (≈95)</div>
-      <div class="item"><span class="dot dot--ring" style="background:#b8240f"></span>Swingable moderate (≈5)</div>
+      <div class="item"><span class="dot" style="background:#b8240f"></span>Holds at least one hard-left or hard-right position (92)</div>
+      <div class="item"><span class="dot" style="background:#c9c7bf"></span>Centrist on every issue (8)</div>
     </div>
 
     <div class="cc-foot">
-      <div class="cc-source">Source: ANES 2016 Time Series, weighted (V160101). Exact middle = 7-pt lib-con self-placement of 4 (19.9%); 26% of them swung; bucket = 5.3% of voters.</div>
+      <div class="cc-source">Source: ANES 2016 Time Series, POST weight (V160102). Switchers = crossed party lines in 2016 (PID V161158x &times; vote V162034a), n=126, 4.4% of the base. Centrist = every answered 7-pt issue scale in {3,4,5}, &ge;5 of 6 answered.</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
 
   <script>
+    // 100 dots = 100 party-line crossers. 92 hold an extreme position, 8 don't.
     const NS = 'http://www.w3.org/2000/svg';
     const svg = document.getElementById('mirage');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
@@ -28,9 +29,8 @@
     const x0 = (1290 - (COLS - 1) * sx) / 2, y0 = (436 - (ROWS - 1) * sy) / 2;
     for (let i = 0; i < 100; i++) {
       const cx = x0 + (i % COLS) * sx, cy = y0 + ((i / COLS) | 0) * sy;
-      const swing = i >= 95;            // last 5 = swingable moderates
-      svg.appendChild(el('circle', { cx, cy, r, fill: swing ? '#b8240f' : '#a3b4c1' }));
-      if (swing) svg.appendChild(el('circle', { cx, cy, r: r + 10, fill: 'none', stroke: '#b8240f', 'stroke-width': 3 }));
+      const centrist = i >= 92;
+      svg.appendChild(el('circle', { cx, cy, r, fill: centrist ? '#c9c7bf' : '#b8240f' }));
     }
   </script>
 </body></html>
