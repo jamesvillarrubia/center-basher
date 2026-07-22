@@ -4,10 +4,10 @@
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Swing voters are the centrist prize to chase.&rdquo;</div>
     <div class="cc-title">Swing voters aren&rsquo;t centrist &mdash; they&rsquo;re <span class="hl">no different</span> from anyone.</div>
-    <div class="cc-sub">How often voters actually hold centrist positions on the issues &mdash; the swing vote is no exception.</div>
+    <div class="cc-sub">How often voters actually hold centrist positions on the issues. The swing vote is no exception.</div>
 
-    <div class="cc-chart"><svg id="nc" viewBox="0 0 1240 380" role="img"
-      aria-label="Centrist on nearly every issue: all voters 3%, swing 2%. No strong position at all: all 9%, swing 9%."></svg></div>
+    <div class="cc-chart"><svg id="nc" viewBox="0 0 1240 449" role="img"
+      aria-label="Centrist on nearly every issue: all voters 3%, swing 2%. No strong position at all: all 9%, swing 9%. Swing voters are no more centrist than anyone."></svg></div>
 
     <div class="cc-legend">
       <div class="item"><span class="dot" style="background:#8b9aa8"></span>All voters</div>
@@ -24,25 +24,31 @@
     const NS = 'http://www.w3.org/2000/svg';
     const svg = document.getElementById('nc');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
     const groups = [
       { name: 'Centrist on nearly every issue', all: 3, swing: 2 },
       { name: 'Hold no strong position at all', all: 9, swing: 9 },
     ];
-    const X0 = 620, X1 = 1130, VMAX = 15, sc = (X1 - X0) / VMAX;
-    const barH = 50, gap = 12, groupH = barH * 2 + gap, groupGap = 56, y0 = 14;
-    const axisY = y0 + groups.length * (groupH + groupGap) - groupGap + 6;
-    for (let v = 0; v <= 15; v += 5) {
+    const X0 = 200, X1 = 1120, VMAX = 10, sc = (X1 - X0) / VMAX;
+    const barH = 56, gap = 12, groupH = barH * 2 + gap, groupGap = 58, y0 = 58;
+    const axisBot = y0 + groups.length * (groupH + groupGap) - groupGap + 8;
+
+    for (let v = 0; v <= 10; v += 2) {
       const gx = X0 + v * sc;
-      svg.appendChild(el('line', { x1: gx, y1: 0, x2: gx, y2: axisY, stroke: '#e8e6e0', 'stroke-width': 2 }));
-      const t = el('text', { x: gx, y: axisY + 28, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 21 }); t.textContent = v + '%'; svg.appendChild(t);
+      svg.appendChild(el('line', { x1: gx, y1: y0 - 16, x2: gx, y2: axisBot, stroke: v === 0 ? '#c9c6bd' : '#e8e6e0', 'stroke-width': v === 0 ? 3 : 2 }));
+      txt({ x: gx, y: axisBot + 32, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 22 }, v + '%');
     }
+    txt({ x: (X0 + X1) / 2, y: axisBot + 70, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 24, 'font-style': 'italic' }, 'share of the group holding that position');
+
     groups.forEach((g, i) => {
       const gy = y0 + i * (groupH + groupGap);
-      const nm = el('text', { x: X0 - 24, y: gy + groupH / 2 + 8, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 27, 'font-weight': 700 }); nm.textContent = g.name; svg.appendChild(nm);
-      [['all', '#8b9aa8', gy], ['swing', '#b8240f', gy + barH + gap]].forEach(([k, col, by]) => {
+      txt({ x: X0, y: gy - 18, 'text-anchor': 'start', fill: '#1b1b1d', 'font-size': 30, 'font-weight': 800 }, g.name);
+      [['all', '#8b9aa8', gy, 'all voters'], ['swing', '#b8240f', gy + barH + gap, 'swing voters']].forEach(([k, col, by, lab]) => {
         const w = Math.max(g[k] * sc, 4);
-        svg.appendChild(el('rect', { x: X0, y: by, width: w, height: barH, rx: 6, fill: col }));
-        const val = el('text', { x: X0 + w + 14, y: by + barH - 12, fill: '#1b1b1d', 'font-size': 26, 'font-weight': 800 }); val.textContent = g[k] + '%'; svg.appendChild(val);
+        svg.appendChild(el('rect', { x: X0, y: by, width: w, height: barH, rx: 7, fill: col }));
+        txt({ x: X0 + w + 18, y: by + barH - 17, fill: col === '#b8240f' ? '#b8240f' : '#1b1b1d', 'font-size': 32, 'font-weight': 800 }, g[k] + '%');
+        txt({ x: X0 + w + 18 + 66, y: by + barH - 17, fill: '#9a988f', 'font-size': 22 }, lab);
       });
     });
   </script>
