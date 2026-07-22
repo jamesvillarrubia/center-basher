@@ -2,15 +2,15 @@
 <html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
 <body>
   <div class="chartcard">
-    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Run to the middle. That&rsquo;s where the winnable voters are.&rdquo;</div>
-    <div class="cc-title">Low trust <span class="hl">swamps</span> the electorate, on the left and the right alike.</div>
-    <div class="cc-sub">Every block is sized to its real share of 2016 voters. Distrust is the dominant fact in all four columns, and the voters who actually switched sides are spread across every one of them.</div>
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Move to the middle. That&rsquo;s where the winnable voters are.&rdquo;</div>
+    <div class="cc-title">The middle is <span class="hl">6%</span> of voters. Distrust is <span class="hl">75%</span>.</div>
+    <div class="cc-sub">Voters grouped by the positions they actually hold, not the label they pick. Only 6% hold no extreme position at all. The largest single group holds a hard-left and a hard-right position at the same time, which is the &ldquo;middle&rdquo; that averaging invents. Every group is majority-distrustful.</div>
 
-    <div class="cc-chart"><svg id="mo" viewBox="0 0 1240 442" role="img"
-      aria-label="Mosaic of 2016 voters by ideology and trust. Left 27 percent of voters, 65 percent of them low trust. Middle 19 percent, 73 percent low trust. Right 35 percent, 86 percent low trust. No position 19 percent, 70 percent low trust. Below, the voters who switched sides split 14 percent left, 24 middle, 29 right, 33 no position."></svg></div>
+    <div class="cc-chart"><svg id="mo" viewBox="0 0 1240 396" role="img"
+      aria-label="2016 voters by actual issue positions and trust. Left on issues 19 percent, true centrist 6 percent, right on issues 17 percent, discordant 41 percent, no position 17 percent. Every group is between 63 and 82 percent low trust."></svg></div>
 
     <div class="cc-foot">
-      <div class="cc-source">Source: ANES 2016 Time Series, POST weight (V160102); n=2,641 voters, n=175 switchers. Trust = 3-item composite (V161215/V161216/V161217, 0&ndash;1); low = &le;0.25, the cutpoint already used for the published trust terciles. Ideology = 7-pt lib-con (V161126); &ldquo;no position&rdquo; = haven&rsquo;t thought much about it. Switcher = crossed party lines in 2016 (V161158x &times; V162034a). Block area is proportional to share.</div>
+      <div class="cc-source">Source: ANES 2016 Time Series, POST weight (V160102), n=2,650 voters. Categories from six 7-pt issue scales (&ge;5 of 6 answered): true centrist = every answered position in {3,4,5}; discordant = holds at least one position at 1&ndash;2 <em>and</em> one at 6&ndash;7; otherwise left or right by issue mean. Trust = 3-item composite (V161215/V161216/V161217); low = &le;0.25. Block area is proportional to share of voters.</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
@@ -21,57 +21,51 @@
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
     const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
 
-    // Columns = ideology, width proportional to share of voters.
-    // Within a column, the vertical split is that column's own trust split,
-    // so every block's AREA is its true share of the electorate.
-    // Colour = ideology (left blue, right red, middle grey, no position blank).
-    // Trust = saturation: low trust solid, high trust faded back.
+    // Columns are ACTUAL issue positions, not self-placement. Width is share of
+    // voters; the split inside each column is that column's own trust split, so
+    // every block's area is its true share of the electorate.
     const cols = [
-      { name: 'Left',        col: 27.3, low: 17.6, high: 9.6, c: '#2c5b9c', swing: 14.1 },
-      { name: 'Middle',      col: 19.3, low: 14.2, high: 5.2, c: '#8a8880', swing: 24.1 },
-      { name: 'Right',       col: 34.5, low: 29.6, high: 4.9, c: '#b8240f', swing: 28.6 },
-      { name: 'No position', col: 18.9, low: 13.2, high: 5.7, c: '#ffffff', swing: 33.2 },
+      { name: ['Left on', 'issues'],  col: 18.6, low: 11.7, high: 6.9, c: '#2c5b9c' },
+      { name: ['Centrist'],           col: 6.3,  low: 4.2,  high: 2.1, c: '#8a8880', tight: true },
+      { name: ['Right on', 'issues'], col: 17.1, low: 13.9, high: 3.2, c: '#b8240f' },
+      { name: ['Discordant'],         col: 40.9, low: 33.4, high: 7.5, c: '#7a4fa3' },
+      { name: ['No', 'position'],     col: 17.1, low: 11.3, high: 5.7, c: '#ffffff' },
     ];
-    const X0 = 78, X1 = 1200, W = X1 - X0, PAD = 5;
-    const TOP = 52, H = 244;
+    const X0 = 60, X1 = 1195, W = X1 - X0, PAD = 5, TOP = 100, H = 236;
     const totCol = cols.reduce((a, c) => a + c.col, 0);
 
     let x = X0;
     cols.forEach((c) => {
       const cw = (c.col / totCol) * W - PAD;
       const lowH = (c.low / c.col) * H, highH = H - lowH;
-      const blank = c.c === '#ffffff';
+      const blank = c.c === '#ffffff', mid = x + cw / 2;
 
-      // column header
-      txt({ x: x + cw / 2, y: TOP - 26, 'text-anchor': 'middle', fill: blank ? '#6b6b70' : c.c, 'font-size': 27, 'font-weight': 800 }, c.name);
-      txt({ x: x + cw / 2, y: TOP - 4, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 20 }, c.col.toFixed(0) + '% of voters');
+      // header: narrow columns sit a row higher so nothing collides
+      const hy = c.tight ? TOP - 66 : TOP - 40;
+      c.name.forEach((ln, k) => txt({ x: mid, y: hy - (c.name.length - 1 - k) * 22, 'text-anchor': 'middle',
+        fill: blank ? '#6b6b70' : c.c, 'font-size': 23, 'font-weight': 800 }, ln));
+      txt({ x: mid, y: hy + 24, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 21, 'font-weight': 700 }, c.col.toFixed(0) + '%');
+      if (c.tight) svg.appendChild(el('line', { x1: mid, y1: hy + 34, x2: mid, y2: TOP - 6, stroke: '#c9c6bd', 'stroke-width': 2 }));
 
-      // low trust — solid, full weight
+      // low trust: solid
       svg.appendChild(el('rect', { x, y: TOP, width: cw, height: lowH, rx: 5, fill: c.c,
         stroke: blank ? '#c9c6bd' : 'none', 'stroke-width': blank ? 2 : 0 }));
-      txt({ x: x + cw / 2, y: TOP + lowH / 2 + 2, 'text-anchor': 'middle', fill: blank ? '#3a3a3f' : '#fff', 'font-size': 30, 'font-weight': 800 }, c.low.toFixed(0) + '%');
-      txt({ x: x + cw / 2, y: TOP + lowH / 2 + 28, 'text-anchor': 'middle', fill: blank ? '#7a7772' : '#ffffffcc', 'font-size': 19 }, 'low trust');
+      if (cw > 84) {
+        txt({ x: mid, y: TOP + lowH / 2 + 2, 'text-anchor': 'middle', fill: blank ? '#3a3a3f' : '#fff', 'font-size': 28, 'font-weight': 800 }, c.low.toFixed(0) + '%');
+        txt({ x: mid, y: TOP + lowH / 2 + 26, 'text-anchor': 'middle', fill: blank ? '#7a7772' : '#ffffffcc', 'font-size': 18 }, 'low trust');
+      } else {
+        txt({ x: mid, y: TOP + lowH / 2 + 8, 'text-anchor': 'middle', fill: '#fff', 'font-size': 22, 'font-weight': 800 }, c.low.toFixed(0) + '%');
+      }
 
-      // high trust — same hue, faded so the eye stays on the low band
+      // high trust: same hue, faded back
       svg.appendChild(el('rect', { x, y: TOP + lowH + 3, width: cw, height: highH - 3, rx: 5, fill: c.c,
         'fill-opacity': blank ? 0.35 : 0.22, stroke: blank ? '#e2dfd7' : 'none', 'stroke-width': blank ? 2 : 0 }));
-      txt({ x: x + cw / 2, y: TOP + lowH + highH / 2 + 6, 'text-anchor': 'middle', fill: '#6b6b70', 'font-size': 22, 'font-weight': 700 }, c.high.toFixed(0) + '%');
-      if (highH > 62) txt({ x: x + cw / 2, y: TOP + lowH + highH / 2 + 28, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 18 }, 'high trust');
+      txt({ x: mid, y: TOP + lowH + highH / 2 + 8, 'text-anchor': 'middle', fill: '#6b6b70', 'font-size': 21, 'font-weight': 700 }, c.high.toFixed(0) + '%');
 
       x += cw + PAD;
     });
 
-    // Where the switchers actually are — same colours, widths by their own split.
-    const SY = TOP + H + 56;
-    txt({ x: X0, y: SY - 12, 'text-anchor': 'start', fill: '#1b1b1d', 'font-size': 23, 'font-weight': 800 }, 'The voters who actually switched sides in 2016:');
-    let sx = X0;
-    cols.forEach((c) => {
-      const sw = (c.swing / 100) * W - PAD, blank = c.c === '#ffffff';
-      svg.appendChild(el('rect', { x: sx, y: SY, width: sw, height: 46, rx: 5, fill: c.c,
-        stroke: blank ? '#c9c6bd' : 'none', 'stroke-width': blank ? 2 : 0 }));
-      txt({ x: sx + sw / 2, y: SY + 31, 'text-anchor': 'middle', fill: blank ? '#3a3a3f' : '#fff', 'font-size': 24, 'font-weight': 800 }, c.swing.toFixed(0) + '%');
-      sx += sw + PAD;
-    });
-    txt({ x: X0, y: SY + 78, 'text-anchor': 'start', fill: '#7a7772', 'font-size': 21, 'font-style': 'italic' }, 'The biggest block of switchers holds no left-right position at all. Only a quarter of them are the middle.');
+    txt({ x: X0, y: TOP + H + 46, 'text-anchor': 'start', fill: '#7a7772', 'font-size': 21, 'font-style': 'italic' },
+      'The “moderate middle” is mostly the purple block: people whose opposite extremes cancel out to a centre they do not hold.');
   </script>
 </body></html>
