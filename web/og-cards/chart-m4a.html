@@ -23,8 +23,12 @@
 
     // Weighted % of 2024 voters at each point of the 7-pt scale.
     const V = [21.6, 13.0, 13.8, 17.8, 11.3, 8.4, 14.1];
+    // scale position -> colour: government end blue, private end red
+    const C = ['#2c5b9c', '#5480b5', '#93a9c4', '#8a8880', '#cf9083', '#c9543c', '#b8240f'];
     const X0 = 96, X1 = 1168, TOP = 30, BOT = 232, VMAX = 25;
-    const px = (p) => X0 + (p - 1) / 6 * (X1 - X0);
+    // domain 0.5..7.5 so all seven bands are the same width and each band's
+    // AREA is its share of voters, rather than point 1 reading as an endpoint
+    const px = (p) => X0 + (p - 0.5) / 7 * (X1 - X0);
     const y = (v) => BOT - (v / VMAX) * (BOT - TOP);
 
     [0, 10, 20].forEach((v) => {
@@ -33,47 +37,47 @@
       txt({ x: X0 - 14, y: y(v) + 8, 'text-anchor': 'end', fill: '#9a988f', 'font-size': 21 }, v + '%');
     });
 
-    // smooth area through the seven measured points (Catmull-Rom)
     const cr = (t) => {
       if (t <= 1) return V[0]; if (t >= 7) return V[6];
       const i = Math.floor(t) - 1, f = t - Math.floor(t);
       const P0 = V[Math.max(0, i - 1)], P1 = V[i], P2 = V[i + 1], P3 = V[Math.min(6, i + 2)];
       return 0.5 * (2 * P1 + (-P0 + P2) * f + (2 * P0 - 5 * P1 + 4 * P2 - P3) * f * f + (-P0 + 3 * P1 - 3 * P2 + P3) * f * f * f);
     };
-    let d = `M ${px(1)} ${BOT}`;
-    for (let t = 1; t <= 7.0001; t += 0.02) d += ` L ${px(t)} ${y(cr(t))}`;
-    d += ` L ${px(7)} ${BOT} Z`;
-    const grad = document.createElementNS(NS, 'linearGradient');
-    grad.setAttribute('id', 'g'); grad.setAttribute('x1', '0'); grad.setAttribute('x2', '1');
-    grad.innerHTML = '<stop offset="0%" stop-color="#2c5b9c"/><stop offset="50%" stop-color="#8a8880"/><stop offset="100%" stop-color="#b8240f"/>';
-    svg.appendChild(grad);
-    svg.appendChild(el('path', { d, fill: 'url(#g)', 'fill-opacity': 0.5 }));
-    svg.appendChild(el('path', { d: d.replace(` L ${px(7)} ${BOT} Z`, ''), fill: 'none', stroke: '#5b6570', 'stroke-width': 3 }));
 
-    // measured points
+    // one filled band per scale point: equal width, height = the curve, so the
+    // ink under each band is proportional to that band's share of voters
     V.forEach((v, i) => {
-      svg.appendChild(el('circle', { cx: px(i + 1), cy: y(v), r: 6, fill: '#3a3a3f' }));
-      txt({ x: px(i + 1), y: y(v) - 16, 'text-anchor': 'middle', fill: '#3a3a3f', 'font-size': 22, 'font-weight': 800 }, v.toFixed(0) + '%');
+      const a = i + 0.5, b = i + 1.5;
+      let d = `M ${px(a)} ${BOT}`;
+      for (let t = a; t <= b + 0.0001; t += 0.02) d += ` L ${px(t)} ${y(cr(t))}`;
+      d += ` L ${px(b)} ${BOT} Z`;
+      svg.appendChild(el('path', { d, fill: C[i], 'fill-opacity': 0.88 }));
+      svg.appendChild(el('line', { x1: px(b), y1: BOT, x2: px(b), y2: y(cr(b)), stroke: '#fbfbf8', 'stroke-width': 2 }));
+      const tall = (BOT - y(v)) > 70;
+      txt({ x: px(i + 1), y: tall ? y(v) + 34 : y(v) - 14, 'text-anchor': 'middle',
+        fill: tall ? '#ffffff' : C[i], 'font-size': 24, 'font-weight': 800 }, v.toFixed(0) + '%');
     });
+    let dl = '';
+    for (let t = 1; t <= 7.0001; t += 0.02) dl += (dl ? ' L ' : 'M ') + px(t) + ' ' + y(cr(t));
+    svg.appendChild(el('path', { d: dl, fill: 'none', stroke: '#5b6570', 'stroke-width': 3 }));
 
-    // endpoint wording sits inside the plot so it can't crowd the candidate row
     txt({ x: X0 + 10, y: TOP + 6, 'text-anchor': 'start', fill: '#2c5b9c', 'font-size': 22, 'font-weight': 800 }, '\u2190 Government insurance plan');
     txt({ x: X1 - 10, y: TOP + 6, 'text-anchor': 'end', fill: '#b8240f', 'font-size': 22, 'font-weight': 800 }, 'Private insurance plan \u2192');
 
-    // the 2020 field, on the same axis
+    // the 2020 field, coloured by where they sit on the scale, not by party
     const cands = [
-      { p: 1.00, n: 'Sanders',   s: 'single-payer now',         row: 0, hot: true, an: 'start', dx: -12 },
-      { p: 1.55, n: 'Warren',    s: 'single-payer, phased in',  row: 1, hot: true },
-      { p: 2.35, n: 'Harris',    s: 'M4A, some private kept',   row: 2 },
-      { p: 3.15, n: 'Buttigieg', s: 'public option',            row: 0 },
-      { p: 3.75, n: 'Biden',     s: 'public option, anti-M4A',  row: 1 },
+      { p: 1.00, n: 'Sanders',   s: 'single-payer now',        row: 0, an: 'start', dx: -12 },
+      { p: 1.55, n: 'Warren',    s: 'single-payer, phased in', row: 1 },
+      { p: 2.35, n: 'Harris',    s: 'M4A, some private kept',  row: 2 },
+      { p: 3.15, n: 'Buttigieg', s: 'public option',           row: 0 },
+      { p: 3.75, n: 'Biden',     s: 'public option, anti-M4A', row: 1 },
     ];
     cands.forEach((c) => {
-      const x = px(c.p), yb = BOT + 58 + c.row * 52;
-      svg.appendChild(el('line', { x1: x, y1: BOT, x2: x, y2: yb - 22, stroke: c.hot ? '#b8240f' : '#b0ada4', 'stroke-width': 2, 'stroke-dasharray': '5 5' }));
-      svg.appendChild(el('circle', { cx: x, cy: BOT, r: 7, fill: c.hot ? '#b8240f' : '#8a8880' }));
+      const x = px(c.p), yb = BOT + 58 + c.row * 52, col = C[Math.min(6, Math.max(0, Math.round(c.p) - 1))];
+      svg.appendChild(el('line', { x1: x, y1: BOT, x2: x, y2: yb - 22, stroke: col, 'stroke-width': 2, 'stroke-dasharray': '5 5' }));
+      svg.appendChild(el('circle', { cx: x, cy: BOT, r: 7, fill: col }));
       const an = c.an || 'middle', lx = x + (c.dx || 0);
-      txt({ x: lx, y: yb, 'text-anchor': an, fill: c.hot ? '#b8240f' : '#1b1b1d', 'font-size': 26, 'font-weight': 800 }, c.n);
+      txt({ x: lx, y: yb, 'text-anchor': an, fill: col, 'font-size': 26, 'font-weight': 800 }, c.n);
       txt({ x: lx, y: yb + 24, 'text-anchor': an, fill: '#7a7772', 'font-size': 19 }, c.s);
     });
   </script>
