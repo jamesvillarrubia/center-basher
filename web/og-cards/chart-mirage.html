@@ -6,7 +6,7 @@
     <div class="cc-title">The swingable &ldquo;moderate middle&rdquo; is about <span class="hl">5 voters in 100</span>.</div>
     <div class="cc-sub">Only 20% of voters pick the exact middle, and just a quarter of those ever swing.</div>
 
-    <div class="cc-chart"><svg id="mirage" viewBox="0 0 1290 360" role="img"
+    <div class="cc-chart"><svg id="mirage" viewBox="0 0 1290 436" role="img"
       aria-label="Waffle of 100 dots in 20 by 5; the last 5 highlighted as swingable moderates"></svg></div>
 
     <div class="cc-legend">
@@ -24,8 +24,8 @@
     const NS = 'http://www.w3.org/2000/svg';
     const svg = document.getElementById('mirage');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
-    const COLS = 20, ROWS = 5, r = 22, sx = 62, sy = 68;
-    const x0 = (1290 - (COLS - 1) * sx) / 2, y0 = (360 - (ROWS - 1) * sy) / 2;
+    const COLS = 20, ROWS = 5, r = 25, sx = 62, sy = 88;
+    const x0 = (1290 - (COLS - 1) * sx) / 2, y0 = (436 - (ROWS - 1) * sy) / 2;
     for (let i = 0; i < 100; i++) {
       const cx = x0 + (i % COLS) * sx, cy = y0 + ((i / COLS) | 0) * sy;
       const swing = i >= 95;            // last 5 = swingable moderates

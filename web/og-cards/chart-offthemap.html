@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;People who sit out don&rsquo;t like either side, so they&rsquo;re the moderate middle.&rdquo;</div>
+    <div class="cc-title">Staying home isn&rsquo;t centrism. They&rsquo;re not in the middle, they&rsquo;re <span class="hl">off the scale</span>.</div>
+    <div class="cc-sub">People who didn&rsquo;t vote are no more centrist than people who did. They&rsquo;re twice as likely to have no place on the left-right axis at all, which is the axis you&rsquo;d be moving along.</div>
+
+    <div class="cc-chart"><svg id="otm" viewBox="0 0 1240 449" role="img"
+      aria-label="Won't place themselves on the left-right scale: voters 19 percent, non-voters 36 percent. At or near the middle of that scale: voters 41 percent, non-voters 40 percent."></svg></div>
+
+    <div class="cc-legend">
+      <div class="item"><span class="dot" style="background:#8b98a5"></span>Voted in 2016</div>
+      <div class="item"><span class="dot" style="background:#b8240f"></span>Didn&rsquo;t vote</div>
+    </div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES 2016 Time Series, POST weight (V160102), post-wave respondents. Scale = 7-pt lib-con self-placement (V161126); &ldquo;no place&rdquo; = answered &ldquo;haven&rsquo;t thought much about it.&rdquo;</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('otm');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
+    const groups = [
+      { name: 'Won’t place themselves on the scale at all', voted: 19, no: 36, note: 'nearly double' },
+      { name: 'At or near the middle of that scale', voted: 41, no: 40, note: 'no difference' },
+    ];
+    const X0 = 90, X1 = 860, VMAX = 45, sc = (X1 - X0) / VMAX;
+    const barH = 56, gap = 12, groupH = barH * 2 + gap, groupGap = 58, y0 = 58;
+    const axisBot = y0 + groups.length * (groupH + groupGap) - groupGap + 8;
+
+    for (let v = 0; v <= 40; v += 10) {
+      const gx = X0 + v * sc;
+      svg.appendChild(el('line', { x1: gx, y1: y0 - 16, x2: gx, y2: axisBot, stroke: v === 0 ? '#c9c6bd' : '#e8e6e0', 'stroke-width': v === 0 ? 3 : 2 }));
+      txt({ x: gx, y: axisBot + 32, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 22 }, v + '%');
+    }
+    txt({ x: (X0 + X1) / 2, y: axisBot + 70, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 24, 'font-style': 'italic' }, 'share of the group');
+
+    groups.forEach((g, i) => {
+      const gy = y0 + i * (groupH + groupGap);
+      txt({ x: X0, y: gy - 18, 'text-anchor': 'start', fill: '#1b1b1d', 'font-size': 30, 'font-weight': 800 }, g.name);
+      [['voted', '#8b98a5', gy], ['no', '#b8240f', gy + barH + gap]].forEach(([k, col, by]) => {
+        const w = Math.max(g[k] * sc, 4);
+        svg.appendChild(el('rect', { x: X0, y: by, width: w, height: barH, rx: 7, fill: col }));
+        txt({ x: X0 + w + 18, y: by + barH - 17, fill: col === '#b8240f' ? '#b8240f' : '#5c6b7a', 'font-size': 32, 'font-weight': 800 }, g[k] + '%');
+      });
+      // verdict on the pair, parked clear of the bar ends
+      const vx = X0 + Math.max(g.voted, g.no) * sc + 175;
+      txt({ x: vx, y: gy + groupH / 2 + 10, 'text-anchor': 'start', fill: i === 1 ? '#1b1b1d' : '#b8240f', 'font-size': 28, 'font-weight': 800 }, g.note);
+    });
+  </script>
+</body></html>

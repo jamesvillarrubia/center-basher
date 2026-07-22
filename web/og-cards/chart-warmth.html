@@ -6,7 +6,7 @@
     <div class="cc-title">Loving your candidate <span class="hl">doesn&rsquo;t</span> get you to the polls.</div>
     <div class="cc-sub">What actually predicts turnout (2016): stakes and contact drive it; warmth to your favorite is a slight negative.</div>
 
-    <div class="cc-chart"><svg id="w" viewBox="0 0 1240 400" role="img"
+    <div class="cc-chart"><svg id="w" viewBox="0 0 1240 462" role="img"
       aria-label="Standardized turnout coefficients: care who wins 0.42, contact 0.23, strong feelings both sides 0.22, ideology 0.07, warmth to favorite -0.10"></svg></div>
 
     <div class="cc-foot">
@@ -27,7 +27,7 @@
       { name: 'Warmth to your favorite', v: -0.10, hot: true },
     ];
     const LBL = 380, X1 = 1150, zeroX = 650, sc = (X1 - zeroX) / 0.5;
-    const barH = 46, step = 66, y0 = 12, axisY = y0 + rows.length * step - 4;
+    const barH = 58, step = 82, y0 = 16, axisY = y0 + rows.length * step - 4;
     // zero baseline
     svg.appendChild(el('line', { x1: zeroX, y1: 0, x2: zeroX, y2: axisY, stroke: '#1b1b1d', 'stroke-width': 2 }));
     const zt = el('text', { x: zeroX, y: axisY + 30, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 21 }); zt.textContent = '0'; svg.appendChild(zt);
