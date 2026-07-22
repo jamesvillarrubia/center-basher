@@ -2,15 +2,15 @@
 <html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
 <body>
   <div class="chartcard">
-    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Single-payer is a fringe idea with no real constituency.&rdquo;</div>
-    <div class="cc-title">The &ldquo;fringe&rdquo; position is the <span class="hl">most popular one</span> in the country.</div>
-    <div class="cc-sub">Where 2020 voters put themselves when the survey asks them to choose between a government insurance plan and a private one. More picked government insurance outright than picked any other point on the scale, including the private end.</div>
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Sanders and Warren were unelectable. Their health plans were fringe.&rdquo;</div>
+    <div class="cc-title">The &ldquo;unelectable&rdquo; ones were standing <span class="hl">where the voters are</span>.</div>
+    <div class="cc-sub">Where voters placed themselves in <strong>2024</strong> on the survey&rsquo;s own government-vs-private insurance scale, against where the 2020 primary field stood. The most popular single position in the country is still the one that got called fringe, and the private-insurance end has shrunk since. The candidates who ran on it were the ones told they couldn&rsquo;t win.</div>
 
-    <div class="cc-chart"><svg id="m4a" viewBox="0 0 1240 404" role="img"
-      aria-label="Distribution of 2020 voters on the 7-point government versus private medical insurance scale: 22 percent at government insurance, then 11, 11, 17, 12, 10, and 18 percent at private insurance. Voters placed Biden at 2.4 and Trump at 6.0."></svg></div>
+    <div class="cc-chart"><svg id="m4a" viewBox="0 0 1240 424" role="img"
+      aria-label="Area curve of 2024 voters across the 7-point government versus private insurance scale, peaking at 22 percent at the government-insurance end. Sanders and Warren sit on that peak; Harris near it; Buttigieg and Biden sit in the valley around 11 percent."></svg></div>
 
     <div class="cc-foot">
-      <div class="cc-source">Source: ANES 2020 Time Series, POST weight (V200010b), n=5,369 voters. The axis is the survey&rsquo;s own 7-point government-vs-private medical insurance item (V201252); endpoint wording is verbatim. Candidate markers are the weighted mean position voters themselves assigned each nominee on the same scale (V201253 / V201254), not an editorial placement.</div>
+      <div class="cc-source">Voter curve: ANES 2024 Time Series, POST weight (V240107b), n=3,432 voters, on the survey&rsquo;s 7-point government-vs-private medical insurance item (V241245); endpoint wording verbatim. The item is worded identically in 2016, 2020 and 2024, and the government-insurance end has been the most-chosen position in all three (22.2% in 2020, 21.6% in 2024). Candidate positions are their stated 2020 primary platforms (KFF; Time; Washington Post) mapped onto that scale, so read them as ordering, not as measurements.</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
@@ -21,13 +21,10 @@
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
     const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
 
-    // Weighted % of 2020 voters at each point of the scale.
-    const V = [22.2, 11.2, 10.8, 16.6, 11.6, 10.0, 17.6];
-    // scale position -> colour, government end blue through private end red
-    const C = ['#2c5b9c', '#5480b5', '#93a9c4', '#8a8880', '#cf9083', '#c9543c', '#b8240f'];
-
-    const X0 = 96, X1 = 1180, TOP = 44, BOT = 268;
-    const W = X1 - X0, slot = W / 7, bW = slot - 26, VMAX = 25;
+    // Weighted % of 2024 voters at each point of the 7-pt scale.
+    const V = [21.6, 13.0, 13.8, 17.8, 11.3, 8.4, 14.1];
+    const X0 = 96, X1 = 1168, TOP = 30, BOT = 232, VMAX = 25;
+    const px = (p) => X0 + (p - 1) / 6 * (X1 - X0);
     const y = (v) => BOT - (v / VMAX) * (BOT - TOP);
 
     [0, 10, 20].forEach((v) => {
@@ -36,26 +33,48 @@
       txt({ x: X0 - 14, y: y(v) + 8, 'text-anchor': 'end', fill: '#9a988f', 'font-size': 21 }, v + '%');
     });
 
+    // smooth area through the seven measured points (Catmull-Rom)
+    const cr = (t) => {
+      if (t <= 1) return V[0]; if (t >= 7) return V[6];
+      const i = Math.floor(t) - 1, f = t - Math.floor(t);
+      const P0 = V[Math.max(0, i - 1)], P1 = V[i], P2 = V[i + 1], P3 = V[Math.min(6, i + 2)];
+      return 0.5 * (2 * P1 + (-P0 + P2) * f + (2 * P0 - 5 * P1 + 4 * P2 - P3) * f * f + (-P0 + 3 * P1 - 3 * P2 + P3) * f * f * f);
+    };
+    let d = `M ${px(1)} ${BOT}`;
+    for (let t = 1; t <= 7.0001; t += 0.02) d += ` L ${px(t)} ${y(cr(t))}`;
+    d += ` L ${px(7)} ${BOT} Z`;
+    const grad = document.createElementNS(NS, 'linearGradient');
+    grad.setAttribute('id', 'g'); grad.setAttribute('x1', '0'); grad.setAttribute('x2', '1');
+    grad.innerHTML = '<stop offset="0%" stop-color="#2c5b9c"/><stop offset="50%" stop-color="#8a8880"/><stop offset="100%" stop-color="#b8240f"/>';
+    svg.appendChild(grad);
+    svg.appendChild(el('path', { d, fill: 'url(#g)', 'fill-opacity': 0.5 }));
+    svg.appendChild(el('path', { d: d.replace(` L ${px(7)} ${BOT} Z`, ''), fill: 'none', stroke: '#5b6570', 'stroke-width': 3 }));
+
+    // measured points
     V.forEach((v, i) => {
-      const cx = X0 + slot * (i + 0.5);
-      svg.appendChild(el('rect', { x: cx - bW / 2, y: y(v), width: bW, height: BOT - y(v), rx: 5, fill: C[i] }));
-      txt({ x: cx, y: y(v) - 12, 'text-anchor': 'middle', fill: C[i], 'font-size': 25, 'font-weight': 800 }, v.toFixed(0) + '%');
-      txt({ x: cx, y: BOT + 30, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 22, 'font-weight': 700 }, String(i + 1));
+      svg.appendChild(el('circle', { cx: px(i + 1), cy: y(v), r: 6, fill: '#3a3a3f' }));
+      txt({ x: px(i + 1), y: y(v) - 16, 'text-anchor': 'middle', fill: '#3a3a3f', 'font-size': 22, 'font-weight': 800 }, v.toFixed(0) + '%');
     });
 
-    // the survey's own endpoint wording, so the axis is the instrument, not a metaphor
-    txt({ x: X0 - 6, y: BOT + 68, 'text-anchor': 'start', fill: '#2c5b9c', 'font-size': 23, 'font-weight': 800 }, '1 · Government insurance plan');
-    txt({ x: X1 + 6, y: BOT + 68, 'text-anchor': 'end', fill: '#b8240f', 'font-size': 23, 'font-weight': 800 }, 'Private insurance plan · 7');
-    txt({ x: (X0 + X1) / 2, y: BOT + 68, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 21, 'font-style': 'italic' }, 'ANES 7-point scale');
+    // endpoint wording sits inside the plot so it can't crowd the candidate row
+    txt({ x: X0 + 10, y: TOP + 6, 'text-anchor': 'start', fill: '#2c5b9c', 'font-size': 22, 'font-weight': 800 }, '\u2190 Government insurance plan');
+    txt({ x: X1 - 10, y: TOP + 6, 'text-anchor': 'end', fill: '#b8240f', 'font-size': 22, 'font-weight': 800 }, 'Private insurance plan \u2192');
 
-    // where voters themselves placed the two nominees, on this same scale
-    const px = (p) => X0 + slot * (p - 0.5);
-    [{ p: 2.44, n: 'Biden', c: '#2c5b9c', dx: 12, an: 'start' },
-     { p: 6.02, n: 'Trump', c: '#b8240f', dx: -12, an: 'end' }].forEach((m) => {
-      const mx = px(m.p);
-      svg.appendChild(el('line', { x1: mx, y1: TOP - 26, x2: mx, y2: BOT, stroke: m.c, 'stroke-width': 3, 'stroke-dasharray': '7 6' }));
-      svg.appendChild(el('circle', { cx: mx, cy: TOP - 26, r: 7, fill: m.c }));
-      txt({ x: mx + m.dx, y: TOP - 20, 'text-anchor': m.an, fill: m.c, 'font-size': 23, 'font-weight': 800 }, m.n + ' ' + m.p.toFixed(1));
+    // the 2020 field, on the same axis
+    const cands = [
+      { p: 1.00, n: 'Sanders',   s: 'single-payer now',         row: 0, hot: true, an: 'start', dx: -12 },
+      { p: 1.55, n: 'Warren',    s: 'single-payer, phased in',  row: 1, hot: true },
+      { p: 2.35, n: 'Harris',    s: 'M4A, some private kept',   row: 2 },
+      { p: 3.15, n: 'Buttigieg', s: 'public option',            row: 0 },
+      { p: 3.75, n: 'Biden',     s: 'public option, anti-M4A',  row: 1 },
+    ];
+    cands.forEach((c) => {
+      const x = px(c.p), yb = BOT + 58 + c.row * 52;
+      svg.appendChild(el('line', { x1: x, y1: BOT, x2: x, y2: yb - 22, stroke: c.hot ? '#b8240f' : '#b0ada4', 'stroke-width': 2, 'stroke-dasharray': '5 5' }));
+      svg.appendChild(el('circle', { cx: x, cy: BOT, r: 7, fill: c.hot ? '#b8240f' : '#8a8880' }));
+      const an = c.an || 'middle', lx = x + (c.dx || 0);
+      txt({ x: lx, y: yb, 'text-anchor': an, fill: c.hot ? '#b8240f' : '#1b1b1d', 'font-size': 26, 'font-weight': 800 }, c.n);
+      txt({ x: lx, y: yb + 24, 'text-anchor': an, fill: '#7a7772', 'font-size': 19 }, c.s);
     });
   </script>
 </body></html>
