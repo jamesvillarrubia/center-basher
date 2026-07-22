@@ -10,7 +10,7 @@
       aria-label="Of 100 voters who crossed party lines in 2016, 92 hold at least one extreme issue position and 8 are centrist across the board"></svg></div>
 
     <div class="cc-legend">
-      <div class="item"><span class="dot" style="background:#b8240f"></span>Holds at least one hard-left or hard-right position (92)</div>
+      <div class="item"><span class="dot" style="background:#7a4fa3"></span>Holds at least one hard-left or hard-right position (92)</div>
       <div class="item"><span class="dot" style="background:#c9c7bf"></span>Centrist on every issue (8)</div>
     </div>
 
@@ -30,7 +30,7 @@
     for (let i = 0; i < 100; i++) {
       const cx = x0 + (i % COLS) * sx, cy = y0 + ((i / COLS) | 0) * sy;
       const centrist = i >= 92;
-      svg.appendChild(el('circle', { cx, cy, r, fill: centrist ? '#c9c7bf' : '#b8240f' }));
+      svg.appendChild(el('circle', { cx, cy, r, fill: centrist ? '#c9c7bf' : '#7a4fa3' }));
     }
   </script>
 </body></html>

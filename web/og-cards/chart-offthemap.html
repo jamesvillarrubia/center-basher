@@ -11,7 +11,7 @@
 
     <div class="cc-legend">
       <div class="item"><span class="dot" style="background:#8b98a5"></span>Voted in 2016</div>
-      <div class="item"><span class="dot" style="background:#b8240f"></span>Didn&rsquo;t vote</div>
+      <div class="item"><span class="dot" style="background:#7a4fa3"></span>Didn&rsquo;t vote</div>
     </div>
 
     <div class="cc-foot">
@@ -44,14 +44,14 @@
     groups.forEach((g, i) => {
       const gy = y0 + i * (groupH + groupGap);
       txt({ x: X0, y: gy - 18, 'text-anchor': 'start', fill: '#1b1b1d', 'font-size': 30, 'font-weight': 800 }, g.name);
-      [['voted', '#8b98a5', gy], ['no', '#b8240f', gy + barH + gap]].forEach(([k, col, by]) => {
+      [['voted', '#8b98a5', gy], ['no', '#7a4fa3', gy + barH + gap]].forEach(([k, col, by]) => {
         const w = Math.max(g[k] * sc, 4);
         svg.appendChild(el('rect', { x: X0, y: by, width: w, height: barH, rx: 7, fill: col }));
-        txt({ x: X0 + w + 18, y: by + barH - 17, fill: col === '#b8240f' ? '#b8240f' : '#5c6b7a', 'font-size': 32, 'font-weight': 800 }, g[k] + '%');
+        txt({ x: X0 + w + 18, y: by + barH - 17, fill: col === '#7a4fa3' ? '#7a4fa3' : '#5c6b7a', 'font-size': 32, 'font-weight': 800 }, g[k] + '%');
       });
       // verdict on the pair, parked clear of the bar ends
       const vx = X0 + Math.max(g.voted, g.no) * sc + 175;
-      txt({ x: vx, y: gy + groupH / 2 + 10, 'text-anchor': 'start', fill: i === 1 ? '#1b1b1d' : '#b8240f', 'font-size': 28, 'font-weight': 800 }, g.note);
+      txt({ x: vx, y: gy + groupH / 2 + 10, 'text-anchor': 'start', fill: i === 1 ? '#1b1b1d' : '#7a4fa3', 'font-size': 28, 'font-weight': 800 }, g.note);
     });
   </script>
 </body></html>
