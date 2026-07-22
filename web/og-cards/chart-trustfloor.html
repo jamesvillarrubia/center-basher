@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Distrust is a fringe. Govern for the sensible middle.&rdquo;</div>
+    <div class="cc-title">Distrust isn&rsquo;t a faction. It&rsquo;s the <span class="hl">floor</span>.</div>
+    <div class="cc-sub">Share of each ideological group that distrusts government, three elections running. Which side is angriest flips with whoever holds the White House. That it&rsquo;s a majority never changes.</div>
+
+    <div class="cc-chart"><svg id="tf" viewBox="0 0 1240 424" role="img"
+      aria-label="Percent of each ideological group with low trust in government. 2016: left 65, middle 73, right 86, no position 70. 2020: left 75, middle 74, right 71, no position 70. 2024: left 53, middle 68, right 84, no position 67. Every bar is above 50 percent."></svg></div>
+
+    <div class="cc-legend">
+      <div class="item"><span class="dot" style="background:#2c5b9c"></span>Left</div>
+      <div class="item"><span class="dot" style="background:#8a8880"></span>Middle</div>
+      <div class="item"><span class="dot" style="background:#b8240f"></span>Right</div>
+      <div class="item"><span class="dot" style="background:#ffffff;box-shadow:inset 0 0 0 2px #c9c6bd"></span>No position</div>
+    </div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES 2016/2020/2024 Time Series, POST weights (V160102 / V200010b / V240107b); n=2,641 / 5,865 / 3,683 voters. Distrust = 3-item composite &le;0.25 (V161215-17 / V201233-35 / V241229-32); item wording and response options are identical in all three cycles. Ideology = 7-pt lib-con self-placement.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('tf');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
+    // % of each ideological column that is low-trust, by cycle.
+    const series = [
+      { name: 'Left',        c: '#2c5b9c', v: [64.8, 75.4, 53.4] },
+      { name: 'Middle',      c: '#8a8880', v: [73.3, 74.1, 68.4] },
+      { name: 'Right',       c: '#b8240f', v: [85.7, 71.3, 83.9] },
+      { name: 'No position', c: '#ffffff', v: [70.0, 69.9, 66.8] },
+    ];
+    const cycles = ['2016', '2020', '2024'];
+    const inc = ['Democrat in the White House', 'Republican in the White House', 'Democrat in the White House'];
+
+    const X0 = 90, X1 = 1200, TOP = 20, BOT = 322;
+    const y = (v) => BOT - (v / 100) * (BOT - TOP);
+    const gW = (X1 - X0) / 3, bW = 58, gap = 12;
+
+    // gridlines
+    [0, 25, 50, 75, 100].forEach((v) => {
+      svg.appendChild(el('line', { x1: X0, y1: y(v), x2: X1, y2: y(v),
+        stroke: v === 0 ? '#c9c6bd' : '#ebe8e2', 'stroke-width': v === 0 ? 3 : 2 }));
+      txt({ x: X0 - 14, y: y(v) + 8, 'text-anchor': 'end', fill: '#9a988f', 'font-size': 21 }, v + '%');
+    });
+    // the point of the card: nothing ever falls below half
+    svg.appendChild(el('line', { x1: X0, y1: y(50), x2: X1, y2: y(50), stroke: '#1b1b1d', 'stroke-width': 3, 'stroke-dasharray': '9 7' }));
+
+    cycles.forEach((cy, ci) => {
+      const gx = X0 + gW * ci + (gW - (series.length * bW + (series.length - 1) * gap)) / 2;
+      series.forEach((s, si) => {
+        const bx = gx + si * (bW + gap), v = s.v[ci], blank = s.c === '#ffffff';
+        svg.appendChild(el('rect', { x: bx, y: y(v), width: bW, height: BOT - y(v), rx: 5, fill: s.c,
+          stroke: blank ? '#c9c6bd' : 'none', 'stroke-width': blank ? 2 : 0 }));
+        txt({ x: bx + bW / 2, y: y(v) - 12, 'text-anchor': 'middle', fill: blank ? '#6b6b70' : s.c, 'font-size': 23, 'font-weight': 800 }, Math.round(v) + '');
+      });
+      txt({ x: X0 + gW * ci + gW / 2, y: BOT + 36, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 30, 'font-weight': 800 }, cy);
+      txt({ x: X0 + gW * ci + gW / 2, y: BOT + 62, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 19 }, inc[ci]);
+    });
+  </script>
+</body></html>
