@@ -37,28 +37,21 @@
       txt({ x: X0 - 14, y: y(v) + 8, 'text-anchor': 'end', fill: '#9a988f', 'font-size': 21 }, v + '%');
     });
 
-    const cr = (t) => {
-      if (t <= 1) return V[0]; if (t >= 7) return V[6];
-      const i = Math.floor(t) - 1, f = t - Math.floor(t);
-      const P0 = V[Math.max(0, i - 1)], P1 = V[i], P2 = V[i + 1], P3 = V[Math.min(6, i + 2)];
-      return 0.5 * (2 * P1 + (-P0 + P2) * f + (2 * P0 - 5 * P1 + 4 * P2 - P3) * f * f + (-P0 + 3 * P1 - 3 * P2 + P3) * f * f * f);
-    };
-
-    // one filled band per scale point: equal width, height = the curve, so the
-    // ink under each band is proportional to that band's share of voters
+    // Flat-topped bands, NOT a smoothed curve. Smoothing moves area across the
+    // band boundaries, so the integral under a band stops equalling its
+    // percentage. With flat tops, area = width x height exactly, and the bands
+    // are the same width, so the ink ratio IS the percentage ratio.
     V.forEach((v, i) => {
-      const a = i + 0.5, b = i + 1.5;
-      let d = `M ${px(a)} ${BOT}`;
-      for (let t = a; t <= b + 0.0001; t += 0.02) d += ` L ${px(t)} ${y(cr(t))}`;
-      d += ` L ${px(b)} ${BOT} Z`;
-      svg.appendChild(el('path', { d, fill: C[i], 'fill-opacity': 0.88 }));
-      svg.appendChild(el('line', { x1: px(b), y1: BOT, x2: px(b), y2: y(cr(b)), stroke: '#fbfbf8', 'stroke-width': 2 }));
+      const xa = px(i + 0.5), xb = px(i + 1.5);
+      svg.appendChild(el('rect', { x: xa, y: y(v), width: xb - xa, height: BOT - y(v), fill: C[i], 'fill-opacity': 0.9 }));
+      svg.appendChild(el('line', { x1: xb, y1: BOT, x2: xb, y2: y(v), stroke: '#fbfbf8', 'stroke-width': 2 }));
       const tall = (BOT - y(v)) > 70;
       txt({ x: px(i + 1), y: tall ? y(v) + 34 : y(v) - 14, 'text-anchor': 'middle',
         fill: tall ? '#ffffff' : C[i], 'font-size': 24, 'font-weight': 800 }, v.toFixed(0) + '%');
     });
-    let dl = '';
-    for (let t = 1; t <= 7.0001; t += 0.02) dl += (dl ? ' L ' : 'M ') + px(t) + ' ' + y(cr(t));
+    // step outline so it still reads as a distribution
+    let dl = `M ${px(0.5)} ${y(V[0])}`;
+    V.forEach((v, i) => { dl += ` L ${px(i + 1.5)} ${y(v)}`; if (i < 6) dl += ` L ${px(i + 1.5)} ${y(V[i + 1])}`; });
     svg.appendChild(el('path', { d: dl, fill: 'none', stroke: '#5b6570', 'stroke-width': 3 }));
 
     txt({ x: X0 + 10, y: TOP + 6, 'text-anchor': 'start', fill: '#2c5b9c', 'font-size': 22, 'font-weight': 800 }, '\u2190 Government insurance plan');
