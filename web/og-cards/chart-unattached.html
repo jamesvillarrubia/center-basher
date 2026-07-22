@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;The voters in play are moderates. Move to the middle and you get them.&rdquo;</div>
+    <div class="cc-title">The voters actually in play aren&rsquo;t centrists. They&rsquo;re <span class="hl">unattached</span>.</div>
+    <div class="cc-sub">Share of each group that calls itself &ldquo;middle&rdquo; or won&rsquo;t place itself on the left-right scale at all. The movable voters are the ones with the weakest grip on that axis, in all three cycles, which is why moving along it doesn&rsquo;t reach them. Their issue positions aren&rsquo;t centrist either: 92% hold at least one hard-left or hard-right position.</div>
+
+    <div class="cc-chart"><svg id="ua" viewBox="0 0 1240 400" role="img"
+      aria-label="Share holding no firm left-right position. Movable voters: 51 percent in 2016, 46 in 2020, 45 in 2024. Stable loyal voters: 34, 33, 28."></svg></div>
+
+    <div class="cc-legend">
+      <div class="item"><span class="dot" style="background:#7a4fa3"></span>Movable (switched party, newly voted, or stopped voting)</div>
+      <div class="item"><span class="dot" style="background:#b0ada4"></span>Stable loyal voters</div>
+    </div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES 2016/2020/2024, POST weights (V160102 / V200010b / V240107b). &ldquo;No firm position&rdquo; = self-places at the exact middle of the 7-pt lib-con scale, or answers &ldquo;haven&rsquo;t thought much about this.&rdquo; Movable = crossed party lines, or changed whether they voted since the prior cycle. Independently confirmed in the VSG panel, where switching is observed rather than recalled (2012&ndash;2016 switchers 46% middle vs 31% of the electorate).</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('ua');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
+    // % of the group that is Middle or No-position on the 7-pt lib-con scale.
+    const series = [
+      { name: 'Movable',       c: '#7a4fa3', v: [50.8, 46.0, 44.9] },
+      { name: 'Stable loyal',  c: '#b0ada4', v: [34.4, 32.5, 27.8] },
+    ];
+    const cycles = ['2016', '2020', '2024'];
+
+    const X0 = 96, X1 = 1190, TOP = 16, BOT = 296;
+    const y = (v) => BOT - (v / 100) * (BOT - TOP);
+    const gW = (X1 - X0) / 3, bW = 116, gap = 26;
+
+    [0, 25, 50, 75].forEach((v) => {
+      svg.appendChild(el('line', { x1: X0, y1: y(v), x2: X1, y2: y(v),
+        stroke: v === 0 ? '#c9c6bd' : '#ebe8e2', 'stroke-width': v === 0 ? 3 : 2 }));
+      txt({ x: X0 - 14, y: y(v) + 8, 'text-anchor': 'end', fill: '#9a988f', 'font-size': 21 }, v + '%');
+    });
+
+    cycles.forEach((cy, ci) => {
+      const gx = X0 + gW * ci + (gW - (2 * bW + gap)) / 2;
+      series.forEach((s, si) => {
+        const bx = gx + si * (bW + gap), v = s.v[ci];
+        svg.appendChild(el('rect', { x: bx, y: y(v), width: bW, height: BOT - y(v), rx: 6, fill: s.c }));
+        txt({ x: bx + bW / 2, y: y(v) - 12, 'text-anchor': 'middle', fill: si === 0 ? '#7a4fa3' : '#7a7772', 'font-size': 28, 'font-weight': 800 }, Math.round(v) + '%');
+      });
+      txt({ x: X0 + gW * ci + gW / 2, y: BOT + 38, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 30, 'font-weight': 800 }, cy);
+    });
+  </script>
+</body></html>
