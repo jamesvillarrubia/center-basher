@@ -3,11 +3,11 @@
 <body>
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Single-payer is a fringe idea with no real support.&rdquo;</div>
-    <div class="cc-title">Bernie&rsquo;s &ldquo;fringe&rdquo; idea became the question <span class="hl">every</span> 2020 Democrat had to answer.</div>
-    <div class="cc-sub">Where the 2020 candidates landed on Medicare for All &mdash; even Biden, whose campaign rested on opposing it.</div>
+    <div class="cc-title">The &ldquo;fringe&rdquo; idea that <span class="hl">every</span> 2020 Democrat had to take a side on.</div>
+    <div class="cc-sub">Where the field landed on Medicare for All &mdash; even Biden, whose whole campaign ran against it.</div>
 
-    <div class="cc-chart"><svg id="m4a" viewBox="0 0 1240 360" role="img"
-      aria-label="2020 Democrats on Medicare for All, from Biden (opposed) to Sanders and Warren (full single-payer)"></svg></div>
+    <div class="cc-chart"><svg id="m4a" viewBox="0 0 1240 449" role="img"
+      aria-label="2020 Democrats placed on a line from keeping private insurance to full Medicare for All, from Biden at the private end to Sanders at the single-payer end"></svg></div>
 
     <div class="cc-foot">
       <div class="cc-source">Source: 2020 Democratic primary healthcare platforms (KFF; Time; Washington Post).</div>
@@ -19,27 +19,32 @@
     const NS = 'http://www.w3.org/2000/svg';
     const svg = document.getElementById('m4a');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
-    const X0 = 150, X1 = 1090, axisY = 190;
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
+    const X0 = 170, X1 = 1080, axisY = 224;
     const px = (p) => X0 + p * (X1 - X0);
-    // axis
-    svg.appendChild(el('line', { x1: X0, y1: axisY, x2: X1, y2: axisY, stroke: '#c9c6bd', 'stroke-width': 4 }));
-    svg.appendChild(el('path', { d: `M ${X1} ${axisY} l -18 -10 l 0 20 z`, fill: '#c9c6bd' }));
-    const endL = el('text', { x: X0, y: axisY + 148, 'text-anchor': 'start', fill: '#6b6b70', 'font-size': 24, 'font-weight': 600 }); endL.textContent = '← Keep private insurance'; svg.appendChild(endL);
-    const endR = el('text', { x: X1, y: axisY + 148, 'text-anchor': 'end', fill: '#b8240f', 'font-size': 24, 'font-weight': 700 }); endR.textContent = 'Medicare for All →'; svg.appendChild(endR);
+
+    svg.appendChild(el('line', { x1: X0, y1: axisY, x2: X1 + 40, y2: axisY, stroke: '#c9c6bd', 'stroke-width': 4 }));
+    svg.appendChild(el('path', { d: `M ${X1 + 58} ${axisY} l -20 -11 l 0 22 z`, fill: '#c9c6bd' }));
+
+    txt({ x: X0, y: axisY + 168, 'text-anchor': 'start', fill: '#6b6b70', 'font-size': 26, 'font-weight': 700 }, '← Keep private insurance');
+    txt({ x: X1 + 40, y: axisY + 168, 'text-anchor': 'end', fill: '#b8240f', 'font-size': 26, 'font-weight': 800 }, 'Full Medicare for All →');
+
     const cands = [
       { p: 0.06, name: 'Biden', sub: 'Opposed M4A', up: true, hot: true },
       { p: 0.28, name: 'Buttigieg', sub: 'Public option', up: false },
-      { p: 0.53, name: 'Harris', sub: 'M4A, some private', up: true },
-      { p: 0.83, name: 'Warren', sub: 'Full single-payer', up: false },
-      { p: 0.96, name: 'Sanders', sub: 'Full single-payer', up: true },
+      { p: 0.53, name: 'Harris', sub: 'M4A, keep some private', up: true },
+      { p: 0.82, name: 'Warren', sub: 'Single-payer, phased in', up: false },
+      { p: 0.97, name: 'Sanders', sub: 'Single-payer, right away', up: true },
     ];
     cands.forEach((c) => {
       const x = px(c.p), col = c.hot ? '#b8240f' : '#2c5b9c';
-      svg.appendChild(el('circle', { cx: x, cy: axisY, r: 15, fill: col, stroke: '#fbfbf8', 'stroke-width': 3 }));
-      const ny = c.up ? axisY - 62 : axisY + 52, sy = c.up ? axisY - 34 : axisY + 80;
-      const nm = el('text', { x, y: ny, 'text-anchor': 'middle', fill: c.hot ? '#b8240f' : '#1b1b1d', 'font-size': 30, 'font-weight': 800 }); nm.textContent = c.name; svg.appendChild(nm);
-      const st = el('text', { x, y: sy, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 21 }); st.textContent = c.sub; svg.appendChild(st);
-      svg.appendChild(el('line', { x1: x, y1: c.up ? axisY - 15 : axisY + 15, x2: x, y2: c.up ? ny + 12 : axisY + 24, stroke: '#d9d6cd', 'stroke-width': 2 }));
+      // short connector stub only (never reaches the text)
+      svg.appendChild(el('line', { x1: x, y1: c.up ? axisY - 16 : axisY + 16, x2: x, y2: c.up ? axisY - 40 : axisY + 40, stroke: '#d9d6cd', 'stroke-width': 2 }));
+      svg.appendChild(el('circle', { cx: x, cy: axisY, r: 16, fill: col, stroke: '#fbfbf8', 'stroke-width': 3 }));
+      const ny = c.up ? axisY - 96 : axisY + 78, sy = c.up ? axisY - 64 : axisY + 108;
+      txt({ x, y: ny, 'text-anchor': 'middle', fill: c.hot ? '#b8240f' : '#1b1b1d', 'font-size': 32, 'font-weight': 800 }, c.name);
+      txt({ x, y: sy, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 22 }, c.sub);
     });
   </script>
 </body></html>
