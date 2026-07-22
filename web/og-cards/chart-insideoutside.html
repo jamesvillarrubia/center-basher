@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;The winning move is to position yourself in the middle.&rdquo;</div>
+    <div class="cc-title">Voters sort on inside vs. outside <span class="hl">before</span> they sort on left vs. right.</div>
+    <div class="cc-sub">Romney and Buttigieg have almost nothing in common on policy. Neither do Sanders and Trump. The axis that separated them from each other is the one nobody campaigns on.</div>
+
+    <div class="cc-chart"><svg id="io" viewBox="0 0 1240 449" role="img"
+      aria-label="Quadrant diagram: Sanders and Trump sit outside the system at opposite ends of the left-right axis; Buttigieg and Romney sit inside it, near the middle"></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Framing, not a measured scale: positions show how each candidate was read by the electorate, per the inside/outside argument at thecenterisalie.org.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('io');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
+    const X0 = 150, X1 = 1140, Y0 = 30, Y1 = 350;
+    const midX = (X0 + X1) / 2, midY = (Y0 + Y1) / 2;
+
+    // the outside half is the one that keeps winning, so tint it
+    svg.appendChild(el('rect', { x: X0, y: Y0, width: X1 - X0, height: midY - Y0, fill: '#b8240f', 'fill-opacity': 0.06 }));
+
+    // axes
+    svg.appendChild(el('line', { x1: X0, y1: midY, x2: X1, y2: midY, stroke: '#c9c6bd', 'stroke-width': 3 }));
+    svg.appendChild(el('line', { x1: midX, y1: Y0, x2: midX, y2: Y1, stroke: '#e0ddd5', 'stroke-width': 3, 'stroke-dasharray': '8 8' }));
+
+    txt({ x: X0, y: Y1 + 44, 'text-anchor': 'start', fill: '#6b6b70', 'font-size': 25, 'font-weight': 700 }, '← Left on policy');
+    txt({ x: X1, y: Y1 + 44, 'text-anchor': 'end', fill: '#6b6b70', 'font-size': 25, 'font-weight': 700 }, 'Right on policy →');
+    // band labels live inside their own half, so nothing rotates or collides
+    txt({ x: X0 + 18, y: Y0 + 36, 'text-anchor': 'start', fill: '#b8240f', 'font-size': 24, 'font-weight': 800, 'letter-spacing': 1.5, opacity: 0.75 }, 'OUTSIDE THE SYSTEM');
+    txt({ x: X0 + 18, y: Y1 - 14, 'text-anchor': 'start', fill: '#a8a59c', 'font-size': 24, 'font-weight': 800, 'letter-spacing': 1.5 }, 'INSIDE THE SYSTEM');
+
+    const pts = [
+      { x: 0.10, y: 0.34, name: 'Sanders',   note: 'ran against the party',   out: true },
+      { x: 0.90, y: 0.16, name: 'Trump',     note: 'ran against everything',  out: true },
+      { x: 0.26, y: 0.70, name: 'Buttigieg', note: 'ran as the credential',   out: false },
+      { x: 0.82, y: 0.86, name: 'Romney',    note: 'ran as the résumé',       out: false },
+    ];
+    pts.forEach((p) => {
+      const cx = X0 + p.x * (X1 - X0), cy = Y0 + p.y * (Y1 - Y0);
+      const col = p.out ? '#b8240f' : '#8a887f';
+      svg.appendChild(el('circle', { cx, cy, r: 17, fill: col, stroke: '#fbfbf8', 'stroke-width': 3 }));
+      const anchor = p.x > 0.6 ? 'end' : 'start', dx = p.x > 0.6 ? -32 : 32;
+      txt({ x: cx + dx, y: cy - 4, 'text-anchor': anchor, fill: p.out ? '#b8240f' : '#1b1b1d', 'font-size': 36, 'font-weight': 800 }, p.name);
+      txt({ x: cx + dx, y: cy + 28, 'text-anchor': anchor, fill: '#7a7772', 'font-size': 23 }, p.note);
+    });
+  </script>
+</body></html>

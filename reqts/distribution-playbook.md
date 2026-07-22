@@ -114,8 +114,15 @@ Cards live at `web/public/og/charts/<slug>.png` (1600×900). Rebuild with `pnpm 
 | "It's just the economy" | `fundamentals` | *The worst economy in 20 years re-elected the incumbent* | ✅ |
 | "It's just the economy" (mechanism) | racial-resentment weight | *Racial resentment didn't spike after Obama — its vote-weight did (≈5×)* | ☐ |
 | "Love your candidate → turnout" | stakes-vs-warmth | *What turns people out is stakes and fear, not warmth to your favorite* | ☐ |
+| "Win the persuadable middle and you win" | `pools` | *Campaigns are built to chase 3 voters and ignore 40* | ✅ |
+| "Independents are the moderates in the middle" | `bothends` | *9 in 10 independents hold at least one extreme position* | ✅ |
+| "The winning move is to position yourself in the middle" | `insideoutside` | *Voters sort on inside vs. outside before they sort on left vs. right* | ✅ |
 
-Ten cards built; two left. A rebuttal is now a 30-second drag-and-drop, not a design task.
+A rebuttal is now a 30-second drag-and-drop, not a design task.
+
+> Note: this table is a curated subset. The full built set is whatever
+> `web/og-cards/chart-*.html` contains (27 cards as of 2026-07-22); the renderer
+> auto-discovers by filename, so a new card only needs a new `chart-<slug>.html`.
 
 ### LinkedIn — text post, NO link in body (link in first comment)
 

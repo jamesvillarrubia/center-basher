@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Independents are the moderate voters in the middle.&rdquo;</div>
+    <div class="cc-title">9 in 10 independents hold at least one <span class="hl">extreme</span> position.</div>
+    <div class="cc-sub">Nearly half hold a hard-left position and a hard-right one at the same time. Average those together and you manufacture a moderate who doesn&rsquo;t exist.</div>
+
+    <div class="cc-chart"><svg id="be" viewBox="0 0 1240 449" role="img"
+      aria-label="Independents by issue positions: 48% hold both a strong-left and a strong-right position, 23% strong-left only, 20% strong-right only, and only 10% hold no extreme position"></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: ANES 2016, weighted (V160101). Independents + leaners (7-pt PID 3&ndash;5; 36% of respondents, n=1,232). &ldquo;Extreme&rdquo; = a 7-pt issue scale answered at 1&ndash;2 or 6&ndash;7, across six issues.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('be');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
+    const rows = [
+      { name: 'Holds BOTH a hard-left and a hard-right position', v: 48, col: '#b8240f', hot: true },
+      { name: 'Hard-left position(s) only', v: 23, col: '#5f83ac' },
+      { name: 'Hard-right position(s) only', v: 20, col: '#5f83ac' },
+      { name: 'No extreme position at all', v: 10, col: '#b0ada4', quiet: true },
+    ];
+    const X0 = 600, X1 = 1090, VMAX = 55, sc = (X1 - X0) / VMAX;
+    const barH = 58, step = 90, y0 = 20;
+    const axisBot = y0 + (rows.length - 1) * step + barH + 12;
+
+    for (let v = 0; v <= 50; v += 10) {
+      const gx = X0 + v * sc;
+      svg.appendChild(el('line', { x1: gx, y1: y0 - 14, x2: gx, y2: axisBot, stroke: v === 0 ? '#c9c6bd' : '#e8e6e0', 'stroke-width': v === 0 ? 3 : 2 }));
+      txt({ x: gx, y: axisBot + 32, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 22 }, v + '%');
+    }
+    txt({ x: (X0 + X1) / 2, y: axisBot + 70, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 24, 'font-style': 'italic' }, 'share of independents');
+
+    rows.forEach((r, i) => {
+      const yTop = y0 + i * step, mid = yTop + barH / 2;
+      txt({ x: X0 - 28, y: mid + 10, 'text-anchor': 'end', fill: r.quiet ? '#7a7772' : '#1b1b1d', 'font-size': 27, 'font-weight': r.hot ? 800 : 600 }, r.name);
+      const w = r.v * sc;
+      svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 8, fill: r.col }));
+      txt({ x: X0 + w + 20, y: mid + 14, fill: r.hot ? '#b8240f' : '#6b6b70', 'font-size': 40, 'font-weight': 800 }, r.v + '%');
+    });
+  </script>
+</body></html>
