@@ -2,56 +2,60 @@
 <html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
 <body>
   <div class="chartcard">
-    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;The winning move is to position yourself in the middle.&rdquo;</div>
-    <div class="cc-title">Nobody cares that Sanders is left of Buttigieg. They care that he&rsquo;s <span class="hl">outside</span>.</div>
-    <div class="cc-sub">Sanders and Trump agree on nothing and share the only trait a low-trust electorate rewards. Buttigieg and Romney agree on nothing either, and share the one it punishes. The horizontal axis is the argument every campaign has. The vertical one decides it.</div>
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Run as the safe, credentialed, inside-the-system candidate.&rdquo;</div>
+    <div class="cc-title">The &ldquo;inside the system&rdquo; pitch is aimed at the <span class="hl">smallest quarter</span> of the electorate.</div>
+    <div class="cc-sub">2016 voters by how much they trust government, sized to their real share. Three in four say Washington is run by a few big interests and wastes their money. They sit on the left, the right, and nowhere on the scale at all.</div>
 
-    <div class="cc-chart"><svg id="io" viewBox="0 0 1240 449" role="img"
-      aria-label="Quadrant diagram: Sanders and Trump sit outside the system at opposite ends of the left-right axis; Buttigieg and Romney sit inside it, near the middle"></svg></div>
+    <div class="cc-chart"><svg id="mo" viewBox="0 0 1240 430" role="img"
+      aria-label="Mosaic of 2016 voters. Low-trust band is 75 percent of voters, spanning left 18, middle 14, no position 13 and right 30 percent. High-trust band is 25 percent, spanning left 10, middle 5, no position 6 and right 5 percent."></svg></div>
 
     <div class="cc-foot">
-      <div class="cc-source">Framing, not a measured scale: positions show how each candidate was read by the electorate, per the inside/outside argument at thecenterisalie.org.</div>
+      <div class="cc-source">Source: ANES 2016 Time Series, POST weight (V160102), n=2,641 voters. Trust = 3-item composite (V161215/V161216/V161217, 0&ndash;1); low = &le;0.25, the same cutpoint as the published trust terciles. Ideology = 7-pt lib-con (V161126); &ldquo;no position&rdquo; = haven&rsquo;t thought much about it. Cell area is proportional to share of voters.</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
 
   <script>
     const NS = 'http://www.w3.org/2000/svg';
-    const svg = document.getElementById('io');
+    const svg = document.getElementById('mo');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
     const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
 
-    const X0 = 150, X1 = 1140, Y0 = 30, Y1 = 350;
-    const midX = (X0 + X1) / 2, midY = (Y0 + Y1) / 2;
-
-    // the outside half is the one that keeps winning, so tint it
-    svg.appendChild(el('rect', { x: X0, y: Y0, width: X1 - X0, height: midY - Y0, fill: '#b8240f', 'fill-opacity': 0.06 }));
-
-    // axes
-    svg.appendChild(el('line', { x1: X0, y1: midY, x2: X1, y2: midY, stroke: '#c9c6bd', 'stroke-width': 3 }));
-    svg.appendChild(el('line', { x1: midX, y1: Y0, x2: midX, y2: Y1, stroke: '#e0ddd5', 'stroke-width': 3, 'stroke-dasharray': '8 8' }));
-
-    txt({ x: X0, y: Y1 + 44, 'text-anchor': 'start', fill: '#6b6b70', 'font-size': 25, 'font-weight': 700 }, '← Left on policy');
-    txt({ x: X1, y: Y1 + 44, 'text-anchor': 'end', fill: '#6b6b70', 'font-size': 25, 'font-weight': 700 }, 'Right on policy →');
-    // band labels live inside their own half, so nothing rotates or collides
-    txt({ x: X0 + 18, y: Y0 + 34, 'text-anchor': 'start', fill: '#b8240f', 'font-size': 25, 'font-weight': 800, 'letter-spacing': 1.5 }, 'OUTSIDE THE SYSTEM');
-    txt({ x: X0 + 18, y: Y0 + 64, 'text-anchor': 'start', fill: '#b8240f', 'font-size': 23, opacity: 0.8 }, 'what a low-trust electorate rewards');
-    txt({ x: X0 + 18, y: Y1 - 40, 'text-anchor': 'start', fill: '#a8a59c', 'font-size': 25, 'font-weight': 800, 'letter-spacing': 1.5 }, 'INSIDE THE SYSTEM');
-    txt({ x: X0 + 18, y: Y1 - 12, 'text-anchor': 'start', fill: '#a8a59c', 'font-size': 23 }, 'what it punishes, however good the résumé');
-
-    const pts = [
-      { x: 0.10, y: 0.34, name: 'Sanders',   note: 'ran against the party',   out: true },
-      { x: 0.90, y: 0.16, name: 'Trump',     note: 'ran against everything',  out: true },
-      { x: 0.26, y: 0.70, name: 'Buttigieg', note: 'ran as the credential',   out: false },
-      { x: 0.82, y: 0.86, name: 'Romney',    note: 'ran as the résumé',       out: false },
+    // Weighted % of all 2016 voters. Row heights and cell widths are both
+    // proportional, so every cell's AREA is its share of the electorate.
+    const rows = [
+      { key: 'low',  label: 'LOW TRUST', note: 'the outsider’s electorate',
+        cells: [['Left', 17.65], ['Middle', 14.16], ['No position', 13.22], ['Right', 29.61]] },
+      { key: 'high', label: 'HIGH TRUST', note: 'who the “safe” pitch speaks to',
+        cells: [['Left', 9.60], ['Middle', 5.17], ['No position', 5.66], ['Right', 4.94]] },
     ];
-    pts.forEach((p) => {
-      const cx = X0 + p.x * (X1 - X0), cy = Y0 + p.y * (Y1 - Y0);
-      const col = p.out ? '#b8240f' : '#8a887f';
-      svg.appendChild(el('circle', { cx, cy, r: 17, fill: col, stroke: '#fbfbf8', 'stroke-width': 3 }));
-      const anchor = p.x > 0.6 ? 'end' : 'start', dx = p.x > 0.6 ? -32 : 32;
-      txt({ x: cx + dx, y: cy - 4, 'text-anchor': anchor, fill: p.out ? '#b8240f' : '#1b1b1d', 'font-size': 36, 'font-weight': 800 }, p.name);
-      txt({ x: cx + dx, y: cy + 28, 'text-anchor': anchor, fill: '#7a7772', 'font-size': 23 }, p.note);
+    const X0 = 215, X1 = 1220, W = X1 - X0, TOP = 20, H = 330, GAP = 10;
+    const total = rows.reduce((a, r) => a + r.cells.reduce((b, c) => b + c[1], 0), 0);
+    const rowTot = rows.map((r) => r.cells.reduce((b, c) => b + c[1], 0));
+
+    let y = TOP;
+    rows.forEach((r, ri) => {
+      const rh = (rowTot[ri] / total) * (H - GAP);
+      const hot = r.key === 'low';
+      let x = X0;
+      r.cells.forEach(([name, v], ci) => {
+        const cw = (v / rowTot[ri]) * W - 4;
+        const shade = hot ? ['#d8593f', '#c93a20', '#a81d0a', '#8d1706'][ci] : ['#a7b3bd', '#93a1ad', '#7f8f9d', '#6d7d8c'][ci];
+        svg.appendChild(el('rect', { x, y, width: cw, height: rh, rx: 5, fill: shade }));
+        if (rh > 44) {
+          txt({ x: x + cw / 2, y: y + rh / 2 - 2, 'text-anchor': 'middle', fill: '#fff', 'font-size': 25, 'font-weight': 800 }, v.toFixed(0) + '%');
+          txt({ x: x + cw / 2, y: y + rh / 2 + 26, 'text-anchor': 'middle', fill: '#ffffffcc', 'font-size': 19 }, name);
+        } else {
+          txt({ x: x + cw / 2, y: y + rh / 2 + 8, 'text-anchor': 'middle', fill: '#fff', 'font-size': 22, 'font-weight': 800 }, v.toFixed(0) + '%');
+        }
+        x += cw + 4;
+      });
+      // row label + running total, outside the bar on the left
+      txt({ x: X0 - 20, y: y + rh / 2 - 4, 'text-anchor': 'end', fill: hot ? '#b8240f' : '#7a8894', 'font-size': 25, 'font-weight': 800 }, r.label);
+      txt({ x: X0 - 20, y: y + rh / 2 + 24, 'text-anchor': 'end', fill: '#8a887f', 'font-size': 19 }, Math.round(rowTot[ri]) + '% of voters');
+      y += rh + GAP;
     });
+
+    txt({ x: X0, y: TOP + H + 40, 'text-anchor': 'start', fill: '#7a7772', 'font-size': 22, 'font-style': 'italic' }, 'Every band spans the whole left-right axis. The split that matters runs the other way.');
   </script>
 </body></html>
