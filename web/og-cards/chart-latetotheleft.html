@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;The centrists were right. The left had to come to them.&rdquo;</div>
+    <div class="cc-title">The &ldquo;electable&rdquo; position keeps moving <span class="hl">left</span>. It just arrives late.</div>
+    <div class="cc-sub">The Democratic establishment&rsquo;s own health platform, cycle by cycle. It has moved steadily toward the position it spent a decade calling unelectable, and the man holding that position never moved at all. Obamacare was the compromise: built on private insurers, with the public option stripped out before passage.</div>
+
+    <div class="cc-chart"><svg id="lt" viewBox="0 0 1240 396" role="img"
+      aria-label="Timeline showing the Democratic establishment health position moving leftward: 2010 ACA built on private insurers, 2016 Clinton defending the ACA and opposing single-payer, 2020 Biden adopting the public option. Sanders holds the single-payer position throughout."></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Positions are the documented platforms, not a measured scale, so read the ordering rather than the spacing: ACA as enacted in 2010 (public option dropped in the Senate before passage); Clinton 2016 (defend and build on the ACA, opposed single-payer); Biden 2020 (Medicare buy-in public option, explicitly opposed Medicare-for-all). Sources: KFF interactive tracker; Time; Washington Post, as cited in the essay&rsquo;s note 65.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('lt');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
+    // 0 = single government plan, 1 = fully private
+    const X0 = 210, X1 = 1150, W = X1 - X0;
+    const px = (p) => X0 + p * W;
+    const rows = [
+      { yr: '2010', p: 0.80, n: 'The ACA as passed', s: 'private insurers, mandate,', s2: 'public option stripped out' },
+      { yr: '2016', p: 0.68, n: 'Clinton', s: 'defend and build on the ACA,', s2: 'opposed single-payer' },
+      { yr: '2020', p: 0.50, n: 'Biden', s: 'public option: the piece', s2: 'they dropped in 2010' },
+    ];
+    const TOP = 58, STEP = 92;
+
+    // Sanders: the fixed point the others are walking toward
+    const sx = px(0.05);
+    svg.appendChild(el('rect', { x: sx - 3, y: TOP - 22, width: 6, height: STEP * 2 + 44, rx: 3, fill: '#2c5b9c' }));
+    txt({ x: sx + 20, y: TOP + STEP - 6, 'text-anchor': 'start', fill: '#2c5b9c', 'font-size': 26, 'font-weight': 800 }, 'Sanders');
+    txt({ x: sx + 20, y: TOP + STEP + 18, 'text-anchor': 'start', fill: '#2c5b9c', 'font-size': 19 }, 'single-payer, never moved');
+
+    rows.forEach((r, i) => {
+      const y = TOP + i * STEP, x = px(r.p);
+      svg.appendChild(el('line', { x1: sx + 6, y1: y, x2: X1, y2: y, stroke: '#e8e6e0', 'stroke-width': 2 }));
+      txt({ x: 96, y: y + 10, 'text-anchor': 'start', fill: '#1b1b1d', 'font-size': 34, 'font-weight': 800 }, r.yr);
+      svg.appendChild(el('circle', { cx: x, cy: y, r: 13, fill: '#b8240f', stroke: '#fbfbf8', 'stroke-width': 3 }));
+      txt({ x: x + 26, y: y - 4, 'text-anchor': 'start', fill: '#1b1b1d', 'font-size': 25, 'font-weight': 800 }, r.n);
+      txt({ x: x + 26, y: y + 18, 'text-anchor': 'start', fill: '#7a7772', 'font-size': 18 }, r.s);
+      txt({ x: x + 26, y: y + 38, 'text-anchor': 'start', fill: '#7a7772', 'font-size': 18 }, r.s2);
+      // the leftward step from the cycle above
+      if (i > 0) {
+        const xp = px(rows[i - 1].p);
+        svg.appendChild(el('path', { d: `M ${xp} ${y - STEP + 16} L ${xp} ${y - 26} L ${x + 16} ${y - 26}`,
+          fill: 'none', stroke: '#b8240f', 'stroke-width': 2.5, 'stroke-dasharray': '6 5' }));
+        svg.appendChild(el('path', { d: `M ${x + 2} ${y - 26} l 18 -8 l 0 16 z`, fill: '#b8240f' }));
+      }
+    });
+
+    const ay = TOP + STEP * 2 + 76;
+    txt({ x: X0, y: ay, 'text-anchor': 'start', fill: '#2c5b9c', 'font-size': 21, 'font-weight': 800 }, '← Single government plan');
+    txt({ x: X1, y: ay, 'text-anchor': 'end', fill: '#8a887f', 'font-size': 21, 'font-weight': 800 }, 'Fully private →');
+    txt({ x: (X0 + X1) / 2, y: ay + 30, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 20, 'font-style': 'italic' },
+      'Each cycle the safe position lands where the unelectable one already was.');
+  </script>
+</body></html>
