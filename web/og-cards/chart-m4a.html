@@ -25,53 +25,47 @@
     const V = [21.6, 13.0, 13.8, 17.8, 11.3, 8.4, 14.1];
     // scale position -> colour: government end blue, private end red
     const C = ['#2c5b9c', '#5480b5', '#93a9c4', '#8a8880', '#cf9083', '#c9543c', '#b8240f'];
-    const X0 = 96, X1 = 1168, TOP = 30, BOT = 232, VMAX = 25;
-    // domain 0.5..7.5 so all seven bands are the same width and each band's
-    // AREA is its share of voters, rather than point 1 reading as an endpoint
-    const px = (p) => X0 + (p - 0.5) / 7 * (X1 - X0);
-    const y = (v) => BOT - (v / VMAX) * (BOT - TOP);
+    const X0 = 62, X1 = 1200, W = X1 - X0, TOP = 62, BH = 150;
 
-    [0, 10, 20].forEach((v) => {
-      svg.appendChild(el('line', { x1: X0, y1: y(v), x2: X1, y2: y(v),
-        stroke: v === 0 ? '#c9c6bd' : '#ebe8e2', 'stroke-width': v === 0 ? 3 : 2 }));
-      txt({ x: X0 - 14, y: y(v) + 8, 'text-anchor': 'end', fill: '#9a988f', 'font-size': 21 }, v + '%');
-    });
+    // One band = the whole electorate. Segment WIDTH is the segment's share, so
+    // each block's area is its share of the total area. No vertical axis is
+    // needed and none can mislead: 22% occupies 22% of the ink.
+    const edges = [X0];
+    V.forEach((v) => edges.push(edges[edges.length - 1] + v / 100 * W));
 
-    // Flat-topped bands, NOT a smoothed curve. Smoothing moves area across the
-    // band boundaries, so the integral under a band stops equalling its
-    // percentage. With flat tops, area = width x height exactly, and the bands
-    // are the same width, so the ink ratio IS the percentage ratio.
     V.forEach((v, i) => {
-      const xa = px(i + 0.5), xb = px(i + 1.5);
-      svg.appendChild(el('rect', { x: xa, y: y(v), width: xb - xa, height: BOT - y(v), fill: C[i], 'fill-opacity': 0.9 }));
-      svg.appendChild(el('line', { x1: xb, y1: BOT, x2: xb, y2: y(v), stroke: '#fbfbf8', 'stroke-width': 2 }));
-      const tall = (BOT - y(v)) > 70;
-      txt({ x: px(i + 1), y: tall ? y(v) + 34 : y(v) - 14, 'text-anchor': 'middle',
-        fill: tall ? '#ffffff' : C[i], 'font-size': 24, 'font-weight': 800 }, v.toFixed(0) + '%');
+      const xa = edges[i], xb = edges[i + 1], w = xb - xa;
+      svg.appendChild(el('rect', { x: xa, y: TOP, width: w, height: BH, fill: C[i] }));
+      svg.appendChild(el('line', { x1: xb, y1: TOP, x2: xb, y2: TOP + BH, stroke: '#fbfbf8', 'stroke-width': 2 }));
+      txt({ x: (xa + xb) / 2, y: TOP + BH / 2 + 4, 'text-anchor': 'middle', fill: '#fff', 'font-size': 30, 'font-weight': 800 }, v.toFixed(0) + '%');
+      txt({ x: (xa + xb) / 2, y: TOP + BH / 2 + 32, 'text-anchor': 'middle', fill: '#ffffffbb', 'font-size': 19, 'font-weight': 700 }, String(i + 1));
     });
-    // step outline so it still reads as a distribution
-    let dl = `M ${px(0.5)} ${y(V[0])}`;
-    V.forEach((v, i) => { dl += ` L ${px(i + 1.5)} ${y(v)}`; if (i < 6) dl += ` L ${px(i + 1.5)} ${y(V[i + 1])}`; });
-    svg.appendChild(el('path', { d: dl, fill: 'none', stroke: '#5b6570', 'stroke-width': 3 }));
 
-    txt({ x: X0 + 10, y: TOP + 6, 'text-anchor': 'start', fill: '#2c5b9c', 'font-size': 22, 'font-weight': 800 }, '\u2190 Government insurance plan');
-    txt({ x: X1 - 10, y: TOP + 6, 'text-anchor': 'end', fill: '#b8240f', 'font-size': 22, 'font-weight': 800 }, 'Private insurance plan \u2192');
+    txt({ x: X0, y: TOP - 18, 'text-anchor': 'start', fill: '#2c5b9c', 'font-size': 23, 'font-weight': 800 }, '\u2190 Government insurance plan');
+    txt({ x: X1, y: TOP - 18, 'text-anchor': 'end', fill: '#b8240f', 'font-size': 23, 'font-weight': 800 }, 'Private insurance plan \u2192');
+    txt({ x: (X0 + X1) / 2, y: TOP - 18, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 20, 'font-style': 'italic' }, 'each block is its share of all voters');
 
-    // the 2020 field, coloured by where they sit on the scale, not by party
+    // map a scale position (1..7) into the proportional band
+    const mapX = (p) => {
+      const i = Math.min(6, Math.max(0, Math.round(p) - 1));
+      const f = p - (i + 1) + 0.5;
+      return edges[i] + f * (edges[i + 1] - edges[i]);
+    };
+
     const cands = [
-      { p: 1.00, n: 'Sanders',   s: 'single-payer now',        row: 0, an: 'start', dx: -12 },
+      { p: 1.00, n: 'Sanders',   s: 'single-payer now',        row: 0 },
       { p: 1.55, n: 'Warren',    s: 'single-payer, phased in', row: 1 },
       { p: 2.35, n: 'Harris',    s: 'M4A, some private kept',  row: 2 },
       { p: 3.15, n: 'Buttigieg', s: 'public option',           row: 0 },
       { p: 3.75, n: 'Biden',     s: 'public option, anti-M4A', row: 1 },
     ];
     cands.forEach((c) => {
-      const x = px(c.p), yb = BOT + 58 + c.row * 52, col = C[Math.min(6, Math.max(0, Math.round(c.p) - 1))];
-      svg.appendChild(el('line', { x1: x, y1: BOT, x2: x, y2: yb - 22, stroke: col, 'stroke-width': 2, 'stroke-dasharray': '5 5' }));
-      svg.appendChild(el('circle', { cx: x, cy: BOT, r: 7, fill: col }));
-      const an = c.an || 'middle', lx = x + (c.dx || 0);
-      txt({ x: lx, y: yb, 'text-anchor': an, fill: col, 'font-size': 26, 'font-weight': 800 }, c.n);
-      txt({ x: lx, y: yb + 24, 'text-anchor': an, fill: '#7a7772', 'font-size': 19 }, c.s);
+      const x = mapX(c.p), yb = TOP + BH + 52 + c.row * 52;
+      const col = C[Math.min(6, Math.max(0, Math.round(c.p) - 1))];
+      svg.appendChild(el('line', { x1: x, y1: TOP + BH, x2: x, y2: yb - 22, stroke: col, 'stroke-width': 2, 'stroke-dasharray': '5 5' }));
+      svg.appendChild(el('circle', { cx: x, cy: TOP + BH, r: 7, fill: col }));
+      txt({ x, y: yb, 'text-anchor': 'middle', fill: col, 'font-size': 26, 'font-weight': 800 }, c.n);
+      txt({ x, y: yb + 24, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 19 }, c.s);
     });
   </script>
 </body></html>
