@@ -10,7 +10,7 @@
       aria-label="Area curve of 2024 voters across the 7-point government versus private insurance scale, peaking at 22 percent at the government-insurance end. Sanders and Warren sit on that peak; Harris near it; Buttigieg and Biden sit in the valley around 11 percent."></svg></div>
 
     <div class="cc-foot">
-      <div class="cc-source">Voter curve: ANES 2024 Time Series, POST weight (V240107b), n=3,432 voters, on the survey&rsquo;s 7-point government-vs-private medical insurance item (V241245); endpoint wording verbatim. The item is worded identically in 2016, 2020 and 2024, and the government-insurance end has been the most-chosen position in all three (22.2% in 2020, 21.6% in 2024). Candidate positions are their stated 2020 primary platforms (KFF; Time; Washington Post) mapped onto that scale, so read them as ordering, not as measurements.</div>
+      <div class="cc-source">Voter curve: ANES 2024 Time Series, POST weight (V240107b), n=3,432 voters, on the survey&rsquo;s 7-point government-vs-private medical insurance item (V241245); endpoint wording verbatim. The item is worded identically in 2016, 2020 and 2024, and the government-insurance end has been the most-chosen position in all three (22.2% in 2020, 21.6% in 2024). The survey labels only the endpoints, so points 2&ndash;6 have no wording and the midpoint is not the status quo (today&rsquo;s employer-plus-ACA system is unmeasured on this scale, and sits right of center). Candidate markers therefore show <em>ordering only</em>, from their stated 2020 primary platforms (KFF; Time; Washington Post); their absolute positions are not measurements.</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
@@ -24,7 +24,7 @@
     // Weighted % of 2024 voters at each point of the 7-pt scale.
     const V = [21.6, 13.0, 13.8, 17.8, 11.3, 8.4, 14.1];
     // scale position -> colour: government end blue, private end red
-    const C = ['#2c5b9c', '#5480b5', '#93a9c4', '#8a8880', '#cf9083', '#c9543c', '#b8240f'];
+    const C = ['#2c5b9c', '#5480b5', '#93a9c4', '#b3b0a8', '#cf9083', '#c9543c', '#b8240f'];
     const X0 = 62, X1 = 1200, W = X1 - X0, TOP = 66;
 
     // 100 cells, one per percent of voters. Filled COLUMN-MAJOR so horizontal
@@ -54,6 +54,8 @@
     txt({ x: X0, y: TOP - 18, 'text-anchor': 'start', fill: '#2c5b9c', 'font-size': 23, 'font-weight': 800 }, '\u2190 Government insurance plan');
     txt({ x: X1, y: TOP - 18, 'text-anchor': 'end', fill: '#b8240f', 'font-size': 23, 'font-weight': 800 }, 'Private insurance plan \u2192');
     txt({ x: (X0 + X1) / 2, y: TOP - 18, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 20, 'font-style': 'italic' }, 'each square = 1% of voters');
+    txt({ x: (X0 + X1) / 2, y: TOP + ROWS * (ch + GAP) + 54, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 19, 'font-style': 'italic' },
+      'The survey names only the two ends. Points 2\u20136 carry no label, so the midpoint is not "the current system."');
 
     // map a scale position (1..7) into cumulative-percent space
     const mapX = (p) => {
@@ -69,7 +71,7 @@
       { p: 3.15, n: 'Buttigieg', s: 'public option',           row: 0 },
       { p: 3.75, n: 'Biden',     s: 'public option, anti-M4A', row: 1 },
     ];
-    const BOTY = TOP + ROWS * (ch + GAP) + 40;
+    const BOTY = TOP + ROWS * (ch + GAP) + 68;
     cands.forEach((c) => {
       const x = mapX(c.p), yb = BOTY + 40 + c.row * 50;
       const col = C[Math.min(6, Math.max(0, Math.round(c.p) - 1))];
