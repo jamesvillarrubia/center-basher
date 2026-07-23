@@ -6,7 +6,7 @@
     <div class="cc-title">The &ldquo;unelectable&rdquo; ones were standing <span class="hl">where the voters are</span>.</div>
     <div class="cc-sub">Where voters placed themselves in <strong>2024</strong> on the survey&rsquo;s own government-vs-private insurance scale, against where the 2020 primary field stood. The most popular single position in the country is still the one that got called fringe, and the private-insurance end has shrunk since. The candidates who ran on it were the ones told they couldn&rsquo;t win.</div>
 
-    <div class="cc-chart"><svg id="m4a" viewBox="0 0 1240 424" role="img"
+    <div class="cc-chart"><svg id="m4a" viewBox="0 0 1240 560" role="img"
       aria-label="Area curve of 2024 voters across the 7-point government versus private insurance scale, peaking at 22 percent at the government-insurance end. Sanders and Warren sit on that peak; Harris near it; Buttigieg and Biden sit in the valley around 11 percent."></svg></div>
 
     <div class="cc-foot">
@@ -25,31 +25,41 @@
     const V = [21.6, 13.0, 13.8, 17.8, 11.3, 8.4, 14.1];
     // scale position -> colour: government end blue, private end red
     const C = ['#2c5b9c', '#5480b5', '#93a9c4', '#8a8880', '#cf9083', '#c9543c', '#b8240f'];
-    const X0 = 62, X1 = 1200, W = X1 - X0, TOP = 62, BH = 150;
+    const X0 = 62, X1 = 1200, W = X1 - X0, TOP = 66;
 
-    // One band = the whole electorate. Segment WIDTH is the segment's share, so
-    // each block's area is its share of the total area. No vertical axis is
-    // needed and none can mislead: 22% occupies 22% of the ink.
-    const edges = [X0];
-    V.forEach((v) => edges.push(edges[edges.length - 1] + v / 100 * W));
+    // 100 cells, one per percent of voters. Filled COLUMN-MAJOR so horizontal
+    // position still tracks the scale, but the quantity is carried by counted
+    // area in two dimensions rather than by a length or a bar height. Each cell
+    // is 1% of voters, so area fidelity is exact and checkable by counting.
+    const COLS = 20, ROWS = 5, GAP = 4;
+    const cw = W / COLS, ch = 42;
+    const cum = []; let run = 0;
+    V.forEach((v) => { run += v; cum.push(run); });
+    const catOf = (k) => { for (let i = 0; i < 7; i++) if (k < cum[i]) return i; return 6; };
 
+    for (let k = 0; k < 100; k++) {
+      const col = (k / ROWS) | 0, row = k % ROWS, i = catOf(k + 0.5);
+      svg.appendChild(el('rect', { x: X0 + col * cw, y: TOP + row * (ch + GAP),
+        width: cw - GAP, height: ch, rx: 3, fill: C[i] }));
+    }
+
+    // category totals sit under their own run of cells
+    let start = 0;
     V.forEach((v, i) => {
-      const xa = edges[i], xb = edges[i + 1], w = xb - xa;
-      svg.appendChild(el('rect', { x: xa, y: TOP, width: w, height: BH, fill: C[i] }));
-      svg.appendChild(el('line', { x1: xb, y1: TOP, x2: xb, y2: TOP + BH, stroke: '#fbfbf8', 'stroke-width': 2 }));
-      txt({ x: (xa + xb) / 2, y: TOP + BH / 2 + 4, 'text-anchor': 'middle', fill: '#fff', 'font-size': 30, 'font-weight': 800 }, v.toFixed(0) + '%');
-      txt({ x: (xa + xb) / 2, y: TOP + BH / 2 + 32, 'text-anchor': 'middle', fill: '#ffffffbb', 'font-size': 19, 'font-weight': 700 }, String(i + 1));
+      const mid = X0 + ((start + v / 2) / 100 * COLS) * cw;
+      txt({ x: mid, y: TOP + ROWS * (ch + GAP) + 26, 'text-anchor': 'middle', fill: C[i], 'font-size': 24, 'font-weight': 800 }, v.toFixed(0) + '%');
+      start += v;
     });
 
     txt({ x: X0, y: TOP - 18, 'text-anchor': 'start', fill: '#2c5b9c', 'font-size': 23, 'font-weight': 800 }, '\u2190 Government insurance plan');
     txt({ x: X1, y: TOP - 18, 'text-anchor': 'end', fill: '#b8240f', 'font-size': 23, 'font-weight': 800 }, 'Private insurance plan \u2192');
-    txt({ x: (X0 + X1) / 2, y: TOP - 18, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 20, 'font-style': 'italic' }, 'each block is its share of all voters');
+    txt({ x: (X0 + X1) / 2, y: TOP - 18, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 20, 'font-style': 'italic' }, 'each square = 1% of voters');
 
-    // map a scale position (1..7) into the proportional band
+    // map a scale position (1..7) into cumulative-percent space
     const mapX = (p) => {
       const i = Math.min(6, Math.max(0, Math.round(p) - 1));
-      const f = p - (i + 1) + 0.5;
-      return edges[i] + f * (edges[i + 1] - edges[i]);
+      const f = p - (i + 1) + 0.5, lo = i === 0 ? 0 : cum[i - 1];
+      return X0 + ((lo + f * V[i]) / 100) * W;
     };
 
     const cands = [
@@ -59,13 +69,14 @@
       { p: 3.15, n: 'Buttigieg', s: 'public option',           row: 0 },
       { p: 3.75, n: 'Biden',     s: 'public option, anti-M4A', row: 1 },
     ];
+    const BOTY = TOP + ROWS * (ch + GAP) + 40;
     cands.forEach((c) => {
-      const x = mapX(c.p), yb = TOP + BH + 52 + c.row * 52;
+      const x = mapX(c.p), yb = BOTY + 40 + c.row * 50;
       const col = C[Math.min(6, Math.max(0, Math.round(c.p) - 1))];
-      svg.appendChild(el('line', { x1: x, y1: TOP + BH, x2: x, y2: yb - 22, stroke: col, 'stroke-width': 2, 'stroke-dasharray': '5 5' }));
-      svg.appendChild(el('circle', { cx: x, cy: TOP + BH, r: 7, fill: col }));
-      txt({ x, y: yb, 'text-anchor': 'middle', fill: col, 'font-size': 26, 'font-weight': 800 }, c.n);
-      txt({ x, y: yb + 24, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 19 }, c.s);
+      svg.appendChild(el('line', { x1: x, y1: BOTY - 4, x2: x, y2: yb - 22, stroke: col, 'stroke-width': 2, 'stroke-dasharray': '5 5' }));
+      svg.appendChild(el('circle', { cx: x, cy: BOTY - 4, r: 7, fill: col }));
+      txt({ x, y: yb, 'text-anchor': 'middle', fill: col, 'font-size': 25, 'font-weight': 800 }, c.n);
+      txt({ x, y: yb + 23, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 18 }, c.s);
     });
   </script>
 </body></html>
