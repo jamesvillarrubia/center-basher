@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Those health plans were too far left. That&rsquo;s why those candidates couldn&rsquo;t win.&rdquo;</div>
+    <div class="cc-title">Every one of these &ldquo;radical&rdquo; plans polled <span class="hl">above 55%</span>.</div>
+    <div class="cc-sub">Four coverage proposals, asked in the same poll with the same wording, ordered from the most sweeping to the most incremental. Each column is 100 Americans; the filled squares favor it. The candidates who ran on the left-hand column were the ones told they were unelectable.</div>
+
+    <div class="cc-chart"><svg id="pr" viewBox="0 0 1240 470" role="img"
+      aria-label="Four health proposals as columns of 100 squares each. Medicare-for-all 56 percent favor, public option 74 percent, Medicaid buy-in 75 percent, Medicare buy-in for ages 50 to 64 77 percent."></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Source: KFF Health Tracking Poll, fielded January 9&ndash;14, 2019, n=1,190 adults; all four items asked in the same survey. KFF&rsquo;s own caveat applies and matters: support moves sharply when trade-offs are named, and the public splits close to evenly on Medicare-for-all once tax increases or treatment delays are mentioned. Read this as where opinion starts, not where it ends.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('pr');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
+    const props = [
+      { pct: 56, n: ['Medicare-for-all'], s: 'single government plan,', s2: 'replaces private insurance',
+        who: 'Sanders · Warren', c: '#2c5b9c' },
+      { pct: 74, n: ['Public option'],    s: 'government plan open to all,', s2: 'keep your coverage if you want',
+        who: 'Buttigieg · Biden', c: '#5480b5' },
+      { pct: 75, n: ['Medicaid buy-in'],  s: 'buy into your state&rsquo;s Medicaid', s2: 'if your employer offers nothing',
+        who: '', c: '#7f9cbd' },
+      { pct: 77, n: ['Medicare buy-in'],  s: 'let 50- to 64-year-olds', s2: 'buy into Medicare',
+        who: '', c: '#a6bad2' },
+    ];
+
+    const COLS = 5, ROWS = 20, cell = 12, gap = 3, TOP = 86;
+    const blockW = COLS * (cell + gap) - gap;
+    const span = 1240 - 120, step = span / props.length;
+
+    props.forEach((p, k) => {
+      const bx = 60 + step * k + (step - blockW) / 2;
+      // 100 squares, filled from the bottom up so the favouring share reads as a level
+      for (let i = 0; i < 100; i++) {
+        const row = ROWS - 1 - ((i / COLS) | 0), col = i % COLS;
+        const on = i < p.pct;
+        svg.appendChild(el('rect', { x: bx + col * (cell + gap), y: TOP + row * (cell + gap),
+          width: cell, height: cell, rx: 2, fill: on ? p.c : '#e0ddd6' }));
+      }
+      const cx = bx + blockW / 2;
+      txt({ x: cx, y: TOP - 54, 'text-anchor': 'middle', fill: p.c, 'font-size': 42, 'font-weight': 800 }, p.pct + '%');
+      p.n.forEach((ln, j) => txt({ x: cx, y: TOP - 24 + j * 24, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 24, 'font-weight': 800 }, ln));
+      const yb = TOP + ROWS * (cell + gap) + 24;
+      txt({ x: cx, y: yb, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 18 }, p.s.replace('&rsquo;', '’'));
+      txt({ x: cx, y: yb + 21, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 18 }, p.s2);
+      if (p.who) txt({ x: cx, y: yb + 50, 'text-anchor': 'middle', fill: p.c, 'font-size': 21, 'font-weight': 800 }, p.who);
+    });
+  </script>
+</body></html>
