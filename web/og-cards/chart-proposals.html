@@ -3,8 +3,8 @@
 <body>
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Those health plans were too far left. That&rsquo;s why those candidates couldn&rsquo;t win.&rdquo;</div>
-    <div class="cc-title">Every one of these &ldquo;radical&rdquo; plans polled <span class="hl">above 55%</span>.</div>
-    <div class="cc-sub">Four coverage proposals, asked in the same poll with the same wording, ordered from the most sweeping to the most incremental. Each column is 100 Americans; the filled squares favor it. The candidates who ran on the left-hand column were the ones told they were unelectable.</div>
+    <div class="cc-title">Every popular health plan runs the <span class="hl">same direction</span>. Including the &ldquo;radical&rdquo; one.</div>
+    <div class="cc-sub">Four coverage proposals, asked in the same poll with the same wording. Each column is 100 Americans and the filled squares favor it. All four expand government coverage, all four win a majority, and the most sweeping one clears 50% too. Nothing pointing the other way polls anywhere near this.</div>
 
     <div class="cc-chart"><svg id="pr" viewBox="0 0 1240 470" role="img"
       aria-label="Four health proposals as columns of 100 squares each. Medicare-for-all 56 percent favor, public option 74 percent, Medicaid buy-in 75 percent, Medicare buy-in for ages 50 to 64 77 percent."></svg></div>
@@ -23,7 +23,7 @@
 
     const props = [
       { pct: 56, n: ['Medicare-for-all'], s: 'single government plan,', s2: 'replaces private insurance',
-        who: 'Sanders · Warren', c: '#2c5b9c' },
+        who: 'Sanders · Warren', c: '#b8240f' },
       { pct: 74, n: ['Public option'],    s: 'government plan open to all,', s2: 'keep your coverage if you want',
         who: 'Buttigieg · Biden', c: '#5480b5' },
       { pct: 75, n: ['Medicaid buy-in'],  s: 'buy into your state&rsquo;s Medicaid', s2: 'if your employer offers nothing',
@@ -36,6 +36,12 @@
     const blockW = COLS * (cell + gap) - gap;
     const span = 1240 - 120, step = span / props.length;
 
+    const yFor = (pct) => TOP + (ROWS - pct / COLS) * (cell + gap) - gap / 2;
+    // majority line: the threshold that actually matters, drawn across all four
+    const majY = yFor(50);
+    svg.appendChild(el('line', { x1: 40, y1: majY, x2: 1200, y2: majY, stroke: '#1b1b1d', 'stroke-width': 3, 'stroke-dasharray': '9 7' }));
+    txt({ x: 40, y: majY - 12, 'text-anchor': 'start', fill: '#1b1b1d', 'font-size': 21, 'font-weight': 800 }, 'majority');
+
     props.forEach((p, k) => {
       const bx = 60 + step * k + (step - blockW) / 2;
       // 100 squares, filled from the bottom up so the favouring share reads as a level
@@ -46,7 +52,7 @@
           width: cell, height: cell, rx: 2, fill: on ? p.c : '#e0ddd6' }));
       }
       const cx = bx + blockW / 2;
-      txt({ x: cx, y: TOP - 54, 'text-anchor': 'middle', fill: p.c, 'font-size': 42, 'font-weight': 800 }, p.pct + '%');
+      txt({ x: cx, y: TOP - 54, 'text-anchor': 'middle', fill: k === 0 ? '#b8240f' : p.c, 'font-size': k === 0 ? 46 : 42, 'font-weight': 800 }, p.pct + '%');
       p.n.forEach((ln, j) => txt({ x: cx, y: TOP - 24 + j * 24, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 24, 'font-weight': 800 }, ln));
       const yb = TOP + ROWS * (cell + gap) + 24;
       txt({ x: cx, y: yb, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 18 }, p.s.replace('&rsquo;', '’'));
