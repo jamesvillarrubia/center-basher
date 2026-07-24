@@ -86,6 +86,32 @@ for (const card of cards) {
   })
   for (const h of overlaps) warnings.push(`  TEXT OVERLAP: ${h}`)
 
+  // Guard: a <text> whose box is wider or taller than the panel it sits inside
+  // is overflowing its container (e.g. an oversized label spilling out of a
+  // card). Only checks against the SMALLEST rect that contains the label's
+  // centre, so value labels that sit at a bar's end (centre outside the bar)
+  // and labels drawn on open background (no containing rect) are not flagged.
+  const overflows = await page.evaluate(() => {
+    const svg = document.querySelector('.cc-chart svg')
+    if (!svg) return []
+    const norm = (s) => (s || '').replace(/\s+/g, ' ').trim()
+    const rects = [...svg.querySelectorAll('rect')].map((r) => r.getBoundingClientRect())
+      .filter((r) => r.width > 12 && r.height > 12)
+    const out = []
+    for (const t of svg.querySelectorAll('text')) {
+      const s = norm(t.textContent)
+      const b = t.getBoundingClientRect()
+      if (!s || b.width < 1) continue
+      const cx = b.left + b.width / 2, cy = b.top + b.height / 2
+      const hosts = rects.filter((r) => cx >= r.left && cx <= r.right && cy >= r.top && cy <= r.bottom)
+      if (!hosts.length) continue
+      const host = hosts.reduce((a, c) => (a.width * a.height <= c.width * c.height ? a : c))
+      if (b.width > host.width - 6 || b.height > host.height - 6) out.push(`"${s.slice(0, 22)}"`)
+    }
+    return out
+  })
+  for (const o of overflows) warnings.push(`  TEXT OVERFLOWS BOX: ${o}`)
+
   const buf = await page.screenshot({ clip: { x: 0, y: 0, width: 1600, height: 900 } })
   const out = resolve(outDir, `${card.slug}.png`)
   writeFileSync(out, buf)

@@ -54,7 +54,7 @@
       // stance tag
       const col = r.oppose ? '#b8240f' : '#8a887f';
       svg.appendChild(el('rect', { x: STANCEX, y: y + 3, width: 240, height: rh - 6, rx: 8, fill: col, 'fill-opacity': r.oppose ? 1 : 0.16, stroke: r.oppose ? 'none' : col, 'stroke-width': r.oppose ? 0 : 1.5 }));
-      txt({ x: STANCEX + 120, y: y + rh - 13, 'text-anchor': 'middle', fill: r.oppose ? '#fff' : '#6b5b58', 'font-size': 21, 'font-weight': 800 }, r.stance.replace(/“|”/g, '"'));
+      txt({ x: STANCEX + 120, y: y + rh - 13, 'text-anchor': 'middle', fill: r.oppose ? '#fff' : '#6b5b58', 'font-size': 18, 'font-weight': 800 }, r.stance.replace(/“|”/g, '"'));
     });
 
   </script>
