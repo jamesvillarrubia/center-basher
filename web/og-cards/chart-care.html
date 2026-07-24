@@ -2,15 +2,15 @@
 <html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
 <body>
   <div class="chartcard">
-    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Low turnout is a mobilization-tactics problem.&rdquo;</div>
-    <div class="cc-title">People vote when the result <span class="hl">matters to them</span>. Nothing else comes close.</div>
-    <div class="cc-sub">2016 turnout, by whether the voter said they cared a good deal who won.</div>
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Fix turnout with better outreach: more doors, more ads, more enthusiasm.&rdquo;</div>
+    <div class="cc-title">People show up when the stakes are real, <span class="hl">not when they like you</span>.</div>
+    <div class="cc-sub">2016 turnout, by whether the voter felt the result mattered. That gap is the single biggest turnout lever in the data, and it survives even among low-engagement voters (52% vs 26%). Warmth toward your own candidate, by contrast, doesn&rsquo;t move turnout at all. A campaign that runs as the safe, inoffensive choice is lowering the one thing turnout depends on.</div>
 
     <div class="cc-chart"><svg id="care" viewBox="0 0 1240 449" role="img"
       aria-label="Turnout in 2016: 70.5% among voters who cared a good deal who won, 35.9% among those who did not"></svg></div>
 
     <div class="cc-foot">
-      <div class="cc-source">Source: ANES 2016; self-reported turnout by &ldquo;how much do you care who wins&rdquo;; weighted.</div>
+      <div class="cc-source">Source: ANES 2016, weighted; self-reported turnout by &ldquo;care a good deal who wins&rdquo; (V161005 &times; V162031x). The gap holds among low-engagement voters (52% vs 26%). In the weighted turnout model, &ldquo;care who wins&rdquo; is the top predictor and warmth-to-favorite is slightly negative (&minus;0.10); institutional trust does not predict turnout.</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
@@ -22,8 +22,8 @@
     const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
 
     const rows = [
-      { name: 'Cared a good deal', v: 70.5, col: '#b8240f' },
-      { name: 'Didn’t care much', v: 35.9, col: '#b0ada4' },
+      { name: 'Felt the result mattered', v: 70.5, col: '#b8240f' },
+      { name: 'Didn’t feel it mattered', v: 35.9, col: '#b0ada4' },
     ];
     const X0 = 540, X1 = 1090, VMAX = 100, sc = (X1 - X0) / VMAX;
     const barH = 122, step = 196, y0 = 26;

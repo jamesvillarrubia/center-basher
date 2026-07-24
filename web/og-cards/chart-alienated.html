@@ -22,7 +22,7 @@
     const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
 
     const rows = [
-      { name: 'Alienated', sub: '“my vote doesn’t fix anything”', v: 53, col: '#b8240f', hot: true },
+      { name: 'Alienated', sub: '“my vote doesn’t fix anything”', v: 53, col: '#7a4fa3', hot: true },
       { name: 'Mixed', sub: 'neither clearly', v: 41, col: '#b0ada4' },
       { name: 'Complacent', sub: '“things are basically fine”', v: 6, col: '#b0ada4' },
     ];
@@ -37,11 +37,11 @@
     }
     rows.forEach((r, i) => {
       const yTop = y0 + i * step, mid = yTop + barH / 2;
-      txt({ x: X0 - 26, y: mid - 2, 'text-anchor': 'end', fill: r.hot ? '#b8240f' : '#1b1b1d', 'font-size': 33, 'font-weight': 800 }, r.name);
+      txt({ x: X0 - 26, y: mid - 2, 'text-anchor': 'end', fill: r.hot ? '#7a4fa3' : '#1b1b1d', 'font-size': 33, 'font-weight': 800 }, r.name);
       txt({ x: X0 - 26, y: mid + 32, 'text-anchor': 'end', fill: '#7a7772', 'font-size': 23 }, r.sub);
       const w = Math.max(r.v * sc, 5);
       svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 8, fill: r.col }));
-      txt({ x: X0 + w + 20, y: mid + 16, fill: r.hot ? '#b8240f' : '#1b1b1d', 'font-size': 46, 'font-weight': 800 }, r.v + '%');
+      txt({ x: X0 + w + 20, y: mid + 16, fill: r.hot ? '#7a4fa3' : '#1b1b1d', 'font-size': 46, 'font-weight': 800 }, r.v + '%');
     });
   </script>
 </body></html>

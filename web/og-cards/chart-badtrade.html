@@ -4,13 +4,13 @@
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Win swing voters by moving to the center.&rdquo;</div>
     <div class="cc-title">The voters who flipped 2016 were the <span class="hl">most anti-establishment</span>.</div>
-    <div class="cc-sub">Average trust in government, by group. The voters who cost Clinton Wisconsin, Michigan and Pennsylvania trusted the system less than anyone else on the left, and less than the moderates the strategy was chasing.</div>
+    <div class="cc-sub">Distrust of government, by group. The voters who cost Clinton Wisconsin, Michigan and Pennsylvania distrusted the system more than anyone else on the left, and more than the moderates the strategy was chasing. Longer bar, angrier at the system.</div>
 
     <div class="cc-chart"><svg id="bt" viewBox="0 0 1240 449" role="img"
-      aria-label="Average institutional trust: lean-left swing 0.17, moderate swing 0.22, strong-left loyalists 0.27"></svg></div>
+      aria-label="Distrust of government by group: lean-left swing 0.83, moderate swing 0.78, strong-left loyalists 0.73. The voters who flipped are the most distrustful."></svg></div>
 
     <div class="cc-foot">
-      <div class="cc-source">Source: ANES 2016, 3-item institutional-trust index (0&ndash;1), weighted. Group means by 7-pt ideology band.</div>
+      <div class="cc-source">Source: ANES 2016, weighted. Distrust = 1 minus the 3-item institutional-trust index (0&ndash;1). Group means by 7-pt ideology band. Lean-left swing = lib-con lean-left voters who defected from Clinton in WI/MI/PA.</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
@@ -20,26 +20,24 @@
     const svg = document.getElementById('bt');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
     const rows = [
-      { name: 'Lean-left swing', sub: 'flipped WI / MI / PA', v: 0.17, c: '#2c5b9c', hot: true },
-      { name: 'Moderate swing', sub: 'the voters the strategy chased', v: 0.22, c: '#8a8880' },
-      { name: 'Strong-left loyalists', sub: 'stayed home or held the line', v: 0.27, c: '#7ea8d0' },
+      { name: 'Lean-left swing', sub: 'flipped WI / MI / PA', v: 0.83, c: '#2c5b9c', hot: true },
+      { name: 'Moderate swing', sub: 'the voters the strategy chased', v: 0.78, c: '#8a8880' },
+      { name: 'Strong-left loyalists', sub: 'stayed home or held the line', v: 0.73, c: '#7ea8d0' },
     ];
-    const X0 = 440, X1 = 1090, VMAX = 0.30, sc = (X1 - X0) / VMAX;
+    const X0 = 400, X1 = 980, VMAX = 1.0, sc = (X1 - X0) / VMAX;
     const barH = 78, step = 112, y0 = 14, axisY = y0 + rows.length * step - 22;
-    // gridlines + ticks
-    for (let v = 0; v <= 0.3001; v += 0.10) {
+    // gridlines + ticks across the full 0-1 range, so there is no truncation
+    for (let v = 0; v <= 1.0001; v += 0.25) {
       const gx = X0 + v * sc;
       svg.appendChild(el('line', { x1: gx, y1: 0, x2: gx, y2: axisY, stroke: '#e8e6e0', 'stroke-width': 2 }));
       const t = el('text', { x: gx, y: axisY + 30, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 22 }); t.textContent = v.toFixed(2); svg.appendChild(t);
     }
-    // national-average reference
-    const nx = X0 + 0.23 * sc;
+    // national-average reference (distrust = 1 - 0.23)
+    const nx = X0 + 0.77 * sc;
     svg.appendChild(el('line', { x1: nx, y1: 0, x2: nx, y2: axisY, stroke: '#b0ada4', 'stroke-width': 2, 'stroke-dasharray': '6 7' }));
-    const nl = el('text', { x: nx, y: axisY + 58, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 21 }); nl.textContent = 'national avg 0.23'; svg.appendChild(nl);
+    const nl = el('text', { x: nx, y: axisY + 58, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 21 }); nl.textContent = 'national avg 0.77'; svg.appendChild(nl);
     const at = el('text', { x: (X0 + X1) / 2, y: axisY + 92, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 23, 'font-style': 'italic' });
-    at.textContent = 'average trust in government (0 = none, 1 = complete)'; svg.appendChild(at);
-    const ar = el('text', { x: X0 + 6, y: axisY + 58, 'text-anchor': 'start', fill: '#b8240f', 'font-size': 22, 'font-weight': 800 });
-    ar.textContent = '\u2190 more anti-establishment'; svg.appendChild(ar);
+    at.textContent = 'distrust of government (0 = fully trust, 1 = no trust at all)'; svg.appendChild(at);
     // bars
     rows.forEach((r, i) => {
       const yTop = y0 + i * step, mid = yTop + barH / 2;
@@ -47,9 +45,9 @@
       if (r.sub) { const s = el('text', { x: X0 - 24, y: mid + 26, 'text-anchor': 'end', fill: '#7a7772', 'font-size': 22 }); s.textContent = r.sub; svg.appendChild(s); }
       const w = r.v * sc;
       svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 8, fill: r.c }));
-      const val = el('text', { x: X0 + w + 16, y: mid + 10, fill: '#1b1b1d', 'font-size': 30, 'font-weight': 800 }); val.textContent = r.v.toFixed(2); svg.appendChild(val);
-      if (r.hot) { const cl = el('text', { x: X0 + w + 108, y: mid + 10, fill: '#b8240f', 'font-size': 24, 'font-weight': 800 });
-        cl.textContent = 'lowest trust on the board'; svg.appendChild(cl); }
+      const val = el('text', { x: X0 + w - 18, y: mid + 10, 'text-anchor': 'end', fill: '#fff', 'font-size': 30, 'font-weight': 800 }); val.textContent = r.v.toFixed(2); svg.appendChild(val);
+      if (r.hot) { const cl = el('text', { x: X0 + w + 16, y: mid + 10, fill: '#b8240f', 'font-size': 24, 'font-weight': 800 });
+        cl.textContent = 'most distrustful on the board'; svg.appendChild(cl); }
     });
   </script>
 </body></html>
