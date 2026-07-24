@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Socialists can&rsquo;t win, so the party has to run to the center.&rdquo;</div>
+    <div class="cc-title">Call it &ldquo;socialist,&rdquo; and you never have to argue with the <span class="hl">60% who agree</span>.</div>
+    <div class="cc-sub">The trick has three steps: point at a fringe candidate who loses, staple the word &ldquo;socialist&rdquo; onto every policy to its left, then treat the policies as losers too. But the candidate is the strawman. The policies are the target. The label is the switch.</div>
+
+    <div class="cc-chart"><svg id="ls" viewBox="0 0 1240 400" role="img"
+      aria-label="A self-described socialist rarely wins a deep-red seat, which is true. But the policies filed under socialist all win majorities: Medicare for All 56 percent, a public option 74 percent, taxing incomes over 400k 58 percent, taxing large corporations 63 percent."></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Support: Medicare-for-all 56% and public option 74% (KFF Health Tracking Poll, Jan 2019, n=1,190); raise taxes on incomes over $400k 58% and on large corporations 63% (Pew Research Center, Jan&ndash;Feb 2025, n=5,086). Candidate win rates: illustrative, not from a single dataset; self-described socialists have rarely won U.S. House seats in Republican-leaning districts, which is the one true part of the argument.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('ls');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
+    // shared label bracket spanning both zones
+    const BX0 = 60, BX1 = 1180, BY = 28;
+    svg.appendChild(el('path', { d: `M ${BX0} ${BY + 16} L ${BX0} ${BY} L ${BX1} ${BY} L ${BX1} ${BY + 16}`, fill: 'none', stroke: '#8a887f', 'stroke-width': 2.5 }));
+    txt({ x: (BX0 + BX1) / 2, y: BY - 8, 'text-anchor': 'middle', fill: '#6b6b70', 'font-size': 22, 'font-weight': 700, 'font-style': 'italic' }, 'Third Way files all of this under &ldquo;socialist&rdquo;'.replace(/&ldquo;/g, '“').replace(/&rdquo;/g, '”'));
+
+    // LEFT ZONE — the candidate (the one true, narrow case)
+    const LZ = 340, tzy = 66, h = 244;
+    svg.appendChild(el('rect', { x: BX0, y: tzy, width: LZ - BX0, height: h, rx: 12, fill: '#efece6' }));
+    txt({ x: (BX0 + LZ) / 2, y: tzy + 40, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 20, 'font-weight': 800, 'letter-spacing': 1 }, 'THE CANDIDATE');
+    txt({ x: (BX0 + LZ) / 2, y: tzy + 78, 'text-anchor': 'middle', fill: '#3a3a3f', 'font-size': 22 }, 'A self-described socialist');
+    txt({ x: (BX0 + LZ) / 2, y: tzy + 104, 'text-anchor': 'middle', fill: '#3a3a3f', 'font-size': 22 }, 'in a deep-red district');
+    txt({ x: (BX0 + LZ) / 2, y: tzy + 168, 'text-anchor': 'middle', fill: '#9a9891', 'font-size': 58, 'font-weight': 800 }, 'rarely wins');
+    txt({ x: (BX0 + LZ) / 2, y: tzy + 208, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 19, 'font-style': 'italic' }, 'true — and the only part that is');
+
+    // divider
+    txt({ x: LZ + 34, y: tzy + h / 2 - 8, 'text-anchor': 'middle', fill: '#b8240f', 'font-size': 40, 'font-weight': 800 }, '≠');
+
+    // RIGHT ZONE — the policies, all majority
+    const RX0 = LZ + 68, RX1 = 1180, RW = RX1 - RX0;
+    txt({ x: RX0, y: tzy + 12, 'text-anchor': 'start', fill: '#8a887f', 'font-size': 20, 'font-weight': 800, 'letter-spacing': 1 }, 'THE POLICIES THEY CALL SOCIALIST');
+    const items = [
+      { n: 'Medicare for All', v: 56 },
+      { n: 'A public option', v: 74 },
+      { n: 'Tax incomes over $400k', v: 58 },
+      { n: 'Tax large corporations', v: 63 },
+    ];
+    const bx0 = RX0 + 300, bx1 = RX1 - 70, bw = bx1 - bx0;
+    const rowTop = tzy + 40, rh = 40, gap = 16;
+    // majority reference line
+    const mjx = bx0 + 0.5 * bw;
+    svg.appendChild(el('line', { x1: mjx, y1: rowTop - 6, x2: mjx, y2: rowTop + items.length * (rh + gap) - gap + 6, stroke: '#1b1b1d', 'stroke-width': 2, 'stroke-dasharray': '7 6' }));
+    txt({ x: mjx, y: rowTop - 14, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 17, 'font-weight': 800 }, 'majority');
+    items.forEach((it, i) => {
+      const y = rowTop + i * (rh + gap);
+      txt({ x: bx0 - 18, y: y + rh - 12, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 23, 'font-weight': 700 }, it.n);
+      svg.appendChild(el('rect', { x: bx0, y, width: bw, height: rh, rx: 6, fill: '#eae7e0' }));
+      svg.appendChild(el('rect', { x: bx0, y, width: bw * it.v / 100, height: rh, rx: 6, fill: '#2c5b9c' }));
+      txt({ x: bx0 + bw * it.v / 100 + 14, y: y + rh - 11, 'text-anchor': 'start', fill: '#2c5b9c', 'font-size': 26, 'font-weight': 800 }, it.v + '%');
+    });
+
+    txt({ x: 60, y: 384, 'text-anchor': 'start', fill: '#7a7772', 'font-size': 21, 'font-style': 'italic' },
+      'Blur the two, and you never have to defend the center on the merits.');
+  </script>
+</body></html>
