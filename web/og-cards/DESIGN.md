@@ -126,3 +126,29 @@ card) or **[situational]** (needs a named opponent on record):
 
 **The meta-lesson:** the strongest card is a contradiction the subject inflicted
 on themselves, stated so fairly they can't deny it, that the reader finishes.
+
+---
+
+## 6 · The claim slot is the rebuttal target
+
+Every card is a rebuttal unit: **claim → rebuttal.** The claim is the
+load-bearing half — it is whatever a real opponent actually says, and the card
+is the data that answers *that exact sentence*. When a real quote comes in from
+the wild (a tweet, an op-ed, a memo), match it to the card whose rebuttal best
+kills it. The bank of sourced quotes and their card mappings lives in
+`reqts/opponent-quotes.md`.
+
+Two forms, one hard rule:
+
+- **Attributed** (strongest — a named opponent on the record): the claim is
+  their **verbatim** words with a **primary citation**, and the tag is their
+  name (as `mostpeople` tags "Third Way"). This is the self-inflicted
+  contradiction from §5.1.
+- **Representative** (default — no specific source): the claim is an honest
+  statement of the real position ("The claim: …"), an argument they genuinely
+  make, never a dumbed-down version.
+
+**The hard rule: a name requires the real words and a real cite.** Never pin a
+paraphrase to a person. The moment we attribute words someone didn't say, we
+*are* the bait-and-switch `labelswitch` accuses Third Way of — real name → real
+words → real cite, or no name at all.
