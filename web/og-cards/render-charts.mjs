@@ -57,6 +57,35 @@ for (const card of cards) {
     if (dead > 90) warnings.push(`  DEAD SPACE: ~${dead}px unused below the chart (letterbox ${geom.letterboxY}, viewBox slack ${geom.slackY})`)
   }
 
+  // Guard: two <text> nodes whose rendered boxes overlap is nearly always a
+  // layout bug (a value label sitting on an axis tick, two labels colliding).
+  // Measured in screen px via getBoundingClientRect so rotation is handled.
+  // I kept fixing these one at a time by eye and missing others; this catches
+  // them all at once.
+  const overlaps = await page.evaluate(() => {
+    const svg = document.querySelector('.cc-chart svg')
+    if (!svg) return []
+    const norm = (s) => (s || '').replace(/\s+/g, ' ').trim()
+    const nodes = [...svg.querySelectorAll('text')]
+      .map((t) => ({ s: norm(t.textContent), r: t.getBoundingClientRect() }))
+      .filter((n) => n.s && n.r.width > 0 && n.r.height > 0)
+    const hits = []
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i].r, b = nodes[j].r
+        const ox = Math.min(a.right, b.right) - Math.max(a.left, b.left)
+        const oy = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top)
+        if (ox <= 1.5 || oy <= 1.5) continue
+        // ignore trivial grazes: require the overlap to cover a real fraction
+        // of the smaller label, so kerning-level touches don't spam.
+        const frac = (ox * oy) / Math.min(a.width * a.height, b.width * b.height)
+        if (frac > 0.14) hits.push(`"${nodes[i].s.slice(0, 22)}" x "${nodes[j].s.slice(0, 22)}"`)
+      }
+    }
+    return hits
+  })
+  for (const h of overlaps) warnings.push(`  TEXT OVERLAP: ${h}`)
+
   const buf = await page.screenshot({ clip: { x: 0, y: 0, width: 1600, height: 900 } })
   const out = resolve(outDir, `${card.slug}.png`)
   writeFileSync(out, buf)

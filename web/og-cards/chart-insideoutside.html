@@ -42,7 +42,7 @@
 
       // header: narrow columns sit a row higher so nothing collides
       const hy = c.tight ? TOP - 66 : TOP - 40;
-      c.name.forEach((ln, k) => txt({ x: mid, y: hy - (c.name.length - 1 - k) * 22, 'text-anchor': 'middle',
+      c.name.forEach((ln, k) => txt({ x: mid, y: hy - (c.name.length - 1 - k) * 30, 'text-anchor': 'middle',
         fill: blank ? '#6b6b70' : c.c, 'font-size': 23, 'font-weight': 800 }, ln));
       txt({ x: mid, y: hy + 24, 'text-anchor': 'middle', fill: '#9a988f', 'font-size': 21, 'font-weight': 700 }, c.col.toFixed(0) + '%');
       if (c.tight) svg.appendChild(el('line', { x1: mid, y1: hy + 34, x2: mid, y2: TOP - 6, stroke: '#c9c6bd', 'stroke-width': 2 }));
