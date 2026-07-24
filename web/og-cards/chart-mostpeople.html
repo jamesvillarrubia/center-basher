@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">Third Way</span> &ldquo;We must focus on candidates that appeal to the most people, not those that are ideologically pure.&rdquo;</div>
+    <div class="cc-title">They say chase the majority. Then they <span class="hl">oppose the majority&rsquo;s agenda</span>.</div>
+    <div class="cc-sub">Four policies most Americans support, and where Third Way, the think tank that just told Democrats to appeal to the most people, actually stands on each. The most popular plan on the board is the one they cut the hardest.</div>
+
+    <div class="cc-chart"><svg id="mp" viewBox="0 0 1240 392" role="img"
+      aria-label="Public option 74% favor, Third Way limits it to people 55 and older. Tax large corporations 63% favor, Third Way only with spending cuts. Tax incomes over 400k 58% favor, Third Way calls it not sufficient. Medicare for All 56% favor, Third Way opposes."></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Support: public option 74%, Medicare-for-all 56% (KFF Health Tracking Poll, Jan 2019, n=1,190); tax large corporations 63%, tax incomes over $400k 58% (Pew Research Center, Jan&ndash;Feb 2025, n=5,086). Third Way positions, from their own memos: opposes Medicare for All; backs a public option only for ages 55+; supports higher corporate and top-income taxes only bundled with spending cuts (&ldquo;necessary but not sufficient&rdquo;). thirdway.org.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('mp');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+
+    // rows sorted by public support; stance colour: red = opposes the popular
+    // version outright, grey = hedged/conditional support
+    const rows = [
+      { n: 'A public option, open to all', v: 74, stance: 'Only for ages 55+', oppose: true },
+      { n: 'Tax large corporations',        v: 63, stance: 'Only with spending cuts', oppose: false },
+      { n: 'Tax incomes over $400k',        v: 58, stance: '“Not sufficient”', oppose: false },
+      { n: 'Medicare for All',              v: 56, stance: 'Opposes', oppose: true },
+    ];
+
+    // column geometry
+    const NAMEX = 60, bx0 = 470, bx1 = 900, bw = bx1 - bx0;
+    const STANCEX = 924;
+    const rowTop = 96, rh = 44, gap = 22;
+
+    // headers
+    txt({ x: NAMEX, y: rowTop - 24, 'text-anchor': 'start', fill: '#8a887f', 'font-size': 19, 'font-weight': 800, 'letter-spacing': 1 }, 'THE POLICY');
+    txt({ x: (bx0 + bx1) / 2, y: rowTop - 24, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 19, 'font-weight': 800, 'letter-spacing': 1 }, 'AMERICANS WHO FAVOR IT');
+    txt({ x: STANCEX, y: rowTop - 24, 'text-anchor': 'start', fill: '#8a887f', 'font-size': 19, 'font-weight': 800, 'letter-spacing': 1 }, 'THIRD WAY SAYS');
+
+    // majority line spanning the bar column
+    const mjx = bx0 + 0.5 * bw, mjTop = rowTop - 8, mjBot = rowTop + rows.length * (rh + gap) - gap + 8;
+    svg.appendChild(el('line', { x1: mjx, y1: mjTop, x2: mjx, y2: mjBot, stroke: '#1b1b1d', 'stroke-width': 2, 'stroke-dasharray': '7 6' }));
+    txt({ x: mjx, y: mjBot + 22, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 17, 'font-weight': 800 }, 'majority');
+
+    rows.forEach((r, i) => {
+      const y = rowTop + i * (rh + gap);
+      txt({ x: NAMEX, y: y + rh - 14, 'text-anchor': 'start', fill: '#1b1b1d', 'font-size': 24, 'font-weight': 700 }, r.n);
+      svg.appendChild(el('rect', { x: bx0, y, width: bw, height: rh, rx: 6, fill: '#eae7e0' }));
+      svg.appendChild(el('rect', { x: bx0, y, width: bw * r.v / 100, height: rh, rx: 6, fill: '#2c5b9c' }));
+      txt({ x: bx0 + 14, y: y + rh - 13, 'text-anchor': 'start', fill: '#fff', 'font-size': 24, 'font-weight': 800 }, r.v + '%');
+      // stance tag
+      const col = r.oppose ? '#b8240f' : '#8a887f';
+      svg.appendChild(el('rect', { x: STANCEX, y: y + 3, width: 240, height: rh - 6, rx: 8, fill: col, 'fill-opacity': r.oppose ? 1 : 0.16, stroke: r.oppose ? 'none' : col, 'stroke-width': r.oppose ? 0 : 1.5 }));
+      txt({ x: STANCEX + 120, y: y + rh - 13, 'text-anchor': 'middle', fill: r.oppose ? '#fff' : '#6b5b58', 'font-size': 21, 'font-weight': 800 }, r.stance.replace(/“|”/g, '"'));
+    });
+
+  </script>
+</body></html>
