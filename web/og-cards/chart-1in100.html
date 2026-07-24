@@ -3,29 +3,32 @@
 <body>
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Persuadable / swing voters are moderate or centrist.&rdquo;</div>
-    <div class="cc-title">Only <span class="hl">1 in 100</span> voters is a real centrist.</div>
-    <div class="cc-sub">40 in 100 place themselves at or near the middle. Exactly one is centrist on every issue.</div>
+    <div class="cc-title">Look centrist: <span class="hl">46</span>. Actually centrist: <span class="hl">1</span>.</div>
+    <div class="cc-sub">Out of 100 voters, judged by the positions they actually hold, not the label they pick. 46 have issue positions that average to the middle; only 8 hold no strong position on anything; and just 1 is centrist on every issue. Self-placement hides this, because people avoid calling themselves extreme even when their positions are.</div>
 
     <div class="cc-chart"><svg id="waffle" viewBox="0 0 1290 450" role="img"
-      aria-label="Waffle of 100 dots: 60 non-moderate, 39 self-described moderate, 1 true centrist circled"></svg></div>
+      aria-label="Waffle of 100 voters. 46 have issue positions that average to the middle, 8 hold no extreme position at all, 1 is centrist on every issue, and 54 are non-centrist by any measure."></svg></div>
 
     <div class="cc-legend">
-      <div class="item"><span class="dot" style="background:#c9c7bf"></span>Not moderate (60)</div>
-      <div class="item"><span class="dot" style="background:#8b97a3"></span>Places self at/near middle (40)</div>
-      <div class="item"><span class="dot dot--ring" style="background:#b8240f"></span>Centrist on every issue (1)</div>
+      <div class="item"><span class="dot" style="background:#c9c7bf"></span>Not centrist on any measure (54)</div>
+      <div class="item"><span class="dot" style="background:#aeb9d0"></span>Issues average to the middle (46)</div>
+      <div class="item"><span class="dot" style="background:#5f6f95"></span>&hellip; of those, no extreme position (8)</div>
+      <div class="item"><span class="dot dot--ring" style="background:#b8240f"></span>&hellip; of those, centrist throughout (1)</div>
     </div>
 
     <div class="cc-foot">
-      <div class="cc-source">Source: ANES 2016 Time Series, weighted (V160101). At/near middle = 7-pt lib-con self-placement in {3,4,5}, 40.4%. &ldquo;True Middler&rdquo; = 0.81% of voters.</div>
+      <div class="cc-source">Source: ANES 2016 Time Series, POST weight (V160102); 2016 voters answering &ge;5 of 6 seven-point issue scales. Averages to the middle = issue mean within 0.75 of center (46.2%). No extreme position = every answered scale in {3,4,5} (7.6%). Centrist on every issue = every answered scale at the exact midpoint (0.72%, the &ldquo;True Middler&rdquo;).</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
 
   <script>
-    // 100 dots, 20 columns x 5 rows, filled row-major.
-    //   0–59  not moderate (light)      rows 1–3
-    //   60–98 self-ID moderate (medium) rows 4–5
-    //   99    True Middler (red, ringed) last dot, bottom-right
+    // 100 dots. Nested categories, filled row-major from the bottom-right so the
+    // rarest sit together: the funnel from "looks centrist" down to "is centrist".
+    //   54 non-centrist (light grey)
+    //   38 average-to-middle only        -> 46 total once the 8 below are added
+    //    7 no extreme position only       ->  8 total once the 1 below is added
+    //    1 centrist on every issue (ringed, the last dot)
     const svg = document.getElementById('waffle');
     const COLS = 20, ROWS = 5, r = 25, sx = 62, sy = 90;
     const x0 = (1290 - (COLS - 1) * sx) / 2, y0 = (450 - (ROWS - 1) * sy) / 2;
@@ -35,13 +38,12 @@
       const cx = x0 + col * sx, cy = y0 + row * sy;
       const c = document.createElementNS(NS, 'circle');
       c.setAttribute('cx', cx); c.setAttribute('cy', cy);
-      let fill = '#c9c7bf';                 // not moderate
-      if (i >= 60) fill = '#8b97a3';        // self-ID moderate
-      if (i === 99) {                        // the one true centrist
+      let fill = '#c9c7bf';                 // non-centrist by any measure (0..53)
+      if (i >= 54) fill = '#aeb9d0';        // issues average to the middle
+      if (i >= 92) fill = '#5f6f95';        // no extreme position at all
+      if (i === 99) {                        // centrist on every issue
         fill = '#b8240f';
         c.setAttribute('r', r);
-        // Soft glow rather than a hard ring: at this spacing a ring collides
-        // with the dot beside it and reads as a rendering bug.
         const defs = document.createElementNS(NS, 'defs');
         defs.innerHTML = '<radialGradient id="glow"><stop offset="45%" stop-color="#b8240f" stop-opacity="0.42"/>'
           + '<stop offset="100%" stop-color="#b8240f" stop-opacity="0"/></radialGradient>';
