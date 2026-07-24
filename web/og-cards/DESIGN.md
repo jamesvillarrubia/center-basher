@@ -82,3 +82,47 @@ past the machine gate and reached the reviewer.
 
 Steps 2 and 3 are not optional and not reorderable. The machine gate is fast
 and total; the eye gate is the six things the machine can't see.
+
+---
+
+## 5 · What makes a card *land* (the `mostpeople` teardown)
+
+The gates above stop a card from being broken. They don't make it good. The
+strongest card in the deck so far is `mostpeople` (Third Way's stated principle
+vs its own positions). Six reasons it works, tagged **[general]** (use on every
+card) or **[situational]** (needs a named opponent on record):
+
+1. **Turn their words into the setup. [situational]** The claim slot is a
+   *verbatim* opponent quote, so the contradiction is self-inflicted, not a
+   strawman. Whenever a target has said something on the record, quote it and
+   hold them to it.
+
+2. **Stage a collision, not a datapoint. [general]** Two columns — what people
+   want vs what the actor does — with the argument living in the gap. The reader
+   supplies the verdict, which sticks harder than a stated one. Most cards
+   assert one number; ask whether yours could instead juxtapose two things whose
+   contradiction the reader completes.
+
+3. **Calibrated honesty is the weapon. [general]** The red-vs-grey split
+   (opposes / merely hedges) refuses to overclaim. That restraint is what makes
+   it unrebuttable — the target can't cry distortion because the card is more
+   careful than a hit piece. **Fairness is offense, not defense.** Never flatten
+   degrees to make a card hit harder; the precision *is* the force.
+
+4. **Name a real target. [situational]** "Third Way," a real org, a real tweet —
+   not "centrists." Specific, checkable, shareable. You can't circulate an
+   abstraction as an indictment.
+
+5. **Make the form the argument. [general]** The three columns literally read
+   "they say chase the majority → then they oppose it." The layout does the
+   rhetorical work; nothing is decorative. If the structure doesn't embody the
+   claim, redesign the structure, don't add labels.
+
+6. **Pre-answer the obvious reply. [general]** The two counterattacks ("those
+   are fringe positions"; "you're distorting us") are disarmed *in the image* —
+   majorities with named sources, sourced to their own memos, degrees kept
+   distinct. Before shipping, name the sharpest reply and check the card already
+   answers it.
+
+**The meta-lesson:** the strongest card is a contradiction the subject inflicted
+on themselves, stated so fairly they can't deny it, that the reader finishes.
