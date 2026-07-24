@@ -2,15 +2,15 @@
 <html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
 <body>
   <div class="chartcard">
-    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Voters can tell who&rsquo;s honest &mdash; it&rsquo;s an objective read.&rdquo;</div>
-    <div class="cc-title">Who looks &ldquo;honest&rdquo; <span class="hl">flips</span> with the voter&rsquo;s own trust in the system.</div>
-    <div class="cc-sub">2016 honesty ratings of the same two candidates, split by whether the voter trusts the system.</div>
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Voters can tell who&rsquo;s honest. Clinton just had a likability problem.&rdquo;</div>
+    <div class="cc-title">Clinton only won the honesty read among the <span class="hl">29%</span> who still trust the system.</div>
+    <div class="cc-sub">Whether a candidate reads as &ldquo;honest&rdquo; flips with the voter&rsquo;s own trust in government. The catch: most of the country sits on the low-trust side, where the establishment candidate had no credibility at all. The crossover happens up in the high-trust corner, where almost no one lives.</div>
 
-    <div class="cc-chart"><svg id="au" viewBox="0 0 1240 449" role="img"
-      aria-label="Low-trust voters rate Trump more honest than Clinton; high-trust voters rate Clinton more honest than Trump. The two lines cross."></svg></div>
+    <div class="cc-chart"><svg id="au" viewBox="0 0 1240 424" role="img"
+      aria-label="Honesty ratings of Clinton and Trump by voter trust band. Low trust (12% of Americans): Clinton 0.30, Trump 1.92. Middle trust (59%): Clinton 0.87, Trump 1.33. High trust (29%): Clinton 1.77, Trump 0.93. The lines cross only in the high-trust band."></svg></div>
 
     <div class="cc-foot">
-      <div class="cc-source">Source: ANES 2016; candidate &ldquo;is honest&rdquo; rating (0&ndash;4, higher = more honest), by trust tercile; weighted.</div>
+      <div class="cc-source">Source: ANES 2016, PRE weight (V160101). &ldquo;Is honest&rdquo; trait rating, 0&ndash;4 (higher = more honest), for Clinton (V161162) and Trump (V161167), by trust band on the 3-item government-trust composite (V161215/16/17): low &le;0.08, middle &le;0.25, high &gt;0.25. Band widths are each band&rsquo;s share of Americans.</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
@@ -21,34 +21,48 @@
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
     const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
 
-    const LX = 470, RX = 900, topY = 56, botY = 360, YMAX = 2.0;
-    const y = (v) => botY - v / YMAX * (botY - topY);
+    // three trust bands, width proportional to share of Americans
+    const bands = [
+      { key: 'Low trust',    share: 11.5, cl: 0.30, tr: 1.92 },
+      { key: 'Middle',       share: 59.4, cl: 0.87, tr: 1.33 },
+      { key: 'High trust',   share: 29.1, cl: 1.77, tr: 0.93 },
+    ];
+    const X0 = 70, X1 = 1180, W = X1 - X0, TOP = 40, BOT = 300, YMAX = 2.2;
+    const y = (v) => BOT - v / YMAX * (BOT - TOP);
 
-    // y-axis with 0-2 ticks (scale runs 0-4; data sits in the bottom half)
-    svg.appendChild(el('line', { x1: 300, y1: topY - 6, x2: 300, y2: botY, stroke: '#d9d6cd', 'stroke-width': 2 }));
+    // y grid 0..2
     [0, 0.5, 1.0, 1.5, 2.0].forEach((v) => {
-      svg.appendChild(el('line', { x1: 300, y1: y(v), x2: RX + 30, y2: y(v), stroke: '#eeece6', 'stroke-width': v === 0 ? 3 : 1.5 }));
-      txt({ x: 286, y: y(v) + 8, 'text-anchor': 'end', fill: '#9a988f', 'font-size': 22 }, v.toFixed(1));
+      svg.appendChild(el('line', { x1: X0, y1: y(v), x2: X1, y2: y(v), stroke: v === 0 ? '#c9c6bd' : '#eeece6', 'stroke-width': v === 0 ? 3 : 1.5 }));
+      txt({ x: X0 - 12, y: y(v) + 7, 'text-anchor': 'end', fill: '#9a988f', 'font-size': 20 }, v.toFixed(1));
     });
-    txt({ x: 60, y: (topY + botY) / 2, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 22, 'font-style': 'italic', transform: `rotate(-90 60 ${(topY + botY) / 2})` }, 'rated “is honest” (0 = no … 4 = yes)');
+    txt({ x: 22, y: (TOP + BOT) / 2, 'text-anchor': 'middle', fill: '#8a887f', 'font-size': 20, 'font-style': 'italic', transform: `rotate(-90 22 ${(TOP + BOT) / 2})` }, 'rated “is honest” (0–4)');
 
-    // group posts
-    [[LX, 'Low-trust voters'], [RX, 'High-trust voters']].forEach(([px, lab]) => {
-      svg.appendChild(el('line', { x1: px, y1: topY - 6, x2: px, y2: botY, stroke: '#d9d6cd', 'stroke-width': 2 }));
-      txt({ x: px, y: botY + 38, 'text-anchor': 'middle', fill: '#6b6b70', 'font-size': 26, 'font-weight': 700 }, lab);
+    // band centers by cumulative share
+    let cum = 0; const cx = [];
+    bands.forEach((b) => { cx.push(X0 + (cum + b.share / 2) / 100 * W); cum += b.share; });
+    // band separators + share-tinted backgrounds (low-trust darker so the mass reads)
+    cum = 0;
+    bands.forEach((b, i) => {
+      const xa = X0 + cum / 100 * W, xb = X0 + (cum + b.share) / 100 * W;
+      svg.appendChild(el('rect', { x: xa, y: TOP, width: xb - xa, height: BOT - TOP, fill: i < 2 ? '#b8240f' : '#2c5b9c', 'fill-opacity': i === 0 ? 0.08 : i === 1 ? 0.05 : 0.05 }));
+      if (i > 0) svg.appendChild(el('line', { x1: xa, y1: TOP, x2: xa, y2: BOT + 46, stroke: '#d9d6cd', 'stroke-width': 2 }));
+      txt({ x: (xa + xb) / 2, y: BOT + 34, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 24, 'font-weight': 800 }, b.key);
+      txt({ x: (xa + xb) / 2, y: BOT + 60, 'text-anchor': 'middle', fill: '#7a7772', 'font-size': 20 }, b.share.toFixed(0) + '% of Americans');
+      cum += b.share;
     });
 
-    const draw = (lv, rv, col) => {
-      svg.appendChild(el('line', { x1: LX, y1: y(lv), x2: RX, y2: y(rv), stroke: col, 'stroke-width': 6 }));
-      [[LX, lv, 'end', -18], [RX, rv, 'start', 18]].forEach(([px, v, anc, dx]) => {
-        svg.appendChild(el('circle', { cx: px, cy: y(v), r: 11, fill: col, stroke: '#fbfbf8', 'stroke-width': 3 }));
-        txt({ x: px + dx, y: y(v) + 8, 'text-anchor': anc, fill: col, 'font-size': 30, 'font-weight': 800 }, v.toFixed(2));
+    // Clinton and Trump lines across the three band centers
+    const line = (key, col, name) => {
+      let d = '';
+      bands.forEach((b, i) => { d += (i ? ' L ' : 'M ') + cx[i] + ' ' + y(b[key]); });
+      svg.appendChild(el('path', { d, fill: 'none', stroke: col, 'stroke-width': 6 }));
+      bands.forEach((b, i) => {
+        svg.appendChild(el('circle', { cx: cx[i], cy: y(b[key]), r: 10, fill: col, stroke: '#fbfbf8', 'stroke-width': 3 }));
+        txt({ x: cx[i], y: y(b[key]) + (b[key] > 1.4 ? -20 : 32), 'text-anchor': 'middle', fill: col, 'font-size': 24, 'font-weight': 800 }, b[key].toFixed(2));
       });
+      txt({ x: cx[0] - 16, y: y(bands[0][key]) + 6, 'text-anchor': 'end', fill: col, 'font-size': 26, 'font-weight': 800 }, name);
     };
-    draw(1.58, 0.93, '#b8240f'); // Trump
-    draw(0.54, 1.77, '#2c5b9c'); // Clinton
-
-    txt({ x: LX - 18, y: y(1.58) - 22, 'text-anchor': 'end', fill: '#b8240f', 'font-size': 29, 'font-weight': 800 }, 'Trump');
-    txt({ x: RX + 18, y: y(1.77) - 22, 'text-anchor': 'start', fill: '#2c5b9c', 'font-size': 29, 'font-weight': 800 }, 'Clinton');
+    line('tr', '#b8240f', 'Trump');
+    line('cl', '#2c5b9c', 'Clinton');
   </script>
 </body></html>
