@@ -24,19 +24,19 @@
     const X0 = 60, X1 = 1180, W = X1 - X0, barY = 168, barH = 150;
     const pct = (v) => v / 100 * W;
 
-    // 85% loyal block, split internally by party
-    // Neutral slates, not party colors: the split that matters here is loyal vs.
-    // switcher, and party-coded blue/red would misread as the argument.
+    // 85% loyal block, split internally by party. Light party tints (light blue
+    // Democrat, light red Republican); switchers are saturated purple. Dark
+    // labels, since white would not read on the light fills.
     const loyal = [
-      { v: 54, c: '#5c6b7a', label: 'Always Democrat' },
-      { v: 31, c: '#8b98a5', label: 'Always Republican' },
+      { v: 54, c: '#7ea8d0', label: 'Always Democrat' },
+      { v: 31, c: '#dca097', label: 'Always Republican' },
     ];
     let cx = X0;
     loyal.forEach((s) => {
       const w = pct(s.v);
       svg.appendChild(el('rect', { x: cx, y: barY, width: w, height: barH, fill: s.c }));
-      txt({ x: cx + w / 2, y: barY + 74, 'text-anchor': 'middle', fill: '#fff', 'font-size': 46, 'font-weight': 800 }, s.v + '%');
-      txt({ x: cx + w / 2, y: barY + 116, 'text-anchor': 'middle', fill: '#ffffffcc', 'font-size': 25, 'font-weight': 600 }, s.label);
+      txt({ x: cx + w / 2, y: barY + 74, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 46, 'font-weight': 800 }, s.v + '%');
+      txt({ x: cx + w / 2, y: barY + 116, 'text-anchor': 'middle', fill: '#1b1b1dcc', 'font-size': 25, 'font-weight': 600 }, s.label);
       cx += w;
     });
     // hairline between the two party sub-blocks
@@ -44,7 +44,7 @@
 
     // 15% switchers
     const sw = pct(15);
-    svg.appendChild(el('rect', { x: cx, y: barY, width: sw, height: barH, fill: '#b8240f' }));
+    svg.appendChild(el('rect', { x: cx, y: barY, width: sw, height: barH, fill: '#7a4fa3' }));
     txt({ x: cx + sw / 2, y: barY + 74, 'text-anchor': 'middle', fill: '#fff', 'font-size': 46, 'font-weight': 800 }, '15%');
 
     // bracket over the loyal block
@@ -53,7 +53,7 @@
     txt({ x: (bx1 + bx2) / 2, y: by - 34, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 34, 'font-weight': 800 }, 'Voted the same party all three times');
 
     // callout under the switchers
-    svg.appendChild(el('line', { x1: cx + sw / 2, y1: barY + barH + 12, x2: cx + sw / 2, y2: barY + barH + 48, stroke: '#b8240f', 'stroke-width': 3 }));
-    txt({ x: cx + sw / 2, y: barY + barH + 88, 'text-anchor': 'end', fill: '#b8240f', 'font-size': 34, 'font-weight': 800 }, 'Ever switched party');
+    svg.appendChild(el('line', { x1: cx + sw / 2, y1: barY + barH + 12, x2: cx + sw / 2, y2: barY + barH + 48, stroke: '#7a4fa3', 'stroke-width': 3 }));
+    txt({ x: cx + sw / 2, y: barY + barH + 88, 'text-anchor': 'end', fill: '#7a4fa3', 'font-size': 34, 'font-weight': 800 }, 'Ever switched party');
   </script>
 </body></html>

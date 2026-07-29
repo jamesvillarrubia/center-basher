@@ -42,12 +42,17 @@
     }
     rows.forEach((r, i) => {
       const yTop = y0 + i * step, mid = yTop + barH / 2;
-      const lab = el('text', { x: X0 - 20, y: mid + 9, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 25 });
+      const isContent = r.kind === 'content';
+      // contact tactics are context, so mute them; the policy/persuasion line is
+      // the point, so it's bold red
+      const lab = el('text', { x: X0 - 20, y: mid + 9, 'text-anchor': 'end',
+        fill: isContent ? '#b8240f' : '#9a988f', 'font-size': 25, 'font-weight': isContent ? 800 : 400 });
       lab.textContent = r.name; svg.appendChild(lab);
       const w = Math.max(r.lift * sc, r.lift === 0 ? 6 : 4);
       svg.appendChild(el('rect', { x: X0, y: yTop, width: w, height: barH, rx: 8,
-        fill: r.kind === 'content' ? '#b8240f' : '#2c5b9c' }));
-      const val = el('text', { x: X0 + w + 14, y: mid + 9, fill: '#1b1b1d', 'font-size': 27, 'font-weight': 700 });
+        fill: isContent ? '#b8240f' : '#93a9c4' }));
+      const val = el('text', { x: X0 + w + 14, y: mid + 9,
+        fill: isContent ? '#b8240f' : '#6b6b70', 'font-size': 27, 'font-weight': isContent ? 800 : 700 });
       val.textContent = '+' + r.lift.toFixed(1) + 'pp'; svg.appendChild(val);
     });
   </script>

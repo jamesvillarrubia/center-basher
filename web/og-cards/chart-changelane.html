@@ -16,8 +16,13 @@
   .sb-tag { font-weight: 800; }
   .sb-cell--lost .sb-tag { color: #9a9891; }
   .sb-cell--won  .sb-tag { color: #b8240f; }
-  .sb-tot { margin-top: 6px; padding: 16px 24px; background: #b8240f; color: #fff;
-    border-radius: 12px; font-size: 25px; line-height: 1.32; font-weight: 500; }
+  /* Biden won as a Democrat: code his cell blue, not the red used for outsider
+     Republican winners, so red never marks a Democrat. */
+  .sb-cell--dem { background: #eaf0f7; border-left-color: #2c5b9c; }
+  .sb-cell--dem .sb-cand { color: #2c5b9c; }
+  .sb-cell--dem .sb-tag  { color: #2c5b9c; }
+  .sb-tot { margin-top: 12px; padding: 6px 4px 0; color: #b8240f;
+    font-size: 25px; line-height: 1.32; font-weight: 500; }
   .sb-tot strong { font-weight: 800; }
 </style></head>
 <body>
@@ -36,7 +41,7 @@
       <div class="sb-row">
         <div class="sb-year">2020</div>
         <div class="sb-cell sb-cell--lost"><div class="sb-cand">Trump <span style="font-size:21px;font-weight:600">(incumbent)</span></div><div class="sb-role"><span class="sb-tag">LOST</span> &middot; now the sitting &ldquo;system&rdquo;</div></div>
-        <div class="sb-cell sb-cell--won"><div class="sb-cand">Biden</div><div class="sb-role"><span class="sb-tag">WON</span> &middot; ran as change / restoration</div></div>
+        <div class="sb-cell sb-cell--won sb-cell--dem"><div class="sb-cand">Biden</div><div class="sb-role"><span class="sb-tag">WON</span> &middot; ran as change / restoration</div></div>
       </div>
       <div class="sb-row">
         <div class="sb-year">2024</div>
