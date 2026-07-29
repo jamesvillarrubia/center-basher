@@ -34,12 +34,18 @@ const page = await browser.newPage({ viewport: { width: 1200, height: 630 }, dev
 
 const manifest = {}
 for (const card of CARDS) {
-  await page.goto('file://' + resolve(here, `${card.slug}.html`))
-  const buf = await page.screenshot({ clip: { x: 0, y: 0, width: 1200, height: 630 } })
+  // Chart rebuttal cards are 1600x900 and live in chart-<slug>.html; the quote
+  // cards are 1200x630 and live in <slug>.html.
+  const w = card.chart ? 1600 : 1200
+  const h = card.chart ? 900 : 630
+  const src = card.chart ? `chart-${card.slug}.html` : `${card.slug}.html`
+  await page.setViewportSize({ width: w, height: h })
+  await page.goto('file://' + resolve(here, src))
+  const buf = await page.screenshot({ clip: { x: 0, y: 0, width: w, height: h } })
   const hash = createHash('sha256').update(buf).digest('hex').slice(0, 8)
   const file = `${card.slug}.${hash}.png`
   writeFileSync(resolve(ogDir, file), buf)
-  manifest[card.slug] = { file, label: card.label, desc: card.desc, blurb: card.blurb }
+  manifest[card.slug] = { file, label: card.label, desc: card.desc, blurb: card.blurb, w, h }
   console.log('rendered', file)
 }
 
@@ -52,6 +58,8 @@ console.log('wrote og/manifest.json')
 function stub({ slug }) {
   const img = `${BASE}/og/${manifest[slug].file}`
   const desc = manifest[slug].desc
+  const iw = manifest[slug].w || 1200
+  const ih = manifest[slug].h || 630
   return `<!doctype html>
 <html lang="en"><head>
   <meta charset="utf-8" />
@@ -63,8 +71,8 @@ function stub({ slug }) {
   <meta property="og:description" content="${desc}" />
   <meta property="og:url" content="${BASE}/" />
   <meta property="og:image" content="${img}" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  <meta property="og:image:width" content="${iw}" />
+  <meta property="og:image:height" content="${ih}" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="${img}" />
   <meta name="twitter:creator" content="@james_mtc" />

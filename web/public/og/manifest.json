@@ -3,36 +3,88 @@
     "file": "brand.a23cf3cb.png",
     "label": "The Center Is a Lie",
     "desc": "Why the candidate the party calls 'electable' is the one who loses. A data essay: the center isn't a bloc, positions barely move voters, and the establishment loses.",
-    "blurb": "The \"move to the center to win\" playbook is a lie. A data essay on who actually decides elections, and why the safe candidate is the one who loses:"
+    "blurb": "The \"move to the center to win\" playbook is a lie. A data essay on who actually decides elections, and why the safe candidate is the one who loses:",
+    "w": 1200,
+    "h": 630
   },
   "zero": {
     "file": "zero.34adf1b4.png",
     "label": "A measured zero",
     "desc": "All the ads and door-knocks combined move vote choice by roughly zero.",
-    "blurb": "All the ads and door-knocks combined move vote choice by roughly zero. Why late-campaign persuasion is a measured zero:"
+    "blurb": "All the ads and door-knocks combined move vote choice by roughly zero. Why late-campaign persuasion is a measured zero:",
+    "w": 1200,
+    "h": 630
   },
   "trust": {
     "file": "trust.69da4ecb.png",
     "label": "One in five",
     "desc": "In 1964, three in four Americans trusted their government; today, one in five do.",
-    "blurb": "In 1964, three in four Americans trusted their government. Today, one in five do. Almost everything about how we vote falls out of that collapse:"
+    "blurb": "In 1964, three in four Americans trusted their government. Today, one in five do. Almost everything about how we vote falls out of that collapse:",
+    "w": 1200,
+    "h": 630
   },
   "window": {
     "file": "window.5ad412c1.png",
     "label": "The window is closed",
     "desc": "By the time candidates are nominated, the window to swing voters is closed.",
-    "blurb": "By the time candidates are nominated, the window to swing voters is already closed. Why \"electability\" is decided before the general even starts:"
+    "blurb": "By the time candidates are nominated, the window to swing voters is already closed. Why \"electability\" is decided before the general even starts:",
+    "w": 1200,
+    "h": 630
   },
   "risky": {
     "file": "risky.bf82ba03.png",
     "label": "The safe one is risky",
     "desc": "The safe, establishment candidate has become the risky one.",
-    "blurb": "The safe, establishment candidate has become the risky one. Why \"electable\" is the riskiest bet a party can make:"
+    "blurb": "The safe, establishment candidate has become the risky one. Why \"electable\" is the riskiest bet a party can make:",
+    "w": 1200,
+    "h": 630
   },
   "incumbency": {
     "file": "incumbency.e0c57cd1.png",
     "label": "Built to protect incumbency",
     "desc": "The party is built to protect its own incumbency.",
-    "blurb": "The party is built to protect its own incumbency, which is exactly why it keeps nominating losers. A data essay on who actually wins:"
+    "blurb": "The party is built to protect its own incumbency, which is exactly why it keeps nominating losers. A data essay on who actually wins:",
+    "w": 1200,
+    "h": 630
+  },
+  "1in100": {
+    "file": "1in100.4452efb2.png",
+    "label": "One real centrist in 100",
+    "desc": "Judged by the positions they actually hold, 46 voters in 100 look centrist but only 1 truly is. The 'moderate middle' is an averaging illusion.",
+    "blurb": "The 'moderate middle' campaigns chase is an averaging illusion: 46 voters in 100 look centrist, but only 1 holds centrist positions across the board. The data:",
+    "w": 1600,
+    "h": 900
+  },
+  "bothends": {
+    "file": "bothends.556e57dc.png",
+    "label": "Independents aren't centrists",
+    "desc": "9 in 10 independents hold at least one hard-left or hard-right position; nearly half hold both. They average to a center they don't occupy.",
+    "blurb": "Independents aren't moderates in the middle. 9 in 10 hold at least one extreme position, and nearly half hold both a hard-left and a hard-right one. They only average to the center:",
+    "w": 1600,
+    "h": 900
+  },
+  "insideoutside": {
+    "file": "insideoutside.017ce1c9.png",
+    "label": "The middle is 6%",
+    "desc": "Grouped by the positions they actually hold, only 6% of voters are true centrists while 75% distrust government. The winnable middle barely exists.",
+    "blurb": "The 'winnable middle' is 6% of voters. Distrust is 75%. Group voters by what they actually believe and the center nearly vanishes while low trust swamps everything:",
+    "w": 1600,
+    "h": 900
+  },
+  "fundamentals": {
+    "file": "fundamentals.92bcc6c3.png",
+    "label": "It's not the economy",
+    "desc": "The worst economy in twenty years re-elected an incumbent; some of the best ones didn't. A strong economy doesn't reliably save the party in power.",
+    "blurb": "'It's the economy, stupid' doesn't hold up. The worst economy in twenty years re-elected an incumbent, and some of the best ones lost. What actually predicts elections:",
+    "w": 1600,
+    "h": 900
+  },
+  "deficit": {
+    "file": "deficit.652c6365.png",
+    "label": "The fiscal-responsibility myth",
+    "desc": "By the actual record, the federal deficit explodes under Republican presidents and falls under Democratic ones. 'Fiscally conservative' doesn't track the party label.",
+    "blurb": "The 'Republicans are fiscally responsible' brand doesn't survive the record: the deficit explodes under Republican presidents and falls under Democratic ones. The scoreboard:",
+    "w": 1600,
+    "h": 900
   }
 }
