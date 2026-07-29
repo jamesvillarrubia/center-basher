@@ -20,9 +20,9 @@
     const svg = document.getElementById('bt');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
     const rows = [
+      { name: 'Strong-left loyalists', sub: 'stayed home or held the line', v: 0.73, c: '#7ea8d0' },
       { name: 'Lean-left swing', sub: 'flipped WI / MI / PA', v: 0.83, c: '#2c5b9c', hot: true },
       { name: 'Moderate swing', sub: 'the voters the strategy chased', v: 0.78, c: '#8a8880' },
-      { name: 'Strong-left loyalists', sub: 'stayed home or held the line', v: 0.73, c: '#7ea8d0' },
     ];
     const X0 = 400, X1 = 980, VMAX = 1.0, sc = (X1 - X0) / VMAX;
     const barH = 78, step = 112, y0 = 14, axisY = y0 + rows.length * step - 22;
