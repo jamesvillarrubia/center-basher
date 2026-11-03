@@ -130,6 +130,44 @@ this position-taking (Mayhew 1974, *Congress: The Electoral Connection*).
   on other measures, or the decisive defectors rotate no more than random draws from
   the caucus would.
 
+### C14 · Single-issue money across both parties: AIPAC and its peers (James, 2026-11-03)
+> [AIPAC] is a massive wealth operation that works towards both parties ... so much
+> so that the congressional support of Israel is ... deeply unpopular, but yet
+> still enacted. ... They are one of the forces that creates this pressure to
+> conform to existing power structures that fund weapons and weapon sales.
+
+- **Chart A, the opinion gap:** public support for continued or unconditional
+  military aid to Israel (by party), against the share of Congress voting for it.
+  Votes: Senate joint resolutions of disapproval on arms sales (Sanders, 2024 and
+  2025) and House and Senate supplemental aid votes. Polls: Gallup, Pew, and any
+  poll asking about weapons aid specifically, with question wording printed.
+- **Chart B, primary money:** AIPAC PAC and United Democracy Project (its super PAC)
+  spending by race and party, 2022 to 2026, with win rates. Includes the 2024 Bowman
+  and Bush primaries.
+- **Chart C, the peer panel (Claude's recommendation):** the same spending and win
+  rate for other single-interest super PACs working both parties: Fairshake
+  (crypto), defense contractors' PACs, pharma. This puts AIPAC inside the thesis
+  (concentrated money disciplines both parties) and blocks the reading that one
+  group is uniquely in control, a framing hostile readers will attack as an
+  antisemitic trope. The essay names AIPAC as a lobby and a set of PACs, measured
+  on the same terms as every other lobby.
+- **Data:** FEC (AIPAC PAC committee filings; UDP independent expenditures);
+  OpenSecrets lobbying and outside-spending pages; Voteview for the roll calls;
+  DSCA arms-sale notifications.
+- **Precision rules:**
+  - "Deeply unpopular" depends on the question. Overall sympathy for Israel,
+    approval of the Gaza campaign, and support for weapons aid poll differently,
+    and Republicans still poll supportive on most of them. The essay cites the
+    specific question and its number, never "Americans oppose."
+  - AIPAC PAC (direct contributions, began 2021) and UDP (super PAC, independent
+    spending, mostly in Democratic primaries) work differently and get reported
+    separately.
+  - All dollar figures, vote counts, and poll numbers here are unverified; Claude
+    recalls UDP spent eight figures against Bowman in 2024 and that a majority of
+    Senate Democrats backed a 2025 disapproval resolution. Both get sourced first.
+- **Refuted if:** the share of members voting for weapons aid tracks the share of
+  their own party's voters who support it, within 15 points.
+
 ### C11 · Obama: the blunted outsider (case study)
 - **Chart (one card):** 2008 promises against outcomes on the structure agenda:
   ACA design vs the public option, bank bailout vs prosecutions, drone strikes vs
@@ -349,7 +387,7 @@ This is the core "third party" test.
 
 ## 4 · The essay
 
-- **Length:** 2,500 to 4,000 words, up to 14 candidate charts (cut to the strongest 8 after results) (one per surviving claim; C8 may be one combined card). Essay 1 is far longer.
+- **Length:** 2,500 to 4,000 words, up to 15 candidate charts (cut to the strongest 8 after results) (one per surviving claim; C8 may be one combined card). Essay 1 is far longer.
 - **Shape:** bridge from Essay 1 (outsiders win, then what?), hook (C1), the core claim (C0), the three fates of a winning outsider (C9, C10, C11), how they get in (C2), what they do (C3, C4, C5), why party
   is the cover (C6), who they answer to (C7), cases (C8), what voters can do.
 - **Voice:** same as `web/index.html` (HTML is source of truth per memory). Long,
@@ -415,5 +453,5 @@ All under `/Users/james/Sites/personal/center-basher/data/raw/`.
 The CAP laws file ends at 2022, so C0 runs 1981 to 2022 unless the 118th Congress
 is coded by hand. The CAP files are Latin-1 encoded (`encoding='latin-1'`).
 
-Still to pull: interest-group scorecards (Chamber of Commerce, AFL-CIO, Club for Growth, Public Citizen), Cook PVI, Gallup congressional approval, Vital Statistics reelection rates,
+Still to pull: FEC filings for AIPAC PAC, UDP, Fairshake; DSCA arms-sale notifications; Israel aid polling; interest-group scorecards (Chamber of Commerce, AFL-CIO, Club for Growth, Public Citizen), Cook PVI, Gallup congressional approval, Vital Statistics reelection rates,
 Brookings Primaries Project, FEC bulk, DIME, OpenSecrets revolving door, Gilens 2012.
