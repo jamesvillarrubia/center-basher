@@ -493,3 +493,28 @@ is coded by hand. The CAP files are Latin-1 encoded (`encoding='latin-1'`).
 
 Still to pull: MapLight bill positions, LobbyView, Forbes 400 list, JCT and TPC distribution tables; FEC filings for AIPAC PAC, UDP, Fairshake; DSCA arms-sale notifications; Israel aid polling; interest-group scorecards (Chamber of Commerce, AFL-CIO, Club for Growth, Public Citizen), Cook PVI, Gallup congressional approval, Vital Statistics reelection rates,
 Brookings Primaries Project, FEC bulk, DIME, OpenSecrets revolving door, Gilens 2012.
+
+## 9 · First results (2026-11-03)
+
+Scripts: `scripts/establishment/`. Output: `data/derived/establishment/*.json`.
+
+| Claim | Verdict | Numbers |
+|---|---|---|
+| C1 | SURVIVES | Since 2008: Gallup election-year approval mean 17.9%; House incumbents seeking reelection won 93.0% (min 85.4%, 2010). Slope 0.14 pp reelection per approval point, r = 0.45, 25 elections 1974 to 2024 (Brookings VS table 2-7; Gallup). Latest Gallup: 14% (Oct 2026). |
+| C9 | WEAK | Executive orders per 100 laws: 24.4 (97th to 101st) to 35.2 (113th to 117th), but slope is negative (-0.29) once the 116th and 117th (COVID orders, 2021 transition) are dropped. Laws per Congress fell from 396 to 275. 2025: 223 orders vs 19 to 91 per year in 2017 to 2024 (CAP; check 2025 against the Federal Register). |
+| C0 | INCOMPLETE | Topic shares do not move with party control: structure laws 18.9% (unified D, 3 Congresses), 19.6% (unified R, 3), 19.3% (divided, 15); social laws 10.5%, 9.9%, 8.5%. Counts weight a minor law like a tax overhaul and cannot show direction. The direction check (hand-coded CBO list) decides C0. |
+
+> **[Claude: honest correction]** C0 predicted that social output swings with the
+> party. By law counts it does not (10.5% vs 9.9%). Either the swing lives in
+> content and direction (abortion, guns, immigration laws that go opposite ways
+> under D and R), or the parties' social fight happens mostly in messaging votes
+> that never become law. The second reading supports C3 and C12 more than C0.
+
+> **[Claude: honest correction]** C9 as written ("power moves to the presidency")
+> does not hold for 1981 to 2018 by order counts. The supportable version: Congress
+> passes about 30% fewer laws than in the 1980s, and 2025 broke the executive-order
+> pattern of the prior four decades. That makes C9 a 2025 story, not a long trend.
+
+MapLight's public page (data.maplight.org/US.html, checked with a browser user
+agent) lists campaign-contribution files only, no bill positions. Request note:
+`reqts/maplight-data-request.md`.

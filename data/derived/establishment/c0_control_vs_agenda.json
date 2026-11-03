@@ -1,0 +1,246 @@
+{
+  "claim": "C0",
+  "step": "topic counts only; direction check pending",
+  "by_congress": [
+    {
+      "congress": 97,
+      "other": 254,
+      "social": 29,
+      "structure": 84,
+      "total": 367,
+      "structure_pct": 22.9,
+      "social_pct": 7.9,
+      "control": "divided"
+    },
+    {
+      "congress": 98,
+      "other": 312,
+      "social": 14,
+      "structure": 84,
+      "total": 410,
+      "structure_pct": 20.5,
+      "social_pct": 3.4,
+      "control": "divided"
+    },
+    {
+      "congress": 99,
+      "other": 270,
+      "social": 36,
+      "structure": 72,
+      "total": 378,
+      "structure_pct": 19.0,
+      "social_pct": 9.5,
+      "control": "divided"
+    },
+    {
+      "congress": 100,
+      "other": 313,
+      "social": 28,
+      "structure": 94,
+      "total": 435,
+      "structure_pct": 21.6,
+      "social_pct": 6.4,
+      "control": "divided"
+    },
+    {
+      "congress": 101,
+      "other": 286,
+      "social": 24,
+      "structure": 82,
+      "total": 392,
+      "structure_pct": 20.9,
+      "social_pct": 6.1,
+      "control": "divided"
+    },
+    {
+      "congress": 102,
+      "other": 262,
+      "social": 31,
+      "structure": 68,
+      "total": 361,
+      "structure_pct": 18.8,
+      "social_pct": 8.6,
+      "control": "divided"
+    },
+    {
+      "congress": 103,
+      "other": 239,
+      "social": 19,
+      "structure": 59,
+      "total": 317,
+      "structure_pct": 18.6,
+      "social_pct": 6.0,
+      "control": "unified_D"
+    },
+    {
+      "congress": 104,
+      "other": 207,
+      "social": 28,
+      "structure": 59,
+      "total": 294,
+      "structure_pct": 20.1,
+      "social_pct": 9.5,
+      "control": "divided"
+    },
+    {
+      "congress": 105,
+      "other": 246,
+      "social": 37,
+      "structure": 71,
+      "total": 354,
+      "structure_pct": 20.1,
+      "social_pct": 10.5,
+      "control": "divided"
+    },
+    {
+      "congress": 106,
+      "other": 366,
+      "social": 45,
+      "structure": 54,
+      "total": 465,
+      "structure_pct": 11.6,
+      "social_pct": 9.7,
+      "control": "divided"
+    },
+    {
+      "congress": 107,
+      "other": 225,
+      "social": 20,
+      "structure": 55,
+      "total": 300,
+      "structure_pct": 18.3,
+      "social_pct": 6.7,
+      "control": "divided"
+    },
+    {
+      "congress": 108,
+      "other": 275,
+      "social": 34,
+      "structure": 61,
+      "total": 370,
+      "structure_pct": 16.5,
+      "social_pct": 9.2,
+      "control": "unified_R"
+    },
+    {
+      "congress": 109,
+      "other": 258,
+      "social": 26,
+      "structure": 70,
+      "total": 354,
+      "structure_pct": 19.8,
+      "social_pct": 7.3,
+      "control": "unified_R"
+    },
+    {
+      "congress": 110,
+      "other": 276,
+      "social": 43,
+      "structure": 57,
+      "total": 376,
+      "structure_pct": 15.2,
+      "social_pct": 11.4,
+      "control": "divided"
+    },
+    {
+      "congress": 111,
+      "other": 268,
+      "social": 34,
+      "structure": 76,
+      "total": 378,
+      "structure_pct": 20.1,
+      "social_pct": 9.0,
+      "control": "unified_D"
+    },
+    {
+      "congress": 112,
+      "other": 134,
+      "social": 26,
+      "structure": 56,
+      "total": 216,
+      "structure_pct": 25.9,
+      "social_pct": 12.0,
+      "control": "divided"
+    },
+    {
+      "congress": 113,
+      "other": 152,
+      "social": 18,
+      "structure": 50,
+      "total": 220,
+      "structure_pct": 22.7,
+      "social_pct": 8.2,
+      "control": "divided"
+    },
+    {
+      "congress": 114,
+      "other": 164,
+      "social": 30,
+      "structure": 44,
+      "total": 238,
+      "structure_pct": 18.5,
+      "social_pct": 12.6,
+      "control": "divided"
+    },
+    {
+      "congress": 115,
+      "other": 276,
+      "social": 54,
+      "structure": 94,
+      "total": 424,
+      "structure_pct": 22.2,
+      "social_pct": 12.7,
+      "control": "unified_R"
+    },
+    {
+      "congress": 116,
+      "other": 174,
+      "social": 20,
+      "structure": 43,
+      "total": 237,
+      "structure_pct": 18.1,
+      "social_pct": 8.4,
+      "control": "divided"
+    },
+    {
+      "congress": 117,
+      "other": 163,
+      "social": 47,
+      "structure": 44,
+      "total": 254,
+      "structure_pct": 17.3,
+      "social_pct": 18.5,
+      "control": "unified_D"
+    }
+  ],
+  "by_control": [
+    {
+      "control": "divided",
+      "structure": 973,
+      "social": 429,
+      "total": 5043,
+      "structure_pct": 19.3,
+      "social_pct": 8.5,
+      "congresses": 15
+    },
+    {
+      "control": "unified_D",
+      "structure": 179,
+      "social": 100,
+      "total": 949,
+      "structure_pct": 18.9,
+      "social_pct": 10.5,
+      "congresses": 3
+    },
+    {
+      "control": "unified_R",
+      "structure": 225,
+      "social": 114,
+      "total": 1148,
+      "structure_pct": 19.6,
+      "social_pct": 9.9,
+      "congresses": 3
+    }
+  ],
+  "verdict": "INCOMPLETE"
+}
