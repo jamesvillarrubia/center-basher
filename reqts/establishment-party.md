@@ -266,3 +266,18 @@ so it outlives this worktree.
   it does not allege a secret meeting.
 - No new survey or experiment.
 - No claim built on a case study alone.
+
+## 8 · Data pulled (2026-11-02)
+
+All under `/Users/james/Sites/personal/center-basher/data/raw/`.
+
+| Dataset | Files | Coverage |
+|---|---|---|
+| Voteview | `voteview/HSall_members.csv` (5.9M), `HSall_rollcalls.csv` (28.4M), `HSall_parties.csv`, `HSall_votes.csv` (669M) | 1st to current Congress |
+| Comparative Agendas, US | `comparative_agendas/us_public_laws_20.1.csv` (21,968 laws), `us_public_laws_titles_20.4.csv` (36,577 titles), `us_congressional_bills_19.3.csv` | Laws 1948 to 2022 (80th to 117th/118th Congress) |
+
+The CAP laws file ends at 2022, so C0 runs 1981 to 2022 unless the 118th Congress
+is coded by hand. The CAP files are Latin-1 encoded (`encoding='latin-1'`).
+
+Still to pull: Gallup congressional approval, Vital Statistics reelection rates,
+Brookings Primaries Project, FEC bulk, DIME, OpenSecrets revolving door, Gilens 2012.
