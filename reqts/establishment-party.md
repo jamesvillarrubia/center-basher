@@ -38,6 +38,86 @@ presidential generals. This essay adds that the loss changes little, because the
 winner governs with an Establishment-held Congress and Establishment-held
 committees in both parties. The central testable claim is C0 below.
 
+### The bridge from Essay 1 (James, 2026-11-03, quoted from dictation)
+
+> In order to win the elections, candidates have to cast themselves as an
+> outsider. But then the question is, can they, from within the system as
+> president, actually disrupt the systems of power?
+
+> [Trump] has disrupted it but it is disrupting for the sake of consolidation not
+> disrupting for the sake of pushing power back to the people.
+
+> As anti-establishment candidates join, they ... have to operate at least
+> temporarily during the transition period within a system that only rewards
+> establishment players. So AOC has had to "play ball" with the establishment. As
+> has Thomas Massie and Marjorie Taylor Greene.
+
+> While essay one talks about how to win the general from a positioning
+> perspective as president, it does not necessarily mean that even a candidate
+> that wins is going to disrupt the establishment in the way that is necessary,
+> or that the position of power doesn't ultimately corrupt them into being yet
+> another establishment figure.
+
+James's Obama example: hope and change, then one step forward and two back; the
+ACA left for-profit incentives intact and still became a liability that the
+Koch network used to fund the Tea Party.
+
+So the essay has three outcomes for an outsider who wins, each with its own test:
+**absorbed** (C10), **consolidates** (C9), or **blunted** (C11, Obama). Essay 1
+answers "how does an outsider win?" This essay answers "what happens after?"
+
+### C9 · Disruption that consolidates: power moves to the presidency, never to voters
+- **Chart:** two lines by year, 1981 to 2025. Public laws enacted per Congress
+  (falling) and executive orders plus national-emergency declarations per year.
+  Annotate the 2025 surge.
+- **Data:** CAP US executive orders (local, 4,831 orders, 1945 to 2025; check 2025
+  completeness against the Federal Register API); Brennan Center list of national emergencies; CAP and
+  congress.gov public-law counts.
+- **Caveat to print:** raw executive-order counts were far higher under FDR and
+  Truman; the post-1981 window is chosen because CAP law coding starts there for
+  C0, and the chart says so. Order counts also miss memoranda and proclamations.
+- **Refuted if:** the ratio of executive actions to public laws shows no upward
+  trend across the window.
+- **Out of scope for data:** Supreme Court rulings and state election changes
+  enter as cited case examples (with primary citations), never as a chart.
+
+### C10 · Outsiders who win get absorbed
+- **Chart:** each insurgent member's yearly vote share with their party's
+  leadership, from their first term onward, against the caucus median. Prediction:
+  insurgents converge toward the caucus over their tenure. Named lines for AOC and
+  Massie; MTG if her record fits.
+- **Insurgent (mechanical, Claude's call):** won a primary against a sitting
+  incumbent or against the leadership-backed candidate, 2010 to 2022.
+- **Data:** Voteview individual votes (local); leadership vote = the party leader's
+  or whip's vote on each roll call.
+- **Known counterexample to face:** Massie has voted against his party's majority
+  more than almost any Republican for years. If he never converged, he is the
+  counterexample, and the essay says so rather than listing him as absorbed.
+- **To verify:** Marjorie Taylor Greene's current status (Claude recalls a
+  resignation announced in late 2025; unconfirmed).
+- **Refuted if:** insurgents' leadership-agreement scores show no convergence
+  toward the caucus median after their first two terms.
+
+### C11 · Obama: the blunted outsider (case study)
+- **Chart (one card):** 2008 promises against outcomes on the structure agenda:
+  ACA design vs the public option, bank bailout vs prosecutions, drone strikes vs
+  troop levels.
+- **Data:** ACA legislative history (CBO, Congressional Record on the public-option
+  vote); Bureau of Investigative Journalism drone-strike counts; DoD troop levels;
+  Tea Party funding from Mayer (2016) and Skocpol & Williamson (2012), both already
+  cited in Essay 1.
+
+> **[Claude: honest correction]** Two parts of the Obama example will not survive a
+> hostile reviewer as dictated. "Wars heightened": the Afghanistan surge, Libya, and
+> drone strikes rose, but US troops in Iraq and Afghanistan combined fell from about
+> 180,000 (2009) to under 15,000 (2016), and real defense outlays fell after 2011
+> (from memory; verify against DoD and CBO before use). "Economies struggled":
+> unemployment fell from 10.0% (Oct 2009) to 4.7% (Jan 2017). Suggested rewrite:
+> "The wars changed shape rather than ending: fewer troops, more drones, a new war
+> in Libya, and the recovery went to the banks first and to wages last." The second
+> half needs its own number (share of 2009 to 2012 income gains to the top 1%,
+> Saez; verify).
+
 ### C0 · Party control changes the social agenda and leaves the structure agenda alone
 - **Chart:** enacted economic-structure laws (section 2a) by Congress, 1981 to
   2024, colored by which party held the trifecta. Beside it, the same for social
@@ -213,8 +293,8 @@ This is the core "third party" test.
 
 ## 4 · The essay
 
-- **Length:** 2,500 to 4,000 words, up to 9 charts (one per surviving claim; C8 may be one combined card). Essay 1 is far longer.
-- **Shape:** hook (C1), the core claim (C0), how they get in (C2), what they do (C3, C4, C5), why party
+- **Length:** 2,500 to 4,000 words, up to 12 charts (cut to the strongest 8 after results) (one per surviving claim; C8 may be one combined card). Essay 1 is far longer.
+- **Shape:** bridge from Essay 1 (outsiders win, then what?), hook (C1), the core claim (C0), the three fates of a winning outsider (C9, C10, C11), how they get in (C2), what they do (C3, C4, C5), why party
   is the cover (C6), who they answer to (C7), cases (C8), what voters can do.
 - **Voice:** same as `web/index.html` (HTML is source of truth per memory). Long,
   momentum-carrying sentences; no staccato fragments; section titles are short
@@ -274,7 +354,7 @@ All under `/Users/james/Sites/personal/center-basher/data/raw/`.
 | Dataset | Files | Coverage |
 |---|---|---|
 | Voteview | `voteview/HSall_members.csv` (5.9M), `HSall_rollcalls.csv` (28.4M), `HSall_parties.csv`, `HSall_votes.csv` (669M) | 1st to current Congress |
-| Comparative Agendas, US | `comparative_agendas/us_public_laws_20.1.csv` (21,968 laws), `us_public_laws_titles_20.4.csv` (36,577 titles), `us_congressional_bills_19.3.csv` | Laws 1948 to 2022 (80th to 117th/118th Congress) |
+| Comparative Agendas, US | `comparative_agendas/us_executive_orders_26.1.csv` (4,831 orders, 1945 to 2025), `us_public_laws_20.1.csv` (21,968 laws), `us_public_laws_titles_20.4.csv` (36,577 titles), `us_congressional_bills_19.3.csv` | Laws 1948 to 2022 (80th to 117th/118th Congress) |
 
 The CAP laws file ends at 2022, so C0 runs 1981 to 2022 unless the 118th Congress
 is coded by hand. The CAP files are Latin-1 encoded (`encoding='latin-1'`).
