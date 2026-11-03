@@ -267,9 +267,14 @@ The score therefore counts a vote only when two things hold:
      bill-position data, with each organization tagged as billionaire-linked when
      a Forbes 400 member owns or controls it, funds it as a top donor (Americans
      for Prosperity, Fairshake), or sits on its board. Lobbying spend per bill
-     from LobbyView (bill-level lobbying links) weights the stakes. (To verify:
-     MapLight's coverage years and whether its archive is still downloadable;
-     LobbyView access.)
+     from LobbyView (bill-level lobbying links) weights the stakes. MapLight access
+     (checked 2026-11-03): maplight.org/data returns 404 and data.maplight.org
+     returns 403. MapLight's data-series page describes 225,000+ positions on
+     14,000+ bills, 2007 to 2021, released through a Bill Positions API. Princeton
+     DSS lists a copy covering 2007 to 2022. Lorenz et al. (2020, *Interest Groups &
+     Advocacy*, doi:10.1057/s41309-020-00085-x) describe two ways to acquire it.
+     Next step: request the data from MapLight or a university holder. LobbyView's
+     site responds; its access terms are unchecked.)
    - **Fallback:** US Chamber of Commerce and Business Roundtable key-vote
      positions, with the AFL-CIO and Public Citizen as the opposing pole.
 
