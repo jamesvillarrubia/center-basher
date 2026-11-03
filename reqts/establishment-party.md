@@ -27,15 +27,31 @@ James's examples: Haley Stevens (recruited by Schumer and party leadership again
 Abdul El-Sayed, Michigan Senate 2026) and John Fetterman (elected as a populist,
 now votes across party lines).
 
-### Reconciling with Essay 1
+### Reconciling with Essay 1 (James, 2026-11-02)
 
-Essay 1 says "the candidate cast as the establishment loses" presidential
-generals (trust flips with the White House party in 11 of 13 cycles). This essay
-must not contradict it. Proposed reconciliation (Claude's call, needs James's
-yes): voters fire the establishment at the top of the ticket every few cycles,
-and the Establishment still wins the primaries, the down-ballot seats, and the
-legislative agenda. The presidency is the one office where an outsider lane
-exists; everywhere else the gates hold.
+> It's not that the establishment wins. It's that the establishment wins by virtue
+> of being the group in control in both parties, so no matter which party wins the
+> election, the establishment is always in power.
+
+Essay 1's finding stands: the candidate cast as the establishment loses
+presidential generals. This essay adds that the loss changes little, because the
+winner governs with an Establishment-held Congress and Establishment-held
+committees in both parties. The central testable claim is C0 below.
+
+### C0 · Party control changes the social agenda and leaves the structure agenda alone
+- **Chart:** enacted economic-structure laws (section 2a) by Congress, 1981 to
+  2024, colored by which party held the trifecta. Beside it, the same for social
+  laws. Prediction: structure output (tax cuts, deregulation, industry provisions)
+  continues at similar rates under unified Democratic and unified Republican
+  control; social output swings with the party.
+- **Data:** Comparative Agendas Project US public laws (topic-coded); Voteview
+  for passage margins; party control by Congress from the House and Senate
+  historians.
+- **Direction check:** topic counts cannot tell a tax cut from a tax increase.
+  Claude hand-codes direction only for the top laws by CBO score (fixed list,
+  coded before plotting) and reports agreement with a second coder pass.
+- **Refuted if:** the share of structure laws moving toward incumbent industry
+  differs by more than 15 points between unified D and unified R Congresses.
 
 ---
 
@@ -197,8 +213,8 @@ This is the core "third party" test.
 
 ## 4 · The essay
 
-- **Length:** 2,500 to 4,000 words, up to 8 charts (one per surviving claim; C8 may be one combined card). Essay 1 is far longer.
-- **Shape:** hook (C1), how they get in (C2), what they do (C3, C4, C5), why party
+- **Length:** 2,500 to 4,000 words, up to 9 charts (one per surviving claim; C8 may be one combined card). Essay 1 is far longer.
+- **Shape:** hook (C1), the core claim (C0), how they get in (C2), what they do (C3, C4, C5), why party
   is the cover (C6), who they answer to (C7), cases (C8), what voters can do.
 - **Voice:** same as `web/index.html` (HTML is source of truth per memory). Long,
   momentum-carrying sentences; no staccato fragments; section titles are short
@@ -234,11 +250,15 @@ This is the core "third party" test.
 
 ## 7 · Open questions for James
 
-- Publication home: a new page on thecenterisalie.org, a separate domain, or
-  Substack with charts as images.
-- Whether the Essay 1 reconciliation in section 1 matches what James believes.
-- Whether "Establishment" may include Republicans as prominently as Democrats.
-  The data will find both; the essay's audience may expect a Democratic focus.
+Answered 2026-11-02:
+- Publication: both. A site page is canonical; a Substack post links to it with the
+  PNG cards inline.
+- Essay 1 reconciliation: James's wording in section 1.
+- Scope: Republicans and Democrats named equally.
+- Plan approved to start steps 1 and 2.
+
+Raw data goes under the main checkout, `/Users/james/Sites/personal/center-basher/data/raw/<dataset>/`,
+so it outlives this worktree.
 
 ## Non-goals
 
