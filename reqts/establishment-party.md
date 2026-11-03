@@ -98,6 +98,38 @@ answers "how does an outsider win?" This essay answers "what happens after?"
 - **Refuted if:** insurgents' leadership-agreement scores show no convergence
   toward the caucus median after their first two terms.
 
+### C12 · Cheap votes and costly votes
+James's game-theory point: a member can vote for a disruptive bill that is sure to
+fail, then tell voters "we just don't have the votes." Political scientists call
+this position-taking (Mayhew 1974, *Congress: The Electoral Connection*).
+- **Chart:** for each member, support for anti-establishment measures on safe votes
+  (outcome certain) against support on pivotal votes (outcome in doubt). Members on
+  the diagonal mean what they vote; members far above it vote for change only when
+  the vote cannot pass. Named dots for the members James cites.
+- **Data:** Voteview individual votes and margins; scorecard key-vote positions
+  (section 2, behavior marker).
+- **Refuted if:** members' support rates on pivotal votes match their support on
+  safe votes, within 5 points on average.
+
+### C13 · Just enough to lose
+- **Chart:** distribution of the losing margin on anti-establishment measures under
+  unified party control, against all other failed votes. Prediction: redistributive
+  measures fail by one to three votes far more often than chance, with defectors
+  from the governing party supplying exactly the shortfall (the "rotating villain":
+  Lieberman on the public option, Manchin and Sinema on the filibuster and Build
+  Back Better).
+- **Second panel:** each decisive defector's district or state lean (Cook PVI).
+  Defectors from safe seats cannot claim their voters made them do it.
+- **Data:** Voteview; Cook PVI; scorecard positions.
+- **Alternative explanations to print:** Krehbiel's pivotal-politics model expects
+  close outcomes because leaders bring bills to the floor only near the pivot; Cox
+  and McCubbins's negative agenda power means bills sure to lose rarely get a vote,
+  so failed votes are few. The essay reports the sample size and lets a small n
+  stay small.
+- **Refuted if:** losing margins on redistributive measures look like losing margins
+  on other measures, or the decisive defectors rotate no more than random draws from
+  the caucus would.
+
 ### C11 · Obama: the blunted outsider (case study)
 - **Chart (one card):** 2008 promises against outcomes on the structure agenda:
   ACA design vs the public option, bank bailout vs prosecutions, drone strikes vs
@@ -156,10 +188,34 @@ results for each marker alone too, so no single choice carries the finding.
 **Entry markers are partly outcome proxies.** Money follows viability and
 incumbents win. C2 therefore runs on open seats only and reports the confound.
 
-**Behavior marker (Claude's call).** Entry markers cannot score Fetterman, who
-entered as an insurgent. A second, separate score covers behavior in office: a
-member's vote share with the Establishment side on the frozen structure-bill set
-(section 2a). C5, C6, and C8 use the behavior score; C2 uses the entry score.
+**Behavior marker: the risk-weighted vote score (James, 2026-11-03).** Entry
+markers cannot score Fetterman, who entered as an insurgent. A second, separate
+score covers behavior in office. James's rule:
+
+> Taking a political stance means nothing. Voting for something that does not
+> change an establishment structure ... does not shift or redistribute wealth or
+> power from the empowered to the powerless is not an anti-establishment vote.
+> ... Voting for bills that don't pass, that disrupt the establishment, don't do
+> anything. So there needs to be some element of political risk.
+
+The score therefore counts a vote only when two things hold:
+
+1. **The vote moves power.** The bill or amendment shifts wealth or power away
+   from incumbents of wealth and power, or protects them. "Establishment side" is
+   set mechanically by the key-vote positions of the US Chamber of Commerce (and,
+   as a check, Business Roundtable and Club for Growth), with the AFL-CIO and
+   Public Citizen scorecards as the opposing pole. Claude does not hand-pick sides.
+   (To verify: which years each scorecard publishes key votes, and whether Vote
+   Smart has them in bulk.)
+2. **The vote carries risk.** Each vote is weighted by how close it came to
+   deciding the outcome: final margin within 5 votes in the House or 3 in the
+   Senate, cloture within 3 of 60, or the member's own party split. A vote on a
+   bill that was certain to fail or certain to pass gets near-zero weight.
+
+Procedural votes (cloture, motions to table, rules, motions to recommit) count in
+full. Leadership kills popular measures there, where few voters look.
+
+C5, C6, C8, C10, C12, and C13 use the behavior score; C2 uses the entry score.
 
 **Data risk.** DSCC, DCCC, NRSC, and NRCC rarely endorse in contested open
 primaries, so "Anointed" may barely vary. It also counts endorsements by leader
@@ -293,7 +349,7 @@ This is the core "third party" test.
 
 ## 4 · The essay
 
-- **Length:** 2,500 to 4,000 words, up to 12 charts (cut to the strongest 8 after results) (one per surviving claim; C8 may be one combined card). Essay 1 is far longer.
+- **Length:** 2,500 to 4,000 words, up to 14 candidate charts (cut to the strongest 8 after results) (one per surviving claim; C8 may be one combined card). Essay 1 is far longer.
 - **Shape:** bridge from Essay 1 (outsiders win, then what?), hook (C1), the core claim (C0), the three fates of a winning outsider (C9, C10, C11), how they get in (C2), what they do (C3, C4, C5), why party
   is the cover (C6), who they answer to (C7), cases (C8), what voters can do.
 - **Voice:** same as `web/index.html` (HTML is source of truth per memory). Long,
@@ -359,5 +415,5 @@ All under `/Users/james/Sites/personal/center-basher/data/raw/`.
 The CAP laws file ends at 2022, so C0 runs 1981 to 2022 unless the 118th Congress
 is coded by hand. The CAP files are Latin-1 encoded (`encoding='latin-1'`).
 
-Still to pull: Gallup congressional approval, Vital Statistics reelection rates,
+Still to pull: interest-group scorecards (Chamber of Commerce, AFL-CIO, Club for Growth, Public Citizen), Cook PVI, Gallup congressional approval, Vital Statistics reelection rates,
 Brookings Primaries Project, FEC bulk, DIME, OpenSecrets revolving door, Gilens 2012.
