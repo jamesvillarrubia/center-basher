@@ -168,6 +168,22 @@ this position-taking (Mayhew 1974, *Congress: The Electoral Connection*).
 - **Refuted if:** the share of members voting for weapons aid tracks the share of
   their own party's voters who support it, within 15 points.
 
+### C15 · Billionaires split on social issues and unite on money
+- **Chart:** share of roll calls where billionaire-linked groups take one side,
+  by topic set (section 2a): economic structure vs social. Prediction: near-
+  unanimous on taxes, finance, and regulation; split on abortion, guns, and
+  immigration. If true, the parties' loud fights sit exactly on the issues where
+  billionaires have nothing collective at stake.
+- **Headline number:** across all votes with a billionaire side, the share the
+  billionaire side won, against the share the side with majority public support
+  won (C4 polls).
+- **Prior work:** Page, Seawright & Lacombe (2018), *Billionaires and Stealth
+  Politics*: the 100 wealthiest Americans rarely state positions publicly but give
+  heavily. Gilens's "affluent" are the 90th income percentile, so his results say
+  nothing about billionaires directly; the essay says so.
+- **Refuted if:** billionaire-linked groups split on economic-structure votes about
+  as often as on social votes.
+
 ### C11 · Obama: the blunted outsider (case study)
 - **Chart (one card):** 2008 promises against outcomes on the structure agenda:
   ACA design vs the public option, bank bailout vs prosecutions, drone strikes vs
@@ -238,13 +254,30 @@ score covers behavior in office. James's rule:
 
 The score therefore counts a vote only when two things hold:
 
-1. **The vote moves power.** The bill or amendment shifts wealth or power away
-   from incumbents of wealth and power, or protects them. "Establishment side" is
-   set mechanically by the key-vote positions of the US Chamber of Commerce (and,
-   as a check, Business Roundtable and Club for Growth), with the AFL-CIO and
-   Public Citizen scorecards as the opposing pole. Claude does not hand-pick sides.
-   (To verify: which years each scorecard publishes key votes, and whether Vote
-   Smart has them in bulk.)
+1. **The vote has a billionaire side (James, 2026-11-03).**
+   > If you look at all the stakeholders, does the wealthiest, most connected
+   > stakeholder win or lose? ... I'm talking like very wealthy people, not
+   > millionaires but billionaires.
+
+   Each vote gets a "billionaire side" from the first source that covers it:
+   - **Tax bills:** the Joint Committee on Taxation or Tax Policy Center
+     distribution table. If the top 0.1% gets a larger share of the benefit than
+     its share of income, the yes vote is the billionaire side; if smaller, no.
+   - **Other bills:** organization positions (support or oppose) from MapLight's
+     bill-position data, with each organization tagged as billionaire-linked when
+     a Forbes 400 member owns or controls it, funds it as a top donor (Americans
+     for Prosperity, Fairshake), or sits on its board. Lobbying spend per bill
+     from LobbyView (bill-level lobbying links) weights the stakes. (To verify:
+     MapLight's coverage years and whether its archive is still downloadable;
+     LobbyView access.)
+   - **Fallback:** US Chamber of Commerce and Business Roundtable key-vote
+     positions, with the AFL-CIO and Public Citizen as the opposing pole.
+
+   **When billionaires split, the vote has no billionaire side.** Billionaire-linked
+   groups oppose each other on some votes (Koch network vs Soros-funded groups, on
+   immigration or abortion). Those votes are coded "split" and left out of the
+   score. The split rate is reported as its own finding (C15).
+
 2. **The vote carries risk.** Each vote is weighted by how close it came to
    deciding the outcome: final margin within 5 votes in the House or 3 in the
    Senate, cloture within 3 of 60, or the member's own party split. A vote on a
@@ -387,7 +420,7 @@ This is the core "third party" test.
 
 ## 4 · The essay
 
-- **Length:** 2,500 to 4,000 words, up to 15 candidate charts (cut to the strongest 8 after results) (one per surviving claim; C8 may be one combined card). Essay 1 is far longer.
+- **Length:** 2,500 to 4,000 words, up to 16 candidate charts (cut to the strongest 8 after results) (one per surviving claim; C8 may be one combined card). Essay 1 is far longer.
 - **Shape:** bridge from Essay 1 (outsiders win, then what?), hook (C1), the core claim (C0), the three fates of a winning outsider (C9, C10, C11), how they get in (C2), what they do (C3, C4, C5), why party
   is the cover (C6), who they answer to (C7), cases (C8), what voters can do.
 - **Voice:** same as `web/index.html` (HTML is source of truth per memory). Long,
@@ -453,5 +486,5 @@ All under `/Users/james/Sites/personal/center-basher/data/raw/`.
 The CAP laws file ends at 2022, so C0 runs 1981 to 2022 unless the 118th Congress
 is coded by hand. The CAP files are Latin-1 encoded (`encoding='latin-1'`).
 
-Still to pull: FEC filings for AIPAC PAC, UDP, Fairshake; DSCA arms-sale notifications; Israel aid polling; interest-group scorecards (Chamber of Commerce, AFL-CIO, Club for Growth, Public Citizen), Cook PVI, Gallup congressional approval, Vital Statistics reelection rates,
+Still to pull: MapLight bill positions, LobbyView, Forbes 400 list, JCT and TPC distribution tables; FEC filings for AIPAC PAC, UDP, Fairshake; DSCA arms-sale notifications; Israel aid polling; interest-group scorecards (Chamber of Commerce, AFL-CIO, Club for Growth, Public Citizen), Cook PVI, Gallup congressional approval, Vital Statistics reelection rates,
 Brookings Primaries Project, FEC bulk, DIME, OpenSecrets revolving door, Gilens 2012.
