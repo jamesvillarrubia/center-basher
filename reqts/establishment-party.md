@@ -502,7 +502,7 @@ Scripts: `scripts/establishment/`. Output: `data/derived/establishment/*.json`.
 |---|---|---|
 | C1 | SURVIVES | Since 2008: Gallup election-year approval mean 17.9%; House incumbents seeking reelection won 93.0% (min 85.4%, 2010). Slope 0.14 pp reelection per approval point, r = 0.45, 25 elections 1974 to 2024 (Brookings VS table 2-7; Gallup). Latest Gallup: 14% (Oct 2026). |
 | C9 | WEAK | Executive orders per 100 laws: 24.4 (97th to 101st) to 35.2 (113th to 117th), but slope is negative (-0.29) once the 116th and 117th (COVID orders, 2021 transition) are dropped. Laws per Congress fell from 396 to 275. 2025: 223 orders vs 19 to 91 per year in 2017 to 2024 (CAP; check 2025 against the Federal Register). |
-| C0 | INCOMPLETE | Topic shares do not move with party control: structure laws 18.9% (unified D, 3 Congresses), 19.6% (unified R, 3), 19.3% (divided, 15); social laws 10.5%, 9.9%, 8.5%. Counts weight a minor law like a tax overhaul and cannot show direction. The direction check (hand-coded CBO list) decides C0. |
+| C0 (counts) | NO SHIFT | Topic shares do not move with party control: structure laws 18.9% (unified D, 3 Congresses), 19.6% (unified R, 3), 19.3% (divided, 15); social laws 10.5%, 9.9%, 8.5%. Counts weight a minor law like a tax overhaul and cannot show direction. The direction check (hand-coded CBO list) decides C0. |
 
 > **[Claude: honest correction]** C0 predicted that social output swings with the
 > party. By law counts it does not (10.5% vs 9.9%). Either the swing lives in
@@ -518,3 +518,41 @@ Scripts: `scripts/establishment/`. Output: `data/derived/establishment/*.json`.
 MapLight's public page (data.maplight.org/US.html, checked with a browser user
 agent) lists campaign-contribution files only, no bill positions. Request note:
 `reqts/maplight-data-request.md`.
+
+### C0 direction check (2026-11-03): REFUTED
+
+Two blind coders (Sonnet subagents, rubric `reqts/establishment-direction-rubric.md`
+committed before coding) coded David Mayhew's 242 important laws, 1981 to 2024.
+Agreement: set 93.4% (kappa 0.89); direction 87.2% (kappa 0.75); no law got
+opposite signs from the two coders. Script `scripts/establishment/c0_direction.py`.
+
+Major economic-structure laws coded as moving wealth or power toward the very
+wealthy and incumbent firms:
+
+| Control | Coder A | Coder B | Both agree |
+|---|---|---|---|
+| Unified D (103rd, 111th, 117th) | 33% toward, 58% away (n=12) | 40% toward, 40% away (n=10) | 44% toward, 44% away (n=9) |
+| Unified R (108th, 109th, 115th) | 80% toward, 0% away (n=15) | 73% toward, 0% away (n=15) | 85% toward, 0% away (n=13) |
+| Divided (15 Congresses) | 40% toward, 17% away (n=58) | 37% toward, 14% away (n=59) | 45% toward, 13% away (n=47) |
+
+The D vs R gap in the "toward" share is 33 to 47 points under every version,
+far past the 15-point refutation line.
+
+> **[Claude: honest correction]** C0 as written ("party control leaves the structure
+> agenda alone") is false for major laws. Unified Republican Congresses passed no
+> major economic law that moved wealth away from the top; unified Democratic
+> Congresses passed several (1993 deficit act with the top-rate increase, Dodd-Frank,
+> the credit card act, the student-loan overhaul, the Inflation Reduction Act).
+> Two findings survive and are exploratory (not pre-registered, so labeled as such
+> in any prose):
+> 1. Democrats split. A third to nearly half of the major economic laws passed under
+>    unified Democratic control moved toward the wealthy (NAFTA, GATT, the 2010
+>    Bush-tax-cut extension, CHIPS).
+> 2. When the parties must agree, the wealthy win about 3 to 1. Under divided
+>    government, 37% to 45% of major economic laws moved toward the top against 13%
+>    to 17% away.
+> Suggested rewrite of the thesis line: "Republicans deliver for the very wealthy
+> every time they hold power; Democrats deliver for them about as often as against;
+> and when the two parties have to agree, the wealthy win three times out of four."
+> The 3-to-1 figure comes from divided-government laws only; the essay must say so.
+> n is small (9 to 15 laws per unified group).
