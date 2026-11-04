@@ -13,6 +13,17 @@ roll-call replication as wanted data.
 
 ---
 
+## 0 · Adopted thesis (James approved 2026-11-04, after the C0 refutation)
+
+> Republicans deliver for the very wealthy every time they hold power; Democrats
+> deliver for them about as often as against; and when the two parties have to
+> agree, the wealthy win three times out of four.
+
+Source: C0 direction check (section 9). The 3-to-1 figure is exploratory and comes
+from divided-government laws only; prose must say so. Every claim below now serves
+this line. The original "party doesn't matter" framing in section 1 is kept as
+history and does not go into prose.
+
 ## 1 · Thesis (James's words, condensed for the plan only)
 
 > There are three parties: Left, Right, and Establishment. People who do not want
