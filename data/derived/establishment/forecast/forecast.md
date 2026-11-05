@@ -157,3 +157,27 @@ Each starts from the base rate, and each adjustment is written down with its siz
 - **Working House caucus date:** Nov 18, from Bloomberg Government (two unnamed people) and ABC7. Fox says mid-December. Nothing official has been found.
 - **Working Senate caucus date:** early December, from Roll Call ("likely") and Al Jazeera ("next month").
 - **House seats:** CBS estimates 251 to 268. The survival number k runs from 33 to 50 across that range.
+
+## 7 · Update log
+
+### 2026-11-05 · James's call and the card's headline claim
+
+**James's call (his words, 2026-11-05):** "I think there will be new candidates."
+
+**How it is scored:** true if, in either caucus vote, at least one candidate other than the sitting leader is on the ballot. That means a challenger to Jeffries for the Speaker nomination, or to Schumer for leader, or any candidate for the post if Schumer steps aside. James may correct this reading in a later dated entry.
+
+**Claude's numbers for the card's four calls.** The first and fourth are new estimates made today, before any caucus vote. The middle two come from the frozen section 4.
+
+| Call | Claude P | James | Resolves |
+|---|---|---|---|
+| A candidate other than the sitting leader runs in either caucus vote | 0.55 | yes | Senate caucus vote |
+| Jeffries is elected Speaker (H-A + H-B + H-C) | 0.93 | (to fill) | 2027-01-10 |
+| Schumer stays Senate Democratic leader (S-A + S-B) | 0.72 | (to fill) | caucus vote or 2027-01-31 |
+| No rebel demand becomes a binding rule, a binding leader term limit, or a bill that passes the chamber floor | 0.75 | (to fill) | 2027-01-31 |
+
+**Basis for 0.55:**
+- A House challenger has run in 2 of the 3 past Pelosi revolts (2010 Shuler, 2016 Ryan; none in 2018). That rate drops to about 0.35, because no one has declared yet and Van Hollen-style drafts are rarer in the House.
+- Senate: the S-B, S-C and S-D paths each involve another candidate, about 0.40 combined.
+- The two races move together, so P(at least one) is about 0.55.
+
+**Basis for 0.75:** 1 of 12 past revolts ended in a concession that moved real power (`base_rates.md` §4, McCarthy 2023). Pressure now is higher than the base set, which lowers the estimate from 0.92 to 0.75.
