@@ -1,0 +1,243 @@
+id,set,direction,confidence,reason
+242,other,1,1,Farm aid payments flow mainly to established agricultural producers.
+241,other,0,3,Disaster relief with no distributional direction toward the very wealthy.
+240,other,0,2,"Benefit expansion for public workers, deficit financed, no top-income effect."
+239,structure,0,1,FAA reauthorization mixes airport funding with passenger protections.
+238,structure,0,1,Forced-sale or ban of one platform; no clear wealth direction.
+237,other,0,3,Foreign military aid.
+236,other,0,3,Foreign military and humanitarian aid.
+235,other,0,3,Foreign military aid.
+234,other,0,3,Procedural election law.
+233,social,0,3,Civil-rights law with no wealth effect.
+232,other,0,3,Veterans medical benefits.
+231,structure,1,3,About $50 billion in subsidies and tax credits to semiconductor firms.
+230,social,0,3,Gun background-check and mental health law.
+229,other,0,3,Foreign military and humanitarian aid.
+228,other,0,2,Postal finance overhaul with no wealth direction.
+227,structure,-1,2,"15% corporate minimum tax and drug price negotiation, though it also adds energy subsidies."
+226,social,0,1,Military sexual assault process reform.
+225,social,0,2,Aid for resettling Afghan allies.
+224,other,0,2,"Child credit expansion financed by deficit, not by a top-income tax."
+223,structure,0,2,Public works spending; contractor gains and broadband funding roughly offset.
+222,other,0,2,"Pandemic transfers to households, deficit financed."
+221,structure,0,1,Clean-power subsidies to firms plus HFC phase-down constraint.
+220,other,-1,2,"Bans surprise billing, constraining providers and insurers."
+219,other,0,3,Parks maintenance funding.
+218,structure,0,2,Trade pact remake with labor and pharma provisions of mixed direction.
+217,other,0,2,Pandemic relief to households and businesses.
+216,other,0,2,Small business and hospital relief.
+215,other,0,2,Large household transfers offset by corporate aid.
+214,other,0,2,"Sick leave and testing mandates, modest."
+213,other,0,3,Pandemic research funding.
+212,other,0,3,Defense authorization with parental leave.
+211,structure,0,2,"Budget caps removal, no distributional direction."
+210,social,0,3,Humanitarian aid for border migrants.
+209,other,0,3,Disaster relief.
+208,other,0,3,Public lands conservation bill.
+207,structure,1,1,Omnibus repealed health-industry taxes and reauthorized Export-Import Bank.
+206,social,0,3,Sentencing reform.
+205,other,0,1,"Farm and food-stamp package, subsidies to producers offset by nutrition aid."
+204,other,0,3,Opioid treatment policy.
+203,other,1,2,Opens veterans care to private providers.
+202,structure,1,3,Eases Dodd-Frank rules for banks.
+201,structure,0,2,"Spending cap removal, defense and domestic."
+200,structure,1,3,Opens Arctic refuge to oil and gas leasing.
+199,other,0,1,"Mandate repeal; burdens fell on lower incomes, insurers lose customers."
+198,other,0,3,Disaster relief.
+197,other,0,2,Federal employee accountability and wait times.
+196,structure,1,3,"Repeals regulations on mining, consumer protection, environment."
+195,structure,1,3,Corporate rate cut to 21% and estate tax narrowed; JCT and TPC show top-weighted gains.
+194,other,0,2,Water infrastructure authorizations.
+193,other,1,2,"Speeds FDA approvals, benefiting drug and device makers."
+192,structure,-1,2,"Restructures bond debt, imposing haircuts on bondholders."
+191,other,0,3,Opioid treatment policy.
+190,structure,1,3,Lifts oil export ban for producers.
+189,structure,1,2,Makes mostly business tax extenders permanent.
+188,structure,0,2,Highway and transit funding.
+187,other,0,3,Education policy devolved to states.
+186,structure,0,2,Budget caps lifted.
+185,social,0,3,Limits surveillance.
+184,structure,1,2,"Fast-track trade authority, favored by multinationals."
+183,other,0,2,Medicare physician payment fix.
+182,other,1,3,"Raises donor contribution caps tenfold, favoring the very wealthy."
+181,other,0,2,Pension rescue with benefit cuts.
+180,other,0,3,Military aid to rebels.
+179,other,0,1,VA funding with some privatized care.
+178,other,0,2,Water infrastructure with earmark curb.
+177,other,0,1,Farm subsidies shift to insurance; food stamps trimmed.
+176,social,0,2,Military sexual assault process reform.
+175,other,0,2,"Student loan rate formula change, minor distribution."
+174,social,0,3,Violence Against Women Act renewal.
+173,other,0,3,Storm disaster aid.
+172,structure,0,2,Trade normalization with human-rights sanctions.
+171,structure,1,3,Eases securities rules for firms raising capital.
+170,other,0,2,Ethics rule on members of Congress.
+169,structure,-1,3,"Top rate raised to 39.6%, and JCT shows higher taxes on top incomes."
+168,structure,1,2,Free trade agreements favored by exporters.
+167,structure,1,2,Patent law change favoring large filers.
+166,structure,0,2,Debt ceiling with spending cuts.
+165,other,0,3,Aid to 9/11 responders.
+164,other,-1,2,New FDA authority over food producers.
+163,social,0,3,Military civil-rights repeal.
+162,other,0,3,Arms treaty.
+161,structure,1,3,Extends Bush top rates and sets estate tax at 35% with large exemption.
+160,other,-1,3,Ends subsidies to private student lenders.
+159,structure,-1,3,Dodd-Frank constrains large financial firms.
+158,other,-1,2,ACA funded by Medicare tax on high incomes and fees on insurers and drug makers.
+157,other,0,3,"Wilderness designation, small effect on firms."
+156,social,0,3,Hate crime civil-rights law.
+155,other,0,3,Service programs.
+154,other,-1,2,"FDA authority over tobacco marketing, though the largest firm backed it."
+153,structure,-1,3,New restrictions on credit card issuers.
+152,other,0,2,"Pay-discrimination suit rule, modest cost to employers."
+151,other,0,3,Children's health insurance expansion.
+150,structure,0,2,Stimulus tax cuts and spending of mixed incidence.
+149,other,-1,2,Requires insurers to cover mental illness equally.
+148,other,0,2,Nuclear trade pact with India.
+147,other,0,3,Veterans education benefits.
+146,social,1,2,Telecom firms immunized against wiretapping liability.
+145,other,0,1,Farm subsidies and nutrition programs in one package.
+144,structure,0,2,Rebates to households plus business investment incentives.
+143,structure,1,3,$700 billion bailout of financial firms plus tax breaks.
+142,structure,1,2,Rescues Fannie Mae and Freddie Mac and insures mortgages.
+141,structure,-1,2,Raises automaker fuel-efficiency standards.
+140,other,-1,3,Cuts private lender subsidies.
+139,other,-1,2,Restricts lobbyist gifts and the revolving door.
+138,other,0,3,Homeland security grants and screening.
+137,other,0,2,Wage floor offset by small-business tax breaks.
+136,other,0,2,Nuclear trade pact with India.
+135,other,0,2,Postal Service finance reform.
+134,structure,0,1,Trade preferences for small economies.
+133,structure,1,3,Opens offshore areas to oil and gas drilling.
+132,social,0,3,Border fencing.
+131,structure,0,2,Port security spending.
+130,social,0,3,Rules for terrorism trials.
+129,other,-1,1,Raises funding requirements on employer pension plans.
+128,other,0,2,Hurricane relief.
+127,structure,1,2,Trade and investment liberalization benefiting US firms.
+126,structure,1,3,$14.5 billion in energy industry tax breaks.
+125,structure,0,2,Highway and transit funding with earmarks.
+124,structure,1,3,Shields businesses from class-action suits.
+123,structure,1,3,Makes it harder for consumers to discharge debt; favors creditors.
+122,other,0,3,Intelligence reorganization.
+121,social,0,3,Fetal harm criminal law.
+120,other,0,3,Disaster relief.
+119,structure,1,2,"Net corporate tax breaks, with partly offsetting loophole closures."
+118,other,1,2,Expands logging for timber firms and limits injunctions.
+117,other,0,3,War funding.
+116,social,0,3,Abortion procedure ban.
+115,other,0,3,Foreign health aid.
+114,structure,1,3,Dividend and capital gains cuts weighted to high incomes.
+113,other,1,3,Part D guarantees market for drug makers and private plans.
+112,other,0,3,9/11 commission.
+111,structure,1,3,Federal terrorism reinsurance backstop for insurers and real estate.
+110,social,0,3,Voting administration standards.
+109,structure,1,2,Fast-track trade authority.
+108,structure,-1,3,Sarbanes-Oxley regulates accounting and corporate fraud.
+107,other,1,1,Commodity subsidies to established farm operations.
+106,other,-1,2,Soft-money ban constrains large donors.
+105,other,0,3,Government reorganization.
+104,other,0,3,Use-of-force resolution.
+103,other,0,3,Education testing law.
+102,other,0,3,Emergency defense and recovery spending.
+101,structure,0,2,Federal airport screeners.
+100,structure,1,3,Cash bailout for airlines.
+99,social,0,3,Counterterrorism powers.
+98,other,0,3,Use-of-force resolution.
+97,structure,1,3,Rate cuts and estate tax phase-out weighted to top incomes.
+96,structure,0,2,Tax credits for investment in poor areas.
+95,other,0,3,Everglades restoration.
+94,structure,1,2,"Normal trade relations with China, favored by multinationals."
+93,other,0,3,State education flexibility.
+92,structure,1,3,Limits firms' liability for Y2K failures.
+91,structure,1,3,"Gramm-Leach-Bliley allows bank, broker, insurer combinations."
+90,other,0,3,Teacher hiring.
+89,structure,0,2,Public housing local discretion.
+88,other,0,3,NATO expansion.
+87,structure,0,2,Taxpayer rights at IRS.
+86,structure,0,2,Highway and transit funding.
+85,other,0,3,Foster adoption.
+84,other,1,2,Speeds drug approvals for manufacturers.
+83,other,0,3,Arms treaty.
+82,structure,0,1,"Spending cuts, capital gains cut, and child credits roughly offset."
+81,social,0,3,Immigration enforcement.
+80,other,0,1,"Drinking water standards, mixed."
+79,other,0,1,"Pesticide standards, industry-negotiated."
+78,other,0,2,Wage floor offset by business tax breaks.
+77,other,-1,1,Limits insurers' use of pre-existing condition exclusions.
+76,structure,0,2,Spending cuts ending shutdown.
+75,social,0,3,Counterterrorism and habeas limits.
+74,structure,0,2,Budget procedure with no wealth direction.
+73,other,0,1,Ends some farm subsidies but fixed payments favor large farms.
+72,structure,1,2,Telecom deregulation that enabled consolidation.
+71,other,0,2,"Welfare block grants, no direct top-income effect."
+70,structure,1,3,Curbs shareholder suits against firms.
+69,other,-1,1,Lobbyist disclosure requirements.
+68,other,0,3,Labor laws applied to Congress.
+67,other,0,2,Federal mandate limits for governments.
+66,structure,1,2,"Tariff reductions and WTO, favored by multinationals."
+65,social,0,3,Clinic access protections.
+64,other,0,3,Desert wilderness.
+63,social,0,3,Crime act.
+62,other,0,3,Education goals.
+61,social,0,3,Handgun waiting period.
+60,other,-1,3,Direct lending ends bank subsidies.
+59,other,0,3,Service program.
+58,social,0,3,Voter registration law.
+57,other,0,2,"Unpaid leave mandate, modest."
+56,structure,1,2,Trade pact favored by multinationals.
+55,structure,-1,3,"Top bracket raised to 36% plus surcharge, EITC expanded."
+54,other,-1,2,Shifts water away from agribusiness.
+53,structure,-1,3,Rate and service regulation of cable firms.
+52,other,0,3,Foreign aid.
+51,other,0,3,Arms treaty.
+50,structure,0,1,Electricity restructuring plus conservation measures.
+49,social,0,2,Employment discrimination suits.
+48,structure,0,2,Highway and transit funding.
+47,other,0,3,Use-of-force resolution.
+46,other,0,1,Acreage subsidy cut.
+45,structure,0,2,Housing block grants and tenant sales.
+44,social,0,2,Raises immigration intake.
+43,other,0,3,Child care credits and grants.
+42,other,-1,3,Pollution rules on industry.
+41,social,0,2,"Disability rights mandates, modest costs."
+40,structure,-1,2,Top rate raised and loopholes closed alongside spending cuts.
+39,structure,1,1,Taxpayer-financed disposal of insolvent thrifts.
+38,other,0,2,Wage floor offset by training wage.
+37,social,0,3,Reparations.
+36,other,0,3,Arms treaty.
+35,social,0,3,Civil rights coverage.
+34,social,0,3,Anti-drug law.
+33,structure,0,2,Trade authority mixing openness and protection.
+32,other,0,3,Welfare to work.
+31,other,0,2,Senior premiums fund benefits.
+30,other,0,3,Homeless aid.
+29,structure,0,2,Housing authorization.
+28,structure,0,2,Mixed taxes and cuts.
+27,structure,0,2,Highway and transit funding.
+26,other,0,2,Sewage treatment grants.
+25,other,0,3,Defense reorganization.
+24,other,0,2,Water projects with cost sharing.
+23,other,-1,3,Superfund taxes on chemical industry.
+22,social,0,3,Anti-narcotics.
+21,other,0,2,Sanctions barring new US investment.
+20,social,0,3,Immigration reform.
+19,structure,0,2,Rate cut for top incomes offset by corporate base broadening.
+18,other,1,1,Record commodity subsidies to producers.
+17,structure,0,2,Deficit targets.
+16,structure,1,2,Deregulates cable rates.
+15,structure,0,1,Trade authority extension.
+14,structure,-1,1,Tax increases and loophole closures.
+13,social,0,3,Criminal code revision.
+12,other,0,3,Jobs program.
+11,other,0,3,Social Security rescue of taxes and cuts.
+10,social,0,3,Holiday.
+9,other,0,3,Job training.
+8,structure,1,3,Deregulates thrifts.
+7,other,0,2,Waste repository.
+6,social,0,3,Voting rights.
+5,structure,-1,3,"Largest peacetime tax increase, corporate and loophole based."
+4,structure,0,2,Highway spending funded by regressive gas tax.
+3,other,1,1,Commodity subsidy plan.
+2,other,0,1,"Social spending cuts, no direct top-income transfer."
+1,structure,1,3,Top rates cut and corporate expensing; JCT shows large gains at top.
