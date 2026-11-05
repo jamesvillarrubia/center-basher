@@ -2,6 +2,20 @@
 
 Compiled 2026-11-05 from web search and fetch in this session. No figure comes from memory. No probabilities or forecasts appear here.
 
+## Corrections from verification.md (2026-11-05)
+
+An agent checked 70 items here against raw source pages: 47 exact, 6 paraphrase, 7 wrong, 1 summary-only, and 9 not found. The wrong items, corrected:
+
+1. **CNN/SSRS Schumer and Jeffries favorability:** January and April 2025 (released 2025-04-29), not 2026.
+2. **Gonzales-Torres "Bye":** her reply to AIPAC's post-election congratulations to Schumer and Jeffries (The New Republic). It is not a statement about the Speaker race.
+3. **Gonzales-Torres status:** she won her race. She is the sixth DSA winner (Colorado Politics).
+4. **El-Sayed:** the Roll Call hedge ("two or more options") is dated Nov 4. His firm support for Van Hollen (Al Jazeera) is dated Nov 5, so the order is reversed.
+5. **Pappas:** quoted "last week" (late October), with the wording "new voices at the table and... a new generation of leadership".
+6. **Van Hollen:** Common Dreams says he "has indicated that he does not intend to run for Senate majority leader himself".
+7. **House seats:** "at least 255" is Jeffries' figure. CBS's own estimate is 251 to 268.
+
+Not found against raw pages: the Whitehouse quote, Mejia's "very glad" quote, and the Hamawy March Axios quote. Do not cite them.
+
 Method notes:
 
 - Most pages were read through WebFetch, which returns a model-written summary of the page, not the raw text. Quotes below are as the summary returned them. Verify a quote against the linked page before it goes into the essay.
@@ -41,8 +55,8 @@ Not found: AP-NORC (2025 or 2026) Democratic party or leader numbers; Data for P
 | Gallup | 2025-12-01 to 12-15 | Job approval, Jeffries | 64% approve, 35% disapprove (2023: 80% / 16%) | https://www.aol.com/articles/chuck-schumer-lowest-approval-rating-201230366.html ; https://vinnews.com/2025/12/23/schumer-posts-lowest-approval-rating-among-top-u-s-leaders-gallup-poll-finds (secondary reports; Gallup page not opened) |
 | Gallup | same | Job approval, Schumer | 39% approve, 56% disapprove (two years earlier: 76% approve) | same two URLs. All-adult Schumer approval 28%, lowest of 13 figures; Jeffries 37%. |
 | Economist/YouGov | 2026-01-23 to 01-26 | Net approval among Democrats | Jeffries fell 16 points in a month; Schumer fell 5 points. Levels not on the page. New Jersey Globe cites a January 2026 YouGov poll with Jeffries net approval among Democrats at +3. | YouGov URL above; https://newjerseyglobe.com/campaigns/in-nj-12-democrats-wont-commit-to-backing-jeffries/ (2026-04-28) |
-| CNN/SSRS | April 2026 (release about 04-28/29; dates not read) | Favorability, Schumer | Among Democrats and Democratic-leaning independents: 46% favorable / 11% unfavorable in January; 31% favorable / 30% unfavorable in April. All adults: 17% favorable, 44% unfavorable (one report says 19%). | https://www.mediaite.com/politics/cnns-manu-raju-confronts-schumer-about-his-abysmal-17-approval-are-you-concerned-that-you-may-be-a-liability-for-your-party ; Newsweek list above (CNN April 29, 2026, 17/44). The among-Democrats figures came from a search summary; no primary CNN release found. |
-| CNN/SSRS | April 2026 | Favorability, Jeffries | All adults 20% favorable, 27% unfavorable. Leader approval of congressional Democrats 27%, a record low in CNN polling since 2008. | same, search summary |
+| CNN/SSRS | April 2025 (released 2025-04-29; CORRECTED from 2026 by verification.md) | Favorability, Schumer | Among Democrats and Democratic-leaning independents: 46% favorable / 11% unfavorable in January; 31% favorable / 30% unfavorable in April. All adults: 17% favorable, 44% unfavorable (one report says 19%). | https://www.mediaite.com/politics/cnns-manu-raju-confronts-schumer-about-his-abysmal-17-approval-are-you-concerned-that-you-may-be-a-liability-for-your-party ; Newsweek list above (CNN April 29, 2026, 17/44). The among-Democrats figures came from a search summary; no primary CNN release found. |
+| CNN/SSRS | April 2025 (CORRECTED from 2026 by verification.md) | Favorability, Jeffries | All adults 20% favorable, 27% unfavorable. Leader approval of congressional Democrats 27%, a record low in CNN polling since 2008. | same, search summary |
 | YouGov (undated) | not found | Keep or replace | 52% of Democrats want to keep Jeffries as leader, 18% want someone else. 28% want Schumer to remain, 40% want a replacement. | search-result summary only; page and date not found |
 | RedBox Research / "A Fight Worth Having" | pre-election 2026 (dates not found), battleground samples | Preference for Majority Leader | About 59% of Democrats prefer someone other than Schumer; about 22% want him. Jeffries closer to even. | search summary only; sponsor and wording not verified. Treat as unverified. |
 | NBC News | 2026-10-28 to 10-30, 1,000 RV | Favorability, all voters | Schumer 13% positive / 53% negative. Jeffries 18% / 35%. No Democrat breakdown on the page. | NBC URL above |
@@ -50,7 +64,7 @@ Not found: AP-NORC (2025 or 2026) Democratic party or leader numbers; Data for P
 
 Trend, Democrats on their own congressional party: Economist/YouGov favorability 85% (Nov 2024), 74% (Dec 2025), 63% (Jan 2026). Quinnipiac approval 58% (Oct 2025), 42% (Dec 2025). Pew approval of Democratic congressional leaders: 59% disapprove in September 2025.
 
-Trend, Schumer favorable among Democrats: CNN 46% (Jan 2026), 31% (April 2026). Gallup approval 76% (2023), 39% (Dec 2025).
+Trend, Schumer favorable among Democrats: CNN 46% (Jan 2025), 31% (April 2025). Gallup approval 76% (2023), 39% (Dec 2025).
 
 Poll asking Democrats whether they want new congressional leadership: Reuters/Ipsos June 2025 (62% agree) and Politico June 2026 (47% say Schumer should not remain). A Center for Strategic Politics claim that Democrats and independents preferred every alternative tested to Jeffries came only from a Substack post and was not verified.
 

@@ -10,7 +10,7 @@ Status: DRAFT, 2026-11-05. James has not reviewed it and nothing is frozen. Step
 named person. With D Democrats, R Republicans voting for their own nominee, and
 k Democrats voting for someone else, Jeffries wins ballot 1 when D − k > (D + R)/2.
 
-- At D = 255 and R = 180 (CBS: "at least 255"), Jeffries survives k ≤ 37.
+- At D = 255 and R = 180, Jeffries survives k ≤ 37. Jeffries himself expects 255 or more. CBS estimates 251 to 268. At D = 251, he survives k ≤ 33.
 - At D = 240 and R = 195, he survives k ≤ 22.
 - A "present" vote lowers the threshold, so present votes hurt him about half as much as votes for another person.
 - Named House holdouts as of 2026-11-05: 9 (`sentiment.md` §2).
@@ -123,12 +123,12 @@ Each starts from the base rate, and each adjustment is written down with its siz
 
 1. **Sentiment far worse than any case in the base set.**
    - Politico, June 2026: 47% of Democrats say Schumer should not remain, against 28% who say he should.
-   - CNN: his favorability among Democrats fell from 46% to 31% between January and April 2026.
+   - CNN/SSRS: his favorability among Democrats fell from 46% to 31% between January and April 2025 (verification.md corrected the year from 2026).
    - Five senators-elect oppose him and five more are uncommitted.
-   This lowers P(stays) to about 0.75.
+   This lowers P(stays) to about 0.75. The CNN reading is 19 months old, so the Politico June 2026 number carries most of this adjustment.
 2. **Age and exit path.** Schumer turns 76 this month. An announced end date or a handoff is the cheapest exit, and it matches the Lott and Pelosi patterns. This moves weight to S-C and to S-B with an end date.
-3. **No incumbent opposition on record, and AP's October interviews.** More than a dozen senators expect him to win easily. A secret ballot hides defection, so the AP signal is weaker than it looks. This holds P(stays) near 0.72.
-4. **The only named alternative, Van Hollen, has not said he is running.** This keeps S-D small.
+3. **No incumbent opposition on record, and AP's interviews (2026-10-12).** More than a dozen senators expected him to win easily "if Democrats gain seats". Democrats gained seats. A secret ballot hides defection, so the AP signal is weaker than it looks. This holds P(stays) near 0.72.
+4. **The only named alternative, Van Hollen, "has indicated that he does not intend to run"** (Common Dreams). El-Sayed backed Van Hollen on Nov 5 anyway (Al Jazeera). A draft of Van Hollen against his stated intent is the main path to S-D, and that path keeps S-D small.
 
 | Scenario | P |
 |---|---|
@@ -151,8 +151,9 @@ Each starts from the base rate, and each adjustment is written down with its siz
 - Each forecaster gets a multi-class Brier score on the scenario that happens.
 - Each signpost that fires gets a dated entry in an update log with new probabilities. Scoring uses the frozen probabilities, and the update log is reported beside them.
 
-## 6 · Open checks before freeze
+## 6 · Checks before freeze
 
-- Several quotes in `sentiment.md` came through fetch-tool summaries. Each quote used here needs checking against its source page.
-- The House caucus date is still unresolved: Nov 18-19 (Bloomberg Government, ABC7) or mid-December (Fox).
-- House seat counts range from 228 to 268 depending on the outlet and hour, and the survival number k moves with them.
+- **Done 2026-11-05:** `verification.md` checked 70 items against raw pages: 47 exact, 6 paraphrase, 7 wrong, 1 summary-only, 9 not found. The corrections are applied in `sentiment.md` and here. No probability changed: the corrected items moved the evidence for each adjustment, but none moved its direction.
+- **Working House caucus date:** Nov 18, from Bloomberg Government (two unnamed people) and ABC7. Fox says mid-December. Nothing official has been found.
+- **Working Senate caucus date:** early December, from Roll Call ("likely") and Al Jazeera ("next month").
+- **House seats:** CBS estimates 251 to 268. The survival number k runs from 33 to 50 across that range.
