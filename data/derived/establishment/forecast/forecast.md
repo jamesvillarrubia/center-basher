@@ -1,6 +1,6 @@
 # Scenario forecast: the 2026-27 Democratic leadership races
 
-Status: DRAFT, 2026-11-05. James has not reviewed it and nothing is frozen. Steps
+Status: FROZEN 2026-11-05 (Claude column). The commit that sets this line is the timestamp. James's column gets its own dated commit. Changes after freeze go only in an update log appended below section 6. Steps
 5 to 7 of `reqts/establishment-leadership-forecast-method.md`. Evidence files:
 `sentiment.md`, `base_rates.md`, `playbook.md` in this folder.
 
