@@ -1,0 +1,684 @@
+{
+  "senate_all_dem_vs_rep": {
+    "n": 31,
+    "mean_over": 15.98,
+    "slope_on_harris": -0.164,
+    "slope_ci": [
+      -0.28,
+      -0.048
+    ],
+    "r2": 0.216
+  },
+  "senate_noncompetitive_trump_states": {
+    "n": 8,
+    "mean_over": 18.77,
+    "races": [
+      [
+        "AL",
+        "Wess",
+        21.2
+      ],
+      [
+        "AR",
+        "Shoffner",
+        18.9
+      ],
+      [
+        "KY",
+        "Booker",
+        18.5
+      ],
+      [
+        "LA",
+        "Davis",
+        20.3
+      ],
+      [
+        "OK",
+        "Thomas",
+        16.4
+      ],
+      [
+        "TN",
+        "Bradshaw",
+        17.7
+      ],
+      [
+        "WV",
+        "Fetty Anderson",
+        21.5
+      ],
+      [
+        "WY",
+        "Byrd",
+        15.7
+      ]
+    ]
+  },
+  "senate_terrain_residuals": [
+    [
+      "AK",
+      "Peltola",
+      NaN,
+      1.0,
+      13.44,
+      -3.25
+    ],
+    [
+      "FL",
+      "Nixon",
+      "leftier",
+      0.0,
+      10.24,
+      -6.44
+    ],
+    [
+      "GA",
+      "Ossoff",
+      "moderate",
+      1.0,
+      20.24,
+      5.35
+    ],
+    [
+      "IA",
+      "Turek",
+      "moderate",
+      0.0,
+      17.39,
+      0.67
+    ],
+    [
+      "KS",
+      "Hamilton",
+      "moderate",
+      0.0,
+      21.12,
+      3.94
+    ],
+    [
+      "ME",
+      "Jackson",
+      "leftier",
+      0.0,
+      -0.52,
+      -13.92
+    ],
+    [
+      "MI",
+      "El-Sayed",
+      "leftier",
+      0.0,
+      8.43,
+      -6.34
+    ],
+    [
+      "MN",
+      "Flanagan",
+      "leftier",
+      0.0,
+      5.88,
+      -7.95
+    ],
+    [
+      "MS",
+      "Colom",
+      NaN,
+      0.0,
+      23.15,
+      4.85
+    ],
+    [
+      "NC",
+      "Cooper",
+      "moderate",
+      1.0,
+      22.85,
+      7.79
+    ],
+    [
+      "NH",
+      "Pappas",
+      NaN,
+      1.0,
+      11.15,
+      -2.93
+    ],
+    [
+      "OH",
+      "Brown",
+      "moderate",
+      1.0,
+      16.11,
+      -0.27
+    ],
+    [
+      "SC",
+      "Andrews",
+      "moderate",
+      0.0,
+      22.41,
+      4.93
+    ],
+    [
+      "TX",
+      "Talarico",
+      "moderate",
+      0.0,
+      25.79,
+      9.0
+    ]
+  ],
+  "senate_competitive_by_a": {
+    "leftier": {
+      "n": 4,
+      "mean_over_vs_harris": 6.01
+    },
+    "moderate": {
+      "n": 7,
+      "mean_over_vs_harris": 20.84
+    }
+  },
+  "senate_competitive_by_b": {
+    "0.0": {
+      "n": 9,
+      "mean_over_vs_harris": 14.88
+    },
+    "1.0": {
+      "n": 5,
+      "mean_over_vs_harris": 16.76
+    }
+  },
+  "senate_competitive_vs_house_by_a": {
+    "leftier": -3.71,
+    "moderate": 5.03
+  },
+  "senate_competitive_vs_house_by_b": {
+    "0.0": 1.51,
+    "1.0": 2.15
+  },
+  "house_all_dem_vs_rep": {
+    "n": 417,
+    "mean_over": 14.42,
+    "mean_over_trump_won": 14.48,
+    "n_trump_won": 233,
+    "mean_over_dem_flips": 15.51,
+    "n_dem_flips": 42,
+    "slope_on_harris": -0.015,
+    "slope_ci": [
+      -0.039,
+      0.009
+    ]
+  },
+  "house_flips": {
+    "n_flips_ge90_reporting": 34,
+    "coef_mod_endorsed_ge90": 4.32,
+    "ci_ge90": [
+      -0.55,
+      9.18
+    ],
+    "n_flips": 42,
+    "n_mod_endorsed": 31,
+    "mean_over_mod_endorsed": 14.97,
+    "mean_over_other": 17.02,
+    "mean_over_prog_endorsed": 14.01,
+    "n_prog_endorsed": 5,
+    "coef_mod_endorsed_ctrl_harris": -1.49,
+    "ci": [
+      -7.67,
+      4.69
+    ],
+    "all_417_coef_mod_endorsed_ctrl_harris_inc": 1.12,
+    "all_417_ci": [
+      -0.82,
+      3.05
+    ],
+    "all_417_n_mod_endorsed": 58
+  },
+  "house_contested_by_a": {
+    "leftier": {
+      "n": 9,
+      "mean_over_vs_harris": 13.64
+    },
+    "moderate": {
+      "n": 12,
+      "mean_over_vs_harris": 13.55
+    },
+    "unaligned": {
+      "n": 9,
+      "mean_over_vs_harris": 18.71
+    }
+  },
+  "house_contested_by_b": {
+    "0.0": {
+      "n": 10,
+      "mean_over_vs_harris": 13.71
+    },
+    "1.0": {
+      "n": 20,
+      "mean_over_vs_harris": 15.84
+    }
+  },
+  "crosstab_a_b": {
+    "senate": {
+      "0.0": {
+        "leftier": 4,
+        "moderate": 4
+      },
+      "1.0": {
+        "leftier": 0,
+        "moderate": 3
+      }
+    },
+    "house": {
+      "0.0": {
+        "leftier": 7,
+        "moderate": 2,
+        "unaligned": 1
+      },
+      "1.0": {
+        "leftier": 2,
+        "moderate": 10,
+        "unaligned": 8
+      }
+    }
+  },
+  "senate_groups": {
+    "tw_moderate_estab_backed": {
+      "n": 3,
+      "races": [
+        "GA",
+        "NC",
+        "OH"
+      ],
+      "mean_over_vs_harris": 19.73,
+      "mean_over_vs_house": 3.97,
+      "n_house_baseline": 3
+    },
+    "tw_moderate_not_backed": {
+      "n": 4,
+      "races": [
+        "IA",
+        "KS",
+        "SC",
+        "TX"
+      ],
+      "mean_over_vs_harris": 21.68,
+      "mean_over_vs_house": 5.82,
+      "n_house_baseline": 4
+    },
+    "tw_leftier_incl_FL": {
+      "n": 4,
+      "races": [
+        "FL",
+        "ME",
+        "MI",
+        "MN"
+      ],
+      "mean_over_vs_harris": 6.01,
+      "mean_over_vs_house": -3.71,
+      "n_house_baseline": 4
+    },
+    "tw_leftier_MI_MN_ME": {
+      "n": 3,
+      "races": [
+        "ME",
+        "MI",
+        "MN"
+      ],
+      "mean_over_vs_harris": 4.6,
+      "mean_over_vs_house": -4.71,
+      "n_house_baseline": 3
+    },
+    "noncompetitive_trump_won": {
+      "n": 8,
+      "races": [
+        "AL",
+        "AR",
+        "KY",
+        "LA",
+        "OK",
+        "TN",
+        "WV",
+        "WY"
+      ],
+      "mean_over_vs_harris": 18.77,
+      "mean_over_vs_house": -0.32,
+      "n_house_baseline": 8
+    },
+    "noncompetitive_harris_won": {
+      "n": 9,
+      "races": [
+        "CO",
+        "DE",
+        "IL",
+        "MA",
+        "NJ",
+        "NM",
+        "OR",
+        "RI",
+        "VA"
+      ],
+      "mean_over_vs_harris": 14.16,
+      "mean_over_vs_house": 1.58,
+      "n_house_baseline": 8
+    },
+    "competitive_uncoded_AK_MS_NH": {
+      "n": 3,
+      "races": [
+        "AK",
+        "MS",
+        "NH"
+      ],
+      "mean_over_vs_harris": 15.91,
+      "mean_over_vs_house": 0.91,
+      "n_house_baseline": 2
+    }
+  },
+  "money": {
+    "H": {
+      "aipac_prim_for_nominee": {
+        "total_usd": 18120749,
+        "n_races_nonzero": 6,
+        "races": [
+          "IL-02",
+          "IL-07",
+          "IL-08",
+          "MD-05",
+          "MO-01",
+          "NE-02"
+        ]
+      },
+      "aipac_prim_against_nominee": {
+        "total_usd": 10455197,
+        "n_races_nonzero": 3,
+        "races": [
+          "AZ-01",
+          "IL-09",
+          "NY-13"
+        ]
+      },
+      "aipac_gen_for_dem": {
+        "total_usd": 2836069,
+        "n_races_nonzero": 3,
+        "races": [
+          "NH-01",
+          "TX-34",
+          "VA-02"
+        ]
+      },
+      "aipac_gen_against_dem": {
+        "total_usd": 0,
+        "n_races_nonzero": 0,
+        "races": []
+      },
+      "crypto_prim_for_nominee": {
+        "total_usd": 11272297,
+        "n_races_nonzero": 5,
+        "races": [
+          "AZ-04",
+          "GA-13",
+          "IL-02",
+          "IL-08",
+          "MD-05"
+        ]
+      },
+      "crypto_prim_against_nominee": {
+        "total_usd": 6563541,
+        "n_races_nonzero": 3,
+        "races": [
+          "FL-24",
+          "IL-07",
+          "MI-13"
+        ]
+      },
+      "crypto_gen_for_dem": {
+        "total_usd": 0,
+        "n_races_nonzero": 0,
+        "races": []
+      },
+      "crypto_gen_against_dem": {
+        "total_usd": 0,
+        "n_races_nonzero": 0,
+        "races": []
+      },
+      "ai_prim_for_nominee": {
+        "total_usd": 3134269,
+        "n_races_nonzero": 5,
+        "races": [
+          "AZ-04",
+          "FL-25",
+          "IL-08",
+          "OR-04",
+          "UT-01"
+        ]
+      },
+      "ai_prim_against_nominee": {
+        "total_usd": 1430037,
+        "n_races_nonzero": 1,
+        "races": [
+          "IL-02"
+        ]
+      },
+      "ai_gen_for_dem": {
+        "total_usd": 327064,
+        "n_races_nonzero": 1,
+        "races": [
+          "AZ-04"
+        ]
+      },
+      "ai_gen_against_dem": {
+        "total_usd": 0,
+        "n_races_nonzero": 0,
+        "races": []
+      },
+      "nominees_won_despite_money_prim_against": [
+        [
+          "AZ-01",
+          "Shah",
+          1252690.0,
+          true
+        ],
+        [
+          "FL-24",
+          "Gilbert",
+          2056912.0,
+          true
+        ],
+        [
+          "IL-02",
+          "Miller",
+          1430037.0,
+          true
+        ],
+        [
+          "IL-07",
+          "Ford",
+          2475786.0,
+          true
+        ],
+        [
+          "IL-09",
+          "Biss",
+          6310472.0,
+          true
+        ],
+        [
+          "MI-13",
+          "McKinney",
+          2030843.0,
+          true
+        ],
+        [
+          "NY-13",
+          "Avila Chevalier",
+          2892035.0,
+          true
+        ]
+      ],
+      "median_over_per_dollar_per_vote_by_a": {
+        "leftier": 1.126,
+        "moderate": 0.749,
+        "unaligned": 2.255
+      },
+      "median_over_per_dollar_per_vote_by_b": {
+        "0.0": 1.163,
+        "1.0": 0.993
+      },
+      "median_receipts_per_vote_by_a": {
+        "leftier": 10.07,
+        "moderate": 17.86,
+        "unaligned": 11.84
+      }
+    },
+    "S": {
+      "aipac_prim_for_nominee": {
+        "total_usd": 253750,
+        "n_races_nonzero": 1,
+        "races": [
+          "AK-S"
+        ]
+      },
+      "aipac_prim_against_nominee": {
+        "total_usd": 30669755,
+        "n_races_nonzero": 1,
+        "races": [
+          "MI-S"
+        ]
+      },
+      "aipac_gen_for_dem": {
+        "total_usd": 0,
+        "n_races_nonzero": 0,
+        "races": []
+      },
+      "aipac_gen_against_dem": {
+        "total_usd": 850191,
+        "n_races_nonzero": 2,
+        "races": [
+          "MI-S",
+          "SC-S"
+        ]
+      },
+      "crypto_prim_for_nominee": {
+        "total_usd": 0,
+        "n_races_nonzero": 0,
+        "races": []
+      },
+      "crypto_prim_against_nominee": {
+        "total_usd": 0,
+        "n_races_nonzero": 0,
+        "races": []
+      },
+      "crypto_gen_for_dem": {
+        "total_usd": 0,
+        "n_races_nonzero": 0,
+        "races": []
+      },
+      "crypto_gen_against_dem": {
+        "total_usd": 56580433,
+        "n_races_nonzero": 1,
+        "races": [
+          "OH-S"
+        ]
+      },
+      "ai_prim_for_nominee": {
+        "total_usd": 0,
+        "n_races_nonzero": 0,
+        "races": []
+      },
+      "ai_prim_against_nominee": {
+        "total_usd": 0,
+        "n_races_nonzero": 0,
+        "races": []
+      },
+      "ai_gen_for_dem": {
+        "total_usd": 0,
+        "n_races_nonzero": 0,
+        "races": []
+      },
+      "ai_gen_against_dem": {
+        "total_usd": 2095090,
+        "n_races_nonzero": 2,
+        "races": [
+          "MS-S",
+          "SC-S"
+        ]
+      },
+      "nominees_won_despite_money_prim_against": [
+        [
+          "MI-S",
+          "El-Sayed",
+          30669755.0,
+          true
+        ]
+      ],
+      "median_over_per_dollar_per_vote_by_a": {
+        "leftier": 1.094,
+        "moderate": 1.209
+      },
+      "median_over_per_dollar_per_vote_by_b": {
+        "0.0": 1.441,
+        "1.0": 0.73
+      },
+      "median_receipts_per_vote_by_a": {
+        "leftier": 7.68,
+        "moderate": 14.87
+      }
+    }
+  },
+  "money_group_totals_cycle": {
+    "ai": {
+      "total_usd": 34869219,
+      "dem_primary_usd": 17105457,
+      "dated_by_2026_07_21_usd": 25404574
+    },
+    "aipac": {
+      "total_usd": 103300527,
+      "dem_primary_usd": 68261210,
+      "dated_by_2026_07_21_usd": 72414567
+    },
+    "crypto": {
+      "total_usd": 154459466,
+      "dem_primary_usd": 34826106,
+      "dated_by_2026_07_21_usd": 67177311
+    }
+  },
+  "seven_moderates_group_means": {
+    "Schumer-backed": {
+      "prior_office": 3.0,
+      "fame_flag": 0.0,
+      "pageviews_12m_pre_launch": 1192828.33,
+      "days_on_trail": 461.0,
+      "days_primary_to_general": 198.33,
+      "over_vs_harris": 19.73,
+      "over_vs_house_statewide": 3.97
+    },
+    "not backed pre-primary": {
+      "prior_office": 0.5,
+      "fame_flag": 0.75,
+      "pageviews_12m_pre_launch": 204163.5,
+      "days_on_trail": 401.75,
+      "days_primary_to_general": 159.25,
+      "over_vs_harris": 21.68,
+      "over_vs_house_statewide": 5.82
+    }
+  },
+  "controls_missing": {
+    "S": {
+      "prior_office": 0,
+      "days_on_trail": 1,
+      "poll_name_id": 14,
+      "pageviews_12m_pre_launch": 0,
+      "days_primary_to_general": 0,
+      "n": 14
+    },
+    "H": {
+      "prior_office": 0,
+      "days_on_trail": 16,
+      "poll_name_id": 30,
+      "pageviews_12m_pre_launch": 0,
+      "days_primary_to_general": 0,
+      "n": 30
+    }
+  }
+}
