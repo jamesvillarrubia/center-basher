@@ -15,6 +15,7 @@ $P scripts/midterm2026/build_house_primaries.py# step 2: Wikipedia primary endor
 $P scripts/midterm2026/build_races.py          # step 3: races.csv, house_all.csv
 $P scripts/midterm2026/build_controls.py       # step 3b: controls.csv, merged into races.csv (run after step 3)
 $P scripts/midterm2026/analyze.py              # step 4: regressions.csv, summary.json, house_flips.csv
+$P scripts/midterm2026/pooled.py               # step 4b: pooled Senate+House rows appended to regressions.csv (run after step 4)
 $P scripts/midterm2026/build_figure.py         # step 5: web/og-cards/draft-midterm-overperformance.html
 $P scripts/midterm2026/check.py                # pins numbers to sources; prints "N passed, M failed"
 ```
@@ -59,6 +60,15 @@ Way's Nov 5 memo calls cross-endorsed (Forstag MT-01, Brooks PA-07, Poindexter O
 | `collinearity_corr.csv` | | Pairwise Pearson r among coding dummies, incumbency, prior office, fame, log pageviews, days on trail, days primary-to-general, Harris margin, outside money; per chamber |
 | `collinearity_vif.csv` | | VIFs of each regressor in three designs (controls; + incumbency; + incumbency, fame, log pageviews), per chamber and coding |
 | `seven_moderates.csv` | 7 | Third Way's seven Senate moderates, split by pre-primary Schumer backing |
+| `pooled_interactions.csv` | | Coding/control × Senate interaction terms from the pooled models, cluster and wild-bootstrap CIs |
+| `pooled_joint_tests.csv` | 8 | Joint tests that the Senate interactions are zero: cluster Wald F, HC3 F, wild restricted bootstrap p |
+
+**`regressions.csv` columns.** `chamber` (`S`, `H`, or `P` = pooled), `coding`, `spec`,
+`y`, `term`, `n`, `n_coded_1`, `coef`, `se_hc3` (per-chamber rows), `ci_lo`/`ci_hi`
+(HC3 for S and H rows; state-clustered CR1 for P rows), `p`, `r2`, `df_resid`, `cov`.
+Pooled rows add `sample` (`all`, `drop House <90% counted`, `drop FL (Nixon)`),
+`n_senate`, `clusters`, `se_cluster`, `ci_wild_lo`/`ci_wild_hi` (wild cluster
+bootstrap-t, Rademacher per state, 9,999 draws, seed 20261105) and `ci_hc3_lo`/`ci_hc3_hi`.
 | `figure_draft_S.png`, `figure_draft_H.png` | | Headless-Chrome renders of the draft figure at 1600×900 |
 
 ## `races.csv` columns

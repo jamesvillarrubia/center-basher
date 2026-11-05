@@ -7,7 +7,7 @@ spending, and two independent codings of every nominee. It holds findings and
 numbers only. Essay prose stays with James.
 
 Data: `data/derived/midterm2026/races.csv`, codebook `data/derived/midterm2026/README.md`.
-Scripts: `scripts/midterm2026/`. Check script: 54 passed, 0 failed (2026-11-05, second pass).
+Scripts: `scripts/midterm2026/`. Check script: 65 passed, 0 failed (2026-11-05, third pass).
 All vote counts are unofficial, as reported 2026-11-05, two days after the election.
 California, Arizona, Utah and Alaska were still counting.
 
@@ -376,6 +376,142 @@ after the primary was shorter on average (159 vs 198 days). They still ran ahead
 Schumer-backed three on both metrics. Four against three cannot carry a test; this is
 description.
 
+## 9 · Pooled Senate + House model
+
+James's working assumption: ideology coding, establishment backing, outside money,
+prior office, name recognition and time on the trail act the same way in Senate and
+House races, so one model over both chambers should replace the Senate-only one.
+
+**Model** [39]. One OLS over every analysis row of both chambers: points ahead of Harris
+2024 in the same geography (state for Senate rows, district for House rows) on the coding
+dummy, a Senate dummy (intercept shift), Harris margin and net outside spending per vote;
+"+controls" adds prior office and days on the trail (per 100 days). Standard errors are
+clustered by state, so a state's Senate race and its House districts share one cluster.
+With 18 to 28 clusters, each coefficient also carries a wild cluster bootstrap-t CI
+(Rademacher weights drawn per state, 9,999 draws, fixed seed) and an HC3 CI for
+comparison. The wild bootstrap CI is the one to read.
+
+**Comparability caveats.** The pooled model mixes rows that differ in ways the Senate dummy
+only partly absorbs:
+
+- **Selection differs by chamber.** Senate rows are the races Cook rated other than
+  Solid. House rows are districts whose Democratic primary pitted a progressive-backed
+  candidate against a moderate- or money-backed one, whatever the general-election
+  competitiveness. The two samples answer different questions, and neither is a random
+  draw from its chamber.
+- **Coding (a) is defined differently by chamber.** Senate rows carry the label Third Way
+  wrote in its memo. House rows carry a rule (NewDem, Welcome or Blue Dog endorsement),
+  which is Third Way's own House operationalization but not a label it applied race by race.
+- **Baselines differ.** Senate overperformance is measured against Harris's statewide
+  margin; House overperformance against Harris's margin on 2026 district lines, which The
+  Downballot estimated from precinct returns. District estimates carry error that state
+  totals do not.
+- **Incumbency differs by chamber.** One of 14 Senate rows is a Democratic incumbent
+  (Ossoff); 9 of 30 House rows are. Incumbents lack launch dates (section 8), so the
+  "+controls" samples keep only one incumbent of either chamber.
+- **Counting differs.** 12 of 30 House rows were under 90% counted on 2026-11-05;
+  among Senate rows only Alaska (74%) was.
+
+**Pooled headline** [39]:
+
+| Coding, spec | n (Senate) | State clusters | Coefficient | Cluster CI | Wild bootstrap CI | HC3 CI |
+|---|---|---|---|---|---|---|
+| (a) moderate, base | 41 (11) | 26 | +1.1 | −5.8 to +8.0 | −5.9 to +8.3 | −5.2 to +7.3 |
+| (a) moderate, +controls | 24 (10) | 18 | +7.2 | +0.7 to +13.8 | −1.3 to +15.9 | −1.1 to +15.6 |
+| (b) backed, base | 44 (14) | 28 | +1.9 | −2.0 to +5.8 | −2.1 to +5.8 | −2.5 to +6.2 |
+| (b) backed, +controls | 27 (13) | 20 | +2.7 | −4.4 to +9.7 | −7.0 to +12.5 | −6.7 to +12.0 |
+
+**Testing the pooling assumption** [40], [41]. The same models with Senate interactions
+on the coding, outside money and Harris margin (base) and also on prior office and days on
+trail (+controls):
+
+| Coding, spec | Interaction | Coefficient | Cluster CI | Wild bootstrap CI |
+|---|---|---|---|---|
+| (a), base | moderate × Senate | +16.0 | +8.0 to +24.1 | +8.2 to +23.8 |
+| (a), base | outside money × Senate | −0.04 | −0.42 to +0.35 | −0.38 to +0.32 |
+| (a), base | Harris margin × Senate | −0.14 | −0.40 to +0.13 | −0.40 to +0.13 |
+| (a), +controls | moderate × Senate | +10.0 | +0.9 to +19.2 | −0.04 to +20.2 |
+| (a), +controls | outside money × Senate | +0.03 | −0.80 to +0.86 | −1.08 to +1.19 |
+| (a), +controls | Harris margin × Senate | −0.19 | −0.69 to +0.30 | −0.76 to +0.38 |
+| (a), +controls | prior office × Senate | −3.0 | −11.3 to +5.3 | −20.8 to +13.8 |
+| (a), +controls | days on trail (per 100) × Senate | +2.6 | +0.3 to +4.9 | +0.2 to +5.0 |
+| (b), base | backed × Senate | +2.5 | −5.8 to +10.8 | −6.2 to +11.3 |
+| (b), base | outside money × Senate | −0.01 | −0.39 to +0.38 | −0.36 to +0.35 |
+| (b), base | Harris margin × Senate | −0.59 | −0.90 to −0.28 | −0.88 to −0.31 |
+| (b), +controls | backed × Senate | +2.5 | −7.8 to +12.8 | −5.8 to +10.8 |
+| (b), +controls | outside money × Senate | +0.03 | −0.89 to +0.94 | −1.53 to +1.48 |
+| (b), +controls | Harris margin × Senate | −0.67 | −1.13 to −0.20 | −1.07 to −0.25 |
+| (b), +controls | prior office × Senate | −2.7 | −9.4 to +4.0 | −11.8 to +6.7 |
+| (b), +controls | days on trail (per 100) × Senate | +2.9 | −0.1 to +5.9 | −0.6 to +6.3 |
+
+Joint tests that the interactions are all zero (wild restricted bootstrap p-value first;
+cluster-robust F and HC3 F beside it):
+
+| Coding, spec | Interactions tested | Wild bootstrap p | Cluster F (p) | HC3 F (p) |
+|---|---|---|---|---|
+| (a), base | all 3 | 0.007 | 12.4 (<0.001) | 6.5 (0.001) |
+| (a), base | all but Harris × Senate (2) | 0.036 | 7.6 (0.003) | 7.1 (0.003) |
+| (a), +controls | all 5 | 0.027 | 10.2 (<0.001) | 1.5 (0.27) |
+| (a), +controls | all but Harris × Senate (4) | 0.22 | 5.1 (0.007) | 0.4 (0.81) |
+| (b), base | all 3 | 0.048 | 7.0 (0.001) | 3.5 (0.03) |
+| (b), base | all but Harris × Senate (2) | 0.86 | 0.2 (0.84) | 0.1 (0.88) |
+| (b), +controls | all 5 | 0.002 | 20.6 (<0.001) | 1.8 (0.17) |
+| (b), +controls | all but Harris × Senate (4) | 0.52 | 1.6 (0.22) | 0.6 (0.67) |
+
+**Verdict: the pooling assumption fails on these data, for two named terms.**
+
+1. **Third Way's moderate label (coding a) does not act the same way in both chambers.**
+   The moderate × Senate interaction is +16.0 points (wild CI +8.2 to +23.8): the label
+   is worth about +12 in Senate races and about −4 in contested House primaries. The
+   pooled coefficient of +1.1 averages two effects of opposite sign and describes neither
+   chamber. The coding's definition also differs by chamber (caveat above), so this
+   interaction mixes a difference in effect with a difference in what the label measures.
+   With the controls, the interaction falls to +10.0 (wild CI −0.04 to +20.2) on 24 rows.
+2. **Terrain acts differently.** Under coding (b), the Harris-margin slope is 0.59 points
+   per point steeper in Senate races (wild CI −0.88 to −0.31). Senate Democrats gained more
+   the redder the state; House Democrats in this sample did not. Under coding (a) that slope
+   difference disappears (−0.14), because the moderate label and red-state terrain coincide
+   in the Senate rows (section 3).
+
+**For everything else the pooling holds on these data.** Allowing the Harris slope to
+differ, the remaining coding-(b) interactions (establishment backing, outside money, prior
+office, days on trail) are jointly indistinguishable from zero: wild bootstrap p = 0.86
+(base) and 0.52 (+controls). Under coding (b) the pooled model is a defensible summary
+once it carries a Harris × Senate term: establishment backing +2.0 (wild CI −2.9 to +6.9,
+n = 44) in that specification. One more term sits at the edge: days on the trail ×
+Senate, +2.6 per 100 days under coding (a) (wild CI +0.2 to +5.0) and +2.9 under coding
+(b) (wild CI −0.6 to +6.3), on 24 and 27 rows that contain one incumbent.
+
+Cluster F tests run larger than the bootstrap with 18 to 20 clusters and 4 or 5
+restrictions (for example F = 20.6 against a wild p of 0.002 and an HC3 p of 0.17), the
+known over-rejection of cluster-robust Wald tests with few clusters. The wild bootstrap
+p-values are the ones to read.
+
+**Robustness** [42]:
+
+| Coding, spec, sample | n (Senate) | Clusters | Coefficient | Wild bootstrap CI |
+|---|---|---|---|---|
+| (a) base, all | 41 (11) | 26 | +1.1 | −5.9 to +8.3 |
+| (a) base, drop House <90% counted | 29 (11) | 22 | +4.3 | −3.5 to +12.1 |
+| (a) base, drop FL (Nixon) | 40 (10) | 26 | +0.5 | −7.7 to +8.6 |
+| (a) +controls, drop House <90% counted | 18 (10) | 14 | +8.7 | −0.9 to +18.7 |
+| (a) +controls, drop FL (Nixon) | 23 (9) | 18 | +6.7 | −5.1 to +18.7 |
+| (b) base, all | 44 (14) | 28 | +1.9 | −2.1 to +5.8 |
+| (b) base, drop House <90% counted | 32 (14) | 24 | +1.9 | −3.3 to +7.1 |
+| (b) base, drop FL (Nixon) | 43 (13) | 28 | +1.6 | −2.7 to +5.9 |
+| (b) +controls, drop House <90% counted | 21 (13) | 16 | +4.1 | −13.0 to +21.3 |
+| (b) +controls, drop FL (Nixon) | 26 (12) | 20 | +2.4 | −7.3 to +11.8 |
+
+The brief named 11 House races under 90% counted. The count is 12 since IL-07 joined the
+sample in the second pass [43]. Dropping them moves the pooled coding-(a) coefficient
+from +1.1 to +4.3. The 12 dropped rows hold 6 moderate nominees who ran +12.5 ahead of
+Harris on average, 4 leftier (+13.5) and 2 unaligned (+16.5); the 18 kept House rows hold
+moderates at +14.6, leftier at +13.8 and unaligned at +19.3 [43]. Dropping the
+partly-counted races removes moderates who ran below the House average. Dropping Florida
+moves coding (a) from +1.1 to +0.5. In the pooled model Florida is one row of 41 and no
+longer carries the contrast, which now comes from the chamber split. No robustness row
+gives a coding-(b) wild CI that excludes zero.
+
 ---
 
 ## Notes
@@ -546,3 +682,29 @@ pre-primary poll of Kansas Democrats put Hamilton's name recognition at 18% (WIB
 Apr 30 2026); Impact Research, Aug 14-22 2026, 56% of South Carolina likely voters knew of
 Andrews; GBAO, Mar 31 2026 memo, "substantially lower name ID" for Turek and Wahls than
 Hinson (Bleeding Heartland).
+
+[39] `scripts/midterm2026/pooled.py`; `regressions.csv` rows with `chamber` = `P`,
+columns `sample`, `n_senate`, `clusters`, `se_cluster`, `ci_lo`/`ci_hi` (cluster CR1,
+statsmodels), `ci_wild_lo`/`ci_wild_hi` (unrestricted wild cluster bootstrap-t,
+Rademacher per state, B = 9,999, seed 20261105), `ci_hc3_lo`/`ci_hc3_hi`. Rows:
+`dem_vs_rep`, Democratic nominee present; Senate rows Cook-competitive; coding (a)
+excludes AK, MS, NH. Unweighted. The bootstrap uses a numpy CR1 implementation that
+`check.py` verifies against statsmodels to 1e-10.
+
+[40] `pooled_interactions.csv`: interaction terms (`:senate`) from the "+interactions"
+specs, with cluster and wild bootstrap CIs.
+
+[41] `pooled_joint_tests.csv`: cluster-robust Wald F (`F_cluster`, `p_cluster`), HC3 F
+(`F_hc3`, `p_hc3`) and the restricted wild cluster bootstrap p-value (`p_wild_wcr`:
+residuals from the model without the tested interactions, Rademacher weights per state,
+9,999 draws, share of draws whose cluster Wald statistic is at least the observed one).
+Column `tested` gives the restriction set; for "all but harris_margin:senate", that term
+stays in both models.
+
+[42] `regressions.csv`, `chamber` = `P`, `sample` = `drop House <90% counted` or
+`drop FL (Nixon)`.
+
+[43] `summary.json` → `pooled.house_under_90_dropped`: AZ-01, AZ-04, IL-02, IL-07, IL-08,
+MD-05, MI-13, NY-06, NY-10, NY-17, OR-04, UT-01 (CNN `percentReporting` < 90 on
+2026-11-05). Group means by `coding_a_thirdway` computed from `races.csv` over the dropped
+and kept House rows.

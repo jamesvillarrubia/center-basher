@@ -111,6 +111,44 @@ for ch in ["S", "H"]:
         have = set(reg[(reg.chamber == ch) & (reg.term == term)].spec)
         check({"base", "+controls"} <= have, f"{ch} {term}: base and +controls specs present")
 
+# Pooled Senate + House models (pooled.py).
+import numpy as np  # noqa: E402
+from pooled import _cluster_fit, cr1, design, load  # noqa: E402
+
+pool = reg[reg.chamber == "P"]
+for coding in ["a_moderate", "b_estab"]:
+    for spec in ["base", "+controls"]:
+        row = pool[(pool.term == coding) & (pool.spec == spec) & (pool["sample"] == "all")]
+        check(len(row) == 1 and row.ci_wild_lo.notna().all() and row.ci_lo.notna().all(),
+              f"pooled {coding} {spec}: one row with cluster and wild-bootstrap CIs")
+pr = load()
+nb = pool[(pool.term == "b_estab") & (pool.spec == "base") & (pool["sample"] == "all")].iloc[0]
+check(nb.n == 44 and nb.n_senate == 14 and nb.clusters == pr.state.nunique() == 28,
+      f"pooled coding b base: n 44, 14 Senate, 28 state clusters (got {nb.n}, {nb.n_senate}, {nb.clusters})")
+na = pool[(pool.term == "a_moderate") & (pool.spec == "base") & (pool["sample"] == "all")].iloc[0]
+check(na.n == 41 and na.n_senate == 11, f"pooled coding a base: n 41 (AK, MS, NH uncoded), got {na.n}")
+for f, x in [("over_vs_harris ~ b_estab + senate + harris_margin + net_out_pv", pr.dropna(subset=["net_out_pv"])),
+             ("over_vs_harris ~ a_moderate + senate + harris_margin + net_out_pv + prior_office + trail100"
+              " + a_moderate:senate + net_out_pv:senate + harris_margin:senate + prior_office:senate + trail100:senate",
+              pr.dropna(subset=["a_moderate", "net_out_pv", "prior_office", "trail100"]))]:
+    with np.errstate(all="ignore"):
+        X, yv, _ = design(f, x)
+        g_, G_ = pd.factorize(x.state)[0], x.state.nunique()
+        bb = np.linalg.solve(X.T @ X, X.T @ yv)
+        se_np = np.sqrt(np.diag(cr1(X, (yv - X @ bb)[:, None], g_, G_)[0]))
+    m_ = _cluster_fit(f, x)
+    check(np.abs(se_np - m_.bse.values).max() < 1e-10 and np.abs(bb - m_.params.values).max() < 1e-10,
+          "numpy CR1 used by the wild bootstrap matches statsmodels cluster SEs")
+jt = pd.read_csv(D / "pooled_joint_tests.csv")
+check(len(jt) == 8 and jt.p_wild_wcr.between(0, 1).all() and (jt.boot_draws == 9999).all(),
+      "8 joint interaction tests (2 codings x 2 specs x 2 restriction sets) with WCR bootstrap p-values (B = 9,999)")
+rob = pool[pool.term.isin(["a_moderate", "b_estab"]) & (pool["sample"] != "all")]
+check(set(rob["sample"]) == {"drop House <90% counted", "drop FL (Nixon)"} and len(rob) == 8,
+      "robustness rows: 2 samples x 2 codings x 2 specs")
+check((pool[(pool["sample"] == "drop FL (Nixon)")].n_senate.max()
+       == pool[(pool["sample"] == "all") & (pool.term == "b_estab") & (pool.spec == "base")].n_senate.iloc[0] - 1),
+      "drop-FL sample has one fewer Senate row")
+
 passed = sum(ok for ok, _ in results)
 for ok, msg in results:
     print(("PASS " if ok else "FAIL ") + msg)
