@@ -85,4 +85,4 @@ Claude read the sources above through search summaries and page fetches on 2026-
 
 ## Changes after freeze
 
-(none)
+- 2026-11-05: James rejected this list. It gives probabilities with no sentiment research, base rates, scenarios, or backcasting behind them. The list stays here unchanged as a record and will still be scored. The scenario forecast built under `reqts/establishment-leadership-forecast-method.md` supersedes it as the essay's prediction.
