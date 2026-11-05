@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Democrats won big. The rebels will change who runs Congress.&rdquo;</div>
+    <div class="cc-title">Prediction: the rebels run. The leaders <span class="hl">win anyway</span>.</div>
+    <div class="cc-sub">Recorded November 5, 2026, before any caucus vote. Each call is scored against the public record. Real power means a rule change the rebels asked for, a binding term limit, or one of their bills passing the floor. Posts, hearings, and promises don&rsquo;t count.</div>
+
+    <div class="cc-chart"><svg id="lp" viewBox="0 0 1440 520" role="img"
+      aria-label="Left: what the rebels say. Peggy Flanagan: It is time for new leadership. Chris Van Hollen: It's not a time for incrementalism. Melat Kiros: What am I actually voting for? Claire Valdez: I'm not committed to voting yes or no. Already absorbed: Will Lawrence said in July he hoped for an alternative to Jeffries, committed to Jeffries in August, and joined the DCCC Red to Blue program in September. Right: what we predict. A rebel runs in either caucus vote, 55 percent, James says yes. Jeffries elected Speaker, 93 percent. Schumer stays Senate leader, 72 percent. No rebel demand becomes binding or passes the floor, 75 percent."></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">Quotes: Bloomberg and Common Dreams, Nov 4, 2026 (Flanagan, Van Hollen); MS NOW, Nov 3, 2026 (Valdez; Kiros to Politico); Newsweek and The Lever (Lawrence). Forecast pre-registered at github.com/jamesvillarrubia/center-basher, commits 341eb5a and 33f25b2, with base rates from every Speaker and Senate leader fight since 1923.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('lp');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; svg.appendChild(t); return t; };
+    const W = 700, H = 520;
+
+    // Left panel: the rebels, in their own words
+    const L = 0;
+    svg.appendChild(el('rect', { x: L, y: 0, width: W, height: H, rx: 14, fill: '#efece6' }));
+    txt({ x: L + 28, y: 42, fill: '#1b1b1d', 'font-size': 25, 'font-weight': 800 }, 'What the rebels say');
+    const quotes = [
+      ['“It is time for new leadership.”', 'Peggy Flanagan, senator-elect, Minnesota'],
+      ['“It’s not a time for incrementalism.”', 'Chris Van Hollen, senator, Maryland'],
+      ['“What am I actually voting for?”', 'Melat Kiros, representative-elect, Colorado'],
+      ['“I’m not committed to voting yes or no.”', 'Claire Valdez, representative-elect, New York'],
+    ];
+    quotes.forEach(([q, who], i) => {
+      const y = 66 + i * 72;
+      if (i > 0) svg.appendChild(el('line', { x1: L + 28, y1: y, x2: L + W - 28, y2: y, stroke: '#d9d5cc', 'stroke-width': 1.5 }));
+      txt({ x: L + 28, y: y + 32, fill: '#1b1b1d', 'font-size': 23, 'font-weight': 600, 'font-style': 'italic' }, q);
+      txt({ x: L + 28, y: y + 57, fill: '#3a3a3f', 'font-size': 17 }, who);
+    });
+    // Already absorbed: one case where the pattern has run to completion
+    const ay = 66 + 4 * 72 + 8;
+    svg.appendChild(el('rect', { x: L + 20, y: ay, width: W - 40, height: H - ay - 18, rx: 10, fill: '#fbfbf8', stroke: '#b8240f', 'stroke-width': 2 }));
+    txt({ x: L + 40, y: ay + 32, fill: '#b8240f', 'font-size': 18, 'font-weight': 800, 'letter-spacing': '0.06em' }, 'ALREADY ABSORBED: WILL LAWRENCE, MI-7');
+    txt({ x: L + 40, y: ay + 64, fill: '#1b1b1d', 'font-size': 20 }, 'July: “I hope to have an alternative to Jeffries to vote for.”');
+    txt({ x: L + 40, y: ay + 94, fill: '#1b1b1d', 'font-size': 20 }, 'August: commits to Jeffries.  September: DCCC adds him');
+    txt({ x: L + 40, y: ay + 120, fill: '#1b1b1d', 'font-size': 20 }, 'to its Red to Blue fundraising program.');
+
+    // Right panel: the calls
+    const R = 740;
+    svg.appendChild(el('rect', { x: R, y: 0, width: W, height: H, rx: 14, fill: '#efece6' }));
+    txt({ x: R + 28, y: 42, fill: '#1b1b1d', 'font-size': 25, 'font-weight': 800 }, 'What we predict');
+    txt({ x: R + W - 28, y: 42, 'text-anchor': 'end', fill: '#3a3a3f', 'font-size': 17, 'font-weight': 700, 'letter-spacing': '0.06em' }, 'PROBABILITY');
+    const calls = [
+      ['A rebel challenger runs', 'in the House or Senate caucus vote', 55, 'James says yes'],
+      ['Jeffries is elected Speaker', 'floor vote January 3, 2027', 93, ''],
+      ['Schumer stays Senate leader', 'caucus vote, by January 31, 2027', 72, ''],
+      ['No rebel demand becomes binding', 'no rule, term limit, or floor passage', 75, ''],
+    ];
+    const ROW = 113, BAR = 120;
+    calls.forEach(([a, b, pct, note], i) => {
+      const y = 62 + i * ROW;
+      if (i > 0) svg.appendChild(el('line', { x1: R + 28, y1: y, x2: R + W - 28, y2: y, stroke: '#d9d5cc', 'stroke-width': 1.5 }));
+      txt({ x: R + 28, y: y + 38, fill: '#1b1b1d', 'font-size': 25, 'font-weight': 700 }, a);
+      txt({ x: R + 28, y: y + 66, fill: '#3a3a3f', 'font-size': 18 }, b);
+      if (note) txt({ x: R + 28, y: y + 94, fill: '#1b1b1d', 'font-size': 18, 'font-weight': 800 }, note);
+      const bx = R + W - 28 - BAR;
+      svg.appendChild(el('rect', { x: bx, y: y + 58, width: BAR, height: 10, rx: 5, fill: '#d9d5cc' }));
+      svg.appendChild(el('rect', { x: bx, y: y + 58, width: BAR * pct / 100, height: 10, rx: 5, fill: '#3a3a3f' }));
+      txt({ x: R + W - 28, y: y + 42, 'text-anchor': 'end', fill: '#1b1b1d', 'font-size': 34, 'font-weight': 800 }, pct + '%');
+    });
+  </script>
+</body></html>
