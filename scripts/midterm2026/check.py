@@ -236,6 +236,22 @@ cp = pd.read_csv(D / "coding_c_anova_permutation.csv")
 check(cp.p_classic.notna().all() and cp.p_perm_block.between(1e-4, 1).all() and (cp.n_perm == 9999).all(),
       "coding (c) permutation table: classic p merged, 9,999 permutations")
 
+fc = pd.read_csv(D / "factors_correlations.csv")
+check(len(fc) == 28 and fc.groupby("outcome").size().eq(14).all(), "factor correlations: 14 factors x 2 outcomes")
+r_ci = fc[(fc.outcome == "over_vs_harris") & (fc.factor == "c_index")].iloc[0]
+check(r_ci.n == 44 and near(r_ci.r, np.corrcoef(an.c_index, an.over_vs_harris)[0, 1], 1e-3),
+      "factor correlations: progressive index r recomputes from races.csv")
+check(((fc.ci_lo <= fc.r) & (fc.r <= fc.ci_hi)).all(), "factor correlations: every r sits inside its bootstrap CI")
+fa = pd.read_csv(D / "factors_anova.csv")
+full = fa[(fa.outcome == "over_vs_harris") & (fa.model == "full")]
+check(full.n.iloc[0] == 44 and len(full) == 11, "factor ANOVA: full model has 10 terms + residual on 44 races")
+check(near(full.r2.iloc[0], 1 - full[full.term == "Residual"].share_of_total.iloc[0], 0.02),
+      "factor ANOVA: R2 consistent with residual share (Type II, near-orthogonal)")
+fw = pd.read_csv(D / "factors_wave.csv")
+hw = fw[fw["sample"] == "All Dem-vs-Rep House races"].iloc[0]
+check(hw.n == 417 and hw.n_ahead_of_harris == 412 and near(hw["mean"], 14.42, 0.01),
+      "wave: 412 of 417 House Democrats ran ahead of Harris, mean +14.42 (matches summary.json)")
+
 passed = sum(ok for ok, _ in results)
 for ok, msg in results:
     print(("PASS " if ok else "FAIL ") + msg)
