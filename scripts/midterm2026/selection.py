@@ -27,6 +27,15 @@ from _fetch import ROOT  # noqa: E402
 D = ROOT / "data" / "derived" / "midterm2026"
 
 
+def flips_summary(h: pd.DataFrame, status: pd.Series, mod_ids: set) -> dict:
+    """Republican-held seats where the Democrat has been called the winner or leads an uncalled count."""
+    f = h[(h.incumbent_party_2025 == "R") & h.race_id.map(status).isin(["called D", "leading D"])].copy()
+    f["mod"] = f.race_id.isin(mod_ids)
+    return {"n": int(len(f)), "n_leading_uncalled": int((f.race_id.map(status) == "leading D").sum()),
+            "mod_endorsed_n": int(f["mod"].sum()), "mod_endorsed_mean": float(f[f["mod"]].over_vs_harris.mean()),
+            "other_mean": float(f[~f["mod"]].over_vs_harris.mean())}
+
+
 def main() -> None:
     r = pd.read_csv(D / "races.csv")
     h = pd.read_csv(D / "house_all.csv")
@@ -45,9 +54,12 @@ def main() -> None:
     mod = x[x.group.isin(["newdem", "welcome"])].drop_duplicates("race_id").assign(list="NewDem or WelcomePAC")
     jd = x[x.group == "justicedems"].drop_duplicates("race_id").assign(list="Justice Democrats")
     lists = pd.concat([mod, jd])[["list", "race_id", "dem_nominee", "dem_won", "over_vs_harris"]]
+    # Wins and losses use CNN's calls as of the Nov 6 snapshot (race_status_20261106.csv); margins stay as of Nov 5.
+    status = pd.read_csv(D / "race_status_20261106.csv").set_index("race_id").status
+    lists["status"] = lists.race_id.map(status)
+    lists["behind"] = lists.status.isin(["called R", "trailing D"])
     lists.to_csv(D / "selection_house_lists.csv", index=False)
 
-    f = pd.read_csv(D / "house_flips.csv")
     races30 = set(r[(r.chamber == "H") & r.dem_vs_rep].race_id)
     h["in30"] = h.race_id.isin(races30)
     h["seat"] = np.select([h.dem_incumbent, h.rep_incumbent], ["D incumbent", "R incumbent"], "open")
@@ -61,13 +73,14 @@ def main() -> None:
         "senate_red": json.loads(s.round(3).to_json(orient="records")),
         "house_all_mean": float(h.over_vs_harris.mean()),
         "house_all_n": int(len(h)),
-        "lists": {lab: {"n": int(len(g)), "won": int(g.dem_won.sum()), "mean_over": float(g.over_vs_harris.mean()),
-                        "losers_mean_over": float(g[~g.dem_won.astype(bool)].over_vs_harris.mean())
-                        if (~g.dem_won.astype(bool)).any() else None}
+        "lists": {lab: {"n": int(len(g)), "behind": int(g.behind.sum()), "called_loss": int((g.status == "called R").sum()),
+                        "trailing": int((g.status == "trailing D").sum()), "leading_uncalled": int((g.status == "leading D").sum()),
+                        "mean_over": float(g.over_vs_harris.mean()),
+                        "behind_mean_over": float(g[g.behind].over_vs_harris.mean()) if g.behind.any() else None,
+                        "ahead_mean_over": float(g[~g.behind].over_vs_harris.mean())}
                   for lab, g in lists.groupby("list")},
-        "flips": {"n": int(len(f)), "mod_endorsed_n": int(f.mod_endorsed.sum()),
-                  "mod_endorsed_mean": float(f[f.mod_endorsed == 1].over_vs_harris.mean()),
-                  "other_mean": float(f[f.mod_endorsed != 1].over_vs_harris.mean())},
+        "flips": flips_summary(h, status, set(mod.race_id)),
+        "status_as_of": "CNN calls 2026-11-06T19:07Z",
         "samples": json.loads(samples.round(3).to_json(orient="records")),
     }
     # Third Way label's share of the differences among the 41 races it labeled (Type II SS / total SS)
