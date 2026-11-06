@@ -34,6 +34,21 @@ Each item is a concrete policy a nominee can state support for or opposition to.
 - **Source:** every non-zero score carries a URL (prefer an archived snapshot) and a short quote.
 - **Index:** progressive index = mean of the 13 item scores, range −1 to +1. Item 13 counts only where the nominee's chamber leader was in office during the campaign.
 
+## Rulings on edge cases (James, 2026-11-05)
+
+- **Item 1:** support for Medicare for All with a public option as the first step scores +0.5 (Shaheen, Jackson, Brooks).
+- **Item 2:** a stated tax increase aimed at billionaires ("raise taxes on billionaires", "close billionaire tax loopholes") scores +1. A generic "pay their fair share" slogan scores 0.
+- **Item 6:** a $15 federal minimum scores +0.5; $17 or more scores +1.
+- **Evidence:** a news outlet's paraphrase of the nominee counts, flagged `indirect`. An endorsing group's press release does not count; the group's published copy of the candidate's own questionnaire answers does.
+
+Parent rulings on the remaining coder flags:
+
+- **Item 3:** a pledge to refuse "corporate money" or a statement that the campaign takes no corporate PAC money scores +1. Backing a ban on corporate PACs without refusing them scores +0.5.
+- **Item 10:** any named monopoly (not only tech or agribusiness) with a specific remedy scores +1. Naming monopoly power with no remedy scores 0.
+- **Item 11:** recorded votes count. Nay on both the CLARITY and GENIUS Acts scores +1, Yea on both scores −1, a split vote scores 0.
+- **Item 12:** "pre-K for all" or a publicly funded universal preschool plan scores +1. "Affordable childcare" with no universal program scores 0.
+- **Item 13:** a stated refusal to back the leader scores +1, including in a news paraphrase. "Can't commit" scores 0.
+
 ## Blind coding
 
 Two coders score every nominee independently. Neither coder sees election results,
