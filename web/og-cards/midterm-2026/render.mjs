@@ -20,6 +20,8 @@ const web = resolve(here, '../..')
 const derived = resolve(web, '../data/derived/midterm2026')
 const data = JSON.parse(readFileSync(resolve(derived, 'exhibits_data.json'), 'utf8'))
 data.debias = JSON.parse(readFileSync(resolve(derived, 'exhibits_debias.json'), 'utf8'))
+data.selection = JSON.parse(readFileSync(resolve(derived, 'exhibits_selection.json'), 'utf8'))
+data.house = JSON.parse(readFileSync(resolve(derived, 'exhibits_house.json'), 'utf8'))
 const tpl = readFileSync(resolve(here, 'template.html'), 'utf8')
 for (const key of ['__DATA__', '__IMG_BASE__']) if (!tpl.includes(key)) throw new Error(`template.html lacks ${key}`)
 const fill = (base) => tpl.replace('__DATA__', JSON.stringify(data)).replace('__IMG_BASE__', base)
@@ -31,7 +33,7 @@ const head = `<!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="description" content="Third Way says moderates made the 2026 Democratic majorities. We scored 44 nominees on their stated positions and tested their margins against seven baselines." />
 <link rel="canonical" href="https://thecenterisalie.org/midterm-2026/" />
-<meta property="og:title" content="Who made the 2026 majorities?" />
+<meta property="og:title" content="Did moderates make the 2026 majorities?" />
 <meta property="og:description" content="412 of 417 House Democrats ran ahead of Harris. All 44 coded nominees ran to the left of Third Way." />
 <meta property="og:image" content="https://thecenterisalie.org/og/midterm-2026/ex-wave.png" />
 <meta name="twitter:card" content="summary_large_image" />

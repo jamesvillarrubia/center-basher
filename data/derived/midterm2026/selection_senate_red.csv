@@ -1,0 +1,20 @@
+race_id,state,dem_last,dem_won,competitive,group,over_vs_harris,harris_margin
+AK-S,AK,Peltola,False,True,not claimed,13.436717213859344,-13.138681814552733
+AL-S,AL,Wess,False,False,not claimed,21.16535262216251,-30.58937612571088
+AR-S,AR,Shoffner,False,False,not claimed,18.870314196049613,-30.72229650726519
+FL-S,FL,Nixon,False,True,called leftier,10.2449536807357,-13.130740898522214
+GA-S,GA,Ossoff,True,True,claimed moderate,20.24230088215452,-2.1923613255271808
+IA-S,IA,Turek,True,True,claimed moderate,17.387685930146084,-13.280314655117708
+KS-S,KS,Hamilton,True,True,claimed moderate,21.11621834673536,-16.115580777513557
+KY-S,KY,Booker,False,False,not claimed,18.4794836896388,-30.567622161720298
+LA-S,LA,Davis,False,False,not claimed,20.33338939841316,-22.097085377251812
+MI-S,MI,El-Sayed,True,True,called leftier,8.426803455710228,-1.4168331515928163
+MS-S,MS,Colom,False,True,not claimed,23.149290602627556,-22.959823820788625
+NC-S,NC,Cooper,True,True,claimed moderate,22.85179276261241,-3.226775424553447
+OH-S,OH,Brown,True,True,claimed moderate,16.11022839409889,-11.257668257571602
+OK-S,OK,Thomas,False,False,not claimed,16.44959100758828,-34.37563659891226
+SC-S,SC,Andrews,True,True,claimed moderate,22.410792302013007,-17.92691267454126
+TN-S,TN,Bradshaw,False,False,not claimed,17.653009778148597,-29.820227191750675
+TX-S,TX,Talarico,True,True,claimed moderate,25.78639001362088,-13.693608275143331
+WV-S,WV,Fetty Anderson,False,False,not claimed,21.45369699534827,-41.87449992785845
+WY-S,WY,Byrd,False,False,not claimed,15.747135997535707,-46.219115234294335

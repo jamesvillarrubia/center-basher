@@ -262,6 +262,22 @@ check(near(eh.coef, -0.59, 0.01), "debias: raw-index pooled Harris coefficient m
 bn = pd.read_csv(D / "baselines_nonharris.csv")
 check(int(bn.over_hist.notna().sum()) == 38, "history baseline (no Harris) covers 38 races")
 
+import json as _json
+sj = _json.loads((D / "exhibits_selection.json").read_text())
+check(sj["house_all_n"] == 417 and near(sj["house_all_mean"], 14.42, 0.01), "selection: 417 House races, mean +14.42")
+nd = sj["lists"]["NewDem or WelcomePAC"]
+check(nd["n"] == 54 and nd["n"] - nd["won"] == 12 and near(nd["mean_over"], 14.37, 0.01), "selection: 54 NewDem/Welcome nominees, 12 lost, mean +14.37")
+sr = pd.DataFrame(sj["senate_red"])
+g = sr.groupby("group").over_vs_harris.agg(["mean", "size"])
+check(len(sr) == 19 and g.loc["claimed moderate", "size"] == 7 and g.loc["not claimed", "size"] == 10
+      and near(g.loc["claimed moderate", "mean"], 20.84, 0.01) and near(g.loc["not claimed", "mean"], 18.67, 0.01),
+      "selection: 19 red-state Senate Democrats, claimed 7 at +20.84, unclaimed 10 at +18.67")
+check(sj["flips"]["n"] == 42 and sj["flips"]["mod_endorsed_n"] == 31, "selection: 42 flipped seats, 31 moderate-backed")
+check(near(sj["label_share"]["share"], 0.0054, 0.0005) and sj["label_share"]["n"] == 41, "selection: Third Way label explains 0.5% across 41 races")
+hd = pd.read_csv(D / "house_drivers_anova.csv")
+st = hd[(hd["sample"] == "all") & (hd.term == "C(state)")].iloc[0]
+check(st.n == 417 and near(st.share_of_total, 0.387, 0.005), "house drivers: state explains 38.7% of House differences")
+
 passed = sum(ok for ok, _ in results)
 for ok, msg in results:
     print(("PASS " if ok else "FAIL ") + msg)
