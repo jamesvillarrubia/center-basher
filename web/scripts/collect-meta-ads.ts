@@ -7,7 +7,8 @@
 // returns embed the token; they are never written to disk or printed.
 // Output: data/raw/midterm2026/meta_ads/<race_id>__<DEM|REP>.json (gitignored), one file per nominee,
 // holding the query, fetch time, and every ad whose page_name or bylines contains the nominee's
-// last name. Ads from other pages are counted in `dropped` but not stored.
+// last name (flagged own or not), plus every ad from the nominee's own pages. Unmatched ads are
+// counted in `dropped` but not stored.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -59,28 +60,59 @@ async function get(url: string): Promise<Page> {
   return { error: { message: 'rate limited after 5 attempts', code: -1 } };
 }
 
-async function collect(n: Nominee, token: string, maxPages: number) {
+// A page is the nominee's own when its name carries the first and last name and its byline names
+// the nominee or a campaign committee. Outside groups ("Realtors for Josh Riley", paid for by NAR)
+// and namesakes ("Congressman Riley M. Moore") fail the rule.
+// Lowercase, straight apostrophes, no accents: "Marty O’Donnell" and "Gutiérrez" must match.
+export const norm = (s: string | undefined) =>
+  (s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[\u2018\u2019\u02bc]/g, "'").toLowerCase();
+
+export function ownPage(n: Nominee, ad: Ad): boolean {
+  const first = norm(n.fullName.split(' ')[0]);
+  const last = norm(n.lastName);
+  const page = norm(ad.page_name);
+  const by = norm(ad.bylines);
+  return page.includes(first) && page.includes(last)
+    && (by.includes(last) || by.includes(first) || by.includes('congress') || by === page);
+}
+
+async function pull(params: Record<string, string>, token: string, maxPages: number, keep: (ad: Ad) => boolean) {
   const q = new URLSearchParams({
-    access_token: token, search_terms: n.fullName, ad_type: 'POLITICAL_AND_ISSUE_ADS',
-    ad_reached_countries: "['US']", ad_delivery_date_min: '2025-07-01', ad_delivery_date_max: '2026-11-03',
-    fields: FIELDS, limit: '250',
+    access_token: token, ad_type: 'POLITICAL_AND_ISSUE_ADS', ad_reached_countries: "['US']",
+    ad_delivery_date_min: '2025-07-01', ad_delivery_date_max: '2026-11-03', fields: FIELDS, limit: '250', ...params,
   });
   let url: string | undefined = `${API}?${q}`;
   const kept: Ad[] = [];
   let dropped = 0, pages = 0, error: string | null = null;
-  const last = n.lastName.toLowerCase();
   while (url && pages < maxPages) {
     const page = await get(url);
     pages++;
     if (page.error) { error = scrub(page.error.message); break; }
-    for (const ad of page.data ?? []) {
-      const who = `${ad.page_name ?? ''} ${ad.bylines ?? ''}`.toLowerCase();
-      if (who.includes(last)) kept.push(ad); else dropped++;
-    }
+    for (const ad of page.data ?? []) (keep(ad) ? kept.push(ad) : dropped++);
     url = page.paging?.next;
     await sleep(GAP_MS);
   }
   return { kept, dropped, pages, error, truncated: Boolean(url) };
+}
+
+// Pass 1: search by full name, keep any ad whose page or byline carries the last name (stored for
+// audit, flagged own or not). Pass 2: every ad from the nominee's own pages, by page ID.
+async function collect(n: Nominee, token: string, maxPages: number) {
+  const last = norm(n.lastName);
+  const p1 = await pull({ search_terms: n.fullName }, token, maxPages,
+    (ad) => norm(`${ad.page_name ?? ''} ${ad.bylines ?? ''}`).includes(last));
+  const ids = [...new Set(p1.kept.filter((ad) => ownPage(n, ad)).map((ad) => ad.page_id).filter(Boolean))] as string[];
+  const byId = new Map<string, Ad & { own: boolean; via: string }>();
+  for (const ad of p1.kept) byId.set(ad.id, { ...ad, own: ownPage(n, ad), via: 'search' });
+  let p2 = { kept: [] as Ad[], dropped: 0, pages: 0, error: null as string | null, truncated: false };
+  for (let i = 0; i < ids.length && !p1.error; i += 10) {
+    const r = await pull({ search_page_ids: JSON.stringify(ids.slice(i, i + 10)) }, token, maxPages, () => true);
+    p2 = { kept: [...p2.kept, ...r.kept], dropped: p2.dropped + r.dropped, pages: p2.pages + r.pages,
+      error: p2.error ?? r.error, truncated: p2.truncated || r.truncated };
+  }
+  for (const ad of p2.kept) if (!byId.has(ad.id)) byId.set(ad.id, { ...ad, own: true, via: 'page_id' });
+  return { ads: [...byId.values()], ownPageIds: ids, dropped: p1.dropped, pages: p1.pages + p2.pages,
+    error: p1.error ?? p2.error, truncated: p1.truncated || p2.truncated };
 }
 
 async function main() {
@@ -97,10 +129,12 @@ async function main() {
     const r = await collect(n, token, maxPages);
     writeFileSync(file, JSON.stringify({
       race_id: n.raceId, party: n.party, nominee: n.fullName, search_terms: n.fullName,
-      match_rule: 'page_name or bylines contains last name', fetched_utc: new Date().toISOString(),
-      pages: r.pages, truncated: r.truncated, dropped: r.dropped, error: r.error, ads: r.kept,
+      match_rule: 'pass 1: search by full name, page_name or bylines contains last name; own = ownPage(); pass 2: all ads from own page IDs',
+      fetched_utc: new Date().toISOString(), own_page_ids: r.ownPageIds,
+      pages: r.pages, truncated: r.truncated, dropped: r.dropped, error: r.error, ads: r.ads,
     }));
-    console.log(`${n.raceId} ${n.party} ${n.fullName}: kept ${r.kept.length}, dropped ${r.dropped}, pages ${r.pages}${r.error ? `, error: ${r.error}` : ''}`);
+    const own = r.ads.filter((a) => a.own).length;
+    console.log(`${n.raceId} ${n.party} ${n.fullName}: own ${own}, other ${r.ads.length - own}, own pages ${r.ownPageIds.length}, dropped ${r.dropped}, requests ${r.pages}${r.truncated ? ', TRUNCATED' : ''}${r.error ? `, error: ${r.error}` : ''}`);
     if (r.error && /deactivated|OAuth|token/i.test(r.error)) process.exit(2);
   }
 }
