@@ -108,8 +108,8 @@ a{color:var(--accent)}
   <p class="seclabel">What we found</p>
   <ul class="lede-list">
     <li><strong>412 of 417 House Democrats ran ahead of Harris.</strong> One shared shift accounts for 80% of their gains.</li>
-    <li><strong>All 44 nominees we scored took positions to the left of Third Way's,</strong> including all 19 that Third Way calls moderate.</li>
-    <li><strong>Third Way endorsed Talarico and disagrees with him on 9 of 13 positions.</strong> He ran 25.8 points ahead of Harris, more than any other Senate nominee.</li>
+    <li><strong>After the election, Third Way claimed 19 winners as moderates. All 19 ran on positions to Third Way's left.</strong> So did the other 25 nominees we scored.</li>
+    <li><strong>Third Way claims Talarico as a moderate. He disagrees with Third Way on 9 of 13 positions.</strong> He ran 25.8 points ahead of Harris, more than any other Senate nominee.</li>
     <li><strong>Progressive nominees ran as far ahead as everyone else.</strong> The most progressive third beat Harris by 14.2 points. The least progressive third beat her by 15.9, a gap well inside the noise.</li>
     <li><strong>Third Way's headline number shrinks when you change the measuring stick.</strong> Measured against Harris, Third Way's Senate "moderates" ran 12 points better than its other Senate nominees. Measured against the seat's previous race, the 2022 midterm, or other races on the same 2026 ballot, the gap is 6 to 10 points. In the House, Third Way's moderates did no better than its other nominees on any measure.</li>
     <li><strong>No candidate trait reliably predicts who ran furthest ahead.</strong> We tested 15, including name recognition, money and time on the trail. Incumbency comes closest.</li>
@@ -131,8 +131,8 @@ a{color:var(--accent)}
 <figure class="card" id="ex-left">
   <div class="claim"><span class="tag">Third Way</span>“high-quality Democrats in the middle were the majority makers in 2026”</div>
   <h2 class="ctitle">All 44 nominees ran <span class="hl">to the left of Third Way</span>.</h2>
-  <p class="csub">The 44: every Democratic nominee in the 14 competitive Senate races and the 30 House races with contested primaries. Each dot scores one nominee on 13 stated positions, from Medicare for All to ending the filibuster. Third Way's own positions score −0.35. The most centrist nominee scores −0.08. When we found a nominee's position on record, it was the progressive one 114 times out of 134. Positions we could not find count as 0, which pulls every dot toward the center.</p>
-  <div class="legend"><span><i style="background:var(--left)"></i>Third Way: "leftier"</span><span><i style="background:var(--tw)"></i>Third Way: "moderate"</span><span><i style="background:var(--gray-soft)"></i>not labeled</span></div>
+  <p class="csub">Third Way claims 19 of these winners as moderates. All 19 ran to its left. The 44: every Democratic nominee in the 14 competitive Senate races and the 30 House races with contested primaries. Each dot scores one nominee on 13 stated positions, from Medicare for All to ending the filibuster. Third Way's own positions score −0.35. The most centrist nominee scores −0.08. When we found a nominee's position on record, it was the progressive one 114 times out of 134. Positions we could not find count as 0, which pulls every dot toward the center.</p>
+  <div class="legend"><span><i style="background:var(--tw)"></i>claimed by Third Way as "moderate"</span><span><i style="background:var(--left)"></i>called "leftier" by Third Way</span><span><i style="background:var(--gray-soft)"></i>not labeled</span></div>
   <div class="chart" id="strip"></div>
   <div class="foot"><span class="src">Progressive index: mean of 13 items scored +1 support, 0 silent, −1 oppose, from the nominee's own words. Two blind coders, reconciled against cited sources.</span><span class="domain">thecenterisalie.org</span></div>
 </figure>
@@ -142,8 +142,8 @@ a{color:var(--accent)}
 <section class="exhibit">
 <figure class="card" id="ex-talarico">
   <div class="claim"><span class="tag">Third Way</span>“Moderates won by running on tackling costs and corruption, and mainstream immigration and border policies.”</div>
-  <h2 class="ctitle">Third Way endorsed Talarico. They disagree on <span class="hl">9 of 13</span> positions.</h2>
-  <p class="csub">Talarico ran on a billionaire tax, no corporate PAC money, ending the filibuster, breaking up monopolies and universal pre-K. Third Way opposes or ignores all five. He beat Harris's Texas margin by 25.8 points, more than any other Senate nominee.</p>
+  <h2 class="ctitle">Third Way claims Talarico as a moderate. He disagrees with them on <span class="hl">9 of 13</span> positions.</h2>
+  <p class="csub">Third Way's post-election memo credits Talarico's win to costs, corruption and the border. Talarico also ran on a billionaire tax, no corporate PAC money, ending the filibuster, breaking up monopolies and universal pre-K. Third Way opposes or ignores all five. He beat Harris's Texas margin by 25.8 points, more than any other Senate nominee.</p>
   <div class="chart"><table id="items"><thead><tr><th>Position</th><th style="text-align:center">Talarico</th><th style="text-align:center">Third Way</th></tr></thead><tbody></tbody></table></div>
   <div class="foot"><span class="src">Red edge: opposite sides. Every non-zero Talarico score cites his own words. Third Way scored from its published memos.</span><span class="domain">thecenterisalie.org</span></div>
 </figure>
@@ -256,7 +256,7 @@ function hover(node, html){
 }
 const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 const sg=v=>(Number(v)>0?"+":"")+v;
-const twLabel=t=>t==="moderate"?"Third Way: moderate":t==="leftier"?"Third Way: leftier":"not labeled by Third Way";
+const twLabel=t=>t==="moderate"?"claimed by Third Way as moderate":t==="leftier"?"called leftier by Third Way":"not labeled by Third Way";
 const ebOf=Object.fromEntries(DEB.measurement.map(m=>[m.race_id,m]));
 
 document.querySelectorAll(".share").forEach(box=>{
