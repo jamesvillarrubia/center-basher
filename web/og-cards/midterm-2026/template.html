@@ -98,7 +98,7 @@ a{color:var(--accent)}
     <li><strong>After the election, Third Way claimed 19 winners as moderates. All 19 ran on positions to Third Way's left.</strong> So did the other 25 nominees we scored.</li>
     <li><strong>Third Way claims Talarico as a moderate. He disagrees with Third Way on 9 of 13 positions.</strong> He ran 25.8 points ahead of Harris, more than any other Senate nominee.</li>
     <li><strong>Progressive nominees ran as far ahead as everyone else.</strong> The most progressive third beat Harris by 14.2 points. The least progressive third beat her by 15.9, a gap well inside the noise.</li>
-    <li><strong>Third Way's headline number shrinks when you change the measuring stick.</strong> Measured against Harris, Third Way's Senate "moderates" ran 12 points better than its other Senate nominees. Measured against the seat's previous race, the 2022 midterm, or other races on the same 2026 ballot, the gap is 6 to 10 points. In the House, Third Way's moderates did no better than its other nominees on any measure.</li>
+    <li><strong>Third Way's 12-point edge shrinks under scrutiny. In the House it vanishes.</strong> Third Way measured its Senate moderates against Harris, a shaky yardstick. Against the seat's last race or this year's ballot, the edge drops to 6 to 10 points. In the House, its moderates did no better than its other nominees.</li>
     <li><strong>No candidate trait reliably predicts who ran furthest ahead.</strong> We tested 15, including name recognition, money and time on the trail. Incumbency comes closest.</li>
   </ul>
 </section>
@@ -164,10 +164,11 @@ a{color:var(--accent)}
 <section class="exhibit">
 <figure class="card" id="ex-baselines">
   <div class="claim"><span class="tag">Third Way</span>“Red-State Democrats—All Moderates—Overperformed and Delivered the Senate.”</div>
-  <h2 class="ctitle">Change the measuring stick and <span class="hl">Third Way's edge shrinks</span>.</h2>
-  <p class="csub">Republicans saw Harris as far left and Democrats saw her as centrist, so her margin is a shaky baseline. Measured against Harris, Third Way's Senate "moderates" ran 12.3 points better than its other Senate nominees. Measured against the seat's previous race, the 2022 midterm, or other races on the same 2026 ballot, the gap is 5.6 to 10.2 points. In the House, Third Way's moderates did no better than its other nominees on any measure.</p>
-  <div class="chart"><table id="bases"><thead><tr><th rowspan="2">Baseline</th><th colspan="2" style="text-align:center">Third Way label<br>Senate</th><th colspan="2" style="text-align:center">Third Way label<br>House</th><th colspan="2" style="text-align:center">Establishment-backed<br>House</th></tr><tr><th class="n">pts</th><th>95% range</th><th class="n">pts</th><th>95% range</th><th class="n">pts</th><th>95% range</th></tr></thead><tbody></tbody></table></div>
-  <div class="foot"><span class="src">Points of margin, Third Way "moderate" vs its other nominees, and establishment-backed vs not. Shaded: 95% range clears zero. Senate n 7 to 11; House n 20 to 30.</span><span class="domain">thecenterisalie.org</span></div>
+  <h2 class="ctitle">Third Way's 12-point edge <span class="hl">shrinks under scrutiny</span>. In the House it vanishes.</h2>
+  <p class="csub">Third Way measured its Senate moderates against Harris's 2024 margin. That is a shaky yardstick: Republicans saw Harris as far left, Democrats saw her as centrist. Measure the same nominees against the seat's last race or against this year's ballot, and the edge drops to between 6 and 10 points. In the House, Third Way's moderates did no better than its other nominees.</p>
+  <div class="legend"><span><i style="background:var(--tw)"></i>Third Way's yardstick: Harris 2024</span><span><i style="background:var(--left)"></i>yardsticks with no presidential race</span><span><i style="background:transparent;border-radius:0;height:2px;width:18px;vertical-align:3px;background:var(--ink-soft)"></i>95% range</span></div>
+  <div class="chart" id="bases"></div>
+  <div class="foot"><span class="src">Points by which Third Way's "moderates" beat its other nominees, after adjusting for each seat's partisan lean. Senate n 7 to 11, House n 20 to 30. Against Biden 2020, a second presidential yardstick, the Senate gap is 17.1.</span><span class="domain">thecenterisalie.org</span></div>
 </figure>
 <div class="share" data-for="ex-baselines"></div>
 </section>
@@ -372,19 +373,34 @@ document.querySelectorAll(".share").forEach(box=>{
   });
 })();
 
-/* baselines table */
+/* Third Way edge by yardstick */
 (function(){
-  const rows=[["harris24","Harris 2024"],["biden20","Biden 2020"],["hist","History, no Harris"],["prior_seat","Prior race for the seat"],["midterm22","2022 midterm"],["house26","2026 House vote, same ballot"],["gov26","2026 governor, same ballot"]];
-  const cols=[["a_moderate","S"],["a_moderate","H"],["b_estab","H"]];
-  const tb=document.querySelector("#bases tbody");
-  const bar=e=>{const w=140,h=18,x=v=>4+(Math.max(-20,Math.min(25,v))+20)/45*(w-8);const clear=e.ci_lo>0||e.ci_hi<0;const col=clear?"var(--accent)":"var(--gray)";
-    return `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${e.coef.toFixed(1)}, range ${e.ci_lo.toFixed(1)} to ${e.ci_hi.toFixed(1)}"><line x1="${x(0)}" x2="${x(0)}" y1="1" y2="${h-1}" stroke="#8a8880"/><line x1="${x(e.ci_lo)}" x2="${x(e.ci_hi)}" y1="${h/2}" y2="${h/2}" stroke="${col}" stroke-width="3" stroke-linecap="round"/><circle cx="${x(e.coef)}" cy="${h/2}" r="4.5" fill="${col}" stroke="#fff" stroke-width="1.5"/></svg>`;};
-  rows.forEach(([bk,bl])=>{
-    const tr=document.createElement("tr");let html=`<td>${bl}</td>`;
-    cols.forEach(([ck,sc])=>{const e=DEB.effects.find(r=>r.baseline===bk&&r.scope===sc&&r.coding===ck);
-      if(!e){html+=`<td class="n">·</td><td class="ci"></td>`;return;}
-      const clear=e.ci_lo>0||e.ci_hi<0;html+=`<td class="n" style="${clear?"background:var(--sig);font-weight:700":""}">${sg(e.coef.toFixed(1))}</td><td class="ci">${bar(e)}</td>`;});
-    tr.innerHTML=html;tb.appendChild(tr);
+  const blocks=[["SENATE","S",[["harris24","Harris 2024"],["prior_seat","The seat's last race"],["midterm22","2022 midterm"],["house26","2026 House vote, same ballot"],["gov26","2026 governor, same ballot"]]],
+                ["HOUSE","H",[["harris24","Harris 2024"],["prior_seat","The seat's last race"],["midterm22","2022 midterm"]]]];
+  const rh=34,gap=30,W=720,m={l:210,r:60,t:8,b:42};
+  const H=m.t+blocks.reduce((a,b)=>a+b[2].length*rh+gap,0)+m.b-gap+20;
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Third Way's moderate edge by yardstick, Senate and House"},document.getElementById("bases"));
+  const lo=-20,hi=20,x=v=>m.l+(Math.max(lo,Math.min(hi,v))-lo)/(hi-lo)*(W-m.l-m.r);
+  [-20,-10,0,10,20].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:m.t,y2:H-m.b,class:t===0?"axis":"grid"},svg);el("text",{x:x(t),y:H-m.b+17,"text-anchor":"middle"},svg,sg(t));});
+  el("text",{x:x(-10),y:H-4,"text-anchor":"middle"},svg,"← moderates did worse");
+  el("text",{x:x(10),y:H-4,"text-anchor":"middle"},svg,"moderates did better →");
+  let yy=m.t;
+  blocks.forEach(([title,sc,rows])=>{
+    el("text",{x:8,y:yy+14,class:"lab",fill:css("--accent")},svg,title);
+    yy+=20;
+    rows.forEach(([bk,bl])=>{
+      const e=DEB.effects.find(r=>r.baseline===bk&&r.scope===sc&&r.coding==="a_moderate");if(!e)return;
+      const cy=yy+rh/2,col=bk==="harris24"?css("--tw"):css("--left");
+      el("text",{x:m.l-12,y:cy+4,"text-anchor":"end",class:bk==="harris24"?"lab":"",fill:css("--ink")},svg,bl);
+      const g=el("g",{},svg);
+      el("rect",{x:Math.min(x(0),x(e.coef)),y:cy-9,width:Math.abs(x(e.coef)-x(0)),height:18,rx:3,fill:col,opacity:.9},g);
+      el("line",{x1:x(e.ci_lo),x2:x(e.ci_hi),y1:cy,y2:cy,stroke:css("--ink-soft"),"stroke-width":1.5},g);
+      [e.ci_lo,e.ci_hi].forEach(v=>{if(v>lo&&v<hi)el("line",{x1:x(v),x2:x(v),y1:cy-5,y2:cy+5,stroke:css("--ink-soft"),"stroke-width":1.5},g);});
+      el("text",{x:W-m.r+10,y:cy+4,class:"lab"},g,sg(e.coef.toFixed(1)));
+      hover(g,`<b>${title==="SENATE"?"Senate":"House"}, vs ${bl}</b><br>moderates ${e.coef>=0?"ahead":"behind"} by ${Math.abs(e.coef).toFixed(1)} points<br>95% range ${e.ci_lo.toFixed(1)} to ${e.ci_hi.toFixed(1)}, n ${e.n}`);
+      yy+=rh;
+    });
+    yy+=gap-20;
   });
 })();
 
