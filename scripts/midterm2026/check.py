@@ -208,6 +208,34 @@ check((ap.distinct_block_relabelings >= 1).all(), "distinct block relabelings re
 check(len(ae) == 12 and (ae.boot_valid >= 9900).all() and (ae.eta2_ci_lo <= ae.partial_eta2).all(),
       "12 coding effect-size rows with >= 9,900 valid state-cluster bootstrap draws")
 
+# Coding (c): stated progressive positions (build_positions.py, coding_c.py).
+pos = pd.read_csv(D / "positions" / "positions_final.csv")
+pix = pd.read_csv(D / "positions_index.csv").set_index("race_id")
+check(len(pix) == 44 and set(pix.index) == set(an.race_id), "positions_index covers the 44 analysis nominees")
+recomputed = pos[pos.race_id != "THIRDWAY"].groupby("race_id").score.mean()
+check(np.allclose(pix.c_index, recomputed.reindex(pix.index)), "c_index = mean of the 13 item scores")
+check(near(pix.thirdway_index.iloc[0], -0.346, 0.001), "Third Way's own index = -0.346")
+check(near(pix.c_index["TX-S"], 0.5, 1e-9) and pix.c_n_sourced["TX-S"] == 7, "Talarico: index 0.50 on 7 sourced items")
+check(int((pix.c_n_sourced >= 3).sum()) == 21, "21 nominees have 3+ sourced items")
+check(near(pix.c_median_cut.iloc[0], 0.1538, 0.001) and (pix.c_prog_median == (pix.c_index >= pix.c_median_cut)).all(),
+      "median cut 0.154 and c_prog_median consistent")
+check(pix.c_stated.isna().sum() == int((pix.c_n_sourced == 0).sum()), "stated-only index blank exactly where no item is sourced")
+changed = pix.index[(pix.c_index_noind - pix.c_index).abs() > 1e-12]
+check(set(changed) <= set(pix.index[pix.c_items_indirect > 0]), "drop-indirect index differs only for nominees with indirect items")
+check(int(pos.indirect.astype(str).str.lower().eq("true").sum()) == 7, "7 item rows flagged indirect")
+cr = pd.read_csv(D / "coding_c_regressions.csv")
+six = ["a_moderate", "b_estab", "c_index10", "c_stated10", "c_prog_median", "c_prog_03"]
+hb = cr[(cr.baseline == "harris24") & (cr.spec == "base") & cr.coding_var.isin(six)]
+check(hb.groupby("coding_var").scope.nunique().ge(3).all() and hb.coding_var.nunique() == 6,
+      "coding (c) grid: 6 codings x 3 scopes under Harris 2024 base")
+a_s = hb[(hb.coding_var == "a_moderate") & (hb.scope == "S")].iloc[0]
+check(near(a_s.coef, 12.35, 0.01), "coding (c) grid reproduces the Senate coding (a) coefficient")
+tal = pd.read_csv(D / "coding_c_talarico_vs_thirdway.csv")
+check(int(tal.disagree.sum()) == 9 and int(tal.opposite_sign.sum()) == 2, "Talarico vs Third Way: 9 items differ, 2 opposite sign")
+cp = pd.read_csv(D / "coding_c_anova_permutation.csv")
+check(cp.p_classic.notna().all() and cp.p_perm_block.between(1e-4, 1).all() and (cp.n_perm == 9999).all(),
+      "coding (c) permutation table: classic p merged, 9,999 permutations")
+
 passed = sum(ok for ok, _ in results)
 for ok, msg in results:
     print(("PASS " if ok else "FAIL ") + msg)

@@ -15,10 +15,12 @@ $P scripts/midterm2026/build_house_primaries.py# step 2: Wikipedia primary endor
 $P scripts/midterm2026/build_races.py          # step 3: races.csv, house_all.csv
 $P scripts/midterm2026/build_controls.py       # step 3b: controls.csv, merged into races.csv (run after step 3)
 $P scripts/midterm2026/build_baselines.py      # step 3c: baselines.csv, merged into races.csv (run after step 3b)
+$P scripts/midterm2026/build_positions.py      # step 3d: positions_index.csv (coding c), merged into races.csv (run after 3c)
 $P scripts/midterm2026/analyze.py              # step 4: regressions.csv, summary.json, house_flips.csv
 $P scripts/midterm2026/pooled.py               # step 4b: pooled Senate+House rows appended to regressions.csv (run after step 4)
 $P scripts/midterm2026/baselines_analysis.py   # step 4c: baseline_regressions.csv, baseline_sensitivity.csv (run after 4b)
 $P scripts/midterm2026/anova.py                # step 4d: anova_tables.csv, anova_permutation.csv, anova_effect_sizes.csv (run after 4c; ~40 s)
+$P scripts/midterm2026/coding_c.py             # step 4e: coding (c) grid, cross-tabs, ANOVA (run after 4d; ~35 s)
 $P scripts/midterm2026/build_figure.py         # step 5: web/og-cards/draft-midterm-overperformance.html
 $P scripts/midterm2026/check.py                # pins numbers to sources; prints "N passed, M failed"
 ```
@@ -73,6 +75,12 @@ Way's Nov 5 memo calls cross-endorsed (Forstag MT-01, Brooks PA-07, Poindexter O
 | `anova_tables.csv` | | ANOVA tables, pooled rows: `baseline` (harris24, pres2cyc, prior_seat) × `coding` × `spec` × `model` (`additive`; `ancova2` = coding × chamber + terrain) × `typ` (2 = anova_lm Type II; 3 = Type III with sum-to-zero contrasts). Columns `sum_sq`, `df`, `F`, `p_classic`, `partial_eta2`, `partial_omega2`, `share_of_model_ss`, `share_of_total_ss`, `n`, `r2`. Row `shared (not attributable)` = model SS minus the sum of Type II term SS (negative under suppression) |
 | `anova_permutation.csv` | 24 | Type II F for coding (and coding × chamber) with classic p, state-block permutation p (`p_perm_block`), within-chamber permutation p (`p_perm_strata`), 9,999 permutations, `distinct_block_relabelings` (how many label assignments the block scheme can produce), `rows_in_exchangeable_blocks` |
 | `anova_effect_sizes.csv` | 12 | Coding term's partial eta^2 and partial omega^2 in the additive models, with 95% state-cluster bootstrap percentile CIs (9,999 resamples of states) |
+| `positions_index.csv` | 44 | Coding (c) measures per nominee (also merged into `races.csv`) |
+| `coding_c_regressions.csv` | | Coding coefficient for (a), (b) and four coding (c) versions × spec (base, +controls, +coverage, restricted 3+ sourced) × scope × baseline, wild cluster bootstrap CIs; robustness rows tagged in `coding` |
+| `coding_c_crosstab.csv` | | Mean and median coding (c) index by Third Way label and by establishment backing, per chamber |
+| `coding_c_thirdway_moderates.csv` | 19 | Every nominee coded "moderate" under (a), with coding (c) index, stated-only index, sourced-item count and gap to Third Way's own index |
+| `coding_c_talarico_vs_thirdway.csv` | 13 | Talarico's and Third Way's score on each item, with Talarico's quote and source |
+| `coding_c_anova.csv`, `coding_c_anova_permutation.csv`, `coding_c_effect_sizes.csv` | | ANOVA tables, permutation p-values and effect sizes for the coding (c) index and median split, same layout as the `anova_*` files |
 
 **`regressions.csv` columns.** `chamber` (`S`, `H`, or `P` = pooled), `coding`, `spec`,
 `y`, `term`, `n`, `n_coded_1`, `coef`, `se_hc3` (per-chamber rows), `ci_lo`/`ci_hi`
@@ -205,6 +213,25 @@ Democratic-minus-Republican margin as a share of all votes × 100, same geograph
 | `baseline_notes` | Free-text caveats (AK's 2020 Democratic nominee ran as an independent; uncontested or redrawn races) |
 | `over_<b>` | 2026 `dem_margin` minus `base_<b>` |
 | `swing_<b>`, `over_<b>_adj` | National 2026 House margin minus the national margin of the baseline's cycle (`national_environment.csv`; presidential baselines use the presidential vote, others the House vote of that cycle), and the swing-adjusted overperformance `over_<b> − swing_<b>` |
+
+**Coding (c): stated progressive positions** (`build_positions.py`; rubric
+`reqts/progressive-position-rubric.md`; scores in `positions/positions_final.csv`, 13 items
+per nominee, +1 / +0.5 / 0 / −1; 0 = silent, hedged or not found)
+
+| Column | Definition |
+|---|---|
+| `c_index` | Mean of the 13 item scores (0 counts) |
+| `c_stated` | Mean of the non-zero items; blank when no item is sourced |
+| `c_n_sourced` | Number of non-zero items (coverage control) |
+| `c_prog_median`, `c_median_cut` | 1 if `c_index` ≥ the median of the 44 nominees (0.154) |
+| `c_prog_03` | 1 if `c_index` ≥ 0.3 |
+| `c_tw_gap`, `thirdway_index` | `c_index` minus Third Way's own index (−0.346, rows `THIRDWAY`) |
+| `*_noind` | Same measures with items flagged `indirect` (news paraphrase, 7 rows) set to 0 |
+| `*_preprim` | Same measures keeping only items with `pre_primary` true (false and unverified set to 0) |
+| `c_items_indirect`, `c_items_not_preprimary` | Count of the nominee's items affected by each robustness filter |
+
+In the regressions the indices enter ×10 (`c_index10`, `c_stated10`), so a coefficient is
+points per +0.1 of the index.
 
 **Primary dates and the pre-primary rule.** Until 2026-11-05 the House builder took each
 state's primary date from a regex over Wikipedia's lead text, which picked up filing

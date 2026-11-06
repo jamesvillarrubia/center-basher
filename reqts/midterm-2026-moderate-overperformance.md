@@ -7,7 +7,7 @@ spending, and two independent codings of every nominee. It holds findings and
 numbers only. Essay prose stays with James.
 
 Data: `data/derived/midterm2026/races.csv`, codebook `data/derived/midterm2026/README.md`.
-Scripts: `scripts/midterm2026/`. Check script: 90 passed, 0 failed (2026-11-05, fifth pass).
+Scripts: `scripts/midterm2026/`. Check script: 103 passed, 0 failed (2026-11-05, sixth pass).
 All vote counts are unofficial, as reported 2026-11-05, two days after the election.
 California, Arizona, Utah and Alaska were still counting.
 
@@ -808,6 +808,195 @@ below 0.03 under every baseline. Every interval is wide enough to include zero a
 effect of 0.1 to 0.3. The +controls estimates are larger but rest on 20 to 27 rows, fail
 the block permutation, and have intervals spanning nearly the whole range.
 
+## 12 · Coding (c): what nominees said they would do
+
+Codings (a) and (b) are labels. Coding (c) scores each nominee on 13 stated progressive
+positions from their own words, votes and cosponsorships. It tests whether a nominee's
+stated progressivism, as opposed to the label others gave them, predicts overperformance.
+Rubric: `reqts/progressive-position-rubric.md`; scores: `positions/positions_final.csv`
+(two blind coders, 88% cell agreement, kappa 0.45, no opposite-sign disagreements, then a
+source-checking reconciliation pass).
+
+**Answer.** Stated progressivism shows no robust relationship with overperformance in either
+direction. The continuous index has point estimates between −1.9 and +1.8 points per +0.1 of
+the index, negative in every specification except the restricted sample of well-documented
+nominees (+0.9 pooled, +1.8 House). Its wild bootstrap CIs include zero in every chamber,
+specification and baseline but one 8-race cell [54]. A median split shows a nominally negative pooled effect
+(−4.3 points, CI −8.2 to −0.3). That effect shrinks among well-documented nominees, falls to
+p = 0.086 under state-block permutation, and turns positive (+0.8) when only pre-primary
+statements count [55]. Third Way's label (a) shows a +12.3-point Senate edge; coding (c)
+does not reproduce it as an edge for less progressive platforms. Third Way's own "moderate"
+with the most progressive platform, Talarico, posted the largest Senate overperformance.
+
+**The measures** [56]:
+
+- (i) **Progressive index**: mean of the 13 items. Range −0.08 to +0.69 across the 44
+  nominees; median 0.154; Third Way's own index −0.346.
+- (ii) **Stated-only index**: mean of the non-zero items. 39 of 44 nominees have one;
+  its median is 1.0 and it barely varies.
+- (iii) **Binary flags**: index at or above the median (23 of 44; ties at 0.154), and index ≥ 0.3 (13 of 44).
+- **Coverage**: count of sourced items. 21 nominees have 3+; 17 have 0 or 1 (5 none, 12 one).
+
+> **[Claude — honest correction]** The brief for this pass said 9 nominees have 0–1 sourced
+> items. `positions_final.csv` gives 17: Hamilton, Cooper, Colom, Bean and Powell have none,
+> and 12 nominees have exactly one. The 21 with 3+ matches.
+
+**Coverage is the main weakness.** The index correlates 0.92 (Spearman) with the count of
+sourced items [57]. A nominee scores high mainly by having many documented positions. Long
+records (incumbents' cosponsorships) and insurgent platforms both raise the count, and
+silence scores the same as "not found". The "+coverage" and "restricted 3+ sourced" rows
+below are the attempt to separate the two. At n = 21 the restricted sample cannot do it
+precisely.
+
+**Headline table: coding (c) next to (a) and (b)** (Harris 2024 baseline; coefficient,
+wild cluster bootstrap 95% CI, n; coding (c) index rows are points per +0.1 index) [54]:
+
+| Coding, spec | Senate | House | Pooled |
+|---|---|---|---|
+| (a) moderate, base | +12.3 (+8.6 to +16.1), 11 | −3.7 (−11.5 to +4.0), 30 | +1.1 (−6.0 to +8.2), 41 |
+| (a) moderate, +controls | +12.4 (−3.7 to +27.4), 10 | +2.3 (−4.9 to +9.4), 14 | +7.2 (−1.3 to +15.8), 24 |
+| (b) backed, base | +4.5 (−5.2 to +14.5), 14 | +2.0 (−2.9 to +6.9), 30 | +1.9 (−2.2 to +5.9), 44 |
+| (b) backed, +controls | +3.9 (−2.8 to +10.7), 13 | +1.4 (−4.0 to +6.7), 14 | +2.7 (−7.0 to +12.4), 27 |
+| (c) index, base | −1.0 (−2.7 to +0.7), 14 | −0.3 (−2.1 to +1.6), 30 | −0.6 (−1.9 to +0.8), 44 |
+| (c) index, +controls | −0.8 (−3.0 to +1.4), 13 | −1.9 (−4.3 to +0.6), 14 | −1.6 (−3.5 to +0.4), 27 |
+| (c) index, +coverage | −2.4 (−12.7 to +7.8), 14 | −3.0 (−8.2 to +2.2), 30 | −1.4 (−4.7 to +1.8), 44 |
+| (c) index, restricted 3+ sourced | −0.1 (−1.7 to +1.6), 8 | +1.8 (−1.3 to +4.8), 13 | +0.9 (−1.3 to +3.0), 21 |
+| (c) stated-only, base | −0.6 (−0.9 to −0.3), 11 | −0.4 (−0.7 to −0.1), 28 | −0.3 (−0.5 to −0.1), 39 |
+| (c) stated-only, restricted 3+ | −0.5 (−1.5 to +0.5), 8 | +0.3 (−2.9 to +3.6), 13 | −0.0 (−1.2 to +1.1), 21 |
+| (c) ≥ median, base | −5.0 (−12.3 to +2.2), 14 | −3.7 (−8.4 to +1.0), 30 | −4.3 (−8.2 to −0.3), 44 |
+| (c) ≥ median, +controls | −3.6 (−10.4 to +3.3), 13 | −6.1 (−14.0 to +2.0), 14 | −6.1 (−11.5 to −0.6), 27 |
+| (c) ≥ median, +coverage | −4.8 (−12.0 to +2.4), 14 | −6.8 (−12.5 to −1.0), 30 | −6.0 (−11.5 to −0.6), 44 |
+| (c) ≥ median, restricted 3+ | −3.0 (−10.9 to +5.9), 8 | −3.7 (−30.1 to +22.6), 13 | −2.7 (−9.6 to +4.3), 21 |
+| (c) ≥ 0.3, base | −5.0 (−17.5 to +8.3), 14 | +1.7 (−11.6 to +14.9), 30 | −1.2 (−10.8 to +8.7), 44 |
+
+Coding (c) Senate rows include Alaska, Mississippi and New Hampshire, which Third Way did not
+label, so the Senate n is 14 against coding (a)'s 11.
+
+> **[Claude — honest correction]** The stated-only index rows with CIs below zero rest on
+> three nominees. Ossoff and Gonzalez have one sourced item each, a Yea vote on the GENIUS
+> Act (Gonzalez also on CLARITY); McAdams has one, a Nay on the Raise the Wage Act. Each scores
+> −1 on the stated-only index, and each overperformed by 20 to 26 points. Without those three
+> rows the pooled stated-only coefficient is +0.2 per +0.1 (CI −0.5 to +0.9, n = 36) [58].
+> The stated-only result measures those three votes, not stated progressivism.
+
+**Across baselines** (coding (c) index per +0.1, base spec, pooled; Senate and House in
+`coding_c_regressions.csv`) [54]:
+
+| Baseline | (c) index, pooled | (a) moderate, Senate | (b) backed, pooled |
+|---|---|---|---|
+| Harris 2024 | −0.6 (−1.9 to +0.8), 44 | +12.3, 11 | +1.9, 44 |
+| Biden 2020 | −1.3 (−2.7 to +0.1), 38 | +17.1, 11 | +3.9, 38 |
+| Harris/Biden mean | −0.8 (−2.0 to +0.3), 38 | +14.6, 11 | +3.3, 38 |
+| Prior race for the seat | −0.3 (−1.4 to +0.8), 38 | +6.0, 11 | +3.1, 38 |
+| 2022 midterm | −0.5 (−1.9 to +0.9), 28 | +10.2, 7 | +2.6, 28 |
+| 2026 House vote (Senate only) | −0.7 (−1.4 to +0.1), 13 | +7.5, 11 | n/a |
+
+One coding (c) cell excludes zero: the Senate under the 2022 midterm baseline, −3.3 per +0.1
+(−4.1 to −2.4) on 8 races. With 8 clusters the wild bootstrap is unreliable; the same cell
+for coding (b) runs −56.6 to +69.7. It carries no weight.
+
+**Robustness** (Harris 2024, base) [55]:
+
+| Item set | (c) index, pooled | (c) index, Senate | (c) ≥ median, pooled | (c) stated-only, pooled |
+|---|---|---|---|---|
+| All items | −0.6 (−1.9 to +0.8), 44 | −1.0 (−2.7 to +0.7), 14 | −4.3 (−8.2 to −0.3), 44 | −0.3 (−0.5 to −0.1), 39 |
+| Drop indirect items (7 rows) | −0.3 (−1.7 to +1.1), 44 | −0.9 (−3.0 to +1.2), 14 | −3.4 (−7.4 to +0.7), 44 | −0.3 (−0.5 to −0.1), 37 |
+| Pre-primary items only | −0.4 (−2.0 to +1.3), 44 | −0.7 (−2.7 to +1.4), 14 | +0.8 (−3.9 to +5.6), 44 | −0.2 (−0.5 to +0.0), 33 |
+
+The median split loses significance when the 7 indirect items are dropped and turns
+positive when only pre-primary statements count. Its negative sign rests on positions
+documented after the primary.
+
+**Variance share** (pooled, additive, Type II; state-block permutation as in section 11)
+[59]:
+
+| Baseline, measure | Share of total variance | F | Classic p | Block perm. p | Partial η² (95% CI) | Partial ω² (95% CI) |
+|---|---|---|---|---|---|---|
+| Harris 2024, (c) index | 2.1% | 0.89 | 0.35 | 0.41 | 0.022 (0.000 to 0.275) | −0.003 (−0.025 to 0.234) |
+| Harris 2024, (c) ≥ median | 7.2% | 3.25 | 0.079 | 0.086 | 0.077 (0.001 to 0.322) | 0.049 (−0.023 to 0.282) |
+| Harris/Biden mean, (c) index | 4.5% | 1.77 | 0.19 | 0.22 | 0.051 (0.000 to 0.326) | 0.020 (−0.029 to 0.277) |
+| Harris/Biden mean, (c) ≥ median | 12.3% | 5.31 | 0.028 | 0.042 | 0.139 (0.005 to 0.439) | 0.102 (−0.024 to 0.393) |
+| Prior seat, (c) index | 0.6% | 0.22 | 0.64 | 0.63 | 0.007 (0.000 to 0.183) | −0.021 (−0.030 to 0.143) |
+| Prior seat, (c) ≥ median | 4.7% | 1.81 | 0.19 | 0.19 | 0.052 (0.000 to 0.303) | 0.021 (−0.030 to 0.260) |
+
+Under Harris 2024 the pooled model with the coding (c) index explains 8.5% of the variation;
+91.5% is unexplained, against 95.0% with coding (a) and 92.2% with coding (b) (section 11).
+The coding (c) × chamber interaction takes 3.7% (F 1.58, p 0.22, block p 0.32): unlike the
+Third Way label, stated progressivism does not split by chamber.
+
+**How (c) lines up with (a) and (b)** [57]. Third Way's "leftier" nominees have a mean
+index of 0.43 (n = 13); its "moderates" 0.09 (n = 19); unaligned House nominees 0.13 (n = 9).
+Establishment-backed nominees average 0.11 (n = 25), the rest 0.31 (n = 19). Spearman
+correlation with the index: −0.52 for the moderate label, −0.47 for establishment backing.
+The labels track stated positions on average, with large exceptions.
+
+**Third Way's moderates and their platforms** [60] (gap = nominee index minus Third Way's
+−0.346):
+
+| Nominee | Chamber | Backed (b) | (c) index | Stated-only | Sourced items | Gap to Third Way | vs Harris |
+|---|---|---|---|---|---|---|---|
+| Talarico (TX) | S | no | +0.50 | +0.93 | 7 | +0.85 | +25.8 |
+| Turek (IA) | S | no | +0.23 | +1.00 | 3 | +0.58 | +17.4 |
+| Brown (OH) | S | yes | +0.08 | +0.33 | 3 | +0.42 | +16.1 |
+| Andrews (SC) | S | no | +0.08 | +1.00 | 1 | +0.42 | +22.4 |
+| Hamilton (KS) | S | no | 0.00 | none | 0 | +0.35 | +21.1 |
+| Cooper (NC) | S | yes | 0.00 | none | 0 | +0.35 | +22.9 |
+| Ossoff (GA) | S | yes | −0.08 | −1.00 | 1 | +0.27 | +20.2 |
+| Brooks (PA-07) | H | yes | +0.27 | +0.88 | 4 | +0.62 | +15.4 |
+| Shaheen (NH-01) | H | no | +0.19 | +0.83 | 3 | +0.54 | +12.4 |
+| Miller (IL-02) | H | yes | +0.15 | +1.00 | 2 | +0.50 | +12.6 |
+| Boafo (MD-05) | H | yes | +0.15 | +0.67 | 3 | +0.50 | +4.6 |
+| Conley (NY-17) | H | yes | +0.15 | +1.00 | 2 | +0.50 | +3.8 |
+| Shah (AZ-01) | H | no | +0.08 | +1.00 | 1 | +0.42 | +10.1 |
+| Luria (VA-02) | H | yes | +0.04 | +0.50 | 1 | +0.38 | +8.8 |
+| Cooke (WI-03) | H | yes | +0.04 | +0.50 | 1 | +0.38 | +14.0 |
+| Bean (IL-08) | H | yes | 0.00 | none | 0 | +0.35 | +20.7 |
+| Powell (NE-02) | H | yes | 0.00 | none | 0 | +0.35 | +10.8 |
+| Gonzalez (TX-34) | H | yes | −0.08 | −1.00 | 1 | +0.27 | +26.0 |
+| McAdams (UT-01) | H | yes | −0.08 | −1.00 | 1 | +0.27 | +23.4 |
+
+Every one of Third Way's 19 moderates scores above Third Way's own index. Talarico's gap
+(+0.85) is the largest. His index (0.50) is higher than those of three of the four Senate
+nominees Third Way calls "leftier": Jackson 0.35, Nixon 0.38, Flanagan 0.46; only El-Sayed
+(0.69) is higher.
+
+**Talarico against Third Way, item by item** [61]:
+
+| Item | Talarico | Third Way | Talarico's words (source in the CSV) |
+|---|---|---|---|
+| Medicare for All | 0 | −1 | (no statement found) |
+| Billionaire / wealth tax | +1 | 0 | "Make billionaires pay their fair share in taxes — including by imposing a higher tax on their income and capital gains" |
+| No corporate PAC money | +1 | 0 | "Never taken a dime of corporate PAC money since my very first race for the Texas House in 2017." |
+| No AIPAC / conditions on Israel aid | +1 | 0 | "stopping offensive weapons sales to the Netanyahu government while supporting defensive systems like the Iron Dome" |
+| Green New Deal | 0 | −1 | (no statement found) |
+| Federal minimum wage | +0.5 | +0.5 | "Raise the federal minimum wage to $15 an hour" |
+| End the filibuster | **+1** | **−1** | "It's a Jim Crow relic that needs to be done away with if we're going to let our democracy function." |
+| Supreme Court expansion | 0 | 0 | |
+| Student debt / free college | 0 | −1 | (no statement found) |
+| Break up big tech / anti-monopoly | **+1** | **−1** | "Break up Big Medicine: Support bipartisan antitrust legislation to stop vertically integrated health-care conglomerates" (stated after the primary) |
+| No crypto PAC money | 0 | 0 | |
+| Universal childcare / pre-K | +1 | 0 | "Establish universal Pre-K for every 3- and 4-year-old" |
+| Oppose Schumer / Jeffries | 0 | 0 | |
+
+Talarico and Third Way differ on 9 of 13 items. They take opposite sides on two: Talarico
+backs ending the filibuster, which Third Way opposes, and he backs breaking up health-care
+conglomerates, while the coders scored Third Way's 2025 tech memo as opposing break-up
+remedies (his anti-monopoly statement is post-primary). On four items Talarico states a progressive position where Third Way takes
+none: a billionaire tax, refusing corporate PAC money, halting offensive arms sales to the
+Netanyahu government, and universal pre-K. On three, Third Way opposes and Talarico said
+nothing found by the coders (Medicare for All, the Green New Deal, student debt). They match
+on the $15 minimum wage. Third Way's memo credits his campaign on costs, corruption, the
+border and energy; the items above are the parts of his platform the memo does not
+mention.
+
+**What n and coverage allow.** 44 nominees, 21 with 3+ sourced positions, and an index that
+is mostly a count of documented positions. These data can rule out a large positive
+relationship between stated progressivism and overperformance in this sample: the pooled
+upper bound is about +0.8 points per +0.1 index (Harris 2024). They cannot rule out a small
+negative one, and the one negative estimate with a CI below zero (the median split)
+depends on post-primary statements. They do not show that progressive platforms cost
+votes, and they do not show that they won votes.
+
 ---
 
 ## Notes
@@ -1053,3 +1242,33 @@ label vectors are permuted; `rows_in_exchangeable_blocks` is 35 of 41 (coding a)
 44 (coding b) in the base samples. `distinct_block_relabelings` counts the label
 assignments the block scheme can produce. p = (1 + count of permuted F ≥ observed F) /
 10,000.
+
+[54] `scripts/midterm2026/coding_c.py`; `coding_c_regressions.csv`. Same models as section 10
+([48]): OLS of overperformance on the coding, the baseline's own margin and net outside
+spending per vote (pooled: + Senate dummy); "+controls" adds prior office and days on trail;
+"+coverage" adds `c_n_sourced`; "restricted" keeps nominees with `c_n_sourced` ≥ 3. Wild cluster
+bootstrap-t CIs by state, 9,999 draws, seed 20261105. Coding (c) indices enter ×10.
+
+[55] `coding_c_regressions.csv`, rows whose `coding` ends in "[drop indirect items]" or
+"[pre-primary items only]"; measures `c_*_noind` and `c_*_preprim` from `build_positions.py`
+(excluded items set to 0; the median cut recomputed per item set).
+
+[56] `scripts/midterm2026/build_positions.py`; `positions_index.csv`, merged into `races.csv`.
+Item scores from `positions/positions_final.csv` (commit 063e861); rubric
+`reqts/progressive-position-rubric.md`.
+
+[57] `coding_c_crosstab.csv`; Spearman correlations in `summary.json` → `coding_c.spearman`
+(all 44 nominees; Senate −0.66 for the label, House −0.48).
+
+[58] Rerun of the [54] model without GA-S, TX-34 and UT-01 (pooled n = 36, 23 clusters); the
+three item rows are in `positions_final.csv` (item 11 for GA-S and TX-34, item 6 for UT-01).
+
+[59] `coding_c_anova.csv`, `coding_c_anova_permutation.csv`, `coding_c_effect_sizes.csv`,
+built with `anova.py`'s functions ([50]–[53]); for the continuous index the Type III refit keeps
+the index numeric.
+
+[60] `coding_c_thirdway_moderates.csv` (all nominees with `coding_a_thirdway` = moderate).
+
+[61] `coding_c_talarico_vs_thirdway.csv`; Third Way's item scores and sources are the
+`THIRDWAY` rows of `positions_final.csv` (e.g. item 7: thirdway.org, "The Still Vital
+Center", 2011; item 10: "The Future of Tech: 5 Questions for Democrats", 2025).

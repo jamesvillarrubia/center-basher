@@ -77,12 +77,15 @@ def effect_rows(tab: pd.DataFrame, n: int, meta: dict) -> list[dict]:
 
 
 def fit_tables(x: pd.DataFrame, coding: str, extra: list[str], meta: dict) -> list[dict]:
+    # A binary coding gets sum-to-zero contrasts in the Type III refit; a continuous coding
+    # (e.g. the coding (c) index) stays numeric, since C() would turn it into a factor.
+    cterm = f"C({coding}, Sum)" if x[coding].nunique() <= 2 else coding
     rows = []
     rhs = [coding, "terrain", "senate", "net_out_pv", *extra]
     m = smf.ols("y ~ " + " + ".join(rhs), data=x).fit()
     ss_model = m.ess
     for typ, model in [(2, m),
-                       (3, smf.ols("y ~ " + " + ".join([f"C({coding}, Sum)", "terrain", "C(senate, Sum)",
+                       (3, smf.ols("y ~ " + " + ".join([cterm, "terrain", "C(senate, Sum)",
                                                          "net_out_pv", *extra]), data=x).fit())]:
         tab = anova_lm(model, typ=typ)
         er = effect_rows(tab, len(x), {**meta, "model": "additive", "typ": typ, "n": len(x),
@@ -101,7 +104,7 @@ def fit_tables(x: pd.DataFrame, coding: str, extra: list[str], meta: dict) -> li
         rows += er
     if not extra:  # two-way coding x chamber ANCOVA, terrain covariate
         for typ, f in [(2, f"y ~ {coding} * senate + terrain"),
-                       (3, f"y ~ C({coding}, Sum) * C(senate, Sum) + terrain")]:
+                       (3, f"y ~ {cterm} * C(senate, Sum) + terrain")]:
             mm = smf.ols(f, data=x).fit()
             tab = anova_lm(mm, typ=typ)
             er = effect_rows(tab, len(x), {**meta, "model": "ancova2", "typ": typ, "n": len(x),

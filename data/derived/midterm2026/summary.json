@@ -1728,5 +1728,36 @@
         "p_classic": 0.1058
       }
     ]
+  },
+  "coding_c": {
+    "spearman": {
+      "S": {
+        "a_vs_c": -0.6603843354525759,
+        "b_vs_c": -0.5258737584977436,
+        "n_sourced_vs_c": 0.9331829313888169
+      },
+      "H": {
+        "a_vs_c": -0.47592075627294894,
+        "b_vs_c": -0.4616186009351571,
+        "n_sourced_vs_c": 0.9181182071387957
+      },
+      "all": {
+        "a_vs_c": -0.522351180786209,
+        "b_vs_c": -0.4703097816905251,
+        "n_sourced_vs_c": 0.9175830272866201
+      }
+    },
+    "median_cut": 0.1538461538461538,
+    "thirdway_index": -0.3461538461538461,
+    "talarico": {
+      "c_index": 0.5,
+      "items_disagree_with_thirdway": 9,
+      "items_opposite_sign": 2
+    },
+    "coverage": {
+      "n_3plus": 21,
+      "n_0_1": 17,
+      "n_with_any": 39
+    }
   }
 }
