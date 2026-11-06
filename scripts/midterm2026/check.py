@@ -237,7 +237,7 @@ check(cp.p_classic.notna().all() and cp.p_perm_block.between(1e-4, 1).all() and 
       "coding (c) permutation table: classic p merged, 9,999 permutations")
 
 fc = pd.read_csv(D / "factors_correlations.csv")
-check(len(fc) == 28 and fc.groupby("outcome").size().eq(14).all(), "factor correlations: 14 factors x 2 outcomes")
+check(len(fc) == 30 and fc.groupby("outcome").size().eq(15).all(), "factor correlations: 15 factors x 2 outcomes")
 r_ci = fc[(fc.outcome == "over_vs_harris") & (fc.factor == "c_index")].iloc[0]
 check(r_ci.n == 44 and near(r_ci.r, np.corrcoef(an.c_index, an.over_vs_harris)[0, 1], 1e-3),
       "factor correlations: progressive index r recomputes from races.csv")
@@ -251,6 +251,16 @@ fw = pd.read_csv(D / "factors_wave.csv")
 hw = fw[fw["sample"] == "All Dem-vs-Rep House races"].iloc[0]
 check(hw.n == 417 and hw.n_ahead_of_harris == 412 and near(hw["mean"], 14.42, 0.01),
       "wave: 412 of 417 House Democrats ran ahead of Harris, mean +14.42 (matches summary.json)")
+
+dm = pd.read_csv(D / "debias_measurement.csv")
+check(len(dm) == 44 and dm.eb_mean.notna().all() and dm.eb_sd.gt(0).all(), "debias: corrected index and sd for all 44 nominees")
+check(int(dm.n_sourced.sum()) == 134, "debias: 134 of 572 nominee-item cells sourced")
+de = pd.read_csv(D / "debias_effects.csv")
+check(set(de.baseline) == {"harris24", "biden20", "prior_seat", "midterm22", "hist", "house26", "gov26"}, "debias: seven baselines")
+eh = de[(de.baseline == "harris24") & (de.scope == "P") & (de.coding == "c_index10")].iloc[0]
+check(near(eh.coef, -0.59, 0.01), "debias: raw-index pooled Harris coefficient matches coding_c_regressions (-0.59)")
+bn = pd.read_csv(D / "baselines_nonharris.csv")
+check(int(bn.over_hist.notna().sum()) == 38, "history baseline (no Harris) covers 38 races")
 
 passed = sum(ok for ok, _ in results)
 for ok, msg in results:

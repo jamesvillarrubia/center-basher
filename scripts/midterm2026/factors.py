@@ -31,7 +31,8 @@ B = 4999
 
 FACTORS = [
     # column, label, group
-    ("c_index", "Progressive index (13 stated positions)", "Who the candidate is"),
+    ("c_eb", "Progressive index, coverage-corrected", "Who the candidate is"),
+    ("c_index", "Progressive index, raw (unsourced = 0)", "Who the candidate is"),
     ("a_moderate", "Third Way calls them moderate", "Who the candidate is"),
     ("b_estab", "Establishment-backed before the primary", "Who the candidate is"),
     ("incumbent", "Incumbent", "Who the candidate is"),
@@ -53,6 +54,8 @@ def frame() -> pd.DataFrame:
     r = load()
     r = r[r.c_index.notna()].copy()
     r["incumbent"] = r.dem_incumbent.astype(float)
+    eb = pd.read_csv(D / "debias_measurement.csv").set_index("race_id").eb_mean
+    r["c_eb"] = r.race_id.map(eb)
     r["log_pageviews"] = np.log10(r.pageviews_12m_pre_launch.clip(lower=1))
     r["log_receipts_pv"] = np.log10(r.dollars_per_vote_receipts.clip(lower=0.01))
     money = r[["aipac_prim_against_nominee", "crypto_prim_against_nominee", "ai_prim_against_nominee"]].fillna(0)
@@ -98,14 +101,14 @@ def correlations(r: pd.DataFrame) -> pd.DataFrame:
 ANOVA_MODELS = {
     # full coverage, n 44 (Third Way's label omitted: it leaves 3 Senate races uncoded)
     "full": ["senate", "harris_margin", "incumbent", "prior_office", "log_pageviews",
-             "log_receipts_pv", "net_out_pv", "prim_money_against", "b_estab", "c_index"],
+             "log_receipts_pv", "net_out_pv", "prim_money_against", "b_estab", "c_eb"],
     # adds Third Way's label and its chamber interaction, n 41
     "thirdway": ["senate", "harris_margin", "incumbent", "prior_office", "log_pageviews",
-                 "log_receipts_pv", "net_out_pv", "prim_money_against", "b_estab", "c_index",
+                 "log_receipts_pv", "net_out_pv", "prim_money_against", "b_estab", "c_eb",
                  "a_moderate", "a_moderate:senate"],
     # adds days on the trail, n 27 (FEC launch dates unavailable; announcement dates)
     "trail": ["senate", "harris_margin", "incumbent", "prior_office", "log_pageviews",
-              "log_receipts_pv", "net_out_pv", "prim_money_against", "b_estab", "c_index", "trail100"],
+              "log_receipts_pv", "net_out_pv", "prim_money_against", "b_estab", "c_eb", "trail100"],
 }
 
 
@@ -162,11 +165,11 @@ def main() -> None:
     an.to_csv(D / "factors_anova.csv", index=False)
     wv.to_csv(D / "factors_wave.csv", index=False)
     keep = ["race_id", "chamber", "dem_last", "dem_won", "over_vs_harris", "over_prior_seat",
-            "coding_a_thirdway", "b_estab", "c_index", "c_n_sourced", "harris_margin"]
+            "coding_a_thirdway", "b_estab", "c_index", "c_eb", "c_n_sourced", "harris_margin"]
     races = r[keep].rename(columns={"race_id": "id", "chamber": "ch", "dem_last": "name", "dem_won": "won",
                                     "over_vs_harris": "over", "over_prior_seat": "prior",
                                     "coding_a_thirdway": "tw", "b_estab": "estab", "c_index": "c",
-                                    "c_n_sourced": "ns", "harris_margin": "terrain"})
+                                    "c_n_sourced": "ns", "harris_margin": "terrain", "c_eb": "ceb"})
     races["tw"] = races.tw.fillna("uncoded")
     out = dict(races=json.loads(races.round(3).to_json(orient="records")),
                correlations=json.loads(cor.round(4).to_json(orient="records")),
