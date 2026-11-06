@@ -141,10 +141,10 @@ a{color:var(--accent)}
 <figure class="card" id="ex-scatter">
   <div class="claim"><span class="tag">Third Way</span>“Moderate Democrats Won Because They Escaped the Party’s Far-Left Brand.”</div>
   <h2 class="ctitle">Progressive nominees ran <span class="hl">as far ahead</span> as everyone else.</h2>
-  <p class="csub">The most progressive third of nominees beat Harris by 14.2 points. The least progressive third beat her by 15.9. The 1.7-point gap sits well inside the noise.</p>
-  <div class="legend"><span><i style="background:var(--left)"></i>won</span><span><i style="background:transparent;box-shadow:inset 0 0 0 2px var(--gray)"></i>lost</span><span><i style="background:var(--ink-soft);border-radius:0;height:2px;vertical-align:3px;width:18px"></i><span id="fitAll"></span></span></div>
+  <p class="csub">The most progressive third of nominees beat Harris by 14.2 points. The least progressive third beat her by 15.9. The 1.7-point gap sits well inside the noise: the band around the trend line fits a flat line, a small rise, or a small fall.</p>
+  <div class="legend"><span><i style="background:var(--left)"></i>won</span><span><i style="background:transparent;box-shadow:inset 0 0 0 2px var(--gray)"></i>lost</span><span><i style="background:color-mix(in srgb,var(--ink-soft) 18%,#fff);border-radius:2px;height:10px;width:18px;box-shadow:inset 0 -6px 0 -4px var(--ink-soft)"></i><span id="fitAll"></span></span></div>
   <div class="chart" id="scatter"></div>
-  <div class="foot"><span class="src">x: progressive index, with positions not on record estimated from endorsements and primary opponents; whiskers ±1 sd. y: Democratic margin minus Harris 2024 margin. Line: least-squares fit.</span><span class="domain">thecenterisalie.org</span></div>
+  <div class="foot"><span class="src">x: progressive index, with positions not on record estimated from endorsements and primary opponents; whiskers ±1 sd. y: Democratic margin minus Harris 2024 margin. Dashed line: least-squares trend; shaded band: 95% range from a state-level bootstrap.</span><span class="domain">thecenterisalie.org</span></div>
 </figure>
 <div class="share" data-for="ex-scatter"></div>
 </section>
@@ -322,6 +322,7 @@ document.querySelectorAll(".share").forEach(box=>{
   [0,0.25,0.5,0.75,1,1.25].forEach(t=>el("text",{x:x(t),y:H-m.b+17,"text-anchor":"middle"},svg,t.toFixed(2)));
   el("text",{x:(m.l+W-m.r)/2,y:H-5,"text-anchor":"middle"},svg,"← more progressive · corrected index · less progressive →");
   el("text",{x:m.l+4,y:m.t+10},svg,"points ahead of Harris 2024");
+  const bandLayer=el("g",{},svg);
   pts.forEach(d=>el("line",{x1:x(d.e-d.sd),x2:x(d.e+d.sd),y1:y(d.over),y2:y(d.over),stroke:css("--gray-soft"),"stroke-width":1.5},svg));
   const labels={"Talarico":[0,-12,"middle"],"McAdams":[0,-12,"middle"],"Ossoff":[0,-12,"middle"],"Jackson":[0,20,"middle"]};
   pts.forEach(d=>{
@@ -329,10 +330,19 @@ document.querySelectorAll(".share").forEach(box=>{
     hover(c,`<b>${d.name}</b> (${d.id})<br>${sg(d.over.toFixed(1))} vs Harris${d.prior!=null?`, ${sg(d.prior.toFixed(1))} vs prior race`:""}<br>corrected index ${d.e.toFixed(2)} ± ${d.sd.toFixed(2)}<br>raw index ${sg(d.c.toFixed(2))}, ${d.ns} sourced<br>${d.won?"won":"lost"}`);
     if(labels[d.name]){const [dx,dy,a]=labels[d.name];el("text",{x:x(d.e)+dx,y:y(d.over)+dy,"text-anchor":a,class:"lab",stroke:"#fff","stroke-width":3,"paint-order":"stroke"},svg,d.name);}
   });
-  const n=pts.length,mx=pts.reduce((a,d)=>a+d.e,0)/n,my=pts.reduce((a,d)=>a+d.over,0)/n;let sxy=0,sxx=0,syy=0;pts.forEach(d=>{sxy+=(d.e-mx)*(d.over-my);sxx+=(d.e-mx)**2;syy+=(d.over-my)**2;});
-  const b=sxy/sxx,a=my-b*mx,rr=sxy/Math.sqrt(sxx*syy),lo=Math.min(...pts.map(d=>d.e)),hi=Math.max(...pts.map(d=>d.e));
-  el("line",{x1:x(lo),x2:x(hi),y1:y(a+b*lo),y2:y(a+b*hi),stroke:css("--ink-soft"),"stroke-width":2.5,"stroke-linecap":"round"},svg);
-  document.getElementById("fitAll").textContent=`fit, all 44: r ${rr.toFixed(2)}`;
+  const ols=S=>{const n=S.length,mx=S.reduce((a,d)=>a+d.e,0)/n,my=S.reduce((a,d)=>a+d.over,0)/n;let sxy=0,sxx=0;S.forEach(d=>{sxy+=(d.e-mx)*(d.over-my);sxx+=(d.e-mx)**2;});const b=sxy/sxx;return [my-b*mx,b];};
+  const [a,b]=ols(pts),lo=Math.min(...pts.map(d=>d.e)),hi=Math.max(...pts.map(d=>d.e));
+  // 95% band: bootstrap that resamples whole states (seeded, 2,000 draws), matching the state-clustered ranges elsewhere
+  let s=20261106;const rnd=()=>{s|=0;s=s+0x6D2B79F5|0;let q=Math.imul(s^s>>>15,1|s);q=q+Math.imul(q^q>>>7,61|q)^q;return((q^q>>>14)>>>0)/4294967296;};
+  const byState={};pts.forEach(d=>{const k=d.id.slice(0,2);(byState[k]=byState[k]||[]).push(d);});const states=Object.keys(byState);
+  const grid=Array.from({length:25},(_,i)=>lo+(hi-lo)*i/24),fits=grid.map(()=>[]);
+  for(let k=0;k<2000;k++){const S=[];for(let j=0;j<states.length;j++)S.push(...byState[states[Math.floor(rnd()*states.length)]]);if(new Set(S.map(d=>d.e)).size<3)continue;const [ba,bb]=ols(S);grid.forEach((g,i)=>fits[i].push(ba+bb*g));}
+  const q=(arr,p)=>{const v=arr.slice().sort((m,n)=>m-n);return v[Math.floor(p*(v.length-1))];};
+  const up=grid.map((g,i)=>[x(g),y(q(fits[i],0.975))]),dn=grid.map((g,i)=>[x(g),y(q(fits[i],0.025))]).reverse();
+  el("path",{d:"M"+up.concat(dn).map(p=>p.join(",")).join("L")+"Z",fill:css("--ink-soft"),opacity:0.12},bandLayer,null);
+  el("line",{x1:x(lo),x2:x(hi),y1:y(a+b*lo),y2:y(a+b*hi),stroke:css("--ink-soft"),"stroke-width":2,"stroke-dasharray":"6 4","stroke-linecap":"round"},bandLayer);
+  const cr=DATA.correlations.find(c=>c.outcome==="over_vs_harris"&&c.factor==="c_eb");
+  document.getElementById("fitAll").textContent=`trend with 95% band: r ${cr.r.toFixed(2)}, range ${cr.ci_lo.toFixed(2)} to ${sg(cr.ci_hi.toFixed(2))}, no reliable slope`;
 })();
 
 /* gaps: effect of the index by measure and baseline */
