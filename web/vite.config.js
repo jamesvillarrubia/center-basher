@@ -42,6 +42,7 @@ export default defineConfig({
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
         share: fileURLToPath(new URL('./share/index.html', import.meta.url)),
+        midterm2026: fileURLToPath(new URL('./midterm-2026/index.html', import.meta.url)),
       },
     },
   },
