@@ -1032,5 +1032,119 @@
       "OR-04",
       "UT-01"
     ]
+  },
+  "baselines": {
+    "national_environment": {
+      "pres24": -1.478,
+      "pres20": 4.54,
+      "house26": 12.041,
+      "house24": -2.733,
+      "house22": -2.847,
+      "house20": 3.064
+    },
+    "seven_group_means": {
+      "Schumer-backed": {
+        "over_harris24": 19.73,
+        "over_biden20": 17.27,
+        "over_pres2cyc": 18.5,
+        "over_prior_seat": 16.41,
+        "over_midterm22": 16.99,
+        "over_house26": 3.97,
+        "n_by_col": {
+          "over_harris24": 3,
+          "over_biden20": 3,
+          "over_pres2cyc": 3,
+          "over_prior_seat": 3,
+          "over_midterm22": 3,
+          "over_house26": 3
+        }
+      },
+      "not backed pre-primary": {
+        "over_harris24": 21.68,
+        "over_biden20": 16.64,
+        "over_pres2cyc": 19.16,
+        "over_prior_seat": 16.21,
+        "over_midterm22": 25.12,
+        "over_house26": 5.82,
+        "n_by_col": {
+          "over_harris24": 4,
+          "over_biden20": 4,
+          "over_pres2cyc": 4,
+          "over_prior_seat": 4,
+          "over_midterm22": 3,
+          "over_house26": 4
+        }
+      }
+    },
+    "missing": {
+      "base_biden20": [
+        "FL-20",
+        "FL-24",
+        "FL-25",
+        "TN-09",
+        "TX-34",
+        "UT-01"
+      ],
+      "base_prior_seat": [
+        "FL-20",
+        "FL-24",
+        "FL-25",
+        "TN-09",
+        "TX-34",
+        "UT-01"
+      ],
+      "base_midterm22": [
+        "AK-S",
+        "ME-S",
+        "MI-S",
+        "MN-S",
+        "MS-S",
+        "TX-S",
+        "FL-20",
+        "FL-24",
+        "FL-25",
+        "GA-13",
+        "IL-07",
+        "NY-06",
+        "NY-13",
+        "TN-09",
+        "TX-34",
+        "UT-01"
+      ]
+    },
+    "contaminated_prior_seat_same_dem": [
+      "GA-S",
+      "AZ-01",
+      "AZ-04",
+      "HI-01",
+      "MO-01",
+      "NJ-06",
+      "NY-06",
+      "OR-04",
+      "TX-34",
+      "WI-03"
+    ],
+    "contaminated_midterm22_same_dem": [
+      "AZ-04",
+      "HI-01",
+      "NJ-06",
+      "NY-06",
+      "OR-04",
+      "TX-34",
+      "VA-02"
+    ],
+    "same_rep_prior_seat": [
+      "AK-S",
+      "KS-S",
+      "ME-S",
+      "MS-S",
+      "GA-13",
+      "IL-07",
+      "NY-17",
+      "OR-04",
+      "PA-07",
+      "TX-34",
+      "VA-02"
+    ]
   }
 }

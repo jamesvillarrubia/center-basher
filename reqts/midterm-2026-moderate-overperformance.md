@@ -7,7 +7,7 @@ spending, and two independent codings of every nominee. It holds findings and
 numbers only. Essay prose stays with James.
 
 Data: `data/derived/midterm2026/races.csv`, codebook `data/derived/midterm2026/README.md`.
-Scripts: `scripts/midterm2026/`. Check script: 65 passed, 0 failed (2026-11-05, third pass).
+Scripts: `scripts/midterm2026/`. Check script: 82 passed, 0 failed (2026-11-05, fourth pass).
 All vote counts are unofficial, as reported 2026-11-05, two days after the election.
 California, Arizona, Utah and Alaska were still counting.
 
@@ -512,6 +512,156 @@ moves coding (a) from +1.1 to +0.5. In the pooled model Florida is one row of 41
 longer carries the contrast, which now comes from the chamber split. No robustness row
 gives a coding-(b) wild CI that excludes zero.
 
+## 10 · Baseline sensitivity: does the result depend on Harris 2024?
+
+Every result above measures overperformance against one race, Harris 2024. This section
+reruns the main specifications against four more baselines and reports which findings
+survive the change.
+
+**Baselines** [44]. All are Democratic-minus-Republican margins in the same geography:
+
+| Baseline | Senate rows | House rows | National D−R margin of its cycle |
+|---|---|---|---|
+| Harris 2024 | CNN 2024-PG | Downballot, 2026 lines | −1.48 (president) |
+| Biden 2020 | CNN 2020-PG | Downballot 2020 on 2026 lines; 2024 lines where the district did not move | +4.54 (president) |
+| Mean of Harris 2024 and Biden 2020 | as above | as above | +1.53 |
+| Prior race for the seat | last regular race: 2020 (GA: Jan 2021 runoff); FL, OH specials: 2022 | 2024 House result | +3.06 (House 2020), −2.85 (House 2022), −2.73 (House 2024) |
+| 2022 midterm | 2022 Senate race where one was held | 2022 House result | −2.85 (House) |
+| 2026 statewide House vote | as before | n/a | same cycle |
+
+The 2026 national House margin is +12.04 [45]. Swing adjustment subtracts the difference
+between +12.04 and the baseline cycle's national margin: 13.5 points for Harris 2024, 7.5 for
+Biden 2020, 10.5 for the two-cycle mean, 14.9 for 2022, 14.8 for 2024 House and 9.0 for
+2020 House. National margins are summed from the same CNN feeds; the 2020 presidential sum
+(+4.54) sits 0.1 point from the commonly cited +4.45 because CNN's totals include all
+candidates. Where every row in a model shares one cycle, the adjustment is a constant and
+leaves the coding coefficient unchanged. It moves coefficients only where cycles mix:
+Senate prior-seat rows (2020, 2022) and pooled prior-seat rows (2020, 2022, 2024).
+
+**Rows without a baseline** [46]:
+
+- Biden 2020, two-cycle mean, prior seat: FL-20, FL-24, FL-25, TN-09, TX-34, UT-01.
+  All six were redrawn for 2026, and The Downballot publishes no 2020 figure on the new lines.
+  FL-20 also had no contested 2024 race.
+- 2022 midterm, Senate: no 2022 race in ME, MI, MN, MS, TX; Alaska's 2022 race had no
+  Democrat in the top two (Murkowski vs Tshibaka).
+- 2022 midterm, House: the six above plus GA-13 and NY-06 (redrawn between 2022 and 2024),
+  IL-07 and NY-13 (2022 race lacked a Republican or a Democrat).
+
+**Candidate-effect contamination** [47]. A prior-race baseline that featured the same
+candidate measures that candidate against themselves:
+
+- Prior seat, same Democrat: GA-S (Ossoff's own 2020-21 race), AZ-01 and WI-03 (Shah and
+  Cooke were the 2024 nominees), and the incumbents AZ-04, HI-01, MO-01, NJ-06, NY-06,
+  OR-04 (TX-34 is flagged but has no usable baseline).
+- 2022 midterm, same Democrat: AZ-04, HI-01, NJ-06, NY-06, OR-04, VA-02 (Luria was the 2022
+  nominee), TX-34.
+- Prior seat, same Republican (rematches): AK (Sullivan), KS (Marshall), ME (Collins), MS
+  (Hyde-Smith), and House NY-17, OR-04, PA-07, VA-02 among others. Surname matching drives
+  this flag; GA-13 and IL-07 may be surname coincidences.
+
+The "excluding same-candidate rows" lines drop the same-Democrat rows.
+
+**Sensitivity table, raw** [48]. Base specification: overperformance against baseline B on
+the coding dummy, B's own margin (the lean control, as Harris margin was before) and net
+outside spending per vote; pooled adds a Senate intercept. Each cell gives the coefficient,
+the wild cluster bootstrap 95% CI and n. The indented "same rows" lines rerun Harris 2024 on
+exactly the rows the baseline above them can use, which separates the baseline's effect
+from the change in sample.
+
+| Baseline | (a) Senate | (b) Senate | (a) House | (b) House | (b) pooled |
+|---|---|---|---|---|---|
+| Harris 2024 | +12.3 (+8.6 to +16.1), 11 | +4.5 (−5.5 to +14.2), 14 | −3.7 (−11.5 to +4.0), 30 | +2.0 (−2.9 to +7.0), 30 | +1.9 (−2.1 to +5.8), 44 |
+| Biden 2020 | +17.1 (+10.3 to +23.9), 11 | +5.3 (−4.1 to +14.5), 14 | −4.6 (−13.0 to +3.6), 24 | +3.9 (−0.5 to +8.1), 24 | +3.9 (+0.1 to +7.8), 38 |
+|   Harris 2024, same rows | +12.3 | +4.5 | −5.9 (−17.8 to +6.5), 24 | +3.1 (−1.2 to +7.4), 24 | +2.5 (−1.8 to +6.7), 38 |
+| Harris/Biden mean | +14.6 (+11.3 to +17.8), 11 | +4.9 (−4.8 to +14.6), 14 | −4.9 (−14.6 to +5.2), 24 | +3.6 (−0.5 to +7.8), 24 | +3.3 (−0.5 to +7.2), 38 |
+| Prior race for the seat | +6.0 (−0.7 to +12.6), 11 | +3.3 (−10.6 to +16.9), 14 | +0.1 (−10.5 to +10.1), 24 | +5.4 (+0.0 to +10.8), 24 | +3.1 (−1.4 to +7.7), 38 |
+|   Harris 2024, same rows | +12.3 | +4.5 | −5.9 | +3.1 | +2.5 |
+| Prior seat, excl. same-candidate | +5.3 (−3.5 to +14.3), 10 | +2.0 (−8.7 to +12.6), 13 | +4.3 (−12.7 to +21.8), 16 | +6.7 (−1.8 to +15.2), 16 | +2.8 (−3.5 to +9.0), 29 |
+|   Harris 2024, same rows | +12.1 (+4.1 to +20.5), 10 | +3.3 (−8.0 to +14.5), 13 | −0.5 (−10.4 to +9.5), 16 | −0.0 (−3.8 to +3.8), 16 | +0.3 (−4.1 to +4.5), 29 |
+| 2022 midterm | +10.2 (+4.1 to +16.4), 7 | +7.0 (−56.6 to +69.7), 8 | +2.1 (−9.0 to +12.7), 20 | +6.7 (+0.5 to +13.2), 20 | +2.6 (−2.6 to +7.8), 28 |
+|   Harris 2024, same rows | +10.1 (+6.8 to +13.4), 7 | +4.9 (−21.3 to +31.2), 8 | −3.6 (−14.8 to +7.5), 20 | +2.5 (−2.9 to +8.0), 20 | +1.9 (−2.3 to +6.0), 28 |
+| 2022 midterm, excl. same-candidate | +10.2 (+4.1 to +16.4), 7 | +7.0 (−56.6 to +70.5), 8 | +5.5 (−8.4 to +19.3), 15 | +7.4 (+0.9 to +13.9), 15 | +2.3 (−3.3 to +7.9), 23 |
+|   Harris 2024, same rows | +10.1 | +4.9 | +0.9 (−6.7 to +8.4), 15 | +0.5 (−3.6 to +4.6), 15 | +0.5 (−2.7 to +3.9), 23 |
+| 2026 statewide House vote | +7.5 (+5.2 to +9.8), 11 | +3.9 (−3.1 to +11.0), 13 | n/a | n/a | n/a |
+|   Harris 2024, same rows | +12.3 | +7.1 (−2.1 to +16.4), 13 | | | |
+
+Same-rows cells without a CI repeat a row whose sample did not change.
+
+**Sensitivity table, swing-adjusted** [48]. Only the prior-seat cells change, because only
+those mix cycles. Every other cell has the same coefficient as the raw table; its CI
+bounds differ by bootstrap noise, up to 1.2 points in the uninformative 8-race Senate
+midterm cell and 0.4 or less elsewhere:
+
+| Baseline (adjusted) | (a) Senate | (b) Senate | (a) House | (b) House | (b) pooled |
+|---|---|---|---|---|---|
+| Prior race for the seat | +7.0 (−1.4 to +15.5), 11 | +2.1 (−10.0 to +14.0), 14 | +0.1 (−10.4 to +10.3), 24 | +5.4 (+0.1 to +10.8), 24 | +2.9 (−1.7 to +7.6), 38 |
+| Prior seat, excl. same-candidate | +6.4 (−6.3 to +18.9), 10 | +0.5 (−9.8 to +10.9), 13 | +4.3 (−12.8 to +21.2), 16 | +6.7 (−2.1 to +15.3), 16 | +2.5 (−3.8 to +8.7), 29 |
+
+The "+controls" versions (prior office and days on the trail added) are in
+`baseline_sensitivity.csv`; at 9 to 27 rows their CIs are wide, and their signs match the
+base table in every cell except (a) House, which turns positive (+2.3 to +11.3) once the
+sample shrinks to the 9 to 14 non-incumbent rows with a launch date.
+
+**Verdicts by column.**
+
+- **(a) Senate, Third Way's moderate label: holds in sign, shrinks under the prior-race
+  baseline.** The coefficient is positive under every baseline, from +6.0 (prior race for
+  the seat) to +17.1 (Biden 2020). The prior-race baseline is the outlier: on the same 11
+  races it halves the Harris estimate (+12.3 to +6.0) and its CI crosses zero (−0.7 to
+  +12.6). Measured against the seat's previous race (2020, or 2022 for the Florida and
+  Ohio specials), Third Way's moderates ran about 6 points further ahead than the others,
+  against about 12 measured against Harris.
+- **(b) Senate, establishment backing: small and indistinguishable from zero under every
+  baseline** (+2.0 to +7.0). The 2022-midterm cell rests on 8 races, 4 of them backed, and
+  its CI (−56.6 to +69.7) carries no information.
+- **(a) House: changes sign with the baseline and never leaves zero.** Negative against
+  presidential baselines (−3.7 to −4.9), near zero against the 2024 House result (+0.1),
+  positive against 2022 (+2.1; +5.5 without same-candidate rows). No CI excludes zero.
+- **(b) House: grows under prior-race baselines, and Harris 2024 is the outlier at the low
+  end.** Against the 2022 midterm, establishment-backed House nominees ran +6.7 (+0.5 to
+  +13.2) further ahead than the others; without same-candidate rows +7.4 (+0.9 to +13.9).
+  Against the 2024 House result, +5.4 (+0.0 to +10.8). On the same rows, Harris 2024 gives
+  +2.5 and +3.1, and +0.5 without the same-candidate rows. This change comes from the
+  baseline, not the sample: establishment-backed House nominees outran the previous
+  Democratic House candidates in their districts by more than they outran Harris.
+- **(b) pooled: +1.9 to +3.9.** One cell excludes zero: Biden 2020, +3.9 (+0.1 to +7.8),
+  against +2.5 for Harris on the same rows.
+
+Overall, Third Way's Senate moderate edge survives every baseline in sign but halves
+against the prior race for each seat. The establishment-backing coefficient moves from
+"indistinguishable from zero" toward a positive House effect when the baseline is the
+district's previous House race. No baseline flips a coefficient whose CI excluded zero
+under Harris 2024.
+
+**Third Way's seven moderates, by baseline** [49]:
+
+| Nominee | Backing | Harris 2024 | Biden 2020 | Harris/Biden mean | Prior seat | 2022 midterm | 2026 House vote |
+|---|---|---|---|---|---|---|---|
+| Talarico (TX) | not backed | +25.8 | +17.8 | +21.8 | +22.0 | n/a | +6.2 |
+| Andrews (SC) | not backed | +22.4 | +16.3 | +19.4 | +14.9 | +30.4 | +7.1 |
+| Hamilton (KS) | not backed | +21.1 | +20.0 | +20.6 | +17.0 (same R: Marshall) | +28.7 | +7.1 |
+| Turek (IA) | not backed | +17.4 | +12.5 | +14.9 | +10.9 | +16.3 | +2.9 |
+| Ossoff (GA) | Schumer-backed | +20.2 | +17.8 | +19.0 | +16.8 (his own 2020-21 race) | +17.1 | +5.6 |
+| Cooper (NC) | Schumer-backed | +22.9 | +21.0 | +21.9 | +21.5 | +22.9 | +4.5 |
+| Brown (OH) | Schumer-backed | +16.1 | +13.0 | +14.6 | +11.0 | +11.0 | +1.8 |
+| **Mean, not backed** | | +21.7 (4) | +16.6 (4) | +19.2 (4) | +16.2 (4) | +25.1 (3) | +5.8 (4) |
+| **Mean, Schumer-backed** | | +19.7 (3) | +17.3 (3) | +18.5 (3) | +16.4 (3) | +17.0 (3) | +4.0 (3) |
+| **Gap (not backed minus backed)** | | +2.0 | −0.6 | +0.7 | −0.2 | +8.1 | +1.9 |
+
+The section 2 finding that the four non-backed moderates ran ahead of the three Schumer
+recruits **depends on the baseline**. It holds against Harris 2024 (+2.0), the 2026 House
+vote (+1.9) and the 2022 midterm (+8.1, three a side, Texas missing). It disappears against
+Biden 2020 (−0.6), the two-cycle mean (+0.7) and the prior race for the seat (−0.2). With
+four against three, the gap is description under any baseline.
+
+> **[Claude — honest correction]** Section 2 and the headline say the four non-backed
+> moderates "posted the larger overperformances". That holds against Harris 2024 and the
+> 2026 House vote, and reverses slightly against Biden 2020 and the prior race for each
+> seat. Suggested rewrite: "Against Harris 2024, the four moderates without establishment
+> backing ran about 2 points further ahead than Schumer's three recruits; against Biden 2020
+> or the seat's previous race, the two groups ran level."
+
 ---
 
 ## Notes
@@ -708,3 +858,30 @@ stays in both models.
 MD-05, MI-13, NY-06, NY-10, NY-17, OR-04, UT-01 (CNN `percentReporting` < 90 on
 2026-11-05). Group means by `coding_a_thirdway` computed from `races.csv` over the dropped
 and kept House rows.
+
+[44] `scripts/midterm2026/build_baselines.py`; `baselines.csv` (merged into `races.csv`),
+columns `base_*`, `over_*`, `swing_*`, `over_*_adj`. CNN results API feeds `2020-PG`,
+`2020-SG` (Georgia runoff key `2020-SW-GA`), `2022-SG`, `2022-HG`, `2024-HG`, cached under
+`data/raw/midterm2026/cnn/`. The Downballot sheets: 2026 lines (`pres2024_by_cd_2026lines.csv`),
+2024 lines (`1ng1i_Dm_620838163.csv`, whole points), 2022 lines (`1CKngqOp_1871835782.csv`,
+Biden only), all linked from the-downballot.com/p/the-downballots-calculations-of-presidential.
+
+[45] `national_environment.csv`: (all Democratic votes − all Republican votes) / all votes
+× 100, summed over every race in each CNN feed. House totals include uncontested seats.
+
+[46] `summary.json` → `baselines.missing`; reasons in `baselines.csv` columns
+`biden20_source`, `baseline_notes`, `midterm22_note`.
+
+[47] `baselines.csv` columns `prior_seat_same_dem`, `prior_seat_same_rep`,
+`midterm22_same_dem`, `midterm22_same_rep` (surname match against the 2026 nominees);
+`summary.json` → `baselines.contaminated_*`.
+
+[48] `baseline_regressions.csv` and `baseline_sensitivity.csv` (`scripts/midterm2026/baselines_analysis.py`).
+OLS of `over_<b>` on the coding dummy, `base_<b>`, `net_out_pv` (pooled: + `senate`);
+wild cluster bootstrap-t CIs (Rademacher per state, 9,999 draws, seed 20261105; Senate-only
+models have one row per state); rows `harris24@<b>` rerun Harris 2024 on baseline b's rows.
+The Harris 2024 Senate CIs here (+8.6 to +16.1 for coding a) differ from section 2's HC3
+CIs (+7.9 to +16.8) because the method differs; the coefficient is identical.
+
+[49] `seven_moderates_by_baseline.csv`; group means in `summary.json` →
+`baselines.seven_group_means`.

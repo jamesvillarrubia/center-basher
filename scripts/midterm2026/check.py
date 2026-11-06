@@ -149,6 +149,40 @@ check((pool[(pool["sample"] == "drop FL (Nixon)")].n_senate.max()
        == pool[(pool["sample"] == "all") & (pool.term == "b_estab") & (pool.spec == "base")].n_senate.iloc[0] - 1),
       "drop-FL sample has one fewer Senate row")
 
+# Alternative baselines (build_baselines.py, baselines_analysis.py).
+bl = pd.read_csv(D / "baselines.csv").set_index("race_id")
+an_i = an.set_index("race_id")
+check(np.allclose(bl.base_harris24, an_i.harris_margin.reindex(bl.index)), "base_harris24 equals harris_margin")
+check(np.allclose(bl.over_harris24, an_i.over_vs_harris.reindex(bl.index)), "over_harris24 equals over_vs_harris")
+check(near(bl.base_prior_seat["GA-S"], 1.2, 0.2), "GA prior seat = Jan 2021 runoff, Ossoff +1.2")
+check(near(bl.base_prior_seat["FL-S"], 41.3 - 57.7, 0.6),
+      "FL prior seat = 2022 Rubio-Demings (about -16.4)")
+check(near(bl.base_prior_seat["OH-S"], 46.9 - 53.0, 0.3), "OH prior seat = 2022 Vance-Ryan (about -6.1)")
+check(near(bl.base_biden20["GA-S"], 0.2, 0.2) and near(bl.base_biden20["TX-S"], -5.6, 0.3), "Biden 2020 state margins: GA +0.2, TX -5.6")
+check(set(bl.index[bl.base_biden20.isna()]) == {"FL-20", "FL-24", "FL-25", "TN-09", "TX-34", "UT-01"},
+      "Biden 2020 missing only for the six districts redrawn for 2026 with no 2020 figure")
+check(bool(bl.redrawn_2024_2026[["FL-20", "TX-34", "UT-01", "TN-09"]].all()) and not bool(bl.redrawn_2024_2026[["NY-17", "PA-07"]].any()),
+      "redrawn_2024_2026 flags TX-34/UT-01/FL-20/TN-09, not NY-17/PA-07")
+check(bool(bl.redrawn_2022_2024["GA-13"]), "GA-13 flagged redrawn between 2022 and 2024 (Georgia's 2023 map)")
+check(set(bl.index[bl.base_midterm22.isna() & bl.index.str.endswith("-S")]) == {"AK-S", "ME-S", "MI-S", "MN-S", "MS-S", "TX-S"},
+      "2022 midterm Senate baseline missing for AK (no D in top two) and ME, MI, MN, MS, TX (no race)")
+check(bool(bl.prior_seat_same_dem["GA-S"]) and bool(bl.prior_seat_same_rep[["KS-S", "ME-S", "MS-S"]].all()),
+      "contamination flags: Ossoff's own 2020 race; Marshall, Collins, Hyde-Smith rematches")
+env = pd.read_csv(D / "national_environment.csv", index_col=0).iloc[:, 0]
+check(near(env["pres20"], 4.45, 0.2) and near(env["pres24"], -1.5, 0.2), f"national presidential margins 2020 {env['pres20']:.2f}, 2024 {env['pres24']:.2f}")
+br = pd.read_csv(D / "baseline_regressions.csv")
+h24 = br[(br.baseline == "harris24") & ~br.swing_adjusted & (br.coding == "a") & (br.scope == "S") & (br.spec == "base")].iloc[0]
+orig = reg[(reg.chamber == "S") & (reg.term == "a_moderate") & (reg.spec == "base") & (reg.coding == "a: Third Way moderate")
+           & (reg.y == "over_vs_harris")].iloc[0]
+check(near(h24.coef, orig.coef, 1e-6), "baseline module reproduces the original Senate coding-(a) coefficient under Harris 2024")
+for b_ in ["biden20", "pres2cyc", "midterm22"]:
+    q = br[(br.baseline == b_) & (br.coding == "b") & (br.scope == "H") & (br.spec == "base")]
+    check(len(q) == 2 and near(q.coef.iloc[0], q.coef.iloc[1], 1e-6),
+          f"{b_}: swing adjustment leaves the single-cycle House coefficient unchanged")
+sens = pd.read_csv(D / "baseline_sensitivity.csv")
+check(len(sens) >= 30 and {"a_senate", "b_senate", "a_house", "b_house", "b_pooled"} <= set(sens.columns),
+      "baseline_sensitivity.csv has the five coefficient columns")
+
 passed = sum(ok for ok, _ in results)
 for ok, msg in results:
     print(("PASS " if ok else "FAIL ") + msg)

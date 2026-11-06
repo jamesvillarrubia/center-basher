@@ -14,8 +14,10 @@ $P scripts/midterm2026/build_endorser_lists.py # step 1: NewDem / Welcome / Just
 $P scripts/midterm2026/build_house_primaries.py# step 2: Wikipedia primary endorsements + results
 $P scripts/midterm2026/build_races.py          # step 3: races.csv, house_all.csv
 $P scripts/midterm2026/build_controls.py       # step 3b: controls.csv, merged into races.csv (run after step 3)
+$P scripts/midterm2026/build_baselines.py      # step 3c: baselines.csv, merged into races.csv (run after step 3b)
 $P scripts/midterm2026/analyze.py              # step 4: regressions.csv, summary.json, house_flips.csv
 $P scripts/midterm2026/pooled.py               # step 4b: pooled Senate+House rows appended to regressions.csv (run after step 4)
+$P scripts/midterm2026/baselines_analysis.py   # step 4c: baseline_regressions.csv, baseline_sensitivity.csv (run after 4b)
 $P scripts/midterm2026/build_figure.py         # step 5: web/og-cards/draft-midterm-overperformance.html
 $P scripts/midterm2026/check.py                # pins numbers to sources; prints "N passed, M failed"
 ```
@@ -62,6 +64,11 @@ Way's Nov 5 memo calls cross-endorsed (Forstag MT-01, Brooks PA-07, Poindexter O
 | `seven_moderates.csv` | 7 | Third Way's seven Senate moderates, split by pre-primary Schumer backing |
 | `pooled_interactions.csv` | | Coding/control × Senate interaction terms from the pooled models, cluster and wild-bootstrap CIs |
 | `pooled_joint_tests.csv` | 8 | Joint tests that the Senate interactions are zero: cluster Wald F, HC3 F, wild restricted bootstrap p |
+| `baselines.csv` | 44 | Alternative baselines per analysis row (also merged into `races.csv`) |
+| `national_environment.csv` | 6 | National D−R margin per cycle, summed from CNN feeds (2020/2024 president; 2020/2022/2024/2026 House) |
+| `baseline_regressions.csv` | | Coding coefficient per baseline × raw/swing-adjusted × coding × spec × scope (S, H, P), wild cluster bootstrap CIs; `harris24@<b>` rows rerun Harris 2024 on baseline b's rows |
+| `baseline_sensitivity.csv` | | Compact table of the above: rows = baseline, columns = coding (a)/(b) × Senate/House, pooled (b) |
+| `seven_moderates_by_baseline.csv` | 7 | Third Way's seven Senate moderates, overperformance under each baseline |
 
 **`regressions.csv` columns.** `chamber` (`S`, `H`, or `P` = pooled), `coding`, `spec`,
 `y`, `term`, `n`, `n_coded_1`, `coef`, `se_hc3` (per-chamber rows), `ci_lo`/`ci_hi`
@@ -175,6 +182,25 @@ counts in `ie_*` columns but not in group columns.
 | `primary_date` | State primary date from NCSL's 2026 table (`_primary_dates.py`) |
 | `days_primary_to_general` | 2026-11-03 minus `primary_date` |
 | `days_nominee_to_general` | Same, except Jackson, counted from his 2026-07-25 nomination |
+
+**Alternative baselines** (`build_baselines.py`; analysis rows only). Every value is a
+Democratic-minus-Republican margin as a share of all votes × 100, same geography as the
+2026 race.
+
+| Column | Definition and source |
+|---|---|
+| `base_harris24` | Harris 2024 (= `harris_margin`) |
+| `base_biden20`, `biden20_source` | Biden 2020. Senate: CNN `2020-PG`. House: The Downballot 2020 on 2026 lines; where that tab is blank (AL, CA, FL, LA, NC, OH, TN, TX, UT) the 2024-lines figure is used only if the district did not move (`redrawn_2024_2026` false), else blank |
+| `base_pres2cyc` | Mean of `base_harris24` and `base_biden20` |
+| `base_prior_seat`, `prior_seat_cycle`, `prior_seat_env`, `prior_seat_dem`, `prior_seat_rep` | Senate: last regular election for the seat (CNN `2020-SG`; Georgia = Jan 5 2021 runoff; FL and OH specials use the seat's 2022 regular race). House: 2024 House result in the district (CNN `2024-HG`); blank if the district was redrawn for 2026 or the 2024 race lacked a D or an R |
+| `base_midterm22`, `midterm22_note`, `midterm22_dem`, `midterm22_rep` | Senate: 2022 Senate race in the state (CNN `2022-SG`, Georgia's Nov 8 first round); blank where no race was held (ME, MI, MN, MS, TX) or no Democrat finished top two (AK). House: 2022 House result (CNN `2022-HG`); blank if the district was redrawn between 2022 and 2026 or the race lacked a D or an R |
+| `base_house26` | Senate rows: 2026 statewide House vote (= `house_statewide_margin`) |
+| `redrawn_2024_2026`, `redrawn_2022_2024` | District moved between line sets: Harris margin on 2026 vs 2024 lines, or Biden margin on 2024 vs 2022 lines, differs by more than 1 point (The Downballot's 2024-lines sheet rounds to whole points). Senate rows: false |
+| `prior_seat_same_dem`, `midterm22_same_dem` | The baseline race had the same Democratic candidate (surname match): candidate-effect contamination |
+| `prior_seat_same_rep`, `midterm22_same_rep` | The baseline race had the same Republican (surname match; SC excluded: Lindsey vs Darline Graham). Surname matching can flag different people with one surname |
+| `baseline_notes` | Free-text caveats (AK's 2020 Democratic nominee ran as an independent; uncontested or redrawn races) |
+| `over_<b>` | 2026 `dem_margin` minus `base_<b>` |
+| `swing_<b>`, `over_<b>_adj` | National 2026 House margin minus the national margin of the baseline's cycle (`national_environment.csv`; presidential baselines use the presidential vote, others the House vote of that cycle), and the swing-adjusted overperformance `over_<b> − swing_<b>` |
 
 **Primary dates and the pre-primary rule.** Until 2026-11-05 the House builder took each
 state's primary date from a regex over Wikipedia's lead text, which picked up filing

@@ -141,7 +141,7 @@ def main() -> None:
                             r["pre"] = r["pre"] or pre
                             r["urls"] += urls
             names = set(cands) | set(results)
-            for name in names:
+            for name in sorted(names):
                 pct, won = results.get(name, (None, None))
                 e = cands.get(name, {})
                 desc = next((v for k, v in descs.items() if k and (k in name or name in k)), "")
