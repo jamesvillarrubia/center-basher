@@ -49,6 +49,14 @@ Parent rulings on the remaining coder flags:
 - **Item 12:** "pre-K for all" or a publicly funded universal preschool plan scores +1. "Affordable childcare" with no universal program scores 0.
 - **Item 13:** a stated refusal to back the leader scores +1, including in a news paraphrase. "Can't commit" scores 0.
 
+Parent ruling on the campaign-site pass (2026-11-06):
+
+- **Item 2:** a concrete tax action aimed at a named top group scores +1: a new tax, a higher rate, or closing loopholes or ending breaks for "billionaires", "millionaires", "the ultra-wealthy" or "the richest". "Pay their fair share" with no action scores 0. This puts MN-02 ("a tax on the ultrawealthy"), MD-05 ("closing loopholes that let big corporations and the ultra-wealthy avoid paying their fair share"), SC-S ("End tax breaks for the ultra-wealthy") and TN-09 ("Taxing the income of the richest people") on the same footing.
+- **Item 10:** blocking anti-competitive mergers in a named industry is a specific remedy (AK-S, grocery chains).
+- **Precedence:** a cosponsorship or recorded vote outranks hedged campaign-site wording (FL-25 item 1 stays +1 for cosponsoring H.R. 3069).
+
+The campaign-site pass covered the 23 nominees with fewer than 3 sourced items, from rendered live and Wayback captures (data/raw/midterm2026/sites/). Two coders scored it blind; they agreed on 99.3% of cells (Cohen's kappa 0.94). scripts/midterm2026/merge_sites.py applies the result and logs every change in positions/reconciled_sites.csv.
+
 ## Blind coding
 
 Two coders score every nominee independently. Neither coder sees election results,

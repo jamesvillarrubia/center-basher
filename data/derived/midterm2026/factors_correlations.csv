@@ -1,6 +1,6 @@
 outcome,outcome_label,factor,label,group,n,r,ci_lo,ci_hi,p_perm,clear_of_zero
-over_vs_harris,vs Harris 2024,c_eb,"Progressive index, coverage-corrected",Who the candidate is,44,-0.15616554309456765,-0.4576830097102613,0.17761292561099834,0.3128,False
-over_vs_harris,vs Harris 2024,c_index,"Progressive index, raw (unsourced = 0)",Who the candidate is,44,-0.2265214813341695,-0.5368763376487268,0.005616213764378933,0.1375,False
+over_vs_harris,vs Harris 2024,c_eb,"Progressive index, coverage-corrected",Who the candidate is,44,-0.17506991463115235,-0.4764401995145757,0.14844701174532718,0.2578,False
+over_vs_harris,vs Harris 2024,c_index,"Progressive index, raw (unsourced = 0)",Who the candidate is,44,-0.2406226512815924,-0.5473822361800237,-0.009739337436365356,0.1122,True
 over_vs_harris,vs Harris 2024,a_moderate,Third Way calls them moderate,Who the candidate is,41,0.12303341488998562,-0.21912275073334198,0.46587319170244956,0.4422,False
 over_vs_harris,vs Harris 2024,b_estab,Establishment-backed before the primary,Who the candidate is,44,0.11475595088617789,-0.18265293629666338,0.372343889583017,0.4566,False
 over_vs_harris,vs Harris 2024,incumbent,Incumbent,Who the candidate is,44,0.2873677151837098,-0.12676182998534205,0.6040323151605261,0.0588,False
@@ -13,9 +13,9 @@ over_vs_harris,vs Harris 2024,net_out_pv,"Net outside spending against the Democ
 over_vs_harris,vs Harris 2024,prim_money_against,"Faced AIPAC, crypto or AI primary money",Money,44,-0.055603927917719016,-0.30580585324166215,0.18614192353848144,0.7192,False
 over_vs_harris,vs Harris 2024,harris_margin,Harris 2024 margin in the state or district,Terrain,44,-0.1483445721873783,-0.36837447616158436,0.08179174721525644,0.3373,False
 over_vs_harris,vs Harris 2024,senate,Senate race (vs House),Terrain,44,0.02590661491212012,-0.2132666629569233,0.28245577153475426,0.8607,False
-over_vs_harris,vs Harris 2024,c_n_sourced,Positions sourced (documentation),Measurement,44,-0.2056527891122273,-0.5442646689930557,0.029562515478056047,0.1825,False
-over_prior_seat,vs prior race for the seat,c_eb,"Progressive index, coverage-corrected",Who the candidate is,38,-0.3037414814463462,-0.6239823034484908,0.0741707081585567,0.0651,False
-over_prior_seat,vs prior race for the seat,c_index,"Progressive index, raw (unsourced = 0)",Who the candidate is,38,-0.1766159802281148,-0.46902666270041965,0.17168055701334217,0.283,False
+over_vs_harris,vs Harris 2024,c_n_sourced,Positions sourced (documentation),Measurement,44,-0.22774260881902722,-0.5651983688076436,0.0020000454625073143,0.1384,False
+over_prior_seat,vs prior race for the seat,c_eb,"Progressive index, coverage-corrected",Who the candidate is,38,-0.30553917638465505,-0.6450544471770947,0.09591849560090172,0.0654,False
+over_prior_seat,vs prior race for the seat,c_index,"Progressive index, raw (unsourced = 0)",Who the candidate is,38,-0.1911810292248052,-0.4804287970190585,0.15169827135432906,0.2461,False
 over_prior_seat,vs prior race for the seat,a_moderate,Third Way calls them moderate,Who the candidate is,35,0.28596636054661767,-0.03316360339257257,0.5523564643269605,0.0998,False
 over_prior_seat,vs prior race for the seat,b_estab,Establishment-backed before the primary,Who the candidate is,38,0.17486961020622,-0.18351860728871272,0.44783779051037276,0.2984,False
 over_prior_seat,vs prior race for the seat,incumbent,Incumbent,Who the candidate is,38,0.12720099488502584,-0.25309040266113947,0.4333012582708479,0.4451,False
@@ -28,4 +28,4 @@ over_prior_seat,vs prior race for the seat,net_out_pv,"Net outside spending agai
 over_prior_seat,vs prior race for the seat,prim_money_against,"Faced AIPAC, crypto or AI primary money",Money,38,-0.03541071763045069,-0.2784715222313853,0.15050426931643227,0.8299,False
 over_prior_seat,vs prior race for the seat,harris_margin,Harris 2024 margin in the state or district,Terrain,38,-0.24577399436411848,-0.5095707241863013,0.017141095850530245,0.1408,False
 over_prior_seat,vs prior race for the seat,senate,Senate race (vs House),Terrain,38,0.20160913240557526,-0.09614716660808591,0.4829104140353367,0.2283,False
-over_prior_seat,vs prior race for the seat,c_n_sourced,Positions sourced (documentation),Measurement,38,-0.18024510536732288,-0.46284921172535576,0.14984747078989907,0.2872,False
+over_prior_seat,vs prior race for the seat,c_n_sourced,Positions sourced (documentation),Measurement,38,-0.1947581408400191,-0.4642076798626962,0.12554134386792248,0.2471,False

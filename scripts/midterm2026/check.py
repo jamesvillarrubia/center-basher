@@ -216,7 +216,7 @@ recomputed = pos[pos.race_id != "THIRDWAY"].groupby("race_id").score.mean()
 check(np.allclose(pix.c_index, recomputed.reindex(pix.index)), "c_index = mean of the 13 item scores")
 check(near(pix.thirdway_index.iloc[0], -0.346, 0.001), "Third Way's own index = -0.346")
 check(near(pix.c_index["TX-S"], 0.5, 1e-9) and pix.c_n_sourced["TX-S"] == 7, "Talarico: index 0.50 on 7 sourced items")
-check(int((pix.c_n_sourced >= 3).sum()) == 21, "21 nominees have 3+ sourced items")
+check(int((pix.c_n_sourced >= 3).sum()) == 24, "24 nominees have 3+ sourced items (after the campaign-site pass)")
 check(near(pix.c_median_cut.iloc[0], 0.1538, 0.001) and (pix.c_prog_median == (pix.c_index >= pix.c_median_cut)).all(),
       "median cut 0.154 and c_prog_median consistent")
 check(pix.c_stated.isna().sum() == int((pix.c_n_sourced == 0).sum()), "stated-only index blank exactly where no item is sourced")
@@ -254,11 +254,15 @@ check(hw.n == 417 and hw.n_ahead_of_harris == 412 and near(hw["mean"], 14.42, 0.
 
 dm = pd.read_csv(D / "debias_measurement.csv")
 check(len(dm) == 44 and dm.eb_mean.notna().all() and dm.eb_sd.gt(0).all(), "debias: corrected index and sd for all 44 nominees")
-check(int(dm.n_sourced.sum()) == 134, "debias: 134 of 572 nominee-item cells sourced")
+check(int(dm.n_sourced.sum()) == 144, "debias: 144 of 572 nominee-item cells sourced (after the campaign-site pass)")
 de = pd.read_csv(D / "debias_effects.csv")
 check(set(de.baseline) == {"harris24", "biden20", "prior_seat", "midterm22", "hist", "house26", "gov26"}, "debias: seven baselines")
 eh = de[(de.baseline == "harris24") & (de.scope == "P") & (de.coding == "c_index10")].iloc[0]
-check(near(eh.coef, -0.59, 0.01), "debias: raw-index pooled Harris coefficient matches coding_c_regressions (-0.59)")
+cr2 = pd.read_csv(D / "coding_c_regressions.csv")
+cr2 = cr2[(cr2.baseline == "harris24") & (cr2.spec == "base") & (cr2.scope == "P") & (cr2.coding_var == "c_index10")].iloc[0]
+check(near(eh.coef, cr2.coef, 0.01), "debias: raw-index pooled Harris coefficient matches coding_c_regressions")
+rs2 = pd.read_csv(D / "positions" / "reconciled_sites.csv")
+check(len(rs2) == 22 and rs2.source_url.notna().all() and rs2.quote.notna().all(), "sites pass: 22 reconciled non-zero cells, each with URL and quote")
 bn = pd.read_csv(D / "baselines_nonharris.csv")
 check(int(bn.over_hist.notna().sum()) == 38, "history baseline (no Harris) covers 38 races")
 

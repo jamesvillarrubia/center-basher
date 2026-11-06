@@ -1272,3 +1272,25 @@ the index numeric.
 [61] `coding_c_talarico_vs_thirdway.csv`; Third Way's item scores and sources are the
 `THIRDWAY` rows of `positions_final.csv` (e.g. item 7: thirdway.org, "The Still Vital
 Center", 2011; item 10: "The Future of Tech: 5 Questions for Democrats", 2025).
+
+## 13 · Campaign-site pass for the 23 least-documented nominees (2026-11-06)
+
+> **[Claude, honest correction]** Section 12's coverage numbers are superseded. A helper agent
+> rendered the live and Wayback campaign sites of the 23 nominees with fewer than 3 sourced
+> items (288 captures; `data/raw/midterm2026/sites/manifest.csv`). Two coders scored the text
+> blind and agreed on 99.3% of cells (Cohen's kappa 0.94). `scripts/midterm2026/merge_sites.py`
+> added 10 positions (9 progressive, 1 moderate: FL-25's support for continued security aid to
+> Israel); 11 other site findings matched cells the first pass had already scored. A new item 2
+> ruling puts "a tax on the ultrawealthy" (MN-02), "closing loopholes that let ... the
+> ultra-wealthy avoid paying their fair share" (MD-05, previously 0), "End tax breaks for the
+> ultra-wealthy" (SC-S) and "Taxing the income of the richest people" (TN-09) on the same
+> footing at +1.
+>
+> After the pass: 144 of 572 nominee-item cells sourced (was 134); 123 of the 144 are +1.
+> 24 nominees have 3+ sourced items (was 21). The coverage-corrected index still shows no
+> reliable link to overperformance: -0.33 points per +0.1 against Harris (95% CI -1.57 to
+> +0.92), -0.63 against the history-only baseline (-1.97 to +0.70). The raw index (unsourced =
+> 0) now correlates -0.24 with overperformance against Harris (state-cluster bootstrap CI
+> -0.55 to -0.01); the raw index correlates 0.94 with items sourced, so this is mostly a
+> documentation effect, and the corrected index's r is -0.18 (-0.48 to +0.15). Most-progressive
+> third +13.5 vs Harris, least-progressive third +15.9 (was +14.2 and +15.9).

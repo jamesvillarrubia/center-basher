@@ -180,7 +180,7 @@ a{color:var(--accent)}
   <p class="csub">We scored the Democrats in the 44 most contested Senate and House races on 13 issues, from Medicare for All to ending the filibuster. Third Way's own published positions score −0.35. Every nominee scored to its left, including all 19 winners Third Way claims as moderates.</p>
   <div class="legend"><span><i style="background:var(--tw)"></i>claimed by Third Way as "moderate"</span><span><i style="background:var(--left)"></i>called "leftier" by Third Way</span><span><i style="background:var(--gray-soft)"></i>not labeled</span></div>
   <div class="chart" id="strip"></div>
-  <div class="foot"><span class="src">Score: average of 13 issues, +1 support, 0 silent, −1 oppose, from the nominee's own words. When we found a position on record it was the progressive one 114 times out of 134; issues we could not find count as 0, which pulls every dot toward the center. Two coders, scoring separately without seeing results.</span><span class="domain">thecenterisalie.org</span></div>
+  <div class="foot"><span class="src">Score: average of 13 issues, +1 support, 0 silent, −1 oppose, from the nominee's own words. When we found a position on record it was the progressive one 123 times out of 144; issues we could not find count as 0, which pulls every dot toward the center. Two coders, scoring separately without seeing results.</span><span class="domain">thecenterisalie.org</span></div>
 </figure>
 <div class="share" data-for="ex-left"></div>
 </section>
@@ -212,7 +212,7 @@ a{color:var(--accent)}
 <figure class="card" id="ex-scatter">
   <div class="claim"><span class="tag">Third Way</span>“2028 Democratic voters want the next presidential nominee to moderate to win.”</div>
   <h2 class="ctitle">Progressive nominees ran <span class="hl">as far ahead</span> as everyone else.</h2>
-  <p class="csub">Each dot is one of the 44 nominees. Further left means a more progressive platform, and higher means they ran further ahead of Harris. The most progressive third ran 14.2 points ahead and the least progressive third ran 15.9 ahead, a gap the shaded band shows is within the noise.</p>
+  <p class="csub">Each dot is one of the 44 nominees. Further left means a more progressive platform, and higher means they ran further ahead of Harris. The most progressive third ran 13.5 points ahead and the least progressive third ran 15.9 ahead. Once each seat's lean is taken into account, that gap sits inside the shaded band, which fits a flat line.</p>
   <div class="legend"><span><i style="background:var(--left)"></i>one nominee</span><span><i style="background:color-mix(in srgb,var(--ink-soft) 18%,#fff);border-radius:2px;height:10px;width:18px"></i><span id="fitAll"></span></span></div>
   <div class="chart" id="scatter"></div>
   <div class="foot"><span class="src">Issues not on record are estimated from each nominee's endorsements and primary opponents; whiskers ±1 sd. Dashed line: least-squares trend; band: 95% range from a state-level bootstrap.</span><span class="domain">thecenterisalie.org</span></div>
@@ -250,7 +250,7 @@ a{color:var(--accent)}
 <figure class="card" id="ex-corr">
   <div class="claim"><span class="tag">The claim</span>“Name recognition, money and time on the trail explain who won.”</div>
   <h2 class="ctitle">In the 44 contested races, <span class="hl">no candidate trait</span> reliably predicts who ran furthest ahead.</h2>
-  <p class="csub">We tested 15 traits, including platform, Third Way's label, name recognition, money and time on the trail. Every 95% range crosses zero. Incumbency comes closest.</p>
+  <p class="csub">We tested 15 traits, including platform, Third Way's label, name recognition, money and time on the trail. Every 95% range crosses zero except one: the raw platform score, which counts every missing position as centrist and so mostly measures how much a nominee said in public. With the gaps filled in, the platform score's range crosses zero too.</p>
   <div class="chart"><table id="corr"><thead><tr><th>Trait</th><th class="n">n</th><th class="n">r</th><th>vs Harris 2024</th><th class="n">r</th><th>vs prior race</th></tr></thead><tbody></tbody></table></div>
   <div class="foot"><span class="src">Pearson r. Bars: 95% range, state-cluster bootstrap (4,999 draws), axis −0.8 to +0.8. Days on the trail: n 27 and 23.</span><span class="domain">thecenterisalie.org</span></div>
 </figure>
@@ -294,7 +294,7 @@ a{color:var(--accent)}
 <section class="sec methods">
   <p class="seclabel">How we know</p>
   <p><strong>Races.</strong> All 417 Democrat-vs-Republican House races, plus 14 competitive Senate races and 30 House races with contested Democratic primaries for the platform scoring. Vote margins from CNN race pages on Nov 5 2026; wins and losses from CNN's calls on Nov 6. Alaska and Mississippi were still uncalled on Nov 6, with Peltola and Colom ahead.</p>
-  <p><strong>Platform score.</strong> 13 issues: Medicare for All, a billionaire tax, no corporate PAC money, no AIPAC money or conditions on Israel aid, the Green New Deal, a $17 minimum wage, ending the filibuster, expanding the Supreme Court, student debt relief or free college, breaking up monopolies, no crypto money, universal childcare or pre-K, and opposing Schumer or Jeffries as leader. Two coders scored each nominee separately and without seeing results (Cohen's κ 0.45, no disagreements on direction). Gaps are filled by empirical-Bayes shrinkage toward a prediction from pre-primary facts.</p>
+  <p><strong>Platform score.</strong> 13 issues: Medicare for All, a billionaire tax, no corporate PAC money, no AIPAC money or conditions on Israel aid, the Green New Deal, a $17 minimum wage, ending the filibuster, expanding the Supreme Court, student debt relief or free college, breaking up monopolies, no crypto money, universal childcare or pre-K, and opposing Schumer or Jeffries as leader. Two coders scored each nominee separately and without seeing results (Cohen's κ 0.45, no disagreements on direction). A second pass over rendered campaign-site captures for the 23 least-documented nominees added 10 positions; its two coders agreed on 99.3% of cells (κ 0.94). Gaps are filled by empirical-Bayes shrinkage toward a prediction from pre-primary facts.</p>
   <p><strong>Yardsticks.</strong> Harris 2024; Biden 2020; the prior race for the seat; the 2022 midterm; an expected margin built from Biden 2020 and the prior race only; and the 2026 statewide House vote and governor race on the same ballot.</p>
   <p><strong>Code and data.</strong> <code>scripts/midterm2026/</code> and <code>data/derived/midterm2026/</code>, <a href="https://github.com/jamesvillarrubia/center-basher/pull/13">PR #13</a>. Third Way memos: <a href="https://www.thirdway.org/memo/moderates-made-democratic-majorities">“Moderates Made Democratic Majorities”</a> and <a href="https://www.thirdway.org/memo/center-left-democrats-overperformed-and-delivered-the-majority">“Center-Left Democrats Overperformed and Delivered the Majority.”</a></p>
 </section>
