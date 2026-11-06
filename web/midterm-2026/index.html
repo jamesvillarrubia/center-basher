@@ -166,8 +166,8 @@ a{color:var(--accent)}
 <figure class="card" id="ex-gaps">
   <div class="claim"><span class="tag">The claim</span>“Thin sourcing makes the progressive scores meaningless.”</div>
   <h2 class="ctitle">Filling the data gaps <span class="hl">does not change the answer</span>.</h2>
-  <p class="csub">We found sources for 134 of 572 nominee positions. A missing position is not a centrist one, so we rebuilt the score three ways. The corrected score shows no effect on margin, up or down, against every baseline. Only the sourced-items-only score dips below zero, against Harris and history, and three roll-call votes drive that dip.</p>
-  <div class="legend"><span><i style="background:var(--left)"></i>coverage-corrected</span><span><i style="background:var(--gray)"></i>other measures</span></div>
+  <p class="csub">Most nominees never went on record on most of these 13 issues. Silence is not a centrist position, so we filled each gap from what we did know about the nominee, like who endorsed them and who spent against them. Scored that way, progressivism shows no reliable link to margin. One version, which simply drops the gaps, dips below zero. Three votes cause the dip: Ossoff and Gonzalez for the GENIUS crypto bill, McAdams against a $15 minimum wage.</p>
+  <div class="legend"><span><i style="background:var(--left)"></i>gaps filled in</span><span><i style="background:var(--gray)"></i>other versions</span></div>
   <div class="chart" id="gaps"></div>
   <div class="foot"><span class="src">Effect of +0.1 on the index, in points of margin; all 44 races, controlling for chamber, district lean and outside spending. Bars: 95% ranges (wild cluster bootstrap by state; corrected index: 500 posterior draws, Rubin's rules).</span><span class="domain">thecenterisalie.org</span></div>
 </figure>
@@ -360,7 +360,7 @@ document.querySelectorAll(".share").forEach(box=>{
 
 /* gaps: effect of the index by measure and baseline */
 (function(){
-  const meas=[["c_eb10","Coverage-corrected"],["c_fe10","Item-adjusted, sourced only"],["c_stated10","Sourced items only"],["c_index10","Raw (unsourced = 0)"]];
+  const meas=[["c_eb10","Gaps filled in"],["c_fe10","Gaps dropped, issue-adjusted"],["c_stated10","Gaps dropped"],["c_index10","Gaps scored as centrist"]];
   const bases=[["harris24","vs Harris 2024"],["hist","vs history, no Harris"],["prior_seat","vs prior race"]];
   const W=720,rh=22,gap=18,m={l:200,r:70,t:10,b:38};
   const H=m.t+bases.length*(meas.length*rh+gap)+m.b;
