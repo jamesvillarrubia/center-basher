@@ -33,9 +33,9 @@ const head = `<!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="description" content="Third Way says moderates made the 2026 Democratic majorities. We scored 44 nominees on their stated positions and tested their margins against seven baselines." />
 <link rel="canonical" href="https://thecenterisalie.org/midterm-2026/" />
-<meta property="og:title" content="Did moderates make the 2026 majorities?" />
+<meta property="og:title" content="Moderates didn't make the 2026 majorities. The wave did." />
 <meta property="og:description" content="412 of 417 House Democrats ran ahead of Harris. All 44 coded nominees ran to the left of Third Way." />
-<meta property="og:image" content="https://thecenterisalie.org/og/midterm-2026/ex-wave.png" />
+<meta property="og:image" content="https://thecenterisalie.org/og/midterm-2026/ex-duel.png" />
 <meta name="twitter:card" content="summary_large_image" />
 </head>
 <body style="margin:0">

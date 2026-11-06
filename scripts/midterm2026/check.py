@@ -278,7 +278,12 @@ check(rs["AK-S"] == "leading D" and rs["MS-S"] == "leading D", "status: Peltola 
 check(near(sj["label_share"]["share"], 0.0054, 0.0005) and sj["label_share"]["n"] == 41, "selection: Third Way label explains 0.5% across 41 races")
 hd = pd.read_csv(D / "house_drivers_anova.csv")
 st = hd[(hd["sample"] == "all") & (hd.term == "C(state)")].iloc[0]
-check(st.n == 417 and near(st.share_of_total, 0.387, 0.005), "house drivers: state explains 38.7% of House differences")
+check(st.n == 417 and near(st.share_of_total, 0.392, 0.005), "house drivers: state explains 39.2% of House differences")
+du = pd.read_csv(D / "house_drivers_duel.csv").set_index("sample")
+check(du.loc["all", "n"] == 195 and near(du.loc["all", "prog_minus_mod"], -0.13, 0.01) and du.loc["all", "ci_hi"] < 2.2 and du.loc["all", "ci_lo"] > -2.5,
+      "head-to-head: progressive minus moderate -0.13 (CI -2.41 to 2.14), 195 races")
+check(near(du.loc["counted >= 90%", "prog_minus_mod"], -2.17, 0.01) and du.loc["counted >= 90%", "ci_hi"] > 0,
+      "head-to-head, >=90% counted: -2.17, CI crosses zero")
 
 passed = sum(ok for ok, _ in results)
 for ok, msg in results:

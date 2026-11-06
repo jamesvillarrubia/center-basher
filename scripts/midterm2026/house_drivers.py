@@ -31,15 +31,13 @@ sys.path.insert(0, str(Path(__file__).parent))
 from _fetch import ROOT  # noqa: E402
 
 D = ROOT / "data" / "derived" / "midterm2026"
-PROG = {"cpc", "progressive caucus", "congressional progressive caucus", "cpc pac", "progressive caucus pac",
-        "justicedems", "justice democrats", "wfp", "working families party", "our revolution", "pccc"}
-MOD = {"ndc", "new democrat coalition", "newdem", "new democrat action fund", "newdem action fund",
-       "blue dog", "blue dog coalition", "blue dog pac", "welcome", "welcomepac"}
+PROG = {"cpc", "cpc_pac", "justice_democrats", "our_revolution", "pccc", "working_families_party"}
+MOD = {"new_democrat_coalition", "new_dem_action_fund", "blue_dog_coalition", "blue_dog_pac", "welcomepac"}
 
 
 def frame() -> pd.DataFrame:
     h = pd.read_csv(D / "house_all.csv")
-    h = h[h.dem_vs_rep == True].dropna(subset=["over_vs_harris"]).copy()  # noqa: E712
+    h = h[h.dem_vs_rep == True].dropna(subset=["over_vs_harris"]).drop_duplicates("race_id").copy()  # noqa: E712
     h["seat"] = np.select([h.dem_incumbent, h.rep_incumbent], ["D incumbent", "R incumbent"], "open")
     h["counted90"] = h.pct_reporting >= 90
     f = D / "house_affiliations.csv"
@@ -47,7 +45,7 @@ def frame() -> pd.DataFrame:
     if f.exists():
         a = pd.read_csv(f)
         a = a[a.race_id.notna()]
-        g = a.group.str.lower().str.strip()
+        g = a.group.str.strip()
         a["side"] = np.where(g.isin(PROG), "progressive", np.where(g.isin(MOD), "moderate", "other"))
         side = a[a.side != "other"].groupby("race_id").side.agg(lambda s: set(s))
         lab = side.map(lambda s: "both" if len(s) == 2 else next(iter(s)))
@@ -84,6 +82,22 @@ def main() -> None:
                 continue
             coefs.append(dict(sample=sample, n=len(x), term=term, coef=cl.params[term], ci_lo=ci.loc[term, 0],
                               ci_hi=ci.loc[term, 1], p=cl.pvalues[term]))
+    # Head-to-head: progressive-affiliated vs moderate-affiliated nominees, same state, same seat type.
+    duel = []
+    if "affiliation" in h:
+        f = "over_vs_harris ~ C(affiliation, Treatment('moderate')) + C(state) + C(seat) + harris_margin"
+        for sample, x in [("all", h), ("counted >= 90%", h[h.counted90])]:
+            x = x[x.affiliation.isin(["progressive", "moderate"])]
+            m = smf.ols(f, data=x).fit(cov_type="cluster", cov_kwds={"groups": pd.factorize(x.state)[0]})
+            term = "C(affiliation, Treatment('moderate'))[T.progressive]"
+            lo, hi = m.conf_int().loc[term]
+            duel.append(dict(sample=sample, n=len(x), n_prog=int((x.affiliation == "progressive").sum()),
+                             n_mod=int((x.affiliation == "moderate").sum()), prog_minus_mod=m.params[term],
+                             ci_lo=lo, ci_hi=hi, p=m.pvalues[term],
+                             raw_prog=x[x.affiliation == "progressive"].over_vs_harris.mean(),
+                             raw_mod=x[x.affiliation == "moderate"].over_vs_harris.mean()))
+    duel = pd.DataFrame(duel)
+    duel.to_csv(D / "house_drivers_duel.csv", index=False)
     an, co = pd.DataFrame(rows), pd.DataFrame(coefs)
     groups = h.groupby("seat").over_vs_harris.agg(["mean", "count"]).reset_index().assign(by="seat")
     if "affiliation" in h:
@@ -97,11 +111,14 @@ def main() -> None:
         "coefs": json.loads(co.round(4).to_json(orient="records")),
         "groups": json.loads(groups.round(3).to_json(orient="records")),
         "has_affiliations": bool(h.has_affiliations.iloc[0]),
+        "duel": json.loads(duel.round(4).to_json(orient="records")),
+        "wave_mean": float(h.over_vs_harris.mean()),
     }))
     pd.set_option("display.width", 200)
     print(an.round(3).to_string())
     print(co.round(2).to_string())
     print(groups.round(2).to_string())
+    print(duel.round(2).to_string())
 
 
 if __name__ == "__main__":
