@@ -22,6 +22,7 @@ const data = JSON.parse(readFileSync(resolve(derived, 'exhibits_data.json'), 'ut
 data.debias = JSON.parse(readFileSync(resolve(derived, 'exhibits_debias.json'), 'utf8'))
 data.selection = JSON.parse(readFileSync(resolve(derived, 'exhibits_selection.json'), 'utf8'))
 data.house = JSON.parse(readFileSync(resolve(derived, 'exhibits_house.json'), 'utf8'))
+data.funding = JSON.parse(readFileSync(resolve(derived, 'exhibits_funding.json'), 'utf8'))
 const tpl = readFileSync(resolve(here, 'template.html'), 'utf8')
 for (const key of ['__DATA__', '__IMG_BASE__']) if (!tpl.includes(key)) throw new Error(`template.html lacks ${key}`)
 const fill = (base) => tpl.replace('__DATA__', JSON.stringify(data)).replace('__IMG_BASE__', base)

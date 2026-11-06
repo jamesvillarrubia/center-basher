@@ -285,6 +285,15 @@ check(du.loc["all", "n"] == 195 and near(du.loc["all", "prog_minus_mod"], -0.13,
 check(near(du.loc["counted >= 90%", "prog_minus_mod"], -2.17, 0.01) and du.loc["counted >= 90%", "ci_hi"] > 0,
       "head-to-head, >=90% counted: -2.17, CI crosses zero")
 
+fm = pd.read_csv(D / "funding_models.csv")
+hm = fm[(fm.term == "progressive minus moderate") & (fm.model == "head-to-head + relative money, sources, super PACs")].iloc[0]
+check(hm.n == 189 and abs(hm.coef) < 0.1 and hm.ci_lo < -2 and hm.ci_hi > 2, "funding: head-to-head with money held constant stays near 0 (n 189)")
+fb = pd.read_csv(D / "funding_by_side.csv").set_index("affiliation")
+check(near(fb.loc["moderate", "median_total"], 3.04e6, 2e4) and near(fb.loc["progressive", "median_total"], 1.62e6, 2e4),
+      "funding: median raised $3.04M moderate-backed vs $1.62M progressive-backed")
+hf = pd.read_csv(D / "house_funding.csv")
+check(hf.dem_fec_id.notna().sum() >= 420, "funding: Democratic nominees matched to FEC for at least 420 of 436 CNN House rows")
+
 passed = sum(ok for ok, _ in results)
 for ok, msg in results:
     print(("PASS " if ok else "FAIL ") + msg)

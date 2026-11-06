@@ -88,7 +88,7 @@ a{color:var(--accent)}
 <section class="sec">
   <p class="seclabel">The short version</p>
   <ul class="lede-list">
-    <li><strong>Moderate-backed and progressive-backed Democrats tied.</strong> Across 195 House races, nominees backed by the New Democrats, Blue Dogs or WelcomePAC ran 0.1 points further ahead of Harris than nominees backed by the Progressive Caucus, Working Families or Justice Democrats in the same state.</li>
+    <li><strong>Moderate-backed and progressive-backed Democrats tied.</strong> Across 195 House races, nominees backed by the New Democrats, Blue Dogs or WelcomePAC ran 0.1 points further ahead of Harris than nominees backed by the Progressive Caucus, Working Families or Justice Democrats in the same state. The moderate-backed nominees raised almost twice as much money, and the tie holds after accounting for both sides' money, small donors, PACs and super PACs.</li>
     <li><strong>Every kind of Democrat rode the same wave.</strong> 412 of the 417 House Democrats who faced a Republican ran ahead of Harris's 2024 margin, by 14.4 points on average.</li>
     <li><strong>Third Way's own number is the national average.</strong> It says its House picks ran 15 points ahead of Harris. So did the average House Democrat. In the Republican seats Democrats flipped, the nominees the moderate groups did not back ran further ahead, 18.6 points against 14.6.</li>
     <li><strong>Third Way's "moderates" don't hold Third Way's positions.</strong> All 19 winners it claims took positions to its left. Talarico, its star example, disagrees with Third Way on 9 of 13 issues.</li>
@@ -110,6 +110,19 @@ a{color:var(--accent)}
   <div class="foot"><span class="src">House races with a nominee backed by moderate groups (New Democrat Coalition or Action Fund, Blue Dog Coalition or PAC, WelcomePAC) or by progressive groups (Progressive Caucus or its PAC, Working Families Party, Justice Democrats, Our Revolution, PCCC), not both. Difference in points ahead of Harris 2024, holding state, incumbency and district lean constant; 95% range clustered by state.</span><span class="domain">thecenterisalie.org</span></div>
 </figure>
 <div class="share" data-for="ex-duel"></div>
+</section>
+
+<section class="exhibit">
+<figure class="card" id="ex-money2">
+  <div class="claim"><span class="tag">The claim</span>“Moderates just ran better-funded campaigns.”</div>
+  <h2 class="ctitle">Moderate-backed Democrats raised <span class="hl">almost twice as much</span>. They still tied.</h2>
+  <p class="csub">The typical moderate-backed House nominee raised $3.0 million, against $1.6 million for the typical progressive-backed nominee, and leaned less on small donors. When we hold constant each side's money, the opponent's money, the donor mix and super PAC spending, the gap stays near zero and within chance.</p>
+  <div class="legend"><span><i style="background:var(--tw)"></i>moderate-backed</span><span><i style="background:var(--left)"></i>progressive-backed</span><span><i style="background:transparent;border-radius:0;height:2px;width:18px;vertical-align:3px;background:var(--ink-soft)"></i>95% range</span></div>
+  <div class="chart" id="money2a"></div>
+  <div class="chart" id="money2b"></div>
+  <div class="foot"><span class="src">FEC candidate summaries, last pre-election filing (through Oct 14 for most); super PAC and other outside spending from FEC independent-expenditure reports, general election. Edge: difference in points ahead of Harris 2024, same state, holding incumbency and district lean constant; 95% range clustered by state.</span><span class="domain">thecenterisalie.org</span></div>
+</figure>
+<div class="share" data-for="ex-money2"></div>
 </section>
 
 <section class="exhibit">
@@ -273,6 +286,7 @@ a{color:var(--accent)}
   <ul>
     <li><strong>Progressive positions did not raise margins either.</strong> The data support "progressive nominees won and paid no measurable penalty." They do not support "progressive positions caused the gains."</li>
     <li><strong>Establishment backing helped in the House.</strong> House nominees the party establishment backed before the primary beat a history-based baseline by 6.0 points (95% range +1.2 to +10.8). Backing is not the same as moderation: every one of them still scored to Third Way's left.</li>
+    <li><strong>Money goes with bigger margins, but it also chases races that already look good.</strong> Outraising the Republican tenfold goes with about 2.3 more points, and super PAC help goes with about 0.14 points per dollar per voter. Together they explain about 8% of the differences between House races, against 0.25% for moderate or progressive backing. Donors and super PACs pour money into races they expect to win, so not all of that 8% is money causing votes.</li>
     <li><strong>Win-loss records track the map, not the platform.</strong> We judge nominees by how far they beat Harris, because whether a Democrat wins depends mostly on how red the seat is. The most progressive nominees who lost, Nixon in Florida, Dunlap in Maine's 2nd and Pearson in Tennessee's 9th, ran where Harris lost, and they still beat her margin by 7 to 20 points.</li>
   </ul>
 </section>
@@ -290,7 +304,7 @@ a{color:var(--accent)}
 <script>
 const DATA = __DATA__;
 const IMG_BASE = "__IMG_BASE__";
-const R = DATA.races, DEB = DATA.debias, SEL = DATA.selection, HOUSE = DATA.house;
+const R = DATA.races, DEB = DATA.debias, SEL = DATA.selection, HOUSE = DATA.house, FUND = DATA.funding;
 const TW = -0.346;
 const NS = "http://www.w3.org/2000/svg";
 const tip = document.getElementById("tip");
@@ -364,6 +378,40 @@ function hbars(mount, rows, o){
     el("text",{x:tx,y:cy+5,class:"lab"},g,sg(r.v.toFixed(1)));
     hover(g,`<b>${r.label}</b><br>${sg(r.v.toFixed(1))} points${r.lo!=null?`<br>95% range ${r.lo.toFixed(1)} to ${sg(r.hi.toFixed(1))}`:""}`);
   });
+})();
+
+/* 0b money: raised and the edge with money held constant */
+(function(){
+  const by=Object.fromEntries(FUND.by_side.map(r=>[r.affiliation,r]));
+  const W=720;
+  { const rows=[["moderate","Moderate-backed",css("--tw")],["progressive","Progressive-backed",css("--left")]];
+    const rh=34,m={l:270,r:90,t:26,b:8},H=m.t+rows.length*rh+m.b;
+    const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Median money raised: moderate-backed $3.0M, progressive-backed $1.6M"},document.getElementById("money2a"));
+    el("text",{x:8,y:14,class:"lab",fill:css("--accent")},svg,"MONEY RAISED, TYPICAL NOMINEE");
+    const x=v=>m.l+v/3.5e6*(W-m.l-m.r);
+    rows.forEach(([k,lab,col],i)=>{const cy=m.t+i*rh+rh/2,v=by[k].median_total;
+      el("text",{x:m.l-12,y:cy+4,"text-anchor":"end",class:"lab"},svg,`${lab} (${by[k].n})`);
+      el("rect",{x:m.l,y:cy-10,width:x(v)-m.l,height:20,rx:3,fill:col},svg);
+      el("text",{x:x(v)+8,y:cy+5,class:"lab"},svg,"$"+(v/1e6).toFixed(1)+"M");});
+  }
+  { const M=FUND.models.filter(r=>r.term==="progressive minus moderate");
+    const pick=k=>M.find(r=>r.model===k);
+    const rows=[["Before counting money",pick("head-to-head, no money")],["Money held constant",pick("head-to-head + relative money, sources, super PACs")],["Money held constant, fully counted",pick("head-to-head + money, >=90% counted")]];
+    const rh=40,m={l:270,r:60,t:28,b:40},H=m.t+rows.length*rh+m.b;
+    const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Edge for moderate-backed nominees stays near zero with money held constant"},document.getElementById("money2b"));
+    el("text",{x:8,y:14,class:"lab",fill:css("--accent")},svg,"EDGE FOR MODERATE-BACKED, SAME STATE");
+    const lo=-6,hi=6,x=v=>m.l+(v-lo)/(hi-lo)*(W-m.l-m.r);
+    [-6,-3,0,3,6].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:m.t,y2:H-m.b,class:t===0?"axis":"grid"},svg);el("text",{x:x(t),y:H-m.b+17,"text-anchor":"middle"},svg,sg(t));});
+    el("text",{x:(m.l+W-m.r)/2,y:H-5,"text-anchor":"middle"},svg,"← progressive-backed ahead · points · moderate-backed ahead →");
+    rows.forEach(([lab,r],i)=>{const cy=m.t+i*rh+rh/2,v=-r.coef,a=-r.ci_hi,b=-r.ci_lo;
+      el("text",{x:m.l-12,y:cy+4,"text-anchor":"end",class:"lab"},svg,lab);
+      const g=el("g",{},svg);
+      el("line",{x1:x(a),x2:x(b),y1:cy,y2:cy,stroke:css("--ink-soft"),"stroke-width":1.5},g);
+      [a,b].forEach(q=>el("line",{x1:x(q),x2:x(q),y1:cy-6,y2:cy+6,stroke:css("--ink-soft"),"stroke-width":1.5},g));
+      el("circle",{cx:x(v),cy,r:6,fill:css("--tw"),stroke:"#fff","stroke-width":1.5},g);
+      el("text",{x:W-m.r+10,y:cy+4,class:"lab"},g,sg(v.toFixed(1)));
+      hover(g,`<b>${lab}</b><br>${sg(v.toFixed(2))} points (95% range ${a.toFixed(1)} to ${sg(b.toFixed(1))}), n ${r.n}`);});
+  }
 })();
 /* 1 wave */
 (function(){
