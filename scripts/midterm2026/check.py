@@ -183,6 +183,31 @@ sens = pd.read_csv(D / "baseline_sensitivity.csv")
 check(len(sens) >= 30 and {"a_senate", "b_senate", "a_house", "b_house", "b_pooled"} <= set(sens.columns),
       "baseline_sensitivity.csv has the five coefficient columns")
 
+# ANOVA variance breakdown (anova.py).
+at = pd.read_csv(D / "anova_tables.csv")
+ap = pd.read_csv(D / "anova_permutation.csv")
+ae = pd.read_csv(D / "anova_effect_sizes.csv")
+add = at[at.model == "additive"]
+t2, t3 = add[add.typ == 2].copy(), add[add.typ == 3].copy()
+t3["term"] = t3.term.str.replace(r"C\((\w+), Sum\)", r"\1", regex=True)
+mm = t2.merge(t3, on=["baseline", "coding", "spec", "term"], suffixes=("2", "3"))
+check(len(mm) > 0 and (mm.sum_sq2 - mm.sum_sq3).abs().max() < 1e-6,
+      "additive models: Type II and Type III (sum-to-zero) sums of squares agree")
+shares = t2.groupby(["baseline", "coding", "spec"]).share_of_total_ss.sum()
+check(((shares - 1).abs() < 1e-6).all(), "additive Type II: term shares + shared + residual sum to 1 of total SS")
+r0 = t2[(t2.baseline == "harris24") & (t2.coding == "b") & (t2.spec == "base") & (t2.term == "b_estab")].iloc[0]
+res = t2[(t2.baseline == "harris24") & (t2.coding == "b") & (t2.spec == "base") & (t2.term == "Residual")].iloc[0]
+check(near(r0.partial_eta2, r0.sum_sq / (r0.sum_sq + res.sum_sq), 1e-9), "partial eta^2 = SS / (SS + SS_resid)")
+pf = ap[(ap.baseline == "harris24") & (ap.coding == "b") & (ap.spec == "base") & (ap.model == "additive") & (ap.term == "coding")].iloc[0]
+check(near(pf.F_obs, r0.F, 1e-6), "permutation statistic equals the anova_lm Type II F for coding")
+check(ap.p_perm_block.between(1 / 10000, 1).all() and ap.p_perm_strata.between(1 / 10000, 1).all()
+      and (ap.n_perm == 9999).all(), "permutation p-values in [1/10000, 1], 9,999 permutations")
+ix = ap[(ap.baseline == "harris24") & (ap.coding == "a") & (ap.model == "ancova2") & (ap.term == "coding:senate")].iloc[0]
+check(ix.p_perm_block < 0.05 and ix.p_classic < 0.01, "coding (a) x chamber: classic and block-permutation p < 0.05 (Harris 2024)")
+check((ap.distinct_block_relabelings >= 1).all(), "distinct block relabelings recorded for every permutation test")
+check(len(ae) == 12 and (ae.boot_valid >= 9900).all() and (ae.eta2_ci_lo <= ae.partial_eta2).all(),
+      "12 coding effect-size rows with >= 9,900 valid state-cluster bootstrap draws")
+
 passed = sum(ok for ok, _ in results)
 for ok, msg in results:
     print(("PASS " if ok else "FAIL ") + msg)

@@ -7,7 +7,7 @@ spending, and two independent codings of every nominee. It holds findings and
 numbers only. Essay prose stays with James.
 
 Data: `data/derived/midterm2026/races.csv`, codebook `data/derived/midterm2026/README.md`.
-Scripts: `scripts/midterm2026/`. Check script: 82 passed, 0 failed (2026-11-05, fourth pass).
+Scripts: `scripts/midterm2026/`. Check script: 90 passed, 0 failed (2026-11-05, fifth pass).
 All vote counts are unofficial, as reported 2026-11-05, two days after the election.
 California, Arizona, Utah and Alaska were still counting.
 
@@ -662,6 +662,152 @@ four against three, the gap is description under any baseline.
 > backing ran about 2 points further ahead than Schumer's three recruits; against Biden 2020
 > or the seat's previous race, the two groups ran level."
 
+## 11 · Variance breakdown: how much of the overperformance does ideology coding explain?
+
+**Answer.** In the pooled Senate + House model, ideology coding uniquely accounts for 0.4%
+(coding a) to 1.4% (coding b) of the variation in overperformance against Harris 2024.
+Terrain (Harris margin) accounts for 0.3% to 0.6%, chamber for 0.2% to 0.6%, and outside
+money for 2.5% to 3.8%. 92% to 95% of the variation is unexplained [50]. The exception is
+Third Way's label read separately by chamber: the coding (a) × chamber interaction accounts
+for 24.5% of the variation, because the label runs in opposite directions in Senate and
+House races (section 9) [51].
+
+What the answer does and does not say:
+
+- **Labels are not positions.** Coding (a) is a label (Third Way's memo, or a moderate PAC
+  endorsement) and coding (b) is pre-primary backing. Neither measures the positions a
+  nominee took. A near-zero share for these labels fits the line that positions barely move
+  voters, and does not test it directly.
+- **A small share is not a measured zero.** The upper bound of the 95% bootstrap CI on the
+  coding term's partial eta-squared is 0.23 (coding a) and 0.14 (coding b) against Harris
+  2024 [52]. These data cannot rule out a label effect of that size.
+- **The large unexplained share is not "noise".** It holds everything the models do not
+  measure: candidate quality, the opponent (Paxton, Collins, an appointed Senator Graham),
+  local issues, campaign skill, and error in district baselines and incomplete counts.
+  None of that can be attributed to ideology or to its absence.
+
+**Method** [50]. Pooled rows as in section 9. Outcome: overperformance against baseline B;
+terrain covariate = B's own margin (Harris margin for Harris 2024). Additive model: coding +
+terrain + Senate dummy + net outside spending per vote (+ prior office + days on trail in
+"+controls"). Type II sums of squares from statsmodels `anova_lm(typ=2)`; Type III refit
+with sum-to-zero contrasts as a check. Partial eta-squared = SS / (SS + SS_residual);
+partial omega-squared corrects its upward bias. Type II sums of squares of correlated terms
+do not add up to the model's explained sum of squares; the remainder appears as "shared".
+It turns negative under suppression, when terms explain more jointly than apart.
+
+**Additive ANOVA, Harris 2024 baseline** (Type II; share of total variance, with
+F and classic p; partial eta-squared in brackets):
+
+| Term | (a) base, n 41, R² 0.05 | (b) base, n 44, R² 0.08 | (a) +controls, n 24, R² 0.32 | (b) +controls, n 27, R² 0.16 |
+|---|---|---|---|---|
+| Ideology coding | 0.4% (F 0.14, p 0.71) [0.004] | 1.4% (F 0.58, p 0.45) [0.015] | 20.5% (F 5.10, p 0.037) [0.231] | 2.5% (F 0.58, p 0.45) [0.028] |
+| Terrain (Harris margin) | 0.3% [0.003] | 0.6% [0.006] | 1.5% [0.022] | 0.1% [0.002] |
+| Senate | 0.2% [0.002] | 0.6% [0.007] | 1.7% [0.024] | 2.4% [0.027] |
+| Net outside spending | 2.5% [0.026] | 3.8% [0.039] | 7.4% [0.097] | 9.0% [0.096] |
+| Prior office | | | 1.4% [0.020] | 0.2% [0.002] |
+| Days on trail | | | 5.3% [0.072] | 2.1% [0.025] |
+| Shared | 1.6% | 1.4% | −6.4% | −0.8% |
+| Unexplained (residual) | 95.0% | 92.2% | 68.5% | 84.5% |
+
+Type II and Type III sums of squares agree to 1e-11 in every additive model, as they must
+when the model has no interaction [50]. The +controls column for coding (a) rests on 24
+rows, keeps only non-incumbents with a launch date (section 8), and its coding share falls
+apart under block permutation (below).
+
+**Across baselines** (additive, base spec; coding's share of total variance, partial
+eta-squared, residual share) [50]:
+
+| Baseline | (a) coding share | (a) partial η² | (a) residual | (b) coding share | (b) partial η² | (b) residual |
+|---|---|---|---|---|---|---|
+| Harris 2024 | 0.4% | 0.004 | 95.0% | 1.4% | 0.015 | 92.2% |
+| Harris/Biden mean | 0.8% | 0.009 | 90.9% | 4.9% | 0.055 | 84.1% |
+| Prior race for the seat | 2.4% | 0.028 | 84.8% | 5.4% | 0.060 | 84.5% |
+
+**Two-way coding × chamber ANCOVA** (terrain covariate; Type II; share of total variance)
+[51]:
+
+| Baseline, coding | n, R² | Coding × chamber | Coding (main) | Chamber | Terrain | Residual |
+|---|---|---|---|---|---|---|
+| Harris 2024, (a) | 41, 0.27 | 24.5% (F 12.1, p 0.0014) | 0.5% | 0.2% | 2.1% | 73.0% |
+| Harris 2024, (b) | 44, 0.04 | 0.0% (F 0.00, p 0.96) | 1.5% | 0.1% | 2.3% | 96.0% |
+| Harris/Biden mean, (a) | 35, 0.42 | 36.1% (F 18.6, p 0.0002) | 1.2% | 0.5% | 2.8% | 58.2% |
+| Harris/Biden mean, (b) | 38, 0.10 | 0.0% (F 0.00, p 0.97) | 4.8% | 1.2% | 2.0% | 89.6% |
+| Prior seat, (a) | 35, 0.20 | 5.1% (F 1.94, p 0.17) | 2.5% | 2.7% | 2.5% | 79.6% |
+| Prior seat, (b) | 38, 0.19 | 3.5% (F 1.41, p 0.24) | 5.4% | 0.9% | 3.5% | 81.4% |
+
+Type II and Type III disagree on one term: the coding (a) main effect in the ANCOVA. Type II
+gives 0.5% (F 0.27, p 0.61); Type III gives 7.6% (F 3.75, p 0.061) under Harris 2024, and
+7.7% (F 3.98, p 0.055) under the Harris/Biden mean. The two types answer different
+questions when an interaction is present. Type II asks whether the label matters averaged
+over the observed mix of rows, mostly House races where it does not. Type III evaluates the
+label at an unweighted average of the two chambers, which gives the 11 Senate races equal
+weight with the 30 House races. The interaction, which carries the substance, is identical
+under both types.
+
+The chamber split depends on the baseline. Against the prior race for each seat, the
+coding (a) × chamber interaction shrinks from 24.5% to 5.1% of the variation and loses
+significance, consistent with section 10's finding that the Senate moderate edge halves
+against that baseline.
+
+**Classic F vs permutation p-values** [53]. Races cluster within states, and the classic F
+assumes independent rows. Block permutation moves whole-state label vectors among states
+with the same chamber mix (for example, one-Senate-race states among themselves), which
+keeps each state's labels together. States with a unique mix keep their labels. Strata
+permutation shuffles labels across rows within each chamber and ignores the clustering.
+9,999 permutations each, seed 20261105.
+
+| Baseline, coding, spec, term | F | Classic p | Block perm. p | Strata perm. p | Distinct block relabelings |
+|---|---|---|---|---|---|
+| Harris, (a), base, coding | 0.14 | 0.71 | 0.75 | 0.71 | 31,680 |
+| Harris, (a), base, coding × chamber | 12.1 | 0.0014 | 0.013 | 0.0008 | 31,680 |
+| Harris, (a), +controls, coding | 5.10 | 0.037 | 0.86 | 0.038 | 21 |
+| Harris, (b), base, coding | 0.58 | 0.45 | 0.37 | 0.45 | 92,400 |
+| Harris, (b), base, coding × chamber | 0.00 | 0.96 | 0.95 | 0.96 | 92,400 |
+| Harris, (b), +controls, coding | 0.58 | 0.45 | 0.40 | 0.45 | 3,360 |
+| Mean, (a), base, coding × chamber | 18.6 | 0.0002 | 0.0033 | 0.0003 | 11,760 |
+| Mean, (a), +controls, coding | 5.81 | 0.031 | 0.18 | 0.029 | 35 |
+| Mean, (b), base, coding | 1.92 | 0.18 | 0.099 | 0.17 | 3,360 |
+| Prior seat, (a), base, coding × chamber | 1.94 | 0.17 | 0.11 | 0.15 | 11,760 |
+| Prior seat, (a), +controls, coding | 5.38 | 0.037 | 0.63 | 0.040 | 35 |
+| Prior seat, (b), base, coding | 2.10 | 0.16 | 0.15 | 0.15 | 3,360 |
+
+Classic and within-chamber permutation p-values agree throughout. Respecting the state
+clustering:
+
+- **The coding (a) × chamber interaction survives:** block p = 0.013 (Harris 2024) and
+  0.0033 (Harris/Biden mean).
+- **The +controls coding (a) result does not survive:** classic p 0.031 to 0.037, block
+  p 0.18 to 0.86. Those samples allow only 21 to 35 distinct block relabelings, so the
+  block p-value moves in steps of about 0.03 to 0.05, and the result should be read as
+  unconfirmed.
+- **No coding (b) term reaches p < 0.05** under any scheme or baseline.
+
+**Coding effect sizes with uncertainty** [52]. Partial eta-squared and partial
+omega-squared for the coding term in the additive models, 95% CIs from 9,999 state-cluster
+bootstrap resamples (states drawn with replacement). Eta-squared cannot fall below zero,
+so its bootstrap distribution sits on or above zero and leans high at small n; omega-squared
+corrects for that and can go negative.
+
+| Baseline | Coding, spec | n (states) | Partial η² (95% CI) | Partial ω² (95% CI) |
+|---|---|---|---|---|
+| Harris 2024 | (a) base | 41 (26) | 0.004 (0.000 to 0.228) | −0.021 (−0.029 to 0.189) |
+| Harris 2024 | (a) +controls | 24 (18) | 0.231 (0.003 to 0.717) | 0.146 (−0.045 to 0.637) |
+| Harris 2024 | (b) base | 44 (28) | 0.015 (0.000 to 0.142) | −0.010 (−0.026 to 0.110) |
+| Harris 2024 | (b) +controls | 27 (20) | 0.028 (0.000 to 0.369) | −0.016 (−0.042 to 0.280) |
+| Harris/Biden mean | (a) base | 35 (24) | 0.009 (0.000 to 0.315) | −0.021 (−0.033 to 0.262) |
+| Harris/Biden mean | (a) +controls | 20 (16) | 0.309 (0.002 to 0.842) | 0.194 (−0.052 to 0.763) |
+| Harris/Biden mean | (b) base | 38 (26) | 0.055 (0.000 to 0.231) | 0.024 (−0.029 to 0.190) |
+| Harris/Biden mean | (b) +controls | 23 (18) | 0.045 (0.000 to 0.527) | −0.011 (−0.049 to 0.420) |
+| Prior race for the seat | (a) base | 35 (24) | 0.028 (0.000 to 0.294) | −0.004 (−0.033 to 0.245) |
+| Prior race for the seat | (a) +controls | 20 (16) | 0.293 (0.005 to 0.796) | 0.180 (−0.053 to 0.715) |
+| Prior race for the seat | (b) base | 38 (26) | 0.060 (0.000 to 0.298) | 0.028 (−0.029 to 0.253) |
+| Prior race for the seat | (b) +controls | 23 (18) | 0.155 (0.001 to 0.658) | 0.078 (−0.046 to 0.564) |
+
+In the base specification, the point estimates of omega-squared for coding sit at or
+below 0.03 under every baseline. Every interval is wide enough to include zero and an
+effect of 0.1 to 0.3. The +controls estimates are larger but rest on 20 to 27 rows, fail
+the block permutation, and have intervals spanning nearly the whole range.
+
 ---
 
 ## Notes
@@ -885,3 +1031,25 @@ CIs (+7.9 to +16.8) because the method differs; the coefficient is identical.
 
 [49] `seven_moderates_by_baseline.csv`; group means in `summary.json` →
 `baselines.seven_group_means`.
+
+[50] `scripts/midterm2026/anova.py`; `anova_tables.csv`, rows `model` = `additive`.
+statsmodels 0.14.6 `anova_lm(typ=2)` on `ols("y ~ coding + terrain + senate + net_out_pv
+[+ prior_office + trail100]")`; Type III refit with `C(coding, Sum)` and `C(senate, Sum)`,
+`anova_lm(typ=3)`. Pooled rows from `pooled.load()`; coding (a) excludes AK, MS, NH. Shares:
+`share_of_total_ss` = term SS / centered total SS. Unweighted rows.
+
+[51] `anova_tables.csv`, rows `model` = `ancova2`: `ols("y ~ coding * senate + terrain")`
+(Type II) and `ols("y ~ C(coding, Sum) * C(senate, Sum) + terrain")` (Type III).
+
+[52] `anova_effect_sizes.csv`: partial ω² = (SS − df·MS_res) / (SS + (N − df)·MS_res);
+9,999 state-cluster bootstrap resamples (seed 20261105), percentile 95% CIs; draws where the
+resampled coding had no variation or the design was rank-deficient were skipped
+(`boot_valid` ≥ 9,988 of 9,999 in every row).
+
+[53] `anova_permutation.csv`. Statistic: Type II F for the term (numpy least squares;
+`check.py` confirms it equals the `anova_lm` F). Block scheme: states grouped by chamber
+composition (e.g. "S", "H", "HS", "HHHH"); within each group of two or more states, whole-state
+label vectors are permuted; `rows_in_exchangeable_blocks` is 35 of 41 (coding a) and 38 of
+44 (coding b) in the base samples. `distinct_block_relabelings` counts the label
+assignments the block scheme can produce. p = (1 + count of permuted F ≥ observed F) /
+10,000.

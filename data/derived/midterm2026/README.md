@@ -18,6 +18,7 @@ $P scripts/midterm2026/build_baselines.py      # step 3c: baselines.csv, merged 
 $P scripts/midterm2026/analyze.py              # step 4: regressions.csv, summary.json, house_flips.csv
 $P scripts/midterm2026/pooled.py               # step 4b: pooled Senate+House rows appended to regressions.csv (run after step 4)
 $P scripts/midterm2026/baselines_analysis.py   # step 4c: baseline_regressions.csv, baseline_sensitivity.csv (run after 4b)
+$P scripts/midterm2026/anova.py                # step 4d: anova_tables.csv, anova_permutation.csv, anova_effect_sizes.csv (run after 4c; ~40 s)
 $P scripts/midterm2026/build_figure.py         # step 5: web/og-cards/draft-midterm-overperformance.html
 $P scripts/midterm2026/check.py                # pins numbers to sources; prints "N passed, M failed"
 ```
@@ -69,6 +70,9 @@ Way's Nov 5 memo calls cross-endorsed (Forstag MT-01, Brooks PA-07, Poindexter O
 | `baseline_regressions.csv` | | Coding coefficient per baseline × raw/swing-adjusted × coding × spec × scope (S, H, P), wild cluster bootstrap CIs; `harris24@<b>` rows rerun Harris 2024 on baseline b's rows |
 | `baseline_sensitivity.csv` | | Compact table of the above: rows = baseline, columns = coding (a)/(b) × Senate/House, pooled (b) |
 | `seven_moderates_by_baseline.csv` | 7 | Third Way's seven Senate moderates, overperformance under each baseline |
+| `anova_tables.csv` | | ANOVA tables, pooled rows: `baseline` (harris24, pres2cyc, prior_seat) × `coding` × `spec` × `model` (`additive`; `ancova2` = coding × chamber + terrain) × `typ` (2 = anova_lm Type II; 3 = Type III with sum-to-zero contrasts). Columns `sum_sq`, `df`, `F`, `p_classic`, `partial_eta2`, `partial_omega2`, `share_of_model_ss`, `share_of_total_ss`, `n`, `r2`. Row `shared (not attributable)` = model SS minus the sum of Type II term SS (negative under suppression) |
+| `anova_permutation.csv` | 24 | Type II F for coding (and coding × chamber) with classic p, state-block permutation p (`p_perm_block`), within-chamber permutation p (`p_perm_strata`), 9,999 permutations, `distinct_block_relabelings` (how many label assignments the block scheme can produce), `rows_in_exchangeable_blocks` |
+| `anova_effect_sizes.csv` | 12 | Coding term's partial eta^2 and partial omega^2 in the additive models, with 95% state-cluster bootstrap percentile CIs (9,999 resamples of states) |
 
 **`regressions.csv` columns.** `chamber` (`S`, `H`, or `P` = pooled), `coding`, `spec`,
 `y`, `term`, `n`, `n_coded_1`, `coef`, `se_hc3` (per-chamber rows), `ci_lo`/`ci_hi`
