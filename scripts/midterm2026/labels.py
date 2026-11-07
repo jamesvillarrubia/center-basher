@@ -4,6 +4,8 @@
    (Blavity via Yahoo, 2026-11-04,
    https://www.yahoo.com/news/politics/articles/democratic-socialists-won-midterms-far-230432529.html).
    Rabb (PA-03), Gonzales-Torres (CA-34) and Vang (CA-07) had no D-vs-R November race and drop out.
+   Cross-check: house_primaries.csv e_dsa marks Kiros, Tlaib, McKinney, Valdez, Rabb and
+   Ocasio-Cortez, matching this list; it has no row for NY-13, LA-01 or the California races.
 2. NRCC: Democrat-held districts in the NRCC's Nov 2025 "Stop socialism. Stop Democrats." Mamdani
    digital ad (Fox News, 2025-11-05, list read verbatim), mapped to 2026 races (see NRCC).
 

@@ -84,7 +84,7 @@ def ads() -> pd.DataFrame:
             sm, sl = mid(a.get("spend"))
             rows.append(dict(race_id=d["race_id"], party=d["party"], nominee=d["nominee"], ad_id=a["id"],
                              start=a.get("ad_delivery_start_time"), text=text, spend_mid=sm, spend_lo=sl,
-                             file_error=d.get("error"), file_truncated=d.get("truncated")))
+                             file_error=d.get("error"), file_truncated=bool(d.get("truncated")) or bool(d.get("needs_refetch"))))
     return pd.DataFrame(rows)
 
 
@@ -98,7 +98,7 @@ def deidentify(text: str, names: list[str]) -> str:
     for n in names:
         for part in {n, n.split()[-1]}:
             if len(part) > 2:
-                text = re.sub(re.escape(part), "[NAME]", text, flags=re.I)
+                text = re.sub(r"\b" + re.escape(part) + r"\b", "[NAME]", text, flags=re.I)
     return text
 
 
@@ -124,10 +124,14 @@ def main() -> None:
     names = pd.concat([a[["race_id", "nominee"]]]).drop_duplicates()
     allnames = names.nominee.tolist()
     u = units.drop_duplicates("uid")
-    samp = pd.concat([u[u.party == p].sample(100, random_state=20261107) for p in ["DEM", "REP"]])
-    samp = samp.assign(text_blind=samp.text.map(lambda t: deidentify(t, allnames)))
-    samp[["uid", "text_blind"]].sample(frac=1, random_state=1).to_csv(OUT / "sample_200.csv", index=False)
-    samp[["uid", "party", *ISSUES, "process", "bio"]].to_csv(OUT / "sample_200_keyword.csv", index=False)
+    # The sample is drawn once and frozen; later runs (after re-fetches) re-code the same uids.
+    if not (OUT / "sample_200.csv").exists():
+        samp = pd.concat([u[u.party == p].sample(100, random_state=20261107) for p in ["DEM", "REP"]])
+        samp = samp.assign(text_blind=samp.text.map(lambda t: deidentify(t, allnames)))
+        samp[["uid", "text_blind"]].sample(frac=1, random_state=1).to_csv(OUT / "sample_200.csv", index=False)
+    ids = pd.read_csv(OUT / "sample_200.csv").uid
+    u.set_index("uid").loc[ids, ["party", *ISSUES, "process", "bio"]].reset_index().to_csv(
+        OUT / "sample_200_keyword.csv", index=False)
 
     g = a[a.general]
     issue = g[g[ISSUES].any(axis=1)]
