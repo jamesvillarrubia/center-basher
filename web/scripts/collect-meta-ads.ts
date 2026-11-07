@@ -60,20 +60,83 @@ async function get(url: string): Promise<Page> {
   return { error: { message: 'rate limited after 5 attempts', code: -1 } };
 }
 
-// A page is the nominee's own when its name carries the first and last name and its byline names
-// the nominee or a campaign committee. Outside groups ("Realtors for Josh Riley", paid for by NAR)
-// and namesakes ("Congressman Riley M. Moore") fail the rule.
 // Lowercase, straight apostrophes, no accents: "Marty O’Donnell" and "Gutiérrez" must match.
 export const norm = (s: string | undefined) =>
   (s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[\u2018\u2019\u02bc]/g, "'").toLowerCase();
 
+const STATES: Record<string, string> = { AL: 'alabama', AK: 'alaska', AZ: 'arizona', AR: 'arkansas', CA: 'california',
+  CO: 'colorado', CT: 'connecticut', DE: 'delaware', FL: 'florida', GA: 'georgia', HI: 'hawaii', ID: 'idaho',
+  IL: 'illinois', IN: 'indiana', IA: 'iowa', KS: 'kansas', KY: 'kentucky', LA: 'louisiana', ME: 'maine',
+  MD: 'maryland', MA: 'massachusetts', MI: 'michigan', MN: 'minnesota', MS: 'mississippi', MO: 'missouri',
+  MT: 'montana', NE: 'nebraska', NV: 'nevada', NH: 'new hampshire', NJ: 'new jersey', NM: 'new mexico',
+  NY: 'new york', NC: 'north carolina', ND: 'north dakota', OH: 'ohio', OK: 'oklahoma', OR: 'oregon',
+  PA: 'pennsylvania', RI: 'rhode island', SC: 'south carolina', SD: 'south dakota', TN: 'tennessee', TX: 'texas',
+  UT: 'utah', VT: 'vermont', VA: 'virginia', WA: 'washington', WV: 'west virginia', WI: 'wisconsin', WY: 'wyoming' };
+// Bylines that are never the campaign: official offices, outside groups, party committees, PACs.
+const NOT_CAMPAIGN = /house of representative|state senate|state assembly|legislature|realtors|association|union\b|chamber of commerce|\bpac\b|town committee|county committee/;
+// Ads for another office (an earlier state-senate, mayoral or statewide race). Skipped when the page
+// or byline mentions Congress: "Governor Paul LePage" paid for by LEPAGE FOR CONGRESS is his own.
+const OTHER_RACE = /senate|\bsenator\b|commissioner|secretary of|governor|mayor|judge|assembly|county|for city|council|state rep|school board|sheriff|attorney general|for district \d/;
+// Namesakes the rules cannot separate, found by the out-of-state audit (2026-11-07): page IDs whose
+// ads say they are running elsewhere ("re-election in Tennessee's 9th District").
+const NAMESAKE_PAGES = new Set(['6358769182', /* Steve Cohen, TN-09, not CA-50 */ '986915097837365' /* Brad Smith, Ohio, not WI-06 */]);
+// Official office ads paid with House office funds: "The Office of Congressman X", "Rep. X (TX-15)".
+const OFFICIAL = /\boffice of\b|^(?:the )?(?:congressman|congresswoman|rep\.?|representative|u\.?s\.? rep(?:resentative)?)\b/;
+const CAMPAIGN_WORD = /for congress|campaign|committee|friends of|citizens for|victory fund/;
+const notCampaign = (by: string, page: string) =>
+  NOT_CAMPAIGN.test(by) || (!/congress/.test(by + page) && (OTHER_RACE.test(by) || OTHER_RACE.test(page))) || (OFFICIAL.test(by) && !CAMPAIGN_WORD.test(by));
+// Words allowed directly before the last name; any other word there is a different first name.
+const LEAD_OK = new Set(['for', 'elect', 'of', 'congressman', 'congresswoman', 'rep', 'rep.', 'representative', 'dr', 'dr.',
+  'doc', 'the', 'to', 'citizens', 'friends', 'mr', 'ms', 'mrs', 'nurse', 'team', 'sgt', 'col', 'gen']);
+// Words allowed directly after the last name; any other word is a different surname or another race.
+const TRAIL_OK = new Set(['for', '4', 'campaign', 'committee', 'congressional', 'victory', 'jr', 'jr.', 'sr', 'ii', 'iii', 'in']);
+const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const B = "(?:^|[^a-z'-])";
+const has = (s: string, w: string) => new RegExp(`${B}${esc(w)}(?![a-z-])`).test(s);
+
+// Every word next to the last name must be the nominee's own first name or a campaign word.
+function cleanContext(s: string, first: string, last: string): boolean {
+  for (const m of s.matchAll(new RegExp(`([a-z.']+)\\s+(?:[a-z]\\.?\\s+)?${esc(last)}(?![a-z-])`, 'g'))) {
+    const w = m[1];
+    if (!LEAD_OK.has(w) && w !== first && w.slice(0, 3) !== first.slice(0, 3)) return false;
+  }
+  for (const m of s.matchAll(new RegExp(`${B}${esc(last)}\\s+([a-z0-9.']+)`, 'g'))) {
+    if (!TRAIL_OK.has(m[1]) && !/^\d+$/.test(m[1])) return false;
+  }
+  return true;
+}
+
+// A page is the nominee's own when the byline (who paid) is the nominee's campaign:
+//  (a) the page name carries the first and last name, and the byline carries the last name or is a
+//      joint "victory fund"; a page with no byline counts only if its name says "for congress";
+//  (b) or the byline carries the last name and a campaign marker ("for congress", "committee",
+//      "friends of", "for <state>").
+// In both, the words around the last name must be the nominee's first name or campaign words, so
+// "Jack Miller for Georgia" (Brian Jack) and "Gen. Austin Scott Miller" (Austin Scott) fail.
+// Spec: reqts/midterm-2026-emphasis.md section 2; audit 2026-11-07.
 export function ownPage(n: Nominee, ad: Ad): boolean {
   const first = norm(n.fullName.split(' ')[0]);
   const last = norm(n.lastName);
   const page = norm(ad.page_name);
   const by = norm(ad.bylines);
-  return page.includes(first) && page.includes(last)
-    && (by.includes(last) || by.includes(first) || by.includes('congress') || by === page);
+  if (notCampaign(by, page) || NAMESAKE_PAGES.has(ad.page_id ?? '')) return false;
+  if (!cleanContext(page, first, last) || !cleanContext(by, first, last)) return false;
+  const st = n.raceId.slice(0, 2);
+  if (has(page, first) && has(page, last)) {
+    if (!by) return page.includes('for congress');
+    return has(by, last) || by.includes('victory fund');
+  }
+  if (!has(by, last)) return false;
+  return /congress|committee|campaign|friends of|citizens for|victory fund/.test(by)
+    || has(by, `for ${st.toLowerCase()}`) || by.includes(`for ${STATES[st]}`) || by.includes(`4 ${st.toLowerCase()}`);
+}
+
+// An ad pulled by page ID (pass 2) counts when its page passed ownPage on a search hit and its own
+// byline is empty, the nominee's campaign, or a joint victory fund (pages also run others' paid ads).
+export function ownViaPage(n: Nominee, ad: Ad, ownIds: Set<string>): boolean {
+  const by = norm(ad.bylines);
+  return ownIds.has(ad.page_id ?? '') && !notCampaign(by, norm(ad.page_name))
+    && (!by || has(by, norm(n.lastName)) || by.includes('victory fund') || by === norm(ad.page_name));
 }
 
 async function pull(params: Record<string, string>, token: string, maxPages: number, keep: (ad: Ad) => boolean) {
@@ -110,12 +173,36 @@ async function collect(n: Nominee, token: string, maxPages: number) {
     p2 = { kept: [...p2.kept, ...r.kept], dropped: p2.dropped + r.dropped, pages: p2.pages + r.pages,
       error: p2.error ?? r.error, truncated: p2.truncated || r.truncated };
   }
-  for (const ad of p2.kept) if (!byId.has(ad.id)) byId.set(ad.id, { ...ad, own: true, via: 'page_id' });
+  const idSet = new Set(ids);
+  for (const ad of p2.kept) if (!byId.has(ad.id)) byId.set(ad.id, { ...ad, own: ownViaPage(n, ad, idSet), via: 'page_id' });
   return { ads: [...byId.values()], ownPageIds: ids, dropped: p1.dropped, pages: p1.pages + p2.pages,
     error: p1.error ?? p2.error, truncated: p1.truncated || p2.truncated };
 }
 
+// --reflag: re-apply ownPage to stored ads without network; print nominees whose own page IDs grew
+// (their pass 2 must be re-fetched).
+function reflag() {
+  const byKey = new Map(nominees().map((n) => [`${n.raceId}__${n.party}`, n]));
+  const refetch: string[] = [];
+  for (const [key, n] of byKey) {
+    const file = join(OUT, `${key}.json`);
+    if (!existsSync(file)) continue;
+    const d = JSON.parse(readFileSync(file, 'utf8'));
+    for (const ad of d.ads) if (ad.via !== 'page_id') ad.own = ownPage(n, ad);
+    const ids = [...new Set(d.ads.filter((a: Ad & { own: boolean; via: string }) => a.own && a.via !== 'page_id' && a.page_id)
+      .map((a: Ad) => a.page_id))] as string[];
+    const idSet = new Set(ids);
+    for (const ad of d.ads) if (ad.via === 'page_id') ad.own = ownViaPage(n, ad, idSet);
+    const grew = ids.filter((i) => !d.own_page_ids.includes(i));
+    d.match_rule = 'ownPage v2 (2026-11-07), reflagged offline';
+    if (grew.length) { d.needs_refetch = true; refetch.push(n.raceId); }
+    writeFileSync(file, JSON.stringify(d));
+  }
+  console.log(`needs refetch (${refetch.length}): ${[...new Set(refetch)].join(',')}`);
+}
+
 async function main() {
+  if (process.argv.includes('--reflag')) return reflag();
   const tokenFile = arg('token-file');
   if (!tokenFile) throw new Error('--token-file is required');
   const token = readFileSync(tokenFile, 'utf8').trim();
