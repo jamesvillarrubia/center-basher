@@ -156,3 +156,37 @@ distinct ad text on every code, after section 10. Method:
    others 0.7). A code below its bar on either sample is dropped from every model.
 4. Section 5 (measures and models) and section 6 (predictions) are unchanged. The keyword
    codes stay in units.csv for comparison only.
+
+## 12. Results on model codes (2026-11-07)
+
+Reliability (model codes against blind consensus, `model_reliability.csv`): every code passes on
+both samples. Prices 1.00 and 0.96; socialism 0.91 and 1.00; health 0.97 and 1.00; corruption
+0.87 and 0.92; democracy 1.00 and 0.92; immigration 0.88 and 0.95; crime 0.86 and 0.80; war 1.00
+and 0.89. Abortion had no positives in sample 1 (kappa undefined) and scored 1.00 in sample 2.
+
+Coverage: 417 D-vs-R races; 234 Democrats ran Meta ads; 110 Democrats spent at least $10,000 in
+the general window with a complete ad file; 29 races have both candidates over $10,000 with
+complete files. 35 Democratic and 37 Republican files are incomplete (page-ID re-fetch pending)
+and are excluded.
+
+Issue mix, candidates over $10,000 with complete files (114 D, 87 R), share of issue-ad money:
+prices 40% D, 39% R; health 40% D, 21% R; corruption 46% D, 22% R; immigration 8% D, 17% R; crime
+2% D, 17% R; socialism 0.3% D, 10% R; war 14% D, 5% R; democracy 8% D, 1% R.
+
+Predictions (`emphasis_models.csv`):
+- P1 (price share, positive, under 2 points per +10): +0.7 points (95% CI -1.7 to +3.2), n 26,
+  strict sample; -0.06 (-0.61 to +0.49), n 100, Democrat-only sensitivity. Within the predicted
+  bound; no reliable link.
+- P2 (moderate vs progressive price share within 5 points): not estimable in the strict sample (14
+  races against state fixed effects). Democrat-only: progressive minus moderate -20.7 share
+  points (-65 to +24), n 52. Too imprecise to confirm or reject.
+- P3 (Republican socialism spend, no reliable link): +1.4 points per SD (-2.7 to +5.5), n 26.
+  Holds; the sign is the opposite of hurting Democrats.
+- P4 (Democrats out-message Republicans on prices in most races): fails. Median race gap 0 share
+  points; the Democrat's price share was higher in 38% of 23 races. Both parties put about 40%
+  of issue-ad money into prices.
+
+> **[Claude — honest correction]** Section 6 expected Democrats to own the price message. They
+> did not: Republicans spent the same share on prices. Democrats differed on corruption and
+> health care, and Republicans on immigration, crime and socialism. Results are provisional until
+> the 72 incomplete files are re-fetched.

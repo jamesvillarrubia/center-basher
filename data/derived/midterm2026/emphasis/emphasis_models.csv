@@ -1,0 +1,13 @@
+prediction,sample,n,term,coef,ci_lo,ci_hi,p,note
+P1 price share -> points ahead of Harris,both >= $10k,26,d_prices_share,0.7133279504453116,-1.728458828839375,3.155114729729998,0.5669349796620333,per +10 share points
+P1 + money,both >= $10k,26,d_prices_share,0.6877949802306222,-2.9001807086383558,4.275770669099599,0.7071293853032594,per +10 share points
+P2 progressive minus moderate price share,both >= $10k,14,"C(affiliation, Treatment('moderate'))[T.progressive]",97.65826186707811,,,,share points
+P1 price share -> points ahead of Harris,"both >= $10k, >= 90% counted",23,d_prices_share,0.25613020470028564,-1.0491971691548423,1.5614575785554137,0.7005468117926349,per +10 share points
+P1 + money,"both >= $10k, >= 90% counted",23,d_prices_share,0.0626755480702541,-2.532102707421763,2.6574538035622712,0.9622407082581409,per +10 share points
+P2 progressive minus moderate price share,"both >= $10k, >= 90% counted",11,"C(affiliation, Treatment('moderate'))[T.progressive]",50.748044162506226,,,,share points
+P1 price share -> points ahead of Harris,Democrat >= $10k (sensitivity),100,d_prices_share,-0.06013957920702713,-0.611473140921577,0.49119398250752266,0.8307082673434903,per +10 share points
+P1 + money,Democrat >= $10k (sensitivity),100,d_prices_share,-0.09327382437199652,-0.5903132813575175,0.40376563261352455,0.713019032101798,per +10 share points
+P2 progressive minus moderate price share,Democrat >= $10k (sensitivity),52,"C(affiliation, Treatment('moderate'))[T.progressive]",-20.650064506080824,-65.17694766248903,23.876818650327387,0.36336854934783147,share points
+P3 Republican socialism-ad spend per vote -> points ahead,both >= $10k,26,soc_pv,1.401618469713779,-2.689484370473967,5.492721309901525,0.5019104398523808,per 1 SD ($0.028/vote)
+P3 Republican socialism-ad spend per vote -> points ahead,"both >= $10k, >= 90% counted",24,soc_pv,1.4556184529762586,-2.6366978473662566,5.547934753318773,0.4857087067175916,per 1 SD ($0.029/vote)
+P4 median price gap (D minus R share),both >= $10k,23,price_gap,0.0,,,,share points; D ahead in 38% of races

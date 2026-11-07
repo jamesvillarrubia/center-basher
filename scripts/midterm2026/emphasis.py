@@ -133,10 +133,20 @@ def main() -> None:
     a["uid"] = a.text.map(lambda t: hashlib.sha1(re.sub(r"\s+", " ", t.lower()).encode()).hexdigest()[:12])
     codes = pd.DataFrame([code(t) for t in a.text], index=a.index)
     a = pd.concat([a, codes], axis=1)
+    # Spec section 11: blind model codes replace the keyword codes for every share and model.
+    # Keyword codes stay in units.csv as kw_<code> for comparison.
+    mc = OUT / "model_codes.csv"
+    if mc.exists():
+        m = pd.read_csv(mc).set_index("uid")
+        assert a.uid.isin(m.index).all(), "a text has no model code; rerun emphasis_batches.py make/merge"
+        for k in ISSUES + ["process", "bio"]:
+            a[f"kw_{k}"] = a[k]
+            a[k] = a.uid.map(m[k]).astype(bool)
 
     units = (a.groupby(["race_id", "party", "uid"])
              .agg(text=("text", "first"), n_ads=("ad_id", "size"), spend_mid=("spend_mid", "sum"),
-                  **{k: (k, "first") for k in ISSUES + ["process", "bio"]}).reset_index())
+                  **{k: (k, "first") for k in ISSUES + ["process", "bio"]},
+                  **{f"kw_{k}": (f"kw_{k}", "first") for k in ISSUES + ["process", "bio"] if f"kw_{k}" in a}).reset_index())
     units.to_csv(OUT / "units.csv", index=False)
 
     # blind reliability sample: distinct texts, de-identified, 100 per party
@@ -149,8 +159,10 @@ def main() -> None:
         samp = samp.assign(text_blind=samp.text.map(lambda t: deidentify(t, allnames)))
         samp[["uid", "text_blind"]].sample(frac=1, random_state=1).to_csv(OUT / "sample_200.csv", index=False)
     ids = pd.read_csv(OUT / "sample_200.csv").uid
-    u.set_index("uid").loc[ids, ["party", *ISSUES, "process", "bio"]].reset_index().to_csv(
-        OUT / "sample_200_keyword.csv", index=False)
+    # keyword codes for the reliability files (kw_* once model codes have replaced the code columns)
+    kwcols = {f"kw_{k}" if f"kw_{k}" in u else k: k for k in ISSUES + ["process", "bio"]}
+    kw = u.set_index("uid")[["party", *kwcols]].rename(columns=kwcols)
+    kw.loc[ids].reset_index().to_csv(OUT / "sample_200_keyword.csv", index=False)
     # Sample 2 (validation, spec section 9): fresh units, none from sample 1, drawn once.
     if not (OUT / "sample2_200.csv").exists():
         rest = u[~u.uid.isin(ids)]
@@ -158,8 +170,7 @@ def main() -> None:
         s2 = s2.assign(text_blind=s2.text.map(lambda t: deidentify(t, allnames)))
         s2[["uid", "text_blind"]].sample(frac=1, random_state=2).to_csv(OUT / "sample2_200.csv", index=False)
     ids2 = pd.read_csv(OUT / "sample2_200.csv").uid
-    u.set_index("uid").loc[ids2, ["party", *ISSUES, "process", "bio"]].reset_index().to_csv(
-        OUT / "sample2_200_keyword.csv", index=False)
+    kw.loc[ids2].reset_index().to_csv(OUT / "sample2_200_keyword.csv", index=False)
 
     g = a[a.general]
     issue = g[g[ISSUES].any(axis=1)]

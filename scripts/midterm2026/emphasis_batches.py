@@ -21,6 +21,7 @@ from emphasis_reliability import BAR, CODES, kappa  # noqa: E402
 E = ROOT / "data" / "derived" / "midterm2026" / "emphasis"
 B = E / "batches"
 SIZE = 350
+PARTIAL = "--partial" in sys.argv  # skip batches still being coded (interim check only)
 ISSUES = CODES[:9]
 
 
@@ -46,6 +47,9 @@ def merge() -> None:
             print(f"missing {c.name}")
             continue
         got = pd.read_csv(c)
+        if PARTIAL and (set(got.uid) != set(src.uid) or len(got) != len(src)):
+            print(f"incomplete {c.name}: {len(got)} of {len(src)}")
+            continue
         assert set(got.uid) == set(src.uid) and len(got) == len(src), f"{c.name}: uid set differs"
         for k in CODES:
             assert got[k].isin([0, 1]).all(), f"{c.name}: {k} not 0/1"
