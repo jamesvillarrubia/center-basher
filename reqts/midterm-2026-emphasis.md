@@ -141,3 +141,18 @@ socialism is dropped; no further keyword revision.
 
 The failures are false alarms, not misses. Prices: recall 0.93 (26 of 28), precision 0.65.
 Socialism: recall 1.00 (2 of 2), precision 0.22. Democracy and crime miss half their true cases.
+
+## 11. Model coding of every text (2026-11-07)
+
+James chose (2026-11-07) to replace the keyword measure with blind Sonnet coding of every
+distinct ad text on every code, after section 10. Method:
+
+1. `emphasis_batches.py make`: every distinct text, names masked case-sensitively, shuffled
+   (seed 11), split into batches of about 350. Coders see only uid and masked text.
+2. One blind Sonnet coder per batch, the section 3 codebook verbatim as given to coders A to D,
+   full text read, no keyword scripts.
+3. Reliability: the 400 sample units (samples 1 and 2) fall inside the batches. The model codes
+   are scored against the A/B and C/D consensus with the same bars (prices and socialism 0.8,
+   others 0.7). A code below its bar on either sample is dropped from every model.
+4. Section 5 (measures and models) and section 6 (predictions) are unchanged. The keyword
+   codes stay in units.csv for comparison only.
