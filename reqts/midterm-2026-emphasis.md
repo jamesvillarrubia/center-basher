@@ -94,3 +94,21 @@ can carry several topics.
 - No claim that ads caused gains: campaigns that expect to win may choose different topics.
 - No TV, mail or Google coding in this pass.
 - No change to the platform rubric or to positions_final.csv.
+
+## 8. Method change (2026-11-07, before any coded ad was compared with results)
+
+The full collection holds about 17,000 distinct ad texts, too many for one model coder to label
+at reasonable cost. James chose a keyword coder (2026-11-07). Section 4 is replaced by:
+
+1. `emphasis.py` labels every unit with fixed regular expressions per code (listed in the
+   script's `CODES`), written before any coded unit was compared with race results.
+2. A random sample of 200 units (100 Democratic, 100 Republican, seed 20261107) is coded blind
+   by two Sonnet coders from the codebook in section 3, with no names, parties or results shown.
+   Units are de-identified: candidate and opponent names replaced with [CANDIDATE]/[OPPONENT].
+3. Agreement: kappa between the two coders, and kappa between the keyword coder and the two
+   coders' consensus (units where they agree). The bars in section 4.3 apply to keyword vs
+   consensus. A code below its bar is dropped from every model, and the page says so.
+4. Section 5 (measures and models) and section 6 (predictions) are unchanged.
+
+Primary dates: the general-election window starts the day after the state's 2026 primary, from
+`house_primaries.csv` where it has the date; otherwise from 2026-06-01, flagged per race.
