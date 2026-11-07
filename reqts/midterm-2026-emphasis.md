@@ -130,3 +130,14 @@ Rep. Harder's name).
 Validation: a fresh sample 2 of 200 (seed 20261108, no unit from sample 1), coded blind by two new
 coders. Only sample 2 decides which codes pass. The bars are unchanged. No further revision after
 sample 2: a code that fails there is dropped.
+
+## 10. Validation result (sample 2, 2026-11-07)
+
+Blind coders C and D agreed at kappa 0.91 to 1.00 on every code. Keyword rules v2 against their
+consensus: health 0.90, corruption 0.83, immigration 0.82, abortion 0.80 and war 0.76 pass.
+Prices 0.72 (bar 0.8), socialism 0.35 (bar 0.8; 2 true positives in 200), democracy 0.60,
+crime 0.44, process 0.64 and bio 0.63 fail. Under section 9 the keyword measure of prices and
+socialism is dropped; no further keyword revision.
+
+The failures are false alarms, not misses. Prices: recall 0.93 (26 of 28), precision 0.65.
+Socialism: recall 1.00 (2 of 2), precision 0.22. Democracy and crime miss half their true cases.
