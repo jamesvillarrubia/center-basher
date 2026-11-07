@@ -32,31 +32,50 @@ D = ROOT / "data" / "derived" / "midterm2026"
 OUT = D / "emphasis"
 
 W = r"\b"
+# v2 (2026-11-07), revised on sample 1; validated on sample 2 only. Spec sections 8 and 9.
 CODES = {
-    "prices": r"cost of living|costs?|prices?|inflation|afford\w*|grocer\w*|rent|rents|housing|mortgages?|gas|"
-              r"utilit(?:y|ies)|electric(?:ity)? bills?|energy bills?|bills|tariffs?|paychecks?|wages?|price gouging",
+    "prices": r"cost of living|costs?|prices?|pricier|inflation|afford\w*|grocer\w*|rent|rents|rental|housing|"
+              r"mortgages?|gas|utilit(?:y|ies)|electric(?:ity)? bills?|energy bills?|power bills?|bills|tariffs?|"
+              r"expensive|cheaper|price gouging|paycheck to paycheck|make ends meet|kitchen table",
     "health": r"health ?care|medicare|medicaid|obamacare|affordable care act|premiums?|prescriptions?|drug prices|"
               r"insulin|hospitals?|pre-existing",
-    "corrupt": r"corrupt\w*|insider trading|stock trad\w*|corporate pacs?|pac money|dark money|special interests?|"
-               r"lobbyists?|billionaires?|self-dealing|brib\w*|citizens united|swamp",
-    "democracy": r"democracy|constitution\w*|authoritarian\w*|dictator\w*|checks and balances|rule of law|fascis\w*|"
-                 r"no kings",
+    "corrupt": r"corrupt\w*|insider trading|stock trad\w*|corporate pacs?|pac money|dark money|big money|"
+               r"special interests?|lobbyists?|self-dealing|brib\w*|citizens united|swamp|won'?t be bought|"
+               r"bought (?:and paid|by)|megadonors?|mega-donors?|billionaire (?:donors?|class|buddies|friends|backers)|"
+               r"funded by|aipac|get(?:ting)? rich|washington insiders?",
+    "democracy": r"democracy|authoritarian\w*|dictator\w*|checks and balances|rule of law|fascis\w*|no kings|"
+                 r"monarch\w*|rig\w* (?:the |our |their |congressional )?(?:maps?|elections?)|gerrymander\w*|"
+                 r"redistrict\w*|power grab|impeach\w*|political retaliation|voting rights|buy elections|"
+                 r"constitutional crisis|lawless\w*",
     "abortion": r"abortions?|reproductive|roe|pro-life|pro-choice|ivf|planned parenthood",
     "immig": r"immigra\w*|border|illegal aliens?|migrants?|deport\w*|sanctuary|amnesty",
-    "crime": r"crime|criminals?|police|policing|cops|law enforcement|fentanyl|public safety|defund",
+    "crime": r"crime|criminals?|policing|cops|law enforcement|fentanyl|public safety|defund|cartels?",
     "socialism": r"socialis\w*|communis\w*|marxis\w*|radical[- ]left|far[- ]left|mamdani|the squad|aoc",
-    "war": r"iran|wars?|israel|ukraine|troops|foreign polic\w*",
+    "war": r"iran|wars?|israel|ukraine|gaza|foreign polic\w*|national (?:defense|security)|military|"
+           r"defense appropriations",
+}
+# Phrases removed before a code is searched: they carry the code's words without its topic.
+EXCLUDE = {
+    "prices": r"pay(?:s|ing)? the price|price of (?:freedom|liberty)|afford to (?:fall|lose|let|miss|sit|wait|be)\w*|"
+              r"affordable (?:health ?care|care act)|cost taxpayers",
+    "war": r"culture wars?|war chest|war room",
 }
 CASE_SENSITIVE = {"immig": r"ICE"}
-PROCESS = r"donat\w*|chip in|contribut\w*|deadline|match\w*|vote early|early voting|register to vote|polls? (?:open|close)|endors\w*"
+PROCESS = (r"donat\w*|chip in|contribut\w*|deadline|match\w*|vote early|early voting|register to vote|"
+           r"polls? (?:open|close)|endors\w*|yard signs?|request a sign|volunteer\w*|rally|kick ?off|cast your ballot|"
+           r"vote (?:for|by)|election day|voting locations|survey|any amount")
 ISSUES = list(CODES)
 RX = {k: re.compile(W + "(?:" + v + ")" + W, re.I) for k, v in CODES.items()}
 RX_CS = {k: re.compile(W + v + W) for k, v in CASE_SENSITIVE.items()}
+RX_EX = {k: re.compile(v, re.I) for k, v in EXCLUDE.items()}
 RX_PROC = re.compile(W + "(?:" + PROCESS + ")" + W, re.I)
 
 
 def code(text: str) -> dict:
-    c = {k: bool(RX[k].search(text)) or (k in RX_CS and bool(RX_CS[k].search(text))) for k in ISSUES}
+    c = {}
+    for k in ISSUES:
+        t = RX_EX[k].sub(" ", text) if k in RX_EX else text
+        c[k] = bool(RX[k].search(t)) or (k in RX_CS and bool(RX_CS[k].search(t)))
     issue = any(c.values())
     c["process"] = (not issue) and bool(RX_PROC.search(text))
     c["bio"] = (not issue) and not c["process"]
@@ -98,7 +117,7 @@ def deidentify(text: str, names: list[str]) -> str:
     for n in names:
         for part in {n, n.split()[-1]}:
             if len(part) > 2:
-                text = re.sub(r"\b" + re.escape(part) + r"\b", "[NAME]", text, flags=re.I)
+                text = re.sub(r"\b" + re.escape(part) + r"\b", "[NAME]", text)  # case-sensitive: "harder" stays
     return text
 
 
@@ -132,6 +151,15 @@ def main() -> None:
     ids = pd.read_csv(OUT / "sample_200.csv").uid
     u.set_index("uid").loc[ids, ["party", *ISSUES, "process", "bio"]].reset_index().to_csv(
         OUT / "sample_200_keyword.csv", index=False)
+    # Sample 2 (validation, spec section 9): fresh units, none from sample 1, drawn once.
+    if not (OUT / "sample2_200.csv").exists():
+        rest = u[~u.uid.isin(ids)]
+        s2 = pd.concat([rest[rest.party == p].sample(100, random_state=20261108) for p in ["DEM", "REP"]])
+        s2 = s2.assign(text_blind=s2.text.map(lambda t: deidentify(t, allnames)))
+        s2[["uid", "text_blind"]].sample(frac=1, random_state=2).to_csv(OUT / "sample2_200.csv", index=False)
+    ids2 = pd.read_csv(OUT / "sample2_200.csv").uid
+    u.set_index("uid").loc[ids2, ["party", *ISSUES, "process", "bio"]].reset_index().to_csv(
+        OUT / "sample2_200_keyword.csv", index=False)
 
     g = a[a.general]
     issue = g[g[ISSUES].any(axis=1)]

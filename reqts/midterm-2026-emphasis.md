@@ -112,3 +112,21 @@ at reasonable cost. James chose a keyword coder (2026-11-07). Section 4 is repla
 
 Primary dates: the general-election window starts the day after the state's 2026 primary, from
 `house_primaries.csv` where it has the date; otherwise from 2026-06-01, flagged per race.
+
+## 9. First reliability result and revision (2026-11-07)
+
+Sample 1 (seed 20261107): the two blind coders agreed closely (kappa 0.86 to 1.00 on every code).
+The keyword coder against their consensus passed on socialism (0.91), health (0.91) and
+immigration (0.80), and failed on prices (0.79, bar 0.8), corruption (0.67), crime (0.66), war
+(0.49) and democracy (0.45). Abortion had no positives in the sample and cannot be scored.
+
+Revision: sample 1 becomes the tuning set. Keyword rules v2 (emphasis.py `CODES`, `EXCLUDE`) fix
+the error patterns seen there: "pay the price" and "can't afford to fall short" are not prices;
+"billionaires" alone is not corruption, "won't be bought" and "funded by AIPAC" are; rigged maps,
+gerrymanders and impeachment of officials are democracy; "culture wars" and "war chest" are not
+war. Name masking for the blind text becomes case-sensitive (lowercase "harder" was masked as
+Rep. Harder's name).
+
+Validation: a fresh sample 2 of 200 (seed 20261108, no unit from sample 1), coded blind by two new
+coders. Only sample 2 decides which codes pass. The bars are unchanged. No further revision after
+sample 2: a code that fails there is dropped.
