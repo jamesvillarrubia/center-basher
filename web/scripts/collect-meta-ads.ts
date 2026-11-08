@@ -1,7 +1,7 @@
 // Collect Meta Ad Library political ads for every 2026 House D and R nominee.
 // Spec: reqts/midterm-2026-emphasis.md, section 2.
 //
-// Usage (from web/): node scripts/collect-meta-ads.ts --token-file <path> [--races NY-19,NV-03] [--max-pages 20]
+// Usage (from web/): node scripts/collect-meta-ads.ts --token-file <path> [--races NY-19,NV-03 | --keys NY-19__DEM,NV-03__REP] [--max-pages 20]
 //
 // The token is read from --token-file and sent only to graph.facebook.com. Paging URLs that Meta
 // returns embed the token; they are never written to disk or printed.
@@ -206,10 +206,11 @@ async function main() {
   const tokenFile = arg('token-file');
   if (!tokenFile) throw new Error('--token-file is required');
   const token = readFileSync(tokenFile, 'utf8').trim();
-  const only = arg('races')?.split(',');
+  const keys = arg('keys')?.split(',');
+  const only = arg('races')?.split(',') ?? keys?.map((k) => k.split('__')[0]);
   const maxPages = Number(arg('max-pages') ?? 20);
   mkdirSync(OUT, { recursive: true });
-  const list = nominees().filter((n) => !only || only.includes(n.raceId));
+  const list = nominees().filter((n) => (!only || only.includes(n.raceId)) && (!keys || keys.includes(`${n.raceId}__${n.party}`)));
   for (const n of list) {
     const file = join(OUT, `${n.raceId}__${n.party}.json`);
     if (existsSync(file) && !only && JSON.parse(readFileSync(file, 'utf8')).error === null) continue;

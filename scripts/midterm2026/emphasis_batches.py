@@ -1,11 +1,13 @@
 """Batches for blind model coding of every distinct ad text (spec section 11).
 
   make   data/derived/midterm2026/emphasis/batches/batch_NN.csv (uid, text_blind), ~350 texts each
+  make-new  after a re-fetch: texts with no model code go to new batches numbered after the last
   merge  read batches/coded_NN.csv, check every uid is coded once with valid 0/1 codes and the
          process/bio rule, write model_codes.csv; score against the sample 1 and 2 consensus
 """
 from __future__ import annotations
 
+import hashlib
 import re
 import sys
 from pathlib import Path
@@ -36,6 +38,26 @@ def make() -> None:
     for i, chunk in enumerate(np.array_split(u, n)):
         chunk[["uid", "text_blind"]].to_csv(B / f"batch_{i:02d}.csv", index=False)
     print(f"{len(u)} texts in {n} batches")
+
+
+def blind(u: pd.DataFrame) -> pd.DataFrame:
+    names = sorted({p for n in ads().nominee.unique() for p in {n, n.split()[-1]} if len(p) > 2}, key=len, reverse=True)
+    rx = re.compile(r"\b(?:" + "|".join(map(re.escape, names)) + r")\b")  # case-sensitive
+    return u.assign(text_blind=u.text.map(lambda t: rx.sub("[NAME]", t)))
+
+
+def make_new() -> None:
+    a = ads()
+    a = a[a.text.str.len() > 0].copy()
+    a["uid"] = a.text.map(lambda t: hashlib.sha1(re.sub(r"\s+", " ", t.lower()).encode()).hexdigest()[:12])
+    coded = set(pd.read_csv(E / "model_codes.csv").uid)
+    u = a[~a.uid.isin(coded)].drop_duplicates("uid")[["uid", "text"]]
+    u = blind(u).sample(frac=1, random_state=12).reset_index(drop=True)
+    start = 1 + max(int(f.stem.split("_")[1]) for f in B.glob("batch_*.csv"))
+    n = int(np.ceil(len(u) / SIZE))
+    for i, chunk in enumerate(np.array_split(u, n)):
+        chunk[["uid", "text_blind"]].to_csv(B / f"batch_{start + i:02d}.csv", index=False)
+    print(f"{len(u)} new texts in batches {start}..{start + n - 1}")
 
 
 def merge() -> None:
@@ -77,4 +99,4 @@ def merge() -> None:
 
 
 if __name__ == "__main__":
-    {"make": make, "merge": merge}[sys.argv[1]]()
+    {"make": make, "make-new": make_new, "merge": merge}[sys.argv[1]]()
