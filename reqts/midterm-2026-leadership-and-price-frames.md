@@ -115,3 +115,48 @@ r_none); a code below its bar is dropped from every model and the page says so.
   differently.
 - No TV, mail or Google ads.
 - No new coding of non-price ads.
+
+## 8. Price-position results (2026-11-08)
+
+Reliability (`frame_reliability.csv`): the two blind coders agreed at kappa 0.83 to 1.00 on
+every code with cases in the sample. The model codes against their consensus: villain 0.88,
+c_tariffs 0.89, c_war 0.88, c_trump_gop 0.91, c_none 0.91, r_none 0.93; every other code 0.85
+or above. c_immigration (no cases) and r_endtariffs (one case) cannot be scored and are left out.
+
+Party gap, mean share of price-or-health ad money, candidates over $10,000 with complete files
+(`frame_party_means.csv`):
+
+| Position | Democrats | Republicans |
+|---|---|---|
+| Blames Trump (tariffs, war or GOP policy) | 32% | 1% |
+| No cause named | 53% | 72% |
+| Proposes tax cuts | 5% | 31% |
+| Blames Biden or Democratic policy | 0.5% | 13% |
+| Names an economic villain | 24% | 12% |
+| Blames corporations | 20% | 12% |
+| Proposes taking on corporations | 15% | 12% |
+| Protects Medicare, Medicaid, Social Security | 11% | 7% |
+| Proposes a public program | 6% | 0.2% |
+| No remedy named | 58% | 48% |
+
+Predictions (`frame_models.csv`, 109 Democrats):
+- F1 (villain share positive): fails. -0.34 points per +10 share points (95% CI -0.66 to
+  -0.03); with money -0.26 (-0.58 to +0.05). Robustness: -0.31 within 15 points of Harris's
+  margin (n 57), -0.35 adding affiliation, -0.34 dropping the 5 most influential races; the
+  point estimate holds near -0.3 and the interval touches zero in most subsets.
+- F2 (Trump-blame share, no reliable link): holds. -0.07 (-0.58 to +0.45).
+- F3 (vague share zero or below): holds as no reliable link; +0.19 (-0.37 to +0.74).
+- F4 (largest party gap on a cause): holds on the Trump-blame group (31 points), fails on single
+  codes, where tax cuts (a remedy, 26 points) is the largest gap.
+
+Exploratory (not predicted): no other price position with at least 15 Democrats using it has an
+interval clear of zero once money is added. Tariff blame +0.41 (-0.10 to +0.91, 27 Democrats);
+public program +0.41 (-0.41 to +1.23, 15).
+
+> **[Claude — honest correction]** Section 6 expected Democrats who named an economic villain
+> (corporations, billionaires, insurers) to run further ahead. They ran slightly behind: about
+> 0.3 points per +10 share points, about 3 points for a candidate whose whole price message named
+> a villain. The link weakens below significance once money is controlled. No price position
+> tested here went with running ahead of Harris. Democrats did argue prices differently from
+> Republicans: they blamed Trump (32% vs 1%) and Republicans proposed tax cuts (31% vs 5%), but
+> how a Democrat framed prices did not track how far the Democrat ran ahead.
