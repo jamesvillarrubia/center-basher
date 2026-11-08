@@ -1,13 +1,13 @@
 prediction,sample,n,term,coef,ci_lo,ci_hi,p,note
-P1 price share -> points ahead of Harris,both >= $10k,26,d_prices_share,0.7133279504453116,-1.728458828839375,3.155114729729998,0.5669349796620333,per +10 share points
-P1 + money,both >= $10k,26,d_prices_share,0.6877949802306222,-2.9001807086383558,4.275770669099599,0.7071293853032594,per +10 share points
-P2 progressive minus moderate price share,both >= $10k,14,"C(affiliation, Treatment('moderate'))[T.progressive]",97.65826186707811,,,,share points
-P1 price share -> points ahead of Harris,"both >= $10k, >= 90% counted",23,d_prices_share,0.25613020470028564,-1.0491971691548423,1.5614575785554137,0.7005468117926349,per +10 share points
-P1 + money,"both >= $10k, >= 90% counted",23,d_prices_share,0.0626755480702541,-2.532102707421763,2.6574538035622712,0.9622407082581409,per +10 share points
-P2 progressive minus moderate price share,"both >= $10k, >= 90% counted",11,"C(affiliation, Treatment('moderate'))[T.progressive]",50.748044162506226,,,,share points
-P1 price share -> points ahead of Harris,Democrat >= $10k (sensitivity),100,d_prices_share,-0.06013957920702713,-0.611473140921577,0.49119398250752266,0.8307082673434903,per +10 share points
-P1 + money,Democrat >= $10k (sensitivity),100,d_prices_share,-0.09327382437199652,-0.5903132813575175,0.40376563261352455,0.713019032101798,per +10 share points
-P2 progressive minus moderate price share,Democrat >= $10k (sensitivity),52,"C(affiliation, Treatment('moderate'))[T.progressive]",-20.650064506080824,-65.17694766248903,23.876818650327387,0.36336854934783147,share points
-P3 Republican socialism-ad spend per vote -> points ahead,both >= $10k,26,soc_pv,1.401618469713779,-2.689484370473967,5.492721309901525,0.5019104398523808,per 1 SD ($0.028/vote)
-P3 Republican socialism-ad spend per vote -> points ahead,"both >= $10k, >= 90% counted",24,soc_pv,1.4556184529762586,-2.6366978473662566,5.547934753318773,0.4857087067175916,per 1 SD ($0.029/vote)
-P4 median price gap (D minus R share),both >= $10k,23,price_gap,0.0,,,,share points; D ahead in 38% of races
+P1 price share -> points ahead of Harris,both >= $10k,37,d_prices_share,-0.026862843946123063,-0.9502710440757032,0.8965453561834569,0.9545314449599075,per +10 share points
+P1 + money,both >= $10k,37,d_prices_share,-0.05121075424905937,-1.1107795792592496,1.008358070761131,0.9245305786101741,per +10 share points
+P2 progressive minus moderate price share,both >= $10k,21,"C(affiliation, Treatment('moderate'))[T.progressive]",6.882314169975601,-75.15343567583645,88.91806401578765,0.8693931324204603,share points
+P1 price share -> points ahead of Harris,"both >= $10k, >= 90% counted",32,d_prices_share,-0.035311877918966686,-1.3011746401555457,1.2305508843176125,0.9563980396901502,per +10 share points
+P1 + money,"both >= $10k, >= 90% counted",32,d_prices_share,-0.11243451315913273,-1.5698335477853942,1.3449645214671286,0.8798131535431961,per +10 share points
+P2 progressive minus moderate price share,"both >= $10k, >= 90% counted",16,"C(affiliation, Treatment('moderate'))[T.progressive]",-35.929969965184426,,,,share points
+P1 price share -> points ahead of Harris,Democrat >= $10k (sensitivity),119,d_prices_share,-0.13496325831867048,-0.5686295615403419,0.298703044903001,0.5418821533028249,per +10 share points
+P1 + money,Democrat >= $10k (sensitivity),119,d_prices_share,-0.09952521244887108,-0.4716430464688635,0.27259262157112135,0.6001363322222959,per +10 share points
+P2 progressive minus moderate price share,Democrat >= $10k (sensitivity),62,"C(affiliation, Treatment('moderate'))[T.progressive]",-32.32060830882724,-67.05977385798107,2.41855724032658,0.06822612957141326,share points
+P3 Republican socialism-ad spend per vote -> points ahead,both >= $10k,36,soc_pv,0.9311083560596467,-0.44265039089295743,2.304867103012251,0.18403693269490484,per 1 SD ($0.051/vote)
+P3 Republican socialism-ad spend per vote -> points ahead,"both >= $10k, >= 90% counted",32,soc_pv,1.1475433438142881,-0.21719948702118977,2.5122861746497662,0.09934553830990867,per 1 SD ($0.053/vote)
+P4 median price gap (D minus R share),both >= $10k,32,price_gap,1.5187785953021191,,,,"share points; D ahead in 53%, tied in 6% of races"

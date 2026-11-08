@@ -78,9 +78,10 @@ def main() -> None:
         rows.append(row("P3 Republican socialism-ad spend per vote -> points ahead", name, m, "soc_pv", sd,
                         f"per 1 SD (${sd:.3f}/vote)"))
     out = pd.DataFrame(rows)
+    g = both.price_gap.dropna()  # races where both candidates ran issue ads
     p4 = dict(prediction="P4 median price gap (D minus R share)", sample="both >= $10k", n=int(both.price_gap.notna().sum()),
               term="price_gap", coef=100 * both.price_gap.median(), ci_lo=np.nan, ci_hi=np.nan, p=np.nan,
-              note=f"share points; D ahead in {(both.price_gap > 0).mean():.0%} of races")
+              note=f"share points; D ahead in {(g > 0).mean():.0%}, tied in {(g == 0).mean():.0%} of races")
     out = pd.concat([out, pd.DataFrame([p4])])
     desc = both[["d_prices_share", "r_prices_share", "d_socialism_share", "r_socialism_share", "d_corrupt_share",
                  "r_corrupt_share", "d_health_share", "r_health_share", "d_immig_share", "r_immig_share",

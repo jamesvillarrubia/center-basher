@@ -190,3 +190,39 @@ Predictions (`emphasis_models.csv`):
 > did not: Republicans spent the same share on prices. Democrats differed on corruption and
 > health care, and Republicans on immigration, crime and socialism. Results are provisional until
 > the 72 incomplete files are re-fetched.
+
+## 13. Results after the re-fetch (2026-11-08)
+
+Re-fetch: 96 of the 98 incomplete ad files were pulled again with a fresh token
+(`collect-meta-ads.ts --keys`, 100-page cap). FL-15 DEM (Robert People) and NC-01 DEM (Don Davis)
+stay incomplete: a search by those names returns about 25,000 unrelated ads, more than the cap.
+Their own pages were pulled in full, but another page of theirs could sit in the unsearched
+results, so both stay excluded. The re-fetch added 585 distinct texts (batches 41 and 42), coded
+blind under section 11. Reliability is unchanged: every code passes on both samples
+(`model_reliability.csv`).
+
+Coverage: 235 Democrats ran Meta ads; 131 Democrats spent at least $10,000 in the general window
+with a complete file; 41 races have both candidates over $10,000 with complete files.
+
+Issue mix, candidates over $10,000 with complete files (138 D, 102 R), mean share of issue-ad
+money: prices 43% D, 44% R; corruption 47% D, 16% R; health 34% D, 16% R; democracy 13% D, 2% R;
+war 10% D, 3% R; immigration 7% D, 20% R; crime 2% D, 17% R; socialism 1% D, 13% R.
+
+Predictions (`emphasis_models.csv`):
+- P1: -0.03 points per +10 share points (95% CI -0.95 to +0.90), n 37, strict sample; -0.14
+  (-0.57 to +0.30), n 119, Democrat-only. The positive sign predicted in section 6 does not
+  appear; the interval rules out any effect above about +1 point per +10 share points.
+- P2: strict sample 21 races, +6.9 share points (-75 to +89), uninformative. Democrat-only:
+  progressive minus moderate -32.3 share points (-67.1 to +2.4), n 62. Not confirmed: the point
+  estimate is far outside the predicted 5-point band, and the interval is too wide to settle it.
+- P3: +0.9 points per SD of Republican socialism spend per vote (-0.4 to +2.3), n 36. Holds: no
+  reliable link, and the sign runs against the claim that the attack hurt Democrats.
+- P4: median price gap +1.5 share points; the Democrat's price share was higher in 53% of 32
+  races and tied in 6%. Holds narrowly; the two parties are close to even.
+
+> **[Claude — honest correction]** Section 12 reported P4 as failing, with the Democrat ahead in
+> "38% of 23 races". That share divided by every race in the sample, including races where one
+> candidate ran no issue ads (gap undefined). `emphasis_models.py` now divides by races with a
+> defined gap. With the corrected count and the re-fetched files, P4 holds narrowly (53% of 32,
+> median +1.5 points). The substantive reading of section 12 stands: both parties spent about the
+> same share on prices, and Democrats differed on corruption and health care.
