@@ -160,3 +160,48 @@ public program +0.41 (-0.41 to +1.23, 15).
 > tested here went with running ahead of Harris. Democrats did argue prices differently from
 > Republicans: they blamed Trump (32% vs 1%) and Republicans proposed tax cuts (31% vs 5%), but
 > how a Democrat framed prices did not track how far the Democrat ran ahead.
+
+## 9. Leadership results (2026-11-08)
+
+Data (`leadership_endorsements.csv`, notes in `leadership_endorsements_notes.md`): 103 sourced
+rows: DCCC Red to Blue 43, Frontline 31, Jeffries 15, Schumer 9, DSCC 3, Schumer recruit 2. No
+House or Senate Majority PAC primary spending was found (HMP's 2026 spending was all general
+election). Gaps: Red to Blue is 43 of a reported 46, and the Jeffries list is incomplete
+(Ballotpedia and the VoteHub tracker could not be read). Some Democrats counted below as
+unbacked may have had backing the list misses.
+
+Deviation: house_all.csv has no Cook ratings. L2 uses seats Democrats flipped, plus Democratic
+wins where Harris's margin was within 10 points.
+
+- L1 (no reliable link): holds. Pre-primary backing of any kind (47 nominees): +0.7 points (95%
+  CI -1.5 to +3.0); with money +0.7 (-1.5 to +2.8). Leadership picks only (Jeffries or Red to
+  Blue before the primary, 23 nominees): -0.2 (-2.2 to +1.8). (`leadership_models.csv`)
+- L2 (at least 5 unbacked winners): holds. Democrats flipped 42 seats. Leadership backed 14 of
+  those nominees before their primary and 12 only after it; 16 had no leadership backing on the
+  list: CA-22, UT-01, TX-23, OH-07, IN-05, NC-06, NC-13, NC-09, NC-14, OH-15, NJ-02, CO-08,
+  MI-10, MO-02, OH-10, CA-01. Most sit in seats Harris lost by 10 to 18 points, where a flip
+  needed a large overperformance, so their mean (+17.5) is not a fair comparison with backed
+  nominees (+13.2). (`leadership_winners_unbacked.csv`)
+- L3 (nominees who beat a backed rival run no worse): not testable in the House. Six nominees
+  beat a leadership-backed rival (AZ-01, CT-01, ME-02, MI-13, NY-13, NY-10); four are in seats
+  Harris won by 20 to 60 points, while 11 of the 12 backed contested nominees ran in Republican
+  or open swing seats. The difference is -7.9 points with seat and Harris controls and +7.1 with
+  state fixed effects; the groups do not overlap enough to separate backing from seat type. In
+  deep-blue seats, the four insurgents averaged +13.5, against +15.9 for other contested
+  nominees there and +10.4 for Bell (MO-01, Jeffries-backed).
+
+Senate (descriptive, not predicted; residual from over_vs_harris ~ harris_margin across 32
+Senate races):
+
+| Group | Races | Mean over Harris | Residual |
+|---|---|---|---|
+| Schumer's pre-primary pick nominated (NC Cooper, OH Brown, AK Peltola) | 3 | +17.5 | +2.5 |
+| Nominee beat Schumer's pick (MI El-Sayed, MN Flanagan, ME Jackson) | 3 | +4.6 | -8.8 |
+| No pre-primary Schumer pick | 26 | +15.9 | +0.7 |
+
+> **[Claude — honest correction]** The Senate cuts against the claim that leadership picks were
+> a drag. The three nominees who beat Schumer's pick all won, but each ran 5 to 13 points behind
+> what their state's Harris margin predicts. Schumer's three picks were a former governor and two
+> former members of Congress. With three races a side, the gap cannot be separated from
+> candidate profile, and Maine's nominee was chosen by convention after the pre-primary field
+> collapsed.
