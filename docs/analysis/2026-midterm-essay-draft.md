@@ -7,101 +7,91 @@ files on branch analysis/2026-moderate-overperformance; notes at the end.
 
 ## The memo
 
-The votes weren't all counted yet when Third Way published its verdict on the 2026 midterms:
-"Moderates Made Democratic Majorities." It is a tidy story, and it is the same story the center
-tells after every election, win or lose. When Democrats lose, it's because they drifted left; when
-they win, it's because the moderates carried them. So we did the boring thing and checked, race by
-race, using the actual vote counts, the actual endorsement lists, and every Facebook and Instagram
-ad the campaigns ran.
+Third Way published its verdict on the 2026 midterms before the votes were all counted:
+"Moderates Made Democratic Majorities." Centrist groups tell that story after every election.
+When Democrats lose, the left dragged them down; when Democrats win, the moderates carried them.
+So we checked the claim race by race, against the vote counts, the endorsement lists, and every
+Facebook and Instagram ad the campaigns ran.
 
 ## Everyone rode the wave
 
-Start with the one fact that swallows most of the others. In 412 of the 417 House races with a
-Democrat facing a Republican, the Democrat ran ahead of Kamala Harris's 2024 number in that
-district, by an average of 14.4 points.[1] Roughly four-fifths of that gain was the same national
-tide lifting every boat, and only a fifth had anything to do with the particular candidate in the
-particular race.[1] Third Way's headline stat is that its endorsed flippers ran 15 points ahead of
-Harris, which sounds impressive right up until you notice that the average Democrat on the ballot,
-endorsed or not, ran 14.4 points ahead.[2]
+Democrats ran ahead of Kamala Harris's 2024 margin in 412 of the 417 House races with a Democrat
+facing a Republican, by an average of 14.4 points.[1] About four-fifths of that gain was the same
+national shift showing up in every district; about a fifth varied with the candidate and the
+race.[1] Third Way says its endorsed flippers ran 15 points ahead of Harris. The average Democrat
+on the ballot, endorsed or not, ran 14.4 points ahead.[2]
 
-## Same ride, either lane
+## Moderates and progressives rode it equally
 
-So if the wave lifted everybody, did it lift moderates higher? Compare House Democrats in similar
-seats, in the same state, against the same Harris baseline, and the answer is no: progressive-backed
-nominees ran 0.7 points further ahead than unaligned ones and moderate-backed nominees 1.4 points,
-a difference so small that the two estimates sit almost entirely on top of each other.[3] In the 30
-districts where a progressive and a moderate actually fought it out in the primary, the moderates
-who won went on to run 3.7 points *behind*, though that gap is inside the noise too.[4] Either way,
-the "electability tax" progressives are supposed to pay never shows up on the bill.
+Did the wave lift moderates higher? We compared House Democrats in the same state, in the same
+kind of seat, against the same Harris baseline. Progressive-backed nominees ran 0.7 points further
+ahead than unaligned nominees, and moderate-backed nominees ran 1.4 points further ahead, and the
+two estimates sit almost on top of each other.[3] In the 30 districts where a progressive and a
+moderate fought it out in the primary, the moderate nominees ran 3.7 points *behind* the others,
+though that gap is inside the noise too.[4] Progressives paid no measurable electability tax in
+either comparison.
 
 ## The moderates nobody picked
 
-The Senate is where Third Way's case looks strongest, and it's worth slowing down on, because the
-details flip it. Of the seven Senate candidates Third Way counts as moderate, three were recruited
-or backed by Chuck Schumer before their primaries, and four (Talarico in Texas, Andrews in South
-Carolina, Hamilton in Kansas, Turek in Iowa) got there without the party's blessing. The four
-unblessed candidates ran 21.7 points ahead of Harris; the three Schumer picks ran 19.7.[5] And the
-single biggest overperformance by any Senate Democrat in the country, James Talarico's 25.8 points
-in Texas, came from a candidate Schumer said he had "no preference" on and a progressive group
-endorsed.[6] Whatever was working in those red states, it wasn't the establishment's seal of
-approval.
+Third Way's Senate numbers look strongest, so we sorted its seven Senate "moderates" by who backed
+them before the primary. Chuck Schumer recruited or backed three of them: Ossoff, Cooper and Brown.
+The other four, Talarico in Texas, Andrews in South Carolina, Hamilton in Kansas and Turek in Iowa,
+won their nominations without the party's blessing. Those four ran 21.7 points ahead of Harris;
+Schumer's three ran 19.7.[5] James Talarico ran 25.8 points ahead of Harris in Texas, the biggest
+gain of any Senate Democrat in the country, after Schumer said he had "no preference" in the
+primary and a progressive group endorsed Talarico.[6] Schumer's backing did not produce the red-state
+gains Third Way is crediting to moderation.
 
-## The word that didn't work
+## "Socialist" didn't stick
 
-Republicans had a plan for all of this, and it was one word. They spent about 13% of their
-issue-ad money calling Democrats socialists, radical leftists, and Mamdani clones, against about 1%
-for Democrats.[7] The NRCC even published a list of 26 Democrats it planned to hang the label on.
-Those 26 went on to run 0.9 points further ahead of Harris than other Democrats.[8] In the races
-where Republicans spent the most per voter on socialism ads, the Democrat actually ran a bit further
-ahead.[9] And the handful of nominees actually endorsed by the Democratic Socialists of
-America ran 5.2 points further ahead than everyone else, which we'd love to call a landslide, but
-with seven races it is honestly a shrug in the right direction.[8] The scariest word in centrist
-politics turned out to be a waste of ad money.
+Republicans spent about 13% of their issue-ad money calling Democrats socialists, radical leftists
+and Mamdani clones; Democrats spent about 1% of theirs on the subject.[7] The NRCC published a list
+of 26 Democrats it planned to tag as socialists. Those 26 ran 0.9 points further ahead of Harris
+than other Democrats.[8] In districts where Republicans spent the most per voter on socialism ads,
+the Democrat ran slightly further ahead.[9] The seven nominees endorsed by the Democratic Socialists
+of America ran 5.2 points further ahead than other Democrats; with seven races, that number is a
+lean in their favor, too few to call a finding.[8] Republicans paid for the socialist attack, and
+Democratic margins did not drop where they paid most.
 
-## The gatekeepers' scorecard
+## Party leadership's picks
 
-If moderation is the safe bet, the people who place those bets for the party should have a good
-record. Nominees backed before their primary
-by Hakeem Jeffries, the DCCC or Schumer ran 0.7 points ahead of comparable Democrats, and leadership's
-hand-picked House recruits ran 0.2 points *behind*, both statistically indistinguishable from
-zero.[10] Meanwhile Democrats flipped 42 House seats, and leadership had backed just 14 of those
-winners before they won their primaries. Twelve more got leadership's endorsement only after they
-had already won, and 16 never got it at all, mostly in Trump districts the party had written
-off.[11] Two out of every three seats that built the majority went to someone the party didn't pick.
+Hakeem Jeffries, the DCCC and Schumer pick candidates on the theory that they know who can win.
+Nominees they backed before the primary ran 0.7 points ahead of comparable Democrats, and
+leadership's hand-picked House recruits ran 0.2 points *behind*; neither number is distinguishable
+from zero.[10] Democrats flipped 42 House seats. Leadership backed 14 of those winners before their
+primaries, endorsed 12 more only after they had already won their primaries, and never endorsed the
+other 16, most of them in Trump districts the party had not targeted.[11] Twenty-eight of the 42
+flips went to candidates leadership did not pick before the primary.
 
-Six House candidates went further and beat a leadership-backed rival outright in the primary. Five
-of them won in November, including Amish Shah, who flipped a Republican seat in Arizona.[12]
+Six House candidates beat a leadership-backed rival in the primary. Five of the six won in November,
+including Amish Shah, who flipped a Republican seat in Arizona.[12]
 
 ## Everyone talked about prices
 
-Here's the part that should bother the center most. Prices were the issue of 2026, and both
-parties knew it: Democrats and Republicans each put a little over 40% of their issue-ad money into
-the cost of living.[7] What differed was the answer. Republicans offered the classic centrist
-economic script, tax cuts (31% of their price-and-health ad money, against 5% for Democrats) and
-blaming the last administration's spending; Democrats mostly blamed Trump's tariffs, his war, and
-his policies.[13] Then we checked whether any particular price argument, the populist one, the
-blame-Trump one, the vague "lower costs" one, predicted which Democrats ran furthest ahead. None
-did.[14] That's exactly what the trust story predicts: in an election about whether the people in
-charge were failing you, the moment did the persuading, and the policy fine print didn't move
-anyone.
+Democrats and Republicans each put a little over 40% of their issue-ad money into the cost of
+living.[7] The parties gave different answers. Republicans put 31% of their price-and-health ad
+money into tax cuts, against 5% for Democrats, and blamed Biden-era spending; Democrats blamed
+Trump's tariffs, his war, and his policies.[13] We then tested whether any Democratic price
+message, the populist one, the blame-Trump one, or plain "lower costs," predicted which Democrats
+ran furthest ahead. None of them did.[14] The trust argument on this site predicts that result:
+voters in 2026 were judging whether the people in charge had failed them, and the details of each
+candidate's price plan did not change their answer.
 
-## What we can't claim
+## Limits of the data
 
-To be straight about it: none of this proves progressives win more. Most of what we found are
-nulls, and a null is a statement about a missing effect, not a hidden one. The Senate also offers
-the center its best counterpunch, since the three nominees who beat Schumer's pick (El-Sayed in
-Michigan, Flanagan in Minnesota, Jackson in Maine) all won, but each ran 5 to 13 points behind
-what their state's lean predicted, with only three races on each side to compare.[15] What the
-data does show is narrower and, for the center, more damaging: the premium it promises for
-picking the moderate, the insider, or the safe recruit isn't there to collect.
+None of these numbers shows that progressives win more. Most of the results are nulls: they show a
+moderate advantage too small to measure, not a hidden progressive one. The Senate gives the center
+its best counterexample. El-Sayed in Michigan, Flanagan in Minnesota and Jackson in Maine each beat
+Schumer's preferred candidate, and all three won, but each ran 5 to 13 points behind what their
+state's lean predicted, in a comparison of three races against three.[15] The data does rule out
+the premium centrists promise for picking the moderate, the insider, or the party's recruit.
 
 ## The bottom line
 
-The center's argument has always been a bet on a price tag: choose the progressive and you pay at
-the ballot box. In 2026 we went looking for the bill across 417 House races, 35 Senate races,
-nearly 15,000 ad texts and every leadership endorsement we could source, and we couldn't find it.
-If the electability tax doesn't exist, then the only question left is the one the center keeps
-asking voters to skip: which candidate will actually fight for you?
+Centrists tell Democrats that a progressive nominee costs votes. We looked for that cost across 417
+House races, 35 Senate races, nearly 15,000 ad texts and every leadership endorsement we could
+source, and we could not find it. Without that cost, Democrats can pick nominees on the question
+centrists keep telling them to skip: which candidate will fight for the voters?
 
 ---
 
