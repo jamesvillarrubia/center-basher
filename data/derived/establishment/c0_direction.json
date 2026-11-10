@@ -1,0 +1,294 @@
+{
+  "claim": "C0",
+  "agreement": {
+    "set_pct": 93.4,
+    "set_kappa": 0.89,
+    "direction_pct": 87.2,
+    "direction_kappa": 0.75,
+    "opposite_signs": 0
+  },
+  "coder_a": {
+    "unified_D": {
+      "n": 12,
+      "toward_pct": 33.3,
+      "away_pct": 58.3
+    },
+    "unified_R": {
+      "n": 15,
+      "toward_pct": 80.0,
+      "away_pct": 0.0
+    },
+    "divided": {
+      "n": 58,
+      "toward_pct": 39.7,
+      "away_pct": 17.2
+    },
+    "gap_toward_D_vs_R": 46.7,
+    "verdict": "REFUTED"
+  },
+  "coder_b": {
+    "unified_D": {
+      "n": 10,
+      "toward_pct": 40.0,
+      "away_pct": 40.0
+    },
+    "unified_R": {
+      "n": 15,
+      "toward_pct": 73.3,
+      "away_pct": 0.0
+    },
+    "divided": {
+      "n": 59,
+      "toward_pct": 37.3,
+      "away_pct": 13.6
+    },
+    "gap_toward_D_vs_R": 33.3,
+    "verdict": "REFUTED"
+  },
+  "agreed_only": {
+    "unified_D": {
+      "n": 9,
+      "toward_pct": 44.4,
+      "away_pct": 44.4
+    },
+    "unified_R": {
+      "n": 13,
+      "toward_pct": 84.6,
+      "away_pct": 0.0
+    },
+    "divided": {
+      "n": 47,
+      "toward_pct": 44.7,
+      "away_pct": 12.8
+    },
+    "gap_toward_D_vs_R": 40.2,
+    "verdict": "REFUTED"
+  },
+  "agreed_n": 197,
+  "unified_structure_laws": [
+    {
+      "id": 55,
+      "congress": 103,
+      "control": "unified_D",
+      "title": "OMNIBUS DEFICIT REDUCTION ACT.",
+      "dir_a": -1,
+      "dir_b": -1
+    },
+    {
+      "id": 56,
+      "congress": 103,
+      "control": "unified_D",
+      "title": "NORTH AMERICAN FREE TRADE AGREEMENT (NAFTA) APPROVED.",
+      "dir_a": 1,
+      "dir_b": 1
+    },
+    {
+      "id": 60,
+      "congress": 103,
+      "control": "unified_D",
+      "title": "Reform of college-student loan financing.",
+      "dir_a": -1,
+      "dir_b": -1
+    },
+    {
+      "id": 66,
+      "congress": 103,
+      "control": "unified_D",
+      "title": "General Agreement on Tariffs and Trade (GATT) approved.",
+      "dir_a": 1,
+      "dir_b": 1
+    },
+    {
+      "id": 114,
+      "congress": 108,
+      "control": "unified_R",
+      "title": "$350 billion tax cut.",
+      "dir_a": 1,
+      "dir_b": 1
+    },
+    {
+      "id": 119,
+      "congress": 108,
+      "control": "unified_R",
+      "title": "Corporate tax overhaul.",
+      "dir_a": 1,
+      "dir_b": 1
+    },
+    {
+      "id": 123,
+      "congress": 109,
+      "control": "unified_R",
+      "title": "Bankruptcy reform.",
+      "dir_a": 1,
+      "dir_b": 1
+    },
+    {
+      "id": 124,
+      "congress": 109,
+      "control": "unified_R",
+      "title": "Class Action Fairness Act.",
+      "dir_a": 1,
+      "dir_b": 1
+    },
+    {
+      "id": 125,
+      "congress": 109,
+      "control": "unified_R",
+      "title": "$286 billion transportation measure.",
+      "dir_a": 0,
+      "dir_b": 0
+    },
+    {
+      "id": 126,
+      "congress": 109,
+      "control": "unified_R",
+      "title": "Energy measure.",
+      "dir_a": 1,
+      "dir_b": 1
+    },
+    {
+      "id": 127,
+      "congress": 109,
+      "control": "unified_R",
+      "title": "Central American Free Trade Agreement.",
+      "dir_a": 1,
+      "dir_b": 1
+    },
+    {
+      "id": 129,
+      "congress": 109,
+      "control": "unified_R",
+      "title": "Pension reform.",
+      "dir_a": 0,
+      "dir_b": -1
+    },
+    {
+      "id": 131,
+      "congress": 109,
+      "control": "unified_R",
+      "title": "Port security.",
+      "dir_a": 0,
+      "dir_b": 0
+    },
+    {
+      "id": 133,
+      "congress": 109,
+      "control": "unified_R",
+      "title": "Gulf of Mexico opened to oil and gas drilling.",
+      "dir_a": 1,
+      "dir_b": 1
+    },
+    {
+      "id": 134,
+      "congress": 109,
+      "control": "unified_R",
+      "title": "Trade measures.",
+      "dir_a": 1,
+      "dir_b": 0
+    },
+    {
+      "id": 150,
+      "congress": 111,
+      "control": "unified_D",
+      "title": "$787 BILLION STIMULUS MEASURE TO JUMP-START THE ECONOMY.",
+      "dir_a": -1,
+      "dir_b": 0
+    },
+    {
+      "id": 153,
+      "congress": 111,
+      "control": "unified_D",
+      "title": "Credit card bill of rights.",
+      "dir_a": -1,
+      "dir_b": -1
+    },
+    {
+      "id": 159,
+      "congress": 111,
+      "control": "unified_D",
+      "title": "FINANCIAL SERVICES REGULATION.",
+      "dir_a": -1,
+      "dir_b": -1
+    },
+    {
+      "id": 160,
+      "congress": 111,
+      "control": "unified_D",
+      "title": "Student loan overhaul.",
+      "dir_a": -1,
+      "dir_b": -1
+    },
+    {
+      "id": 161,
+      "congress": 111,
+      "control": "unified_D",
+      "title": "BIPARTISAN TAX DEAL.",
+      "dir_a": 1,
+      "dir_b": 1
+    },
+    {
+      "id": 195,
+      "congress": 115,
+      "control": "unified_R",
+      "title": "TAX REFORM.",
+      "dir_a": 1,
+      "dir_b": 1
+    },
+    {
+      "id": 196,
+      "congress": 115,
+      "control": "unified_R",
+      "title": "SIXTEEN EXECUTIVE REGULATIONS REPEALED THROUGH USE OF THE CONGRESSIONAL REVIEW ACT (CRA).",
+      "dir_a": 1,
+      "dir_b": 1
+    },
+    {
+      "id": 200,
+      "congress": 115,
+      "control": "unified_R",
+      "title": "Authorization of Arctic drilling in Alaska.",
+      "dir_a": 1,
+      "dir_b": 1
+    },
+    {
+      "id": 201,
+      "congress": 115,
+      "control": "unified_R",
+      "title": "Abandonment of spending caps established by the Budget Control Act of 2011.",
+      "dir_a": 0,
+      "dir_b": 0
+    },
+    {
+      "id": 202,
+      "congress": 115,
+      "control": "unified_R",
+      "title": "Relaxation of Dodd-Frank regulations regarding small banks.",
+      "dir_a": 1,
+      "dir_b": 1
+    },
+    {
+      "id": 223,
+      "congress": 117,
+      "control": "unified_D",
+      "title": "INFRASTRUCTURE",
+      "dir_a": 0,
+      "dir_b": 0
+    },
+    {
+      "id": 227,
+      "congress": 117,
+      "control": "unified_D",
+      "title": "INFLATION REDUCTION ACT.",
+      "dir_a": -1,
+      "dir_b": -1
+    },
+    {
+      "id": 231,
+      "congress": 117,
+      "control": "unified_D",
+      "title": "CHIPS and Science Act.",
+      "dir_a": 1,
+      "dir_b": 1
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "claim": "C1",
+  "n_elections": 25,
+  "by_year": [
+    {
+      "year": 1974.0,
+      "reelect_pct": 87.7,
+      "approve": 37.3
+    },
+    {
+      "year": 1976.0,
+      "reelect_pct": 95.8,
+      "approve": 24.0
+    },
+    {
+      "year": 1978.0,
+      "reelect_pct": 93.7,
+      "approve": 29.0
+    },
+    {
+      "year": 1980.0,
+      "reelect_pct": 90.7,
+      "approve": 25.0
+    },
+    {
+      "year": 1982.0,
+      "reelect_pct": 90.1,
+      "approve": 29.0
+    },
+    {
+      "year": 1986.0,
+      "reelect_pct": 97.7,
+      "approve": 42.0
+    },
+    {
+      "year": 1988.0,
+      "reelect_pct": 98.3,
+      "approve": 42.0
+    },
+    {
+      "year": 1990.0,
+      "reelect_pct": 96.1,
+      "approve": 25.2
+    },
+    {
+      "year": 1992.0,
+      "reelect_pct": 88.3,
+      "approve": 18.0
+    },
+    {
+      "year": 1994.0,
+      "reelect_pct": 90.2,
+      "approve": 25.2
+    },
+    {
+      "year": 1996.0,
+      "reelect_pct": 94.0,
+      "approve": 34.5
+    },
+    {
+      "year": 1998.0,
+      "reelect_pct": 98.3,
+      "approve": 47.4
+    },
+    {
+      "year": 2000.0,
+      "reelect_pct": 97.8,
+      "approve": 48.6
+    },
+    {
+      "year": 2002.0,
+      "reelect_pct": 96.2,
+      "approve": 54.2
+    },
+    {
+      "year": 2004.0,
+      "reelect_pct": 97.8,
+      "approve": 41.6
+    },
+    {
+      "year": 2006.0,
+      "reelect_pct": 94.0,
+      "approve": 25.4
+    },
+    {
+      "year": 2008.0,
+      "reelect_pct": 94.3,
+      "approve": 19.3
+    },
+    {
+      "year": 2010.0,
+      "reelect_pct": 85.4,
+      "approve": 19.3
+    },
+    {
+      "year": 2012.0,
+      "reelect_pct": 89.8,
+      "approve": 15.0
+    },
+    {
+      "year": 2014.0,
+      "reelect_pct": 95.4,
+      "approve": 14.7
+    },
+    {
+      "year": 2016.0,
+      "reelect_pct": 96.9,
+      "approve": 16.7
+    },
+    {
+      "year": 2018.0,
+      "reelect_pct": 91.0,
+      "approve": 18.3
+    },
+    {
+      "year": 2020.0,
+      "reelect_pct": 94.7,
+      "approve": 22.2
+    },
+    {
+      "year": 2022.0,
+      "reelect_pct": 94.0,
+      "approve": 19.8
+    },
+    {
+      "year": 2024.0,
+      "reelect_pct": 95.9,
+      "approve": 16.2
+    }
+  ],
+  "slope_pp_reelect_per_pp_approval": 0.141,
+  "r": 0.45,
+  "since_2008_mean_approval": 17.9,
+  "since_2008_mean_reelect": 93.0,
+  "since_2008_min_reelect": 85.4,
+  "gallup_latest": {
+    "date": "2026-10-01 00:00:00",
+    "approve": "14"
+  },
+  "verdict": "SURVIVES"
+}

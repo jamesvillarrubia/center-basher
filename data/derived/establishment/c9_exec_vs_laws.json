@@ -1,0 +1,150 @@
+{
+  "claim": "C9",
+  "window": "97th-117th Congress (1981-2022)",
+  "by_congress": [
+    {
+      "congress": 97,
+      "laws": 367,
+      "orders": 137,
+      "orders_per_100_laws": 37.3
+    },
+    {
+      "congress": 98,
+      "laws": 410,
+      "orders": 97,
+      "orders_per_100_laws": 23.7
+    },
+    {
+      "congress": 99,
+      "laws": 378,
+      "orders": 82,
+      "orders_per_100_laws": 21.7
+    },
+    {
+      "congress": 100,
+      "laws": 435,
+      "orders": 83,
+      "orders_per_100_laws": 19.1
+    },
+    {
+      "congress": 101,
+      "laws": 392,
+      "orders": 79,
+      "orders_per_100_laws": 20.2
+    },
+    {
+      "congress": 102,
+      "laws": 361,
+      "orders": 79,
+      "orders_per_100_laws": 21.9
+    },
+    {
+      "congress": 103,
+      "laws": 317,
+      "orders": 116,
+      "orders_per_100_laws": 36.6
+    },
+    {
+      "congress": 104,
+      "laws": 294,
+      "orders": 87,
+      "orders_per_100_laws": 29.6
+    },
+    {
+      "congress": 105,
+      "laws": 354,
+      "orders": 76,
+      "orders_per_100_laws": 21.5
+    },
+    {
+      "congress": 106,
+      "laws": 465,
+      "orders": 74,
+      "orders_per_100_laws": 15.9
+    },
+    {
+      "congress": 107,
+      "laws": 300,
+      "orders": 97,
+      "orders_per_100_laws": 32.3
+    },
+    {
+      "congress": 108,
+      "laws": 370,
+      "orders": 82,
+      "orders_per_100_laws": 22.2
+    },
+    {
+      "congress": 109,
+      "laws": 354,
+      "orders": 52,
+      "orders_per_100_laws": 14.7
+    },
+    {
+      "congress": 110,
+      "laws": 376,
+      "orders": 62,
+      "orders_per_100_laws": 16.5
+    },
+    {
+      "congress": 111,
+      "laws": 378,
+      "orders": 79,
+      "orders_per_100_laws": 20.9
+    },
+    {
+      "congress": 112,
+      "laws": 216,
+      "orders": 70,
+      "orders_per_100_laws": 32.4
+    },
+    {
+      "congress": 113,
+      "laws": 220,
+      "orders": 51,
+      "orders_per_100_laws": 23.2
+    },
+    {
+      "congress": 114,
+      "laws": 238,
+      "orders": 67,
+      "orders_per_100_laws": 28.2
+    },
+    {
+      "congress": 115,
+      "laws": 424,
+      "orders": 62,
+      "orders_per_100_laws": 14.6
+    },
+    {
+      "congress": 116,
+      "laws": 237,
+      "orders": 149,
+      "orders_per_100_laws": 62.9
+    },
+    {
+      "congress": 117,
+      "laws": 254,
+      "orders": 119,
+      "orders_per_100_laws": 46.9
+    }
+  ],
+  "slope_orders_per_100_laws_per_congress": 0.54,
+  "slope_excluding_116_117": -0.29,
+  "laws_mean_97_101": 396.4,
+  "laws_mean_113_117": 274.6,
+  "mean_first5": 24.4,
+  "mean_last5": 35.2,
+  "orders_by_year_2017_2025_all": {
+    "2017": 62,
+    "2018": 37,
+    "2019": 45,
+    "2020": 69,
+    "2021": 91,
+    "2022": 29,
+    "2023": 24,
+    "2024": 19,
+    "2025": 223
+  },
+  "verdict": "WEAK: trend comes from the 116th-117th only"
+}
