@@ -181,3 +181,31 @@ Each starts from the base rate, and each adjustment is written down with its siz
 - The two races move together, so P(at least one) is about 0.55.
 
 **Basis for 0.75:** 1 of 12 past revolts ended in a concession that moved real power (`base_rates.md` §4, McCarthy 2023). Pressure now is higher than the base set, which lowers the estimate from 0.92 to 0.75.
+
+### 2026-11-10 · Headline review (no signpost fired; unscored update)
+
+**National standing (NBC News, Oct 28-30, 2026, 1,000 registered voters, ±3.1, released Nov 1):**
+- Jeffries: 18% positive, 35% negative. About 47% of voters gave no rating, so Jeffries is more unknown than disliked.
+- Schumer: 13% positive, 53% negative.
+- Democratic Party: 29% positive. Republican Party: 38% positive.
+- Generic ballot: Democrats 52%, Republicans 45%. NBC: the lead is "propped up strongly by anti-Republican sentiment, not warm feelings for Democrats."
+
+**Senate developments since freeze:**
+- AP (via Scripps/KRIS 6, week of Nov 9): "Maryland Sen. Chris Van Hollen is considering a challenge to Schumer, according to a person familiar with his thinking", and "he is open to a run." This reverses his Nov 5 statement to the Washington Post. He has not declared, so the "sitting senator declares" signpost has not fired.
+- AP, same article: Sherrod Brown supports Schumer. Kirsten Gillibrand praised him.
+- Sen. Richard Blumenthal declined to endorse Schumer (reported by John Craven on X, Nov 9; relayed by RedState). Claude has not found a primary-outlet copy of his quote. Not counted toward the five-incumbent signpost until verified.
+- Talarico still uncommitted. Slotkin has not ruled out a run (secondary reports).
+
+**House developments since freeze:** no declared challenger; no caucus count; holdout list unchanged (Valdez, Avila Chevalier, Kiros still on record as uncommitted). Lawrence remains with Jeffries.
+
+**Claude's updated (unscored) view.** Scoring uses the frozen numbers above.
+
+| Item | Frozen | 2026-11-10 | Reason |
+|---|---|---|---|
+| S-A Clean hold | 0.24 | 0.18 | A named senator is now open to running |
+| S-B Absorption | 0.48 | 0.47 | |
+| S-C Insider succession | 0.19 | 0.21 | |
+| S-D Insurgent coalition | 0.09 | 0.14 | Van Hollen is the senator El-Sayed already named |
+| Schumer stays (S-A + S-B) | 0.72 | 0.65 | |
+| A candidate other than the sitting leader runs | 0.55 | 0.62 | |
+| House scenarios | unchanged | unchanged | No House signpost moved |
