@@ -209,3 +209,22 @@ Each starts from the base rate, and each adjustment is written down with its siz
 | Schumer stays (S-A + S-B) | 0.72 | 0.65 | |
 | A candidate other than the sitting leader runs | 0.55 | 0.62 | |
 | House scenarios | unchanged | unchanged | No House signpost moved |
+
+### 2026-11-10 · Secret ballots and accountability (James's point; new pre-registered call)
+
+**James (2026-11-10):** "part of the problem is that the leadership votes are secret ballot - meaning there can be no accountability."
+
+**What the record shows:**
+- House Democratic Caucus: the 105th-Congress caucus rules make all caucus votes secret unless a rule says otherwise. Roll Call (Lindsey McPherson, 2018-11-28) on the Pelosi nomination: "The ballot is conducted in secret." And: "Pelosi allies are fine with a secret ballot because it allows members who said they wouldn't vote for her an opportunity to do so." The rules in force for the 120th Congress have not been checked.
+- Senate Democratic leader: press reports for 2026 (Washington Times, NewsNation) describe a secret ballot needing a simple majority. The Senate has no public floor vote for party leader, so no senator's leadership vote is ever on the record.
+- House Speaker: the floor vote on 2027-01-03 is a public roll call. By then the choice is the caucus nominee or the Republican, so a public vote against the nominee costs a member far more than a secret one.
+
+**Secret vs public opposition, Pelosi (`base_rates.md` §2):**
+
+| Cycle | Secret caucus opposition | Public floor defections | Share that stayed public |
+|---|---|---|---|
+| 2010 → Jan 2011 | 43 | at most 18 | ≤ 42% |
+| 2016 → Jan 2017 | 63 | at most 4 | ≤ 6% |
+| 2018 → Jan 2019 | 35 (32 no, 3 blank) | 15 | ≤ 43% |
+
+**New call (Claude, 2026-11-10, before any caucus vote):** if the House caucus vote on Jeffries reports a count with any opposition, Democratic floor defections on 2027-01-03 (votes for another person plus present) will be no more than half that count. P = 0.85. The call is void if the caucus elects him by acclamation or releases no count. James's number: (to fill).
