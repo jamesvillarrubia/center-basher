@@ -3,11 +3,11 @@
 <body>
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Americans like Sanders&rsquo;s message less than the standard Democratic message.&rdquo; (The Atlantic)</div>
-    <div class="cc-title">The &ldquo;moderates&rdquo; ran on <span class="hl">Bernie&rsquo;s economics</span>, minus single payer.</div>
-    <div class="cc-sub">Positions in each candidate&rsquo;s own words. The 2026 nominees were scored from campaign sites, votes and cosponsorships before any results came in.</div>
+    <div class="cc-title">The &ldquo;moderates&rdquo; ran on <span class="hl">Bernie&rsquo;s 2016 economics</span>, minus single payer.</div>
+    <div class="cc-sub">Positions in each candidate&rsquo;s own words. Third Way has moved toward Sanders since 2016, and the candidates moved further.</div>
 
-    <div class="cc-chart"><svg id="c" viewBox="0 0 1300 470" role="img"
-      aria-label="Sanders 2016: tax billionaires yes, refuse corporate PAC money yes, break up monopolies yes, Medicare for All yes. Hillary Clinton at her 2015 launch: no position, took corporate PAC money, partway (break up big banks if necessary), against. Talarico: yes, yes, yes, partway, a Medicare buy-in open to every American. Turek: yes, yes, yes, no. Andrews: yes, yes, no position found, no. Ossoff: no position found, yes, no position found, partway, a public option. Third Way 2012 to 2016: partway on taxing the wealthy, no sourced position on the other three. Third Way 2026: partway, raising billionaires' taxes but not a wealth tax; no position; opposed; opposed."></svg></div>
+    <div class="cc-chart"><svg id="c" viewBox="0 0 1300 500" role="img"
+      aria-label="Six positions. Sanders 2016: for all six. Clinton at her 2015 launch: no billionaire tax, took corporate PAC money, partway on banks, partway on wages with 12 dollars, partway on the Social Security cap, against single payer. Talarico: for the first five, partway on Medicare for All. Turek: for billionaire taxes, no corporate PAC money, monopolies and lifting the cap; partway on wages; against Medicare for All. Andrews: for billionaire taxes, no corporate PAC money and lifting the cap; partway on wages; against Medicare for All. Ossoff: for no corporate PAC money and 15 dollars; partway on Medicare for All. Third Way 2012 to 2016: partway on taxes and wages, against lifting the cap. Third Way 2026: partway on taxes, wages and the cap; against monopoly breakups and Medicare for All."></svg></div>
 
     <div class="cc-legend">
       <span class="item"><span class="dot" style="background:#2c5b9c"></span>For it</span>
@@ -16,7 +16,7 @@
       <span class="item"><span class="dot" style="background:#e3dfd6"></span>No sourced position</span>
     </div>
     <div class="cc-foot">
-      <div class="cc-source">Candidate quotes and URLs: thecenterisalie.org midterm position file (13-item rubric, two blind coders). Talarico &ldquo;partway&rdquo;: his &ldquo;Medicare for Y&rsquo;all&rdquo; lets every American join Medicare (campaign site); Ossoff &ldquo;partway&rdquo;: public option in his 2020 health plan. Turek and Andrews &ldquo;against&rdquo; per The Atlantic, Nov 11 2026. Sanders 2016: 52% top income-tax rate and a higher estate tax (Jan 2016 plan), no corporate PAC money, break up the big banks, Medicare for All. Clinton at launch (2015): no billionaire tax; would break up big banks &ldquo;if necessary&rdquo; (Nov 2015); took corporate PAC money (about $250K, Sludge); single payer &ldquo;will never, ever come to pass&rdquo; (Jan 2016). Third Way 2012&ndash;16: Clinton-era top rates paired with &ldquo;modest&rdquo; Social Security and Medicare changes (Nov 2012); &ldquo;collect more revenue from the wealthiest&rdquo; (Jan 2016). Third Way 2026: yellow light on raising billionaires&rsquo; taxes, red light on a wealth tax and Medicare for All (Apr 2026); antitrust memo.</div>
+      <div class="cc-source">2026 nominees: campaign sites, debates, AARP Q&amp;A, local press; Turek and Andrews on Medicare for All per The Atlantic. Clinton 2015: $12 wage, &ldquo;look at the cap,&rdquo; single payer &ldquo;will never, ever come to pass.&rdquo; Third Way: 2011 plan to raise the retirement age to 68; $10&ndash;12 regional wage (2015), regional $15 (2019&ndash;21); 2026 cap memo lists lifting it as an option. Partway = buy-in or public option, a raise with no dollar figure, or a cap &ldquo;option.&rdquo;</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
@@ -26,37 +26,37 @@
     const svg = document.getElementById('c');
     const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); svg.appendChild(n); return n; };
     const txt = (a, s) => { const t = el('text', a); t.textContent = s; return t; };
-    const cols = ['Tax billionaires', 'No corporate PAC money', 'Break up monopolies or banks', 'Medicare for All'];
-    // 1 for, -1 against, 0 none
-    const rows = [
-      ['Bernie Sanders, 2016', [1, 1, 1, 1], true],
-      ['Hillary Clinton, 2015 launch', [0, -1, 0.5, -1]],
-      ['James Talarico (TX)', [1, 1, 1, 0.5]],
-      ['Josh Turek (IA)', [1, 1, 1, -1]],
-      ['Annie Andrews (SC)', [1, 1, 0, -1]],
-      ['Jon Ossoff (GA)', [0, 1, 0, 0.5]],
-      ['Third Way, 2012–16', [0.5, 0, 0, 0]],
-      ['Third Way, 2026', [0.5, 0, -1, -1]],
+    const cols = [
+      ['Tax', 'billionaires'], ['No corporate', 'PAC money'], ['Break up', 'monopolies', 'or banks'],
+      ['$15 minimum', 'wage'], ['Lift Social', 'Security cap'], ['Medicare', 'for All'],
     ];
-    const lx = 20, cx0 = 470, cw = 205, y0 = 70, rh = 48;
+    // 1 for, 0.5 partway, -1 against, 0 none
+    const rows = [
+      ['Bernie Sanders, 2016', [1, 1, 1, 1, 1, 1]],
+      ['Hillary Clinton, 2015 launch', [0, -1, 0.5, 0.5, 0.5, -1]],
+      ['James Talarico (TX)', [1, 1, 1, 1, 1, 0.5]],
+      ['Josh Turek (IA)', [1, 1, 1, 0.5, 1, -1]],
+      ['Annie Andrews (SC)', [1, 1, 0, 0.5, 1, -1]],
+      ['Jon Ossoff (GA)', [0, 1, 0, 1, 0, 0.5]],
+      ['Third Way, 2012–16', [0.5, 0, 0, 0.5, -1, 0]],
+      ['Third Way, 2026', [0.5, 0, -1, 0.5, 0.5, -1]],
+    ];
+    const lx = 16, cx0 = 400, cw = 150, y0 = 84, rh = 50;
     cols.forEach((c, j) => {
       const x = cx0 + j * cw + cw / 2;
-      const w = c.split(' ');
-      const mid = Math.ceil(w.length / 2);
-      txt({ x, y: y0 - 38, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 20, 'font-weight': 800 }, w.slice(0, mid).join(' '));
-      txt({ x, y: y0 - 14, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 20, 'font-weight': 800 }, w.slice(mid).join(' '));
+      const hy = y0 - 12 - (c.length - 1) * 23;
+      c.forEach((line, k) => txt({ x, y: hy + k * 23, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 19, 'font-weight': 800 }, line));
     });
-    el('rect', { x: cx0 + 3 * cw + 8, y: y0 - 4, width: cw - 16, height: rows.length * rh + 4, rx: 10, fill: 'none', stroke: '#b8240f', 'stroke-width': 3, 'stroke-dasharray': '8 6' });
-    rows.forEach(([n, v, sep], i) => {
+    rows.forEach(([n, v], i) => {
       const y = y0 + i * rh;
-      if (i % 2 === 0) el('rect', { x: 0, y, width: cx0 + 4 * cw, height: rh, fill: '#f2efe8' });
-      txt({ x: lx, y: y + rh / 2 + 8, fill: '#1b1b1d', 'font-size': 24, 'font-weight': i === 0 ? 800 : 600 }, n);
+      if (i % 2 === 0) el('rect', { x: 0, y, width: cx0 + cols.length * cw, height: rh, fill: '#f2efe8' });
+      txt({ x: lx, y: y + rh / 2 + 8, fill: '#1b1b1d', 'font-size': 22, 'font-weight': i === 0 ? 800 : 600 }, n);
       v.forEach((s, j) => {
         const cx = cx0 + j * cw + cw / 2, cy = y + rh / 2;
         const fill = s === 1 ? '#2c5b9c' : s === 0.5 ? '#8fa9cf' : s === -1 ? '#4a4a4f' : '#e3dfd6';
-        el('circle', { cx, cy, r: 20, fill });
+        el('circle', { cx, cy, r: 18, fill });
         const mark = s === 1 ? '✓' : s === 0.5 ? '½' : s === -1 ? '✕' : '';
-        if (mark) txt({ x: cx, y: cy + 8, 'text-anchor': 'middle', fill: '#fff', 'font-size': 23, 'font-weight': 800 }, mark);
+        if (mark) txt({ x: cx, y: cy + 8, 'text-anchor': 'middle', fill: '#fff', 'font-size': 21, 'font-weight': 800 }, mark);
       });
     });
   </script>
