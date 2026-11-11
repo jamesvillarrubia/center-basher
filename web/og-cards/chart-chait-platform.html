@@ -4,10 +4,10 @@
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Americans like Sanders&rsquo;s message less than the standard Democratic message.&rdquo; (The Atlantic)</div>
     <div class="cc-title">The &ldquo;moderates&rdquo; ran on <span class="hl">Bernie&rsquo;s economics</span>, minus single payer.</div>
-    <div class="cc-sub">Positions in each candidate&rsquo;s own words, from campaign sites, votes and cosponsorships, scored before any results came in.</div>
+    <div class="cc-sub">Positions in each candidatePositions in each candidate&rsquo;s own words, from campaign sites, votes and cosponsorships, scored before any results came in.rsquo;s own words. The 2026 nominees were scored from campaign sites, votes and cosponsorships before any results came in.</div>
 
-    <div class="cc-chart"><svg id="c" viewBox="0 0 1300 430" role="img"
-      aria-label="Sanders 2020: tax billionaires yes, refuse corporate PAC money yes, break up monopolies yes, Medicare for All yes. Talarico: yes, yes, yes, partway, a Medicare buy-in open to every American. Turek: yes, yes, yes, no. Andrews: yes, yes, no position found, no. Ossoff: no position found, yes, no position found, no position found. Third Way: no position, no position, opposed, opposed."></svg></div>
+    <div class="cc-chart"><svg id="c" viewBox="0 0 1300 450" role="img"
+      aria-label="Sanders 2020: tax billionaires yes, refuse corporate PAC money yes, break up monopolies yes, Medicare for All yes. Hillary Clinton 2016: yes, took corporate PAC money, yes, partway with a public option. Talarico: yes, yes, yes, partway, a Medicare buy-in open to every American. Turek: yes, yes, yes, no. Andrews: yes, yes, no position found, no. Ossoff: no position found, yes, no position found, partway, a public option. Third Way: no position, no position, opposed, opposed."></svg></div>
 
     <div class="cc-legend">
       <span class="item"><span class="dot" style="background:#2c5b9c"></span>For it</span>
@@ -16,7 +16,7 @@
       <span class="item"><span class="dot" style="background:#e3dfd6"></span>No sourced position</span>
     </div>
     <div class="cc-foot">
-      <div class="cc-source">Candidate quotes and URLs: thecenterisalie.org midterm position file (13-item rubric, two blind coders). Talarico &ldquo;partway&rdquo;: his &ldquo;Medicare for Y&rsquo;all&rdquo; lets every American join Medicare (campaign site). Turek and Andrews &ldquo;against&rdquo; per The Atlantic, Nov 11 2026. Sanders: 2020 campaign issue pages. Third Way: published memos.</div>
+      <div class="cc-source">Candidate quotes and URLs: thecenterisalie.org midterm position file (13-item rubric, two blind coders). Talarico &ldquo;partway&rdquo;: his &ldquo;Medicare for Y&rsquo;all&rdquo; lets every American join Medicare (campaign site); Ossoff &ldquo;partway&rdquo;: public option in his 2020 health plan. Turek and Andrews &ldquo;against&rdquo; per The Atlantic, Nov 11 2026. Sanders: 2020 campaign issue pages. Clinton 2016: 4% surcharge on income over $5M (Jan 11), public option and Medicare at 55 (July 9), antitrust plan (Oct 3), about $250K from corporate PACs (Sludge). Third Way: published memos.</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
@@ -30,13 +30,14 @@
     // 1 for, -1 against, 0 none
     const rows = [
       ['Bernie Sanders, 2020', [1, 1, 1, 1], true],
+      ['Hillary Clinton, 2016', [1, -1, 1, 0.5]],
       ['James Talarico (TX)', [1, 1, 1, 0.5]],
       ['Josh Turek (IA)', [1, 1, 1, -1]],
       ['Annie Andrews (SC)', [1, 1, 0, -1]],
-      ['Jon Ossoff (GA)', [0, 1, 0, 0]],
+      ['Jon Ossoff (GA)', [0, 1, 0, 0.5]],
       ['Third Way', [0, 0, -1, -1]],
     ];
-    const lx = 20, cx0 = 470, cw = 205, y0 = 70, rh = 58;
+    const lx = 20, cx0 = 470, cw = 205, y0 = 70, rh = 52;
     cols.forEach((c, j) => {
       const x = cx0 + j * cw + cw / 2;
       const w = c.split(' ');
