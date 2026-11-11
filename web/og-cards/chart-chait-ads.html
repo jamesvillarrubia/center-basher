@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;If the election was a test of Sanders&rsquo;s message &hellip; They like it less.&rdquo; (The Atlantic)</div>
+    <div class="cc-title">Moderate-backed Democrats ran <span class="hl">against corporations</span> in their ads as hard as progressives did.</div>
+    <div class="cc-sub">Share of each House Democrat&rsquo;s cost-of-living and health-care ad money, averaged within each group.</div>
+
+    <div class="cc-chart"><svg id="c" viewBox="0 0 1300 400" role="img"
+      aria-label="Names an economic villain: progressive-backed 23.4 percent, moderate-backed 21.9 percent. Proposes taking on corporations as the fix: progressive-backed 4.4 percent, moderate-backed 17.4 percent."></svg></div>
+
+    <div class="cc-legend">
+      <span class="item"><span class="dot" style="background:#2c5b9c"></span>Progressive-backed (23 candidates)</span>
+      <span class="item"><span class="dot" style="background:#6b6964"></span>Moderate-backed (51 candidates)</span>
+    </div>
+    <div class="cc-foot">
+      <div class="cc-source">Meta Ad Library, general-election price and health ads by 2026 House Democratic nominees; each ad coded for villain and remedy (model-coded, kappa 0.85+ against two blind human coders). Group = endorsing organizations. Mean of each candidate&rsquo;s spend share.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('c');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); svg.appendChild(n); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; return t; };
+    const groups = [
+      { l1: 'Names an economic villain', l2: 'corporations, billionaires, insurers', p: 23.4, m: 21.9 },
+      { l1: 'Takes on corporations as the fix', l2: 'antitrust, breaking up monopolies', p: 4.4, m: 17.4 },
+    ];
+    const bx = 540, k = 26, y0 = 30, bh = 52, gap = 14, gh = 2 * bh + gap + 70;
+    groups.forEach((g, i) => {
+      const y = y0 + i * gh;
+      txt({ x: 20, y: y + bh + 4, fill: '#1b1b1d', 'font-size': 26, 'font-weight': 800 }, g.l1);
+      txt({ x: 20, y: y + bh + 36, fill: '#4a4a4f', 'font-size': 20 }, g.l2);
+      [['p', '#2c5b9c'], ['m', '#6b6964']].forEach(([key, c], j) => {
+        const yy = y + j * (bh + gap);
+        const w = g[key] * k;
+        el('rect', { x: bx, y: yy, width: w, height: bh, rx: 6, fill: c });
+        txt({ x: bx + w + 14, y: yy + bh - 14, fill: '#1b1b1d', 'font-size': 30, 'font-weight': 800 }, g[key].toFixed(1) + '%');
+      });
+    });
+    el('line', { x1: bx, y1: y0 - 10, x2: bx, y2: y0 + 2 * gh - 60, stroke: '#1b1b1d', 'stroke-width': 2 });
+  </script>
+</body></html>
