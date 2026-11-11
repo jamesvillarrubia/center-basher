@@ -10,7 +10,7 @@ Jonathan Chait's new piece in The Atlantic, "The Left's Election Denial," accuse
 
 I have spent the last week checking those claims against the vote counts, the endorsement lists, the candidates' own platforms, and the ads they ran. Both writers lean on comparisons that flatter their conclusion, skip the comparisons that don't, and hand out the label "moderate" after the votes are counted to candidates who campaigned on taxing billionaires and breaking up monopolies. Chait and Yglesias looked at a wave that Trump's failures produced and decided it was a referendum on their own factional preferences.
 
-Start with what Yglesias himself wrote on election morning: "Trump's broken promises were the most important factors in this election."[4] He's right. Democrats ran ahead of Kamala Harris's 2024 margin in 412 of the 417 House races where a Democrat faced a Republican, by 14.4 points on average, and roughly four-fifths of the variation in that gain was the same national shift showing up everywhere.[5] Every faction in the party is fighting over the few points left over, so the rest of this piece is about those few points.
+Start with what Yglesias himself wrote on election morning: "Trump's broken promises were the most important factors in this election."[4] He's right. Democrats ran ahead of Kamala Harris's 2024 margin in 412 of the 417 House races where a Democrat faced a Republican, by 14.4 points on average, and roughly four-fifths of the variation in that gain was the same national shift showing up everywhere.[5] Of course, now every faction in the party is laying claim to the few points left over. The rest of this piece is about those few points and about the absurdity of some of those claims.
 
 ## The Senate swing that belongs to the states
 
