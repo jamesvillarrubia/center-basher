@@ -5,8 +5,11 @@
    (HC1 SEs). Replicates the Fox Daily claim that progressives in those seats underran.
 2. Senate nominees against the same-state 2026 governor nominee (races.csv gov_dem_margin).
 3. Seats held by Democrats in 2025 that CNN shows a Republican winning.
+4. House Democrats' price-and-health ad frames (emphasis/frame_shares.csv) by affiliation.
+5. Senate nominees' sourced economic-populist positions (positions/positions_final.csv).
 
-Writes rebuttal_competitive.csv, rebuttal_senate_vs_gov.csv, rebuttal_d_seats_lost.csv.
+Writes rebuttal_competitive.csv, rebuttal_senate_vs_gov.csv, rebuttal_d_seats_lost.csv,
+rebuttal_frames_by_affiliation.csv, rebuttal_senate_positions.csv.
 """
 from pathlib import Path
 import pandas as pd
@@ -39,6 +42,24 @@ def main() -> None:
 
     lost = h[(h.incumbent_party_2025 == "D") & h.rep_won]
     lost[["race_id", "dem_nominee", "harris_margin", "over_vs_harris", "pct_reporting"]].to_csv(D / "rebuttal_d_seats_lost.csv", index=False)
+    f = pd.read_csv(D / "emphasis/frame_shares.csv")
+    f = f[(f.party == "DEM") & (f.spend_price_health > 0)].merge(h[["race_id", "affiliation"]], on="race_id")
+    cols = ["villain_share", "c_corporate_share", "r_anticorp_share", "r_cap_share", "r_public_share",
+            "r_protect_share", "r_taxcut_share", "trump_blame_share", "vague_share"]
+    fa = f.groupby("affiliation")[cols].mean().mul(100)
+    fa["n"] = f.groupby("affiliation").size()
+    fa.round(1).to_csv(D / "rebuttal_frames_by_affiliation.csv")
+
+    items = {1: "Medicare for All", 2: "billionaire or wealth tax", 3: "no corporate PAC money", 4: "conditions on Israel aid",
+             5: "Green New Deal", 6: "minimum wage >= $17", 7: "end the filibuster", 8: "court expansion",
+             9: "student debt / free college", 10: "anti-monopoly", 11: "no crypto PAC money", 12: "universal childcare / pre-K",
+             13: "oppose Schumer / Jeffries"}
+    p = pd.read_csv(D / "positions/positions_final.csv")
+    p = p[p.race_id.str.endswith("-S") & (p.score != 0)].assign(item_name=lambda d: d.item.map(items))
+    p[["race_id", "nominee", "item", "item_name", "score", "pre_primary", "source_url", "quote"]].to_csv(
+        D / "rebuttal_senate_positions.csv", index=False)
+
+    print(fa.round(1).T.to_string())
     print(pd.DataFrame(rows).round(2).to_string()); print(lost[["race_id", "dem_nominee", "over_vs_harris"]].round(1).to_string())
 
 

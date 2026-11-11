@@ -26,6 +26,50 @@ Kamala Harris's 2024 margin in 412 of the 417 House races with a Democrat facing
 showing up everywhere.[6] A faction can claim the few points left over. Yglesias's own posts put
 the national swing, and Trump, in charge of the rest.
 
+## The "moderates" ran the left's economic platform
+
+The labels went on after the votes were counted. The FT's moderates "campaigned on easing living
+costs."[2] Bentham's Bulldog, working from a chart Yglesias posted, wrote that the model winner is
+"a normal kind of chill moderate who runs on a slogan like 'make stuff cost less.'"[10] Before any
+results came in, we scored every Senate nominee on 13 progressive positions, using their own
+words, votes and cosponsorships.[19] On economics, Third Way's Senate "moderates" took the
+progressive side every time we could source a position:
+
+- James Talarico: "Make billionaires pay their fair share in taxes"; no corporate PAC money "since
+  my very first race"; universal pre-K; antitrust to "Break up Big Medicine"; end the filibuster,
+  "a Jim Crow relic."
+- Josh Turek: "close loopholes for billionaires and big corporations"; no corporate PAC money;
+  "Crack down on monopolies in agribusiness and meatpacking."
+- Annie Andrews: "End tax breaks for the ultra-wealthy and corporate polluters"; no corporate PAC
+  money.
+- Jon Ossoff: no corporate PAC or lobbyist money.
+- Sherrod Brown: cosponsor of the $17 minimum wage and the Child Care for Working Families Act.
+
+Abdul El-Sayed, the Sanders-backed nominee CNN singles out, ran on the same billionaire tax, the
+same corporate-money pledge, the same antitrust promise and the same universal childcare as
+Talarico.[19] El-Sayed added Medicare for All, an arms embargo on Israel and opposition to Chuck
+Schumer. Third Way's own published positions sit on the other side of 9 of the 13 items from
+Talarico's, and Talarico posted the biggest Senate gain of the year.[20]
+
+The House ads show the same overlap. House Democrats backed by moderate groups put 22% of their
+price-and-health ad money into naming an economic villain (corporations, billionaires, insurers),
+and progressive-backed Democrats put 23% there. Moderate-backed Democrats put 17% into taking on
+corporations as the fix for prices, four times the progressive-backed share. The two groups split
+on public programs, such as Medicare for All (9% progressive-backed, 0% moderate-backed), and on
+tax cuts (2% and 7%).[21]
+
+Yglesias credits Talarico's win to "the kind of all-of-the-above energy strategy that post-Obama
+Democrats abandoned" and says Andrews "had to align with public opinion on women's sports
+teams."[5] His August list of moderate positions covers immigration, property crime, transgender
+issues and permitting reform; he wrote that "the policy differences between the left and center on
+97 percent of issues are either small or unclear."[22] By that definition a candidate can run on
+taxing billionaires, refusing corporate money and breaking up monopolies, break with the left on
+one cultural issue, and count as a moderate. The win then goes to the cultural issue, and the
+economic message that filled the ads drops out of the story. Bernie Sanders ran for president in
+2020 on a tax on extreme wealth and on breaking up "corrupt corporate mergers and monopolies."[23]
+Calling the candidates who ran on that program "moderates" files Sanders's economics under the
+center after it won.
+
 ## CNN's averages compare safe seats with swing seats
 
 Blake's House numbers come from pollster G. Elliott Morris. Progressives and Progressive Caucus
@@ -71,10 +115,10 @@ Democrat on the ballot.[8] Yglesias found it "kind of a mindfuck" that Democrats
 Georgia and North Carolina than in Michigan and Minnesota.[10] The governor races show the gap
 belongs to the states.
 
-Two of the moderates at the top of that table got the label late. CNN itself describes James
-Talarico's and Annie Andrews's pasts as "less moderate (and even rather 'woke')."[3] A progressive
-group, the PCCC, endorsed Talarico in the primary, and he used his victory speech to call for
-"universal health care" and to "unrig this economic system."[11][12]
+The two "moderates" near the top of that table got the label late. CNN itself describes Talarico's
+and Andrews's pasts as "less moderate (and even rather 'woke')."[3] A progressive group, the PCCC,
+endorsed Talarico in the primary, and he used his victory speech to call for "universal health
+care" and to "unrig this economic system."[11][12]
 
 ## Maine's 2nd, and the seats Yglesias left out
 
@@ -108,7 +152,7 @@ without party leadership backing him before his primary.[18]
 
 ## Limits of the data
 
-> **[Claude — honest correction]** Three results cut toward the centrist reading. First, in
+> **[Claude — honest correction]** Four results cut toward the centrist reading. First, in
 > competitive seats where at least 90% of the vote was counted, progressive-backed nominees ran
 > 1.4 points behind unaligned Democrats (95% CI -4.8 to +2.1) and moderate-backed nominees 1.5
 > ahead (-1.0 to +4.1).[16] That gap of about 3 points sits inside the noise, but it points the
@@ -118,13 +162,18 @@ without party leadership backing him before his primary.[18]
 > ran 10.7 points behind Maine's governor nominee; he entered the race in July after the nominee
 > withdrew, against Susan Collins, whom the Fox Daily analysis rates the strongest Republican
 > overperformer in the Senate.[15] Third, Dunlap in ME-2 and William Lawrence in MI-07 (4.6
-> points ahead of Harris) both trailed Democrats in similar seats.[13]
+> points ahead of Harris) both trailed Democrats in similar seats.[13] Fourth, the populist
+> price message did not predict who ran furthest ahead either: House Democrats who spent more of
+> their price ads naming an economic villain ran slightly behind, about 0.3 points per 10 share
+> points, and the link fades below significance once money is controlled.[24] The data supports
+> "the moderates ran populist economics" and does not support "populism won the seats."
 
 ## The bottom line
 
 The centrist case for credit rests on raw averages that sort safe seats from swing seats, on a
 Senate comparison that ignores each state's own ballot, and on labels handed out after the votes
-were counted. Put each candidate against the right comparison and the factions finish within a
+were counted. Those labels put candidates who campaigned on taxing billionaires and breaking up
+monopolies in the moderate column because of their energy or sports positions. Put each candidate against the right comparison and the factions finish within a
 few points of each other, in both directions. Trump's failures built the 2026 majority, and
 Yglesias wrote so himself on election morning.
 
@@ -170,3 +219,19 @@ Yglesias wrote so himself on election morning.
     progressive -1.4 (-4.8 to +2.1, n 17), moderate +1.5 (-1.0 to +4.1, n 66).
 17. FL-07 recount: Yglesias, note 4, correction at the end of the post.
 18. `data/derived/midterm2026/leadership_winners_unbacked.csv`.
+19. `data/derived/midterm2026/rebuttal_senate_positions.csv`, extracted from
+    `positions/positions_final.csv` (rubric: `reqts/progressive-position-rubric.md`; two blind
+    coders, 88% cell agreement, then a source-checking pass). Quotes are the nominees' own, with
+    source URLs in the file. Hamilton and Cooper have no sourced positions.
+20. `data/derived/midterm2026/coding_c_talarico_vs_thirdway.csv`: Talarico and Third Way disagree
+    on 9 of 13 items and take opposite signs on 2 (filibuster, antitrust).
+21. `data/derived/midterm2026/rebuttal_frames_by_affiliation.csv`: mean share of each House
+    Democrat's general-window price-or-health Meta ad money carrying each code, by affiliation
+    (moderate-backed n 51, progressive-backed n 23). Codes from `reqts/midterm-2026-leadership-and-price-frames.md`
+    section 5, model-coded, kappa 0.85 or above against two blind coders.
+22. Matthew Yglesias, "Abdul El-Sayed can win moderate voters," Slow Boring, 2026-08-12.
+23. Sanders 2020 campaign, "Tax on Extreme Wealth" (berniesanders.com/issues/tax-extreme-wealth)
+    and "Corporate Accountability and Democracy"
+    (berniesanders.com/issues/corporate-accountability-and-democracy).
+24. `data/derived/midterm2026/emphasis/frame_models.csv`, prediction F1, n 109;
+    `reqts/midterm-2026-leadership-and-price-frames.md` section 8.
