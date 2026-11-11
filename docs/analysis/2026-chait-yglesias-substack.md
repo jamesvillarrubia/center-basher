@@ -38,14 +38,14 @@ Andrews beat South Carolina's governor nominee by 9.0 points. Turek trailed Iowa
 
 Here is the part that both Chait and Yglesias work hardest to avoid. Before a single result came in, we scored every Senate nominee on 13 progressive positions, using their own words, votes, and cosponsorships.[8] On economics, the candidates being crowned as moderates took the progressive side nearly every time we could source a position:
 
-- James Talarico: "Make billionaires pay their fair share in taxes"; no corporate PAC money "since my very first race"; universal pre-K; antitrust legislation to "Break up Big Medicine."
+- James Talarico: "Make billionaires pay their fair share in taxes"; no corporate PAC money "since my very first race"; universal pre-K; antitrust legislation to "Break up Big Medicine"; and "Medicare for Y'all," which would "allow every American to join Medicare."
 - Josh Turek: "close loopholes for billionaires and big corporations"; no corporate PAC money; "Crack down on monopolies in agribusiness and meatpacking."
 - Annie Andrews: "End tax breaks for the ultra-wealthy and corporate polluters"; no corporate PAC money.
 - Jon Ossoff, whom Chait names as a model mainstream winner: no corporate PAC or lobbyist money.
 
 ![What the "moderates" actually ran on](../../web/public/og/charts/chait-platform.png)
 
-They dropped Medicare for All. I'll grant Chait that one, and it's real. But they kept the billionaire tax, the refusal of corporate money, and the antitrust fight, which is most of what Bernie Sanders ran on in 2020, when his platform called for a tax on extreme wealth and for breaking up "corrupt corporate mergers and monopolies."[9] Third Way, the think tank that spent the cycle telling Democrats to run to the center, publishes positions on the opposite side of 9 of the 13 items from Talarico's, and Talarico posted the biggest Senate gain of the year.[10]
+Chait says Talarico "rejected Medicare for All," and that overstates it. Talarico told the Texas Tribune that "universal health care is a human right" and ran on "Medicare for Y'all," a plan to let every American join Medicare, which stops short of single payer.[20] He closed his victory speech calling for "universal health care."[21] Turek and Andrews, by Chait's account, did reject Medicare for All, and I'll grant him that. But all of them kept the billionaire tax, the refusal of corporate money, and the antitrust fight, which is most of what Bernie Sanders ran on in 2020, when his platform called for a tax on extreme wealth and for breaking up "corrupt corporate mergers and monopolies."[9] Third Way, the think tank that spent the cycle telling Democrats to run to the center, publishes positions on the opposite side of 9 of the 13 items from Talarico's, and Talarico posted the biggest Senate gain of the year.[10]
 
 Yglesias saw this coming and has an answer ready. On November 10 he agreed it was "factually accurate" that many winning Democrats "say things about the political economy of the United States that sound like things Bernie Sanders might say," but argued that rigged-system rhetoric "is just how Democrats talk," going back to Bill Clinton and to Al Gore's "the people, not the powerful."[3] He's right that the language predates Sanders. He leaves out what the centrists said about it the last time it lost. After Gore's defeat, Bill Clinton's pollster Mark Penn wrote that "Al Gore used an old-style populism that limited his appeal rather than expanded it" and that "Gore sounded divisive" when he pitted the people against the powerful. Will Marshall of the Progressive Policy Institute called it "a hackneyed populism."[11]
 
@@ -104,7 +104,7 @@ Strip away the raw averages, the Harris baseline that ignores each state's own b
 5. CNN 2026 House counts (pulled 2026-11-05) against Harris 2024 by district; `data/derived/midterm2026/factors_wave.csv`.
 6. CNN 2026 Senate and governor results; Senate D margin minus governor D margin, same state; `data/derived/midterm2026/rebuttal_senate_vs_gov.csv`. States without a 2026 governor race (including North Carolina) are absent. Alaska (74% counted) is omitted from the chart.
 7. Aaron Blake, "Midterm returns show bad news for progressive Democrats," CNN, 2026-11-06, with House group averages from G. Elliott Morris (DSA n 7).
-8. `data/derived/midterm2026/rebuttal_senate_positions.csv` (13-item rubric, two blind coders, 88% cell agreement, source URLs per quote). Medicare for All positions for Talarico, Turek and Andrews as reported in note 1.
+8. `data/derived/midterm2026/rebuttal_senate_positions.csv` (13-item rubric, two blind coders, 88% cell agreement, source URLs per quote). Medicare for All positions for Turek and Andrews as reported in note 1; Talarico's from note 20.
 9. Sanders 2020 campaign, "Tax on Extreme Wealth" and "Corporate Accountability and Democracy," berniesanders.com.
 10. `data/derived/midterm2026/coding_c_talarico_vs_thirdway.csv`; Third Way positions from its published memos.
 11. Mark J. Penn, "Lessons of 2000," and Will Marshall, "Dems: Round Two," in "The Democrats' Next Step," The American Prospect, 2001-12-19.
@@ -116,3 +116,5 @@ Strip away the raw averages, the Harris baseline that ignores each state's own b
 17. Aidan Davis and Jon Whiten, "Voters Pass Ballot Measures to Raise and Protect Revenue, Tax the Rich," ITEP, 2026-11-05. Results described there as preliminary.
 18. `data/derived/midterm2026/rebuttal_competitive.csv`: House races with Harris margin under 10, HC1 SEs. Progressive-backed −1.4 (95% CI −4.8 to +2.1, n 17); moderate-backed +1.5 (−1.0 to +4.1, n 66).
 19. `data/derived/midterm2026/emphasis/frame_models.csv`, prediction F1, n 109: about −0.3 points per 10 share points of villain framing.
+20. "On the issues: A Q&A with the Texas Democrats running for U.S. Senate," Texas Tribune, 2026-02-04 (Talarico's answer); jamestalarico.com/issue/health-care ("Allow every American, regardless of their age, to join Medicare"). A Lone Star Left post (Michelle H. Davis, 2025-12-28) reports his campaign said he "would vote in favor of Medicare for All"; that is secondhand and not used in the text.
+21. Kate Aronoff, "Leftists Weren't the Only Ones Who Moderated in the Midterms," The New Republic, 2026-11-10.

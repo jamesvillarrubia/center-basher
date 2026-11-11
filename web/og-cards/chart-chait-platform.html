@@ -3,19 +3,20 @@
 <body>
   <div class="chartcard">
     <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Americans like Sanders&rsquo;s message less than the standard Democratic message.&rdquo; (The Atlantic)</div>
-    <div class="cc-title">The &ldquo;moderates&rdquo; dropped Medicare for All and ran on <span class="hl">the rest of Bernie&rsquo;s economics</span>.</div>
+    <div class="cc-title">The &ldquo;moderates&rdquo; ran on <span class="hl">Bernie&rsquo;s economics</span>, minus single payer.</div>
     <div class="cc-sub">Positions in each candidate&rsquo;s own words, from campaign sites, votes and cosponsorships, scored before any results came in.</div>
 
     <div class="cc-chart"><svg id="c" viewBox="0 0 1300 430" role="img"
-      aria-label="Sanders 2020: tax billionaires yes, refuse corporate PAC money yes, break up monopolies yes, Medicare for All yes. Talarico: yes, yes, yes, no. Turek: yes, yes, yes, no. Andrews: yes, yes, no position found, no. Ossoff: no position found, yes, no position found, no position found. Third Way: no position, no position, opposed, opposed."></svg></div>
+      aria-label="Sanders 2020: tax billionaires yes, refuse corporate PAC money yes, break up monopolies yes, Medicare for All yes. Talarico: yes, yes, yes, partway, a Medicare buy-in open to every American. Turek: yes, yes, yes, no. Andrews: yes, yes, no position found, no. Ossoff: no position found, yes, no position found, no position found. Third Way: no position, no position, opposed, opposed."></svg></div>
 
     <div class="cc-legend">
       <span class="item"><span class="dot" style="background:#2c5b9c"></span>For it</span>
+      <span class="item"><span class="dot" style="background:#8fa9cf"></span>Partway</span>
       <span class="item"><span class="dot" style="background:#4a4a4f"></span>Against it</span>
       <span class="item"><span class="dot" style="background:#e3dfd6"></span>No sourced position</span>
     </div>
     <div class="cc-foot">
-      <div class="cc-source">Candidate quotes and URLs: thecenterisalie.org midterm position file (13-item rubric, two blind coders). Medicare for All &ldquo;against&rdquo; for Talarico, Turek and Andrews per The Atlantic, Nov 11 2026. Sanders: 2020 campaign issue pages. Third Way: published memos.</div>
+      <div class="cc-source">Candidate quotes and URLs: thecenterisalie.org midterm position file (13-item rubric, two blind coders). Talarico &ldquo;partway&rdquo;: his &ldquo;Medicare for Y&rsquo;all&rdquo; lets every American join Medicare (campaign site). Turek and Andrews &ldquo;against&rdquo; per The Atlantic, Nov 11 2026. Sanders: 2020 campaign issue pages. Third Way: published memos.</div>
       <div class="cc-btn">thecenterisalie.org</div>
     </div>
   </div>
@@ -29,7 +30,7 @@
     // 1 for, -1 against, 0 none
     const rows = [
       ['Bernie Sanders, 2020', [1, 1, 1, 1], true],
-      ['James Talarico (TX)', [1, 1, 1, -1]],
+      ['James Talarico (TX)', [1, 1, 1, 0.5]],
       ['Josh Turek (IA)', [1, 1, 1, -1]],
       ['Annie Andrews (SC)', [1, 1, 0, -1]],
       ['Jon Ossoff (GA)', [0, 1, 0, 0]],
@@ -50,9 +51,9 @@
       txt({ x: lx, y: y + rh / 2 + 8, fill: '#1b1b1d', 'font-size': 24, 'font-weight': i === 0 ? 800 : 600 }, n);
       v.forEach((s, j) => {
         const cx = cx0 + j * cw + cw / 2, cy = y + rh / 2;
-        const fill = s === 1 ? '#2c5b9c' : s === -1 ? '#4a4a4f' : '#e3dfd6';
+        const fill = s === 1 ? '#2c5b9c' : s === 0.5 ? '#8fa9cf' : s === -1 ? '#4a4a4f' : '#e3dfd6';
         el('circle', { cx, cy, r: 20, fill });
-        const mark = s === 1 ? '✓' : s === -1 ? '✕' : '';
+        const mark = s === 1 ? '✓' : s === 0.5 ? '½' : s === -1 ? '✕' : '';
         if (mark) txt({ x: cx, y: cy + 8, 'text-anchor': 'middle', fill: '#fff', 'font-size': 23, 'font-weight': 800 }, mark);
       });
     });
