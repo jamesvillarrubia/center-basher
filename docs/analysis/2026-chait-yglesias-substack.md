@@ -97,7 +97,7 @@ I said I'd be honest, so here's what doesn't break my way. In competitive House 
 
 ## The bottom line
 
-Strip away the raw averages, the Harris baseline that ignores each state's own ballot, and the labels handed out after the fact, and here is what's left: a wave that Trump's failures built, a party whose winners across the spectrum ran on taxing billionaires and fighting corporate power, and factions that finish within a few points of each other once you compare them fairly. Chait calls the left's reading of this election denial. Ten years ago, Clinton wouldn't touch a billionaire tax, Third Way wanted to raise the retirement age, and $15 was a fringe demand. In 2026, the candidates Chait and Yglesias are crowning ran on all three of Bernie's answers instead. The denial here belongs to the people claiming that platform as a win for the center.
+Strip away the raw averages, the Harris baseline that ignores each state's own ballot, and the labels handed out after the fact, and here is what's left: a wave that Trump's failures built, a party whose winners across the spectrum ran on taxing billionaires and fighting corporate power, and factions that finish within a few points of each other once you compare them fairly. Chait calls the left's reading of this election denial. Ten years ago, Clinton launched without a billionaire tax, Third Way wanted to raise the retirement age, and both stopped short of $15. In 2026, the candidates Chait and Yglesias are crowning ran on taxing billionaires and lifting the Social Security cap, and the biggest winner of them all said "$15 is not going to be enough." The denial here belongs to the people claiming that platform as a win for the center.
 
 ---
 
