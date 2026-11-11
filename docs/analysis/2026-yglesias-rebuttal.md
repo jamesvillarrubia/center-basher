@@ -65,10 +65,42 @@ issues and permitting reform; he wrote that "the policy differences between the 
 97 percent of issues are either small or unclear."[22] By that definition a candidate can run on
 taxing billionaires, refusing corporate money and breaking up monopolies, break with the left on
 one cultural issue, and count as a moderate. The win then goes to the cultural issue, and the
-economic message that filled the ads drops out of the story. Bernie Sanders ran for president in
-2020 on a tax on extreme wealth and on breaking up "corrupt corporate mergers and monopolies."[23]
-Calling the candidates who ran on that program "moderates" files Sanders's economics under the
-center after it won.
+economic message in their ads drops out of the story. Bernie Sanders ran for president in 2020 on
+a tax on extreme wealth and on breaking up "corrupt corporate mergers and monopolies."[23] Calling
+the candidates who ran on that program "moderates" files Sanders's economics under the center
+after it won.
+
+## "This is just how Democrats talk"
+
+On November 10, Yglesias agreed that many of the Democrats who did well "say things about the
+political economy of the United States that sound like things Bernie Sanders might say," and
+called that "factually accurate."[25] His answer is that Sanders's rhetoric about a rigged system
+"is not distinctive," that it "is just how Democrats talk," and that Talarico stood out because he
+"took more moderate positions than establishment Democrats do on oil and gas and on transgender
+issues."[25] Yglesias is right that rigged-system language is older than Sanders: he quotes Obama in
+2008, Bill Clinton in 1992 and Al Gore's "the people, not the powerful" in 2000.
+
+The centrist wing fought that language each time it showed up. After Gore lost, Mark Penn, Bill
+Clinton's pollster, wrote that "Al Gore used an old-style populism that limited his appeal rather
+than expanded it" and that "Gore sounded divisive" when he pitted "the people versus the
+powerful."[27] Will Marshall of the Progressive Policy Institute called it "a hackneyed
+populism."[27] Yglesias himself wrote six days before this post that the Bernie-endorsed nominee in ME-2 was "the
+real ideological fuckup" of the cycle, and in this post he says he is "not enthusiastic about the
+idea of a bunch of left-factionalists running economic policy in 2029."[4][25] When Sanders-style
+economics loses, it belongs to Sanders. When it wins, it becomes how every Democrat talks.
+
+Democrats in 2026 did not all talk that way. Of the 187 House Democrats with price or health ads,
+45% spent any of that money naming an economic villain, and 57% of the average Democrat's
+price-ad money named no cause at all.[26] Unaligned Democrats put 17% of their price-ad money into
+naming a villain, and Democrats backed by both progressive and moderate groups put 31%.[21]
+
+The same post lists the ideas Yglesias does count as "distinctively Sandersite": Medicare for All,
+a wealth tax, and the antitrust approach "that emphasizes corporate power and market
+concentration."[25] Turek ran on cracking down "on monopolies in agribusiness and meatpacking," and
+Talarico on antitrust to stop "vertically integrated health-care conglomerates."[19] Talarico
+called for "universal health care" in his victory speech.[12] By Yglesias's own list, two of Third
+Way's Senate moderates ran on a distinctive Sanders idea. Yglesias offers no data showing that the
+oil-and-gas and transgender positions moved votes, and our data does not test them either.
 
 ## CNN's averages compare safe seats with swing seats
 
@@ -235,3 +267,10 @@ Yglesias wrote so himself on election morning.
     (berniesanders.com/issues/corporate-accountability-and-democracy).
 24. `data/derived/midterm2026/emphasis/frame_models.csv`, prediction F1, n 109;
     `reqts/midterm-2026-leadership-and-price-frames.md` section 8.
+25. Matthew Yglesias, "Bernie Sanders did not invent populist rhetoric," Slow Boring, 2026-11-10.
+26. `data/derived/midterm2026/emphasis/frame_shares.csv`: Democratic House candidates with any
+    general-window price or health ad spend, n 187; share with villain_share > 0, and mean
+    c_none_share. Republicans: 25% with any villain money, 74% no cause (n 130).
+27. Mark J. Penn, "Lessons of 2000," and Will Marshall, "Dems: Round Two," in "The Democrats'
+    Next Step," The American Prospect, 2001-12-19. See also John Dillin, "Democrats search for
+    why they lost the White House," Christian Science Monitor, 2000-12-20.
