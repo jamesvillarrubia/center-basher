@@ -1,0 +1,172 @@
+# The credit grab
+
+Draft essay, 2026-11-11, in the voice of thecenterisalie.org. A reply to the week's "moderates
+won it" coverage: Matt Yglesias at Slow Boring, Aaron Blake at CNN, the Financial Times, and a
+Fox Daily write-up. Numbers footnoted to files on branch analysis/2026-moderate-overperformance.
+
+---
+
+## The verdict came fast
+
+Democrats won a Senate majority and a House majority Hakeem Jeffries put at 255 seats or more.[1]
+Within a week the centrist press had assigned the credit. The Financial Times reported that
+"moderates, not progressives" drove the landslide.[2] CNN's Aaron Blake concluded that "nominating
+more moderate candidates remains the most fruitful path to winning swing seats and states."[3]
+Matt Yglesias called Maine's 2nd district "the real ideological fuckup" of the cycle.[4] We checked
+each of those claims against the vote counts, endorsement lists and ad files we used to answer
+Third Way's memo.
+
+## Yglesias already gave away the main point
+
+Yglesias wrote on election morning that "Trump's broken promises were the most important factors in
+this election."[5] In his post-mortem he added that the gaps between good and bad candidates "are
+modest in scale" next to the national swing.[4] Our numbers agree with him. Democrats ran ahead of
+Kamala Harris's 2024 margin in 412 of the 417 House races with a Democrat facing a Republican, by
+14.4 points on average, and about four-fifths of the variation in that gain was the same shift
+showing up everywhere.[6] A faction can claim the few points left over. Yglesias's own posts put
+the national swing, and Trump, in charge of the rest.
+
+## CNN's averages compare safe seats with swing seats
+
+Blake's House numbers come from pollster G. Elliott Morris. Progressives and Progressive Caucus
+members ran 12.2 points ahead of Harris, New Democrats 14.1, and Blue Dogs 15.4.[3] Those are raw
+averages. Progressive Caucus members mostly hold seats Harris won by 30 to 60 points, and Blue Dogs
+mostly run in seats Trump won. Our raw averages show the same gap: progressive-backed nominees
+13.5, moderate-backed 15.2.[7] We then compared Democrats in the same state, in the same kind of
+seat, against the same Harris margin. Progressive-backed nominees ran 0.7 points ahead of unaligned
+Democrats and moderate-backed nominees 1.4 ahead, and both estimates sit inside the noise.[7]
+
+Morris's same table puts candidates from the Democratic Socialists of America at the top, 16.5
+points ahead of Harris, above the Blue Dogs.[3] Blake called that result "curious." By the method
+CNN used to crown the moderates, the socialists won.
+
+## Senate candidates against their own ballot
+
+Blake's sharpest Senate claim is that the four Sanders-backed Senate candidates posted the four
+worst performances against 2024.[3] Harris's 2024 margin mixes the candidate with the state. Most of
+these states also elected a governor this year, and the governor's nominee faced the same voters on
+the same day. Here is each Senate Democrat's margin minus the Democratic governor nominee's margin
+in the same state:[8]
+
+| Senate nominee | Claimed by | Senate minus governor |
+|---|---|---|
+| Ossoff, GA | Third Way's moderates | +9.4 |
+| Andrews, SC | Third Way's moderates | +9.0 |
+| Talarico, TX | Third Way's moderates | +5.0 |
+| Hamilton, KS | Third Way's moderates | +4.4 |
+| Markey, MA | Sanders-backed | +3.6 |
+| Nixon, FL | Sanders-backed | -1.6 |
+| Hickenlooper, CO | incumbent, unclaimed | -2.5 |
+| Flanagan, MN | Sanders-backed | -2.7 |
+| Brown, OH | Third Way's moderates, Schumer's pick | -3.1 |
+| El-Sayed, MI | Sanders-backed | -3.8 |
+| Turek, IA | Third Way's moderates, Slow Boring slate | -6.9 |
+| Jackson, ME | Sanders-backed | -10.7 |
+
+Josh Turek, a Slow Boring donation pick and one of Third Way's moderates, ran further behind his
+own governor nominee than Abdul El-Sayed or Peggy Flanagan ran behind theirs.[8][9] Ed Markey, whom
+CNN lists as a weak Sanders performer, ran ahead of his. Michigan's and Minnesota's governor
+nominees ran only 12.2 and 8.6 points ahead of Harris, so those states swung less for every
+Democrat on the ballot.[8] Yglesias found it "kind of a mindfuck" that Democrats did better in
+Georgia and North Carolina than in Michigan and Minnesota.[10] The governor races show the gap
+belongs to the states.
+
+Two of the moderates at the top of that table got the label late. CNN itself describes James
+Talarico's and Annie Andrews's pasts as "less moderate (and even rather 'woke')."[3] A progressive
+group, the PCCC, endorsed Talarico in the primary, and he used his victory speech to call for
+"universal health care" and to "unrig this economic system."[11][12]
+
+## Maine's 2nd, and the seats Yglesias left out
+
+Yglesias wrote that ME-2 was "the only House seat that flipped from blue to red" and that Democrats
+"replaced Jared Golden with Bernie-endorsed Matt Dunlap."[4] Golden retired; CNN calls him "the
+retiring incumbent."[3] Dunlap ran 7.4 points ahead of Harris in a seat Trump won by 9. Democrats in
+other open or Republican-held seats Trump won by 4 to 14 points ran 11.9 ahead on average and won 21
+of 38, so Dunlap did trail comparable Democrats by about 4.5 points.[13]
+
+ME-2 was also not the only Democratic seat lost. CNN's count shows Republicans winning two more
+seats Democrats held in 2025, both in maps redrawn this cycle: TN-09 in Memphis and
+TX-32 in Dallas.[14] In TN-09, progressive Justin Pearson ran 20.0 points ahead of Harris in a seat
+redrawn to Trump by 21, and lost.[14] Pearson outran Harris by nearly three times Dunlap's margin.
+
+## Fox Daily's eight unnamed progressives
+
+A Fox Daily article reported that all eight progressive candidates in districts where Harris won
+under 55% fell short of a predicted benchmark, by 2.7 points on average.[15] The article names none
+of the eight and does not say who ran the analysis. We ran the same cut on our data: House seats
+where Harris's margin was under 10 points. The 20 progressive-backed nominees in those seats ran 1.7
+points further ahead than unaligned Democrats, and the 84 moderate-backed nominees ran 1.8 points
+further ahead, with seat type and Harris margin held constant.[16]
+
+## Slow Boring's own slate
+
+Yglesias wrote that "our Slow Boring slate did great!"[4] His House picks ran ahead of Harris by
+42.5 (Pulido, TX-15), 21.3 (Garcia, TX-35), 14.8 (Davis, NC-01), 14.8 (Rutinel, CO-08), 14.0
+(James, IA-02) and 12.0 (Dalton, FL-07, headed for a recount).[13][17] Without Bobby Pulido, the
+slate averaged 15.4 points, about the same as every Democrat on the ballot. Manny Rutinel won CO-08
+without party leadership backing him before his primary.[18]
+
+## Limits of the data
+
+> **[Claude — honest correction]** Three results cut toward the centrist reading. First, in
+> competitive seats where at least 90% of the vote was counted, progressive-backed nominees ran
+> 1.4 points behind unaligned Democrats (95% CI -4.8 to +2.1) and moderate-backed nominees 1.5
+> ahead (-1.0 to +4.1).[16] That gap of about 3 points sits inside the noise, but it points the
+> same way as Fox Daily's. The 90% filter also drops slow-counting California, where progressive
+> Randy Villegas ran 34.7 points ahead of Harris with 57% counted. Our House counts date from
+> November 5, and a refresh with final counts would settle the direction. Second, Troy Jackson
+> ran 10.7 points behind Maine's governor nominee; he entered the race in July after the nominee
+> withdrew, against Susan Collins, whom the Fox Daily analysis rates the strongest Republican
+> overperformer in the Senate.[15] Third, Dunlap in ME-2 and William Lawrence in MI-07 (4.6
+> points ahead of Harris) both trailed Democrats in similar seats.[13]
+
+## The bottom line
+
+The centrist case for credit rests on raw averages that sort safe seats from swing seats, on a
+Senate comparison that ignores each state's own ballot, and on labels handed out after the votes
+were counted. Put each candidate against the right comparison and the factions finish within a
+few points of each other, in both directions. Trump's failures built the 2026 majority, and
+Yglesias wrote so himself on election morning.
+
+---
+
+## Notes
+
+1. Roll Call, McIntire and Altimari, "Progressives and moderates rejoice: 6 takeaways from the
+   midterms," 2026-11-04. Senate "at least 54 seats" with two races uncalled at publication.
+2. Seoul Economic Daily, Cho Yang-joon, "Moderates, Not Progressives, Drove Democratic Landslide:
+   FT," 2026-11-10, summarizing a Financial Times report of 2026-11-08 (AI-translated summary; FT
+   original not read).
+3. Aaron Blake, "Midterm returns show bad news for progressive Democrats," CNN, 2026-11-06 (read
+   via the Yahoo News syndication). House group averages from G. Elliott Morris; DSA n = 7.
+4. Matthew Yglesias, "Seventeen thoughts on an epic repudiation of Donald Trump," Slow Boring,
+   2026-11-04, thoughts 5, 6 and 9.
+5. Matthew Yglesias, "The way forward," Slow Boring, 2026-11-04.
+6. `data/derived/midterm2026/factors_wave.csv`; `reqts/midterm-2026-moderate-overperformance.md`
+   section 4. CNN 2026 House counts (pulled 2026-11-05) against Harris 2024 by district.
+7. `data/derived/midterm2026/house_drivers_coefs.csv` and `house_drivers_duel.csv`: OLS of
+   over_vs_harris on affiliation + C(state) + seat type + harris_margin, state-clustered SEs,
+   n 417. Progressive +0.7 (95% CI -1.3 to +2.6); moderate +1.4 (-0.8 to +3.6).
+8. `data/derived/midterm2026/rebuttal_senate_vs_gov.csv` from `scripts/midterm2026/rebuttal_checks.py`:
+   2026 Senate D margin minus 2026 governor D margin, same state, CNN 2026-SG and 2026-GG.
+   States without a 2026 governor race (including NC) are absent.
+9. Matthew Yglesias, "The midterm candidates who deserve your money," Slow Boring, 2026-07-13;
+   Third Way's moderates: `reqts/midterm-2026-moderate-overperformance.md` section 2.
+10. Yglesias on X, 2026-11-04, embedded in Bentham's Bulldog, "The Vindication of Normal Politics,"
+    2026-11-04.
+11. `reqts/midterm-2026-moderate-overperformance.md` sections 1 and 2 (PCCC endorsement,
+    2026-02-24).
+12. Kate Aronoff, "Leftists Weren't the Only Ones Who Moderated in the Midterms," The New Republic,
+    2026-11-10.
+13. `data/derived/midterm2026/house_all.csv` (over_vs_harris, harris_margin, pct_reporting). The
+    comparison group: non-Democratic-incumbent seats with Harris margin between -14 and -4, n 38.
+14. `data/derived/midterm2026/rebuttal_d_seats_lost.csv`: incumbent_party_2025 = D and CNN rep_won,
+    as of 2026-11-05. Pearson is progressive-backed in `house_affiliations.csv`.
+15. Ashish Kumar, "Moderate Democrats Outperformed Progressives in 2026," The Fox Daily, 2026-11-07.
+    The article does not name the analyst, the data source or the eight candidates.
+16. `data/derived/midterm2026/rebuttal_competitive.csv`: House races with harris_margin < 10, OLS of
+    over_vs_harris on affiliation + seat type + harris_margin, HC1 SEs. All counts: progressive
+    +1.7 (95% CI -2.7 to +6.0, n 20), moderate +1.8 (-0.9 to +4.4, n 84). Counted 90% or more:
+    progressive -1.4 (-4.8 to +2.1, n 17), moderate +1.5 (-1.0 to +4.1, n 66).
+17. FL-07 recount: Yglesias, note 4, correction at the end of the post.
+18. `data/derived/midterm2026/leadership_winners_unbacked.csv`.
