@@ -91,7 +91,7 @@ Then there's Susan Collins. Chait calls it "bizarre" to excuse Troy Jackson's ma
 
 ## The ballot measures he picked
 
-Chait writes that ballot measures "rejecting a wealth tax" confirmed the public's limits on the left.[1] He means California's Proposition 40, a one-time 5% tax on billionaire wealth, which appears to have failed after billionaires reportedly spent more than $340 million against it.[36] He doesn't mention that on the same night, Washington voters were poised to keep their brand-new 9.9% tax on income over $1 million, that Colorado voters looked set to approve graduated income-tax rates that raise taxes on the highest earners, or that Californians voted to keep the state's top income-tax rates permanent.[36] Higher taxes on top earners passed or survived in Washington, Colorado and California, and billionaires spent hundreds of millions against the one measure that lost.
+Chait writes that ballot measures "rejecting a wealth tax" confirmed the public's limits on the left.[1] He means California's Proposition 40, a one-time 5% tax on billionaire wealth, which appears to have failed after billionaires reportedly spent more than $340 million against it.[36] He doesn't mention that on the same night, Washington voters were poised to keep their brand-new 9.9% tax on income over $1 million, that Colorado voters looked set to approve graduated income-tax rates that raise taxes on the highest earners, or that Californians voted to keep the state's top income-tax rates permanent.[36] Higher taxes on top earners passed or survived in Washington, Colorado and California, and billionaires spent hundreds of millions against *the one* measure that lost.
 
 ## The political science on extreme candidates
 
