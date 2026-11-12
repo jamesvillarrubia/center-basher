@@ -1,0 +1,661 @@
+<title>Who Made the 2026 Majorities</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* thecenterisalie.org house style: paper, Iowan serif body, system-sans labels, red accent.
+   Layout: 780px column. Each exhibit is a self-contained share card: claim, title, plain sub,
+   annotated chart, source. Stats-reader material sits in its own section below the main story. */
+:root{
+  color-scheme:light;
+  --paper:#fbfbf8; --card:#ffffff; --ink:#1b1b1d; --ink-soft:#3a3a3d; --ink-mid:#4a4a4f; --ink-faint:#6b6b70; --label:#8a8880;
+  --rule:#d8d4cc; --tagbg:#ece9e2; --accent:#b8240f; --hl:#ffe7a8;
+  --left:#2c5b9c; --left-soft:#7fa3cf; --tw:#9b86c9; --gray:#8a8880; --gray-soft:#c9c6bf;
+  --aipac:#e9a52e; --ai:#2a9d8f; --sig:#fff3cf;
+  --serif:"Iowan Old Style","Charter",Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:17px/1.55 var(--serif);-webkit-font-smoothing:antialiased}
+.essay{max-width:780px;margin:0 auto;padding-block:0 6rem;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.masthead{border-top:4px solid var(--ink);padding:3.5rem 0 2.25rem;text-align:center}
+.kicker{font:700 12px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin:0 0 1.25rem}
+.masthead h1{font:700 clamp(2.2rem,7vw,3.3rem)/1.05 var(--serif);letter-spacing:-.02em;margin:0 0 1.1rem;text-wrap:balance}
+.dek{font:italic 1.15rem/1.5 var(--serif);color:var(--ink-soft);max-width:48ch;margin:0 auto}
+.seclabel{font:600 12px/1.35 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+.sec{padding-top:1.5rem;margin-bottom:2.5rem}
+.sec p{margin:0 0 1rem;max-width:66ch}
+.lede-list{margin:0;padding-left:1.4rem}
+.lede-list li{margin-bottom:.8rem}
+.lede-list strong{background:linear-gradient(180deg,transparent 60%,var(--hl) 60%);padding:0 2px}
+.howto{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:18px 20px;font-family:var(--sans);font-size:.95rem;line-height:1.5;color:var(--ink-soft)}
+.howto b{color:var(--ink)}
+.parthead{border-top:2px solid var(--ink);margin:3.5rem 0 2rem;padding-top:1.75rem;text-align:center}
+.parthead .tag{font:700 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 .7rem}
+.parthead h2{font:700 1.9rem/1.15 var(--serif);margin:0 0 .6rem;text-wrap:balance}
+.parthead p{font:italic 1rem/1.5 var(--serif);color:var(--ink-soft);max-width:52ch;margin:0 auto}
+.exhibit{display:grid;gap:10px;margin:0 0 3rem}
+.card{margin:0;background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:26px 26px 18px;display:grid;gap:12px;min-width:0;font-family:var(--sans)}
+.claim{font-size:.98rem;font-style:italic;color:var(--label);line-height:1.35}
+.claim .tag{font-style:normal;display:inline-block;background:var(--tagbg);color:var(--label);font-weight:800;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:5px;margin-right:9px;vertical-align:1px}
+.ctitle{font:800 clamp(1.5rem,4.4vw,2.15rem)/1.06 var(--sans);letter-spacing:-.01em;margin:0;text-wrap:balance}
+.ctitle .hl{color:var(--accent)}
+.csub{font-size:1rem;line-height:1.45;color:var(--ink-mid);margin:0;max-width:68ch}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:.84rem;color:var(--ink-soft)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.chart{overflow-x:auto}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:var(--sans);fill:var(--ink-faint);font-size:11.5px}
+svg .lab{fill:var(--ink);font-size:12.5px;font-weight:600}
+svg .val{fill:var(--ink-soft);font-size:12px;font-variant-numeric:tabular-nums}
+svg .note{fill:var(--ink-mid);font-size:12.5px;font-style:italic}
+svg .big{fill:var(--ink);font-size:24px;font-weight:800}
+svg .grid{stroke:#ebe8e1;stroke-width:1}
+svg .axis{stroke:var(--gray);stroke-width:1}
+.foot{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-top:4px}
+.src{font-size:.7rem;line-height:1.45;color:var(--label);flex:1 1 300px;min-width:0}
+.domain{background:var(--accent);color:#fff;font-weight:700;font-size:.82rem;padding:6px 14px;border-radius:999px;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:.84rem;font-variant-numeric:tabular-nums}
+th,td{padding:6px 8px;border-bottom:1px solid #ebe8e1;text-align:left;vertical-align:middle}
+th{font-size:.66rem;text-transform:uppercase;letter-spacing:.07em;color:var(--label);font-weight:700}
+th.n,td.n{text-align:right;white-space:nowrap}
+tr.grp td{font-size:.66rem;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);font-weight:700;padding-top:12px;border-bottom:none}
+tr.sig td{background:var(--sig)}
+td.ci{width:140px;padding-block:2px}
+td.ci svg{width:140px}
+.chip{display:inline-block;min-width:62px;padding:2px 6px;border-radius:4px;font-size:.74rem;text-align:center;font-weight:700}
+.chip.p{background:var(--left);color:#fff}.chip.h{background:var(--left-soft);color:#fff}
+.chip.z{background:var(--tagbg);color:var(--ink-faint)}.chip.neg{background:var(--tw);color:#fff}
+tr.split td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
+.share{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-family:var(--sans)}
+.btn{font:600 .78rem/1 var(--sans);color:var(--ink);background:var(--card);border:1px solid var(--rule);border-radius:999px;padding:7px 13px;cursor:pointer;text-decoration:none}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.status{font-size:.75rem;color:var(--ink-faint)}
+.limits li{margin-bottom:.9rem;max-width:66ch}
+.methods p{font-size:.92rem;color:var(--ink-soft)}
+code{font-size:.85em;background:rgba(0,0,0,.04);padding:1px 4px;border-radius:3px}
+a{color:var(--accent)}
+#tip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;font:12px/1.4 var(--sans);padding:6px 9px;border-radius:5px;max-width:270px;z-index:20}
+@media (max-width:560px){.card{padding:18px 14px 14px}td.ci,td.ci svg{width:92px}}
+</style>
+
+<main class="essay">
+<header class="masthead">
+  <p class="kicker">2026 midterms · the data</p>
+  <h1>Moderates didn't make the 2026 majorities. The wave did.</h1>
+  <p class="dek">Third Way says moderate Democrats delivered the House and Senate. On the same ballot, Democrats backed by moderate groups ran no further ahead than Democrats backed by progressive groups, and the winners Third Way claims ran on platforms to its left.</p>
+</header>
+
+<section class="sec">
+  <p class="seclabel">The short version</p>
+  <ul class="lede-list">
+    <li><strong>Moderate-backed and progressive-backed Democrats tied.</strong> Across 195 House races, nominees backed by the New Democrats, Blue Dogs or WelcomePAC ran 0.1 points further ahead of Harris than nominees backed by the Progressive Caucus, Working Families or Justice Democrats in the same state. The moderate-backed nominees raised almost twice as much money, and the tie holds after accounting for both sides' money, small donors, PACs and super PACs.</li>
+    <li><strong>Every kind of Democrat rode the same wave.</strong> 412 of the 417 House Democrats who faced a Republican ran ahead of Harris's 2024 margin, by 14.4 points on average.</li>
+    <li><strong>Third Way's own number is the national average.</strong> It says its House picks ran 15 points ahead of Harris. So did the average House Democrat. In the Republican seats Democrats flipped, the nominees the moderate groups did not back ran further ahead, 18.6 points against 14.6.</li>
+    <li><strong>Third Way's "moderates" don't hold Third Way's positions.</strong> All 19 winners it claims took positions to its left. Talarico, its star example, disagrees with Third Way on 9 of 13 issues.</li>
+    <li><strong>Red-state Democrats ran far ahead whether Third Way claimed them or not.</strong> Ten red-state Senate Democrats it never mentioned, most of them long shots, ran 18.7 points ahead of Harris. Its seven claimed moderates ran 20.8 ahead.</li>
+  </ul>
+</section>
+
+<div class="howto"><b>How to read the charts.</b> Almost every chart measures one thing: how much better a Democrat did in 2026 than Harris did in the same state or district in 2024. A Democrat who won by 10 points where Harris lost by 5 "ran 15 points ahead of Harris." We judge candidates by how far they beat that mark, not by whether they won, because winning mostly depends on how red the seat is.</div>
+
+<div class="parthead"><p class="tag">Part one</p><h2>The test Third Way fails</h2><p>If running as a moderate won seats, moderate-backed Democrats should have beaten everyone else on the same ballot.</p></div>
+
+<section class="exhibit">
+<figure class="card" id="ex-duel">
+  <div class="claim"><span class="tag">Third Way</span>“Moderates Made Democratic Majorities.”</div>
+  <h2 class="ctitle">Same state, same ballot: moderate-backed and progressive-backed Democrats <span class="hl">tied</span>.</h2>
+  <p class="csub">We compared House Democrats backed by the New Democrats, Blue Dogs or WelcomePAC with House Democrats backed by the Progressive Caucus, Working Families or Justice Democrats, running in the same state. The moderate-backed ones ran 0.1 points further ahead of Harris. The wave that lifted every Democrat was 14.4 points.</p>
+  <div class="legend"><span><i style="background:var(--gray-soft)"></i>the wave every Democrat rode</span><span><i style="background:var(--tw)"></i>extra points for being moderate-backed</span><span><i style="background:transparent;border-radius:0;height:2px;width:18px;vertical-align:3px;background:var(--ink-soft)"></i>95% range</span></div>
+  <div class="chart" id="duel"></div>
+  <div class="foot"><span class="src">House races with a nominee backed by moderate groups (New Democrat Coalition or Action Fund, Blue Dog Coalition or PAC, WelcomePAC) or by progressive groups (Progressive Caucus or its PAC, Working Families Party, Justice Democrats, Our Revolution, PCCC), not both. Difference in points ahead of Harris 2024, holding state, incumbency and district lean constant; 95% range clustered by state.</span><span class="domain">thecenterisalie.org</span></div>
+</figure>
+<div class="share" data-for="ex-duel"></div>
+</section>
+
+<section class="exhibit">
+<figure class="card" id="ex-money2">
+  <div class="claim"><span class="tag">The claim</span>“Moderates just ran better-funded campaigns.”</div>
+  <h2 class="ctitle">Moderate-backed Democrats raised <span class="hl">almost twice as much</span>. They still tied.</h2>
+  <p class="csub">The typical moderate-backed House nominee raised $3.0 million, against $1.6 million for the typical progressive-backed nominee, and leaned less on small donors. When we hold constant each side's money, the opponent's money, the donor mix and super PAC spending, the gap stays near zero and within chance.</p>
+  <div class="legend"><span><i style="background:var(--tw)"></i>moderate-backed</span><span><i style="background:var(--left)"></i>progressive-backed</span><span><i style="background:transparent;border-radius:0;height:2px;width:18px;vertical-align:3px;background:var(--ink-soft)"></i>95% range</span></div>
+  <div class="chart" id="money2a"></div>
+  <div class="chart" id="money2b"></div>
+  <div class="foot"><span class="src">FEC candidate summaries, last pre-election filing (through Oct 14 for most); super PAC and other outside spending from FEC independent-expenditure reports, general election. Edge: difference in points ahead of Harris 2024, same state, holding incumbency and district lean constant; 95% range clustered by state.</span><span class="domain">thecenterisalie.org</span></div>
+</figure>
+<div class="share" data-for="ex-money2"></div>
+</section>
+
+<section class="exhibit">
+<figure class="card" id="ex-wave">
+  <div class="claim"><span class="tag">Third Way</span>“high-quality Democrats in the middle were the majority makers in 2026”</div>
+  <h2 class="ctitle"><span class="hl">Almost every</span> House Democrat ran ahead of Harris.</h2>
+  <p class="csub">412 of the 417 Democrats who faced a Republican for a House seat did better than Harris did in the same district in 2024. The typical one ran about 14 points ahead. When the whole party moves that far, a moderate winning a swing seat says more about the wave than about moderation.</p>
+  <div class="chart" id="wave"></div>
+  <div class="foot"><span class="src">Each bar counts House races by how far the Democrat ran ahead of Harris 2024. All 417 Democrat-vs-Republican races, CNN results Nov 5 2026. A single nationwide shift accounts for 80% of the squared gains.</span><span class="domain">thecenterisalie.org</span></div>
+</figure>
+<div class="share" data-for="ex-wave"></div>
+</section>
+
+<section class="exhibit">
+<figure class="card" id="ex-lists">
+  <div class="claim"><span class="tag">Third Way</span>“On average, they ran 15 points ahead of Harris’s 2024 margin in these districts”</div>
+  <h2 class="ctitle">Third Way's House moderates ran about 15 points ahead. <span class="hl">So did everyone else.</span></h2>
+  <p class="csub">Third Way credits House Democrats backed by the New Democrat Action Fund, Blue Dog PAC and WelcomePAC, and it only counts the ones who won. The 54 nominees on the New Democrat and WelcomePAC lists ran 14.4 points ahead of Harris, the same as the average House Democrat. The ten who lost or trail ran 13.1 ahead, close to the winners. In the Republican seats Democrats flipped, the nominees those groups did not back ran further ahead.</p>
+  <div class="legend"><span><i style="background:var(--tw)"></i>groups Third Way credits</span><span><i style="background:var(--gray-soft)"></i>everyone else</span><span><i style="background:transparent;border-radius:0;height:0;width:18px;vertical-align:3px;border-top:2px dashed var(--ink)"></i>House average</span></div>
+  <div class="chart" id="lists"></div>
+  <div class="foot"><span class="src">Average points ahead of Harris 2024. New Democrat Action Fund and WelcomePAC candidate pages, matched to 2026 nominees; the Blue Dog PAC list is still being collected. Wins, losses and flips as called by CNN on Nov 6; flips include 6 Republican seats where the Democrat leads a count still under way.</span><span class="domain">thecenterisalie.org</span></div>
+</figure>
+<div class="share" data-for="ex-lists"></div>
+</section>
+
+<section class="exhibit">
+<figure class="card" id="ex-redstates">
+  <div class="claim"><span class="tag">Third Way</span>“Red-State Democrats—All Moderates—Overperformed and Delivered the Senate.”</div>
+  <h2 class="ctitle">Red-state Democrats ran far ahead <span class="hl">whether or not Third Way claimed them</span>.</h2>
+  <p class="csub">Each bar is a Democratic Senate nominee in a state Trump carried. Third Way claimed the seven purple ones as moderates after they won. The ten gray ones never made its list, and most ran in races nobody expected a Democrat to win. They ran 18.7 points ahead of Harris on average. The claimed moderates ran 20.8 ahead.</p>
+  <div class="legend"><span><i style="background:var(--tw)"></i>claimed by Third Way as moderate</span><span><i style="background:var(--gray-soft)"></i>not claimed</span><span><i style="background:var(--left)"></i>called "leftier" by Third Way</span></div>
+  <div class="chart" id="redstates"></div>
+  <div class="foot"><span class="src">Every 2026 Democrat-vs-Republican Senate race in a state Harris lost in 2024 (n 19). Points ahead of Harris 2024 in the same state. "Long shot": race rated safe Republican by Cook on Nov 2, before the election. CNN results Nov 5 2026.</span><span class="domain">thecenterisalie.org</span></div>
+</figure>
+<div class="share" data-for="ex-redstates"></div>
+</section>
+
+<section class="exhibit">
+<figure class="card" id="ex-where">
+  <div class="claim"><span class="tag">Third Way</span>“Moderate Democrats Flipped Red Places Blue and Delivered the House.”</div>
+  <h2 class="ctitle">Where a Democrat ran mattered. <span class="hl">Third Way's label barely registered.</span></h2>
+  <p class="csub">Some House Democrats ran further ahead of Harris than others. We split those differences by source. The state a race was in accounts for 39% of them. Running against a sitting Republican accounts for 4% and cost challengers about 5 points. Whether moderate or progressive groups backed the nominee accounts for half of one percent, and so does Third Way's own label.</p>
+  <div class="chart" id="where"></div>
+  <div class="foot"><span class="src">Share of the differences in points ahead of Harris explained by each factor (Type II sums of squares). State, seat, district lean and group backing: all 417 House races, one model. Third Way's label: the 41 Senate and House races it labeled, with chamber and lean held constant.</span><span class="domain">thecenterisalie.org</span></div>
+</figure>
+<div class="share" data-for="ex-where"></div>
+</section>
+
+<div class="parthead"><p class="tag">Part two</p><h2>Third Way's "moderates" don't hold Third Way's positions</h2><p>The winners Third Way claims ran on positions Third Way opposes.</p></div>
+
+<section class="exhibit">
+<figure class="card" id="ex-left">
+  <div class="claim"><span class="tag">Third Way</span>“Moderate Democrats Won Because They Escaped the Party’s Far-Left Brand.”</div>
+  <h2 class="ctitle">Third Way's "moderates" ran <span class="hl">to Third Way's left</span>.</h2>
+  <p class="csub">We scored the Democrats in the 44 most contested Senate and House races on 13 issues, from Medicare for All to ending the filibuster. Third Way's own published positions score −0.35. Every nominee scored to its left, including all 19 winners Third Way claims as moderates.</p>
+  <div class="legend"><span><i style="background:var(--tw)"></i>claimed by Third Way as "moderate"</span><span><i style="background:var(--left)"></i>called "leftier" by Third Way</span><span><i style="background:var(--gray-soft)"></i>not labeled</span></div>
+  <div class="chart" id="strip"></div>
+  <div class="foot"><span class="src">Score: average of 13 issues, +1 support, 0 silent, −1 oppose, from the nominee's own words. When we found a position on record it was the progressive one 123 times out of 144; issues we could not find count as 0, which pulls every dot toward the center. Two coders, scoring separately without seeing results.</span><span class="domain">thecenterisalie.org</span></div>
+</figure>
+<div class="share" data-for="ex-left"></div>
+</section>
+
+<section class="exhibit">
+<figure class="card" id="ex-talarico">
+  <div class="claim"><span class="tag">Third Way</span>“Moderates won by running on tackling costs and corruption, and mainstream immigration and border policies.”</div>
+  <h2 class="ctitle">Third Way claims Talarico as a moderate. He disagrees with them on <span class="hl">9 of 13</span> issues.</h2>
+  <p class="csub">Third Way's memo credits Talarico's win to costs, corruption and the border. He also ran on a billionaire tax, no corporate PAC money, ending the filibuster, breaking up monopolies and universal pre-K, and Third Way opposes or ignores all five. He beat Harris's Texas margin by 25.8 points, more than any other Senate Democrat.</p>
+  <div class="chart"><table id="items"><thead><tr><th>Issue</th><th style="text-align:center">Talarico</th><th style="text-align:center">Third Way</th></tr></thead><tbody></tbody></table></div>
+  <div class="foot"><span class="src">Red edge: they take opposite sides. Every Talarico score cites his own words; Third Way scored from its published memos.</span><span class="domain">thecenterisalie.org</span></div>
+</figure>
+<div class="share" data-for="ex-talarico"></div>
+</section>
+
+<section class="exhibit">
+<figure class="card" id="ex-baselines">
+  <div class="claim"><span class="tag">Third Way</span>“Red-State Democrats—All Moderates—Overperformed and Delivered the Senate.”</div>
+  <h2 class="ctitle">Third Way's 12-point Senate edge <span class="hl">shrinks under scrutiny</span>. In the House it vanishes.</h2>
+  <p class="csub">Third Way measured its Senate moderates against Harris's 2024 margin, which is a shaky yardstick because Republicans saw Harris as far left and Democrats saw her as centrist. Against the seat's last race or this year's ballot, the edge drops to between 6 and 10 points. In the House, Third Way's moderates did no better than its other nominees.</p>
+  <div class="legend"><span><i style="background:var(--tw)"></i>Third Way's yardstick: Harris 2024</span><span><i style="background:var(--left)"></i>yardsticks with no presidential race</span><span><i style="background:transparent;border-radius:0;height:2px;width:18px;vertical-align:3px;background:var(--ink-soft)"></i>95% range</span></div>
+  <div class="chart" id="bases"></div>
+  <div class="foot"><span class="src">Points by which Third Way's "moderates" beat its other nominees, adjusting for each seat's partisan lean. Senate n 7 to 11, House n 20 to 30. Against Biden 2020, a second presidential yardstick, the Senate gap is 17.1.</span><span class="domain">thecenterisalie.org</span></div>
+</figure>
+<div class="share" data-for="ex-baselines"></div>
+</section>
+
+<section class="exhibit">
+<figure class="card" id="ex-scatter">
+  <div class="claim"><span class="tag">Third Way</span>“2028 Democratic voters want the next presidential nominee to moderate to win.”</div>
+  <h2 class="ctitle">Progressive nominees ran <span class="hl">as far ahead</span> as everyone else.</h2>
+  <p class="csub">Each dot is one of the 44 nominees. Further left means a more progressive platform, and higher means they ran further ahead of Harris. The most progressive third ran 13.5 points ahead and the least progressive third ran 15.9 ahead. Once each seat's lean is taken into account, that gap sits inside the shaded band, which fits a flat line.</p>
+  <div class="legend"><span><i style="background:var(--left)"></i>one nominee</span><span><i style="background:color-mix(in srgb,var(--ink-soft) 18%,#fff);border-radius:2px;height:10px;width:18px"></i><span id="fitAll"></span></span></div>
+  <div class="chart" id="scatter"></div>
+  <div class="foot"><span class="src">Issues not on record are estimated from each nominee's endorsements and primary opponents; whiskers ±1 sd. Dashed line: least-squares trend; band: 95% range from a state-level bootstrap.</span><span class="domain">thecenterisalie.org</span></div>
+</figure>
+<div class="share" data-for="ex-scatter"></div>
+</section>
+
+<section class="exhibit">
+<figure class="card" id="ex-money">
+  <div class="claim"><span class="tag">The claim</span>“AIPAC and crypto money decide Democratic primaries.”</div>
+  <h2 class="ctitle">Eight nominees <span class="hl">beat AIPAC, crypto or AI money</span> in their primaries.</h2>
+  <p class="csub">Super PACs spent against each of these Democrats, or for a rival, in the primary. All eight won the primary and the general, and all eight beat Harris's margin.</p>
+  <div class="legend"><span><i style="background:var(--aipac)"></i>AIPAC / UDP</span><span><i style="background:var(--gray)"></i>crypto</span><span><i style="background:var(--ai)"></i>AI</span></div>
+  <div class="chart" id="money"></div>
+  <div class="foot"><span class="src">Primary independent expenditures against the nominee or for a rival, FEC bulk files. Of the $30.7M in Michigan, $20.1M attacked El-Sayed directly and $10.5M backed Stevens.</span><span class="domain">thecenterisalie.org</span></div>
+</figure>
+<div class="share" data-for="ex-money"></div>
+</section>
+
+<div class="parthead"><p class="tag">For the stats readers</p><h2>The checks behind the story</h2><p>How we measured platforms, every candidate trait we tested, and the full variance breakdown.</p></div>
+
+<section class="exhibit">
+<figure class="card" id="ex-gaps">
+  <div class="claim"><span class="tag">The claim</span>“Thin sourcing makes the progressive scores meaningless.”</div>
+  <h2 class="ctitle">Filling the data gaps <span class="hl">does not change the answer</span>.</h2>
+  <p class="csub">Most nominees never went on record on most of these 13 issues. Silence is not a centrist position, so we filled each gap from what we did know about the nominee, like who endorsed them and who spent against them. Scored that way, progressivism shows no reliable link to margin. One version, which simply drops the gaps, dips below zero, and three votes cause the dip: Ossoff and Gonzalez for the GENIUS crypto bill, McAdams against a $15 minimum wage.</p>
+  <div class="legend"><span><i style="background:var(--left)"></i>gaps filled in</span><span><i style="background:var(--gray)"></i>other versions</span></div>
+  <div class="chart" id="gaps"></div>
+  <div class="foot"><span class="src">Effect of +0.1 on the score, in points of margin; all 44 races, holding chamber, district lean and outside spending constant. Bars: 95% ranges (wild cluster bootstrap by state; filled-in score: 500 posterior draws, Rubin's rules).</span><span class="domain">thecenterisalie.org</span></div>
+</figure>
+<div class="share" data-for="ex-gaps"></div>
+</section>
+
+<section class="exhibit">
+<figure class="card" id="ex-corr">
+  <div class="claim"><span class="tag">The claim</span>“Name recognition, money and time on the trail explain who won.”</div>
+  <h2 class="ctitle">In the 44 contested races, <span class="hl">no candidate trait</span> reliably predicts who ran furthest ahead.</h2>
+  <p class="csub">We tested 15 traits, including platform, Third Way's label, name recognition, money and time on the trail. Every 95% range crosses zero except one: the raw platform score, which counts every missing position as centrist and so mostly measures how much a nominee said in public. With the gaps filled in, the platform score's range crosses zero too.</p>
+  <div class="chart"><table id="corr"><thead><tr><th>Trait</th><th class="n">n</th><th class="n">r</th><th>vs Harris 2024</th><th class="n">r</th><th>vs prior race</th></tr></thead><tbody></tbody></table></div>
+  <div class="foot"><span class="src">Pearson r. Bars: 95% range, state-cluster bootstrap (4,999 draws), axis −0.8 to +0.8. Days on the trail: n 27 and 23.</span><span class="domain">thecenterisalie.org</span></div>
+</figure>
+<div class="share" data-for="ex-corr"></div>
+</section>
+
+<section class="exhibit">
+<figure class="card" id="ex-anova">
+  <div class="claim"><span class="tag">The claim</span>“The right kind of candidate made the difference.”</div>
+  <h2 class="ctitle">Ten traits together explain <span class="hl">a fifth</span> of the differences between the 44 contested races.</h2>
+  <p class="csub">Analysis of variance with every trait in one model. Incumbency barely clears the bar against Harris (p 0.050) and misses it against the prior race. Third Way's label matters only crossed with chamber: it goes with better margins in the Senate and worse ones in the House.</p>
+  <div class="chart"><table id="anova"><thead><tr><th rowspan="2">Term</th><th class="n" colspan="3" style="text-align:center">vs Harris 2024</th><th class="n" colspan="3" style="text-align:center">vs prior race</th></tr><tr><th class="n">F</th><th class="n">p</th><th class="n" style="text-transform:none">η²p</th><th class="n">F</th><th class="n">p</th><th class="n" style="text-transform:none">η²p</th></tr></thead><tbody></tbody></table></div>
+  <div class="foot"><span class="src">Type II ANOVA, OLS, df 1 per term. Full model n 44 and 38; Third Way rows come from the model that adds its label and label × Senate (n 41 and 35). Shaded: p &lt; 0.05.</span><span class="domain">thecenterisalie.org</span></div>
+</figure>
+<div class="share" data-for="ex-anova"></div>
+</section>
+
+<section class="sec limits">
+  <p class="seclabel">How we picked the races, and what that could bias</p>
+  <ul>
+    <li><strong>Third Way's labels were assigned after the votes were counted.</strong> Every one of its 19 claimed moderates won, and the New Democrat and WelcomePAC picks who lost are missing from its count. Any label handed out to winners will look like it predicts winning, which is why the charts above include the unclaimed and the losers.</li>
+    <li><strong>Third Way's moderates ran on redder ground.</strong> The median Harris margin in their races was −3.1, against +6.4 for the nominees it calls "leftier." Across the Senate map, redder states swung further toward Democrats. Every comparison of labels above adjusts for each seat's partisan lean.</li>
+    <li><strong>The 44 contested races are not a typical slice of the House.</strong> We picked the 30 House races whose primaries had both a progressive-backed and a moderate-backed candidate. Compared with the other 387, these races are bluer (median Harris margin +6.8 against −10.5), more often open seats (57% against 14%) and more often won (93% against 54%). Charts about the whole House use all 417 races for that reason.</li>
+    <li><strong>The 14 Senate races were picked before the election.</strong> We used every race the Cook Political Report did not rate as safe on Nov 2.</li>
+    <li><strong>Maine does not explain the Senate gap.</strong> Jackson replaced Platner in late July and had about three months as nominee. Leaving Maine out, Third Way's moderates still ran 12.7 points further ahead of Harris than its "leftier" nominees.</li>
+    <li><strong>Some votes were still being counted.</strong> On Nov 5, 101 of the 417 House races were under 90% counted, and those races run 2.2 points lower so far. The main House results hold in the 316 races at least 90% counted.</li>
+    <li><strong>Only nominees are in the data.</strong> Candidates who lost their primaries are not, so these comparisons cannot tell us how a different nominee would have done.</li>
+  </ul>
+</section>
+
+<section class="sec limits">
+  <p class="seclabel">What the data can't show</p>
+  <ul>
+    <li><strong>Progressive positions did not raise margins either.</strong> The data support "progressive nominees won and paid no measurable penalty." They do not support "progressive positions caused the gains."</li>
+    <li><strong>Establishment backing helped in the House.</strong> House nominees the party establishment backed before the primary beat a history-based baseline by 6.0 points (95% range +1.2 to +10.8). Backing is not the same as moderation: every one of them still scored to Third Way's left.</li>
+    <li><strong>Money goes with bigger margins, but it also chases races that already look good.</strong> Outraising the Republican tenfold goes with about 2.3 more points, and super PAC help goes with about 0.14 points per dollar per voter. Together they explain about 8% of the differences between House races, against 0.25% for moderate or progressive backing. Donors and super PACs pour money into races they expect to win, so not all of that 8% is money causing votes.</li>
+    <li><strong>Win-loss records track the map, not the platform.</strong> We judge nominees by how far they beat Harris, because whether a Democrat wins depends mostly on how red the seat is. The most progressive nominees who lost, Nixon in Florida, Dunlap in Maine's 2nd and Pearson in Tennessee's 9th, ran where Harris lost, and they still beat her margin by 7 to 20 points.</li>
+  </ul>
+</section>
+
+<section class="sec methods">
+  <p class="seclabel">How we know</p>
+  <p><strong>Races.</strong> All 417 Democrat-vs-Republican House races, plus 14 competitive Senate races and 30 House races with contested Democratic primaries for the platform scoring. Vote margins from CNN race pages on Nov 5 2026; wins and losses from CNN's calls on Nov 6. Alaska and Mississippi were still uncalled on Nov 6, with Peltola and Colom ahead.</p>
+  <p><strong>Platform score.</strong> 13 issues: Medicare for All, a billionaire tax, no corporate PAC money, no AIPAC money or conditions on Israel aid, the Green New Deal, a $17 minimum wage, ending the filibuster, expanding the Supreme Court, student debt relief or free college, breaking up monopolies, no crypto money, universal childcare or pre-K, and opposing Schumer or Jeffries as leader. Two coders scored each nominee separately and without seeing results (Cohen's κ 0.45, no disagreements on direction). A second pass over rendered campaign-site captures for the 23 least-documented nominees added 10 positions; its two coders agreed on 99.3% of cells (κ 0.94). Gaps are filled by empirical-Bayes shrinkage toward a prediction from pre-primary facts.</p>
+  <p><strong>Yardsticks.</strong> Harris 2024; Biden 2020; the prior race for the seat; the 2022 midterm; an expected margin built from Biden 2020 and the prior race only; and the 2026 statewide House vote and governor race on the same ballot.</p>
+  <p><strong>Code and data.</strong> <code>scripts/midterm2026/</code> and <code>data/derived/midterm2026/</code>, <a href="https://github.com/jamesvillarrubia/center-basher/pull/13">PR #13</a>. Third Way memos: <a href="https://www.thirdway.org/memo/moderates-made-democratic-majorities">“Moderates Made Democratic Majorities”</a> and <a href="https://www.thirdway.org/memo/center-left-democrats-overperformed-and-delivered-the-majority">“Center-Left Democrats Overperformed and Delivered the Majority.”</a></p>
+</section>
+</main>
+<div id="tip" hidden></div>
+
+<script>
+const DATA = __DATA__;
+const IMG_BASE = "__IMG_BASE__";
+const R = DATA.races, DEB = DATA.debias, SEL = DATA.selection, HOUSE = DATA.house, FUND = DATA.funding;
+const TW = -0.346;
+const NS = "http://www.w3.org/2000/svg";
+const tip = document.getElementById("tip");
+function el(tag, attrs, parent, text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;if(parent)parent.appendChild(e);return e;}
+function hover(node, html){
+  const show=ev=>{tip.innerHTML=html;tip.hidden=false;tip.style.left=Math.min(ev.clientX+12,innerWidth-280)+"px";tip.style.top=(ev.clientY+12)+"px";};
+  node.addEventListener("mousemove",show);node.addEventListener("mouseleave",()=>tip.hidden=true);
+  node.addEventListener("focus",()=>{const r=node.getBoundingClientRect();show({clientX:r.right,clientY:r.top});});
+  node.addEventListener("blur",()=>tip.hidden=true);node.setAttribute("tabindex","0");
+}
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const sg=v=>(Number(v)>0?"+":"")+v;
+const twLabel=t=>t==="moderate"?"claimed by Third Way as moderate":t==="leftier"?"called leftier by Third Way":"not labeled by Third Way";
+const ebOf=Object.fromEntries(DEB.measurement.map(m=>[m.race_id,m]));
+
+document.querySelectorAll(".share").forEach(box=>{
+  const id=box.dataset.for, src=`${IMG_BASE}${id}.png`;
+  box.innerHTML=`<a class="btn" href="${src}" target="_blank" rel="noopener">Open image</a><button class="btn" type="button" id="copy-${id}">Copy image</button><span class="status" aria-live="polite"></span>`;
+  const status=box.querySelector(".status");
+  box.querySelector("button").addEventListener("click",()=>{
+    const fail=()=>status.textContent="Copy is blocked here. Open the image and save it.";
+    try{
+      const blob=fetch(src).then(r=>{if(!r.ok)throw new Error(r.status);return r.blob();});
+      navigator.clipboard.write([new ClipboardItem({"image/png":blob})]).then(()=>status.textContent="Copied. Paste it into a post.").catch(fail);
+    }catch(e){fail();}
+  });
+});
+
+/* horizontal bars from zero: rows [{label, sub, value, color, tip}] */
+function hbars(mount, rows, o){
+  const W=720,rh=o.rh||40,m={l:o.l||250,r:70,t:o.t||8,b:44},H=m.t+rows.length*rh+m.b;
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":o.aria},document.getElementById(mount));
+  const x=v=>m.l+(v-o.lo)/(o.hi-o.lo)*(W-m.l-m.r);
+  o.ticks.forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:m.t,y2:H-m.b,class:t===0?"axis":"grid"},svg);el("text",{x:x(t),y:H-m.b+17,"text-anchor":"middle"},svg,o.tick(t));});
+  el("text",{x:(m.l+W-m.r)/2,y:H-5,"text-anchor":"middle"},svg,o.axis);
+  rows.forEach((r,i)=>{
+    const cy=m.t+i*rh+rh/2;
+    el("text",{x:m.l-12,y:r.sub?cy-1:cy+4,"text-anchor":"end",class:"lab"},svg,r.label);
+    if(r.sub)el("text",{x:m.l-12,y:cy+14,"text-anchor":"end"},svg,r.sub);
+    const g=el("g",{},svg);
+    el("rect",{x:Math.min(x(0),x(r.value)),y:cy-11,width:Math.max(2,Math.abs(x(r.value)-x(0))),height:22,rx:3,fill:r.color},g);
+    const wide=Math.abs(x(r.value)-x(0))>70;
+    el("text",{x:wide?x(r.value)-8:x(r.value)+8,y:cy+5,"text-anchor":wide?"end":"start",class:"lab",fill:wide?"#fff":css("--ink")},g,o.fmt(r.value));
+    hover(g,`<b>${r.label}</b>${r.sub?" ("+r.sub+")":""}<br>${o.fmt(r.value)}`);
+  });
+  if(o.ref!=null){const ln=el("line",{x1:x(o.ref),x2:x(o.ref),y1:m.t,y2:H-m.b,stroke:css("--ink"),"stroke-width":1.5,"stroke-dasharray":"4 3"});svg.insertBefore(ln,svg.querySelector("g"));}
+  return {svg,x,m,H};
+}
+
+
+/* 0 duel: wave vs moderate edge */
+(function(){
+  const d=HOUSE.duel.find(r=>r.sample==="all"), d90=HOUSE.duel.find(r=>r.sample==="counted >= 90%");
+  const rows=[
+    {label:"The wave",sub:`average House Democrat vs Harris, ${SEL.house_all_n} races`,v:HOUSE.wave_mean,lo:null,hi:null,color:css("--gray-soft")},
+    {label:"Edge for moderate-backed",sub:`vs progressive-backed, ${d.n} races`,v:-d.prog_minus_mod,lo:-d.ci_hi,hi:-d.ci_lo,color:css("--tw")},
+    {label:"Same test, races fully counted",sub:`at least 90% of votes counted, ${d90.n} races`,v:-d90.prog_minus_mod,lo:-d90.ci_hi,hi:-d90.ci_lo,color:css("--tw")},
+  ];
+  const W=720,rh=58,m={l:270,r:60,t:10,b:44},H=m.t+rows.length*rh+m.b;
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"The wave was 14.4 points; the moderate edge was 0.1 points"},document.getElementById("duel"));
+  const lo=-5,hi=16,x=v=>m.l+(v-lo)/(hi-lo)*(W-m.l-m.r);
+  [-5,0,5,10,15].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:m.t,y2:H-m.b,class:t===0?"axis":"grid"},svg);el("text",{x:x(t),y:H-m.b+17,"text-anchor":"middle"},svg,sg(t));});
+  el("text",{x:(m.l+W-m.r)/2,y:H-5,"text-anchor":"middle"},svg,"points ahead of Harris 2024 →");
+  rows.forEach((r,i)=>{const cy=m.t+i*rh+rh/2;
+    el("text",{x:m.l-12,y:cy-1,"text-anchor":"end",class:"lab"},svg,r.label);
+    el("text",{x:m.l-12,y:cy+14,"text-anchor":"end"},svg,r.sub);
+    const g=el("g",{},svg);
+    el("rect",{x:Math.min(x(0),x(r.v)),y:cy-12,width:Math.max(3,Math.abs(x(r.v)-x(0))),height:24,rx:3,fill:r.color},g);
+    if(r.lo!=null){el("line",{x1:x(r.lo),x2:x(r.hi),y1:cy,y2:cy,stroke:css("--ink-soft"),"stroke-width":1.5},g);[r.lo,r.hi].forEach(v=>el("line",{x1:x(v),x2:x(v),y1:cy-6,y2:cy+6,stroke:css("--ink-soft"),"stroke-width":1.5},g));}
+    const tx=r.lo!=null?x(Math.max(r.hi,r.v))+10:x(r.v)+10;
+    el("text",{x:tx,y:cy+5,class:"lab"},g,sg(r.v.toFixed(1)));
+    hover(g,`<b>${r.label}</b><br>${sg(r.v.toFixed(1))} points${r.lo!=null?`<br>95% range ${r.lo.toFixed(1)} to ${sg(r.hi.toFixed(1))}`:""}`);
+  });
+})();
+
+/* 0b money: raised and the edge with money held constant */
+(function(){
+  const by=Object.fromEntries(FUND.by_side.map(r=>[r.affiliation,r]));
+  const W=720;
+  { const rows=[["moderate","Moderate-backed",css("--tw")],["progressive","Progressive-backed",css("--left")]];
+    const rh=34,m={l:270,r:90,t:26,b:8},H=m.t+rows.length*rh+m.b;
+    const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Median money raised: moderate-backed $3.0M, progressive-backed $1.6M"},document.getElementById("money2a"));
+    el("text",{x:8,y:14,class:"lab",fill:css("--accent")},svg,"MONEY RAISED, TYPICAL NOMINEE");
+    const x=v=>m.l+v/3.5e6*(W-m.l-m.r);
+    rows.forEach(([k,lab,col],i)=>{const cy=m.t+i*rh+rh/2,v=by[k].median_total;
+      el("text",{x:m.l-12,y:cy+4,"text-anchor":"end",class:"lab"},svg,`${lab} (${by[k].n})`);
+      el("rect",{x:m.l,y:cy-10,width:x(v)-m.l,height:20,rx:3,fill:col},svg);
+      el("text",{x:x(v)+8,y:cy+5,class:"lab"},svg,"$"+(v/1e6).toFixed(1)+"M");});
+  }
+  { const M=FUND.models.filter(r=>r.term==="progressive minus moderate");
+    const pick=k=>M.find(r=>r.model===k);
+    const rows=[["Before counting money",pick("head-to-head, no money")],["Money held constant",pick("head-to-head + relative money, sources, super PACs")],["Money held constant, fully counted",pick("head-to-head + money, >=90% counted")]];
+    const rh=40,m={l:270,r:60,t:28,b:40},H=m.t+rows.length*rh+m.b;
+    const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Edge for moderate-backed nominees stays near zero with money held constant"},document.getElementById("money2b"));
+    el("text",{x:8,y:14,class:"lab",fill:css("--accent")},svg,"EDGE FOR MODERATE-BACKED, SAME STATE");
+    const lo=-6,hi=6,x=v=>m.l+(v-lo)/(hi-lo)*(W-m.l-m.r);
+    [-6,-3,0,3,6].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:m.t,y2:H-m.b,class:t===0?"axis":"grid"},svg);el("text",{x:x(t),y:H-m.b+17,"text-anchor":"middle"},svg,sg(t));});
+    el("text",{x:(m.l+W-m.r)/2,y:H-5,"text-anchor":"middle"},svg,"← progressive-backed ahead · points · moderate-backed ahead →");
+    rows.forEach(([lab,r],i)=>{const cy=m.t+i*rh+rh/2,v=-r.coef,a=-r.ci_hi,b=-r.ci_lo;
+      el("text",{x:m.l-12,y:cy+4,"text-anchor":"end",class:"lab"},svg,lab);
+      const g=el("g",{},svg);
+      el("line",{x1:x(a),x2:x(b),y1:cy,y2:cy,stroke:css("--ink-soft"),"stroke-width":1.5},g);
+      [a,b].forEach(q=>el("line",{x1:x(q),x2:x(q),y1:cy-6,y2:cy+6,stroke:css("--ink-soft"),"stroke-width":1.5},g));
+      el("circle",{cx:x(v),cy,r:6,fill:css("--tw"),stroke:"#fff","stroke-width":1.5},g);
+      el("text",{x:W-m.r+10,y:cy+4,class:"lab"},g,sg(v.toFixed(1)));
+      hover(g,`<b>${lab}</b><br>${sg(v.toFixed(2))} points (95% range ${a.toFixed(1)} to ${sg(b.toFixed(1))}), n ${r.n}`);});
+  }
+})();
+/* 1 wave */
+(function(){
+  const ys=DATA.house_over, W=720,H=300,m={l:40,r:14,t:16,b:40};
+  const lo=-30,hi=45,bw=2.5,bins=[];for(let v=lo;v<hi;v+=bw)bins.push({x0:v,n:0});
+  ys.forEach(y=>{bins[Math.floor((Math.max(lo,Math.min(hi-0.01,y))-lo)/bw)].n++;});
+  const top=Math.ceil(Math.max(...bins.map(b=>b.n))/20)*20;
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Histogram: 412 of 417 House Democrats ran ahead of Harris"},document.getElementById("wave"));
+  const x=v=>m.l+(v-lo)/(hi-lo)*(W-m.l-m.r), y=n=>H-m.b-n/top*(H-m.t-m.b);
+  for(let t=0;t<=top;t+=20){el("line",{x1:m.l,x2:W-m.r,y1:y(t),y2:y(t),class:"grid"},svg);el("text",{x:m.l-8,y:y(t)+4,"text-anchor":"end"},svg,t);}
+  el("text",{x:m.l+4,y:m.t+4},svg,"number of races");
+  bins.forEach(b=>{if(!b.n)return;const r=el("rect",{x:x(b.x0)+1,y:y(b.n),width:x(b.x0+bw)-x(b.x0)-2,height:y(0)-y(b.n),rx:2,fill:b.x0<0?css("--gray-soft"):css("--left")},svg);hover(r,`${b.n} races ran ${sg(b.x0)} to ${sg(b.x0+bw)} vs Harris`);});
+  [-30,-15,0,15,30,45].forEach(t=>el("text",{x:x(t),y:H-m.b+17,"text-anchor":"middle"},svg,sg(t)));
+  el("text",{x:(m.l+W-m.r)/2,y:H-5,"text-anchor":"middle"},svg,"← did worse than Harris · points ahead of Harris 2024 · did better than Harris →");
+  el("line",{x1:x(0),x2:x(0),y1:m.t,y2:y(0),class:"axis"},svg);
+  const mean=ys.reduce((a,b)=>a+b,0)/ys.length, ahead=ys.filter(v=>v>0).length;
+  el("line",{x1:x(mean),x2:x(mean),y1:m.t+20,y2:y(0),stroke:css("--ink"),"stroke-width":1.5,"stroke-dasharray":"4 3"},svg);
+  el("text",{x:x(mean)+7,y:m.t+32,class:"lab"},svg,`average Democrat ${sg(mean.toFixed(1))}`);
+  el("text",{x:x(-28),y:m.t+52,class:"big",fill:css("--gray")},svg,`${ys.length-ahead} behind`);
+  el("text",{x:x(29),y:m.t+86,class:"big"},svg,`${ahead} ahead`);
+})();
+
+/* 2 endorsement lists vs everyone */
+(function(){
+  const L=SEL.lists["NewDem or WelcomePAC"], F=SEL.flips;
+  const rows=[
+    {label:"All House Democrats",sub:`${SEL.house_all_n} nominees`,value:SEL.house_all_mean,color:css("--gray-soft")},
+    {label:"New Democrat or WelcomePAC picks",sub:`${L.n} nominees`,value:L.mean_over,color:css("--tw")},
+    {label:"Those picks who lost or trail",sub:`${L.behind} nominees left out of Third Way's count`,value:L.behind_mean_over,color:css("--tw")},
+    {label:"Flipped seats, moderate-backed",sub:`${F.mod_endorsed_n} seats`,value:F.mod_endorsed_mean,color:css("--tw")},
+    {label:"Flipped seats, everyone else",sub:`${F.n-F.mod_endorsed_n} seats`,value:F.other_mean,color:css("--gray-soft")},
+  ];
+  hbars("lists",rows,{lo:0,hi:20,ticks:[0,5,10,15,20],tick:t=>sg(t),fmt:v=>sg(v.toFixed(1)),axis:"average points ahead of Harris 2024 →",aria:"Groups Third Way credits ran as far ahead of Harris as all House Democrats",l:300,rh:48,ref:SEL.house_all_mean});
+})();
+
+/* 3 red-state Senate Democrats */
+(function(){
+  const rows=SEL.senate_red.slice().sort((a,b)=>b.over_vs_harris-a.over_vs_harris);
+  const col=g=>g==="claimed moderate"?css("--tw"):g==="called leftier"?css("--left"):css("--gray-soft");
+  const W=720,rh=24,m={l:170,r:110,t:8,b:44},H=m.t+rows.length*rh+m.b;
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Senate Democrats in Trump-won states, points ahead of Harris"},document.getElementById("redstates"));
+  const x=v=>m.l+v/30*(W-m.l-m.r);
+  [0,10,20,30].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:m.t,y2:H-m.b,class:t===0?"axis":"grid"},svg);el("text",{x:x(t),y:H-m.b+17,"text-anchor":"middle"},svg,sg(t));});
+  el("text",{x:(m.l+W-m.r)/2,y:H-5,"text-anchor":"middle"},svg,"points ahead of Harris 2024 in the same state →");
+  rows.forEach((r,i)=>{const cy=m.t+i*rh+rh/2;
+    el("text",{x:m.l-10,y:cy+4,"text-anchor":"end",class:r.group==="claimed moderate"?"lab":"",fill:css("--ink")},svg,`${r.dem_last} (${r.state})`);
+    const g=el("g",{},svg);
+    el("rect",{x:x(0),y:cy-8,width:x(r.over_vs_harris)-x(0),height:16,rx:3,fill:col(r.group)},g);
+    el("text",{x:x(r.over_vs_harris)+6,y:cy+4,class:"val"},g,sg(r.over_vs_harris.toFixed(1)));
+    if(!r.competitive)el("text",{x:W-m.r+12,y:cy+4,fill:css("--ink-faint")},svg,"long shot");
+    hover(g,`<b>${r.dem_last}</b> (${r.state})<br>${sg(r.over_vs_harris.toFixed(1))} vs Harris<br>${r.group}${r.competitive?"":"<br>race rated safe Republican"}`);
+  });
+})();
+
+/* 4 where you ran: share of differences explained */
+(function(){
+  const A=HOUSE.anova.filter(a=>a.sample==="all");
+  const share=t=>A.find(a=>a.term.startsWith(t)).share_of_total*100;
+  const rows=[
+    {label:"Which state the race was in",sub:"all 417 House races",value:share("C(state)"),color:css("--left")},
+    {label:"Facing a sitting Republican",sub:"all 417 House races",value:share("C(seat"),color:css("--left")},
+    {label:"How Republican the district was",sub:"all 417 House races",value:share("harris_margin"),color:css("--left")},
+    {label:"Moderate or progressive backing",sub:"all 417 House races",value:share("C(affiliation"),color:css("--tw")},
+    {label:"Third Way's \"moderate\" label",sub:`the ${SEL.label_share.n} races it labeled`,value:SEL.label_share.share*100,color:css("--tw")},
+  ];
+  const fmt=v=>v<1?v.toFixed(1)+"%":Math.round(v)+"%";
+  hbars("where",rows,{lo:0,hi:45,ticks:[0,10,20,30,40],tick:t=>t+"%",fmt,axis:"share of the differences between races it explains →",aria:"State explains 39% of differences between House races; Third Way's label explains 0.5%",l:250,rh:50});
+})();
+
+/* 5 strip */
+(function(){
+  const W=720,H=214,m={l:64,r:16,t:38,b:42};
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"All 44 nominees score left of Third Way's -0.35"},document.getElementById("strip"));
+  const x=v=>m.l+(0.8-v)/1.3*(W-m.l-m.r);
+  [-0.5,-0.25,0,0.25,0.5,0.75].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:m.t,y2:H-m.b,class:"grid"},svg);el("text",{x:x(t),y:H-m.b+17,"text-anchor":"middle"},svg,sg(t.toFixed(2)));});
+  el("text",{x:(m.l+W-m.r)/2,y:H-5,"text-anchor":"middle"},svg,"← more progressive platform · less progressive platform →");
+  el("rect",{x:x(TW),y:m.t,width:x(-0.5)-x(TW),height:H-m.t-m.b,fill:css("--tw"),opacity:.12},svg);
+  const rows={S:m.t+38,H:m.t+98};
+  el("text",{x:m.l-10,y:rows.S+4,"text-anchor":"end",class:"lab"},svg,"Senate");
+  el("text",{x:m.l-10,y:rows.H+4,"text-anchor":"end",class:"lab"},svg,"House");
+  const tx=x(TW);
+  el("line",{x1:tx,x2:tx,y1:m.t-12,y2:H-m.b,stroke:css("--tw"),"stroke-width":2.5},svg);
+  el("text",{x:tx-8,y:m.t-18,"text-anchor":"end",class:"lab",fill:css("--tw")},svg,"Third Way's own positions");
+  const bins={};
+  R.slice().sort((a,b)=>a.c-b.c).forEach(d=>{
+    const k=d.ch+Math.round(d.c*26);bins[k]=(bins[k]||0)+1;const n=bins[k]-1;
+    const cy=rows[d.ch]+(n%2?1:-1)*Math.ceil(n/2)*11;
+    const c=el("circle",{cx:x(d.c),cy,r:5.2,fill:d.tw==="moderate"?css("--tw"):d.tw==="leftier"?css("--left"):css("--gray-soft"),stroke:"#fff","stroke-width":1.5},svg);
+    hover(c,`<b>${d.name}</b> (${d.id})<br>score ${sg(d.c.toFixed(2))}, ${d.ns} issues on record<br>${twLabel(d.tw)}<br>${sg(d.over.toFixed(1))} vs Harris`);
+  });
+  ["Talarico","El-Sayed"].forEach(nm=>{const d=R.find(r=>r.name===nm);el("text",{x:x(d.c),y:rows.S-22,"text-anchor":"middle",class:"lab"},svg,nm);});
+})();
+
+/* 6 Talarico */
+(function(){
+  const items=[["Medicare for All",0,-1],["Billionaire / wealth tax",1,0],["No corporate PAC money",1,0],["No AIPAC money / conditions on Israel aid",1,0],["Green New Deal",0,-1],["Federal minimum wage $17+",0.5,0.5],["End the filibuster",1,-1],["Expand the Supreme Court",0,0],["Student debt relief / free college",0,-1],["Break up monopolies",1,-1],["No crypto PAC money",0,0],["Universal childcare / pre-K",1,0],["Oppose Schumer as leader",0,0]];
+  const chip=v=>{const c=v===1?"p":v===0.5?"h":v===0?"z":"neg";const t=v===1?"supports":v===0.5?"partly":v===0?"silent":"opposes";return `<span class="chip ${c}">${t}</span>`;};
+  const tb=document.querySelector("#items tbody");
+  items.forEach(([n,t,w])=>{const tr=document.createElement("tr");if(t*w<0)tr.className="split";tr.innerHTML=`<td>${n}</td><td style="text-align:center">${chip(t)}</td><td style="text-align:center">${chip(w)}</td>`;tb.appendChild(tr);});
+  const tr=document.createElement("tr");tr.innerHTML=`<td><b>Platform score</b> (−1 to +1)</td><td class="n" style="text-align:center"><b>+0.50</b></td><td class="n" style="text-align:center"><b>−0.35</b></td>`;tb.appendChild(tr);
+})();
+
+/* 7 Third Way edge by yardstick */
+(function(){
+  const blocks=[["SENATE","S",[["harris24","Harris 2024"],["prior_seat","The seat's last race"],["midterm22","2022 midterm"],["house26","2026 House vote, same ballot"],["gov26","2026 governor, same ballot"]]],
+                ["HOUSE","H",[["harris24","Harris 2024"],["prior_seat","The seat's last race"],["midterm22","2022 midterm"]]]];
+  const rh=34,gap=30,W=720,m={l:210,r:60,t:8,b:42};
+  const H=m.t+blocks.reduce((a,b)=>a+b[2].length*rh+gap,0)+m.b-gap+20;
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Third Way's moderate edge by yardstick, Senate and House"},document.getElementById("bases"));
+  const lo=-20,hi=20,x=v=>m.l+(Math.max(lo,Math.min(hi,v))-lo)/(hi-lo)*(W-m.l-m.r);
+  [-20,-10,0,10,20].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:m.t,y2:H-m.b,class:t===0?"axis":"grid"},svg);el("text",{x:x(t),y:H-m.b+17,"text-anchor":"middle"},svg,sg(t));});
+  el("text",{x:x(-10),y:H-4,"text-anchor":"middle"},svg,"← moderates did worse");
+  el("text",{x:x(10),y:H-4,"text-anchor":"middle"},svg,"moderates did better →");
+  let yy=m.t;
+  blocks.forEach(([title,sc,rows])=>{
+    el("text",{x:8,y:yy+14,class:"lab",fill:css("--accent")},svg,title);
+    yy+=20;
+    rows.forEach(([bk,bl])=>{
+      const e=DEB.effects.find(r=>r.baseline===bk&&r.scope===sc&&r.coding==="a_moderate");if(!e)return;
+      const cy=yy+rh/2,col=bk==="harris24"?css("--tw"):css("--left");
+      el("text",{x:m.l-12,y:cy+4,"text-anchor":"end",class:bk==="harris24"?"lab":"",fill:css("--ink")},svg,bl);
+      const g=el("g",{},svg);
+      el("rect",{x:Math.min(x(0),x(e.coef)),y:cy-9,width:Math.abs(x(e.coef)-x(0)),height:18,rx:3,fill:col,opacity:.9},g);
+      el("line",{x1:x(e.ci_lo),x2:x(e.ci_hi),y1:cy,y2:cy,stroke:css("--ink-soft"),"stroke-width":1.5},g);
+      [e.ci_lo,e.ci_hi].forEach(v=>{if(v>lo&&v<hi)el("line",{x1:x(v),x2:x(v),y1:cy-5,y2:cy+5,stroke:css("--ink-soft"),"stroke-width":1.5},g);});
+      el("text",{x:W-m.r+10,y:cy+4,class:"lab"},g,sg(e.coef.toFixed(1)));
+      hover(g,`<b>${title==="SENATE"?"Senate":"House"}, vs ${bl}</b><br>moderates ${e.coef>=0?"ahead":"behind"} by ${Math.abs(e.coef).toFixed(1)} points<br>95% range ${e.ci_lo.toFixed(1)} to ${e.ci_hi.toFixed(1)}, n ${e.n}`);
+      yy+=rh;
+    });
+    yy+=gap-20;
+  });
+})();
+
+/* 8 scatter */
+(function(){
+  const pts=R.map(d=>({...d,e:ebOf[d.id].eb_mean,sd:ebOf[d.id].eb_sd}));
+  const W=720,H=410,m={l:46,r:16,t:22,b:46};
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Platform score against points ahead of Harris; no reliable slope"},document.getElementById("scatter"));
+  const x=v=>m.l+(1.35-v)/1.4*(W-m.l-m.r), y=v=>m.t+(35-v)/40*(H-m.t-m.b);
+  [-5,0,5,10,15,20,25,30,35].forEach(t=>{el("line",{x1:m.l,x2:W-m.r,y1:y(t),y2:y(t),class:t===0?"axis":"grid"},svg);el("text",{x:m.l-8,y:y(t)+4,"text-anchor":"end"},svg,sg(t));});
+  [0,0.25,0.5,0.75,1,1.25].forEach(t=>el("text",{x:x(t),y:H-m.b+17,"text-anchor":"middle"},svg,t.toFixed(2)));
+  el("text",{x:(m.l+W-m.r)/2,y:H-5,"text-anchor":"middle"},svg,"← more progressive platform · less progressive platform →");
+  el("text",{x:m.l+4,y:m.t-6},svg,"↑ points ahead of Harris 2024");
+  const bandLayer=el("g",{},svg);
+  pts.forEach(d=>el("line",{x1:x(d.e-d.sd),x2:x(d.e+d.sd),y1:y(d.over),y2:y(d.over),stroke:css("--gray-soft"),"stroke-width":1.5},svg));
+  const labels={"Talarico":[0,-12,"middle"],"McAdams":[0,-12,"middle"],"Ossoff":[0,-12,"middle"],"Jackson":[0,20,"middle"]};
+  pts.forEach(d=>{
+    const c=el("circle",{cx:x(d.e),cy:y(d.over),r:5.5,fill:css("--left"),"fill-opacity":0.85,stroke:"#fff","stroke-width":1.5},svg);
+    hover(c,`<b>${d.name}</b> (${d.id})<br>${sg(d.over.toFixed(1))} vs Harris${d.prior!=null?`, ${sg(d.prior.toFixed(1))} vs prior race`:""}<br>platform score ${d.e.toFixed(2)} ± ${d.sd.toFixed(2)}<br>${twLabel(d.tw)}`);
+    if(labels[d.name]){const [dx,dy,a]=labels[d.name];el("text",{x:x(d.e)+dx,y:y(d.over)+dy,"text-anchor":a,class:"lab",stroke:"#fff","stroke-width":3,"paint-order":"stroke"},svg,d.name);}
+  });
+  const ols=S=>{const n=S.length,mx=S.reduce((a,d)=>a+d.e,0)/n,my=S.reduce((a,d)=>a+d.over,0)/n;let sxy=0,sxx=0;S.forEach(d=>{sxy+=(d.e-mx)*(d.over-my);sxx+=(d.e-mx)**2;});const b=sxy/sxx;return [my-b*mx,b];};
+  const [a,b]=ols(pts),lo=Math.min(...pts.map(d=>d.e)),hi=Math.max(...pts.map(d=>d.e));
+  let s=20261106;const rnd=()=>{s|=0;s=s+0x6D2B79F5|0;let q=Math.imul(s^s>>>15,1|s);q=q+Math.imul(q^q>>>7,61|q)^q;return((q^q>>>14)>>>0)/4294967296;};
+  const byState={};pts.forEach(d=>{const k=d.id.slice(0,2);(byState[k]=byState[k]||[]).push(d);});const states=Object.keys(byState);
+  const grid=Array.from({length:25},(_,i)=>lo+(hi-lo)*i/24),fits=grid.map(()=>[]);
+  for(let k=0;k<2000;k++){const S=[];for(let j=0;j<states.length;j++)S.push(...byState[states[Math.floor(rnd()*states.length)]]);if(new Set(S.map(d=>d.e)).size<3)continue;const [ba,bb]=ols(S);grid.forEach((g,i)=>fits[i].push(ba+bb*g));}
+  const q=(arr,p)=>{const v=arr.slice().sort((m,n)=>m-n);return v[Math.floor(p*(v.length-1))];};
+  const up=grid.map((g,i)=>[x(g),y(q(fits[i],0.975))]),dn=grid.map((g,i)=>[x(g),y(q(fits[i],0.025))]).reverse();
+  el("path",{d:"M"+up.concat(dn).map(p=>p.join(",")).join("L")+"Z",fill:css("--ink-soft"),opacity:0.12},bandLayer);
+  el("line",{x1:x(lo),x2:x(hi),y1:y(a+b*lo),y2:y(a+b*hi),stroke:css("--ink-soft"),"stroke-width":2,"stroke-dasharray":"6 4","stroke-linecap":"round"},bandLayer);
+  const cr=DATA.correlations.find(c=>c.outcome==="over_vs_harris"&&c.factor==="c_eb");
+  document.getElementById("fitAll").textContent=`trend and 95% band: r ${cr.r.toFixed(2)}, range ${cr.ci_lo.toFixed(2)} to ${sg(cr.ci_hi.toFixed(2))}, no reliable slope`;
+})();
+
+/* 9 money */
+(function(){
+  const rows=[["El-Sayed","MI Senate",30.67,"aipac",8.4],["Biss","IL-09",6.31,"aipac",15.1],["Avila Chevalier","NY-13",2.89,"aipac",17.7],["Ford","IL-07",2.48,"crypto",12.7],["Gilbert","FL-24",2.06,"crypto",22.6],["McKinney","MI-13",2.03,"crypto",15.6],["Miller","IL-02",1.43,"ai",12.6],["Shah","AZ-01",1.25,"aipac",10.1]];
+  const W=720,rh=34,m={l:170,r:120,t:30,b:34},H=m.t+rows.length*rh+m.b;
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Primary money spent against eight nominees who won"},document.getElementById("money"));
+  const x=v=>m.l+v/32*(W-m.l-m.r-20);
+  [0,10,20,30].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:m.t-4,y2:H-m.b,class:t===0?"axis":"grid"},svg);el("text",{x:x(t),y:H-m.b+17,"text-anchor":"middle"},svg,"$"+t+"M");});
+  const cx=W-m.r+16;
+  el("line",{x1:cx-8,x2:cx-8,y1:m.t-16,y2:H-m.b,class:"grid"},svg);
+  el("text",{x:cx+44,y:m.t-12,"text-anchor":"middle"},svg,"vs Harris");
+  el("text",{x:m.l,y:m.t-12},svg,"spent against them in the primary");
+  const col={aipac:css("--aipac"),crypto:css("--gray"),ai:css("--ai")};
+  rows.forEach((r,i)=>{const cy=m.t+12+i*rh;
+    el("text",{x:m.l-12,y:cy+4,"text-anchor":"end",class:"lab"},svg,r[0]);
+    el("text",{x:m.l-12,y:cy+17,"text-anchor":"end","font-size":"10.5"},svg,r[1]);
+    const g=el("g",{},svg);const w=x(r[2])-m.l;
+    el("rect",{x:m.l,y:cy-8,width:w,height:18,rx:3,fill:col[r[3]]},g);
+    const inside=w>70;
+    el("text",{x:inside?x(r[2])-8:x(r[2])+6,y:cy+5,"text-anchor":inside?"end":"start",class:"val",fill:inside?"#fff":css("--ink-soft"),"font-weight":700},g,"$"+r[2].toFixed(1)+"M");
+    el("text",{x:cx+44,y:cy+5,"text-anchor":"middle",class:"lab"},svg,"+"+r[4]);
+    hover(g,`<b>${r[0]}</b> (${r[1]})<br>$${r[2].toFixed(2)}M ${r[3]==="aipac"?"AIPAC / UDP":r[3]} primary money<br>won, +${r[4]} vs Harris`);
+  });
+})();
+
+/* 10 gaps */
+(function(){
+  const meas=[["c_eb10","Gaps filled in"],["c_fe10","Gaps dropped, issue-adjusted"],["c_stated10","Gaps dropped"],["c_index10","Gaps scored as centrist"]];
+  const bases=[["harris24","vs Harris 2024"],["hist","vs history, no Harris"],["prior_seat","vs prior race"]];
+  const W=720,rh=22,gap=18,m={l:200,r:70,t:10,b:38};
+  const H=m.t+bases.length*(meas.length*rh+gap)+m.b;
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Effect of the platform score under four measures and three yardsticks"},document.getElementById("gaps"));
+  const x=v=>m.l+(v+3)/5*(W-m.l-m.r);
+  [-3,-2,-1,0,1,2].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:m.t,y2:H-m.b,class:t===0?"axis":"grid"},svg);el("text",{x:x(t),y:H-m.b+17,"text-anchor":"middle"},svg,sg(t));});
+  el("text",{x:(m.l+W-m.r)/2,y:H-5,"text-anchor":"middle"},svg,"← progressives behind · points per +0.1 on the score · progressives ahead →");
+  let yy=m.t;
+  bases.forEach(([bk,bl])=>{
+    el("text",{x:8,y:yy+12,class:"lab",fill:css("--accent")},svg,bl.toUpperCase());
+    meas.forEach(([ck,cl],i)=>{
+      const e=DEB.effects.find(r=>r.baseline===bk&&r.scope==="P"&&r.coding===ck);const cy=yy+i*rh+rh/2+14;
+      el("text",{x:m.l-10,y:cy+4,"text-anchor":"end",fill:ck==="c_eb10"?css("--ink"):css("--ink-faint"),"font-weight":ck==="c_eb10"?700:400},svg,cl);
+      if(!e)return;const col=ck==="c_eb10"?css("--left"):css("--gray");
+      const g=el("g",{},svg);
+      el("line",{x1:x(Math.max(-3,e.ci_lo)),x2:x(Math.min(2,e.ci_hi)),y1:cy,y2:cy,stroke:col,"stroke-width":2.5,"stroke-linecap":"round"},g);
+      el("circle",{cx:x(e.coef),cy,r:5,fill:col,stroke:"#fff","stroke-width":1.5},g);
+      el("text",{x:W-m.r+8,y:cy+4,class:"val"},g,sg(e.coef.toFixed(2)));
+      hover(g,`<b>${cl}, ${bl}</b><br>${sg(e.coef.toFixed(2))} points per +0.1 (95% range ${e.ci_lo.toFixed(2)} to ${e.ci_hi.toFixed(2)})<br>n ${e.n}`);
+    });
+    yy+=meas.length*rh+gap;
+  });
+})();
+
+/* 11 correlation table */
+(function(){
+  const tb=document.querySelector("#corr tbody");
+  const get=(o,f)=>DATA.correlations.find(c=>c.outcome===o&&c.factor===f);
+  const bar=c=>{const w=140,h=18,x=v=>4+(v+0.8)/1.6*(w-8);const col=c.clear_of_zero?"var(--accent)":"var(--gray)";
+    return `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="r ${c.r.toFixed(2)}, range ${c.ci_lo.toFixed(2)} to ${c.ci_hi.toFixed(2)}"><line x1="${x(0)}" x2="${x(0)}" y1="1" y2="${h-1}" stroke="#8a8880"/><line x1="${x(c.ci_lo)}" x2="${x(c.ci_hi)}" y1="${h/2}" y2="${h/2}" stroke="${col}" stroke-width="3" stroke-linecap="round"/><circle cx="${x(c.r)}" cy="${h/2}" r="4.5" fill="${col}" stroke="#fff" stroke-width="1.5"/></svg>`;};
+  let grp="";
+  DATA.correlations.filter(c=>c.outcome==="over_vs_harris").forEach(c=>{
+    if(c.group!==grp){grp=c.group;const g=document.createElement("tr");g.className="grp";g.innerHTML=`<td colspan="6">${grp}</td>`;tb.appendChild(g);}
+    const p=get("over_prior_seat",c.factor);const tr=document.createElement("tr");
+    tr.innerHTML=`<td>${c.label}</td><td class="n">${c.n}</td><td class="n">${sg(c.r.toFixed(2))}</td><td class="ci">${bar(c)}</td><td class="n">${sg(p.r.toFixed(2))}</td><td class="ci">${bar(p)}</td>`;
+    tb.appendChild(tr);
+  });
+})();
+
+/* 12 ANOVA table */
+(function(){
+  const tb=document.querySelector("#anova tbody"), A=DATA.anova;
+  const row=(o,m,t)=>A.find(a=>a.outcome===o&&a.model===m&&a.term===t);
+  const fmtp=p=>p<0.001?"<0.001":p.toFixed(3);
+  const cells=r=>r&&r.F!=null?`<td class="n">${r.F.toFixed(2)}</td><td class="n">${fmtp(r.p)}</td><td class="n">${(r.partial_eta2*100).toFixed(1)}%</td>`:`<td class="n">·</td><td class="n">·</td><td class="n">·</td>`;
+  const add=(label,a,b)=>{const tr=document.createElement("tr");if((a&&a.p<0.05)||(b&&b.p<0.05))tr.className="sig";tr.innerHTML=`<td>${label}</td>${cells(a)}${cells(b)}`;tb.appendChild(tr);};
+  const grp=t=>{const g=document.createElement("tr");g.className="grp";g.innerHTML=`<td colspan="7">${t}</td>`;tb.appendChild(g);};
+  grp("All ten traits in one model");
+  A.filter(a=>a.outcome==="over_vs_harris"&&a.model==="full"&&a.term!=="Residual").forEach(a=>add(a.label,a,row("over_prior_seat","full",a.term)));
+  const fh=row("over_vs_harris","full","Residual"),fp=row("over_prior_seat","full","Residual");
+  const tr=document.createElement("tr");tr.innerHTML=`<td><b>Share explained (R²)</b></td><td class="n" colspan="3"><b>${(fh.r2*100).toFixed(1)}%</b></td><td class="n" colspan="3"><b>${(fp.r2*100).toFixed(1)}%</b></td>`;tb.appendChild(tr);
+  grp("Adding Third Way's label");
+  ["a_moderate","a_moderate:senate"].forEach(t=>add(row("over_vs_harris","thirdway",t).label,row("over_vs_harris","thirdway",t),row("over_prior_seat","thirdway",t)));
+})();
+</script>

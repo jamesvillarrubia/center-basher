@@ -1,0 +1,8 @@
+group,state,dem_last,dem_incumbent,prior_office,prior_office_note,fame_flag,fame_note,pageviews_12m_pre_launch,poll_name_id,announce_date,fec_f2_first_2026,launch_date,days_on_trail,primary_date,days_primary_to_general,over_vs_harris,over_vs_house_statewide
+Schumer-backed,GA,Ossoff,True,3.0,U.S. senator since 2021 (incumbent),0.0,,522972.0,,,,,,2026-05-19,168.0,20.24230088215452,5.632252091359126
+Schumer-backed,NC,Cooper,False,3.0,Governor of North Carolina 2017-25,0.0,,2362283.0,,2025-07-28,,2025-07-28,463.0,2026-03-03,245.0,22.85179276261241,4.518912557514952
+Schumer-backed,OH,Brown,False,3.0,U.S. senator 2007-25,0.0,,693230.0,,2025-08-01,,2025-08-01,459.0,2026-05-05,182.0,16.11022839409889,1.7691129754802102
+not backed pre-primary,IA,Turek,False,1.0,Iowa House member since 2023,1.0,"Paralympic gold medalist (2016, 2020), four-time Paralympian",10808.0,,2025-08-12,,2025-08-12,448.0,2026-06-02,154.0,17.387685930146084,2.8807471186664486
+not backed pre-primary,KS,Hamilton,False,0.0,no elected office,1.0,senior pastor of the largest United Methodist congregation in the U.S.; author of 30+ books,15489.0,,2026-04-01,,2026-04-01,216.0,2026-08-04,91.0,21.11621834673536,7.14025642505838
+not backed pre-primary,SC,Andrews,False,0.0,no elected office (2022 House nominee),0.0,,479.0,,2025-05-29,,2025-05-29,523.0,2026-06-09,147.0,22.410792302013007,7.110096438631528
+not backed pre-primary,TX,Talarico,False,1.0,Texas House member since 2018,1.0,viral legislative videos and an appearance on The Joe Rogan Experience (before launch),789878.0,,2025-09-09,,2025-09-09,420.0,2026-03-03,245.0,25.78639001362088,6.156195243594449

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Moderate Democrats in the House also outperformed progressives.&rdquo; (The Atlantic)</div>
+    <div class="cc-title">Compare Democrats in the same kind of seat and the <span class="hl">&ldquo;moderate edge&rdquo;</span> falls inside the noise.</div>
+    <div class="cc-sub">Progressives mostly hold seats Harris won by 30 to 60 points, where there is less room to grow. Raw averages compare those seats with swing seats.</div>
+
+    <div class="cc-chart"><svg id="c" viewBox="0 0 1300 400" role="img"
+      aria-label="Moderate edge over progressives in House gain over Harris 2024. CNN raw averages 3.2 points. Our raw averages 1.7. Same state, seat type and Harris margin 0.1, 95 percent interval minus 2.1 to plus 2.4. Same comparison in races at least 90 percent counted 2.2, interval minus 0.7 to plus 5.0."></svg></div>
+
+    <div class="cc-foot">
+      <div class="cc-source">CNN raw averages: G. Elliott Morris via CNN, Nov 6 2026 (Blue Dogs 15.4 vs Progressive Caucus 12.2). Ours: 2026 House margin minus Harris 2024 margin by district, CNN counts pulled Nov 5; nominees tagged by endorsing groups. OLS with state, seat-type and Harris-margin controls, state-clustered 95% intervals; n 195 and 124.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('c');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); svg.appendChild(n); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; return t; };
+    const rows = [
+      { l1: 'Raw averages', l2: 'CNN: Blue Dogs vs Progressive Caucus', v: 3.2, raw: true },
+      { l1: 'Raw averages', l2: 'ours: moderate- vs progressive-backed', v: 1.7, raw: true },
+      { l1: 'Same state, seat type, Harris margin', l2: 'all 195 duels', v: 0.1, lo: -2.1, hi: 2.4 },
+      { l1: 'Same comparison', l2: 'only races 90%+ counted (124)', v: 2.2, lo: -0.7, hi: 5.0 },
+    ];
+    const x0 = 560, k = 82, xmin = -3, xmax = 5.5, y0 = 40, rh = 82;
+    const X = v => x0 + (v - xmin) * k;
+    const bot = y0 + rows.length * rh;
+    [-2, 0, 2, 4].forEach(v => {
+      el('line', { x1: X(v), y1: y0 - 10, x2: X(v), y2: bot, stroke: v === 0 ? '#1b1b1d' : '#e3dfd6', 'stroke-width': v === 0 ? 2.5 : 1.5 });
+      txt({ x: X(v), y: bot + 30, 'text-anchor': 'middle', fill: '#4a4a4f', 'font-size': 20 }, (v > 0 ? '+' : '') + v);
+    });
+    txt({ x: X(0) - 12, y: y0 - 18, 'text-anchor': 'end', fill: '#3a3a3f', 'font-size': 19, 'font-weight': 700 }, '◀ progressives ahead');
+    txt({ x: X(0) + 12, y: y0 - 18, 'text-anchor': 'start', fill: '#3a3a3f', 'font-size': 19, 'font-weight': 700 }, 'moderates ahead ▶');
+    txt({ x: X(xmax), y: bot + 30, 'text-anchor': 'end', fill: '#4a4a4f', 'font-size': 18 }, 'points');
+    rows.forEach((r, i) => {
+      const cy = y0 + i * rh + rh / 2;
+      txt({ x: 20, y: cy - 4, fill: '#1b1b1d', 'font-size': 23, 'font-weight': 700 }, r.l1);
+      txt({ x: 20, y: cy + 24, fill: '#4a4a4f', 'font-size': 19 }, r.l2);
+      if (r.lo !== undefined) {
+        el('rect', { x: X(r.lo), y: cy - 9, width: X(r.hi) - X(r.lo), height: 18, rx: 9, fill: '#2c5b9c', opacity: 0.22 });
+        el('circle', { cx: X(r.v), cy, r: 13, fill: '#2c5b9c' });
+        txt({ x: X(r.hi) + 14, y: cy + 8, fill: '#1b1b1d', 'font-size': 22, 'font-weight': 800 }, (r.v >= 0 ? '+' : '−') + Math.abs(r.v).toFixed(1));
+      } else {
+        el('circle', { cx: X(r.v), cy, r: 13, fill: '#fbfbf8', stroke: '#6b6964', 'stroke-width': 4 });
+        txt({ x: X(r.v) + 24, y: cy + 8, fill: '#3a3a3f', 'font-size': 22, 'font-weight': 800 }, '+' + r.v.toFixed(1));
+      }
+    });
+  </script>
+</body></html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;Americans like Sanders&rsquo;s message less than the standard Democratic message.&rdquo; (The Atlantic)</div>
+    <div class="cc-title">Bernie lost in 2016. The 2026 &ldquo;moderates&rdquo; <span class="hl">ran on his platform</span>.</div>
+    <div class="cc-sub">Everything but single payer. Even Third Way has moved toward Sanders since 2016, and the candidates moved further.</div>
+
+    <div class="cc-chart"><svg id="c" viewBox="0 0 1300 500" role="img"
+      aria-label="Six positions. Sanders 2016: for all six. Clinton at her 2015 launch: no billionaire tax, took corporate PAC money, partway on banks, partway on wages with 12 dollars, partway on the Social Security cap, against single payer. Talarico: for the first five, partway on Medicare for All. Turek: for billionaire taxes, no corporate PAC money, monopolies and lifting the cap; partway on wages; against Medicare for All. Andrews: for billionaire taxes, no corporate PAC money and lifting the cap; partway on wages; against Medicare for All. Ossoff: for no corporate PAC money and 15 dollars; partway on Medicare for All. Third Way 2012 to 2016: partway on taxes and wages, against lifting the cap. Third Way 2026: partway on taxes, wages and the cap; against monopoly breakups and Medicare for All."></svg></div>
+
+    <div class="cc-legend">
+      <span class="item"><span class="dot" style="background:#2c5b9c"></span>For it</span>
+      <span class="item"><span class="dot" style="background:#8fa9cf"></span>Partway</span>
+      <span class="item"><span class="dot" style="background:#4a4a4f"></span>Against it</span>
+      <span class="item"><span class="dot" style="background:#e3dfd6"></span>No sourced position</span>
+    </div>
+    <div class="cc-foot">
+      <div class="cc-source">2026 nominees: campaign sites, debates, AARP Q&amp;A, local press; Turek and Andrews on Medicare for All per The Atlantic. Clinton 2015: $12 wage, &ldquo;look at the cap,&rdquo; single payer &ldquo;will never, ever come to pass.&rdquo; Third Way: 2011 plan to raise the retirement age to 68; $10&ndash;12 regional wage (2015), regional $15 (2019&ndash;21); 2026 cap memo lists lifting it as an option. Partway = buy-in or public option, a raise with no dollar figure, or a cap &ldquo;option.&rdquo;</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('c');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); svg.appendChild(n); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; return t; };
+    const cols = [
+      ['Tax', 'billionaires'], ['No corporate', 'PAC money'], ['Break up', 'monopolies', 'or banks'],
+      ['$15 minimum', 'wage'], ['Lift Social', 'Security cap'], ['Medicare', 'for All'],
+    ];
+    // 1 for, 0.5 partway, -1 against, 0 none
+    const rows = [
+      ['Bernie Sanders, 2016', [1, 1, 1, 1, 1, 1]],
+      ['Hillary Clinton, 2015 launch', [0, -1, 0.5, 0.5, 0.5, -1]],
+      ['James Talarico (TX)', [1, 1, 1, 1, 1, 0.5]],
+      ['Josh Turek (IA)', [1, 1, 1, 0.5, 1, -1]],
+      ['Annie Andrews (SC)', [1, 1, 0, 0.5, 1, -1]],
+      ['Jon Ossoff (GA)', [0, 1, 0, 1, 0, 0.5]],
+      ['Third Way, 2012–16', [0.5, 0, 0, 0.5, -1, 0]],
+      ['Third Way, 2026', [0.5, 0, -1, 0.5, 0.5, -1]],
+    ];
+    const lx = 16, cx0 = 400, cw = 150, y0 = 84, rh = 50;
+    cols.forEach((c, j) => {
+      const x = cx0 + j * cw + cw / 2;
+      const hy = y0 - 12 - (c.length - 1) * 23;
+      c.forEach((line, k) => txt({ x, y: hy + k * 23, 'text-anchor': 'middle', fill: '#1b1b1d', 'font-size': 19, 'font-weight': 800 }, line));
+    });
+    rows.forEach(([n, v], i) => {
+      const y = y0 + i * rh;
+      if (i % 2 === 0) el('rect', { x: 0, y, width: cx0 + cols.length * cw, height: rh, fill: '#f2efe8' });
+      txt({ x: lx, y: y + rh / 2 + 8, fill: '#1b1b1d', 'font-size': 22, 'font-weight': i === 0 ? 800 : 600 }, n);
+      v.forEach((s, j) => {
+        const cx = cx0 + j * cw + cw / 2, cy = y + rh / 2;
+        const fill = s === 1 ? '#2c5b9c' : s === 0.5 ? '#8fa9cf' : s === -1 ? '#4a4a4f' : '#e3dfd6';
+        el('circle', { cx, cy, r: 18, fill });
+        const mark = s === 1 ? '✓' : s === 0.5 ? '½' : s === -1 ? '✕' : '';
+        if (mark) txt({ x: cx, y: cy + 8, 'text-anchor': 'middle', fill: '#fff', 'font-size': 21, 'font-weight': 800 }, mark);
+      });
+    });
+  </script>
+</body></html>

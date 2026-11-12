@@ -1,0 +1,61 @@
+list,race_id,dem_nominee,dem_won,over_vs_harris,status,behind
+NewDem or WelcomePAC,AZ-01,Amish Shah,True,10.131845673381672,called D,False
+NewDem or WelcomePAC,AZ-02,Jonathan Nez,False,14.196694438773925,trailing D,True
+NewDem or WelcomePAC,AZ-06,JoAnna Mendoza,True,8.859258302714888,called D,False
+NewDem or WelcomePAC,CA-26,Jacqui Irwin,True,8.255763366271841,called D,False
+NewDem or WelcomePAC,CA-48,Marni von Wilpert,True,15.619777667061092,called D,False
+NewDem or WelcomePAC,CO-03,Dwayne Romero,False,7.877707803649711,called R,True
+NewDem or WelcomePAC,CO-05,Jessica Killin,True,13.66770981037562,called D,False
+NewDem or WelcomePAC,CO-08,Manny Rutinel,True,14.830261881402905,called D,False
+NewDem or WelcomePAC,CT-01,Luke Bronin,True,13.016546832889407,called D,False
+NewDem or WelcomePAC,FL-07,Bale Dalton,False,11.955254274934678,trailing D,True
+NewDem or WelcomePAC,FL-13,Leela Gray,False,12.517118942506444,called R,True
+NewDem or WelcomePAC,FL-22,Pia Dandiya,True,14.064249304079231,called D,False
+NewDem or WelcomePAC,FL-27,Eliott Rodriguez,False,14.130147462872037,trailing D,True
+NewDem or WelcomePAC,IA-01,Christina Bohannan,True,17.711033953744177,called D,False
+NewDem or WelcomePAC,IA-02,Lindsay James,True,13.973212161650824,called D,False
+NewDem or WelcomePAC,IA-03,Sarah Trone Garriott,True,11.695965210493512,called D,False
+NewDem or WelcomePAC,IL-02,Donna Miller,True,12.595924297457472,called D,False
+NewDem or WelcomePAC,IL-08,Melissa Bean,True,20.676008734962835,called D,False
+NewDem or WelcomePAC,IN-05,J.D. Ford,True,20.123140780633587,called D,False
+NewDem or WelcomePAC,KY-06,Zach Dembo,True,24.426893143423463,called D,False
+NewDem or WelcomePAC,MD-05,Adrian Boafo,True,4.590523038513517,called D,False
+NewDem or WelcomePAC,MI-01,Callie Barr,False,11.641767808719557,called R,True
+NewDem or WelcomePAC,MI-04,Sean McCann,True,7.351225869247823,called D,False
+NewDem or WelcomePAC,MI-10,Christina Hines,True,13.724103968884611,called D,False
+NewDem or WelcomePAC,MI-11,Jeremy Moss,True,7.937527357819636,called D,False
+NewDem or WelcomePAC,MN-01,Jake Johnson,False,12.099024471000853,leading D,False
+NewDem or WelcomePAC,MO-02,Fred Wellman,True,12.83224016343232,called D,False
+NewDem or WelcomePAC,NC-03,Raymond Smith,False,13.532061335664809,trailing D,True
+NewDem or WelcomePAC,NC-11,Jamie Ager,True,25.33194366970494,called D,False
+NewDem or WelcomePAC,NE-01,Chris Backemeyer,False,8.92593195701107,called R,True
+NewDem or WelcomePAC,NE-02,Denise Powell,True,10.76517837829046,called D,False
+NewDem or WelcomePAC,NH-01,Stefany Shaheen,True,12.44265852029616,called D,False
+NewDem or WelcomePAC,NJ-07,Rebecca Bennett,True,16.90804243568361,called D,False
+NewDem or WelcomePAC,NV-02,Teresa Benitez-Thompson,True,19.298515103150677,called D,False
+NewDem or WelcomePAC,NY-17,Cait Conley,True,3.8454636094696606,called D,False
+NewDem or WelcomePAC,NY-21,Blake Gendebien,False,18.563851197522993,called R,True
+NewDem or WelcomePAC,OH-10,Kristina Knickerbocker,True,9.42501271455817,called D,False
+NewDem or WelcomePAC,PA-01,Bob Harvie,True,5.163738902691395,called D,False
+NewDem or WelcomePAC,PA-08,Paige Cognetti,True,17.21982646544447,called D,False
+NewDem or WelcomePAC,PA-10,Janelle Stelson,True,15.322325264126402,called D,False
+NewDem or WelcomePAC,SC-01,Nancy Lacore,False,14.025365537732432,leading D,False
+NewDem or WelcomePAC,TN-05,Chaz Molder,False,18.135333286539858,called R,True
+NewDem or WelcomePAC,TX-15,Bobby Pulido,True,42.51038635319912,called D,False
+NewDem or WelcomePAC,TX-35,Johnny Garcia,True,21.31295258910825,called D,False
+NewDem or WelcomePAC,UT-01,Ben McAdams,True,23.368846674578368,called D,False
+NewDem or WelcomePAC,VA-01,Shannon Taylor,True,7.297086267389048,called D,False
+NewDem or WelcomePAC,VA-02,Elaine Luria,True,8.7606256554691,called D,False
+NewDem or WelcomePAC,WI-01,Mitchell Berman,True,8.420062670905784,called D,False
+NewDem or WelcomePAC,WI-03,Rebecca Cooke,True,14.04262754846523,called D,False
+NewDem or WelcomePAC,WA-03,Marie Gluesenkamp Perez,True,12.72031002142877,called D,False
+NewDem or WelcomePAC,CA-13,Adam Gray,True,22.268270083525557,called D,False
+NewDem or WelcomePAC,TX-34,Vicente Gonzalez,True,25.978041895926378,called D,False
+NewDem or WelcomePAC,MI-08,Kristen McDonald Rivet,True,15.586032258978936,called D,False
+NewDem or WelcomePAC,NY-03,Tom Suozzi,True,14.245476545007335,called D,False
+Justice Democrats,CO-01,Melat Kiros,True,8.199862946885823,called D,False
+Justice Democrats,MI-13,Donavan McKinney,True,15.587613770577851,called D,False
+Justice Democrats,NJ-12,Adam Hamawy,True,17.95452468166754,called D,False
+Justice Democrats,NY-07,Claire Valdez,True,22.635824964132,called D,False
+Justice Democrats,NY-13,Darializa Avila Chevalier,True,17.737612131406834,called D,False
+Justice Democrats,TN-09,Justin Pearson,False,20.014626574592004,called R,True

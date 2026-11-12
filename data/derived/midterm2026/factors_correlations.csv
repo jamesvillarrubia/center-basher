@@ -1,0 +1,31 @@
+outcome,outcome_label,factor,label,group,n,r,ci_lo,ci_hi,p_perm,clear_of_zero
+over_vs_harris,vs Harris 2024,c_eb,"Progressive index, coverage-corrected",Who the candidate is,44,-0.17506991463115235,-0.4764401995145757,0.14844701174532718,0.2578,False
+over_vs_harris,vs Harris 2024,c_index,"Progressive index, raw (unsourced = 0)",Who the candidate is,44,-0.2406226512815924,-0.5473822361800237,-0.009739337436365356,0.1122,True
+over_vs_harris,vs Harris 2024,a_moderate,Third Way calls them moderate,Who the candidate is,41,0.12303341488998562,-0.21912275073334198,0.46587319170244956,0.4422,False
+over_vs_harris,vs Harris 2024,b_estab,Establishment-backed before the primary,Who the candidate is,44,0.11475595088617789,-0.18265293629666338,0.372343889583017,0.4566,False
+over_vs_harris,vs Harris 2024,incumbent,Incumbent,Who the candidate is,44,0.2873677151837098,-0.12676182998534205,0.6040323151605261,0.0588,False
+over_vs_harris,vs Harris 2024,prior_office,Prior office (0 none to 3 statewide/federal),Name recognition,44,0.12581256013877556,-0.15908685087728053,0.36708929544199115,0.4208,False
+over_vs_harris,vs Harris 2024,fame_flag,Famous before the race,Name recognition,44,0.11866218814111734,-0.11825074565727926,0.3212287385909379,0.4442,False
+over_vs_harris,vs Harris 2024,log_pageviews,"Wikipedia pageviews, 12 months pre-launch (log)",Name recognition,44,0.056480144364486486,-0.17578013556209013,0.2641036349849829,0.7163,False
+over_vs_harris,vs Harris 2024,trail100,Days on the campaign trail (per 100),Time on the trail,27,-0.1333863811723237,-0.6471050154993694,0.3449256787745223,0.5104,False
+over_vs_harris,vs Harris 2024,log_receipts_pv,Money raised per vote cast (log),Money,44,0.0289856581854239,-0.2504039873751126,0.3046435743552277,0.8507,False
+over_vs_harris,vs Harris 2024,net_out_pv,"Net outside spending against the Democrat, $/vote",Money,44,-0.2037090563217765,-0.4100277002337541,0.024503151925798276,0.1817,False
+over_vs_harris,vs Harris 2024,prim_money_against,"Faced AIPAC, crypto or AI primary money",Money,44,-0.055603927917719016,-0.30580585324166215,0.18614192353848144,0.7192,False
+over_vs_harris,vs Harris 2024,harris_margin,Harris 2024 margin in the state or district,Terrain,44,-0.1483445721873783,-0.36837447616158436,0.08179174721525644,0.3373,False
+over_vs_harris,vs Harris 2024,senate,Senate race (vs House),Terrain,44,0.02590661491212012,-0.2132666629569233,0.28245577153475426,0.8607,False
+over_vs_harris,vs Harris 2024,c_n_sourced,Positions sourced (documentation),Measurement,44,-0.22774260881902722,-0.5651983688076436,0.0020000454625073143,0.1384,False
+over_prior_seat,vs prior race for the seat,c_eb,"Progressive index, coverage-corrected",Who the candidate is,38,-0.30553917638465505,-0.6450544471770947,0.09591849560090172,0.0654,False
+over_prior_seat,vs prior race for the seat,c_index,"Progressive index, raw (unsourced = 0)",Who the candidate is,38,-0.1911810292248052,-0.4804287970190585,0.15169827135432906,0.2461,False
+over_prior_seat,vs prior race for the seat,a_moderate,Third Way calls them moderate,Who the candidate is,35,0.28596636054661767,-0.03316360339257257,0.5523564643269605,0.0998,False
+over_prior_seat,vs prior race for the seat,b_estab,Establishment-backed before the primary,Who the candidate is,38,0.17486961020622,-0.18351860728871272,0.44783779051037276,0.2984,False
+over_prior_seat,vs prior race for the seat,incumbent,Incumbent,Who the candidate is,38,0.12720099488502584,-0.25309040266113947,0.4333012582708479,0.4451,False
+over_prior_seat,vs prior race for the seat,prior_office,Prior office (0 none to 3 statewide/federal),Name recognition,38,0.0733050718459032,-0.20420216049347473,0.32337701799500906,0.6564,False
+over_prior_seat,vs prior race for the seat,fame_flag,Famous before the race,Name recognition,38,0.0914647365796039,-0.20168593024454978,0.4046847007712005,0.5939,False
+over_prior_seat,vs prior race for the seat,log_pageviews,"Wikipedia pageviews, 12 months pre-launch (log)",Name recognition,38,0.032165625091171046,-0.20985510292273107,0.326554153535733,0.841,False
+over_prior_seat,vs prior race for the seat,trail100,Days on the campaign trail (per 100),Time on the trail,23,-0.3022021052826923,-0.6375263336765532,0.0792136545191773,0.1616,False
+over_prior_seat,vs prior race for the seat,log_receipts_pv,Money raised per vote cast (log),Money,38,0.19928459942711396,-0.08124346549041687,0.4735562913656412,0.2315,False
+over_prior_seat,vs prior race for the seat,net_out_pv,"Net outside spending against the Democrat, $/vote",Money,38,-0.01487286816742158,-0.3822378275782678,0.2998885392576603,0.93,False
+over_prior_seat,vs prior race for the seat,prim_money_against,"Faced AIPAC, crypto or AI primary money",Money,38,-0.03541071763045069,-0.2784715222313853,0.15050426931643227,0.8299,False
+over_prior_seat,vs prior race for the seat,harris_margin,Harris 2024 margin in the state or district,Terrain,38,-0.24577399436411848,-0.5095707241863013,0.017141095850530245,0.1408,False
+over_prior_seat,vs prior race for the seat,senate,Senate race (vs House),Terrain,38,0.20160913240557526,-0.09614716660808591,0.4829104140353367,0.2283,False
+over_prior_seat,vs prior race for the seat,c_n_sourced,Positions sourced (documentation),Measurement,38,-0.1947581408400191,-0.4642076798626962,0.12554134386792248,0.2471,False

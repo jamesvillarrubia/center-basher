@@ -1,0 +1,13 @@
+group,kind,names_found,matched_to_nominee,unmatched,source_url,revision_or_snapshot,note
+cpc,caucus,100,83,17,https://en.wikipedia.org/wiki/Congressional_Progressive_Caucus?oldid=1381705840,wikipedia revid 1381705840 (last before 2026-11-03),official page (progressives.house.gov/caucus-members) cross-check: only on Wikipedia []; only on official page ['Bernie Sanders']
+new_democrat_coalition,caucus,117,103,14,https://en.wikipedia.org/wiki/New_Democrat_Coalition?oldid=1381619989,wikipedia revid 1381619989 (last before 2026-11-03),"official page (newdemocratcoalition.house.gov/members) cross-check: only on Wikipedia ['David Scott', 'Mikie Sherrill', 'Pablo Hernández Rivera', 'Seth Magaziner']; only on official page ['Pablo José Hernández']"
+blue_dog_coalition,caucus,10,8,2,https://en.wikipedia.org/wiki/Blue_Dog_Coalition?oldid=1383449161,wikipedia revid 1383449161 (last before 2026-11-03),"official page bluedogs-gluesenkampperez.house.gov/members lists 10 (3 chairs + 7 members), same 10 names as Wikipedia"
+justice_democrats,endorsement,24,18,6,https://justicedemocrats.com/candidates/,wayback 20261101145338 + live 2026-11-06,snapshot names 24; live names 24; live-only 0
+blue_dog_pac,endorsement,23,22,1,https://bluedogdems.com/,wayback 20261021084719 + live 2026-11-06,snapshot names 23; live names 22; live-only 0
+new_dem_action_fund,endorsement,50,50,0,https://www.newdemactionfund.com/candidates,wayback 20261025143321 + live 2026-11-06,snapshot names 49; live names 50; live-only 1
+welcomepac,endorsement,14,14,0,https://welcome.team/elect,wayback 20261023044038 + live 2026-11-06,snapshot names 14; live names 14; live-only 0
+pccc,endorsement,13,13,0,https://www.boldprogressives.org/candidates/our-endorsements-2026/,wayback 20261021063749 + live 2026-11-06,snapshot names 13; live names 13; live-only 0
+blue_dog_pac_press_only,endorsement,3,0,3,https://bluedogdems.com/news,wp-json posts (pre-2026-11-03),
+working_families_party,endorsement,44,41,3,https://workingfamilies.org/candidates/,live capture 2026-11-06 (JS-expanded); wayback 20261026201454 static HTML shows only the first items per state,Wayback static snapshot truncated by 'View More' (22 House names visible in snapshot vs 44 unique in live render); live render used
+cpc_pac,endorsement,36,26,10,https://weareprogressives.org/press-releases/,wp-json posts dated 2025-01-01..2026-11-02,press-release titles 'Endorses NAME for XX-NN'; 2022-2024 endorsements excluded; incumbents endorsed before 2025 not listed
+our_revolution,endorsement,39,36,3,https://ourrevolution.com/category/endorsement/all/,wp-json posts (category Endorsement) dated before 2026-11-03,post titles naming a U.S. House candidate; multi-candidate roundup posts are state-legislative

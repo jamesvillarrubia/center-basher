@@ -1,0 +1,5 @@
+flag,sample,n,k,raw_flagged,raw_other,coef,ci_lo,ci_hi,p,source
+dsa,all,417,7,16.78900478304035,14.379429805868806,5.222227091502806,-1.3091187206059471,11.753572903611559,0.11708756226406382,Blavity/Yahoo 2026-11-04
+dsa,counted >= 90%,316,4,17.7749329499217,14.915168090069738,5.832531403286792,-0.5738369554374207,12.238899762011005,0.07435798671691808,Blavity/Yahoo 2026-11-04
+nrcc,all,198,26,18.342154062916673,14.711363631381774,0.8681827672793296,-3.0412535129716742,4.777619047530334,0.6633763665328101,"Fox News 2025-11-05 (Steinhauser), verbatim list of 29 Democrat-held districts, https://www.foxnews.com/politics/scoop-house-republicans-link-mayor-elect-mamdani-vulnerable-congressional-democrats"
+nrcc,counted >= 90%,120,18,19.326041518593357,16.101175450907437,2.1404533314238043,-1.41687908357809,5.697785746425699,0.2382732192001058,"Fox News 2025-11-05 (Steinhauser), verbatim list of 29 Democrat-held districts, https://www.foxnews.com/politics/scoop-house-republicans-link-mayor-elect-mamdani-vulnerable-congressional-democrats"

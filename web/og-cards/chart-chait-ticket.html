@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="./chart-card.css"></head>
+<body>
+  <div class="chartcard">
+    <div class="cc-claim"><span class="tag">The claim</span> &ldquo;The five left-wing candidates backed by Sanders accounted for the four smallest swings.&rdquo; (The Atlantic)</div>
+    <div class="cc-title">Measured against their own state&rsquo;s ballot, the <span class="hl">&ldquo;moderates&rdquo;</span> sit on both ends.</div>
+    <div class="cc-sub">Each Senate Democrat&rsquo;s 2026 margin minus the Democratic governor nominee&rsquo;s margin in the same state, on the same day, before the same voters.</div>
+
+    <div class="cc-chart"><svg id="c" viewBox="0 0 1300 490" role="img"
+      aria-label="Senate Democrat margin minus same-state governor nominee margin. Ossoff plus 9.4, Andrews plus 9.0, Talarico plus 5.0, Hamilton plus 4.4, Markey plus 3.6, Nixon minus 1.6, Hickenlooper minus 2.5, Flanagan minus 2.7, Brown minus 3.1, El-Sayed minus 3.8, Turek minus 6.9, Jackson minus 10.7."></svg></div>
+
+    <div class="cc-legend">
+      <span class="item"><span class="dot" style="background:#2c5b9c"></span>Backed by Sanders</span>
+      <span class="item"><span class="dot" style="background:#6b6964"></span>Claimed as a moderate</span>
+      <span class="item"><span class="dot" style="background:#c9c5bc"></span>Unclaimed incumbent</span>
+    </div>
+    <div class="cc-foot">
+      <div class="cc-source">CNN 2026 Senate and governor results (pulled Nov 2026), D margin minus D margin, same state. &ldquo;Claimed as a moderate&rdquo;: Third Way&rsquo;s list. States with no 2026 governor race are absent; Alaska (74% counted) omitted.</div>
+      <div class="cc-btn">thecenterisalie.org</div>
+    </div>
+  </div>
+
+  <script>
+    const NS = 'http://www.w3.org/2000/svg';
+    const svg = document.getElementById('c');
+    const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); svg.appendChild(n); return n; };
+    const txt = (a, s) => { const t = el('text', a); t.textContent = s; return t; };
+    const C = { s: '#2c5b9c', m: '#6b6964', u: '#c9c5bc' };
+    const rows = [
+      ['Ossoff (GA)', 9.4, 'm'], ['Andrews (SC)', 9.0, 'm'], ['Talarico (TX)', 5.0, 'm'],
+      ['Hamilton (KS)', 4.4, 'm'], ['Markey (MA)', 3.6, 's'], ['Nixon (FL)', -1.6, 's'],
+      ['Hickenlooper (CO)', -2.5, 'u'], ['Flanagan (MN)', -2.7, 's'], ['Brown (OH)', -3.1, 'm'],
+      ['El-Sayed (MI)', -3.8, 's'], ['Turek (IA)', -6.9, 'm'], ['Jackson (ME)', -10.7, 's'],
+    ];
+    const zero = 700, k = 44, y0 = 34, rh = 35;
+    // axis guides
+    [-10, -5, 5].forEach(v => {
+      el('line', { x1: zero + v * k, y1: y0 - 8, x2: zero + v * k, y2: y0 + rows.length * rh, stroke: '#e3dfd6', 'stroke-width': 1.5 });
+      txt({ x: zero + v * k, y: y0 + rows.length * rh + 26, 'text-anchor': 'middle', fill: '#4a4a4f', 'font-size': 19 }, (v > 0 ? '+' : '') + v);
+    });
+    txt({ x: zero - 14, y: y0 - 14, 'text-anchor': 'end', fill: '#3a3a3f', 'font-size': 19, 'font-weight': 700 }, '◀ behind own governor nominee');
+    txt({ x: zero + 14, y: y0 - 14, 'text-anchor': 'start', fill: '#3a3a3f', 'font-size': 19, 'font-weight': 700 }, 'ahead ▶');
+    rows.forEach(([n, v, g], i) => {
+      const y = y0 + i * rh;
+      const x0 = v >= 0 ? zero : zero + v * k, w = Math.abs(v) * k;
+      el('rect', { x: x0, y: y + 5, width: w, height: rh - 10, rx: 4, fill: C[g] });
+      const hot = n.startsWith('Turek') || n.startsWith('El-Sayed');
+      const lab = v >= 0 ? { x: zero - 14, a: 'end' } : { x: zero + 14, a: 'start' };
+      txt({ x: lab.x, y: y + rh - 11, 'text-anchor': lab.a, fill: hot ? '#b8240f' : '#1b1b1d', 'font-size': 22, 'font-weight': hot ? 800 : 600 }, n);
+      const vx = v >= 0 ? zero + w + 10 : zero - w - 10;
+      txt({ x: vx, y: y + rh - 11, 'text-anchor': v >= 0 ? 'start' : 'end', fill: hot ? '#b8240f' : '#1b1b1d', 'font-size': 22, 'font-weight': 800 }, (v > 0 ? '+' : '−') + Math.abs(v).toFixed(1));
+    });
+    el('line', { x1: zero, y1: y0 - 6, x2: zero, y2: y0 + rows.length * rh, stroke: '#1b1b1d', 'stroke-width': 2 });
+  </script>
+</body></html>

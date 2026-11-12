@@ -1,0 +1,33 @@
+PRICE-POSITION CODEBOOK (frozen 2026-11-08)
+
+Texts are 2026 US House campaign Facebook/Instagram ads about prices, cost of living or health care. Candidate names are replaced with [NAME]. You do not know the party; do not guess it from anything but the text. Code what the ad SAYS about costs: who it blames and what it proposes. Read every text in full.
+
+Output columns, each 1 or 0:
+uid,c_tariffs,c_war,c_trump_gop,c_corporate,c_dem_policy,c_immigration,c_none,r_public,r_cap,r_anticorp,r_taxcut,r_energy,r_housing,r_wages,r_endtariffs,r_cutspend,r_protect,r_none,villain
+
+CAUSE BLAMED for high costs (several can be 1):
+- c_tariffs: Trump's tariffs or trade war raising prices.
+- c_war: the Iran war or other foreign war spending raising prices or costing families.
+- c_trump_gop: Trump, Republicans, "MAGA", or their laws (the "Big Beautiful Bill", Medicaid cuts, tax cuts for the rich, ACA subsidy expiry) raising costs, other than tariffs or war.
+- c_corporate: corporations, price gouging, billionaires, Wall Street, private equity, monopolies, insurance companies, drug companies, corporate landlords.
+- c_dem_policy: Biden, "Bidenflation", Democrats' spending, the Green New Deal, regulation, "radical left" policies raising costs.
+- c_immigration: illegal immigration raising housing or other costs.
+- c_none: 1 only when every other cause code is 0 (no cause named).
+
+REMEDY PROPOSED (several can be 1):
+- r_public: a public program: Medicare for All, a public option, universal child care, public or social housing, free public services.
+- r_cap: a legal cap or ban: drug or insulin price caps, rent caps, price-gouging ban, capping premiums or out-of-pocket costs.
+- r_anticorp: taking on corporations as the remedy: antitrust, breaking up monopolies, making corporations pay, banning corporate PAC money or stock trading presented as the way to lower costs.
+- r_taxcut: tax cuts: no tax on tips/overtime/Social Security, middle-class tax cuts, cutting taxes.
+- r_energy: more energy production, drilling, "unleash American energy", cutting energy regulation.
+- r_housing: building more housing, zoning reform, housing supply.
+- r_wages: raising wages, minimum wage, unions, good-paying jobs as the cost remedy.
+- r_endtariffs: ending or reversing tariffs.
+- r_cutspend: cutting government spending, balancing the budget, ending waste and fraud.
+- r_protect: protecting existing programs from cuts (Medicare, Medicaid, Social Security, ACA subsidies).
+- r_none: 1 only when every other remedy code is 0 (no remedy, or only "lower costs"/"make life affordable" with no means).
+
+VILLAIN:
+- villain: 1 when the ad names an economic elite (corporations, billionaires, Wall Street, insurers, drug companies, private equity, "the donor class", "the wealthy few") as the people hurting the voter. Politicians alone do not count.
+
+A code applies when the ad makes the claim, not when a word appears in passing. Exactly one of c_none / any other cause is the rule: c_none=1 iff all other c_ codes are 0. Same for r_none.
